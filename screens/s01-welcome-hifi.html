@@ -3,116 +3,55 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>nudgii · Welcome + Profile</title>
+<title>nudgii · S-01 Welcome screen — hi-fi nudge</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-
 :root{
-  --cream:     #F5F0E8;
-  --ink:       #1A1612;
-  --mid:       #8A8070;
-  --mid-lt:    #B0A898;
-  --border:    rgba(26,22,18,0.08);
-  --border-md: rgba(26,22,18,0.12);
-  --ap:        #E8A87C;
-  --ap-dk:     #C8784A;
-  --terra:     #C4503A;
-  --plum:      #2D1F4A;
-  --plum-lt:   #9B7FD4;
-  --plum-pale: #C4A8E8;
-  --ch:#C87850; --chb:rgba(200,120,80,0.10);
-  --cv:#4A82A0; --cvb:rgba(74,130,160,0.10);
-  --cg:#5A9060; --cgb:rgba(90,144,96,0.10);
-  --cs:#8060A8; --csb:rgba(128,96,168,0.10);
+  --cream:#F5F0E8;--ink:#1A1612;--mid:#8A8070;--mid-lt:#B0A898;
+  --border:rgba(26,22,18,0.08);--border-md:rgba(26,22,18,0.12);
+  --ap:#E8A87C;--ap-dk:#C8784A;--terra:#C4503A;
+  --plum:#2D1F4A;--plum-lt:#9B7FD4;--cta-fg:#FAF8FF;
+  --ch:#C87850;--chb:rgba(200,120,80,0.10);
+  --cv:#4A82A0;--cvb:rgba(74,130,160,0.10);
+  --cg:#5A9060;--cgb:rgba(90,144,96,0.10);
 }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:#C8C3BA;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;padding:0;}
 
-html{scroll-behavior:smooth;}
-body{
-  background:#D5D0C6;
-  font-family:'DM Sans',sans-serif;
-  -webkit-font-smoothing:antialiased;
-  padding:40px 16px 100px;
-  display:flex;flex-direction:column;align-items:center;gap:56px;
-}
+/* NAV */
+nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 32px;display:flex;align-items:center;gap:16px;height:48px;position:sticky;top:0;z-index:100;}
+.nav-back{font-size:13px;color:var(--mid);text-decoration:none;display:flex;align-items:center;gap:8px;}
+.nav-sep{color:var(--border-md);}
+.nav-title{font-size:13px;font-weight:500;}
+.nav-status{margin-left:auto;font-size:10px;font-weight:500;padding:3px 10px;border-radius:100px;background:rgba(90,144,96,0.10);color:#2A5A30;border:1px solid rgba(90,144,96,0.2);}
 
-/* ─── PAGE CHROME ─── */
-.page-eye{
-  font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;
-  color:rgba(26,22,18,0.28);text-align:center;
-}
-.section-eye{
-  font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;
-  color:rgba(26,22,18,0.28);width:100%;max-width:1100px;margin-bottom:20px;
-}
+/* PAGE */
+.page{padding:40px 32px 80px;display:flex;flex-direction:column;align-items:center;gap:48px;}
+.row{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;align-items:flex-start;width:100%;max-width:960px;}
+.eyebrow{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:rgba(26,22,18,0.28);text-align:center;width:100%;max-width:960px;}
 
-/* ─── ROW LAYOUT ─── */
-.row{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;align-items:flex-start;width:100%;max-width:1100px;}
-.pcol{display:flex;flex-direction:column;align-items:center;gap:10px;}
-.pcol-lbl{font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(26,22,18,0.3);text-align:center;max-width:200px;line-height:1.5;}
-.pcol-lbl em{font-style:normal;color:rgba(26,22,18,0.22);display:block;font-size:9px;margin-top:2px;letter-spacing:0;}
-
-/* ─── PHONE ─── */
-.phone{
-  width:300px;border-radius:44px;overflow:hidden;
-  background:var(--cream);
-  border:1.5px solid rgba(26,22,18,0.09);
-  box-shadow:0 28px 60px rgba(26,22,18,0.16),0 6px 16px rgba(26,22,18,0.07),inset 0 1px 0 rgba(255,255,255,0.65);
-  position:relative;
-}
+/* PHONE */
+.phone{width:300px;border-radius:44px;overflow:hidden;background:var(--cream);border:1.5px solid rgba(26,22,18,0.09);box-shadow:0 28px 60px rgba(26,22,18,0.18),0 6px 16px rgba(26,22,18,0.07),inset 0 1px 0 rgba(255,255,255,0.65);position:relative;flex-shrink:0;}
 .notch{height:24px;background:var(--cream);display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px;}
 .np{width:78px;height:7px;border-radius:100px;background:rgba(26,22,18,0.10);}
 .sbar{display:flex;justify-content:space-between;align-items:center;padding:5px 18px 0;font-size:11px;font-weight:500;color:rgba(26,22,18,0.36);}
 .batt{width:14px;height:6px;border:1.5px solid rgba(26,22,18,0.28);border-radius:2px;position:relative;}
 .batt::after{content:'';position:absolute;left:1px;top:1px;right:2px;bottom:1px;background:rgba(26,22,18,0.32);border-radius:1px;}
+.phone-lbl{font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(26,22,18,0.28);text-align:center;margin-bottom:8px;}
+.phone-lbl em{display:block;font-style:normal;font-weight:300;letter-spacing:0;text-transform:none;margin-top:2px;font-size:11px;}
 
-/* ════════════════════════════════
-   WELCOME SCREEN
-════════════════════════════════ */
+/* WELCOME SCREEN */
 .w-screen{padding:14px 20px 28px;}
-
-/* top row: ii mark (small, left) + free badge (right) */
-.w-top{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:22px;
-}
-
-/* ii mark — 22px height, left aligned, presence not hero */
+.w-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;}
 .ii{display:flex;align-items:flex-start;gap:3px;}
 .ii-l{width:7px;height:20px;border-radius:100px;background:var(--ink);}
 .ii-r{width:7px;height:20px;border-radius:100px;background:rgba(155,127,212,0.45);position:relative;}
 .ii-dot{width:5px;height:5px;border-radius:50%;background:var(--ap-dk);position:absolute;top:2px;right:-2px;}
-
-/* free badge */
-.free-badge{
-  display:inline-flex;align-items:center;gap:4px;
-  background:rgba(26,22,18,0.06);border-radius:100px;
-  padding:4px 10px 4px 7px;
-  font-size:10px;font-weight:500;color:rgba(26,22,18,0.48);
-}
+.free-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(26,22,18,0.06);border-radius:100px;padding:4px 10px 4px 7px;font-size:10px;font-weight:500;color:rgba(26,22,18,0.48);}
 .fb-dot{width:5px;height:5px;border-radius:50%;background:var(--ap-dk);}
-
-/* headline — sentence case, max 2 lines */
-.w-h1{
-  font-family:'DM Serif Display',serif;
-  font-size:33px;color:var(--ink);line-height:0.97;letter-spacing:-0.55px;
-  margin-bottom:8px;
-}
-
-/* subline */
-.w-sub{
-  font-size:12px;font-style:italic;color:var(--mid);
-  line-height:1.55;margin-bottom:20px;
-  font-weight:300;
-}
-
-/* locale preview cards — static, never rotating */
-.preview{
-  background:white;border-radius:11px;border:1px solid var(--border);
-  padding:9px 11px;margin-bottom:6px;
-  display:flex;align-items:center;gap:9px;
-  box-shadow:0 1px 2px rgba(26,22,18,0.04);
-}
+.w-h1{font-family:'DM Serif Display',serif;font-size:33px;color:var(--ink);line-height:0.97;letter-spacing:-0.55px;margin-bottom:8px;}
+.w-sub{font-size:12px;font-style:italic;color:var(--mid);line-height:1.55;margin-bottom:20px;font-weight:300;}
+.preview{background:white;border-radius:11px;border:1px solid var(--border);padding:9px 11px;margin-bottom:6px;display:flex;align-items:center;gap:9px;box-shadow:0 1px 2px rgba(26,22,18,0.04);}
 .ci{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .ci svg{width:12px;height:12px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
 .ci-h{background:var(--chb);}.ci-h svg{stroke:var(--ch);}
@@ -125,554 +64,187 @@ body{
 .pt-ov{color:var(--terra);}
 .pt-td{color:var(--ap-dk);}
 .pt-ok{color:var(--mid-lt);}
-
-/* path divider */
 .pdiv{display:flex;align-items:center;gap:10px;margin:16px 0 13px;}
 .pd-line{flex:1;height:1px;background:var(--border-md);}
 .pd-txt{font-size:10px;color:var(--mid);white-space:nowrap;}
 
-/* Path A — ink, primary */
+/* ── CORRECTED CTA: plum-lt #9B7FD4 · locked v2.3 ── */
 .btn-a{
   width:100%;height:50px;border-radius:100px;border:none;
-  background:var(--ink);color:var(--cream);
+  background:#9B7FD4;color:#FAF8FF;
   font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;
   display:flex;align-items:center;justify-content:center;gap:8px;
   cursor:pointer;margin-bottom:5px;letter-spacing:-0.1px;
+  box-shadow:0 2px 12px rgba(155,127,212,0.32);
   transition:opacity 0.12s;
 }
-.btn-a:active{opacity:0.8;}
-.mic{width:22px;height:22px;border-radius:50%;background:rgba(245,240,232,0.12);display:flex;align-items:center;justify-content:center;}
-.mic svg{width:11px;height:11px;stroke:var(--cream);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.btn-a:active{opacity:0.82;}
+.mic{width:22px;height:22px;border-radius:50%;background:rgba(250,248,255,0.15);display:flex;align-items:center;justify-content:center;}
+.mic svg{width:11px;height:11px;stroke:#FAF8FF;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;}
 .btn-hint{font-size:10px;color:var(--mid);text-align:center;margin-bottom:11px;}
-
-/* Path B — border */
-.btn-b{
-  width:100%;height:46px;border-radius:100px;
-  border:1.5px solid var(--border-md);background:transparent;
-  font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink);
-  cursor:pointer;margin-bottom:5px;transition:background 0.12s;
-}
+.btn-b{width:100%;height:46px;border-radius:100px;border:1.5px solid var(--border-md);background:transparent;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink);cursor:pointer;margin-bottom:5px;transition:background 0.12s;}
 .btn-b:active{background:rgba(26,22,18,0.04);}
+.btn-c{width:100%;height:36px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--mid);cursor:pointer;}
 
-/* Path C — ghost */
-.btn-c{
-  width:100%;height:36px;border:none;background:none;
-  font-family:'DM Sans',sans-serif;font-size:12px;color:var(--mid);cursor:pointer;
-}
-
-/* ════════════════════════════════
-   PROFILE / SETTINGS SCREEN
-   plum-lt Pro badge in context
-════════════════════════════════ */
-.prof-screen{padding:0 0 18px;}
-
-/* profile header — ink band (this screen specifically uses ink header
-   to create the premium/personal feel — different from the dashboard) */
-.prof-hdr{
-  background:var(--ink);
-  padding:16px 18px 22px;
-  position:relative;
-}
-.prof-hdr-top{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:16px;
-}
-.prof-hdr-lbl{font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:rgba(245,240,232,0.28);}
-
-/* settings icon */
-.prof-settings{
-  width:26px;height:26px;border-radius:8px;background:rgba(245,240,232,0.08);
-  display:flex;align-items:center;justify-content:center;
-}
-.prof-settings svg{width:13px;height:13px;stroke:rgba(245,240,232,0.4);stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
-
-/* avatar */
-.avatar{
-  width:52px;height:52px;border-radius:50%;
-  background:rgba(245,240,232,0.12);border:1.5px solid rgba(245,240,232,0.15);
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:10px;
-}
-.avatar-initials{font-size:18px;font-weight:500;color:rgba(245,240,232,0.7);}
-
-.prof-name{
-  font-family:'DM Serif Display',serif;
-  font-size:22px;color:var(--cream);letter-spacing:-0.3px;line-height:1.1;
-  margin-bottom:4px;
-}
-.prof-email{font-size:11px;color:rgba(245,240,232,0.32);margin-bottom:12px;}
-
-/* ── PRO BADGE VARIANTS — this is what we're evaluating ── */
-
-/* Full pill */
-.pro-pill{
-  display:inline-flex;align-items:center;gap:5px;
-  background:rgba(155,127,212,0.15);
-  border:1px solid rgba(155,127,212,0.22);
-  border-radius:100px;padding:4px 10px 4px 7px;
-  font-size:10px;font-weight:500;color:var(--plum-lt);
-}
-.pro-dot{width:5px;height:5px;border-radius:50%;background:var(--plum-lt);}
-
-/* Dot + text */
-.pro-dot-text{
-  display:inline-flex;align-items:center;gap:5px;
-  font-size:10px;font-weight:500;color:var(--plum-lt);
-}
-.pro-dot-sm{width:5px;height:5px;border-radius:50%;background:var(--plum-lt);}
-
-/* Subtle — no border, just tinted bg */
-.pro-subtle{
-  display:inline-flex;align-items:center;gap:4px;
-  background:rgba(155,127,212,0.12);
-  border-radius:100px;padding:3px 9px;
-  font-size:10px;font-weight:500;color:rgba(155,127,212,0.8);
-}
-
-/* ── STATS ROW ── */
-.stats-row{
-  display:flex;gap:12px;margin-top:4px;
-}
-.stat{text-align:center;}
-.stat-n{font-family:'DM Serif Display',serif;font-size:20px;color:var(--cream);line-height:1;}
-.stat-l{font-size:9px;color:rgba(245,240,232,0.32);margin-top:2px;font-weight:500;letter-spacing:0.3px;}
-
-/* ── LIST SECTIONS ── */
-.prof-body{padding:0 16px;}
-
-.list-section{margin-top:16px;}
-.list-title{font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid-lt);padding:0 0 7px;}
-
-.list-card{
-  background:white;border-radius:12px;border:1px solid var(--border);
-  overflow:hidden;box-shadow:0 1px 3px rgba(26,22,18,0.04);
-}
-.list-row{
-  display:flex;align-items:center;gap:11px;
-  padding:11px 13px;border-bottom:1px solid var(--border);
-}
-.list-row:last-child{border-bottom:none;}
-.lr-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.lr-icon svg{width:13px;height:13px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
-.lr-body{flex:1;}
-.lr-label{font-size:13px;font-weight:500;color:var(--ink);}
-.lr-sub{font-size:10px;font-style:italic;color:var(--mid);margin-top:1px;}
-.lr-right{display:flex;align-items:center;gap:6px;flex-shrink:0;}
-.lr-value{font-size:11px;color:var(--mid);}
-.lr-arrow{color:rgba(26,22,18,0.2);font-size:13px;}
-
-/* upgrade banner */
-.upgrade-banner{
-  background:var(--plum);
-  border-radius:12px;
-  padding:14px 15px;
-  margin-top:12px;
-  display:flex;align-items:center;gap:12px;
-}
-.ub-ii{display:flex;align-items:flex-start;gap:3px;flex-shrink:0;}
-.ub-pl{border-radius:100px;}
-.ub-body{flex:1;}
-.ub-title{font-family:'DM Serif Display',serif;font-size:14px;color:#EDE8FF;margin-bottom:2px;}
-.ub-sub{font-size:10px;color:rgba(196,168,232,0.45);font-style:italic;line-height:1.4;}
-.ub-btn{
-  font-size:10px;font-weight:500;
-  background:rgba(245,240,232,0.12);
-  border:1px solid rgba(245,240,232,0.15);
-  border-radius:100px;padding:5px 11px;
-  color:rgba(245,240,232,0.7);
-  font-family:'DM Sans',sans-serif;cursor:pointer;flex-shrink:0;
-  white-space:nowrap;
-}
-
-/* tab bar */
-.tabbar{display:flex;justify-content:space-around;padding:9px 0 16px;border-top:1px solid var(--border);margin-top:14px;}
-.ti{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:0 8px;}
-.ti svg{width:19px;height:19px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke:rgba(26,22,18,0.18);}
-.ti.on svg{stroke:var(--ink);}
-.ti-l{font-size:8px;color:rgba(26,22,18,0.22);}
-.ti.on .ti-l{color:var(--ink);font-weight:500;}
-.tpip{width:3px;height:3px;border-radius:50%;background:var(--ap-dk);}
-
-/* ─── ANNOTATION PANEL ─── */
-.ann-wrap{width:280px;display:flex;flex-direction:column;gap:10px;padding-top:28px;}
-.ann{background:rgba(255,255,255,0.5);border:1px solid rgba(26,22,18,0.08);border-radius:12px;padding:13px 15px;}
-.ann-lbl{font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(26,22,18,0.28);margin-bottom:8px;}
+/* ANNOTATIONS */
+.ann-wrap{flex:1;min-width:240px;max-width:360px;}
+.ann{background:white;border-radius:10px;padding:14px 16px;margin-bottom:10px;border:1px solid var(--border);}
+.ann-lbl{font-size:10px;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;color:var(--mid);margin-bottom:6px;}
 .ann-txt{font-size:12px;color:rgba(26,22,18,0.48);line-height:1.65;}
 .ann-txt strong{color:rgba(26,22,18,0.72);font-weight:500;}
+.ann.fix{border-color:rgba(155,127,212,0.25);background:rgba(155,127,212,0.04);}
+.fix-lbl{font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:3px;background:rgba(155,127,212,0.12);color:#5C3E8A;display:inline-block;margin-bottom:6px;}
 
-.badge-compare{display:flex;flex-direction:column;gap:10px;margin-top:10px;}
-.bc-row{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(26,22,18,0.06);}
-.bc-row:last-child{border-bottom:none;}
-.bc-label{font-size:11px;color:rgba(26,22,18,0.4);}
-
-.lock-tag{font-size:9px;font-weight:500;padding:2px 7px;border-radius:100px;background:rgba(90,144,96,0.12);color:#3A6E40;}
-.q-tag{font-size:9px;font-weight:500;padding:2px 7px;border-radius:100px;background:rgba(200,120,80,0.10);color:#8A4A20;}
+/* CHANGELOG */
+.changelog{width:100%;max-width:960px;background:white;border-radius:12px;border:1px solid var(--border);padding:20px 24px;}
+.cl-title{font-size:13px;font-weight:500;margin-bottom:12px;}
+.cl-row{display:flex;gap:12px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--border);}
+.cl-row:last-child{border-bottom:none;}
+.cl-tag{font-size:9px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;padding:2px 7px;border-radius:3px;flex-shrink:0;margin-top:1px;}
+.cl-fix{background:rgba(155,127,212,0.12);color:#5C3E8A;}
+.cl-lock{background:rgba(90,144,96,0.10);color:#2A5A30;}
+.cl-body{font-size:12px;color:var(--mid);line-height:1.55;}
+.cl-body strong{color:var(--ink);font-weight:500;}
 </style>
 </head>
 <body>
 
-<div class="page-eye">nudgii · Welcome screen + Profile/Settings · March 2026</div>
+<nav>
+  <a class="nav-back" href="../index.html">
+    <svg width="20" height="20" viewBox="0 0 80 80" style="border-radius:5px;flex-shrink:0"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
+    <span>Design hub</span>
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">S-01 — Welcome screen</span>
+  <span class="nav-status">Ready for dev</span>
+</nav>
 
-<!-- ══════════════════════════════
-     SECTION 1: WELCOME
-══════════════════════════════ -->
-<div style="width:100%;max-width:1100px;">
-<div class="section-eye">01 — Welcome screen · final locked version</div>
-<div class="row">
+<div class="page">
+  <div class="eyebrow">S-01 · Welcome screen · Hi-fi nudge · v2.3 aligned · March 2026</div>
 
-  <!-- WELCOME PHONE -->
-  <div class="pcol">
-    <div class="pcol-lbl">nl-BE locale
-      <em>Device locale auto-selects examples</em>
+  <!-- CHANGELOG -->
+  <div class="changelog">
+    <div class="cl-title">v2.3 corrections applied to this screen</div>
+    <div class="cl-row">
+      <span class="cl-tag cl-fix">Fixed</span>
+      <div class="cl-body"><strong>CTA button color corrected.</strong> Previous version used <code>var(--ink)</code> (dark). Correct value per design system v2.2+: <code>#9B7FD4</code> (light plum) with <code>#FAF8FF</code> text and <code>box-shadow: 0 2px 12px rgba(155,127,212,0.32)</code>.</div>
     </div>
-    <div class="phone">
-      <div class="notch"><div class="np"></div></div>
-      <div class="sbar"><span>9:41</span><div class="batt"></div></div>
-      <div class="w-screen">
+    <div class="cl-row">
+      <span class="cl-tag cl-lock">Locked</span>
+      <div class="cl-body"><strong>ii mark spec confirmed.</strong> Left pill: ink. Right pill: plum-lt at 45% opacity. Apricot-dk dot. This connects the welcome screen to the homescreen icon — same three colors.</div>
+    </div>
+    <div class="cl-row">
+      <span class="cl-tag cl-lock">Locked</span>
+      <div class="cl-body"><strong>Path hierarchy locked.</strong> A: plum-lt fill 50px. B: border only 46px. C: ghost text 36px. No sign-up on this screen — auth deferred until after user sees value.</div>
+    </div>
+  </div>
 
-        <!-- ii mark (small, left) + free badge (right) -->
-        <div class="w-top">
-          <div class="ii">
-            <div class="ii-l"></div>
-            <div class="ii-r"><div class="ii-dot"></div></div>
+  <div class="row">
+
+    <!-- NL-BE PHONE -->
+    <div>
+      <div class="phone-lbl">nl-BE locale<em>Device locale auto-selects examples</em></div>
+      <div class="phone">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <div class="w-screen">
+          <div class="w-top">
+            <div class="ii"><div class="ii-l"></div><div class="ii-r"><div class="ii-dot"></div></div></div>
+            <div class="free-badge"><div class="fb-dot"></div>Gratis · geen creditcard</div>
           </div>
-          <div class="free-badge"><div class="fb-dot"></div>Gratis · geen creditcard</div>
+          <div class="w-h1">Je huis heeft<br>aandacht nodig.</div>
+          <div class="w-sub">Automatisch ingevuld, voor alles wat je bezit.</div>
+          <div class="preview">
+            <div class="ci ci-h"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+            <div class="pb"><div class="pn">Vaatwasser zoutbak</div><div class="ps">it's starting to smell</div></div>
+            <div class="pt pt-ov">5 dagen</div>
+          </div>
+          <div class="preview">
+            <div class="ci ci-v"><svg viewBox="0 0 24 24"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg></div>
+            <div class="pb"><div class="pn">Winterbanden wisselen</div><div class="ps">giving you the look</div></div>
+            <div class="pt pt-td">deze week</div>
+          </div>
+          <div class="preview">
+            <div class="ci ci-g"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1 1.1 2.8.8 5.3-.6 7.4"/></svg></div>
+            <div class="pb"><div class="pn">Olijfboom snoeien</div><div class="ps">februari · België</div></div>
+            <div class="pt pt-ok">maart</div>
+          </div>
+          <div class="pdiv"><div class="pd-line"></div><div class="pd-txt">Hoe wil je starten?</div><div class="pd-line"></div></div>
+          <button class="btn-a">
+            <div class="mic"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg></div>
+            Vertel het me
+          </button>
+          <div class="btn-hint">gewoon spreken of typen</div>
+          <button class="btn-b">Laat me zien wat ik kan bijhouden</button>
+          <div class="btn-hint">blader per categorie</div>
+          <button class="btn-c">Ik weet wat ik nodig heb</button>
         </div>
-
-        <!-- Headline — DM Serif Display, sentence case -->
-        <div class="w-h1">Je huis heeft<br>aandacht nodig.</div>
-        <div class="w-sub">Automatisch ingevuld, voor alles wat je bezit.</div>
-
-        <!-- 3 locale cards — nl-BE set, static -->
-        <div class="preview">
-          <div class="ci ci-h"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-          <div class="pb"><div class="pn">Vaatwasser zoutbak</div><div class="ps">it's starting to smell</div></div>
-          <div class="pt pt-ov">5 dagen</div>
-        </div>
-        <div class="preview">
-          <div class="ci ci-v"><svg viewBox="0 0 24 24"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg></div>
-          <div class="pb"><div class="pn">Winterbanden wisselen</div><div class="ps">giving you the look</div></div>
-          <div class="pt pt-td">deze week</div>
-        </div>
-        <div class="preview">
-          <div class="ci ci-g"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1 1.1 2.8.8 5.3-.6 7.4"/></svg></div>
-          <div class="pb"><div class="pn">Olijfboom snoeien</div><div class="ps">februari · België</div></div>
-          <div class="pt pt-ok">maart</div>
-        </div>
-
-        <!-- Path divider -->
-        <div class="pdiv">
-          <div class="pd-line"></div>
-          <div class="pd-txt">Hoe wil je starten?</div>
-          <div class="pd-line"></div>
-        </div>
-
-        <!-- Path A — ink, dominant -->
-        <button class="btn-a">
-          <div class="mic"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg></div>
-          Vertel het me
-        </button>
-        <div class="btn-hint">gewoon spreken of typen</div>
-
-        <!-- Path B — border, subordinate -->
-        <button class="btn-b">Laat me zien wat ik kan bijhouden</button>
-        <div class="btn-hint">blader per categorie</div>
-
-        <!-- Path C — ghost, power users -->
-        <button class="btn-c">Ik weet wat ik nodig heb</button>
       </div>
     </div>
+
+    <!-- NL-NL PHONE -->
+    <div>
+      <div class="phone-lbl">nl-NL locale<em>Automatically shown on Dutch devices</em></div>
+      <div class="phone">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <div class="w-screen">
+          <div class="w-top">
+            <div class="ii"><div class="ii-l"></div><div class="ii-r"><div class="ii-dot"></div></div></div>
+            <div class="free-badge"><div class="fb-dot"></div>Gratis · geen creditcard</div>
+          </div>
+          <div class="w-h1">Je huis heeft<br>aandacht nodig.</div>
+          <div class="w-sub">Automatisch ingevuld, voor alles wat je bezit.</div>
+          <div class="preview">
+            <div class="ci ci-h"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+            <div class="pb"><div class="pn">Cv-ketel service</div><div class="ps">voor de winter begint</div></div>
+            <div class="pt pt-ov">achterstallig</div>
+          </div>
+          <div class="preview">
+            <div class="ci ci-v"><svg viewBox="0 0 24 24"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg></div>
+            <div class="pb"><div class="pn">Winterbanden wisselen</div><div class="ps">het wordt kouder</div></div>
+            <div class="pt pt-td">deze week</div>
+          </div>
+          <div class="preview">
+            <div class="ci ci-g"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1 1.1 2.8.8 5.3-.6 7.4"/></svg></div>
+            <div class="pb"><div class="pn">Tuin winterklaar maken</div><div class="ps">planten beschermen</div></div>
+            <div class="pt pt-ok">november</div>
+          </div>
+          <div class="pdiv"><div class="pd-line"></div><div class="pd-txt">Hoe wil je starten?</div><div class="pd-line"></div></div>
+          <button class="btn-a">
+            <div class="mic"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg></div>
+            Vertel het me
+          </button>
+          <div class="btn-hint">gewoon spreken of typen</div>
+          <button class="btn-b">Laat me zien wat ik kan bijhouden</button>
+          <div class="btn-hint">blader per categorie</div>
+          <button class="btn-c">Ik weet wat ik nodig heb</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANNOTATIONS -->
+    <div class="ann-wrap">
+      <div class="ann fix">
+        <div class="fix-lbl">v2.3 fix</div>
+        <div class="ann-lbl">CTA button — plum-lt</div>
+        <div class="ann-txt"><strong>background: #9B7FD4 · color: #FAF8FF.</strong> Previous version incorrectly used ink. The CTA, the ii mark right pill, and the Pro badge are all #9B7FD4 — one color, three moments across the app.</div>
+      </div>
+      <div class="ann">
+        <div class="ann-lbl">ii mark — locked</div>
+        <div class="ann-txt"><strong>20px height · left-aligned.</strong> Left pill: ink. Right pill: plum-lt at 45% opacity. Apricot-dk dot. Mirrors the homescreen icon exactly.</div>
+      </div>
+      <div class="ann">
+        <div class="ann-lbl">Preview cards — locked</div>
+        <div class="ann-txt">Static. Never rotating. Auto-selected from device locale. Not interactive.<br><br><strong>nl-BE:</strong> Vaatwasser / Winterbanden / Olijfboom<br><strong>nl-NL:</strong> Cv-ketel / Winterbanden / Tuin<br><strong>fr:</strong> Lave-vaisselle / Pneus hiver / Taille des oliviers</div>
+      </div>
+      <div class="ann">
+        <div class="ann-lbl">Path hierarchy — locked</div>
+        <div class="ann-txt">A: plum-lt fill 50px — dominant<br>B: border only 46px — secondary<br>C: ghost text 36px — power users only<br><br>No sign-up on this screen.</div>
+      </div>
+    </div>
+
   </div>
-
-  <!-- WELCOME ANNOTATIONS -->
-  <div class="ann-wrap">
-    <div class="ann">
-      <div class="ann-lbl">ii mark — locked spec</div>
-      <div class="ann-txt">
-        <strong>20px height · left-aligned · inline with badge.</strong> Not centered. Not a hero. The mark is a presence — it marks the corner of the screen and connects to the homescreen icon the user already has. It doesn't need more space than this.<br><br>
-        Left pill: ink. Right pill: plum-lt at 45% opacity. Apricot-dk dot top-right.
-      </div>
-    </div>
-    <div class="ann">
-      <div class="ann-lbl">Headline — locked</div>
-      <div class="ann-txt">
-        <strong>DM Serif Display · 33px · lh 0.97 · ls -0.55px.</strong> Sentence case. Max 2 lines. This is the single serif moment on the welcome screen — no other DM Serif Display element appears here.
-      </div>
-    </div>
-    <div class="ann">
-      <div class="ann-lbl">3 preview cards — locked</div>
-      <div class="ann-txt">
-        Static. Auto-selected from device locale. Never rotating. No interaction — these are not buttons.<br><br>
-        <strong>nl-BE:</strong> Vaatwasser / Winterbanden / Olijfboom<br>
-        <strong>nl-NL:</strong> Cv-ketel / Winterbanden / Tuin winterklaar<br>
-        <strong>fr-BE/fr-FR:</strong> Lave-vaisselle / Pneus hiver / Taille des oliviers
-      </div>
-    </div>
-    <div class="ann">
-      <div class="ann-lbl">Path hierarchy — locked</div>
-      <div class="ann-txt">
-        A: ink fill 50px — one dominant CTA<br>
-        B: border only 46px — clearly secondary<br>
-        C: ghost text 36px — visible only to those looking<br><br>
-        <strong>No sign-up on this screen.</strong> Auth happens after the user sees value.
-      </div>
-    </div>
-    <div class="ann">
-      <div class="ann-lbl">What "not boring" means here</div>
-      <div class="ann-txt">
-        No gradient. No atmospheric tinting. No hero illustration. The warmth comes from: cream background, apricot-dk dot in the badge, terra status date on the overdue card, and the weight of the serif headline. The screen is interesting because of what it <em>says</em>, not how it looks.
-      </div>
-    </div>
-  </div>
-
 </div>
-</div>
-
-<!-- ══════════════════════════════
-     SECTION 2: PROFILE + PRO BADGE
-══════════════════════════════ -->
-<div style="width:100%;max-width:1100px;">
-<div class="section-eye">02 — Profile/settings · plum-lt Pro badge in context · 3 badge styles</div>
-<div class="row">
-
-  <!-- PHONE A: Full pill badge — FREE USER showing upgrade prompt -->
-  <div class="pcol">
-    <div class="pcol-lbl">Free user
-      <em>Upgrade banner · no Pro badge yet</em>
-    </div>
-    <div class="phone">
-      <div class="notch"><div class="np"></div></div>
-      <div class="sbar" style="background:var(--ink);color:rgba(245,240,232,0.35);"><span>9:41</span><div class="batt" style="border-color:rgba(245,240,232,0.3);"></div></div>
-
-      <div class="prof-hdr">
-        <div class="prof-hdr-top">
-          <div class="prof-hdr-lbl">Profile</div>
-          <div class="prof-settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
-        </div>
-        <div class="avatar"><div class="avatar-initials">M</div></div>
-        <div class="prof-name">Martijn</div>
-        <div class="prof-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="214c405355484b4f614459404c514d440f424e4c">[email&#160;protected]</a></div>
-        <div class="stats-row">
-          <div class="stat"><div class="stat-n">12</div><div class="stat-l">Items</div></div>
-          <div class="stat"><div class="stat-n">34</div><div class="stat-l">Nudges done</div></div>
-          <div class="stat"><div class="stat-n">3w</div><div class="stat-l">Streak</div></div>
-        </div>
-      </div>
-
-      <div class="prof-body">
-        <!-- Upgrade banner — plum -->
-        <div class="upgrade-banner">
-          <div class="ub-ii">
-            <div class="ub-pl" style="width:8px;height:24px;background:var(--plum-pale);border-radius:100px;"></div>
-            <div class="ub-pl" style="width:8px;height:24px;background:rgba(196,168,232,0.3);border-radius:100px;position:relative;">
-              <div style="width:6px;height:6px;border-radius:50%;background:var(--ap);position:absolute;top:2px;right:-2px;"></div>
-            </div>
-          </div>
-          <div class="ub-body">
-            <div class="ub-title">nudgii Pro</div>
-            <div class="ub-sub">Unlimited items · Apricot icon · Voice conversations</div>
-          </div>
-          <button class="ub-btn">Unlock</button>
-        </div>
-
-        <div class="list-section">
-          <div class="list-title">Account</div>
-          <div class="list-card">
-            <div class="list-row">
-              <div class="lr-icon" style="background:rgba(26,22,18,0.06);"><svg viewBox="0 0 24 24" style="stroke:var(--mid);"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
-              <div class="lr-body"><div class="lr-label">Edit profile</div></div>
-              <div class="lr-right"><div class="lr-arrow">›</div></div>
-            </div>
-            <div class="list-row">
-              <div class="lr-icon" style="background:rgba(26,22,18,0.06);"><svg viewBox="0 0 24 24" style="stroke:var(--mid);"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
-              <div class="lr-body"><div class="lr-label">Notifications</div></div>
-              <div class="lr-right"><div class="lr-arrow">›</div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="tabbar">
-          <div class="ti"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><div class="ti-l">Today</div></div>
-          <div class="ti"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><div class="ti-l">Ask</div></div>
-          <div class="ti on"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg><div class="tpip"></div><div class="ti-l">You</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PHONE B: Full pill badge — PRO USER -->
-  <div class="pcol">
-    <div class="pcol-lbl">Pro user · full pill badge
-      <em>"nudgii Pro" with plum dot</em>
-    </div>
-    <div class="phone">
-      <div class="notch"><div class="np"></div></div>
-      <div class="sbar" style="background:var(--ink);color:rgba(245,240,232,0.35);"><span>9:41</span><div class="batt" style="border-color:rgba(245,240,232,0.3);"></div></div>
-
-      <div class="prof-hdr">
-        <div class="prof-hdr-top">
-          <div class="prof-hdr-lbl">Profile</div>
-          <div class="prof-settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
-        </div>
-        <div class="avatar" style="background:rgba(155,127,212,0.15);border-color:rgba(155,127,212,0.2);"><div class="avatar-initials">M</div></div>
-        <div class="prof-name">Martijn</div>
-        <div class="prof-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e885899a9c818286a88d90898598848dc68b8785">[email&#160;protected]</a></div>
-        <!-- FULL PILL BADGE -->
-        <div style="margin-top:6px;"><div class="pro-pill"><div class="pro-dot"></div>nudgii Pro</div></div>
-        <div class="stats-row" style="margin-top:10px;">
-          <div class="stat"><div class="stat-n">28</div><div class="stat-l">Items</div></div>
-          <div class="stat"><div class="stat-n">112</div><div class="stat-l">Nudges done</div></div>
-          <div class="stat"><div class="stat-n">12w</div><div class="stat-l">Streak</div></div>
-        </div>
-      </div>
-
-      <div class="prof-body">
-        <div class="list-section">
-          <div class="list-title">Account</div>
-          <div class="list-card">
-            <div class="list-row">
-              <div class="lr-icon" style="background:rgba(26,22,18,0.06);"><svg viewBox="0 0 24 24" style="stroke:var(--mid);"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
-              <div class="lr-body"><div class="lr-label">Edit profile</div></div>
-              <div class="lr-right"><div class="lr-arrow">›</div></div>
-            </div>
-            <div class="list-row">
-              <div class="lr-icon" style="background:var(--chb);"><svg viewBox="0 0 24 24" style="stroke:var(--ch);"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-              <div class="lr-body"><div class="lr-label">App icon</div><div class="lr-sub">Apricot · Pro exclusive</div></div>
-              <div class="lr-right">
-                <svg width="20" height="20" viewBox="0 0 80 80" style="border-radius:5px;"><rect width="80" height="80" fill="#C8784A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="rgba(245,240,232,0.38)"/><circle cx="57" cy="22" r="7" fill="#1A1612"/></svg>
-                <div class="lr-arrow">›</div>
-              </div>
-            </div>
-            <div class="list-row">
-              <div class="lr-icon" style="background:rgba(26,22,18,0.06);"><svg viewBox="0 0 24 24" style="stroke:var(--mid);"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
-              <div class="lr-body"><div class="lr-label">Notifications</div></div>
-              <div class="lr-right"><div class="lr-arrow">›</div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="list-section">
-          <div class="list-title">Subscription</div>
-          <div class="list-card">
-            <div class="list-row">
-              <div class="lr-icon" style="background:rgba(155,127,212,0.12);"><svg viewBox="0 0 24 24" style="stroke:var(--plum-lt);"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
-              <div class="lr-body"><div class="lr-label">nudgii Pro</div><div class="lr-sub">Renews apr 14</div></div>
-              <div class="lr-right"><div class="lr-value">€3.99/mo</div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="tabbar">
-          <div class="ti"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><div class="ti-l">Today</div></div>
-          <div class="ti"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><div class="ti-l">Ask</div></div>
-          <div class="ti on"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg><div class="tpip"></div><div class="ti-l">You</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PHONE C: Dot + text badge — subtle -->
-  <div class="pcol">
-    <div class="pcol-lbl">Pro user · dot + text
-      <em>More minimal, less explicit</em>
-    </div>
-    <div class="phone">
-      <div class="notch"><div class="np"></div></div>
-      <div class="sbar" style="background:var(--ink);color:rgba(245,240,232,0.35);"><span>9:41</span><div class="batt" style="border-color:rgba(245,240,232,0.3);"></div></div>
-
-      <div class="prof-hdr">
-        <div class="prof-hdr-top">
-          <div class="prof-hdr-lbl">Profile</div>
-          <div class="prof-settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
-        </div>
-        <div class="avatar" style="background:rgba(155,127,212,0.15);border-color:rgba(155,127,212,0.2);"><div class="avatar-initials">M</div></div>
-        <div class="prof-name">Martijn</div>
-        <div class="prof-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="412c203335282b2f012439202c312d246f222e2c">[email&#160;protected]</a></div>
-        <!-- DOT + TEXT badge — more minimal -->
-        <div style="margin-top:6px;"><div class="pro-dot-text"><div class="pro-dot-sm"></div>Pro</div></div>
-        <div class="stats-row" style="margin-top:10px;">
-          <div class="stat"><div class="stat-n">28</div><div class="stat-l">Items</div></div>
-          <div class="stat"><div class="stat-n">112</div><div class="stat-l">Nudges done</div></div>
-          <div class="stat"><div class="stat-n">12w</div><div class="stat-l">Streak</div></div>
-        </div>
-      </div>
-
-      <div class="prof-body">
-        <div class="list-section">
-          <div class="list-title">Account</div>
-          <div class="list-card">
-            <div class="list-row">
-              <div class="lr-icon" style="background:rgba(26,22,18,0.06);"><svg viewBox="0 0 24 24" style="stroke:var(--mid);"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
-              <div class="lr-body"><div class="lr-label">Edit profile</div></div>
-              <div class="lr-right"><div class="lr-arrow">›</div></div>
-            </div>
-            <div class="list-row">
-              <div class="lr-icon" style="background:var(--chb);"><svg viewBox="0 0 24 24" style="stroke:var(--ch);"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-              <div class="lr-body"><div class="lr-label">App icon</div><div class="lr-sub">Apricot · Pro exclusive</div></div>
-              <div class="lr-right">
-                <svg width="20" height="20" viewBox="0 0 80 80" style="border-radius:5px;"><rect width="80" height="80" fill="#C8784A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="rgba(245,240,232,0.38)"/><circle cx="57" cy="22" r="7" fill="#1A1612"/></svg>
-                <div class="lr-arrow">›</div>
-              </div>
-            </div>
-            <div class="list-row">
-              <div class="lr-icon" style="background:rgba(26,22,18,0.06);"><svg viewBox="0 0 24 24" style="stroke:var(--mid);"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
-              <div class="lr-body"><div class="lr-label">Notifications</div></div>
-              <div class="lr-right"><div class="lr-arrow">›</div></div>
-            </div>
-          </div>
-        </div>
-        <div class="list-section">
-          <div class="list-title">Subscription</div>
-          <div class="list-card">
-            <div class="list-row">
-              <div class="lr-icon" style="background:rgba(155,127,212,0.12);"><svg viewBox="0 0 24 24" style="stroke:var(--plum-lt);"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
-              <div class="lr-body"><div class="lr-label">nudgii Pro</div><div class="lr-sub">Renews apr 14</div></div>
-              <div class="lr-right"><div class="lr-value">€3.99/mo</div></div>
-            </div>
-          </div>
-        </div>
-        <div class="tabbar">
-          <div class="ti"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><div class="ti-l">Today</div></div>
-          <div class="ti"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><div class="ti-l">Ask</div></div>
-          <div class="ti on"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg><div class="tpip"></div><div class="ti-l">You</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ANNOTATION PANEL -->
-  <div class="ann-wrap">
-    <div class="ann">
-      <div class="ann-lbl">Profile header — ink band</div>
-      <div class="ann-txt">
-        The profile screen uses an ink header — the one place outside the done overlay where dark appears. This is intentional: the profile is personal, weighty, about identity. It earns the dark treatment. The dashboard is daily and light.
-      </div>
-    </div>
-    <div class="ann">
-      <div class="ann-lbl">plum-lt badge — 3 styles compared</div>
-      <div class="badge-compare">
-        <div class="bc-row">
-          <div class="bc-label">Full pill</div>
-          <div class="pro-pill"><div class="pro-dot"></div>nudgii Pro</div>
-        </div>
-        <div class="bc-row">
-          <div class="bc-label">Dot + text</div>
-          <div class="pro-dot-text"><div class="pro-dot-sm"></div>Pro</div>
-        </div>
-        <div class="bc-row">
-          <div class="bc-label">Subtle (no border)</div>
-          <div class="pro-subtle">Pro</div>
-        </div>
-      </div>
-      <div style="margin-top:10px;font-size:11px;color:rgba(26,22,18,0.38);line-height:1.6;">The full pill reads clearly against the ink header. The dot+text is more Whispr-like — quiet confidence. The subtle version disappears slightly.<br><br>All three use <code style="font-family:monospace;font-size:10px;background:rgba(26,22,18,0.07);padding:1px 4px;border-radius:3px;">#9B7FD4</code> — same plum-lt token, different weight.</div>
-    </div>
-    <div class="ann">
-      <div class="ann-lbl">Apricot icon on Pro profile</div>
-      <div class="ann-txt">
-        The "App icon" setting row shows the Apricot variant inline — a small preview of what they've unlocked. This is the only place the Apricot icon appears inside the app. Everywhere else it lives on the homescreen.
-      </div>
-    </div>
-    <div class="ann">
-      <div class="ann-lbl">Free user upgrade banner</div>
-      <div class="ann-txt">
-        The plum upgrade banner on the free profile is the done-overlay palette repurposed — same deep plum, same ii mark, same apricot dot. It tells the user: this is the f
+</body>
+</html>
