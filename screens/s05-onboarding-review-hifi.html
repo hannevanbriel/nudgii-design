@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · Onboarding Flow</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+
+:root{
+  --cream:#F5F0E8;--ink:#1A1612;--mid:#8A8070;--mid-lt:#B0A898;
+  --border:rgba(26,22,18,0.08);--border-md:rgba(26,22,18,0.12);
+  --ap:#E8A87C;--ap-dk:#C8784A;--terra:#C4503A;
+  --plum:#2D1F4A;--plum-lt:#9B7FD4;--plum-pale:#C4A8E8;
+  --ch:#C87850;--chb:rgba(200,120,80,0.10);
+  --cv:#4A82A0;--cvb:rgba(74,130,160,0.10);
+  --cg:#5A9060;--cgb:rgba(90,144,96,0.10);
+  --cs:#8060A8;--csb:rgba(128,96,168,0.10);
+}
+
+body{
+  background:#CBC5BB;
+  font-family:'DM Sans',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  padding:0 0 80px;
+}
+
+/* ── FLOW HEADER ── */
+.flow-header{
+  background:var(--ink);
+  padding:28px 28px 24px;
+  position:sticky;top:0;z-index:200;
+  border-bottom:1px solid rgba(245,240,232,0.08);
+}
+.flow-header-inner{
+  max-width:1400px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+}
+.flow-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--cream);letter-spacing:-0.3px;}
+.flow-title em{font-style:italic;color:var(--ap);}
+
+/* flow path pills */
+.flow-paths{display:flex;gap:8px;flex-wrap:wrap;}
+.path-pill{
+  font-size:10px;font-weight:500;padding:4px 12px;border-radius:100px;
+  border:1px solid rgba(245,240,232,0.15);color:rgba(245,240,232,0.45);
+  cursor:pointer;transition:all 0.15s;
+}
+.path-pill.active-a{background:rgba(200,120,74,0.2);border-color:rgba(200,120,74,0.4);color:var(--ap);}
+.path-pill.active-b{background:rgba(74,130,160,0.2);border-color:rgba(74,130,160,0.4);color:#7AAEC8;}
+.path-pill.active-c{background:rgba(26,22,18,0.3);border-color:rgba(245,240,232,0.2);color:rgba(245,240,232,0.6);}
+
+/* ── FLOW CANVAS ── */
+.flow-canvas{
+  padding:32px 28px;
+  max-width:1400px;margin:0 auto;
+}
+
+/* ── FLOW ROW ── */
+.flow-row{
+  display:flex;gap:0;align-items:flex-start;
+  overflow-x:auto;padding-bottom:16px;
+  scrollbar-width:thin;scrollbar-color:rgba(26,22,18,0.2) transparent;
+}
+.flow-row::-webkit-scrollbar{height:4px;}
+.flow-row::-webkit-scrollbar-thumb{background:rgba(26,22,18,0.2);border-radius:2px;}
+
+/* screen wrapper */
+.screen-wrap{
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  flex-shrink:0;
+}
+.screen-label{
+  font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;
+  color:rgba(26,22,18,0.35);text-align:center;max-width:220px;line-height:1.5;
+}
+.screen-label em{font-style:normal;color:rgba(26,22,18,0.22);display:block;margin-top:2px;letter-spacing:0;}
+
+/* arrow connector */
+.arrow{
+  display:flex;align-items:center;padding:0 8px;margin-top:60px;flex-shrink:0;
+}
+.arrow-line{width:28px;height:1.5px;background:rgba(26,22,18,0.25);}
+.arrow-head{width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:6px solid rgba(26,22,18,0.25);}
+
+/* split arrow for branching */
+.split-arrows{
+  display:flex;flex-direction:column;gap:20px;justify-content:center;
+  padding:0 8px;margin-top:20px;flex-shrink:0;
+}
+.split-arrow{display:flex;align-items:center;gap:4px;}
+.split-arrow-line{width:24px;height:1.5px;background:rgba(26,22,18,0.2);}
+.split-arrow-head{width:0;height:0;border-top:3px solid transparent;border-bottom:3px solid transparent;border-left:5px solid rgba(26,22,18,0.2);}
+.split-label{font-size:9px;color:rgba(26,22,18,0.3);white-space:nowrap;margin-right:4px;}
+
+/* merge arrows */
+.merge-arrow{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:0 8px;margin-top:120px;flex-shrink:0;
+}
+
+/* ── PHONE ── */
+.phone{
+  width:240px;border-radius:38px;overflow:hidden;
+  background:var(--cream);
+  border:1.5px solid rgba(26,22,18,0.09);
+  box-shadow:0 20px 48px rgba(26,22,18,0.18),0 4px 12px rgba(26,22,18,0.08),inset 0 1px 0 rgba(255,255,255,0.65);
+  position:relative;
+}
+.phone.dark-phone{background:var(--plum);}
+.notch{height:20px;background:inherit;display:flex;align-items:flex-end;justify-content:center;padding-bottom:3px;}
+.np{width:70px;height:6px;border-radius:100px;background:rgba(26,22,18,0.10);}
+.np-dark{background:rgba(196,168,232,0.15);}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:4px 16px 0;font-size:10px;font-weight:500;color:rgba(26,22,18,0.35);}
+.sbar-dark{color:rgba(196,168,232,0.35);}
+.batt{width:12px;height:5px;border:1.5px solid rgba(26,22,18,0.28);border-radius:2px;position:relative;}
+.batt::after{content:'';position:absolute;left:1px;top:1px;right:2px;bottom:1px;background:rgba(26,22,18,0.3);border-radius:1px;}
+.batt-dark{border-color:rgba(196,168,232,0.2);}
+.batt-dark::after{background:rgba(196,168,232,0.2);}
+
+/* ── SHARED SCREEN ELEMENTS ── */
+.s{padding:11px 16px 18px;}
+
+/* ii mark small */
+.ii-sm{display:flex;align-items:flex-start;gap:3px;}
+.ii-l{width:6px;height:18px;border-radius:100px;background:var(--ink);}
+.ii-r{width:6px;height:18px;border-radius:100px;background:rgba(155,127,212,0.45);position:relative;}
+.ii-d{width:4px;height:4px;border-radius:50%;background:var(--ap-dk);position:absolute;top:2px;right:-2px;}
+
+/* free badge */
+.fbadge{display:inline-flex;align-items:center;gap:4px;background:rgba(26,22,18,0.06);border-radius:100px;padding:3px 9px 3px 6px;font-size:9px;font-weight:500;color:rgba(26,22,18,0.48);}
+.fbdot{width:4px;height:4px;border-radius:50%;background:var(--ap-dk);}
+
+/* headline */
+.h1{font-family:'DM Serif Display',serif;font-size:25px;color:var(--ink);line-height:0.97;letter-spacing:-0.5px;margin-bottom:6px;}
+.h1 em{font-style:italic;color:var(--ap-dk);}
+.h1-lg{font-size:28px;}
+.h1-sm{font-size:18px;}
+.sub{font-size:10px;font-style:italic;color:var(--mid);line-height:1.5;margin-bottom:14px;font-weight:300;}
+
+/* preview cards — welcome */
+.pc{background:white;border-radius:9px;border:1px solid var(--border);padding:7px 10px;margin-bottom:5px;display:flex;align-items:center;gap:7px;box-shadow:0 1px 2px rgba(26,22,18,0.03);}
+.pci{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.pci svg{width:10px;height:10px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.pci-h{background:var(--chb);}.pci-h svg{stroke:var(--ch);}
+.pci-v{background:var(--cvb);}.pci-v svg{stroke:var(--cv);}
+.pci-g{background:var(--cgb);}.pci-g svg{stroke:var(--cg);}
+.pb{flex:1;min-width:0;}
+.pn{font-size:10px;font-weight:500;color:var(--ink);}
+.ps{font-size:8px;font-style:italic;color:var(--mid);}
+.pt{font-size:9px;font-weight:500;flex-shrink:0;}
+.pt-ov{color:var(--terra);}
+.pt-td{color:var(--ap-dk);}
+.pt-ok{color:var(--mid-lt);}
+
+/* path divider */
+.pdiv{display:flex;align-items:center;gap:8px;margin:10px 0 9px;}
+.pdivl{flex:1;height:1px;background:var(--border-md);}
+.pdivt{font-size:8px;color:var(--mid);white-space:nowrap;}
+
+/* buttons */
+.btn-cta{width:100%;height:40px;border-radius:100px;border:none;background:var(--ap-dk);color:var(--cream);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;margin-bottom:4px;}
+.btn-sec{width:100%;height:38px;border-radius:100px;border:1.5px solid var(--border-md);background:transparent;font-family:'DM Sans',sans-serif;font-size:11px;color:var(--ink);cursor:pointer;margin-bottom:4px;}
+.btn-ghost{width:100%;height:30px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:10px;color:var(--mid);cursor:pointer;}
+.btn-hint{font-size:8px;color:var(--mid);text-align:center;margin-bottom:8px;}
+.btn-full{width:100%;height:40px;border-radius:100px;border:none;background:var(--ap-dk);color:var(--cream);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:pointer;margin-top:10px;}
+.mic-ic{width:18px;height:18px;border-radius:50%;background:rgba(245,240,232,0.15);display:flex;align-items:center;justify-content:center;}
+.mic-ic svg{width:9px;height:9px;stroke:var(--cream);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+
+/* section label */
+.slbl{font-size:7px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid-lt);padding:9px 0 5px;}
+
+/* nudge cards */
+.nc{background:white;border-radius:9px;border:1px solid var(--border);padding:8px 10px;margin-bottom:5px;display:flex;align-items:center;gap:8px;box-shadow:0 1px 2px rgba(26,22,18,0.03);}
+.nci{width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.nci svg{width:10px;height:10px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.nb{flex:1;min-width:0;}
+.nn{font-size:11px;font-weight:500;color:var(--ink);letter-spacing:-0.1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.nn-ov{color:var(--terra);}
+.nsb{font-size:9px;font-style:italic;color:var(--mid);margin-top:1px;}
+.nd{font-size:9px;font-weight:500;flex-shrink:0;}
+
+/* tab bar */
+.tabbar{display:flex;justify-content:space-around;padding:7px 0 12px;border-top:1px solid var(--border);margin-top:8px;}
+.ti{display:flex;flex-direction:column;align-items:center;gap:2px;}
+.ti svg{width:16px;height:16px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke:rgba(26,22,18,0.18);}
+.ti.on svg{stroke:var(--ink);}
+.ti-l{font-size:7px;color:rgba(26,22,18,0.22);}
+.ti.on .ti-l{color:var(--ink);font-weight:500;}
+.tpip{width:3px;height:3px;border-radius:50%;background:var(--ap-dk);}
+
+/* ── PATH A: VOICE SCREEN ── */
+.voice-screen{background:var(--ink);}
+.voice-screen .notch{background:var(--ink);}
+.voice-screen .np{background:rgba(245,240,232,0.08);}
+.vs-body{padding:14px 16px 18px;background:var(--ink);}
+.vs-top{display:flex;justify-content:flex-end;margin-bottom:24px;}
+.vs-close{width:28px;height:28px;border-radius:50%;background:rgba(245,240,232,0.08);display:flex;align-items:center;justify-content:center;}
+.vs-close svg{width:12px;height:12px;stroke:rgba(245,240,232,0.5);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+
+/* nudgii text message — NOT voice output, this is the chat prompt */
+.nudgii-msg{
+  background:rgba(245,240,232,0.08);border-radius:0 12px 12px 12px;
+  padding:10px 12px;margin-bottom:20px;
+}
+.nudgii-msg-label{font-size:8px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(245,240,232,0.25);margin-bottom:5px;}
+.nudgii-msg-text{font-size:11px;color:rgba(245,240,232,0.7);line-height:1.6;font-style:italic;}
+
+/* waveform */
+.waveform{display:flex;align-items:center;justify-content:center;gap:3px;height:36px;margin-bottom:16px;}
+.wave-bar{border-radius:100px;background:rgba(245,240,232,0.25);width:3px;}
+
+/* transcript */
+.transcript{
+  background:rgba(245,240,232,0.05);border-radius:10px;
+  padding:10px 12px;margin-bottom:14px;
+  font-size:11px;color:rgba(245,240,232,0.6);line-height:1.6;font-style:italic;
+}
+.transcript-cursor{display:inline-block;width:1.5px;height:12px;background:var(--ap);margin-left:2px;vertical-align:middle;border-radius:1px;}
+
+.vs-actions{display:flex;justify-content:space-between;align-items:center;}
+.vs-action-btn{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;}
+.vs-action-icon{width:32px;height:32px;border-radius:50%;background:rgba(245,240,232,0.08);display:flex;align-items:center;justify-content:center;}
+.vs-action-icon svg{width:14px;height:14px;fill:none;stroke:rgba(245,240,232,0.45);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.vs-action-lbl{font-size:8px;color:rgba(245,240,232,0.3);}
+
+/* mic button — center of voice screen */
+.mic-main{
+  width:52px;height:52px;border-radius:50%;
+  background:var(--ap-dk);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 0 8px rgba(200,120,74,0.12),0 0 0 16px rgba(200,120,74,0.05);
+}
+.mic-main svg{width:22px;height:22px;stroke:var(--cream);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+
+/* ── AI RESPONSE ── */
+.ai-msg{
+  background:white;border-radius:0 12px 12px 12px;
+  border:1px solid var(--border);
+  padding:10px 12px;margin-bottom:10px;
+  box-shadow:0 1px 3px rgba(26,22,18,0.04);
+}
+.ai-msg-label{font-size:7px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--mid-lt);margin-bottom:4px;}
+.ai-msg-text{font-size:11px;color:var(--ink);line-height:1.6;}
+.ai-msg-text strong{font-weight:500;}
+
+.user-msg{
+  background:var(--ap-dk);border-radius:12px 0 12px 12px;
+  padding:8px 12px;margin-bottom:10px;align-self:flex-end;
+  max-width:80%;
+  font-size:11px;color:var(--cream);line-height:1.5;font-style:italic;
+}
+
+.msg-thread{display:flex;flex-direction:column;gap:2px;}
+
+/* ── PATH B: BROWSE ── */
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.cat-tile{
+  background:white;border-radius:12px;border:1px solid var(--border);
+  padding:12px 10px;display:flex;flex-direction:column;gap:6px;
+  box-shadow:0 1px 3px rgba(26,22,18,0.04);cursor:pointer;
+}
+.ct-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.ct-icon svg{width:12px;height:12px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.ct-name{font-size:11px;font-weight:500;color:var(--ink);}
+.ct-count{font-size:9px;color:var(--mid);}
+
+/* ── PATH C: SEARCH ── */
+.search-bar{
+  display:flex;align-items:center;gap:7px;
+  background:white;border-radius:10px;border:1.5px solid var(--ap-dk);
+  padding:8px 11px;margin-bottom:10px;
+  box-shadow:0 1px 3px rgba(26,22,18,0.04);
+}
+.search-bar svg{width:12px;height:12px;stroke:var(--mid);stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+.search-cursor{width:1.5px;height:13px;background:var(--ap-dk);border-radius:1px;}
+.search-placeholder{font-size:11px;color:var(--mid);flex:1;}
+
+.search-result{
+  background:white;border-radius:9px;border:1px solid var(--border);
+  padding:8px 10px;margin-bottom:5px;display:flex;align-items:center;gap:8px;
+  box-shadow:0 1px 2px rgba(26,22,18,0.03);
+}
+.sr-check{width:18px;height:18px;border-radius:5px;border:1.5px solid var(--border-md);flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.sr-check.checked{background:var(--ap-dk);border-color:var(--ap-dk);}
+.sr-check.checked svg{display:block;}
+.sr-check svg{width:10px;height:10px;stroke:var(--cream);stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;display:none;}
+
+/* ── REVIEW SCREEN ── */
+.review-item{
+  background:white;border-radius:11px;border:1px solid var(--border);
+  margin-bottom:7px;overflow:hidden;box-shadow:0 1px 3px rgba(26,22,18,0.04);
+}
+.ri-header{
+  display:flex;align-items:center;gap:8px;padding:9px 11px;
+}
+.ri-icon{width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ri-icon svg{width:10px;height:10px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.ri-name{font-size:12px;font-weight:500;color:var(--ink);flex:1;}
+.ri-count{font-size:9px;color:var(--mid);}
+.ri-arrow{font-size:11px;color:var(--mid-lt);}
+.ri-tasks{border-top:1px solid var(--border);padding:8px 11px;background:rgba(26,22,18,0.02);}
+.ri-task-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid var(--border);}
+.ri-task-row:last-child{border-bottom:none;}
+.ri-task-name{font-size:10px;color:var(--ink);}
+.ri-task-interval{font-size:9px;color:var(--mid);font-style:italic;}
+
+/* ── AUTH SCREEN ── */
+.auth-screen{background:var(--cream);}
+.auth-body{padding:14px 16px 18px;}
+.auth-sub{font-size:10px;color:var(--mid);line-height:1.55;margin-bottom:16px;font-style:italic;}
+.auth-btn{
+  width:100%;height:42px;border-radius:100px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;
+  cursor:pointer;margin-bottom:8px;border:1.5px solid var(--border-md);background:white;
+  color:var(--ink);
+}
+.auth-btn-icon{width:18px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.auth-divider{display:flex;align-items:center;gap:8px;margin:10px 0;}
+.auth-divider-line{flex:1;height:1px;background:var(--border);}
+.auth-divider-txt{font-size:9px;color:var(--mid);}
+.auth-link-btn{
+  width:100%;height:42px;border-radius:100px;border:none;background:var(--ap-dk);
+  color:var(--cream);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;
+  cursor:pointer;
+}
+.auth-terms{font-size:8px;color:var(--mid-lt);text-align:center;margin-top:8px;line-height:1.5;}
+
+/* ── COMPLETION SCREEN ── */
+.completion-screen{background:var(--cream);}
+.comp-body{padding:14px 16px 18px;display:flex;flex-direction:column;align-items:center;text-align:center;}
+.comp-check{width:40px;height:40px;border-radius:50%;background:rgba(90,144,96,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
+.comp-check svg{width:18px;height:18px;stroke:var(--cg);stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.comp-sub{font-size:10px;color:var(--mid);line-height:1.6;margin-top:6px;margin-bottom:16px;font-style:italic;}
+.comp-preview{width:100%;background:var(--cream);border:1px solid var(--border);border-radius:11px;overflow:hidden;box-shadow:0 1px 3px rgba(26,22,18,0.04);}
+.comp-preview-header{background:var(--ink);padding:9px 12px;}
+.comp-preview-eye{font-size:7px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(245,240,232,0.3);margin-bottom:3px;}
+.comp-preview-title{font-size:11px;font-weight:500;color:rgba(245,240,232,0.7);}
+.comp-preview-body{padding:8px 12px;}
+
+/* ── ANNOTATION BAND ── */
+.ann-band{
+  background:rgba(255,255,255,0.5);
+  border:1px solid rgba(26,22,18,0.08);
+  border-radius:9px;padding:8px 11px;
+  max-width:220px;
+  font-size:10px;color:rgba(26,22,18,0.45);line-height:1.6;
+}
+.ann-band strong{color:rgba(26,22,18,0.7);font-weight:500;}
+
+/* ── SECTION DIVIDERS ── */
+.section-divider{
+  display:flex;align-items:center;gap:14px;
+  padding:32px 0 20px;
+}
+.sd-line{flex:1;height:1px;background:rgba(26,22,18,0.15);}
+.sd-label{font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(26,22,18,0.3);white-space:nowrap;}
+
+/* ── FLOW NOTE ── */
+.flow-note{
+  background:rgba(26,22,18,0.06);border-radius:10px;
+  padding:10px 14px;margin:16px 0;
+  font-size:11px;color:rgba(26,22,18,0.5);line-height:1.65;
+}
+.flow-note strong{color:rgba(26,22,18,0.7);font-weight:500;}
+</style>
+</head>
+<body>
+
+<div class="flow-header">
+  <div class="flow-header-inner">
+    <div class="flow-title">nudgii <em>onboarding flow</em></div>
+    <div class="flow-paths">
+      <span class="path-pill active-a">Path A · voice input</span>
+      <span class="path-pill active-b">Path B · browse</span>
+      <span class="path-pill active-c">Path C · search</span>
+    </div>
+  </div>
+</div>
+
+<div class="flow-canvas">
+
+  <!-- ═══════════════════════════════════
+       STEP 0: WELCOME
+  ═══════════════════════════════════ -->
+  <div class="flow-row">
+
+    <!-- WELCOME PHONE -->
+    <div class="screen-wrap">
+      <div class="screen-label">Welcome screen
+        <em>First screen — no login yet</em>
+      </div>
+      <div class="phone">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <div class="s">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <div class="ii-sm"><div class="ii-l"></div><div class="ii-r"><div class="ii-d"></div></div></div>
+            <div class="fbadge"><div class="fbdot"></div>Gratis · geen creditcard</div>
+          </div>
+          <div class="h1 h1-lg">Je huis heeft<br>aandacht nodig.</div>
+          <div class="sub">Automatisch ingevuld, voor alles wat je bezit.</div>
+          <div class="pc"><div class="pci pci-h"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="pb"><div class="pn">Vaatwasser zoutbak</div><div class="ps">it's starting to smell</div></div><div class="pt pt-ov">5d</div></div>
+          <div class="pc"><div class="pci pci-v"><svg viewBox="0 0 24 24"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg></div><div class="pb"><div class="pn">Winterbanden</div><div class="ps">giving you the look</div></div><div class="pt pt-td">deze week</div></div>
+          <div class="pc"><div class="pci pci-g"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1 1.1 2.8.8 5.3-.6 7.4"/></svg></div><div class="pb"><div class="pn">Olijfboom snoeien</div><div class="ps">februari · België</div></div><div class="pt pt-ok">maart</div></div>
+          <div class="pdiv"><div class="pdivl"></div><div class="pdivt">Hoe wil je starten?</div><div class="pdivl"></div></div>
+          <button class="btn-cta"><div class="mic-ic"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg></div>Vertel het me</button>
+          <div class="btn-hint">gewoon spreken of typen</div>
+          <button class="btn-sec">Laat me zien wat ik kan bijhouden</button>
+          <div class="btn-hint">blader per categorie</div>
+          <button class="btn-ghost">Ik weet wat ik nodig heb</button>
+        </div>
+      </div>
+      <div class="ann-band"><strong>No login here.</strong> User sees value first. Auth happens just before data is saved to the database.</div>
+    </div>
+
+    <!-- SPLIT ARROWS -->
+    <div style="display:flex;align-items:center;padding:0 4px;margin-top:40px;flex-shrink:0;">
+      <div style="display:flex;flex-direction:column;gap:44px;">
+        <div class="split-arrow"><div class="split-label">Path A</div><div class="split-arrow-line"></div><div class="split-arrow-head"></div></div>
+        <div class="split-arrow"><div class="split-label">Path B</div><div class="split-arrow-line"></div><div class="split-arrow-head"></div></div>
+        <div class="split-arrow"><div class="split-label">Path C</div><div class="split-arrow-line"></div><div class="split-arrow-head"></div></div>
+      </div>
+    </div>
+
+    <!-- PATH A: VOICE INPUT -->
+    <div class="screen-wrap">
+      <div class="screen-label" style="color:var(--ap-dk);">Path A · voice
+        <em>Mic opens · user speaks · transcript appears</em>
+      </div>
+      <div class="phone voice-screen">
+        <div class="notch"><div class="np np-dark"></div></div>
+        <div class="sbar sbar-dark"><span>9:41</span><div class="batt batt-dark"></div></div>
+        <div class="vs-body">
+          <div class="vs-top">
+            <div class="vs-close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+          </div>
+          <!-- nudgii text prompt — NOT speech, this is chat text -->
+          <div class="nudgii-msg">
+            <div class="nudgii-msg-label">nudgii</div>
+            <div class="nudgii-msg-text">Vertel me wat je hebt — apparaten, je auto, planten, van alles. Ik regel de rest.</div>
+          </div>
+          <!-- waveform — user speaking -->
+          <div class="waveform">
+            <div class="wave-bar" style="height:8px;"></div>
+            <div class="wave-bar" style="height:20px;background:rgba(245,240,232,0.5);"></div>
+            <div class="wave-bar" style="height:14px;"></div>
+            <div class="wave-bar" style="height:28px;background:rgba(232,168,124,0.6);"></div>
+            <div class="wave-bar" style="height:18px;background:rgba(245,240,232,0.5);"></div>
+            <div class="wave-bar" style="height:10px;"></div>
+            <div class="wave-bar" style="height:24px;background:rgba(232,168,124,0.5);"></div>
+            <div class="wave-bar" style="height:16px;background:rgba(245,240,232,0.45);"></div>
+            <div class="wave-bar" style="height:8px;"></div>
+            <div class="wave-bar" style="height:20px;background:rgba(245,240,232,0.5);"></div>
+            <div class="wave-bar" style="height:12px;"></div>
+          </div>
+          <!-- live transcript -->
+          <div class="transcript">
+            "Ik heb een vaatwasser, mijn auto, een olijfboom en Netflix."<div class="transcript-cursor"></div>
+          </div>
+          <div class="vs-actions">
+            <div class="vs-action-btn">
+              <div class="vs-action-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+              <div class="vs-action-lbl">Typen</div>
+            </div>
+            <div class="mic-main">
+              <svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg>
+            </div>
+            <div class="vs-action-btn">
+              <div class="vs-action-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
+              <div class="vs-action-lbl">Stoppen</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ann-band"><strong>nudgii does not speak.</strong> The opener is displayed as a text chat bubble — not audio. MVP: one-way voice input only.</div>
+    </div>
+
+    <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- PATH A: AI RESPONSE -->
+    <div class="screen-wrap">
+      <div class="screen-label" style="color:var(--ap-dk);">Path A · AI response
+        <em>Claude processes · text reply in chat</em>
+      </div>
+      <div class="phone">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <div class="s">
+          <div class="h1 h1-sm" style="margin-bottom:4px;">Goed. Ik heb<br><em>4 items gevonden.</em></div>
+          <div class="sub">Bekijk en pas aan voor ik opsla.</div>
+          <div class="msg-thread">
+            <div class="user-msg">"Ik heb een vaatwasser, mijn auto, een olijfboom en Netflix."</div>
+            <div class="ai-msg">
+              <div class="ai-msg-label">nudgii</div>
+              <div class="ai-msg-text">Goed. <strong>4 items, 17 taken.</strong> Je olijfboom snoeien in augustus en maart — op basis van België. Je winterbanden zijn al achterstallig.<br><br>Wil je het bekijken?</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;margin-top:8px;">
+            <button class="btn-cta" style="flex:1;">Ja, bekijken</button>
+          </div>
+          <button class="btn-ghost" style="margin-top:4px;">Iets aanpassen</button>
+        </div>
+      </div>
+      <div class="ann-band">Claude responds in <strong>text only.</strong> No audio. The response is a chat bubble — sets up the review screen that follows.</div>
+    </div>
+
+    <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- PATH B: BROWSE (shown below path A in vertical stack) -->
+    <div style="display:flex;flex-direction:column;gap:16px;flex-shrink:0;">
+      <div class="screen-wrap">
+        <div class="screen-label" style="color:#7AAEC8;">Path B · browse categories
+          <em>2×2 grid · tap to select items</em>
+        </div>
+        <div class="phone">
+          <div class="notch"><div class="np"></div></div>
+          <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+          <div class="s">
+            <div class="h1 h1-sm" style="margin-bottom:4px;">Wat wil je<br><em>bijhouden?</em></div>
+            <div class="sub">Selecteer wat bij jou past.</div>
+            <div class="cat-grid">
+              <div class="cat-tile">
+                <div class="ct-icon" style="background:var(--chb);"><svg viewBox="0 0 24 24" style="stroke:var(--ch);"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+                <div class="ct-name">Thuis</div>
+                <div class="ct-count">14 items</div>
+              </div>
+              <div class="cat-tile">
+                <div class="ct-icon" style="background:var(--cvb);"><svg viewBox="0 0 24 24" style="stroke:var(--cv);"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg></div>
+                <div class="ct-name">Voertuig</div>
+                <div class="ct-count">8 items</div>
+              </div>
+              <div class="cat-tile" style="outline:2px solid var(--cg);outline-offset:-1px;">
+                <div class="ct-icon" style="background:var(--cgb);"><svg viewBox="0 0 24 24" style="stroke:var(--cg);"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1 1.1 2.8.8 5.3-.6 7.4"/></svg></div>
+                <div class="ct-name">Tuin</div>
+                <div class="ct-count">9 items ✓</div>
+              </div>
+              <div class="cat-tile">
+                <div class="ct-icon" style="background:var(--csb);"><svg viewBox="0 0 24 24" style="stroke:var(--cs);"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+                <div class="ct-name">Abonnementen</div>
+                <div class="ct-count">6 items</div>
+              </div>
+            </div>
+            <button class="btn-full">Bekijk selectie (3)</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="screen-wrap">
+        <div class="screen-label" style="color:rgba(26,22,18,0.4);">Path C · direct search
+          <em>Autofocus · keyboard immediately up</em>
+        </div>
+        <div class="phone">
+          <div class="notch"><div class="np"></div></div>
+          <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+          <div class="s">
+            <div class="h1 h1-sm" style="margin-bottom:4px;">Wat zoek<br>je?</div>
+            <div class="sub" style="margin-bottom:10px;">Typ een apparaat, voertuig of plant.</div>
+            <div class="search-bar">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16 16 4 4"/></svg>
+              <div class="search-placeholder">vaatwasser</div>
+              <div class="search-cursor"></div>
+            </div>
+            <div class="search-result">
+              <div class="sr-check checked"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="nci" style="background:var(--chb);"><svg viewBox="0 0 24 24" style="stroke:var(--ch);width:10px;height:10px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
+              <div class="nb"><div class="nn">Vaatwasser</div><div class="nsb">3 nudges</div></div>
+            </div>
+            <div class="search-result">
+              <div class="sr-check"></div>
+              <div class="nci" style="background:var(--chb);"><svg viewBox="0 0 24 24" style="stroke:var(--ch);width:10px;height:10px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;"><path d="M22 12H2M22 12l-4-4m4 4l-4 4"/></svg></div>
+              <div class="nb"><div class="nn">Vaatwasser · Bosch</div><div class="nsb">Specifiek model</div></div>
+            </div>
+            <div style="font-size:9px;color:var(--ap-dk);text-align:center;margin-top:8px;font-weight:500;cursor:pointer;">+ Voeg "vaatwasser" toe als eigen item</div>
+            <button class="btn-full" style="margin-top:8px;">Bekijk selectie (1)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MERGE ARROWS → REVIEW -->
+    <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0 8px;margin-top:80px;flex-shrink:0;gap:4px;">
+      <div style="font-size:8px;color:rgba(26,22,18,0.28);text-align:center;margin-bottom:8px;">all paths<br>converge</div>
+      <div class="split-arrow-line" style="width:24px;"></div>
+      <div class="split-arrow-head"></div>
+    </div>
+
+    <!-- REVIEW SCREEN -->
+    <div class="screen-wrap">
+      <div class="screen-label">Review screen
+        <em>All 3 paths arrive here · sign-in next</em>
+      </div>
+      <div class="phone">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <div class="s">
+          <div class="h1 h1-sm" style="margin-bottom:3px;">Hier is je schema.</div>
+          <div class="sub">Pas aan wat niet klopt.</div>
+
+          <!-- item 1 — expanded -->
+          <div class="review-item">
+            <div class="ri-header">
+              <div class="ri-icon" style="background:var(--chb);"><svg viewBox="0 0 24 24" style="stroke:var(--ch);"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+              <div class="ri-name">Vaatwasser</div>
+              <div class="ri-count">3 nudges</div>
+              <div class="ri-arrow">∨</div>
+            </div>
+            <div class="ri-tasks">
+              <div class="ri-task-row"><div class="ri-task-name">Zoutbak bijvullen</div><div class="ri-task-interval">elke 6–8 weken</div></div>
+              <div class="ri-task-row"><div class="ri-task-name">Filter reinigen</div><div class="ri-task-interval">elke maand</div></div>
+              <div class="ri-task-row"><div class="ri-task-name">Ontkalken</div><div class="ri-task-interval">elke 3 maanden</div></div>
+            </div>
+          </div>
+
+          <!-- item 2 — collapsed -->
+          <div class="review-item">
+            <div class="ri-header">
+              <div class="ri-icon" style="background:var(--cvb);"><svg viewBox="0 0 24 24" style="stroke:var(--cv);"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg></div>
+              <div class="ri-name">Auto</div>
+              <div class="ri-count">5 nudges</div>
+              <div class="ri-arrow">›</div>
+            </div>
+          </div>
+
+          <!-- item 3 — collapsed -->
+          <div class="review-item">
+            <div class="ri-header">
+              <div class="ri-icon" style="background:var(--cgb);"><svg viewBox="0 0 24 24" style="stroke:var(--cg);"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1 1.1 2.8.8 5.3-.6 7.4"/></svg></div>
+              <div class="ri-name">Olijfboom</div>
+              <div class="ri-count">2 nudges</div>
+              <div class="ri-arrow">›</div>
+            </div>
+          </div>
+
+          <button class="btn-full">Ziet er goed uit.</button>
+        </div>
+      </div>
+      <div class="ann-band">First item expanded by default. Rest collapsed. All editable inline. CTA is <strong>always enabled</strong> — never conditional.</div>
+    </div>
+
+    <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- AUTH SCREEN -->
+    <div class="screen-wrap">
+      <div class="screen-label">Sign in
+        <em>Deferred until just before saving</em>
+      </div>
+      <div class="phone auth-screen">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <div class="s auth-body">
+          <div style="display:flex;justify-content:center;margin-bottom:14px;">
+            <div class="ii-sm"><div class="ii-l"></div><div class="ii-r"><div class="ii-d"></div></div></div>
+          </div>
+          <div class="h1 h1-sm" style="margin-bottom:5px;text-align:center;">Bijna klaar.</div>
+          <div class="auth-sub" style="text-align:center;">Maak een gratis account aan om je schema op te slaan.</div>
+
+          <!-- Apple -->
+          <div class="auth-btn">
+            <div class="auth-btn-icon" style="background:#000;">
+              <svg width="10" height="12" viewBox="0 0 14 17" fill="white"><path d="M13.4 13.5c-.3.8-.7 1.5-1.2 2.1-.6.8-1.2 1.2-1.7 1.2-.4 0-.9-.1-1.5-.4-.6-.3-1.1-.4-1.5-.4-.4 0-.9.1-1.5.4-.6.3-1 .4-1.4.4-.6 0-1.2-.4-1.8-1.3-.6-.8-1.1-1.9-1.4-3-.4-1.2-.6-2.4-.6-3.5 0-1.3.3-2.4.8-3.2.4-.7 1-1.3 1.7-1.7.7-.4 1.4-.6 2.2-.6.5 0 1 .1 1.7.4.6.2 1 .4 1.2.4.2 0 .6-.2 1.3-.5.7-.2 1.3-.4 1.8-.3 1.3.1 2.3.7 2.9 1.8-.6.3-1 .8-1.3 1.4-.3.6-.4 1.2-.3 1.9.1.7.3 1.3.7 1.8.4.5.8.8 1.2 1-.2.3-.4.7-.6 1.1zM9.9.5c0 .5-.2 1-.5 1.5-.4.6-.8 1-1.3 1.2-.5.2-.9.3-1.4.3 0-.5.1-1 .4-1.5.3-.5.7-1 1.2-1.4.4-.3.9-.5 1.4-.6.1.1.2.3.2.5z"/></svg>
+            </div>
+            Doorgaan met Apple
+          </div>
+
+          <!-- Google -->
+          <div class="auth-btn">
+            <div class="auth-btn-icon">
+              <svg width="12" height="12" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+            </div>
+            Doorgaan met Google
+          </div>
+
+          <div class="auth-divider"><div class="auth-divider-line"></div><div class="auth-divider-txt">of</div><div class="auth-divider-line"></div></div>
+
+          <!-- Magic link -->
+          <div style="display:flex;gap:6px;align-items:center;background:white;border-radius:10px;border:1.5px solid var(--border-md);padding:7px 10px;margin-bottom:8px;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <div style="font-size:11px;color:var(--mid);flex:1;">e-mailadres</div>
+          </div>
+          <button class="auth-link-btn">Stuur magische link</button>
+          <div class="auth-terms">Door verder te gaan ga je akkoord met onze<br>Gebruiksvoorwaarden en Privacybeleid</div>
+        </div>
+      </div>
+      <div class="ann-band">Auth is deferred. By this moment the user has 60 seconds invested and a reason to sign up. <strong>Conversion is higher here than at the door.</strong></div>
+    </div>
+
+    <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- COMPLETION SCREEN -->
+    <div class="screen-wrap">
+      <div class="screen-label">Completion
+        <em>1.2s max · auto-advances to dashboard</em>
+      </div>
+      <div class="phone completion-screen">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <div class="s comp-body">
+          <div class="comp-check">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="h1 h1-sm" style="margin-bottom:2px;">Je bent klaar.<br>Echt klaar.</div>
+          <div class="comp-sub">Je eerste nudge komt maandag.<br>Drie dingen hebben aandacht nodig.</div>
+
+          <!-- Monday preview card — real tasks from session -->
+          <div class="comp-preview">
+            <div class="comp-preview-header">
+              <div class="comp-preview-eye">Maandag · preview</div>
+              <div class="comp-preview-title">Wat je maandag krijgt</div>
+            </div>
+            <div class="comp-preview-body">
+              <div class="nc" style="margin-bottom:5px;"><div class="nci" style="background:var(--chb);"><svg viewBox="0 0 24 24" style="stroke:var(--ch);width:10px;height:10px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="nb"><div class="nn">Vaatwasser zoutbak</div><div class="nsb">achterstallig</div></div><div class="nd" style="color:var(--terra);">nu</div></div>
+              <div class="nc" style="margin-bottom:5px;"><div class="nci" style="background:var(--cvb);"><svg viewBox="0 0 24 24" style="stroke:var(--cv);width:10px;height:10px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg></div><div class="nb"><div class="nn">Winterbanden</div><div class="nsb">achterstallig</div></div><div class="nd" style="color:var(--terra);">nu</div></div>
+              <div class="nc"><div class="nci" style="background:var(--cgb);"><svg viewBox="0 0 24 24" style="stroke:var(--cg);width:10px;height:10px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1 1.1 2.8.8 5.3-.6 7.4"/></svg></div><div class="nb"><div class="nn">Olijfboom snoeien</div><div class="nsb">februari · België</div></div><div class="nd" style="color:var(--ap-dk);">ma 23</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ann-band">Preview shows <strong>real tasks from their session</strong> — not generic examples. Opens the Zeigarnik loop: user leaves thinking about Monday.</div>
+    </div>
+
+    <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- DASHBOARD FIRST LOAD -->
+    <div class="screen-wrap">
+      <div class="screen-label">Dashboard · first load
+        <em>Their tasks are already here</em>
+      </div>
+      <div class="phone">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <div class="s" style="padding-top:10px;">
+          <div style="margin-bottom:14px;">
+            <div style="font-size:7px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:3px;">Woensdag · 18 maart</div>
+            <div style="font-family:'DM Serif Display',serif;font-size:20px;color:var(--ink);line-height:0.95;letter-spacing:-0.3px;margin-bottom:3px;">Goedemorgen, <em style="color:var(--ap-dk);">Martijn.</em></div>
+            <div style="font-size:9px;font-style:italic;color:rgba(26,22,18,0.3);">3 dingen verdienen aandacht</div>
+          </div>
+          <div class="slbl">Achterstallig</div>
+          <div class="nc"><div class="nci" style="background:var(--chb);"><svg viewBox="0 0 24 24" style="stroke:var(--ch);width:10px;height:10px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="nb"><div class="nn nn-ov">Vaatwasser zoutbak</div><div class="nsb">it's starting to smell</div></div><div class="nd" style="color:var(--terra);">5d</div></div>
+          <div class="nc"><div class="nci" style="background:var(--cvb);"><svg viewBox="0 0 24 24" style="stroke:var(--cv);width:10px;height:10px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg></div><div class="nb"><div class="nn nn-ov">Winterbanden</div><div class="nsb">giving you the look</div></div><div class="nd" style="color:var(--terra);">2d</div></div>
+          <div class="slbl">Deze week</div>
+          <div class="nc"><div class="nci" style="background:var(--cgb);"><svg viewBox="0 0 24 24" style="stroke:var(--cg);width:10px;height:10px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1 1.1 2.8.8 5.3-.6 7.4"/></svg></div><div class="nb"><div class="nn">Olijfboom snoeien</div><div class="nsb">februari · België</div></div><div class="nd" style="color:var(--ap-dk);">do 20</div></div>
+          <div class="tabbar">
+            <div class="ti on"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><div class="tpip"></div><div class="ti-l">Today</div></div>
+            <div class="ti"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><div class="ti-l">Ask</div></div>
+            <div class="ti"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg><div class="ti-l">You</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="ann-band">The dashboard shows <strong>their actual items</strong> from onboarding — not empty. The user is immediately in the app.</div>
+    </div>
+
+  </div><!-- end flow-row -->
+
+  <!-- FLOW NOTES -->
+  <div class="flow-note">
+    <strong>Flow summary:</strong> Welcome → [Path A voice / Path B browse / Path C search] → Review → Sign in → Completion → Dashboard. Auth is deferred to just before the database write — after the user has seen their full item list and has a reason to create an account. The completion screen auto-advances after 1.2 seconds; no tap required. The dashboard opens with real data from the session.
+  </div>
+
+  <div class="flow-note">
+    <strong>MVP voice clarification:</strong> nudgii does not speak. Path A shows a text chat bubble ("Vertel me wat je hebt…") that the user reads. The user speaks and the transcript appears live. Claude processes and responds in text. This is one-way voice input + text output — not voice-to-voice.
+  </div>
+
+  <div style="font-size:9px;color:rgba(26,22,18,0.22);letter-spacing:1.5px;text-transform:uppercase;text-align:center;padding-top:24px;">nudgii · onboarding flow · v1.0 · March 2026 · Elf Consult</div>
+
+</div><!-- end flow-canvas -->
+
+</body>
+</html>

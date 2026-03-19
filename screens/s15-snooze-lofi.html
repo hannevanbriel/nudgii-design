@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>nudgii · S-15 Snooze sheet — lo-fi nudge</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#F5F0E8;--ink:#1A1612;--cta:#9B7FD4;--ap:#E8A87C;--ap-dk:#C8784A;--terra:#C4503A;--mid:#8A8070;--mid-lt:#B0A898;--ink-08:rgba(26,22,18,0.08);--ink-12:rgba(26,22,18,0.12);--ink-20:rgba(26,22,18,0.20)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px}
+nav{background:var(--cream);border-bottom:1px solid var(--ink-12);padding:0 32px;display:flex;align-items:center;gap:16px;height:48px;position:sticky;top:0;z-index:100}
+.nav-back{font-size:13px;color:var(--mid);text-decoration:none}.nav-back::before{content:'← '}
+.nav-sep{color:var(--ink-12)}.nav-title{font-size:13px;font-weight:500}
+.nav-id{margin-left:auto;font-size:10px;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;color:var(--mid-lt);font-family:monospace}
+.content{padding:32px;max-width:960px;margin:0 auto}
+h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px}
+.sub{font-size:14px;color:var(--mid);margin-bottom:8px}
+.meta{display:flex;gap:8px;margin-bottom:32px;flex-wrap:wrap}
+.meta-pill{font-size:11px;font-weight:500;padding:3px 10px;border-radius:100px;border:1px solid var(--ink-12);color:var(--mid)}
+.meta-pill.phase{background:rgba(155,127,212,0.08);color:#5C3E8A;border-color:rgba(155,127,212,0.2)}
+.meta-pill.status{background:rgba(232,168,124,0.10);color:#7A4A1A;border-color:rgba(232,168,124,0.2)}
+.controls{display:flex;gap:8px;margin-bottom:28px}
+.btn{font-size:12px;font-weight:500;padding:7px 16px;border-radius:100px;border:1px solid var(--ink-12);background:#fff;color:var(--mid);cursor:pointer;transition:all .15s}
+.btn.on{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.layout{display:flex;gap:40px;align-items:flex-start;flex-wrap:wrap}
+.phone{width:295px;flex-shrink:0;background:#ddd9d0;border-radius:28px;padding:14px;border:2px solid rgba(26,22,18,0.15)}
+.screen{background:rgba(26,22,18,0.08);border-radius:16px;overflow:hidden;min-height:460px;display:flex;align-items:flex-end}
+.sheet{background:#fff;border-radius:16px 16px 0 0;width:100%}
+.handle{width:32px;height:3px;border-radius:2px;background:var(--ink-12);margin:10px auto 0}
+.shead{padding:14px 14px 10px}
+.stitle{height:12px;width:52%;border-radius:2px;background:var(--ink-20);margin-bottom:5px}
+.ssub{height:8px;width:72%;border-radius:2px;background:var(--ink-12)}
+.opt{display:flex;align-items:center;gap:10px;padding:11px 14px;border-top:1px solid var(--ink-08)}
+.oicon{width:34px;height:34px;border-radius:8px;background:var(--ink-08);border:1px solid var(--ink-12);flex-shrink:0}
+.otext{flex:1}
+.ol1{height:9px;border-radius:2px;background:var(--ink-20);margin-bottom:4px}
+.ol2{height:7px;border-radius:2px;background:var(--ink-12)}
+.ocheck{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--ink-12);flex-shrink:0}
+.ocheck.on{background:var(--ink-20);border-color:var(--ink-20)}
+.opt.sel .oicon{background:var(--ink-12)}
+.cancel{padding:12px 14px;border-top:1px solid var(--ink-08)}
+.cancel-block{height:30px;border-radius:8px;background:var(--ink-08)}
+.dpwrap{padding:12px 14px}
+.dprow{display:flex;gap:8px;margin-bottom:8px}
+.dpcol{flex:1;height:82px;background:var(--ink-08);border-radius:8px;border:1px solid var(--ink-12)}
+.dpconfirm{height:42px;border-radius:8px;background:var(--ink-20);margin-top:4px}
+.ann-col{flex:1;min-width:260px}
+.ann-head{font-size:10px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--mid);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--ink-12)}
+.ann{display:flex;gap:12px;margin-bottom:16px}
+.ann-n{width:22px;height:22px;border-radius:50%;background:var(--ink);color:var(--cream);font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.ann-body .t{font-size:13px;font-weight:500;margin-bottom:2px}
+.ann-body .d{font-size:12px;color:var(--mid);line-height:1.55}
+.box{background:#fff;border:1px solid var(--ink-12);border-radius:10px;padding:14px;margin-top:20px}
+.box-label{font-size:10px;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;color:var(--mid);margin-bottom:8px}
+.box p{font-size:12px;color:var(--mid);line-height:1.55;margin-bottom:5px}
+.box p:last-child{margin:0}
+.box .rec{color:var(--ap-dk);font-weight:500}
+.st{display:none}.st.on{display:block}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-back" href="../index.html">Design hub</a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">S-15 — Snooze bottom sheet</span>
+  <span class="nav-id">Lo-fi nudge · Phase 2</span>
+</nav>
+<div class="content">
+  <h1>Snooze sheet</h1>
+  <p class="sub">S-15 default · S-15 custom date picker</p>
+  <div class="meta">
+    <span class="meta-pill phase">Phase 2 — Lo-fi nudge</span>
+    <span class="meta-pill status">In progress — hi-fi next</span>
+  </div>
+  <div class="controls">
+    <button class="btn on" onclick="show('default',this)">Default</button>
+    <button class="btn" onclick="show('custom',this)">Custom date</button>
+  </div>
+  <div class="layout">
+    <div class="phone">
+      <div class="screen">
+        <div class="sheet">
+          <div class="handle"></div>
+          <div class="shead"><div class="stitle"></div><div class="ssub"></div></div>
+          <div class="st on" id="st-default">
+            <div class="opt"><div class="oicon"></div><div class="otext"><div class="ol1" style="width:36%"></div><div class="ol2" style="width:55%"></div></div><div class="ocheck"></div></div>
+            <div class="opt sel"><div class="oicon"></div><div class="otext"><div class="ol1" style="width:42%"></div><div class="ol2" style="width:60%"></div></div><div class="ocheck on"></div></div>
+            <div class="opt"><div class="oicon"></div><div class="otext"><div class="ol1" style="width:40%"></div><div class="ol2" style="width:54%"></div></div><div class="ocheck"></div></div>
+            <div class="opt"><div class="oicon"></div><div class="otext"><div class="ol1" style="width:46%"></div><div class="ol2" style="width:28%"></div></div><div class="ocheck"></div></div>
+            <div class="cancel"><div class="cancel-block"></div></div>
+          </div>
+          <div class="st" id="st-custom">
+            <div class="dpwrap"><div class="dprow"><div class="dpcol"></div><div class="dpcol"></div><div class="dpcol"></div></div><div class="dpconfirm"></div></div>
+            <div class="cancel"><div class="cancel-block" style="background:transparent;border:1px solid var(--ink-12)"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ann-col" id="ann"></div>
+  </div>
+</div>
+<script>
+const A={
+  default:[
+    {n:1,t:'Sheet header',d:'Task name (short, 1 line) + "Hoe lang wil je dit uitstellen?" User stays oriented.'},
+    {n:2,t:'4 quick options',d:'1 week · 2 weeks · 1 month · Pick a date. Each option shows the resolved calendar date below the label (e.g. "wo 26 mrt").'},
+    {n:3,t:'Default pre-selection',d:'Option 2 (2 weeks) pre-selected as sensible default. User can change with one tap.'},
+    {n:4,t:'Instant dismiss',d:'Tapping any quick option confirms and dismisses immediately. No separate confirm button needed — saves one tap, matches iOS patterns.'},
+    {n:5,t:'Cancel',d:'Full-width ghost button at bottom. Copy: "Toch maar niet." Dismisses without any change to the task.'},
+  ],
+  custom:[
+    {n:1,t:'iOS drum scroll',d:'Three columns: Day · Month · Year. Flutter: CupertinoDatePicker widget. Min value: tomorrow. Max: 1 year from today.'},
+    {n:2,t:'Live-updating CTA',d:'Primary button reads "Herinner me op [resolved date]" and updates as user scrolls drums.'},
+    {n:3,t:'Cancel',d:'Ghost style button. Returns user to the quick options view — does not fully dismiss the sheet.'},
+    {n:'↳',t:'Sheet height animation',d:'Custom date state is taller (~360px vs ~280px). Sheet animates height smoothly — no close and reopen. Spring curve, 280ms.'},
+  ],
+};
+const D=`<div class="box"><div class="box-label">Decisions locked in this nudge</div><p>Quick options: instant confirm on tap, no separate confirm button.</p><p>Custom date: in-sheet state change, not a new screen or modal.</p><p class="rec">Copy — header: "Hoe lang wil je dit uitstellen?" · cancel: "Toch maar niet."</p></div>`;
+const LABELS={default:'Default',custom:'Custom date'};
+function show(s,btn){
+  document.querySelectorAll('.st').forEach(el=>el.classList.remove('on'));
+  document.getElementById('st-'+s).classList.add('on');
+  document.querySelectorAll('.btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('ann').innerHTML=
+    `<div class="ann-head">Annotations — ${LABELS[s]}</div>`+
+    A[s].map(a=>`<div class="ann"><div class="ann-n">${a.n}</div><div class="ann-body"><div class="t">${a.t}</div><div class="d">${a.d}</div></div></div>`).join('')+
+    (s==='default'?D:'');
+}
+show('default',document.querySelector('.btn'));
+</script>
+</body>
+</html>

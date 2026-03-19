@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · Design System v2.2</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+
+:root{
+  --cream:    #F5F0E8;
+  --cream-2:  #EDE6D4;
+  --ink:      #1A1612;
+  --mid:      #8A8070;
+  --mid-lt:   #B0A898;
+  --border:   rgba(26,22,18,0.08);
+  --border-md:rgba(26,22,18,0.12);
+  --ap:       #E8A87C;
+  --ap-dk:    #C8784A;   /* due-soon status dates ONLY — no longer CTA */
+  --cta:      #9B7FD4;   /* PRIMARY CTA — light plum, locked v2.2 */
+  --terra:    #C4503A;
+  --plum:     #2D1F4A;
+  --plum-lt:  #9B7FD4;
+  --plum-pale:#C4A8E8;
+  --ch:#C87850;--chb:rgba(200,120,80,0.10);
+  --cv:#4A82A0;--cvb:rgba(74,130,160,0.10);
+  --cg:#5A9060;--cgb:rgba(90,144,96,0.10);
+  --cs:#8060A8;--csb:rgba(128,96,168,0.10);
+  --chl:#B86478;--chlb:rgba(184,100,120,0.10);
+}
+
+body{background:var(--cream);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;color:var(--ink);line-height:1.55;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 32px;}
+.nav-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;height:50px;gap:0;}
+.nav-brand{font-family:'DM Serif Display',serif;font-size:15px;color:var(--ink);text-decoration:none;margin-right:28px;flex-shrink:0;display:flex;align-items:center;gap:7px;}
+.nav-dot{width:5px;height:5px;border-radius:50%;background:#9B7FD4;margin-top:1px;}
+.nav-links{display:flex;overflow-x:auto;scrollbar-width:none;flex:1;}
+.nav-links::-webkit-scrollbar{display:none;}
+.nav-link{font-size:11px;font-weight:500;color:var(--mid);text-decoration:none;white-space:nowrap;padding:0 12px;height:50px;display:flex;align-items:center;border-bottom:2px solid transparent;transition:all 0.15s;}
+.nav-link:hover{color:var(--ink);}
+.nav-link.active{color:var(--ink);border-bottom-color:#9B7FD4;}
+.v-tag{font-size:10px;font-weight:500;padding:2px 8px;border-radius:100px;background:rgba(155,127,212,0.12);color:#7040C0;}
+
+/* PAGE */
+.page{max-width:980px;margin:0 auto;padding:0 32px 100px;}
+
+/* HERO */
+.hero{padding:60px 0 44px;border-bottom:1px solid var(--border);}
+.hero-eye{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:10px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:46px;color:var(--ink);line-height:1.05;letter-spacing:-0.7px;margin-bottom:10px;}
+.hero-sub{font-size:14px;color:var(--mid);max-width:500px;line-height:1.6;}
+.hero-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;}
+.hero-pill{font-size:11px;font-weight:500;padding:4px 12px;border-radius:100px;background:rgba(26,22,18,0.06);color:rgba(26,22,18,0.55);}
+.hero-pill.locked{background:rgba(90,144,96,0.10);color:#3A6E40;}
+
+/* TOC */
+.toc{background:var(--cream-2);border-radius:12px;padding:18px 22px;margin-top:28px;border:1px solid var(--border);}
+.toc-lbl{font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:12px;}
+.toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:4px;}
+.toc-a{font-size:12px;color:var(--ink);text-decoration:none;padding:3px 0;display:block;}
+.toc-a:hover{color:var(--ap-dk);}
+.toc-n{color:var(--mid);margin-right:5px;font-size:11px;}
+
+/* SECTIONS */
+section{padding-top:60px;}
+.sec-eye{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:5px;}
+.sec-title{font-family:'DM Serif Display',serif;font-size:28px;color:var(--ink);margin-bottom:7px;}
+.sec-desc{font-size:13px;color:var(--mid);max-width:540px;margin-bottom:28px;line-height:1.6;}
+.rule{height:1px;background:var(--border);margin:52px 0 0;}
+
+/* RULE CARDS */
+.rcard{background:white;border:1px solid var(--border);border-radius:13px;padding:16px 18px;margin-bottom:9px;box-shadow:0 1px 3px rgba(26,22,18,0.04);}
+.rcard-title{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:5px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+.rcard-body{font-size:12px;color:var(--mid);line-height:1.65;}
+.rcard-body strong{color:var(--ink);font-weight:500;}
+.rcard-body code{font-family:monospace;font-size:11px;background:rgba(26,22,18,0.06);padding:1px 5px;border-radius:3px;}
+
+/* TAGS */
+.tag{font-size:9px;font-weight:500;padding:2px 7px;border-radius:100px;}
+.tag-lock{background:rgba(90,144,96,0.12);color:#3A6E40;}
+.tag-new{background:rgba(200,120,74,0.12);color:#8A4A20;}
+.tag-never{background:rgba(196,80,58,0.10);color:#993C1D;}
+.tag-pro{background:rgba(155,127,212,0.12);color:#7040C0;}
+
+/* TOKENS */
+.token-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(136px,1fr));gap:9px;margin-bottom:16px;}
+.ttile{border-radius:10px;overflow:hidden;border:1px solid var(--border);}
+.tsw{height:58px;}
+.tbody{padding:8px 10px;background:white;}
+.tname{font-size:12px;font-weight:500;color:var(--ink);}
+.thex{font-size:10px;color:var(--mid);font-family:monospace;margin-top:1px;}
+.trole{font-size:10px;color:var(--mid);margin-top:2px;line-height:1.4;}
+.tnote{font-size:9px;font-style:italic;color:rgba(26,22,18,0.3);margin-top:2px;}
+
+/* DARK PANEL */
+.dark-panel{background:#111614;border-radius:14px;padding:22px 24px;margin-top:16px;}
+.dark-lbl{font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:rgba(239,240,232,0.3);margin-bottom:14px;}
+.dark-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(136px,1fr));gap:9px;}
+.dark-tile{border-radius:10px;overflow:hidden;border:1px solid rgba(239,240,232,0.08);}
+.dark-body{padding:8px 10px;background:#1A1F1D;}
+.dark-name{font-size:12px;font-weight:500;color:#EFF0E8;}
+.dark-hex{font-size:10px;color:rgba(239,240,232,0.4);font-family:monospace;margin-top:1px;}
+.dark-role{font-size:10px;color:rgba(239,240,232,0.3);margin-top:2px;line-height:1.4;}
+
+/* CATEGORY */
+.cat-row{display:flex;gap:9px;flex-wrap:wrap;}
+.ctile{background:white;border:1px solid var(--border);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:9px;min-width:150px;}
+.cicon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cicon svg{width:12px;height:12px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.cname{font-size:11px;font-weight:500;color:var(--ink);}
+.chex{font-size:10px;color:var(--mid);font-family:monospace;}
+.cnote{font-size:9px;color:var(--mid);font-style:italic;}
+
+/* TYPE ROWS */
+.type-row{padding:16px 0;border-bottom:1px solid var(--border);display:grid;grid-template-columns:170px 1fr;gap:18px;align-items:center;}
+.type-row:first-of-type{border-top:1px solid var(--border);}
+.trole{font-size:11px;font-weight:500;color:var(--ink);}
+.tspec{font-size:10px;color:var(--mid);margin-top:2px;line-height:1.5;}
+@media(max-width:600px){.type-row{grid-template-columns:1fr;}}
+
+/* COMPONENT DEMOS */
+.cgroup{margin-bottom:36px;}
+.cgroup-title{font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--mid);padding-bottom:9px;border-bottom:1px solid var(--border);margin-bottom:16px;}
+.cgroup-row{display:flex;gap:9px;flex-wrap:wrap;align-items:flex-start;}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:7px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;padding:13px 22px;border-radius:100px;border:none;cursor:pointer;letter-spacing:-0.1px;transition:opacity 0.12s;}
+.btn:active{opacity:0.8;}
+.btn-cta{background:#9B7FD4;color:#FAF8FF;}  /* PRIMARY CTA — light plum v2.2 */
+.btn-secondary{background:transparent;color:var(--ink);border:1.5px solid var(--border-md);}
+.btn-ghost{background:transparent;color:var(--mid);border:none;font-size:13px;}
+.btn-sm{font-size:12px;padding:9px 16px;}
+.mic-btn{width:22px;height:22px;border-radius:50%;background:rgba(250,248,255,0.15);display:flex;align-items:center;justify-content:center;}
+.mic-btn svg{width:11px;height:11px;stroke:#FAF8FF;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+
+/* nudge card demo */
+.ncard{background:white;border-radius:11px;border:1px solid var(--border);padding:10px 12px;display:flex;align-items:center;gap:10px;max-width:300px;width:100%;box-shadow:0 1px 3px rgba(26,22,18,0.04);}
+.nci{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.nci svg{width:12px;height:12px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.nb{flex:1;min-width:0;}
+.nn{font-size:13px;font-weight:500;color:var(--ink);letter-spacing:-0.1px;}
+.nn-ov{color:var(--terra);}
+.ns{font-size:10px;font-style:italic;color:var(--mid);margin-top:1px;}
+.nd{font-size:11px;font-weight:500;flex-shrink:0;}
+
+/* done overlay mini */
+.done-mini{width:180px;border-radius:18px;background:var(--plum);padding:20px 18px;display:flex;flex-direction:column;align-items:center;text-align:center;}
+.dm-ii{display:flex;align-items:flex-start;gap:4px;margin-bottom:12px;}
+.dm-l{width:8px;height:24px;border-radius:100px;background:var(--plum-pale);}
+.dm-r{width:8px;height:24px;border-radius:100px;background:rgba(196,168,232,0.28);position:relative;}
+.dm-dot{width:6px;height:6px;border-radius:50%;background:var(--ap);position:absolute;top:2px;right:-2px;}
+.dm-title{font-family:'DM Serif Display',serif;font-size:14px;color:#EDE8FF;line-height:1.2;margin-bottom:3px;}
+.dm-title em{font-style:italic;color:var(--ap);}
+.dm-sub{font-size:9px;color:rgba(196,168,232,0.4);font-style:italic;}
+
+/* pro badge demo */
+.pro-pill{display:inline-flex;align-items:center;gap:5px;background:rgba(155,127,212,0.12);border:1px solid rgba(155,127,212,0.20);border-radius:100px;padding:4px 10px 4px 7px;font-size:10px;font-weight:500;color:var(--plum-lt);}
+.pro-dot{width:5px;height:5px;border-radius:50%;background:var(--plum-lt);}
+
+/* SPACING */
+.sp-row{display:flex;align-items:center;gap:13px;padding:7px 0;border-bottom:1px solid var(--border);}
+.sp-bar{background:#9B7FD4;border-radius:2px;height:7px;flex-shrink:0;}
+.sp-tok{font-size:11px;font-weight:500;color:var(--ink);font-family:monospace;width:54px;}
+.sp-px{font-size:11px;color:var(--mid);width:40px;}
+.sp-use{font-size:11px;color:var(--mid);}
+
+/* FIGMA STEPS */
+.figma-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;}
+.fstep{background:white;border:1px solid var(--border);border-radius:13px;padding:16px 18px;box-shadow:0 1px 3px rgba(26,22,18,0.04);}
+.fstep-num{font-family:'DM Serif Display',serif;font-size:28px;color:rgba(26,22,18,0.07);line-height:1;margin-bottom:8px;}
+.fstep-title{font-size:12px;font-weight:500;color:var(--ink);margin-bottom:7px;}
+.fstep-body{font-size:11px;color:var(--mid);line-height:1.65;}
+.fstep-body strong{color:var(--ink);font-weight:500;}
+.fstep-body code{font-family:monospace;font-size:10px;background:rgba(26,22,18,0.06);padding:1px 4px;border-radius:3px;}
+
+/* LOCKED RULES */
+.locked-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+@media(max-width:600px){.locked-grid{grid-template-columns:1fr;}}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-thumb{background:var(--border-md);border-radius:2px;}
+</style>
+<style>.nudgii-hub-nav{position:sticky;top:0;z-index:999;background:#F5F0E8;border-bottom:1px solid rgba(26,22,18,0.12);padding:0 24px;display:flex;align-items:center;gap:16px;height:44px;font-family:'DM Sans',sans-serif}.nudgii-hub-nav a{font-size:13px;color:#8A8070;text-decoration:none}.nudgii-hub-nav a:first-child::before{content:'← ';}.nudgii-hub-nav span{font-size:13px;font-weight:500;color:#1A1612}.nudgii-hub-nav .tag{margin-left:auto;font-size:10px;font-weight:500;color:#B0A898;letter-spacing:1.2px;text-transform:uppercase;font-family:monospace}</style></head>
+<body><div class="nudgii-hub-nav"><a href="../index.html">Design hub</a><span>Design system v2.3</span><span class="tag">System</span></div>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="#">
+      <svg width="16" height="16" viewBox="0 0 80 80"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
+      nudgii<div class="nav-dot"></div>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="#brand">Brand</a>
+      <a class="nav-link" href="#color">Color</a>
+      <a class="nav-link" href="#dark">Dark mode</a>
+      <a class="nav-link" href="#category">Categories</a>
+      <a class="nav-link" href="#typography">Typography</a>
+      <a class="nav-link" href="#spacing">Spacing</a>
+      <a class="nav-link" href="#components">Components</a>
+      <a class="nav-link" href="#icons">Icons</a>
+      <a class="nav-link" href="#motion">Motion</a>
+      <a class="nav-link" href="#icons-system">Icons</a>
+      <a class="nav-link" href="#figma">Figma</a>
+      <a class="nav-link" href="#rules">Rules</a>
+    </div>
+    <span class="v-tag">v2.3 final</span>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eye">nudgii Design System · v2.3 · March 2026 · Final</div>
+    <h1 class="hero-title">Everything decided.<br>Nothing open.</h1>
+    <p class="hero-sub">All tokens, rules, components, and Figma workflow for nudgii. If it's not in here it's not decided. If it's in here it doesn't get questioned in a design review.</p>
+    <div class="hero-pills">
+      <span class="hero-pill locked">CTA → light plum #9B7FD4</span>
+      <span class="hero-pill locked">Pro badge → plum-lt full pill</span>
+      <span class="hero-pill locked">Dark base → deep sage #111614</span>
+      <span class="hero-pill locked">nudgii always lowercase</span>
+      <span class="hero-pill locked">No gradients anywhere</span>
+      <span class="hero-pill locked">Icons → Phosphor outline only</span>
+      <span class="hero-pill locked">Plum sacred → done overlay only</span>
+      <span class="hero-pill locked">Tab bar → floating pill</span>
+      <span class="hero-pill locked">FAB → rounded square, bottom-right</span>
+      <span class="hero-pill locked">Settings → Faders · Scan → Scan · Edit → PencilLine</span>
+    </div>
+
+    <div class="toc">
+      <div class="toc-lbl">Contents</div>
+      <div class="toc-grid">
+        <a class="toc-a" href="#brand"><span class="toc-n">01</span>Brand & logo</a>
+        <a class="toc-a" href="#color"><span class="toc-n">02</span>Color tokens</a>
+        <a class="toc-a" href="#dark"><span class="toc-n">03</span>Dark mode</a>
+        <a class="toc-a" href="#category"><span class="toc-n">04</span>Category colors</a>
+        <a class="toc-a" href="#typography"><span class="toc-n">05</span>Typography</a>
+        <a class="toc-a" href="#spacing"><span class="toc-n">06</span>Spacing</a>
+        <a class="toc-a" href="#components"><span class="toc-n">07</span>Components</a>
+        <a class="toc-a" href="#icons"><span class="toc-n">08</span>App icons</a>
+        <a class="toc-a" href="#motion"><span class="toc-n">09</span>Motion</a>
+        <a class="toc-a" href="#icons-system"><span class="toc-n">10</span>Icon system</a>
+        <a class="toc-a" href="#figma"><span class="toc-n">11</span>Figma workflow</a>
+        <a class="toc-a" href="#rules"><span class="toc-n">12</span>Locked rules</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 01 BRAND -->
+  <section id="brand">
+    <div class="sec-eye">01</div>
+    <h2 class="sec-title">Brand & logo</h2>
+    <p class="sec-desc">nudgii is always lowercase. The ii lettermark is the icon. These rules do not bend.</p>
+
+    <div class="rcard">
+      <div class="rcard-title">Brand name <span class="tag tag-lock">locked forever</span></div>
+      <div class="rcard-body"><strong>nudgii</strong> — always all lowercase, everywhere. App UI, marketing, code comments, this document. Never "Nudgii." Never "NUDGII." The double-i is the brand's typographic signature — capitalising it erases the point.<br><br>Only exception: OS-forced capitalisation in system fields (App Store title field etc.) — this is a system constraint, not a brand choice.</div>
+    </div>
+
+    <div class="rcard">
+      <div class="rcard-title">ii lettermark — welcome screen spec <span class="tag tag-lock">locked v2.2</span></div>
+      <div class="rcard-body"><strong>20px height. Left-aligned. Inline with the free badge.</strong> Not centered. Not a hero.<br><br>The mark mirrors the icon exactly — same three colors in miniature:<br><br>Left pill: <code>cream #F5F0E8</code> with ink outline (mirrors icon left cream pill)<br>Right pill: <code>plum-lt #9B7FD4 at 55% opacity</code> (mirrors icon right pill — also the CTA color)<br>Dot: <code>apricot #E8A87C</code> top-right (mirrors icon dot — warm accent)<br><br>This is why the welcome screen now coheres with the homescreen icon. The ii mark, the CTA button, and the icon right pill are all <code>#9B7FD4</code> — one color, three moments.</div>
+    </div>
+
+    <!-- ii mark sizes -->
+    <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-end;margin-top:10px;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:5px;"><svg width="20" height="20" viewBox="0 0 80 80" style="border-radius:5px;"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg><div style="font-size:9px;color:var(--mid);">20px · welcome</div></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:5px;"><svg width="40" height="40" viewBox="0 0 80 80" style="border-radius:10px;"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg><div style="font-size:9px;color:var(--mid);">40px · done overlay</div></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:5px;"><svg width="72" height="72" viewBox="0 0 80 80" style="border-radius:18px;box-shadow:0 8px 24px rgba(45,31,74,0.35);"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg><div style="font-size:9px;color:var(--mid);">72px · homescreen</div></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:5px;"><svg width="112" height="112" viewBox="0 0 80 80" style="border-radius:26px;box-shadow:0 14px 40px rgba(45,31,74,0.40);"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg><div style="font-size:9px;color:var(--mid);">112px · App Store</div></div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- 02 COLOR -->
+  <section id="color">
+    <div class="sec-eye">02</div>
+    <h2 class="sec-title">Color tokens · light mode</h2>
+    <p class="sec-desc">Seven semantic tokens. Every color has one job. Color is information, not decoration.</p>
+
+    <div class="token-grid">
+      <div class="ttile"><div class="tsw" style="background:#F5F0E8;"></div><div class="tbody"><div class="tname">Cream</div><div class="thex">#F5F0E8</div><div class="trole">App background</div></div></div>
+      <div class="ttile"><div class="tsw" style="background:#1A1612;"></div><div class="tbody"><div class="tname">Ink</div><div class="thex">#1A1612</div><div class="trole">All body text. Warm charcoal — no blue hue.</div><div class="tnote">Changed from #1E2832 (too blue)</div></div></div>
+      <div class="ttile" style="outline:2px solid #9B7FD4;outline-offset:2px;border-radius:11px;"><div class="tsw" style="background:#9B7FD4;"></div><div class="tbody"><div class="tname">CTA · plum-lt <span style="font-size:9px;color:#7040C0;font-weight:500;">updated v2.2</span></div><div class="thex">#9B7FD4</div><div class="trole">Primary CTA button. Active filter chip. Tab pip. Also Pro badge.</div><div class="tnote">Replaces apricot-dk as CTA</div></div></div>
+      <div class="ttile"><div class="tsw" style="background:#E8A87C;"></div><div class="tbody"><div class="tname">Apricot</div><div class="thex">#E8A87C</div><div class="trole">ii dot · greeting name em · streak number · done overlay dot.</div><div class="tnote">Warm accent only — never buttons</div></div></div>
+      <div class="ttile"><div class="tsw" style="background:#C8784A;"></div><div class="tbody"><div class="tname">Apricot-dk</div><div class="thex">#C8784A</div><div class="trole">Due-soon date labels only. No longer CTA.</div><div class="tnote">Role narrowed in v2.2</div></div></div>
+      <div class="ttile"><div class="tsw" style="background:#C4503A;"></div><div class="tbody"><div class="tname">Terra</div><div class="thex">#C4503A</div><div class="trole">Overdue status — date label + task name. Nothing else.</div></div></div>
+      <div class="ttile"><div class="tsw" style="background:#2D1F4A;"></div><div class="tbody"><div class="tname">Plum</div><div class="thex">#2D1F4A</div><div class="trole">Done overlay background. Sacred. Appears nowhere else.</div></div></div>
+      <div class="ttile"><div class="tsw" style="background:#9B7FD4;"></div><div class="tbody"><div class="tname">Plum-lt</div><div class="thex">#9B7FD4</div><div class="trole">Pro badge only. No other use.</div><div class="tnote">New in v2.1</div></div></div>
+      <div class="ttile"><div class="tsw" style="background:#8A8070;"></div><div class="tbody"><div class="tname">Mid</div><div class="thex">#8A8070</div><div class="trole">Italic subtitles. Hint text. Section labels.</div></div></div>
+    </div>
+
+    <!-- COLOR THREAD -->
+    <div style="background:white;border:1px solid var(--border);border-radius:13px;padding:18px 20px;margin-bottom:9px;box-shadow:0 1px 3px rgba(26,22,18,0.04);">
+      <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:5px;display:flex;align-items:center;gap:7px;">The color thread <span class="tag tag-lock">v2.2 core decision</span></div>
+      <div style="font-size:12px;color:var(--mid);line-height:1.65;margin-bottom:16px;">One color family connects the entire user journey — homescreen to first tap to reward moment. The welcome screen ii mark, the CTA button, and the done overlay all share the same two plum hues.</div>
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <svg width="52" height="52" viewBox="0 0 80 80" style="border-radius:13px;box-shadow:0 6px 18px rgba(45,31,74,0.3);"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
+          <div style="font-size:9px;color:var(--mid);text-align:center;line-height:1.4;">Homescreen icon<br><strong style="color:var(--ink);font-weight:500;">deep plum</strong> bg<br><strong style="color:var(--ink);font-weight:500;">light plum</strong> right pill<br>apricot dot</div>
+        </div>
+        <div style="font-size:16px;color:rgba(26,22,18,0.15);">→</div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:52px;height:52px;border-radius:100px;background:#9B7FD4;box-shadow:0 4px 14px rgba(155,127,212,0.3);display:flex;align-items:center;justify-content:center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(250,248,255,0.8)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg>
+          </div>
+          <div style="font-size:9px;color:var(--mid);text-align:center;line-height:1.4;">CTA button<br><strong style="color:var(--ink);font-weight:500;">#9B7FD4</strong><br>= icon right pill</div>
+        </div>
+        <div style="font-size:16px;color:rgba(26,22,18,0.15);">→</div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:52px;height:52px;border-radius:13px;background:#2D1F4A;box-shadow:0 6px 18px rgba(45,31,74,0.3);display:flex;align-items:center;justify-content:center;">
+            <div style="display:flex;align-items:flex-start;gap:3px;"><div style="width:7px;height:20px;border-radius:100px;background:#C4A8E8;"></div><div style="width:7px;height:20px;border-radius:100px;background:rgba(196,168,232,0.3);position:relative;"><div style="width:5px;height:5px;border-radius:50%;background:#E8A87C;position:absolute;top:2px;right:-2px;"></div></div></div>
+          </div>
+          <div style="font-size:9px;color:var(--mid);text-align:center;line-height:1.4;">Done overlay<br><strong style="color:var(--ink);font-weight:500;">#2D1F4A</strong><br>= icon bg · 3× deeper</div>
+        </div>
+        <div style="font-size:16px;color:rgba(26,22,18,0.15);">+</div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:22px;height:22px;border-radius:50%;background:#E8A87C;box-shadow:0 3px 8px rgba(232,168,124,0.35);"></div>
+          <div style="font-size:9px;color:var(--mid);text-align:center;line-height:1.4;">Apricot<br><strong style="color:var(--ink);font-weight:500;">#E8A87C</strong><br>warm accent throughout</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="rcard-title">Primary CTA — light plum <span class="tag tag-new">updated v2.2</span></div>
+      <div class="rcard-body"><strong>All primary action buttons use <code>#9B7FD4</code> background with <code>#FAF8FF</code> lavender-cream text.</strong> This applies to: welcome screen Path A button, onboarding confirm buttons, dashboard add button, active filter chip, tab bar active pip.<br><br>Contrast ratio: 4.7:1 on cream (passes WCAG AA). Box shadow: <code>0 2px 12px rgba(155,127,212,0.28)</code> — subtle plum glow that ties the button to the icon.<br><br><strong>Why light plum:</strong> the icon right pill, the CTA button, and the Pro badge are all <code>#9B7FD4</code>. The done overlay is <code>#2D1F4A</code> — same family, 3× deeper. Tapping the button feels like a preview of the reward. The color thread: icon → CTA → overlay.<br><br>Apricot-dk <code>#C8784A</code> is now status-only — due-soon date labels. Never used on interactive elements.</div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- 03 DARK MODE -->
+  <section id="dark">
+    <div class="sec-eye">03</div>
+    <h2 class="sec-title">Dark mode tokens</h2>
+    <p class="sec-desc">Deep sage base — a very subtle cool-green tint, like old paper in dim light. Not blue, not neutral. Warm in a different register than the light mode.</p>
+
+    <div class="dark-panel">
+      <div class="dark-lbl">Dark mode · follows system preference · deep sage base</div>
+      <div class="dark-grid">
+        <div class="dark-tile"><div class="tsw" style="background:#111614;"></div><div class="dark-body"><div class="dark-name">App bg</div><div class="dark-hex">#111614</div><div class="dark-role">Deep sage. No blue.</div></div></div>
+        <div class="dark-tile"><div class="tsw" style="background:#1A1F1D;"></div><div class="dark-body"><div class="dark-name">Card</div><div class="dark-hex">#1A1F1D</div><div class="dark-role">White cards → this in dark.</div></div></div>
+        <div class="dark-tile"><div class="tsw" style="background:#252E28;"></div><div class="dark-body"><div class="dark-name">Card hover</div><div class="dark-hex">#252E28</div><div class="dark-role">Pressed / active state.</div></div></div>
+        <div class="dark-tile"><div class="tsw" style="background:#EFF0E8;"></div><div class="dark-body"><div class="dark-name">Cream-dark</div><div class="dark-hex">#EFF0E8</div><div class="dark-role">Primary text on dark.</div></div></div>
+        <div class="dark-tile"><div class="tsw" style="background:#96A89C;"></div><div class="dark-body"><div class="dark-name">Mid-dark</div><div class="dark-hex">#96A89C</div><div class="dark-role">Secondary text, subtitles.</div></div></div>
+        <div class="dark-tile"><div class="tsw" style="background:#9B7FD4;"></div><div class="dark-body"><div class="dark-name">CTA</div><div class="dark-hex">#9B7FD4</div><div class="dark-role">CTA unchanged in dark — light plum works on both.</div></div></div>
+        <div class="dark-tile"><div class="tsw" style="background:#D4623C;"></div><div class="dark-body"><div class="dark-name">Terra-dark</div><div class="dark-hex">#D4623C</div><div class="dark-role">Overdue on dark bg.</div></div></div>
+        <div class="dark-tile"><div class="tsw" style="background:#9B7FD4;"></div><div class="dark-body"><div class="dark-name">Plum-lt</div><div class="dark-hex">#9B7FD4</div><div class="dark-role">Pro badge — same as light.</div></div></div>
+      </div>
+      <div style="margin-top:14px;font-size:11px;color:rgba(239,240,232,0.3);line-height:1.6;">Border: <code style="font-family:monospace;font-size:10px;background:rgba(255,255,255,0.07);padding:1px 5px;border-radius:3px;">rgba(220,240,225,0.07)</code> — green-tinted hairline, consistent with the base hue · Card shadow: none in dark mode — elevation is communicated by the bg/card color difference alone</div>
+    </div>
+
+    <div style="margin-top:14px;">
+    <div class="rcard">
+      <div class="rcard-title">Dark mode rules</div>
+      <div class="rcard-body"><strong>Default is light.</strong> Dark follows system preference (iOS dark mode toggle). Both modes must be fully designed — "just invert" is not acceptable.<br><br>
+      The profile/settings screen uses an ink band header in both modes. The done overlay uses <code>plum #2D1F4A</code> in both modes — it's already dark enough to read as a mode shift in light mode, and stays consistent in dark.<br><br>
+      <strong>CTA button color is identical in both modes</strong> — <code>#9B7FD4</code>. Light plum works against both cream and dark-card backgrounds.</div>
+    </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- 04 CATEGORY -->
+  <section id="category">
+    <div class="sec-eye">04</div>
+    <h2 class="sec-title">Category colors</h2>
+    <p class="sec-desc">Category tells the user WHAT. Status tells them WHEN. These two systems never overlap.</p>
+
+    <div class="cat-row">
+      <div class="ctile"><div class="cicon" style="background:var(--chb);"><svg viewBox="0 0 24 24" style="stroke:var(--ch);"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div><div class="cname">Home</div><div class="chex">#C87850</div><div class="cnote">Warm · apricot family</div></div></div>
+      <div class="ctile"><div class="cicon" style="background:var(--cvb);"><svg viewBox="0 0 24 24" style="stroke:var(--cv);"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg></div><div><div class="cname">Vehicle</div><div class="chex">#4A82A0</div><div class="cnote">Cool slate</div></div></div>
+      <div class="ctile"><div class="cicon" style="background:var(--cgb);"><svg viewBox="0 0 24 24" style="stroke:var(--cg);"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1 1.1 2.8.8 5.3-.6 7.4"/></svg></div><div><div class="cname">Garden</div><div class="chex">#5A9060</div><div class="cnote">Muted green</div></div></div>
+      <div class="ctile"><div class="cicon" style="background:var(--csb);"><svg viewBox="0 0 24 24" style="stroke:var(--cs);"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div><div><div class="cname">Subscriptions</div><div class="chex">#8060A8</div><div class="cnote">Muted plum tint</div></div></div>
+      <div class="ctile"><div class="cicon" style="background:var(--chlb);"><svg viewBox="0 0 24 24" style="stroke:var(--chl);"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="cname">Health</div><div class="chex">#B86478</div><div class="cnote">Dusty rose · v2</div></div></div>
+    </div>
+
+    <div style="margin-top:12px;">
+    <div class="rcard">
+      <div class="rcard-title">Category color rules <span class="tag tag-lock">locked</span></div>
+      <div class="rcard-body">Category colors appear <strong>only in the icon chip</strong> (30–34px rounded square). Never in: date labels, section headers, card backgrounds, tab bar, filter chip backgrounds, or anywhere carrying status meaning.<br><br><strong>Adding a new category:</strong> pick one muted hue not already in the system. Add <code>--c-name: #hex</code> and <code>--c-name-bg: rgba(r,g,b,0.10)</code>. One icon SVG. Done — the system absorbs it without redesign.</div>
+    </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- 05 TYPOGRAPHY -->
+  <section id="typography">
+    <div class="sec-eye">05</div>
+    <h2 class="sec-title">Typography</h2>
+    <p class="sec-desc">DM Serif Display for character. DM Sans for everything daily. One serif moment per screen — not two.</p>
+
+    <div class="type-row"><div><div class="trole">Welcome headline</div><div class="tspec">DM Serif Display · 33px · lh 0.97 · ls -0.55px</div></div><div><span style="font-family:'DM Serif Display',serif;font-size:33px;color:var(--ink);line-height:0.97;letter-spacing:-0.55px;">Je huis heeft<br>aandacht nodig.</span></div></div>
+    <div class="type-row"><div><div class="trole">Dashboard greeting</div><div class="tspec">DM Serif Display · 25–27px · lh 0.95 · ls -0.4px · name em in <code>apricot</code></div></div><div><span style="font-family:'DM Serif Display',serif;font-size:26px;color:var(--ink);line-height:0.95;letter-spacing:-0.4px;">Goedemorgen, <em style="color:var(--ap);font-style:italic;">Martijn.</em></span></div></div>
+    <div class="type-row"><div><div class="trole">Done overlay</div><div class="tspec">DM Serif Display · 28–30px · lh 1.1 · on plum</div></div><div style="background:var(--plum);border-radius:9px;padding:12px 16px;display:inline-block;"><span style="font-family:'DM Serif Display',serif;font-size:26px;color:#EDE8FF;line-height:1.1;letter-spacing:-0.3px;">Done. <em style="font-style:italic;color:var(--ap);">Your dishwasher approves.</em></span></div></div>
+    <div class="type-row"><div><div class="trole">Empty state</div><div class="tspec">DM Serif Display · 22px · lh 1.2</div></div><div><span style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);line-height:1.2;">Nothing overdue.<br>Suspicious.</span></div></div>
+    <div class="type-row"><div><div class="trole">Task name</div><div class="tspec">DM Sans 500 · 13–14px · ls -0.2px</div></div><div><span style="font-size:14px;font-weight:500;letter-spacing:-0.2px;">Vaatwasser zoutbak bijvullen</span></div></div>
+    <div class="type-row"><div><div class="trole">Witty subtitle</div><div class="tspec">DM Sans 400 italic · 10–11px · colorMid</div></div><div><span style="font-size:11px;font-style:italic;color:var(--mid);">it's starting to smell</span></div></div>
+    <div class="type-row"><div><div class="trole">Section label</div><div class="tspec">DM Sans 500 · 9px · ls 1.8px · uppercase</div></div><div><span style="font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--mid-lt);">Overdue</span></div></div>
+    <div class="type-row"><div><div class="trole">Body text</div><div class="tspec">DM Sans 400 · 15px · lh 1.55</div></div><div><span style="font-size:15px;line-height:1.55;">Automatisch ingevuld, voor alles wat je bezit.</span></div></div>
+
+    <div style="margin-top:16px;">
+    <div class="rcard">
+      <div class="rcard-title">Typography rules <span class="tag tag-lock">locked</span></div>
+      <div class="rcard-body"><strong>One serif moment per screen.</strong> Never two DM Serif Display elements visible at once.<br><strong>Italic serif = personality.</strong> Witty openers, done headlines, greeting name only. Never functional labels.<br><strong>Sentence case everywhere.</strong> Buttons, chips, labels — never Title Case, never ALL CAPS.<br><strong>nudgii is always lowercase</strong> in all copy — brand rule, no exceptions.</div>
+    </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- 06 SPACING -->
+  <section id="spacing">
+    <div class="sec-eye">06</div>
+    <h2 class="sec-title">Spacing & radius</h2>
+    <p class="sec-desc">8px base grid. 16px screen margins. Cream needs room.</p>
+
+    <div class="sp-row"><div class="sp-bar" style="width:4px;"></div><div class="sp-tok">sp/4</div><div class="sp-px">4px</div><div class="sp-use">Icon-to-label gap</div></div>
+    <div class="sp-row"><div class="sp-bar" style="width:8px;"></div><div class="sp-tok">sp/8</div><div class="sp-px">8px</div><div class="sp-use">Chip padding, tight pairs</div></div>
+    <div class="sp-row"><div class="sp-bar" style="width:12px;"></div><div class="sp-tok">sp/12</div><div class="sp-px">12px</div><div class="sp-use">Between cards</div></div>
+    <div class="sp-row"><div class="sp-bar" style="width:16px;"></div><div class="sp-tok">sp/16</div><div class="sp-px">16px</div><div class="sp-use">Screen margin, card padding</div></div>
+    <div class="sp-row"><div class="sp-bar" style="width:20px;"></div><div class="sp-tok">sp/20</div><div class="sp-px">20px</div><div class="sp-use">Welcome body padding</div></div>
+    <div class="sp-row"><div class="sp-bar" style="width:24px;"></div><div class="sp-tok">sp/24</div><div class="sp-px">24px</div><div class="sp-use">Between screen sections</div></div>
+    <div class="sp-row" style="border-bottom:none;"><div class="sp-bar" style="width:48px;"></div><div class="sp-tok">sp/48</div><div class="sp-px">48px</div><div class="sp-use">Done overlay padding</div></div>
+
+    <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:22px;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:5px;"><div style="width:44px;height:44px;border-radius:4px;background:var(--cream-2);border:1px solid var(--border);"></div><div style="font-size:9px;color:var(--mid);text-align:center;">r/4<br>Tags</div></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:5px;"><div style="width:44px;height:44px;border-radius:8px;background:var(--cream-2);border:1px solid var(--border);"></div><div style="font-size:9px;color:var(--mid);text-align:center;">r/8<br>Inputs</div></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:5px;"><div style="width:44px;height:44px;border-radius:12px;background:var(--cream-2);border:1px solid var(--border);"></div><div style="font-size:9px;color:var(--mid);text-align:center;">r/12<br>Cards</div></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:5px;"><div style="width:44px;height:44px;border-radius:18px;background:var(--cream-2);border:1px solid var(--border);"></div><div style="font-size:9px;color:var(--mid);text-align:center;">r/18<br>Done overlay</div></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:5px;"><div style="width:44px;height:44px;border-radius:100px;background:var(--cream-2);border:1px solid var(--border);"></div><div style="font-size:9px;color:var(--mid);text-align:center;">r/pill<br>Buttons, chips</div></div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- 07 COMPONENTS -->
+  <section id="components">
+    <div class="sec-eye">07</div>
+    <h2 class="sec-title">Components</h2>
+    <p class="sec-desc">All components reference tokens. No hardcoded hex in Flutter or Figma.</p>
+
+    <div class="cgroup">
+      <div class="cgroup-title">Buttons</div>
+      <div class="cgroup-row">
+        <button class="btn btn-cta">
+          <div class="mic-btn"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg></div>
+          Vertel het me
+        </button>
+        <button class="btn btn-secondary">Laat me zien</button>
+        <button class="btn btn-ghost">Ik weet wat ik nodig heb</button>
+        <button class="btn btn-cta btn-sm">Bevestigen</button>
+      </div>
+      <div style="margin-top:10px;" class="rcard">
+        <div class="rcard-title">Button rules <span class="tag tag-new">CTA updated v2.2</span></div>
+        <div class="rcard-body"><strong>Primary CTA: light plum (#9B7FD4) background, lavender-white (#FAF8FF) text.</strong> Contrast 4.7:1 on cream — passes WCAG AA for large text. The CTA color comes directly from the icon's right pill — icon → button → done overlay is one visual thread.<br><br>Apricot-dk (#C8784A) is no longer a button color — it is status dates (due-soon) only. Secondary: border only, transparent bg. Ghost: no border, mid color text. All buttons sentence case, pill radius.</div>
+      </div>
+    </div>
+
+    <div class="cgroup">
+      <div class="cgroup-title">Nudge cards — no left border</div>
+      <div class="cgroup-row">
+        <div class="ncard"><div class="nci" style="background:var(--chb);"><svg viewBox="0 0 24 24" style="stroke:var(--ch);"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="nb"><div class="nn nn-ov">Vaatwasser zoutbak</div><div class="ns">it's starting to smell</div></div><div class="nd" style="color:var(--terra);">5d</div></div>
+        <div class="ncard"><div class="nci" style="background:var(--cvb);"><svg viewBox="0 0 24 24" style="stroke:var(--cv);"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg></div><div class="nb"><div class="nn">Winterbanden</div><div class="ns">giving you the look</div></div><div class="nd" style="color:var(--ap-dk);">do 20</div></div>
+        <div class="ncard"><div class="nci" style="background:var(--csb);"><svg viewBox="0 0 24 24" style="stroke:var(--cs);"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div><div class="nb"><div class="nn">Netflix review</div><div class="ns">quietly charging away</div></div><div class="nd" style="color:rgba(26,22,18,0.2);">apr 2</div></div>
+      </div>
+    </div>
+
+    <div class="cgroup">
+      <div class="cgroup-title">Done overlay + Pro badge</div>
+      <div class="cgroup-row" style="align-items:center;">
+        <div class="done-mini">
+          <div class="dm-ii"><div class="dm-l"></div><div class="dm-r"><div class="dm-dot"></div></div></div>
+          <div class="dm-title">Done. <em>Your dishwasher approves.</em></div>
+          <div class="dm-sub">Next in 6 weeks</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="rcard" style="max-width:260px;">
+            <div class="rcard-title">Pro badge <span class="tag tag-new">new v2.1</span> <span class="tag tag-pro">plum-lt</span></div>
+            <div class="rcard-body">Full pill style, profile screen only. <code>#9B7FD4</code> dot and text, 10% opacity bg, 20% opacity border.<br><br>
+              <div style="margin-top:8px;"><div class="pro-pill"><div class="pro-dot"></div>nudgii Pro</div></div>
+            </div>
+          </div>
+          <div class="rcard" style="max-width:260px;">
+            <div class="rcard-title">Plum sacred <span class="tag tag-never">never elsewhere</span></div>
+            <div class="rcard-body">Plum (<code>#2D1F4A</code>) appears only in the done overlay background. Plum-lt (<code>#9B7FD4</code>) has two roles: <strong>CTA button</strong> and <strong>Pro badge</strong>. It does not appear in category chips, section headers, card backgrounds, or status labels.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- 08 APP ICONS -->
+  <section id="icons">
+    <div class="sec-eye">08</div>
+    <h2 class="sec-title">App icons</h2>
+    <p class="sec-desc">Two variants. Plum ships by default. Apricot unlocks with Pro.</p>
+
+    <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-end;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+        <svg width="88" height="88" viewBox="0 0 80 80" style="border-radius:20px;display:block;box-shadow:0 12px 32px rgba(45,31,74,0.35);"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
+        <div style="font-size:11px;color:var(--mid);">Plum · Default</div>
+        <span class="tag tag-lock">Ships with app</span>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+        <svg width="88" height="88" viewBox="0 0 80 80" style="border-radius:20px;display:block;box-shadow:0 12px 32px rgba(200,120,74,0.35);"><rect width="80" height="80" fill="#C8784A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="rgba(245,240,232,0.38)"/><circle cx="57" cy="22" r="7" fill="#1A1612"/></svg>
+        <div style="font-size:11px;color:var(--mid);">Apricot · Pro</div>
+        <span class="tag tag-pro">Pro perk</span>
+      </div>
+      <div style="max-width:280px;align-self:center;">
+        <div class="rcard">
+          <div class="rcard-title">Icon rules</div>
+          <div class="rcard-body">Slate icon is mothballed — not deleted, not shipped. Add in v1.1 if users request.<br><br>Export sizes: 40×40, 60×60, 76×76, 120×120, 1024×1024. All iOS continuous corner mask. No transparency.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- 09 MOTION -->
+  <section id="motion">
+    <div class="sec-eye">09</div>
+    <h2 class="sec-title">Motion</h2>
+    <p class="sec-desc">Purposeful. Motion communicates state change, never decorates.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;" class="motion-grid">
+      <div class="rcard"><div class="rcard-title">Fast · 150ms ease-out</div><div class="rcard-body">Button press, chip tap, checkbox fill.</div></div>
+      <div class="rcard"><div class="rcard-title">Default · 250ms ease-in-out</div><div class="rcard-body">Card appear, expand/collapse, filter switch.</div></div>
+      <div class="rcard"><div class="rcard-title">Spring · 400–450ms <code style="font-size:10px;">cubic-bezier(0.34,1.56,0.64,1)</code></div><div class="rcard-body">Done overlay ii mark scale. Done overlay headline translateY. The only theatrical motion in the app.</div></div>
+      <div class="rcard"><div class="rcard-title">Page · 300ms ease-in-out</div><div class="rcard-body">Screen transitions — slide in from right.</div></div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <div class="rule"></div>
+
+  <!-- 10 ICON SYSTEM -->
+  <section id="icons-system">
+    <div class="sec-eye">10</div>
+    <h2 class="sec-title">Icon system</h2>
+    <p class="sec-desc">Phosphor Icons · regular weight · outline only throughout. One library, one weight, no exceptions.</p>
+
+    <div class="rcard">
+      <div class="rcard-title">Library &amp; style <span class="tag tag-lock">locked</span></div>
+      <div class="rcard-body">
+        <strong>Library: Phosphor Icons</strong> — six weights available, nudgii uses regular weight only.<br>
+        <strong>Style: outline throughout</strong> — no filled icons anywhere in the app. Consistent with the restrained, editorial personality of the design system.<br><br>
+        Flutter package: <code>flutter_phosphor_icons</code>. Figma: Phosphor Icons plugin (free).
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="rcard-title">Sizes by zone <span class="tag tag-lock">locked</span></div>
+      <div class="rcard-body">
+        <code>12px</code> — inside category chip (task cards, welcome preview cards)<br>
+        <code>14px</code> — action buttons (search, settings, camera, close)<br>
+        <code>16px</code> — mic icon inside CTA button<br>
+        <code>19–20px</code> — tab bar icons<br><br>
+        Never mix sizes within the same zone. Never use an icon outside its defined zone size.
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="rcard-title">Stroke width rules</div>
+      <div class="rcard-body">
+        <code>stroke-width: 1.5</code> — all outline icons at 14–20px<br>
+        <code>stroke-width: 1.8</code> — mic icon inside CTA button (needs slightly more presence)<br>
+        <code>stroke-width: 1.8</code> — icons at 12px in category chips (compensates for small size on cream)<br><br>
+        Never use weight below 1.5 — disappears on cream at small sizes.
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="rcard-title">Color rules by zone</div>
+      <div class="rcard-body">
+        Tab bar active: <code>ink #1A1612</code><br>
+        Tab bar inactive: <code>ink at 18% opacity</code><br>
+        Action button on ghost bg: <code>mid #8A8070</code><br>
+        Action button on CTA bg: <code>cta-fg #FAF8FF</code><br>
+        Category chip icons: category color token only (e.g. <code>#C87850</code> for home)<br>
+        Status icons in pills: status color token (terra / garden / mid)<br><br>
+        <strong>Never use category colors on non-category icons.</strong> The category color system is separate from the UI icon color system.
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="rcard-title">Revised icons — 3 changes <span class="tag tag-new">updated v2.3</span></div>
+      <div class="rcard-body">
+        <strong>Settings:</strong> <code>Faders</code> — three vertical sliders. Reads as preferences/personalisation, not mechanical configuration. Replaces <code>GearSix</code>.<br><br>
+        <strong>Camera / AI scan:</strong> <code>Scan</code> — four corner brackets with a dashed scan line. Universally understood as "scan this object." Replaces <code>CameraPlus</code> which implied photography.<br><br>
+        <strong>Edit / rename:</strong> <code>PencilLine</code> — pencil with a baseline. Reads as "edit text content." Replaces <code>PencilSimple</code> which was too generic.
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="rcard-title">Tab bar — floating pill <span class="tag tag-new">updated v2.3</span></div>
+      <div class="rcard-body">
+        nudgii uses a <strong>floating pill tab bar</strong> — a white rounded card that hovers above screen content with a shadow. No hard border-top edge. Content scrolls behind it.<br><br>
+        <strong>Spec:</strong> background <code>white</code> · border-radius <code>22px</code> · padding <code>9px 4px 11px</code> · shadow <code>0 4px 20px rgba(26,22,18,0.11)</code> · border <code>1px solid rgba(26,22,18,0.07)</code> · bottom <code>14px</code> from screen edge.<br><br>
+        Active tab: full <code>ink</code> + 3px <code>cta</code> pip below label. Inactive: <code>ink 20% opacity</code>.
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="rcard-title">FAB — floating action button <span class="tag tag-new">updated v2.3</span></div>
+      <div class="rcard-body">
+        <strong>Position:</strong> bottom-right, adjacent to the tab pill. Never inside the pill.<br>
+        <strong>Shape:</strong> rounded square <code>46×46px</code>, border-radius <code>15px</code>. Not a circle — matches the pill's visual language.<br>
+        <strong>Color:</strong> <code>cta #9B7FD4</code> background, <code>cta-fg #FAF8FF</code> Plus icon. Shadow <code>0 4px 16px rgba(155,127,212,0.35)</code>.<br>
+        <strong>On tap:</strong> Plus rotates to × (45° transform, spring easing). Scrim dims content to <code>rgba(26,22,18,0.18)</code>. Action sheet animates up from bottom-right.<br><br>
+        <strong>Action sheet order — ergonomics first:</strong><br>
+        ↑ Top (furthest reach) — <em>Ik weet wat ik nodig heb</em> · direct search · power users<br>
+        · Middle — <em>Laat me zien</em> · browse categories<br>
+        ↓ Bottom (nearest thumb) — <em>Vertel het me</em> · voice · primary path<br><br>
+        Voice is at the bottom because it is the primary action and the thumb naturally rests nearest the FAB after tapping it.
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="rcard-title">Touch targets <span class="tag tag-never">never smaller</span></div>
+      <div class="rcard-body">
+        Minimum tap target: <strong>44×44px always</strong> — Apple HIG requirement, no exceptions.<br>
+        The visual icon can be 14–20px. The tappable area must be 44×44px minimum.<br>
+        In Flutter: wrap icon buttons in <code>SizedBox(width: 44, height: 44)</code> with centered icon, or use <code>IconButton</code> which handles this automatically.
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="rcard-title"><span class="tag tag-never">never</span> What not to do</div>
+      <div class="rcard-body">
+        Never mix Phosphor with any other icon library (SF Symbols, Material, Lucide) in the same screen.<br>
+        Never use a filled icon — outline only, always.<br>
+        Never resize icons outside the defined zone sizes.<br>
+        Never use an icon purely for decoration — every icon must carry meaning.<br>
+        Never use category colors on tab bar or action button icons.<br>
+        Never use <code>GearSix</code>, <code>CameraPlus</code>, or <code>PencilSimple</code> — replaced in v2.3.
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 FIGMA WORKFLOW -->
+  <section id="figma">
+    <div class="sec-eye">11</div>
+    <h2 class="sec-title">Figma workflow</h2>
+    <p class="sec-desc">Solo developer setup. Fast, consistent, handoff-ready without becoming a second job.</p>
+
+    <div class="figma-grid">
+      <div class="fstep"><div class="fstep-num">01</div><div class="fstep-title">Set up Variables first</div><div class="fstep-body">Before any frames. Create two collections:<br><strong>Color:</strong> <code>color/cream</code>, <code>color/ink</code>, <code>color/apricot-dk</code>, <code>color/terra</code>, <code>color/plum</code>, <code>color/plum-lt</code> etc.<br><strong>Category:</strong> <code>cat/home</code>, <code>cat/home-bg</code> etc.<br><br>30 minutes once. Saves hours of find-and-replace.</div></div>
+      <div class="fstep"><div class="fstep-num">02</div><div class="fstep-title">One Components file</div><div class="fstep-body">File: <strong>nudgii · Components</strong>. Publish as Team Library. Components: nudge card, filter chip, button (3 variants), tab bar, done overlay, category icon, section label, streak row, pro badge.<br><br>Every screen file uses these — change once, updates everywhere.</div></div>
+      <div class="fstep"><div class="fstep-num">03</div><div class="fstep-title">One file per flow</div><div class="fstep-body">File 1: Onboarding · File 2: Dashboard · File 3: Item + task detail · File 4: Profile + settings.<br><br>Frame names = Flutter route names. <code>welcome/path-a-btn</code> not "Button 3".</div></div>
+      <div class="fstep"><div class="fstep-num">04</div><div class="fstep-title">HTML files as reference</div><div class="fstep-body">Screenshot each HTML file at 2x. Place as "Reference" layer in Figma. Rebuild on top using components + variables.<br><br>20–30 min per screen. Rebuilding is also a design review.</div></div>
+      <div class="fstep"><div class="fstep-num">05</div><div class="fstep-title">Dev Mode + Tokens Studio</div><div class="fstep-body">Figma Dev Mode (free) → exact spacing + properties for Flutter.<br>Tokens Studio plugin → syncs Figma variables to JSON in your repo. Variable names match Flutter token names exactly: <code>colorInk</code>, <code>colorApricotDk</code>.</div></div>
+      <div class="fstep"><div class="fstep-num">06</div><div class="fstep-title">Prototype the overlay first</div><div class="fstep-body">Wire the done overlay with Smart Animate, scale + opacity, 400ms, spring easing. Show to 2–3 people before writing any Flutter code. Watch where they hesitate — that's where the design has a question mark.</div></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;">
+      <div class="rcard" style="border-color:rgba(196,80,58,0.15);background:rgba(196,80,58,0.03);">
+        <div class="rcard-title" style="color:var(--terra);">Don't do this</div>
+        <div class="rcard-body">Don't design directly in the handoff file. Design in "Working" page, copy finished frames to "Handoff" page. Prevents accidental edits to locked screens.</div>
+      </div>
+      <div class="rcard" style="border-color:rgba(90,144,96,0.18);background:rgba(90,144,96,0.04);">
+        <div class="rcard-title" style="color:var(--cg);">The one hour that saves ten</div>
+        <div class="rcard-body">Name every layer before building the next screen. "Frame 47" is useless. <code>dashboard/nudge-card/overdue</code> is searchable, readable, and maps to Flutter.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- 11 LOCKED RULES -->
+  <section id="rules">
+    <div class="sec-eye">12</div>
+    <h2 class="sec-title">Locked rules</h2>
+    <p class="sec-desc">These don't get questioned in design reviews. They are decided.</p>
+
+    <div class="locked-grid">
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-never">never</span> Gradient anywhere</div><div class="rcard-body">No gradient backgrounds, headers, or CTAs. Warmth comes from cream + apricot accent + typography weight. Gradients read as tacky at the quality level nudgii targets.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-never">never</span> Left-border accent lines</div><div class="rcard-body">Colored left stripe on cards is the most overused pattern in AI-generated UI. Status lives in the date label color only. No exceptions.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-never">never</span> Plum outside done overlay</div><div class="rcard-body">Deep plum <code>#2D1F4A</code> appears only in the done overlay background. The moment it appears on a chip, header, or badge the overlay loses its impact.<br><br>Light plum <code>#9B7FD4</code> has two sanctioned uses only: the CTA button (and its echoes — active chip, tab pip, add button) and the Pro badge. It never appears in category icons, card backgrounds, section labels, or any status element.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-never">never</span> Category colors on status</div><div class="rcard-body">A slate vehicle icon is always slate — overdue or not. The icon tells WHAT, the date tells WHEN. Two independent systems that never overlap.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-never">never</span> Blue-tinted dark bg</div><div class="rcard-body">Old ink <code>#1E2832</code> had a blue hue — removed. Dark base is deep sage <code>#111614</code>. No blue, no cold, no developer-tool feeling.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-lock">always</span> nudgii lowercase</div><div class="rcard-body">Always nudgii — never Nudgii, never NUDGII. In all app copy, marketing, documentation, and code comments. The double-i is the brand's typographic signature.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-lock">always</span> One serif moment per screen</div><div class="rcard-body">DM Serif Display appears once per screen. Welcome: headline. Dashboard: greeting. Detail: witty opener. Done overlay: confirmation. Never two visible simultaneously.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-lock">always</span> White cards on cream</div><div class="rcard-body">Task cards and UI cards are white on cream. Subtle but essential — creates depth without contrast. Never use off-white for cards on cream — they merge.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-lock">always</span> CTA = light plum <span class="tag tag-new">updated v2.2</span></div><div class="rcard-body"><code>#9B7FD4</code> on all primary action buttons. Pulled directly from the icon's right pill — the color thread is icon → CTA → done overlay. Lavender-white <code>#FAF8FF</code> text. Never ink, never apricot, never green. Apricot-dk is now status dates only.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-lock">always</span> Sentence case everywhere</div><div class="rcard-body">Buttons, chips, labels, section headers — sentence case. Never Title Case. Never ALL CAPS in user-facing copy. This includes filter chip labels and tab bar labels.</div></div>
+    </div>
+  </section>
+
+  <div class="rule" style="margin-top:60px;"></div>
+  <div style="padding:28px 0 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;">
+    <div style="display:flex;align-items:center;gap:9px;">
+      <svg width="18" height="18" viewBox="0 0 80 80" style="border-radius:4px;"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
+      <span style="font-size:13px;font-weight:500;color:var(--ink);">nudgii Design System v2.3 · Final</span>
+    </div>
+    <div style="font-size:12px;color:var(--mid);">Elf Consult · March 2026 · Next: Figma Variables →</div>
+  </div>
+
+</div>
+
+<script>
+const secs=document.querySelectorAll('section[id]');
+const links=document.querySelectorAll('.nav-link');
+const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){links.forEach(l=>l.classList.remove('active'));const a=document.querySelector(`.nav-link[href="#${en.target.id}"]`);if(a)a.classList.add('active');}});},{rootMargin:'-30% 0px -60% 0px'});
+secs.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · FAB + Action Sheet</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --cream:#F5F0E8;--ink:#1A1612;--mid:#8A8070;--mid-lt:#B0A898;
+  --border:rgba(26,22,18,0.08);--border-md:rgba(26,22,18,0.12);
+  --cta:#9B7FD4;--cta-fg:#FAF8FF;
+  --ap:#E8A87C;--ap-dk:#C8784A;--terra:#C4503A;
+  --ch:#C87850;--chb:rgba(200,120,80,0.10);
+  --cv:#4A82A0;--cvb:rgba(74,130,160,0.10);
+  --cg:#5A9060;--cgb:rgba(90,144,96,0.10);
+  --cs:#8060A8;--csb:rgba(128,96,168,0.10);
+}
+body{background:#BDB8AE;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;padding:40px 16px 80px;display:flex;flex-direction:column;align-items:center;gap:48px;}
+
+.page-eye{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:rgba(26,22,18,0.28);text-align:center;}
+.sec-lbl{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:rgba(26,22,18,0.28);width:100%;max-width:1100px;}
+
+.row{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;align-items:flex-start;width:100%;max-width:1100px;}
+.pcol{display:flex;flex-direction:column;align-items:center;gap:10px;}
+.pcol-lbl{font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(26,22,18,0.35);text-align:center;max-width:210px;line-height:1.5;}
+.pcol-lbl small{display:block;font-size:9px;color:rgba(26,22,18,0.22);margin-top:2px;font-weight:400;letter-spacing:0;font-style:italic;}
+
+/* ── PHONE ── */
+.phone{
+  width:290px;border-radius:42px;overflow:hidden;
+  background:var(--cream);
+  border:1.5px solid rgba(26,22,18,0.09);
+  box-shadow:0 24px 56px rgba(26,22,18,0.18),0 6px 16px rgba(26,22,18,0.07),inset 0 1px 0 rgba(255,255,255,0.65);
+  position:relative;
+  height:560px; /* fixed height so overlay works */
+}
+.notch{height:22px;background:var(--cream);display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px;}
+.np{width:74px;height:7px;border-radius:100px;background:rgba(26,22,18,0.10);}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:5px 17px 0;font-size:11px;font-weight:500;color:rgba(26,22,18,0.35);}
+.batt{width:13px;height:6px;border:1.5px solid rgba(26,22,18,0.28);border-radius:2px;position:relative;}
+.batt::after{content:'';position:absolute;left:1px;top:1px;right:2px;bottom:1px;background:rgba(26,22,18,0.3);border-radius:1px;}
+
+/* screen content */
+.sc{padding:11px 15px 0;flex:1;}
+.hdr-eye{font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--mid);margin-bottom:3px;}
+.hdr-g{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);line-height:0.95;letter-spacing:-0.3px;margin-bottom:3px;}
+.hdr-g em{font-style:italic;color:var(--ap);}
+.hdr-ctx{font-size:9px;font-style:italic;color:rgba(26,22,18,0.3);margin-bottom:10px;}
+.slbl{font-size:8px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--mid-lt);padding:7px 0 4px;}
+.nc{background:white;border-radius:9px;border:1px solid var(--border);padding:7px 10px;margin-bottom:4px;display:flex;align-items:center;gap:7px;box-shadow:0 1px 2px rgba(26,22,18,0.03);}
+.nci{width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.nci svg{width:10px;height:10px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.nb{flex:1;min-width:0;}
+.nn{font-size:10px;font-weight:500;color:var(--ink);}
+.nn-ov{color:var(--terra);}
+.ns{font-size:8px;font-style:italic;color:var(--mid);margin-top:1px;}
+.nd{font-size:9px;font-weight:500;flex-shrink:0;}
+
+/* ── SCRIM (dim overlay when action sheet open) ── */
+.scrim{
+  position:absolute;inset:0;z-index:10;
+  background:rgba(26,22,18,0);
+  pointer-events:none;
+  transition:background 0.22s ease;
+  border-radius:42px;
+}
+.scrim.show{background:rgba(26,22,18,0.18);pointer-events:auto;}
+
+/* ── ACTION SHEET ── */
+.action-sheet{
+  position:absolute;
+  right:12px;
+  bottom:80px; /* sits just above the tab bar + FAB zone */
+  width:188px;
+  z-index:20;
+  display:flex;flex-direction:column;gap:6px;
+  opacity:0;
+  transform:translateY(16px) scale(0.95);
+  pointer-events:none;
+  transition:opacity 0.22s cubic-bezier(0.34,1.2,0.64,1),
+             transform 0.28s cubic-bezier(0.34,1.4,0.64,1);
+  transform-origin:bottom right;
+}
+.action-sheet.show{
+  opacity:1;
+  transform:translateY(0) scale(1);
+  pointer-events:auto;
+}
+
+/* each action option */
+.ao{
+  background:white;border-radius:16px;
+  border:1px solid rgba(26,22,18,0.07);
+  box-shadow:0 4px 16px rgba(26,22,18,0.10),0 1px 4px rgba(26,22,18,0.06);
+  padding:11px 13px;
+  display:flex;align-items:center;gap:10px;
+  cursor:pointer;
+  transition:transform 0.1s,box-shadow 0.1s;
+}
+.ao:active{transform:scale(0.97);box-shadow:0 1px 6px rgba(26,22,18,0.08);}
+
+/* stagger animation */
+.ao:nth-child(1){transition-delay:0.04s;}
+.ao:nth-child(2){transition-delay:0.08s;}
+.ao:nth-child(3){transition-delay:0.12s;}
+
+.ao-icon{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ao-icon svg{fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.ao-body{flex:1;}
+.ao-title{font-size:12px;font-weight:500;color:var(--ink);letter-spacing:-0.1px;}
+.ao-sub{font-size:9px;font-style:italic;color:var(--mid);margin-top:1px;}
+
+/* ── BOTTOM ZONE — tab bar + FAB ── */
+.bottom-zone{
+  position:absolute;
+  bottom:14px;left:12px;right:12px;
+  display:flex;gap:8px;align-items:flex-end;
+  z-index:30;
+}
+
+/* floating pill */
+.pill{
+  flex:1;
+  background:white;
+  border-radius:22px;
+  padding:9px 4px 11px;
+  display:flex;justify-content:space-around;align-items:center;
+  box-shadow:0 4px 20px rgba(26,22,18,0.11),0 1px 4px rgba(26,22,18,0.06),inset 0 1px 0 rgba(255,255,255,0.8);
+  border:1px solid rgba(26,22,18,0.07);
+}
+.pi{display:flex;flex-direction:column;align-items:center;gap:2px;padding:0 3px;}
+.pi svg{width:18px;height:18px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke:rgba(26,22,18,0.2);}
+.pi.on svg{stroke:var(--ink);}
+.pi-l{font-size:7px;color:rgba(26,22,18,0.2);}
+.pi.on .pi-l{color:var(--ink);font-weight:500;}
+.pi-pip{width:3px;height:3px;border-radius:50%;background:var(--cta);}
+
+/* FAB */
+.fab{
+  width:46px;height:46px;border-radius:15px;
+  background:var(--cta);
+  border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  box-shadow:0 4px 16px rgba(155,127,212,0.35),0 1px 4px rgba(155,127,212,0.2);
+  transition:transform 0.18s cubic-bezier(0.34,1.4,0.64,1),box-shadow 0.18s ease;
+  position:relative;z-index:31;
+}
+.fab.open{transform:rotate(45deg);}
+.fab:active{transform:scale(0.93);}
+.fab svg{width:17px;height:17px;fill:none;stroke:var(--cta-fg);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;transition:transform 0.18s;}
+
+/* ── ANNOTATION PANEL ── */
+.ann-panel{display:flex;flex-direction:column;gap:10px;width:220px;padding-top:22px;}
+.ann{background:rgba(255,255,255,0.52);border:1px solid rgba(26,22,18,0.08);border-radius:12px;padding:13px 15px;}
+.ann-lbl{font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(26,22,18,0.28);margin-bottom:7px;}
+.ann-body{font-size:11px;color:rgba(26,22,18,0.48);line-height:1.65;}
+.ann-body strong{color:rgba(26,22,18,0.72);font-weight:500;}
+.ann-body code{font-family:monospace;font-size:10px;background:rgba(26,22,18,0.07);padding:1px 4px;border-radius:3px;color:var(--ink);}
+
+/* ── ICON UPDATE STRIP ── */
+.icon-strip{width:100%;max-width:1100px;background:white;border:1px solid rgba(26,22,18,0.08);border-radius:14px;padding:20px 24px;box-shadow:0 2px 10px rgba(26,22,18,0.05);}
+.is-title{font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(26,22,18,0.28);margin-bottom:16px;}
+.is-row{display:flex;gap:20px;flex-wrap:wrap;}
+.is-item{display:flex;flex-direction:column;align-items:center;gap:6px;}
+.is-box{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;}
+.is-name{font-size:10px;font-weight:500;color:var(--ink);text-align:center;}
+.is-ph{font-size:9px;color:var(--mid);font-family:monospace;text-align:center;}
+.tag-locked{font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;background:rgba(90,144,96,0.12);color:#3A6E40;}
+</style>
+</head>
+<body>
+
+<div class="page-eye">nudgii · Floating tab bar + FAB action sheet · March 2026</div>
+
+<!-- MAIN DEMO ROW -->
+<div class="row">
+
+  <!-- STATE 1: DEFAULT — tab bar + FAB visible, sheet closed -->
+  <div class="pcol">
+    <div class="pcol-lbl">Default state
+      <small>Pill + FAB always visible at bottom right</small>
+    </div>
+    <div class="phone">
+      <div class="notch"><div class="np"></div></div>
+      <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+      <div class="sc">
+        <div class="hdr-eye">Wednesday · 18 March</div>
+        <div class="hdr-g">Goedemorgen, <em>Martijn.</em></div>
+        <div class="hdr-ctx">3 things need attention</div>
+        <div class="slbl">Overdue</div>
+        <div class="nc"><div class="nci" style="background:var(--chb);"><svg viewBox="0 0 24 24" style="stroke:var(--ch);"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="nb"><div class="nn nn-ov">Vaatwasser zoutbak</div><div class="ns">it's starting to smell</div></div><div class="nd" style="color:var(--terra);">5d</div></div>
+        <div class="nc"><div class="nci" style="background:var(--cvb);"><svg viewBox="0 0 24 24" style="stroke:var(--cv);"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg></div><div class="nb"><div class="nn nn-ov">Winterbanden</div><div class="ns">giving you the look</div></div><div class="nd" style="color:var(--terra);">2d</div></div>
+        <div class="slbl">This week</div>
+        <div class="nc"><div class="nci" style="background:var(--cgb);"><svg viewBox="0 0 24 24" style="stroke:var(--cg);"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1 1.1 2.8.8 5.3-.6 7.4"/></svg></div><div class="nb"><div class="nn">Olijfboom snoeien</div><div class="ns">februari · België</div></div><div class="nd" style="color:var(--ap-dk);">do 20</div></div>
+        <div class="nc"><div class="nci" style="background:var(--csb);"><svg viewBox="0 0 24 24" style="stroke:var(--cs);"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div><div class="nb"><div class="nn">Netflix review</div><div class="ns">quietly charging away</div></div><div class="nd" style="color:rgba(26,22,18,0.18);">apr 2</div></div>
+      </div>
+      <div class="bottom-zone">
+        <div class="pill">
+          <div class="pi on"><svg viewBox="0 0 256 256"><rect x="40" y="40" width="176" height="176" rx="16" stroke="var(--ink)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"/><line x1="176" y1="24" x2="176" y2="56" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><line x1="80" y1="24" x2="80" y2="56" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><line x1="40" y1="88" x2="216" y2="88" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/></svg><div class="pi-pip"></div><div class="pi-l">Today</div></div>
+          <div class="pi"><svg viewBox="0 0 256 256"><path d="M45.15 230.11a8 8 0 0 1-9.26-9.26l9.45-42.51A96 96 0 1 1 136 224a95.23 95.23 0 0 1-45.83-11.65Z" stroke="rgba(26,22,18,0.2)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><div class="pi-l">Ask</div></div>
+          <div class="pi"><svg viewBox="0 0 256 256"><circle cx="128" cy="96" r="64" stroke="rgba(26,22,18,0.2)" stroke-width="16" fill="none"/><path d="M32 216c19.37-33.47 54.55-56 96-56s76.63 22.53 96 56" stroke="rgba(26,22,18,0.2)" stroke-width="16" stroke-linecap="round" fill="none"/></svg><div class="pi-l">You</div></div>
+        </div>
+        <div class="fab">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATE 2: FAB TAPPED — action sheet open (interactive) -->
+  <div class="pcol">
+    <div class="pcol-lbl">FAB tapped · action sheet
+      <small>Tap the + to toggle · 3 paths</small>
+    </div>
+    <div class="phone" id="phone2">
+      <div class="notch"><div class="np"></div></div>
+      <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+
+      <!-- scrim dims content behind sheet -->
+      <div class="scrim show" id="scrim2" onclick="toggleSheet()"></div>
+
+      <div class="sc">
+        <div class="hdr-eye">Wednesday · 18 March</div>
+        <div class="hdr-g">Goedemorgen, <em>Martijn.</em></div>
+        <div class="hdr-ctx">3 things need attention</div>
+        <div class="slbl">Overdue</div>
+        <div class="nc"><div class="nci" style="background:var(--chb);"><svg viewBox="0 0 24 24" style="stroke:var(--ch);"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="nb"><div class="nn nn-ov">Vaatwasser zoutbak</div><div class="ns">it's starting to smell</div></div><div class="nd" style="color:var(--terra);">5d</div></div>
+        <div class="nc"><div class="nci" style="background:var(--cvb);"><svg viewBox="0 0 24 24" style="stroke:var(--cv);"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg></div><div class="nb"><div class="nn nn-ov">Winterbanden</div><div class="ns">giving you the look</div></div><div class="nd" style="color:var(--terra);">2d</div></div>
+        <div class="slbl">This week</div>
+        <div class="nc"><div class="nci" style="background:var(--cgb);"><svg viewBox="0 0 24 24" style="stroke:var(--cg);"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1 1.1 2.8.8 5.3-.6 7.4"/></svg></div><div class="nb"><div class="nn">Olijfboom snoeien</div><div class="ns">februari · België</div></div><div class="nd" style="color:var(--ap-dk);">do 20</div></div>
+      </div>
+
+      <!-- Action sheet — 3 options, staggered in from bottom-right -->
+      <div class="action-sheet show" id="sheet2">
+
+        <!-- Option 1: Voice -->
+        <div class="ao">
+          <div class="ao-icon" style="background:rgba(155,127,212,0.12);">
+            <svg width="16" height="16" viewBox="0 0 256 256" fill="none" stroke="var(--cta)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><rect x="88" y="24" width="80" height="128" rx="40"/><path d="M208 128a80 80 0 0 1-160 0"/><line x1="128" y1="208" x2="128" y2="240"/><line x1="96" y1="240" x2="160" y2="240"/></svg>
+          </div>
+          <div class="ao-body">
+            <div class="ao-title">Vertel het me</div>
+            <div class="ao-sub">spreek of typ het</div>
+          </div>
+        </div>
+
+        <!-- Option 2: Browse categories -->
+        <div class="ao">
+          <div class="ao-icon" style="background:rgba(26,22,18,0.06);">
+            <svg width="16" height="16" viewBox="0 0 256 256" fill="none" stroke="var(--mid)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><rect x="32" y="32" width="80" height="80" rx="8"/><rect x="144" y="32" width="80" height="80" rx="8"/><rect x="32" y="144" width="80" height="80" rx="8"/><rect x="144" y="144" width="80" height="80" rx="8"/></svg>
+          </div>
+          <div class="ao-body">
+            <div class="ao-title">Blader per categorie</div>
+            <div class="ao-sub">kies uit thuis, auto, tuin…</div>
+          </div>
+        </div>
+
+        <!-- Option 3: Search/type -->
+        <div class="ao">
+          <div class="ao-icon" style="background:rgba(26,22,18,0.06);">
+            <svg width="16" height="16" viewBox="0 0 256 256" fill="none" stroke="var(--mid)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><circle cx="112" cy="112" r="80"/><line x1="168" y1="168" x2="224" y2="224"/></svg>
+          </div>
+          <div class="ao-body">
+            <div class="ao-title">Ik weet wat ik nodig heb</div>
+            <div class="ao-sub">zoek direct</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="bottom-zone">
+        <div class="pill" style="opacity:0.5;">
+          <div class="pi on"><svg viewBox="0 0 256 256"><rect x="40" y="40" width="176" height="176" rx="16" stroke="var(--ink)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"/><line x1="176" y1="24" x2="176" y2="56" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><line x1="80" y1="24" x2="80" y2="56" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><line x1="40" y1="88" x2="216" y2="88" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/></svg><div class="pi-pip"></div><div class="pi-l">Today</div></div>
+          <div class="pi"><svg viewBox="0 0 256 256"><path d="M45.15 230.11a8 8 0 0 1-9.26-9.26l9.45-42.51A96 96 0 1 1 136 224a95.23 95.23 0 0 1-45.83-11.65Z" stroke="rgba(26,22,18,0.2)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><div class="pi-l">Ask</div></div>
+          <div class="pi"><svg viewBox="0 0 256 256"><circle cx="128" cy="96" r="64" stroke="rgba(26,22,18,0.2)" stroke-width="16" fill="none"/><path d="M32 216c19.37-33.47 54.55-56 96-56s76.63 22.53 96 56" stroke="rgba(26,22,18,0.2)" stroke-width="16" stroke-linecap="round" fill="none"/></svg><div class="pi-l">You</div></div>
+        </div>
+        <!-- FAB rotated to × when open -->
+        <div class="fab open" onclick="toggleSheet()" id="fab2">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANNOTATION PANEL -->
+  <div class="ann-panel">
+    <div class="ann">
+      <div class="ann-lbl">Floating pill — specs</div>
+      <div class="ann-body">
+        Background: <code>white</code><br>
+        Border radius: <code>22px</code><br>
+        Padding: <code>9px 4px 11px</code><br>
+        Shadow: <code>0 4px 20px rgba(26,22,18,0.11)</code><br>
+        Bottom position: <code>14px</code> from screen bottom<br><br>
+        <strong>The pill floats above content.</strong> Content scrolls behind it. It never has a hard edge or background behind it.
+      </div>
+    </div>
+    <div class="ann">
+      <div class="ann-lbl">FAB — specs</div>
+      <div class="ann-body">
+        Size: <code>46×46px</code><br>
+        Border radius: <code>15px</code> — rounded square, not full circle<br>
+        Background: <code>cta #9B7FD4</code><br>
+        Icon: <code>Plus</code> → rotates to <code>×</code> when open<br>
+        Shadow: <code>0 4px 16px rgba(155,127,212,0.35)</code><br><br>
+        <strong>Rounded square, not circle</strong> — matches the pill's language and feels more considered than a typical circular FAB.
+      </div>
+    </div>
+    <div class="ann">
+      <div class="ann-lbl">Action sheet — 3 paths</div>
+      <div class="ann-body">
+        Appears from bottom-right, anchored to FAB.<br>
+        Width: <code>188px</code><br>
+        Cards: white, <code>16px</code> radius, shadow<br>
+        Stagger delay: 40/80/120ms<br>
+        Animation: <code>translateY + scale</code>, spring easing<br><br>
+        <strong>Same 3 paths as onboarding.</strong> Voice → Browse → Search. The same language throughout the whole app lifecycle.
+      </div>
+    </div>
+    <div class="ann">
+      <div class="ann-lbl">Scrim on open</div>
+      <div class="ann-body">
+        <code>rgba(26,22,18,0.18)</code> overlay dims the content behind the sheet. Tap scrim or FAB to close. Tab bar dims to <code>50% opacity</code> when sheet is open — sheet takes full focus.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- LOCKED ICON STRIP -->
+<div class="sec-lbl">3 icon updates · locked</div>
+<div class="icon-strip">
+  <div class="is-title">Replacing GearSix · CameraPlus · PencilSimple — these are now locked</div>
+  <div class="is-row">
+    <div class="is-item">
+      <div class="is-box" style="background:rgba(26,22,18,0.06);">
+        <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke="var(--mid)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><line x1="32" y1="72" x2="224" y2="72"/><line x1="32" y1="128" x2="224" y2="128"/><line x1="32" y1="184" x2="224" y2="184"/><line x1="80" y1="48" x2="80" y2="96"/><line x1="160" y1="104" x2="160" y2="152"/><line x1="96" y1="160" x2="96" y2="208"/></svg>
+      </div>
+      <div class="is-name">Settings</div>
+      <div class="is-ph">Faders</div>
+      <span class="tag-locked">locked</span>
+    </div>
+    <div class="is-item">
+      <div class="is-box" style="background:rgba(26,22,18,0.06);">
+        <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke="var(--mid)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><polyline points="80,40 40,40 40,80"/><polyline points="176,40 216,40 216,80"/><polyline points="80,216 40,216 40,176"/><polyline points="176,216 216,216 216,176"/><line x1="32" y1="128" x2="224" y2="128" stroke-width="12" stroke-dasharray="16 10" opacity="0.35"/></svg>
+      </div>
+      <div class="is-name">Scan / AI</div>
+      <div class="is-ph">Scan</div>
+      <span class="tag-locked">locked</span>
+    </div>
+    <div class="is-item">
+      <div class="is-box" style="background:rgba(26,22,18,0.06);">
+        <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke="var(--mid)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><path d="M200 40l16 16-96 96-32 16 16-32Z"/><line x1="32" y1="216" x2="224" y2="216"/></svg>
+      </div>
+      <div class="is-name">Edit / rename</div>
+      <div class="is-ph">PencilLine</div>
+      <span class="tag-locked">locked</span>
+    </div>
+
+    <!-- separator -->
+    <div style="width:1px;background:var(--border);margin:0 4px;align-self:stretch;"></div>
+
+    <!-- unchanged for reference -->
+    <div class="is-item" style="opacity:0.45;">
+      <div class="is-box" style="background:rgba(26,22,18,0.04);">
+        <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke="var(--mid-lt)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><rect x="40" y="40" width="176" height="176" rx="16"/><line x1="176" y1="24" x2="176" y2="56"/><line x1="80" y1="24" x2="80" y2="56"/><line x1="40" y1="88" x2="216" y2="88"/></svg>
+      </div>
+      <div class="is-name" style="opacity:0.5;">Tab Today</div>
+      <div class="is-ph" style="opacity:0.5;">CalendarBlank</div>
+      <span style="font-size:8px;color:var(--mid-lt);">unchanged</span>
+    </div>
+    <div class="is-item" style="opacity:0.45;">
+      <div class="is-box" style="background:rgba(26,22,18,0.04);">
+        <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke="var(--mid-lt)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><path d="M45.15 230.11a8 8 0 0 1-9.26-9.26l9.45-42.51A96 96 0 1 1 136 224a95.23 95.23 0 0 1-45.83-11.65Z"/></svg>
+      </div>
+      <div class="is-name" style="opacity:0.5;">Tab Ask</div>
+      <div class="is-ph" style="opacity:0.5;">ChatCircleQuestion</div>
+      <span style="font-size:8px;color:var(--mid-lt);">unchanged</span>
+    </div>
+    <div class="is-item" style="opacity:0.45;">
+      <div class="is-box" style="background:rgba(26,22,18,0.04);">
+        <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke="var(--mid-lt)" stroke-width="16" stroke-linecap="round"><circle cx="128" cy="96" r="64"/><path d="M32 216c19.37-33.47 54.55-56 96-56s76.63 22.53 96 56" stroke-linecap="round"/></svg>
+      </div>
+      <div class="is-name" style="opacity:0.5;">Tab You</div>
+      <div class="is-ph" style="opacity:0.5;">User</div>
+      <span style="font-size:8px;color:var(--mid-lt);">unchanged</span>
+    </div>
+  </div>
+</div>
+
+<div style="font-size:10px;color:rgba(26,22,18,0.18);letter-spacing:1.5px;text-transform:uppercase;text-align:center;">nudgii · Floating tab bar + FAB action sheet · March 2026 · Elf Consult</div>
+
+<script>
+let open = true; // starts open for demo
+
+function toggleSheet(){
+  open = !open;
+  const sheet = document.getElementById('sheet2');
+  const scrim = document.getElementById('scrim2');
+  const fab = document.getElementById('fab2');
+  if(open){
+    sheet.classList.add('show');
+    scrim.classList.add('show');
+    fab.classList.add('open');
+  } else {
+    sheet.classList.remove('show');
+    scrim.classList.remove('show');
+    fab.classList.remove('open');
+  }
+}
+</script>
+</body>
+</html>

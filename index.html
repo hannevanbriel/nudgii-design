@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · Design Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#F5F0E8;--ink:#1A1612;--cta:#9B7FD4;--cta-fg:#FAF8FF;--ap:#E8A87C;--ap-dk:#C8784A;--terra:#C4503A;--plum:#2D1F4A;--mid:#8A8070;--mid-lt:#B0A898;--ink-08:rgba(26,22,18,0.08);--ink-12:rgba(26,22,18,0.12);--ink-20:rgba(26,22,18,0.20)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.6}
+
+nav{position:sticky;top:0;z-index:100;background:var(--cream);border-bottom:1px solid var(--ink-12);padding:0 32px;display:flex;align-items:center;height:52px;gap:0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:32px}
+.ii{width:28px;height:28px;background:var(--plum);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;color:var(--cta-fg);font-size:13px}
+.wordmark{font-weight:500;font-size:15px;letter-spacing:-0.3px}
+.wordmark em{font-style:normal;color:var(--ap)}
+.navlinks{display:flex;gap:2px;flex:1}
+.nl{font-size:13px;color:var(--mid);text-decoration:none;padding:6px 12px;border-radius:6px;transition:all .15s}
+.nl:hover{color:var(--ink);background:var(--ink-08)}
+.nl.act{color:var(--ink);font-weight:500}
+.nav-ver{margin-left:auto;font-size:11px;color:var(--mid);font-family:monospace}
+
+/* hero */
+.hero{padding:56px 32px 40px;border-bottom:1px solid var(--ink-12)}
+.eyebrow{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:12px}
+.hero h1{font-family:'DM Serif Display',serif;font-size:40px;line-height:1.15;margin-bottom:10px}
+.hero h1 em{font-style:italic;color:var(--cta)}
+.hero-sub{font-size:15px;color:var(--mid);font-weight:300;max-width:520px;margin-bottom:32px}
+
+/* phase rail */
+.phases{display:flex;overflow-x:auto;padding-bottom:4px}
+.phase{flex-shrink:0;padding:14px 20px;background:#fff;border:1px solid var(--ink-12);border-right:none;min-width:160px}
+.phase:first-child{border-radius:10px 0 0 10px}
+.phase:last-child{border-right:1px solid var(--ink-12);border-radius:0 10px 10px 0}
+.phase-n{font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid-lt);margin-bottom:4px}
+.phase-name{font-size:13px;font-weight:500;margin-bottom:6px}
+.phase-bar{height:3px;background:var(--ink-08);border-radius:2px;margin-bottom:6px}
+.phase-fill{height:100%;border-radius:2px}
+.pf-active{background:var(--cta)}
+.pf-todo{background:var(--ink-12)}
+.phase-stat{font-size:11px;color:var(--mid)}
+
+/* decisions */
+.decisions{padding:40px 32px 0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:20px}
+.sec-title{font-family:'DM Serif Display',serif;font-size:24px}
+.sec-sub{font-size:13px;color:var(--mid)}
+.dec-list{display:flex;flex-direction:column;gap:8px;padding-bottom:40px}
+.dec{display:flex;gap:12px;background:#fff;border:1px solid rgba(196,80,58,0.18);border-radius:10px;padding:14px 16px}
+.dec-icon{width:20px;height:20px;border-radius:50%;background:rgba(196,80,58,0.10);color:var(--terra);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.dec-title{font-size:13px;font-weight:500;margin-bottom:3px}
+.dec-text{font-size:12px;color:var(--mid);line-height:1.5;margin-bottom:4px}
+.dec-rec{font-size:12px;font-weight:500;color:var(--ap-dk)}
+.dec-affects{font-size:11px;color:var(--mid-lt);margin-top:3px}
+
+/* flow groups */
+.flow-grp{padding:32px 32px 12px}
+.flow-label{font-size:11px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--mid);display:flex;align-items:center;gap:12px}
+.flow-label::after{content:'';flex:1;height:1px;background:var(--ink-12)}
+
+/* screen grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(276px,1fr));gap:10px;padding:0 32px}
+
+/* screen card */
+.sc{background:#fff;border:1px solid var(--ink-12);border-radius:12px;overflow:hidden;transition:all .18s;display:block;text-decoration:none}
+.sc:hover{border-color:var(--ink-20);transform:translateY(-1px)}
+.sc-head{padding:13px 15px 10px;border-bottom:1px solid var(--ink-08);display:flex;align-items:flex-start;gap:10px}
+.sc-id{font-size:10px;font-weight:500;letter-spacing:1px;color:var(--mid-lt);min-width:34px;padding-top:2px;font-family:monospace}
+.sc-name{font-size:14px;font-weight:500;flex:1;line-height:1.3}
+.flow-tag{font-size:10px;font-weight:500;padding:2px 7px;border-radius:100px;flex-shrink:0;margin-top:2px;white-space:nowrap}
+.ft-ob{background:rgba(155,127,212,0.10);color:#5C3E8A}
+.ft-db{background:rgba(232,168,124,0.12);color:#7A4A1A}
+.ft-tk{background:rgba(196,80,58,0.08);color:#7A2A1A}
+.ft-it{background:rgba(90,144,96,0.10);color:#2A5A30}
+.ft-ask{background:rgba(74,130,160,0.10);color:#1A4A60}
+.ft-pr{background:rgba(45,31,74,0.08);color:#2D1F4A}
+.ft-sys{background:rgba(138,128,112,0.10);color:#5A5040}
+.sc-body{padding:11px 15px}
+.nudge-row{display:flex;gap:7px;margin-bottom:9px;flex-wrap:wrap}
+.np{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;padding:4px 10px;border-radius:100px;border:1px solid var(--ink-12);text-decoration:none;color:var(--ink);transition:all .15s}
+.np:hover{border-color:var(--cta);color:var(--cta)}
+.np.off{opacity:0.32;pointer-events:none}
+.np .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.d-lo{background:var(--mid-lt)}
+.d-hi{background:var(--cta)}
+.d-sys{background:var(--ap)}
+.sbar{display:flex;align-items:center;gap:8px;padding-top:8px;border-top:1px solid var(--ink-08)}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:500;padding:3px 8px;border-radius:100px}
+.b-ready{background:rgba(90,144,96,0.10);color:#2A5A30}
+.b-ready::before{content:'';width:5px;height:5px;border-radius:50%;background:#5A9060;display:inline-block}
+.b-wip{background:rgba(155,127,212,0.10);color:#5C3E8A}
+.b-wip::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--cta);display:inline-block}
+.b-todo{background:rgba(138,128,112,0.08);color:var(--mid)}
+.b-todo::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--mid-lt);display:inline-block}
+.b-dec{background:rgba(196,80,58,0.07);color:#8B3020}
+.b-dec::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--terra);display:inline-block}
+.note{font-size:11px;color:var(--mid-lt);margin-left:auto;font-style:italic;text-align:right}
+
+/* system grid */
+.sys-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;padding:0 32px 40px}
+.sysc{background:#fff;border:1px solid var(--ink-12);border-radius:10px;padding:14px 15px;text-decoration:none;display:block;transition:all .18s;color:var(--ink)}
+.sysc:hover{border-color:var(--ink-20);transform:translateY(-1px)}
+.sysc-title{font-size:13px;font-weight:500;margin-bottom:3px}
+.sysc-sub{font-size:11px;color:var(--mid)}
+.sysc-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:500;padding:2px 7px;border-radius:100px;margin-top:8px}
+
+/* footer */
+footer{padding:28px 32px;border-top:1px solid var(--ink-12);display:flex;gap:14px;align-items:center;margin-top:48px}
+footer p{font-size:12px;color:var(--mid-lt)}
+footer strong{color:var(--mid);font-weight:500}
+.grp-pad{padding-bottom:32px}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="#top">
+    <div class="ii">ii</div>
+    <span class="wordmark">nudg<em>ii</em> design</span>
+  </a>
+  <div class="navlinks">
+    <a class="nl act" href="#screens">Screens</a>
+    <a class="nl" href="#system">Design system</a>
+    <a class="nl" href="#decisions">Open decisions</a>
+  </div>
+  <span class="nav-ver">v0.2 · Mar 2026</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <p class="eyebrow">nudgii · Design Handoff Hub</p>
+  <h1>Every screen.<br><em>Every nudge.</em><br>No questions needed.</h1>
+  <p class="hero-sub">Lo-fi nudges, hi-fi nudges, design system, and all decisions in one place. If a screen is marked "Ready for dev" — build it. If it isn't, it's not ready yet.</p>
+  <div class="phases">
+    <div class="phase">
+      <div class="phase-n">Phase 1</div>
+      <div class="phase-name">Design system</div>
+      <div class="phase-bar"><div class="phase-fill pf-active" style="width:65%"></div></div>
+      <div class="phase-stat">Tokens locked · Figma in progress</div>
+    </div>
+    <div class="phase">
+      <div class="phase-n">Phase 2</div>
+      <div class="phase-name">Lo-fi nudges</div>
+      <div class="phase-bar"><div class="phase-fill pf-active" style="width:11%"></div></div>
+      <div class="phase-stat">3 of 28 done</div>
+    </div>
+    <div class="phase">
+      <div class="phase-n">Phase 3</div>
+      <div class="phase-name">Hi-fi nudges</div>
+      <div class="phase-bar"><div class="phase-fill pf-active" style="width:27%"></div></div>
+      <div class="phase-stat">7 of 28 done</div>
+    </div>
+    <div class="phase">
+      <div class="phase-n">Phase 4</div>
+      <div class="phase-name">Prototype</div>
+      <div class="phase-bar"><div class="phase-fill pf-todo" style="width:0%"></div></div>
+      <div class="phase-stat">Not started</div>
+    </div>
+    <div class="phase">
+      <div class="phase-n">Phase 5</div>
+      <div class="phase-name">Handoff</div>
+      <div class="phase-bar"><div class="phase-fill pf-todo" style="width:0%"></div></div>
+      <div class="phase-stat">Not started</div>
+    </div>
+  </div>
+</section>
+
+<!-- OPEN DECISIONS -->
+<section id="decisions" class="decisions">
+  <div class="sec-head"><span class="sec-title">Open decisions</span><span class="sec-sub">Resolve before hi-fi starts on affected screens</span></div>
+  <div class="dec-list">
+    <div class="dec">
+      <div class="dec-icon">!</div>
+      <div>
+        <div class="dec-title">Done overlay — which trigger fires it?</div>
+        <div class="dec-text">Does the full-screen plum overlay fire from task detail "mark done", or only from the dashboard swipe-to-complete? If both, the overlay fires twice in one session.</div>
+        <div class="dec-rec">Recommendation: dashboard swipe only. Task detail gets the quieter in-screen completion banner.</div>
+        <div class="dec-affects">Affects: S-11, S-13, S-14</div>
+      </div>
+    </div>
+    <div class="dec">
+      <div class="dec-icon">!</div>
+      <div>
+        <div class="dec-title">Ask tab — what does a first-time user see?</div>
+        <div class="dec-text">Three options: empty state with prompt suggestions · open voice input immediately · contextual suggestions based on upcoming tasks.</div>
+        <div class="dec-affects">Affects: S-18, S-19 — product decision needed before these can be designed</div>
+      </div>
+    </div>
+    <div class="dec">
+      <div class="dec-icon">!</div>
+      <div>
+        <div class="dec-title">Voice onboarding — does nudgii speak first?</div>
+        <div class="dec-text">UX spec §2.2: "nudgii speaks first — non-negotiable." MVP scope: TTS (voice output) deferred to post-launch. These contradict. Which wins?</div>
+        <div class="dec-affects">Affects: S-02 and entire voice onboarding tone</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCREENS -->
+<section id="screens">
+
+  <div class="flow-grp"><div class="flow-label">Onboarding flow</div></div>
+  <div class="grid grp-pad">
+
+    <div class="sc">
+      <div class="sc-head"><span class="sc-id">S-01</span><span class="sc-name">Welcome screen</span><span class="flow-tag ft-ob">Onboarding</span></div>
+      <div class="sc-body">
+        <div class="nudge-row"><span class="np off"><span class="dot d-lo"></span>Lo-fi nudge</span><a class="np" href="screens/s01-welcome-hifi.html" target="_blank"><span class="dot d-hi"></span>Hi-fi nudge</a></div>
+        <div class="sbar"><span class="badge b-ready">Ready for dev</span><span class="note">nl-BE · nl-NL · fr</span></div>
+      </div>
+    </div>
+
+    <div class="sc">
+      <div class="sc-head"><span class="sc-id">S-02</span><span class="sc-name">Voice onboarding — Path A</span><span class="flow-tag ft-ob">Onboarding</span></div>
+      <div class="sc-body">
+        <div class="nudge-row"><span class="np off"><span class="dot d-lo"></span>Lo-fi nudge</span><span class="np off"><span class="dot d-hi"></span>Hi-fi nudge</span></div>
+        <div class="sbar"><span class="badge b-dec">Decision needed</span><span class="note">TTS decision first</span></div>
+      </div>
+    </div>
+
+    <div class="sc">
+      <div class="sc-head"><span class="sc-id">S-03</span><span class="sc-name">Browse categories — Path B</span><span class="flow-tag ft-ob">Onboarding</span></div>
+      <div class="sc-body">
+        <div class="nudge-row"><span class="np off"><span class="dot d-lo"></span>Lo-fi nudge</span><span class="np off"><span class="dot d-hi"></span>Hi-fi nudge</span></div>
+        <div class="sbar"><span class="badge b-todo">To do</span></div>
+      </div>
+    </div>
+
+    <div class="sc">
+      <div class="sc-head"><span class="sc-id">S-04</span><span class="sc-name">Direct search — Path C</span><span class="flow-tag ft-ob">Onboarding</span></div>
+      <div class="sc-body">
+        <div class="nudge-row"><span class="np off"><span class="dot d-lo"></span>Lo-fi nudge</span><span class="np off"><span class="dot d-hi"></span>Hi-fi nudge</span></div>
+        <div class="sbar"><span class="badge b-todo">To do</span></div>
+      </div>
+    </div>
+
+    <div class="sc">
+      <div class="sc-head"><span class="sc-id">S-05</span><span class="sc-name">Onboarding review</span><span class="flow-tag ft-ob">Onboarding</span></div>
+      <div class="sc-body">
+        <div class="nudge-row"><span class="np off"><span class="dot d-lo"></span>Lo-fi nudge</span><a class="np" href="screens/s05-onboarding-review-hifi.html" target="_blank"><span class="dot d-hi"></span>Hi-fi nudge</a></div>
+        <div class="sbar"><span class="badge b-wip">In progress</span><span class="note">Lo-fi needed</span></div>
+      </div>
+    </div>
+
+    <div class="sc">
+      <div class="sc-head"><span class="sc-id">S-06</span><span class="sc-name">Auth screen</span><span class="flow-tag ft-ob">Onboarding</span></div>
+      <div class="sc-body">
+        <div class="nudge-row"><span class="np off"><span class="dot d-lo"></span>Lo-fi nudge</span><a class="np" href="screens/s05-onboarding-review-hifi.html" target="_blank"><span class="dot d-hi"></span>Hi-fi nudge</a></div>
+        <div class="sbar"><span class="badge b-wip">In progress</span><span class="note">Google + Apple + magic link</span></div>
+      </div>
+    </div>
+
+    <div class="sc">
+      <div class="sc-head"><span class="sc-id">S-07</span><span class="sc-name">Onboarding completion</span><span class="flow-tag ft-ob">Onboarding</span></div>
+      <div class="sc-body">
+        <div class="nudge-row"><span class="np off"><span class="dot d-lo"></span>Lo-fi nudge</span><a class="np" href="screens/s05-onboarding-review-hifi.html" target="_blank"><span class="dot d-hi"></span>Hi-fi nudge</a></div>
+        <div class="sbar"><span class="badge b-wip">In progress</span><span class="note">Lo-fi needed</span></div>
+      </div>
+    </div>
+
+    <div class="sc">
+      <div class="sc-head"><span class="sc-id">S-08</span><span class="sc-name">Push permission screen</span><span class="flow-tag ft-ob">Onboarding</span></div>
+      <div class="sc-body">
+        <div class="nudge-row"><span class="np off"><span class="dot d-lo"></span>Lo-fi nudge</span><span class="np off"><span class="dot d-hi"></span>Hi-fi nudge</span></div>
+        <div class="sbar"><span class="badge b-todo">To do</span></div>
+      </div>
+    </div>
+
+  </div><!-- /onboarding -->
+
+  <div class="flow-grp"><div class="flow-label">Dashboard</div></div>
+  <div class="grid grp-pad">
+
+    <div class="sc">
+      <div class="sc-head"><span class="sc-id">S-09</span><span class="sc-name">Dashboard — default</span><span class="flow-tag ft-db">Dashboard</span></div>
+      <div class="sc-body">
+        <div class="nudge-row"><span class="np off"><span class="dot d-lo"></span>Lo-fi nudge</span><a class="np" href="system/design-system.html#dashboard" target="_blank"><span class="dot d-hi"></span>Hi-fi nudge</a></div>
+        <div class="sbar"><span class="badge b-ready">Ready for dev</span><span class="note">Lo-fi still needed</span></div>
+      </div>
+    </div>
+
+    <div class="sc">
+      <div class="sc-head"><span class="sc-id">S-10</span><span class="sc-name">Dashboard — empty</span><span class="flow-tag ft-db">Dashboard</span></div>
+      <div class="sc-body">
+        <div class="nudge-row"><span class="np off"><span class="dot d-lo"></span>Lo-fi nudge</span><a class="np" href="system/design-system.html" target="_blank"><span class="dot d-hi"></span>Hi-fi nudge</a></div>
+        <div class="sbar"><span class="badge b-ready">Ready for dev</span></div>
+      </div>
+    </div>
+
+    <div class="sc">
+      <div class="sc-head"><span class="sc-id">S-11</span><span class="sc-name">Done overlay</span><span class="flow-tag ft-db">Dashboard</span></div>
+      <div class="sc-body">
+        <div class="nudge-row"><span class="np off"><span class="dot d-lo"></span>Lo-fi nudge</span><a class="np" href="system/design-system.html" target="_blank"><span class="dot d-hi"></span>Hi-fi nudge</a></div>
+        <div class="sbar"><span class="badge b-dec">Decision needed</span><span class="note">Trigger decision first</span></div>
+      </div>
+    </div>
+
+    <div class="sc">
+      <div class="sc-head"><span class="sc-id">S-12</span><span class="sc-name">FAB action sheet</span><span class="flow-tag ft-db">Dashboard</span></div>
+      <div class="sc-body">
+        <div class="nudge-row"><span class="np off"><span class="dot d-lo"></span>Lo-fi nudge</span><a class="np" href="screens/s12-fab-action-sheet-hifi.html" target="_blank"><span class="dot d-hi"></span>Hi-fi nudge</a></div>
+        <div class="sbar"><span class="badge b-ready">Ready for dev</span></div>
+      </div>
+    </div>
+
+  </div><!-- /dashboard -->
+
+  <div class="flow-grp"><div class="flow-label">Task detail</div></div>
+  <div class="grid grp-pad">
+
+    <div class="sc">
+      <div class="sc-head"><span class="sc-id">S-13</span><span class="sc-name">Task detail — default</span><span class="flow-tag ft-tk">Task</span></div>
+      <div class="sc-body">
+        <div class="nudge-row"><a class="np" href="screens/s13-task-detail-lofi.html" target="_blank"><span class="dot d-lo"></span>Lo-fi nudge</a><span class="np off"><span class="dot d-hi"></span>Hi-fi nudge</span></div>
+        <div class="sbar"><span class="badge b-wip">In progress</span><span class="note">Lo-fi done · hi-fi next</span></div>
+      </div>
+    </div>
+
+    <div class="sc">
+      <div class="sc-head"><span class="sc-id">S-14</span><span class="sc-name">Task detail — done state</span><span class="flow-tag ft-tk">Task</span></div>
+      <div class="sc-body">
+        <div class="nudge-row"><a class="np" href="screens/s13-task-detail-lofi.html" target="_blank"><span class="dot d-lo"></span>Lo-fi nudge</a><span class="np off"><span class="dot d-hi"></span>Hi-fi nudge</span></div>
+        <div class="sbar"><span class="badge b-wip">In progress</span><span class="note">Included in S-13 lo-fi</span></div>
+      </div>
+    </div>
+
+    <div class="sc">
+      <div class="sc-head"><span class="sc-id">S-15</span><span class="sc-name">Snooze bottom sheet</span><span class="flow-tag ft-tk">Task</span></div>
+      <div class="sc-body">
+        <div class="nudge-row"><a class="np" href="screens/s15-snooze-lofi.html" target="_blank"><span class="dot d-lo"></span>Lo-fi nudge</a><span class="np off"><span class="dot d-hi"></span>Hi-fi nudge</span></div>
+        <div class="sbar"><span class="badge b-wip">In progress</span><span class="note">Lo-fi done · hi-fi next</span></div>
+      </div>
+    </div>
+
+    <div class="sc">
+      <div class="sc-head"><span class="sc-id">S-16</span><span class="sc-name">Completion history</span><span class="flow-tag ft-tk">Task</span></div>
+      <div class="sc-body">
+        <div class="nudge-row"><span class="np off"><span class="dot d-lo"></span>Lo-fi nudge</span><span class="np off"><span class="dot d-hi"></span>Hi-fi nudge</span></div>
+        <div class="sbar"><span class="badge b-todo">To do</span><span class="note">Lives inline on S-13</span></div>
+      </div>
+    </div>
+
+  </div><!-- /task -->
+
+  <div class="flow-grp"><div class="flow-label">Item detail</div></div>
+  <div class="grid grp-pad">
+    <div class="sc">
+      <div class="sc-head"><span class="sc-id">S-17</span><span class="sc-name">Item detail</span><span class="flow-tag ft-it">Item</span></div>
+      <div class="sc-body">
+        <div class="nudge-row"><span class="np off"><span class="dot d-lo"></span>Lo-fi nudge</span><span class="np off"><span class="dot d-hi"></span>Hi-fi nudge</span></div>
+        <div class="sbar"><span class="badge b-todo">To do</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-grp"><div class="flow-label">Ask tab</div></div>
+  <div class="grid grp-pad">
+    <div class="sc">
+      <div class="sc-head"><span class="sc-id">S-18</span><span class="sc-name">Ask tab — first load</span><span class="flow-tag ft-ask">Ask</span></div>
+      <div class="sc-body">
+        <div class="nudge-row"><span class="np off"><span class="dot d-lo"></span>Lo-fi nudge</span><span class="np off"><span class="dot d-hi"></span>Hi-fi nudge</span></div>
+        <div class="sbar"><span class="badge b-dec">Decision needed</span><span class="note">Product: what shows first?</span></div>
+      </div>
+    </div>
+    <div class="sc">
+      <div class="sc-head"><span class="sc-id">S-19</span><span class="sc-name">Ask tab — conversation</span><span class="flow-tag ft-ask">Ask</span></div>
+      <div class="sc-body">
+        <div class="nudge-row"><span class="np off"><span class="dot d-lo"></span>Lo-fi nudge</span><span class="np off"><span class="dot d-hi"></span>Hi-fi nudge</span></div>
+        <div class="sbar"><span class="badge b-todo">To do</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-grp"><div class="flow-label">Profile / you tab</div></div>
+  <div class="grid grp-pad">
+    <div class="sc">
+      <div class="sc-head"><span class="sc-id">S-20</span><span class="sc-name">Profile — free tier</span><span class="flow-tag ft-pr">Profile</span></div>
+      <div class="sc-body">
+        <div class="nudge-row"><span class="np off"><span class="dot d-lo"></span>Lo-fi nudge</span><a class="np" href="screens/s01-welcome-hifi.html" target="_blank"><span class="dot d-hi"></span>Hi-fi nudge</a></div>
+        <div class="sbar"><span class="badge b-ready">Ready for dev</span></div>
+      </div>
+    </div>
+    <div class="sc">
+      <div class="sc-head"><span class="sc-id">S-21</span><span class="sc-name">Profile — Pro tier</span><span class="flow-tag ft-pr">Profile</span></div>
+      <div class="sc-body">
+        <div class="nudge-row"><span class="np off"><span class="dot d-lo"></span>Lo-fi nudge</span><a class="np" href="screens/s01-welcome-hifi.html" target="_blank"><span class="dot d-hi"></span>Hi-fi nudge</a></div>
+        <div class="sbar"><span class="badge b-ready">Ready for dev</span></div>
+      </div>
+    </div>
+    <div class="sc">
+      <div class="sc-head"><span class="sc-id">S-22</span><span class="sc-name">Pro upgrade / paywall</span><span class="flow-tag ft-pr">Profile</span></div>
+      <div class="sc-body">
+        <div class="nudge-row"><span class="np off"><span class="dot d-lo"></span>Lo-fi nudge</span><span class="np off"><span class="dot d-hi"></span>Hi-fi nudge</span></div>
+        <div class="sbar"><span class="badge b-todo">To do</span></div>
+      </div>
+    </div>
+    <div class="sc">
+      <div class="sc-head"><span class="sc-id">S-23</span><span class="sc-name">Notification preferences</span><span class="flow-tag ft-pr">Profile</span></div>
+      <div class="sc-body">
+        <div class="nudge-row"><span class="np off"><span class="dot d-lo"></span>Lo-fi nudge</span><span class="np off"><span class="dot d-hi"></span>Hi-fi nudge</span></div>
+        <div class="sbar"><span class="badge b-todo">To do</span></div>
+      </div>
+    </div>
+    <div class="sc">
+      <div class="sc-head"><span class="sc-id">S-24</span><span class="sc-name">Region / locale correction</span><span class="flow-tag ft-pr">Profile</span></div>
+      <div class="sc-body">
+        <div class="nudge-row"><span class="np off"><span class="dot d-lo"></span>Lo-fi nudge</span><span class="np off"><span class="dot d-hi"></span>Hi-fi nudge</span></div>
+        <div class="sbar"><span class="badge b-todo">To do</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-grp"><div class="flow-label">System / error / edge</div></div>
+  <div class="grid grp-pad">
+    <div class="sc"><div class="sc-head"><span class="sc-id">S-25</span><span class="sc-name">No internet state</span><span class="flow-tag ft-sys">System</span></div><div class="sc-body"><div class="nudge-row"><span class="np off"><span class="dot d-lo"></span>Lo-fi nudge</span><span class="np off"><span class="dot d-hi"></span>Hi-fi nudge</span></div><div class="sbar"><span class="badge b-todo">To do</span></div></div></div>
+    <div class="sc"><div class="sc-head"><span class="sc-id">S-26</span><span class="sc-name">Voice API error</span><span class="flow-tag ft-sys">System</span></div><div class="sc-body"><div class="nudge-row"><span class="np off"><span class="dot d-lo"></span>Lo-fi nudge</span><span class="np off"><span class="dot d-hi"></span>Hi-fi nudge</span></div><div class="sbar"><span class="badge b-todo">To do</span></div></div></div>
+    <div class="sc"><div class="sc-head"><span class="sc-id">S-27</span><span class="sc-name">Claude parse failure</span><span class="flow-tag ft-sys">System</span></div><div class="sc-body"><div class="nudge-row"><span class="np off"><span class="dot d-lo"></span>Lo-fi nudge</span><span class="np off"><span class="dot d-hi"></span>Hi-fi nudge</span></div><div class="sbar"><span class="badge b-todo">To do</span></div></div></div>
+    <div class="sc"><div class="sc-head"><span class="sc-id">S-28</span><span class="sc-name">App launch — returning user</span><span class="flow-tag ft-sys">System</span></div><div class="sc-body"><div class="nudge-row"><span class="np off"><span class="dot d-lo"></span>Lo-fi nudge</span><span class="np off"><span class="dot d-hi"></span>Hi-fi nudge</span></div><div class="sbar"><span class="badge b-todo">To do</span></div></div></div>
+  </div>
+
+</section><!-- /screens -->
+
+<!-- DESIGN SYSTEM -->
+<section id="system" style="padding-top:48px">
+  <div class="sec-head" style="padding:0 32px 16px"><span class="sec-title">Design system</span><span class="sec-sub">Open before building any screen</span></div>
+  <div class="sys-grid">
+    <a class="sysc" href="system/design-system.html" target="_blank">
+      <div class="sysc-title">Design system v2.3</div>
+      <div class="sysc-sub">Color tokens · typography · spacing · all components · dark mode</div>
+      <span class="sysc-badge b-ready">Locked</span>
+    </a>
+    <a class="sysc" href="system/interaction-states.html" target="_blank">
+      <div class="sysc-title">Interaction states</div>
+      <div class="sysc-sub">All 9 components · all states · Flutter implementation notes</div>
+      <span class="sysc-badge b-ready">Locked</span>
+    </a>
+    <a class="sysc" href="system/icon-inventory.html" target="_blank">
+      <div class="sysc-title">Icon inventory</div>
+      <div class="sysc-sub">39 icons · 8 zones · Phosphor outline · Flutter constants</div>
+      <span class="sysc-badge b-ready">Locked</span>
+    </a>
+    <a class="sysc" href="system/fab-spec.html" target="_blank">
+      <div class="sysc-title">FAB + tab bar spec</div>
+      <div class="sysc-sub">Floating pill tab bar · rounded-square FAB · action sheet order</div>
+      <span class="sysc-badge b-ready">Locked</span>
+    </a>
+    <a class="sysc" href="system/tokens.json" target="_blank">
+      <div class="sysc-title">Tokens JSON</div>
+      <div class="sysc-sub">Figma Variables via Tokens Studio · all 14 color variables</div>
+      <span class="sysc-badge b-ready">Locked</span>
+    </a>
+    <a class="sysc" href="system/figma-guide.html" target="_blank">
+      <div class="sysc-title">Figma setup guide</div>
+      <div class="sysc-sub">5-phase guide · tokens import · component build</div>
+      <span class="sysc-badge b-wip">In progress</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="ii" style="width:24px;height:24px;border-radius:6px;font-size:11px">ii</div>
+  <p><strong>nudgii design hub</strong> · DM Serif Display + DM Sans · Phosphor Icons (outline) · #F5F0E8 cream on every screen · Update status badges in index.html as screens complete</p>
+</footer>
+
+</body>
+</html>
