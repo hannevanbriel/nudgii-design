@@ -29,6 +29,25 @@ html{scroll-behavior:smooth;}
   --cg:#5A9060;--cgb:rgba(90,144,96,0.10);
   --cs:#8060A8;--csb:rgba(128,96,168,0.10);
   --chl:#B86478;--chlb:rgba(184,100,120,0.10);
+
+  /* Surface token — all cards, sheets, inputs, nav bars */
+  --surface:  #FFFFFF;
+
+  /* Spacing scale — never use arbitrary values (13px, 22px, 7px etc.) */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* Shadow hierarchy — elevation, not decoration */
+  --shadow-card:    none;                              /* cards use border, not shadow */
+  --shadow-tab-bar: 0 4px 20px rgba(26,22,18,0.11);
+  --shadow-fab:     0 4px 16px rgba(155,127,212,0.35);
+  --shadow-sheet:   0 -2px 20px rgba(26,22,18,0.12);
 }
 
 body{background:var(--cream);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;color:var(--ink);line-height:1.55;}
@@ -73,7 +92,7 @@ section{padding-top:60px;}
 .rule{height:1px;background:var(--border);margin:52px 0 0;}
 
 /* RULE CARDS */
-.rcard{background:white;border:1px solid var(--border);border-radius:13px;padding:16px 18px;margin-bottom:9px;box-shadow:0 1px 3px rgba(26,22,18,0.04);}
+.rcard{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:16px 18px;margin-bottom:9px;box-shadow:0 1px 3px rgba(26,22,18,0.04);}
 .rcard-title{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:5px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
 .rcard-body{font-size:12px;color:var(--mid);line-height:1.65;}
 .rcard-body strong{color:var(--ink);font-weight:500;}
@@ -90,7 +109,7 @@ section{padding-top:60px;}
 .token-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(136px,1fr));gap:9px;margin-bottom:16px;}
 .ttile{border-radius:10px;overflow:hidden;border:1px solid var(--border);}
 .tsw{height:58px;}
-.tbody{padding:8px 10px;background:white;}
+.tbody{padding:8px 10px;background:var(--surface);}
 .tname{font-size:12px;font-weight:500;color:var(--ink);}
 .thex{font-size:10px;color:var(--mid);font-family:monospace;margin-top:1px;}
 .trole{font-size:10px;color:var(--mid);margin-top:2px;line-height:1.4;}
@@ -108,7 +127,7 @@ section{padding-top:60px;}
 
 /* CATEGORY */
 .cat-row{display:flex;gap:9px;flex-wrap:wrap;}
-.ctile{background:white;border:1px solid var(--border);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:9px;min-width:150px;}
+.ctile{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:9px;min-width:150px;}
 .cicon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .cicon svg{width:12px;height:12px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
 .cname{font-size:11px;font-weight:500;color:var(--ink);}
@@ -138,7 +157,7 @@ section{padding-top:60px;}
 .mic-btn svg{width:11px;height:11px;stroke:#FAF8FF;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;}
 
 /* nudge card demo */
-.ncard{background:white;border-radius:11px;border:1px solid var(--border);padding:10px 12px;display:flex;align-items:center;gap:10px;max-width:300px;width:100%;box-shadow:0 1px 3px rgba(26,22,18,0.04);}
+.ncard{background:var(--surface);border-radius:11px;border:1px solid var(--border);padding:10px 12px;display:flex;align-items:center;gap:10px;max-width:300px;width:100%;box-shadow:0 1px 3px rgba(26,22,18,0.04);}
 .nci{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .nci svg{width:12px;height:12px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
 .nb{flex:1;min-width:0;}
@@ -170,7 +189,7 @@ section{padding-top:60px;}
 
 /* FIGMA STEPS */
 .figma-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;}
-.fstep{background:white;border:1px solid var(--border);border-radius:13px;padding:16px 18px;box-shadow:0 1px 3px rgba(26,22,18,0.04);}
+.fstep{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:16px 18px;box-shadow:0 1px 3px rgba(26,22,18,0.04);}
 .fstep-num{font-family:'DM Serif Display',serif;font-size:28px;color:rgba(26,22,18,0.07);line-height:1;margin-bottom:8px;}
 .fstep-title{font-size:12px;font-weight:500;color:var(--ink);margin-bottom:7px;}
 .fstep-body{font-size:11px;color:var(--mid);line-height:1.65;}
@@ -297,7 +316,7 @@ section{padding-top:60px;}
     </div>
 
     <!-- COLOR THREAD -->
-    <div style="background:white;border:1px solid var(--border);border-radius:13px;padding:18px 20px;margin-bottom:9px;box-shadow:0 1px 3px rgba(26,22,18,0.04);">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:18px 20px;margin-bottom:9px;box-shadow:0 1px 3px rgba(26,22,18,0.04);">
       <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:5px;display:flex;align-items:center;gap:7px;">The color thread <span class="tag tag-lock">v2.2 core decision</span></div>
       <div style="font-size:12px;color:var(--mid);line-height:1.65;margin-bottom:16px;">One color family connects the entire user journey — homescreen to first tap to reward moment. The welcome screen ii mark, the CTA button, and the done overlay all share the same two plum hues.</div>
       <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
@@ -423,13 +442,33 @@ section{padding-top:60px;}
     <h2 class="sec-title">Spacing & radius</h2>
     <p class="sec-desc">8px base grid. 16px screen margins. Cream needs room.</p>
 
-    <div class="sp-row"><div class="sp-bar" style="width:4px;"></div><div class="sp-tok">sp/4</div><div class="sp-px">4px</div><div class="sp-use">Icon-to-label gap</div></div>
-    <div class="sp-row"><div class="sp-bar" style="width:8px;"></div><div class="sp-tok">sp/8</div><div class="sp-px">8px</div><div class="sp-use">Chip padding, tight pairs</div></div>
-    <div class="sp-row"><div class="sp-bar" style="width:12px;"></div><div class="sp-tok">sp/12</div><div class="sp-px">12px</div><div class="sp-use">Between cards</div></div>
-    <div class="sp-row"><div class="sp-bar" style="width:16px;"></div><div class="sp-tok">sp/16</div><div class="sp-px">16px</div><div class="sp-use">Screen margin, card padding</div></div>
-    <div class="sp-row"><div class="sp-bar" style="width:20px;"></div><div class="sp-tok">sp/20</div><div class="sp-px">20px</div><div class="sp-use">Welcome body padding</div></div>
-    <div class="sp-row"><div class="sp-bar" style="width:24px;"></div><div class="sp-tok">sp/24</div><div class="sp-px">24px</div><div class="sp-use">Between screen sections</div></div>
-    <div class="sp-row" style="border-bottom:none;"><div class="sp-bar" style="width:48px;"></div><div class="sp-tok">sp/48</div><div class="sp-px">48px</div><div class="sp-use">Done overlay padding</div></div>
+    <div class="rcard" style="margin-bottom:20px;">
+      <div class="rcard-title">Spacing rule <span class="tag tag-never">never arbitrary</span></div>
+      <div class="rcard-body">Gebruik altijd een waarde van de schaal hieronder. Nooit arbitraire waarden zoals <code>13px</code>, <code>22px</code>, of <code>7px</code>. Elke spacing-beslissing is een keuze uit de schaal — niet een schatting.</div>
+    </div>
+
+    <div class="sp-row"><div class="sp-bar" style="width:4px;"></div><div class="sp-tok">--space-1</div><div class="sp-px">4px</div><div class="sp-use">Icon-to-label gap</div></div>
+    <div class="sp-row"><div class="sp-bar" style="width:8px;"></div><div class="sp-tok">--space-2</div><div class="sp-px">8px</div><div class="sp-use">Chip padding, tight pairs</div></div>
+    <div class="sp-row"><div class="sp-bar" style="width:12px;"></div><div class="sp-tok">--space-3</div><div class="sp-px">12px</div><div class="sp-use">Between cards</div></div>
+    <div class="sp-row"><div class="sp-bar" style="width:16px;"></div><div class="sp-tok">--space-4</div><div class="sp-px">16px</div><div class="sp-use">Screen margin, card padding</div></div>
+    <div class="sp-row"><div class="sp-bar" style="width:24px;"></div><div class="sp-tok">--space-6</div><div class="sp-px">24px</div><div class="sp-use">Between screen sections</div></div>
+    <div class="sp-row"><div class="sp-bar" style="width:32px;"></div><div class="sp-tok">--space-8</div><div class="sp-px">32px</div><div class="sp-use">Large section gaps</div></div>
+    <div class="sp-row"><div class="sp-bar" style="width:48px;"></div><div class="sp-tok">--space-12</div><div class="sp-px">48px</div><div class="sp-use">Done overlay padding</div></div>
+    <div class="sp-row" style="border-bottom:none;"><div class="sp-bar" style="width:64px;"></div><div class="sp-tok">--space-16</div><div class="sp-px">64px</div><div class="sp-use">Hero / splash sections</div></div>
+
+    <div class="dark-panel" style="margin-top:20px;">
+      <div class="dark-lbl">Flutter · NudgiiSpacing class</div>
+      <pre style="font-family:monospace;font-size:11px;color:rgba(239,240,232,0.75);line-height:1.8;overflow-x:auto;">class NudgiiSpacing {
+  static const double xs   = 4;
+  static const double sm   = 8;
+  static const double md   = 12;
+  static const double base = 16;
+  static const double lg   = 24;
+  static const double xl   = 32;
+  static const double xxl  = 48;
+  static const double xxxl = 64;
+}</pre>
+    </div>
 
     <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:22px;">
       <div style="display:flex;flex-direction:column;align-items:center;gap:5px;"><div style="width:44px;height:44px;border-radius:4px;background:var(--cream-2);border:1px solid var(--border);"></div><div style="font-size:9px;color:var(--mid);text-align:center;">r/4<br>Tags</div></div>
@@ -447,6 +486,41 @@ section{padding-top:60px;}
     <div class="sec-eye">07</div>
     <h2 class="sec-title">Components</h2>
     <p class="sec-desc">All components reference tokens. No hardcoded hex in Flutter or Figma.</p>
+
+    <!-- Component heights -->
+    <div class="rcard" style="margin-bottom:28px;">
+      <div class="rcard-title">Component heights <span class="tag tag-lock">locked — never deviate</span></div>
+      <div class="rcard-body">
+        <table style="width:100%;border-collapse:collapse;font-size:12px;line-height:1.8;">
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;width:200px;">Primary CTA button</td><td style="color:var(--mid);">50px</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">Secondary button</td><td style="color:var(--mid);">46px</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">Ghost / text button</td><td style="color:var(--mid);">36px</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">Input field</td><td style="color:var(--mid);">44px <span style="font-style:italic;color:var(--mid-lt);">— minimum touch target, Apple HIG</span></td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">Task card min-height</td><td style="color:var(--mid);">56px</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">FAB</td><td style="color:var(--mid);">46 × 46px</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">Tab bar height</td><td style="color:var(--mid);">52px</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">Nav bar</td><td style="color:var(--mid);">44px</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">Bottom sheet handle</td><td style="color:var(--mid);">3px hoog · 32px breed</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">Settings row</td><td style="color:var(--mid);">48px</td></tr>
+            <tr><td style="padding:4px 0;color:var(--ink);font-weight:500;">Snooze option row</td><td style="color:var(--mid);">52px</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">Minimum touch target voor <strong>alle</strong> interactieve elementen: <code>44 × 44px</code>. Ook als het visuele element kleiner is. In Flutter: <code>SizedBox(width: 44, height: 44)</code> of <code>IconButton</code>.</div>
+      </div>
+    </div>
+
+    <!-- Shadow hierarchy -->
+    <div class="rcard" style="margin-bottom:28px;">
+      <div class="rcard-title">Shadow hierarchy <span class="tag tag-lock">locked</span></div>
+      <div class="rcard-body">
+        Shadows communiceren elevatie — nooit decoratie. Nooit een shadow toevoegen voor esthetiek.<br><br>
+        <code>--shadow-card: none</code> — cards gebruiken border, geen shadow<br>
+        <code>--shadow-tab-bar: 0 4px 20px rgba(26,22,18,0.11)</code> — floating pill tab bar<br>
+        <code>--shadow-fab: 0 4px 16px rgba(155,127,212,0.35)</code> — FAB (plum glow)<br>
+        <code>--shadow-sheet: 0 -2px 20px rgba(26,22,18,0.12)</code> — bottom sheet
+      </div>
+    </div>
 
     <div class="cgroup">
       <div class="cgroup-title">Buttons</div>
@@ -608,7 +682,7 @@ section{padding-top:60px;}
       <div class="rcard-title">Tab bar — floating pill <span class="tag tag-new">updated v2.3</span></div>
       <div class="rcard-body">
         nudgii uses a <strong>floating pill tab bar</strong> — a white rounded card that hovers above screen content with a shadow. No hard border-top edge. Content scrolls behind it.<br><br>
-        <strong>Spec:</strong> background <code>white</code> · border-radius <code>22px</code> · padding <code>9px 4px 11px</code> · shadow <code>0 4px 20px rgba(26,22,18,0.11)</code> · border <code>1px solid rgba(26,22,18,0.07)</code> · bottom <code>14px</code> from screen edge.<br><br>
+        <strong>Spec:</strong> background <code>var(--surface)</code> · border-radius <code>22px</code> · padding <code>9px 4px 11px</code> · shadow <code>0 4px 20px rgba(26,22,18,0.11)</code> · border <code>1px solid rgba(26,22,18,0.07)</code> · bottom <code>14px</code> from screen edge.<br><br>
         Active tab: full <code>ink</code> + 3px <code>cta</code> pip below label. Inactive: <code>ink 20% opacity</code>.
       </div>
     </div>
