@@ -121,8 +121,8 @@ footer strong{color:var(--mid);font-weight:500}
     <span class="wordmark"><span style="font-family:'DM Serif Display',serif;font-weight:400;letter-spacing:-0.5px">nudgii</span><span style="color:var(--mid);font-weight:300;font-size:13px;margin-left:6px">design hub</span></span>
   </a>
   <div class="navlinks">
-    <a class="nl act" href="#screens">Screens</a>
-    <a class="nl" href="#system">Design system</a>
+    <a class="nl act" href="#system">Design system</a>
+    <a class="nl" href="#screens">Screens</a>
     <a class="nl" href="#decisions">Open decisions</a>
   </div>
   <span class="nav-ver">v0.2 · Mar 2026</span>
@@ -164,6 +164,61 @@ footer strong{color:var(--mid);font-weight:500}
       <div class="phase-bar"><div class="phase-fill pf-todo" style="width:0%"></div></div>
       <div class="phase-stat">Not started</div>
     </div>
+  </div>
+</section>
+
+<!-- DESIGN SYSTEM -->
+<section id="system" style="padding-top:40px">
+  <div class="sec-head" style="padding:0 32px 12px"><span class="sec-title">Design system</span><span class="sec-sub">Open before building any screen</span></div>
+
+  <!-- UX Flow featured link -->
+  <div style="padding:0 32px 12px;">
+    <a href="system/ux-flow.html" target="_blank" style="display:flex;align-items:center;gap:18px;background:#fff;border:1.5px solid rgba(155,127,212,0.28);border-radius:12px;padding:16px 20px;text-decoration:none;color:var(--ink);transition:all .18s;" onmouseover="this.style.borderColor='var(--cta)';this.style.transform='translateY(-1px)'" onmouseout="this.style.borderColor='rgba(155,127,212,0.28)';this.style.transform=''">
+      <div style="width:40px;height:40px;border-radius:10px;background:rgba(155,127,212,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9B7FD4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 17.5h7M17.5 14v7"/></svg>
+      </div>
+      <div style="flex:1;">
+        <div style="font-size:14px;font-weight:500;margin-bottom:3px;">UX Flow overview</div>
+        <div style="font-size:12px;color:var(--mid);">All 28 screens · 7 flows · connections between screens · recommended build order</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+        <span style="font-size:10px;font-weight:500;padding:3px 9px;border-radius:100px;background:rgba(155,127,212,0.12);color:#5C3E8A;">Start here</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+    </a>
+  </div>
+
+  <div class="sys-grid">
+    <a class="sysc" href="system/design-system.html" target="_blank">
+      <div class="sysc-title">Design system v2.3</div>
+      <div class="sysc-sub">Color tokens · typography · spacing · all components · dark mode</div>
+      <span class="sysc-badge b-ready">Locked</span>
+    </a>
+    <a class="sysc" href="system/interaction-states.html" target="_blank">
+      <div class="sysc-title">Interaction states</div>
+      <div class="sysc-sub">All 9 components · all states · Flutter implementation notes</div>
+      <span class="sysc-badge b-ready">Locked</span>
+    </a>
+    <a class="sysc" href="system/icon-inventory.html" target="_blank">
+      <div class="sysc-title">Icon inventory</div>
+      <div class="sysc-sub">39 icons · 8 zones · Phosphor outline · Flutter constants</div>
+      <span class="sysc-badge b-ready">Locked</span>
+    </a>
+    <a class="sysc" href="system/fab-spec.html" target="_blank">
+      <div class="sysc-title">FAB + tab bar spec</div>
+      <div class="sysc-sub">Floating pill tab bar · rounded-square FAB · action sheet order</div>
+      <span class="sysc-badge b-ready">Locked</span>
+    </a>
+    <a class="sysc" href="system/tokens.json" target="_blank">
+      <div class="sysc-title">Tokens JSON</div>
+      <div class="sysc-sub">Figma Variables via Tokens Studio · all 14 color variables</div>
+      <span class="sysc-badge b-ready">Locked</span>
+    </a>
+    <a class="sysc" href="system/figma-guide.html" target="_blank">
+      <div class="sysc-title">Figma setup guide</div>
+      <div class="sysc-sub">5-phase guide · tokens import · component build</div>
+      <span class="sysc-badge b-wip">In progress</span>
+    </a>
   </div>
 </section>
 
@@ -422,48 +477,6 @@ footer strong{color:var(--mid);font-weight:500}
   </div>
 
 </section><!-- /screens -->
-
-<!-- DESIGN SYSTEM -->
-<section id="system" style="padding-top:48px">
-  <div class="sec-head" style="padding:0 32px 16px"><span class="sec-title">Design system</span><span class="sec-sub">Open before building any screen</span></div>
-  <div class="sys-grid">
-    <a class="sysc" href="system/ux-flow.html" target="_blank" style="border-color:rgba(155,127,212,0.22);background:rgba(155,127,212,0.04);">
-      <div class="sysc-title">UX Flow overview</div>
-      <div class="sysc-sub">All 28 screens · 7 flows · connections · build order · status per screen</div>
-      <span class="sysc-badge b-wip">New · start here</span>
-    </a>
-    <a class="sysc" href="system/design-system.html" target="_blank">
-      <div class="sysc-title">Design system v2.3</div>
-      <div class="sysc-sub">Color tokens · typography · spacing · all components · dark mode</div>
-      <span class="sysc-badge b-ready">Locked</span>
-    </a>
-    <a class="sysc" href="system/interaction-states.html" target="_blank">
-      <div class="sysc-title">Interaction states</div>
-      <div class="sysc-sub">All 9 components · all states · Flutter implementation notes</div>
-      <span class="sysc-badge b-ready">Locked</span>
-    </a>
-    <a class="sysc" href="system/icon-inventory.html" target="_blank">
-      <div class="sysc-title">Icon inventory</div>
-      <div class="sysc-sub">39 icons · 8 zones · Phosphor outline · Flutter constants</div>
-      <span class="sysc-badge b-ready">Locked</span>
-    </a>
-    <a class="sysc" href="system/fab-spec.html" target="_blank">
-      <div class="sysc-title">FAB + tab bar spec</div>
-      <div class="sysc-sub">Floating pill tab bar · rounded-square FAB · action sheet order</div>
-      <span class="sysc-badge b-ready">Locked</span>
-    </a>
-    <a class="sysc" href="system/tokens.json" target="_blank">
-      <div class="sysc-title">Tokens JSON</div>
-      <div class="sysc-sub">Figma Variables via Tokens Studio · all 14 color variables</div>
-      <span class="sysc-badge b-ready">Locked</span>
-    </a>
-    <a class="sysc" href="system/figma-guide.html" target="_blank">
-      <div class="sysc-title">Figma setup guide</div>
-      <div class="sysc-sub">5-phase guide · tokens import · component build</div>
-      <span class="sysc-badge b-wip">In progress</span>
-    </a>
-  </div>
-</section>
 
 <footer>
   <svg width="24" height="24" viewBox="0 0 80 80" style="border-radius:6px;flex-shrink:0"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
