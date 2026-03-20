@@ -141,8 +141,7 @@ Three options: (a) empty state with prompt suggestions, (b) open voice input imm
 **Status: UNRESOLVED — product decision needed**
 
 **OD-03 — Voice onboarding: does nudgii speak first?** *(affects S-02 and entire onboarding tone)*
-UX spec §2.2 says "nudgii speaks first — non-negotiable." MVP scope defers TTS (voice output) to post-launch. These contradict.
-**Status: UNRESOLVED**
+**RESOLVED — 2026-03-21.** nudgii never speaks. No TTS, ever. Voice = user input only. User records up to 1 minute per turn. nudgii always responds in text. UX spec §2.2 is overridden by this decision.
 
 ---
 
@@ -366,7 +365,7 @@ Update this section when open decisions are resolved.
 |---|---|---|---|
 | OD-01 | Done overlay trigger | No | — |
 | OD-02 | Ask tab first load content | No | — |
-| OD-03 | Voice onboarding TTS contradiction | No | — |
+| OD-03 | Voice onboarding TTS contradiction | Yes — nudgii types only, user speaks (max 1 min/turn) | 2026-03-21 |
 
 ---
 
