@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · S-01 Welcome screen — lo-fi</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F5F0E8;--ink:#1A1612;--cta:#9B7FD4;--cta-fg:#FAF8FF;
+  --ap:#E8A87C;--ap-dk:#C8784A;--terra:#C4503A;
+  --mid:#8A8070;--mid-lt:#B0A898;--plum:#2D1F4A;
+  --ink-06:rgba(26,22,18,0.06);--ink-08:rgba(26,22,18,0.08);
+  --ink-10:rgba(26,22,18,0.10);--ink-16:rgba(26,22,18,0.16);
+  --ch:#C87850;--chb:rgba(200,120,80,0.10);
+  --cv:#4A82A0;--cvb:rgba(74,130,160,0.10);
+  --cg:#5A9060;--cgb:rgba(90,144,96,0.10);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px;}
+
+/* ── NAV ── */
+nav{background:var(--cream);border-bottom:1px solid var(--ink-10);padding:0 32px;display:flex;align-items:center;gap:16px;height:48px;position:sticky;top:0;z-index:100;}
+.nav-back{font-size:13px;color:var(--mid);text-decoration:none;display:flex;align-items:center;gap:8px;}
+.nav-back:hover{color:var(--ink);}
+.nav-sep{color:var(--ink-16);}
+.nav-title{font-size:13px;font-weight:500;}
+.nav-id{margin-left:auto;font-size:10px;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;color:var(--mid-lt);font-family:monospace;}
+
+/* ── PAGE ── */
+.page{padding:36px 32px 100px;max-width:1100px;margin:0 auto;}
+h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
+.sub{font-size:14px;color:var(--mid);margin-bottom:10px;max-width:540px;line-height:1.6;}
+.meta{display:flex;gap:8px;margin-bottom:40px;flex-wrap:wrap;}
+.mp{font-size:11px;font-weight:500;padding:3px 10px;border-radius:100px;border:1px solid var(--ink-10);color:var(--mid);}
+.mp.lo{background:rgba(90,144,96,0.08);color:#2A5A30;border-color:rgba(90,144,96,0.2);}
+.mp.ob{background:rgba(155,127,212,0.08);color:#5C3E8A;border-color:rgba(155,127,212,0.2);}
+
+/* ── MAIN LAYOUT ── */
+.layout{display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap;}
+
+/* ── PHONE ── */
+.phone-wrap{flex-shrink:0;}
+.phone-lbl{font-size:9px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:rgba(26,22,18,0.32);text-align:center;margin-bottom:10px;}
+.phone{
+  width:280px;background:#d8d4cb;border-radius:36px;
+  padding:10px;border:2px solid rgba(26,22,18,0.20);
+  box-shadow:0 12px 40px rgba(26,22,18,0.14);
+  position:relative;
+}
+.screen{background:#F5F0E8;border-radius:26px;overflow:hidden;}
+
+/* ── ZONE BLOCKS ── */
+.zone{border-bottom:1.5px dashed rgba(26,22,18,0.12);position:relative;}
+.zone:last-child{border-bottom:none;}
+.zone-tag{
+  position:absolute;top:6px;right:8px;
+  font-size:8px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;
+  background:rgba(26,22,18,0.07);color:var(--mid);
+  padding:2px 6px;border-radius:3px;
+  pointer-events:none;
+}
+
+/* Zone A — Status bar */
+.z-sbar{height:20px;background:#F5F0E8;display:flex;justify-content:space-between;align-items:center;padding:0 16px;font-size:8px;font-weight:500;color:rgba(26,22,18,0.32);}
+
+/* Zone B — Top bar: ii mark + free badge */
+.z-topbar{padding:12px 16px 10px;display:flex;align-items:center;justify-content:space-between;background:#F5F0E8;}
+/* ii mark */
+.ii{display:flex;align-items:flex-start;gap:3px;}
+.ii-l{width:7px;height:20px;border-radius:100px;background:var(--ink);}
+.ii-r{width:7px;height:20px;border-radius:100px;background:rgba(155,127,212,0.45);position:relative;}
+.ii-dot{width:5px;height:5px;border-radius:50%;background:var(--ap-dk);position:absolute;top:2px;right:-2px;}
+/* free badge */
+.free-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(26,22,18,0.06);border-radius:100px;padding:4px 9px 4px 7px;font-size:9px;font-weight:500;color:rgba(26,22,18,0.45);}
+.fb-dot{width:5px;height:5px;border-radius:50%;background:var(--ap-dk);flex-shrink:0;}
+
+/* Zone C — Headline + subtitle */
+.z-headline{padding:0 16px 14px;background:#F5F0E8;}
+.wf-h1{font-family:'DM Serif Display',serif;font-size:28px;color:var(--ink);line-height:0.97;letter-spacing:-0.5px;margin-bottom:7px;}
+.wf-sub{font-size:11px;font-style:italic;color:var(--mid);font-weight:300;line-height:1.55;}
+
+/* Zone D — Preview cards */
+.z-cards{padding:0 16px 12px;background:#F5F0E8;}
+.wf-card{background:#fff;border-radius:9px;border:1px solid rgba(26,22,18,0.08);padding:8px 10px;margin-bottom:5px;display:flex;align-items:center;gap:8px;box-shadow:0 1px 2px rgba(26,22,18,0.04);}
+.wf-ci{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.wf-ci svg{width:11px;height:11px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.wf-cb{flex:1;min-width:0;}
+.wf-cn{font-size:10px;font-weight:500;color:var(--ink);letter-spacing:-0.1px;}
+.wf-cs{font-size:8.5px;font-style:italic;color:var(--mid);margin-top:1px;}
+.wf-cd{font-size:9px;font-weight:500;flex-shrink:0;}
+
+/* Zone E — Divider */
+.z-divider{padding:10px 16px;display:flex;align-items:center;gap:8px;background:#F5F0E8;}
+.div-line{flex:1;height:1px;background:rgba(26,22,18,0.12);}
+.div-txt{font-size:9px;color:var(--mid);white-space:nowrap;}
+
+/* Zone F/G/H — Buttons */
+.z-buttons{padding:0 16px 22px;background:#F5F0E8;}
+.wf-btn-a{
+  width:100%;height:48px;border-radius:100px;border:none;
+  background:var(--cta);color:var(--cta-fg);
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  margin-bottom:4px;cursor:default;
+  box-shadow:0 2px 10px rgba(155,127,212,0.30);
+}
+.wf-mic{width:20px;height:20px;border-radius:50%;background:rgba(250,248,255,0.15);display:flex;align-items:center;justify-content:center;}
+.wf-mic svg{width:10px;height:10px;stroke:#FAF8FF;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.wf-hint{font-size:9px;color:var(--mid);text-align:center;margin-bottom:9px;}
+.wf-btn-b{width:100%;height:44px;border-radius:100px;border:1.5px solid rgba(26,22,18,0.12);background:transparent;font-family:'DM Sans',sans-serif;font-size:11px;color:var(--ink);margin-bottom:4px;cursor:default;display:flex;align-items:center;justify-content:center;}
+.wf-btn-c{width:100%;height:34px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:11px;color:var(--mid);cursor:default;display:flex;align-items:center;justify-content:center;}
+
+/* ── RIGHT COLUMN ── */
+.right{flex:1;min-width:280px;}
+
+/* ── SECTION ── */
+.sec{margin-bottom:36px;}
+.sec-eye{font-size:9px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:4px;}
+.sec-title{font-family:'DM Serif Display',serif;font-size:18px;color:var(--ink);margin-bottom:14px;}
+.sec-rule{height:1px;background:var(--ink-08);margin-bottom:20px;}
+
+/* ── ZONE CARDS ── */
+.zone-card{background:#fff;border:1px solid var(--ink-08);border-radius:10px;padding:13px 15px;margin-bottom:8px;}
+.zone-card.highlight{border-color:rgba(155,127,212,0.25);background:rgba(155,127,212,0.03);}
+.zone-card.cta-card{border-color:rgba(155,127,212,0.30);background:rgba(155,127,212,0.04);}
+.zc-head{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
+.zc-badge{font-size:9px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;padding:2px 7px;border-radius:3px;background:rgba(26,22,18,0.07);color:var(--mid);flex-shrink:0;}
+.zc-badge.purple{background:rgba(155,127,212,0.12);color:#5C3E8A;}
+.zc-badge.green{background:rgba(90,144,96,0.10);color:#2A5A30;}
+.zc-name{font-size:12px;font-weight:500;color:var(--ink);}
+.zc-body{font-size:11px;color:var(--mid);line-height:1.65;}
+.zc-body strong{color:var(--ink);font-weight:500;}
+.zc-body code{font-family:monospace;font-size:10px;background:rgba(26,22,18,0.06);padding:1px 4px;border-radius:3px;color:var(--ink);}
+.zc-rule{height:1px;background:var(--ink-08);margin:8px 0;}
+
+/* ── LOCALE TABLE ── */
+.locale-table{width:100%;border-collapse:collapse;font-size:11px;}
+.locale-table th{text-align:left;font-size:9px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--mid);padding:0 12px 8px 0;border-bottom:1px solid var(--ink-10);}
+.locale-table td{padding:7px 12px 7px 0;border-bottom:1px solid var(--ink-08);color:var(--mid);vertical-align:top;line-height:1.5;}
+.locale-table td:first-child{color:var(--ink);font-weight:500;white-space:nowrap;}
+.locale-table tr:last-child td{border-bottom:none;}
+.status-ov{color:var(--terra);font-weight:500;}
+.status-td{color:var(--ap-dk);font-weight:500;}
+.status-ok{color:var(--mid-lt);}
+
+/* ── BOTTOM LINKS ── */
+.links{display:flex;gap:10px;flex-wrap:wrap;padding-top:24px;border-top:1px solid var(--ink-08);}
+.link-btn{font-size:12px;font-weight:500;text-decoration:none;padding:6px 14px;border-radius:100px;}
+.link-btn.hi{color:var(--cta);background:rgba(155,127,212,0.08);border:1px solid rgba(155,127,212,0.2);}
+.link-btn.sys{color:var(--mid);background:var(--ink-06);border:1px solid var(--ink-10);}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-back" href="../index.html">
+    <svg width="18" height="18" viewBox="0 0 80 80" style="border-radius:4px;flex-shrink:0"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
+    Design hub
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">S-01 · Welcome screen</span>
+  <span class="nav-id">Lo-fi · March 2026</span>
+</nav>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <h1>Welcome screen</h1>
+  <p class="sub">Het eerste scherm dat een nieuwe gebruiker ziet. Geen login, geen onboarding formulier — de app toont direct waarde en vraagt hoe de gebruiker wil starten.</p>
+  <div class="meta">
+    <span class="mp lo">Lo-fi</span>
+    <span class="mp ob">Onboarding flow</span>
+    <span class="mp">S-01</span>
+    <span class="mp">Leidt naar S-02, S-03 of S-04</span>
+  </div>
+
+  <!-- MAIN LAYOUT -->
+  <div class="layout">
+
+    <!-- PHONE -->
+    <div class="phone-wrap">
+      <div class="phone-lbl">Welkomstscherm · nl-BE locale</div>
+      <div class="phone">
+        <div class="screen">
+
+          <!-- ZONE A — Status bar -->
+          <div class="zone">
+            <div class="zone-tag">A</div>
+            <div class="z-sbar">
+              <span>9:41</span>
+              <span>●●●</span>
+            </div>
+          </div>
+
+          <!-- ZONE B — ii mark + free badge -->
+          <div class="zone">
+            <div class="zone-tag">B</div>
+            <div class="z-topbar">
+              <div class="ii">
+                <div class="ii-l"></div>
+                <div class="ii-r"><div class="ii-dot"></div></div>
+              </div>
+              <div class="free-badge">
+                <div class="fb-dot"></div>
+                Gratis · geen creditcard
+              </div>
+            </div>
+          </div>
+
+          <!-- ZONE C — Headline + subtitle -->
+          <div class="zone">
+            <div class="zone-tag">C</div>
+            <div class="z-headline">
+              <div class="wf-h1">Je huis heeft<br>aandacht nodig.</div>
+              <div class="wf-sub">Automatisch ingevuld, voor alles wat je bezit.</div>
+            </div>
+          </div>
+
+          <!-- ZONE D — Preview cards -->
+          <div class="zone">
+            <div class="zone-tag">D</div>
+            <div class="z-cards">
+              <div class="wf-card">
+                <div class="wf-ci" style="background:var(--chb);">
+                  <svg viewBox="0 0 24 24" style="stroke:var(--ch);"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                </div>
+                <div class="wf-cb">
+                  <div class="wf-cn">Vaatwasser zoutbak</div>
+                  <div class="wf-cs">it's starting to smell</div>
+                </div>
+                <div class="wf-cd" style="color:var(--terra);">5 dagen</div>
+              </div>
+              <div class="wf-card">
+                <div class="wf-ci" style="background:var(--cvb);">
+                  <svg viewBox="0 0 24 24" style="stroke:var(--cv);"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg>
+                </div>
+                <div class="wf-cb">
+                  <div class="wf-cn">Winterbanden wisselen</div>
+                  <div class="wf-cs">giving you the look</div>
+                </div>
+                <div class="wf-cd" style="color:var(--ap-dk);">deze week</div>
+              </div>
+              <div class="wf-card">
+                <div class="wf-ci" style="background:var(--cgb);">
+                  <svg viewBox="0 0 24 24" style="stroke:var(--cg);"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1 1.1 2.8.8 5.3-.6 7.4"/></svg>
+                </div>
+                <div class="wf-cb">
+                  <div class="wf-cn">Olijfboom snoeien</div>
+                  <div class="wf-cs">februari · België</div>
+                </div>
+                <div class="wf-cd" style="color:var(--mid-lt);">maart</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ZONE E — Divider -->
+          <div class="zone">
+            <div class="zone-tag">E</div>
+            <div class="z-divider">
+              <div class="div-line"></div>
+              <div class="div-txt">Hoe wil je starten?</div>
+              <div class="div-line"></div>
+            </div>
+          </div>
+
+          <!-- ZONES F+G+H — Buttons -->
+          <div class="zone">
+            <div class="zone-tag">F · G · H</div>
+            <div class="z-buttons">
+              <!-- Path A -->
+              <div class="wf-btn-a">
+                <div class="wf-mic">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg>
+                </div>
+                Vertel het me
+              </div>
+              <div class="wf-hint">gewoon spreken of typen</div>
+              <!-- Path B -->
+              <div class="wf-btn-b">Laat me zien wat ik kan bijhouden</div>
+              <div class="wf-hint">blader per categorie</div>
+              <!-- Path C -->
+              <div class="wf-btn-c">Ik weet wat ik nodig heb</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT — ZONE ANNOTATIONS -->
+    <div class="right">
+
+      <!-- ZONE BREAKDOWN -->
+      <div class="sec">
+        <div class="sec-eye">Zones</div>
+        <div class="sec-title">Element per element</div>
+        <div class="sec-rule"></div>
+
+        <!-- A: Status bar -->
+        <div class="zone-card">
+          <div class="zc-head"><span class="zc-badge">A</span><span class="zc-name">Status bar</span></div>
+          <div class="zc-body">Standaard iOS status bar. Tijd links, signaal rechts. Kleur: <code>var(--ink)</code> op <code>var(--cream)</code> achtergrond. Niet aanpasbaar — OS-element.</div>
+        </div>
+
+        <!-- B: ii mark + free badge -->
+        <div class="zone-card highlight">
+          <div class="zc-head"><span class="zc-badge purple">B</span><span class="zc-name">ii mark + free badge</span></div>
+          <div class="zc-body">
+            <strong>ii mark</strong> — links uitgelijnd, 20px hoogte.<br>
+            Links pil: <code>var(--ink)</code> — rechts pil: <code>plum-lt 45% opacity</code> — dot: <code>apricot-dk</code>.<br>
+            Spiegelt het homescreen icoon exact: zelfde drie kleuren.<br>
+            <div class="zc-rule"></div>
+            <strong>Free badge</strong> — rechts uitgelijnd.<br>
+            Achtergrond: <code>rgba(26,22,18,0.06)</code> · radius: <code>100px</code><br>
+            Dot: <code>apricot-dk</code> · tekst: "Gratis · geen creditcard"<br>
+            Font: 10px weight 500, kleur <code>rgba(26,22,18,0.48)</code>
+          </div>
+        </div>
+
+        <!-- C: Headline + subtitle -->
+        <div class="zone-card">
+          <div class="zc-head"><span class="zc-badge">C</span><span class="zc-name">Headline + subtitle</span></div>
+          <div class="zc-body">
+            <strong>Headline</strong> — DM Serif Display · 33px · lh 0.97 · ls -0.55px · <code>var(--ink)</code><br>
+            Copy: <em>"Je huis heeft aandacht nodig."</em><br>
+            Altijd deze tekst — niet locale-afhankelijk.<br>
+            <div class="zc-rule"></div>
+            <strong>Subtitle</strong> — DM Sans 300 italic · 12px · <code>var(--mid)</code> · lh 1.55<br>
+            Copy: <em>"Automatisch ingevuld, voor alles wat je bezit."</em>
+          </div>
+        </div>
+
+        <!-- D: Preview cards -->
+        <div class="zone-card highlight">
+          <div class="zc-head"><span class="zc-badge purple">D</span><span class="zc-name">Preview cards (3×)</span></div>
+          <div class="zc-body">
+            Statisch — niet interactief, niet roterende. Automatisch geselecteerd op basis van device locale.<br>
+            Achtergrond: <code>white</code> · radius: <code>11px</code> · padding: <code>9px 11px</code><br>
+            Shadow: <code>0 1px 2px rgba(26,22,18,0.04)</code><br>
+            <div class="zc-rule"></div>
+            <strong>Icon chip</strong> — 28 × 28px · radius 8px · categoriekleur achtergrond<br>
+            <strong>Taaknaam</strong> — 12px weight 500 · <code>var(--ink)</code><br>
+            <strong>Witty subtitle</strong> — 10px italic · <code>var(--mid)</code><br>
+            <strong>Datum/status</strong> — 10px weight 500<br>
+            &nbsp;&nbsp;Overdue: <code>var(--terra)</code> · Due-soon: <code>var(--ap-dk)</code> · OK: <code>var(--mid-lt)</code>
+          </div>
+        </div>
+
+        <!-- E: Divider -->
+        <div class="zone-card">
+          <div class="zc-head"><span class="zc-badge">E</span><span class="zc-name">Divider</span></div>
+          <div class="zc-body">
+            Twee horizontale lijnen (<code>1px · border-md</code>) met tekst in het midden.<br>
+            Copy: <em>"Hoe wil je starten?"</em> · 10px · <code>var(--mid)</code><br>
+            Scheidt de preview-sectie van de keuze-actie.
+          </div>
+        </div>
+
+        <!-- F: Path A -->
+        <div class="zone-card cta-card">
+          <div class="zc-head"><span class="zc-badge purple">F</span><span class="zc-name">Path A — Vertel het me (primair)</span></div>
+          <div class="zc-body">
+            Hoogte: <code>50px</code> · radius: <code>100px</code> (pill)<br>
+            Achtergrond: <code>#9B7FD4</code> · tekst: <code>#FAF8FF</code><br>
+            Font: 14px weight 500 · shadow: <code>0 2px 12px rgba(155,127,212,0.32)</code><br>
+            Mic-icoon links: 22px cirkel · <code>rgba(250,248,255,0.15)</code> achtergrond<br>
+            Hinttekst onder: <em>"gewoon spreken of typen"</em> · 10px · <code>var(--mid)</code><br>
+            <div class="zc-rule"></div>
+            <span class="zc-badge purple">→ S-02</span>&nbsp; Leidt naar Voice onboarding
+          </div>
+        </div>
+
+        <!-- G: Path B -->
+        <div class="zone-card">
+          <div class="zc-head"><span class="zc-badge">G</span><span class="zc-name">Path B — Laat me zien (secundair)</span></div>
+          <div class="zc-body">
+            Hoogte: <code>46px</code> · radius: <code>100px</code><br>
+            Transparante achtergrond · border: <code>1.5px solid var(--border-md)</code><br>
+            Font: 12px · kleur: <code>var(--ink)</code><br>
+            Hinttekst onder: <em>"blader per categorie"</em><br>
+            <div class="zc-rule"></div>
+            <span class="zc-badge">→ S-03</span>&nbsp; Leidt naar Browse categories
+          </div>
+        </div>
+
+        <!-- H: Path C -->
+        <div class="zone-card">
+          <div class="zc-head"><span class="zc-badge">H</span><span class="zc-name">Path C — Ik weet wat ik nodig heb (ghost)</span></div>
+          <div class="zc-body">
+            Hoogte: <code>36px</code> · geen border · geen achtergrond<br>
+            Font: 12px · kleur: <code>var(--mid)</code><br>
+            Geen hinttekst — power users begrijpen het zelf.<br>
+            <div class="zc-rule"></div>
+            <span class="zc-badge">→ S-04</span>&nbsp; Leidt naar Direct search
+          </div>
+        </div>
+
+      </div><!-- /sec zones -->
+
+      <!-- LOCALE VARIANTS -->
+      <div class="sec">
+        <div class="sec-eye">Locale</div>
+        <div class="sec-title">Preview cards per taalregio</div>
+        <div class="sec-rule"></div>
+        <div class="zone-card">
+          <div class="zc-body" style="margin-bottom:12px;">Headline en subtitle zijn identiek in alle locales. Alleen de 3 preview cards wisselen — automatisch op basis van device locale.</div>
+          <table class="locale-table">
+            <thead>
+              <tr>
+                <th>Locale</th>
+                <th>Kaart 1</th>
+                <th>Kaart 2</th>
+                <th>Kaart 3</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>nl-BE</td>
+                <td>Vaatwasser zoutbak<br><span class="status-ov">5 dagen</span></td>
+                <td>Winterbanden<br><span class="status-td">deze week</span></td>
+                <td>Olijfboom snoeien<br><span class="status-ok">maart</span></td>
+              </tr>
+              <tr>
+                <td>nl-NL</td>
+                <td>Cv-ketel service<br><span class="status-ov">achterstallig</span></td>
+                <td>Winterbanden<br><span class="status-td">deze week</span></td>
+                <td>Tuin winterklaar<br><span class="status-ok">november</span></td>
+              </tr>
+              <tr>
+                <td>fr</td>
+                <td>Lave-vaisselle sel<br><span class="status-ov">5 jours</span></td>
+                <td>Pneus hiver<br><span class="status-td">cette semaine</span></td>
+                <td>Taille des oliviers<br><span class="status-ok">mars</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- LOCKED RULES -->
+      <div class="sec">
+        <div class="sec-eye">Regels</div>
+        <div class="sec-title">Vastgelegd — niet te wijzigen</div>
+        <div class="sec-rule"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div class="zone-card">
+            <div class="zc-head"><span class="zc-badge green">Locked</span></div>
+            <div class="zc-body"><strong>Geen login op dit scherm.</strong> Auth wordt pas gevraagd na S-05 (review). Gebruiker ziet eerst waarde.</div>
+          </div>
+          <div class="zone-card">
+            <div class="zc-head"><span class="zc-badge green">Locked</span></div>
+            <div class="zc-body"><strong>Preview cards zijn statisch.</strong> Niet interactief, nooit dragbaar of klikbaar. Alleen visueel bewijs.</div>
+          </div>
+          <div class="zone-card">
+            <div class="zc-head"><span class="zc-badge green">Locked</span></div>
+            <div class="zc-body"><strong>Path A is dominant.</strong> 50px, volle kleur — altijd de prominentste knop. B en C zijn bewust kleiner.</div>
+          </div>
+          <div class="zone-card">
+            <div class="zc-head"><span class="zc-badge green">Locked</span></div>
+            <div class="zc-body"><strong>nudgii altijd lowercase.</strong> In headline, badge, buttons en alle copy. OS-velden zijn een uitzondering.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LINKS -->
+      <div class="links">
+        <a href="s01-welcome-hifi.html" class="link-btn hi">→ Hi-fi nudge</a>
+        <a href="../system/design-system.html" class="link-btn sys">→ Design system</a>
+        <a href="../system/ux-flow.html" class="link-btn sys">→ UX flow</a>
+      </div>
+
+    </div><!-- /right -->
+  </div><!-- /layout -->
+</div><!-- /page -->
+</body>
+</html>
