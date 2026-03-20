@@ -106,6 +106,20 @@ body{background:#BDB8AE;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:
 .ao:nth-child(2){transition-delay:0.08s;}
 .ao:nth-child(3){transition-delay:0.12s;}
 
+/* settings link inside action sheet */
+.ao-settings-link{
+  display:flex;align-items:center;justify-content:center;gap:5px;
+  padding:8px 0 2px;
+  border-top:1px solid rgba(26,22,18,0.06);
+  margin-top:2px;
+  cursor:pointer;
+  opacity:0.65;
+  transition:opacity 0.12s;
+}
+.ao-settings-link:hover{opacity:1;}
+.ao-settings-link svg{fill:none;stroke:var(--mid);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.ao-settings-link span{font-size:10px;color:var(--mid);}
+
 .ao-icon{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .ao-icon svg{fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
 .ao-body{flex:1;}
@@ -269,6 +283,12 @@ body{background:#BDB8AE;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:
           </div>
         </div>
 
+        <!-- Settings link — discoverable for power users -->
+        <div class="ao-settings-link">
+          <svg width="12" height="12" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+          <span>Snelknop instellen</span>
+        </div>
+
       </div>
 
       <div class="bottom-zone">
@@ -324,6 +344,26 @@ body{background:#BDB8AE;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:
       <div class="ann-lbl">Scrim on open</div>
       <div class="ann-body">
         <code>rgba(26,22,18,0.18)</code> overlay dims the content behind the sheet. Tap scrim or FAB to close. Tab bar dims to <code>50% opacity</code> when sheet is open — sheet takes full focus.
+      </div>
+    </div>
+    <div class="ann" style="border-color:rgba(155,127,212,0.25);background:rgba(155,127,212,0.04);">
+      <div class="ann-lbl" style="color:#5C3E8A;">Smart FAB — vaste modus</div>
+      <div class="ann-body">
+        Gebruiker kan in settings een vaste modus kiezen. FAB icoon past zich aan:<br><br>
+        <strong>Vertel het me</strong> → mic icoon<br>
+        <strong>Laat me zien</strong> → grid icoon<br>
+        <strong>Ik weet wat ik wil</strong> → loep icoon<br>
+        <strong>Altijd menu</strong> → plus icoon (default)<br><br>
+        <strong>Long press</strong> opent altijd de volledige action sheet, ongeacht de ingestelde modus.
+      </div>
+    </div>
+    <div class="ann">
+      <div class="ann-lbl">Snelknop instellen</div>
+      <div class="ann-body">
+        Toegankelijk via:<br>
+        1. Link onderaan de action sheet<br>
+        2. Profile → Instellingen → Snelknop<br><br>
+        Subtiel — niet prominent. Power users vinden het vanzelf.
       </div>
     </div>
   </div>

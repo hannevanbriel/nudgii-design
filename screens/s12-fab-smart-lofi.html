@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · S-12 FAB smart behaviour — lo-fi</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F5F0E8;--ink:#1A1612;--cta:#9B7FD4;--ap:#E8A87C;--ap-dk:#C8784A;
+  --terra:#C4503A;--mid:#8A8070;--mid-lt:#B0A898;--plum:#2D1F4A;
+  --ink-06:rgba(26,22,18,0.06);--ink-08:rgba(26,22,18,0.08);
+  --ink-10:rgba(26,22,18,0.10);--ink-16:rgba(26,22,18,0.16);--ink-24:rgba(26,22,18,0.24);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px;}
+
+/* ── NAV ── */
+nav{background:var(--cream);border-bottom:1px solid var(--ink-10);padding:0 32px;display:flex;align-items:center;gap:16px;height:48px;position:sticky;top:0;z-index:100;}
+.nav-back{font-size:13px;color:var(--mid);text-decoration:none;display:flex;align-items:center;gap:8px;}
+.nav-back:hover{color:var(--ink);}
+.nav-sep{color:var(--ink-16);}
+.nav-title{font-size:13px;font-weight:500;}
+.nav-id{margin-left:auto;font-size:10px;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;color:var(--mid-lt);font-family:monospace;}
+
+/* ── CONTENT ── */
+.content{padding:32px;max-width:1100px;margin:0 auto;}
+h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
+.sub{font-size:14px;color:var(--mid);margin-bottom:8px;max-width:560px;line-height:1.6;}
+.meta{display:flex;gap:8px;margin-bottom:40px;flex-wrap:wrap;}
+.mp{font-size:11px;font-weight:500;padding:3px 10px;border-radius:100px;border:1px solid var(--ink-10);color:var(--mid);}
+.mp.lo{background:rgba(90,144,96,0.08);color:#2A5A30;border-color:rgba(90,144,96,0.2);}
+.mp.flow{background:rgba(200,120,74,0.08);color:#7A4A1A;border-color:rgba(200,120,74,0.2);}
+
+/* ── SECTION ── */
+.sec{margin-bottom:52px;}
+.sec-eye{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:6px;}
+.sec-title{font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:4px;}
+.sec-desc{font-size:12px;color:var(--mid);max-width:540px;line-height:1.6;margin-bottom:24px;}
+.sec-rule{height:1px;background:var(--ink-10);margin-bottom:32px;}
+
+/* ── LAYOUT ── */
+.row{display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap;}
+.phones-row{display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;}
+
+/* ── PHONE ── */
+.phone{width:240px;flex-shrink:0;background:#d8d4cb;border-radius:32px;padding:10px;border:2px solid rgba(26,22,18,0.18);box-shadow:0 8px 32px rgba(26,22,18,0.12);position:relative;}
+.screen{background:#f8f6f2;border-radius:22px;overflow:hidden;position:relative;}
+.phone-lbl{font-size:9px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:rgba(26,22,18,0.35);text-align:center;margin-bottom:8px;line-height:1.5;}
+.phone-lbl em{display:block;font-style:normal;font-size:9px;color:rgba(26,22,18,0.22);font-weight:400;margin-top:2px;}
+
+/* ── WIREFRAME ATOMS ── */
+.wf-sbar{height:18px;display:flex;justify-content:space-between;align-items:center;padding:0 14px;font-size:8px;font-weight:500;color:rgba(26,22,18,0.30);background:#f8f6f2;}
+.wf-content{padding:12px 14px 8px;background:#f8f6f2;}
+
+/* greeting placeholder */
+.wf-greeting{margin-bottom:10px;}
+.wf-g1{height:9px;width:68%;border-radius:2px;background:rgba(26,22,18,0.15);margin-bottom:4px;}
+.wf-g2{height:7px;width:42%;border-radius:2px;background:rgba(26,22,18,0.09);}
+
+/* section label */
+.wf-sec{height:5px;width:28%;border-radius:2px;background:rgba(26,22,18,0.09);margin:7px 0 5px;}
+
+/* task row */
+.wf-task{background:#fff;border-radius:6px;height:28px;margin-bottom:3px;display:flex;align-items:center;padding:0 8px;gap:5px;border:1px solid rgba(26,22,18,0.07);}
+.wf-t-bar{width:2.5px;height:16px;border-radius:1px;flex-shrink:0;}
+.wf-t-bar.ov{background:#C4503A;}
+.wf-t-bar.td{background:#C8784A;}
+.wf-t-line{flex:1;height:6px;border-radius:2px;background:rgba(26,22,18,0.10);}
+.wf-t-check{width:13px;height:13px;border-radius:50%;border:1.5px solid rgba(26,22,18,0.13);flex-shrink:0;}
+
+/* bottom zone */
+.wf-bottom{position:relative;height:58px;background:#f8f6f2;}
+.wf-pill{position:absolute;left:8px;right:58px;bottom:8px;height:40px;background:#fff;border-radius:14px;border:1px solid rgba(26,22,18,0.08);display:flex;align-items:center;justify-content:space-around;padding:0 6px;}
+.wf-tab{width:16px;height:16px;border-radius:3px;background:rgba(26,22,18,0.10);}
+.wf-tab.act{background:rgba(155,127,212,0.30);}
+.wf-fab{position:absolute;right:8px;bottom:8px;width:40px;height:40px;border-radius:12px;background:var(--cta);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(155,127,212,0.35);}
+.wf-fab svg{fill:none;stroke:#FAF8FF;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+
+/* scrim */
+.wf-scrim{position:absolute;inset:0;background:rgba(26,22,18,0.15);z-index:5;}
+
+/* action sheet */
+.wf-sheet{position:absolute;bottom:0;left:0;right:0;background:#f8f6f2;border-radius:14px 14px 0 0;padding:8px 10px 10px;z-index:10;}
+.wf-handle{width:24px;height:3px;border-radius:2px;background:rgba(26,22,18,0.15);margin:0 auto 8px;}
+.wf-opt{background:#fff;border-radius:8px;padding:7px 9px;margin-bottom:4px;display:flex;align-items:center;gap:7px;border:1px solid rgba(26,22,18,0.07);}
+.wf-opt.primary{border-color:rgba(155,127,212,0.25);background:rgba(155,127,212,0.04);}
+.wf-opt-icon{width:24px;height:24px;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.wf-opt-icon svg{fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+.wf-opt-body{flex:1;}
+.wf-opt-title{font-size:9px;font-weight:500;color:var(--ink);margin-bottom:1px;}
+.wf-opt-sub{font-size:7.5px;color:var(--mid);font-style:italic;}
+.wf-cancel{text-align:center;font-size:8px;color:var(--mid);margin-top:4px;}
+.wf-settings-link{display:flex;align-items:center;justify-content:center;gap:4px;margin-top:5px;padding-top:5px;border-top:1px solid rgba(26,22,18,0.07);}
+.wf-settings-link svg{fill:none;stroke:var(--mid-lt);stroke-width:1.6;stroke-linecap:round;}
+.wf-settings-link span{font-size:7.5px;color:var(--mid-lt);}
+
+/* settings screen */
+.wf-nav-bar{height:32px;background:#fff;border-bottom:1px solid rgba(26,22,18,0.07);display:flex;align-items:center;padding:0 10px;gap:7px;}
+.wf-nav-back{width:12px;height:12px;border-radius:3px;background:rgba(26,22,18,0.09);}
+.wf-nav-title{font-size:9px;font-weight:500;color:var(--ink);}
+.wf-set-sec{padding:8px 10px 0;}
+.wf-set-lbl{font-size:7px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--mid);margin-bottom:5px;}
+.wf-set-card{background:#fff;border-radius:8px;overflow:hidden;margin-bottom:7px;border:1px solid rgba(26,22,18,0.07);}
+.wf-set-row{display:flex;align-items:center;gap:7px;padding:7px 9px;border-bottom:1px solid rgba(26,22,18,0.06);}
+.wf-set-row:last-child{border-bottom:none;}
+.wf-set-icon{width:20px;height:20px;border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.wf-set-icon svg{fill:none;stroke-width:1.6;stroke-linecap:round;}
+.wf-set-body{flex:1;}
+.wf-set-title{font-size:8.5px;font-weight:500;color:var(--ink);}
+.wf-set-sub{font-size:7px;color:var(--mid);}
+.wf-radio{width:13px;height:13px;border-radius:50%;border:1.5px solid rgba(26,22,18,0.18);flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.wf-radio.checked{border-color:var(--cta);background:rgba(155,127,212,0.10);}
+.wf-radio.checked::after{content:'';width:5px;height:5px;border-radius:50%;background:var(--cta);}
+.wf-set-info{font-size:7.5px;color:var(--mid);padding:0 9px 8px;line-height:1.5;}
+
+/* ── ANNOTATION PANEL ── */
+.ann-panel{flex:1;min-width:220px;display:flex;flex-direction:column;gap:10px;padding-top:28px;}
+.ann{background:#fff;border:1px solid var(--ink-08);border-radius:10px;padding:12px 14px;}
+.ann.highlight{border-color:rgba(155,127,212,0.28);background:rgba(155,127,212,0.04);}
+.ann.warn{border-color:rgba(196,80,58,0.18);background:rgba(196,80,58,0.03);}
+.ann-lbl{font-size:9px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--mid-lt);margin-bottom:6px;}
+.ann-lbl.purple{color:#5C3E8A;}
+.ann-lbl.green{color:#2A5A30;}
+.ann-body{font-size:12px;color:var(--mid);line-height:1.6;}
+.ann-body strong{color:var(--ink);font-weight:500;}
+.ann-body code{font-family:monospace;font-size:10px;background:rgba(26,22,18,0.06);padding:1px 4px;border-radius:3px;color:var(--ink);}
+.chip-row{display:flex;align-items:center;gap:6px;margin:5px 0;}
+.chip{font-size:10px;font-weight:500;padding:3px 9px;border-radius:100px;background:var(--ink-06);border:1px solid var(--ink-10);}
+.chip.cta{background:rgba(155,127,212,0.10);color:#5C3E8A;border-color:rgba(155,127,212,0.2);}
+.chip.green{background:rgba(90,144,96,0.10);color:#2A5A30;border-color:rgba(90,144,96,0.2);}
+.arr{color:var(--mid-lt);font-size:11px;}
+
+/* ── LOGIC TABLE ── */
+.logic-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px;}
+.logic-table th{font-size:9px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--mid);text-align:left;padding:0 0 6px;border-bottom:1px solid var(--ink-10);}
+.logic-table td{padding:7px 0;border-bottom:1px solid var(--ink-08);color:var(--mid);vertical-align:top;}
+.logic-table td:first-child{color:var(--ink);font-weight:500;padding-right:16px;white-space:nowrap;}
+.logic-table tr:last-child td{border-bottom:none;}
+
+/* ── FLOW ARROW ── */
+.flow-arrow{display:flex;align-items:center;gap:0;flex-wrap:wrap;margin-bottom:24px;}
+.fa-step{background:#fff;border:1px solid var(--ink-10);border-radius:8px;padding:8px 12px;font-size:11px;font-weight:500;color:var(--ink);}
+.fa-step.highlight{background:rgba(155,127,212,0.07);border-color:rgba(155,127,212,0.25);color:#5C3E8A;}
+.fa-arr{font-size:12px;color:var(--mid-lt);padding:0 8px;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-back" href="../index.html">
+    <svg width="18" height="18" viewBox="0 0 80 80" style="border-radius:4px;flex-shrink:0"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
+    Design hub
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">S-12 · FAB smart behaviour</span>
+  <span class="nav-id">Lo-fi · March 2026</span>
+</nav>
+
+<div class="content">
+
+  <!-- HEADER -->
+  <h1>FAB smart behaviour</h1>
+  <p class="sub">De FAB heeft standaard een plus-icoon dat de action sheet opent met drie keuzes. Als een gebruiker altijd dezelfde keuze maakt, kan hij een vaste modus instellen in settings — de FAB past dan zijn icoon aan en gaat direct naar die modus. Long press toont altijd het volledige menu.</p>
+  <div class="meta">
+    <span class="mp lo">Lo-fi</span>
+    <span class="mp flow">Dashboard flow</span>
+    <span class="mp">S-12</span>
+    <span class="mp">Verbonden met S-09</span>
+    <span class="mp">Settings: Profile → Snelknop</span>
+  </div>
+
+  <!-- FLOW ARROW -->
+  <div class="flow-arrow">
+    <div class="fa-step">S-09 Dashboard</div>
+    <div class="fa-arr">→</div>
+    <div class="fa-step highlight">FAB tappen</div>
+    <div class="fa-arr">→</div>
+    <div class="fa-step">Keuze A · Vertel het me</div>
+    <div class="fa-arr">/</div>
+    <div class="fa-step">Keuze B · Blader</div>
+    <div class="fa-arr">/</div>
+    <div class="fa-step">Keuze C · Zoeken</div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       SECTION 1 — DEFAULT GEDRAG
+  ═══════════════════════════════ -->
+  <div class="sec">
+    <div class="sec-eye">01</div>
+    <div class="sec-title">Standaard gedrag — plus icoon</div>
+    <p class="sec-desc">Eerste keer dat de gebruiker de app gebruikt, weet hij nog niet welke modus hij prefereert. De plus toont het menu en laat hem kiezen — eerlijk, zonder aannames.</p>
+    <div class="sec-rule"></div>
+
+    <div class="row">
+      <div class="phones-row">
+
+        <!-- STATE A: FAB zichtbaar, sheet gesloten -->
+        <div>
+          <div class="phone-lbl">FAB zichtbaar<em>Sheet gesloten · plus icoon</em></div>
+          <div class="phone">
+            <div class="screen">
+              <div class="wf-sbar"><span>9:41</span><span>●●●</span></div>
+              <div class="wf-content">
+                <div class="wf-greeting"><div class="wf-g1"></div><div class="wf-g2"></div></div>
+                <div class="wf-sec"></div>
+                <div class="wf-task"><div class="wf-t-bar ov"></div><div class="wf-t-line"></div><div class="wf-t-check"></div></div>
+                <div class="wf-task"><div class="wf-t-bar ov"></div><div class="wf-t-line" style="width:60%"></div><div class="wf-t-check"></div></div>
+                <div class="wf-sec"></div>
+                <div class="wf-task"><div class="wf-t-bar td"></div><div class="wf-t-line" style="width:75%"></div><div class="wf-t-check"></div></div>
+                <div class="wf-task"><div class="wf-t-bar td"></div><div class="wf-t-line" style="width:55%"></div><div class="wf-t-check"></div></div>
+              </div>
+              <div class="wf-bottom">
+                <div class="wf-pill">
+                  <div class="wf-tab act"></div>
+                  <div class="wf-tab"></div>
+                  <div class="wf-tab"></div>
+                </div>
+                <div class="wf-fab">
+                  <!-- Plus icon -->
+                  <svg width="14" height="14" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STATE B: Action sheet open (3 opties + settings link) -->
+        <div>
+          <div class="phone-lbl">FAB getapt<em>Action sheet open · FAB roteert naar ×</em></div>
+          <div class="phone">
+            <div class="screen" style="min-height:340px;">
+              <div class="wf-sbar"><span>9:41</span><span>●●●</span></div>
+              <div class="wf-content">
+                <div class="wf-greeting"><div class="wf-g1"></div><div class="wf-g2"></div></div>
+                <div class="wf-sec"></div>
+                <div class="wf-task"><div class="wf-t-bar ov"></div><div class="wf-t-line"></div><div class="wf-t-check"></div></div>
+                <div class="wf-task"><div class="wf-t-bar ov"></div><div class="wf-t-line" style="width:60%"></div><div class="wf-t-check"></div></div>
+              </div>
+              <!-- Scrim -->
+              <div class="wf-scrim"></div>
+              <!-- Action sheet -->
+              <div class="wf-sheet">
+                <div class="wf-handle"></div>
+                <!-- Optie 1: Voice (primary) -->
+                <div class="wf-opt primary">
+                  <div class="wf-opt-icon" style="background:rgba(155,127,212,0.12);">
+                    <svg width="12" height="12" viewBox="0 0 24 24" stroke="#9B7FD4"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg>
+                  </div>
+                  <div class="wf-opt-body">
+                    <div class="wf-opt-title">Vertel het me</div>
+                    <div class="wf-opt-sub">spreken of typen</div>
+                  </div>
+                </div>
+                <!-- Optie 2: Browse -->
+                <div class="wf-opt">
+                  <div class="wf-opt-icon" style="background:rgba(200,120,74,0.10);">
+                    <svg width="12" height="12" viewBox="0 0 24 24" stroke="#C8784A"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                  </div>
+                  <div class="wf-opt-body">
+                    <div class="wf-opt-title">Laat me zien</div>
+                    <div class="wf-opt-sub">blader per categorie</div>
+                  </div>
+                </div>
+                <!-- Optie 3: Search -->
+                <div class="wf-opt">
+                  <div class="wf-opt-icon" style="background:rgba(26,22,18,0.06);">
+                    <svg width="12" height="12" viewBox="0 0 24 24" stroke="#8A8070"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                  </div>
+                  <div class="wf-opt-body">
+                    <div class="wf-opt-title">Ik weet wat ik wil</div>
+                    <div class="wf-opt-sub">direct zoeken</div>
+                  </div>
+                </div>
+                <div class="wf-cancel">Annuleren</div>
+                <!-- Settings link — new -->
+                <div class="wf-settings-link">
+                  <svg width="9" height="9" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+                  <span>Snelknop instellen</span>
+                </div>
+              </div>
+              <!-- FAB rotated -->
+              <div style="position:absolute;right:8px;bottom:8px;width:40px;height:40px;border-radius:12px;background:var(--cta);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(155,127,212,0.35);z-index:20;transform:rotate(45deg);">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FAF8FF" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ANNOTATION -->
+      <div class="ann-panel">
+        <div class="ann highlight">
+          <div class="ann-lbl purple">Logica — standaard</div>
+          <div class="ann-body">
+            <strong>Plus icoon = eerlijke default.</strong> Eerste keer geen aanname over wat de gebruiker wil — het menu helpt hem kiezen.<br><br>
+            FAB roteert naar <strong>× (45°)</strong> wanneer sheet open is. Scrim dimt content naar <code>rgba(26,22,18,0.18)</code>. Tap op scrim of × sluit de sheet.
+          </div>
+        </div>
+        <div class="ann">
+          <div class="ann-lbl">Action sheet · specs</div>
+          <div class="ann-body">
+            Verschijnt vanuit rechtsonder, verankerd aan FAB.<br>
+            Breedte: <code>188px</code> (hi-fi) · volledige breedte op lo-fi<br>
+            Animatie: <code>translateY + scale</code>, spring easing<br>
+            Stagger: 40 / 80 / 120ms per optie<br><br>
+            <strong>Volgorde: Voice bovenaan</strong> — primary path, eerste keuze voor de meeste gebruikers.
+          </div>
+        </div>
+        <div class="ann">
+          <div class="ann-lbl">Snelknop instellen — link</div>
+          <div class="ann-body">
+            Onderaan de action sheet: subtiele link met instellingen-icoon → <strong>Snelknop instellen</strong>.<br><br>
+            Niet prominent — de meeste gebruikers zien hem pas als ze zoeken. Power users vinden hem vanzelf.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       SECTION 2 — SMART FAB GEDRAG
+  ═══════════════════════════════ -->
+  <div class="sec">
+    <div class="sec-eye">02</div>
+    <div class="sec-title">Smart gedrag — vaste modus ingesteld</div>
+    <p class="sec-desc">Gebruiker heeft in settings een vaste voorkeur gekozen. FAB icoon verandert naar het icoon van die modus. Tappen gaat direct — geen action sheet. Long press toont altijd het volledige menu.</p>
+    <div class="sec-rule"></div>
+
+    <div class="row">
+      <div class="phones-row">
+
+        <!-- Martijn: Voice vaste modus -->
+        <div>
+          <div class="phone-lbl">Martijn · Voice als vaste modus<em>Mic icoon · direct naar voice bij tap</em></div>
+          <div class="phone">
+            <div class="screen">
+              <div class="wf-sbar"><span>9:41</span><span>●●●</span></div>
+              <div class="wf-content">
+                <div class="wf-greeting"><div class="wf-g1"></div><div class="wf-g2"></div></div>
+                <div class="wf-sec"></div>
+                <div class="wf-task"><div class="wf-t-bar ov"></div><div class="wf-t-line"></div><div class="wf-t-check"></div></div>
+                <div class="wf-task"><div class="wf-t-bar td"></div><div class="wf-t-line" style="width:70%"></div><div class="wf-t-check"></div></div>
+                <div class="wf-task"><div class="wf-t-bar td"></div><div class="wf-t-line" style="width:55%"></div><div class="wf-t-check"></div></div>
+              </div>
+              <div class="wf-bottom">
+                <div class="wf-pill">
+                  <div class="wf-tab act"></div>
+                  <div class="wf-tab"></div>
+                  <div class="wf-tab"></div>
+                </div>
+                <!-- Mic icoon ipv plus -->
+                <div class="wf-fab">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FAF8FF" stroke-width="1.8" stroke-linecap="round"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sara: Search vaste modus -->
+        <div>
+          <div class="phone-lbl">Sara · Zoeken als vaste modus<em>Loep icoon · direct naar search bij tap</em></div>
+          <div class="phone">
+            <div class="screen">
+              <div class="wf-sbar"><span>9:41</span><span>●●●</span></div>
+              <div class="wf-content">
+                <div class="wf-greeting"><div class="wf-g1"></div><div class="wf-g2"></div></div>
+                <div class="wf-sec"></div>
+                <div class="wf-task"><div class="wf-t-bar ov"></div><div class="wf-t-line"></div><div class="wf-t-check"></div></div>
+                <div class="wf-task"><div class="wf-t-bar td"></div><div class="wf-t-line" style="width:65%"></div><div class="wf-t-check"></div></div>
+              </div>
+              <div class="wf-bottom">
+                <div class="wf-pill">
+                  <div class="wf-tab act"></div>
+                  <div class="wf-tab"></div>
+                  <div class="wf-tab"></div>
+                </div>
+                <!-- Loep icoon -->
+                <div class="wf-fab">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FAF8FF" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ANNOTATION -->
+      <div class="ann-panel">
+        <div class="ann highlight">
+          <div class="ann-lbl purple">Icoon per modus</div>
+          <div class="ann-body">
+            <table class="logic-table">
+              <thead><tr><th>Modus</th><th>FAB icoon</th></tr></thead>
+              <tbody>
+                <tr><td>Vertel het me</td><td>mic icoon</td></tr>
+                <tr><td>Laat me zien</td><td>grid icoon</td></tr>
+                <tr><td>Ik weet wat ik wil</td><td>loep icoon</td></tr>
+                <tr><td>Altijd menu (default)</td><td>plus icoon</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="ann">
+          <div class="ann-lbl green">Long press — veiligheidsnet</div>
+          <div class="ann-body">
+            Als vaste modus ingesteld: <strong>long press op FAB</strong> opent alsnog de volledige action sheet.<br><br>
+            Zo raak je nooit een optie kwijt. Martijn die altijd voice gebruikt, kan vandaag toch nog browsen.
+          </div>
+        </div>
+        <div class="ann">
+          <div class="ann-lbl">Waarom dit werkt</div>
+          <div class="ann-body">
+            <strong>Martijn</strong> (voice persona) stelt dit in op "Vertel het me" en tikt nooit meer een extra keer.<br><br>
+            <strong>Sara</strong> (search persona) op "Ik weet wat ik wil".<br><br>
+            De app past zich aan de gebruiker aan — zonder hem bij onboarding al te dwingen een keuze te maken.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       SECTION 3 — SETTINGS SCHERM
+  ═══════════════════════════════ -->
+  <div class="sec">
+    <div class="sec-eye">03</div>
+    <div class="sec-title">Settings — Snelknop instellen</div>
+    <p class="sec-desc">Profile tab → Instellingen → Snelknop. Vier opties. Niet prominent in de settings-hiërarchie — de meeste gebruikers houden de default, maar de instelling is makkelijk te vinden.</p>
+    <div class="sec-rule"></div>
+
+    <div class="row">
+      <div>
+        <div class="phone-lbl">Snelknop instellen<em>Voice geselecteerd als vaste modus</em></div>
+        <div class="phone">
+          <div class="screen">
+            <div class="wf-sbar"><span>9:41</span><span>●●●</span></div>
+            <div class="wf-nav-bar">
+              <div class="wf-nav-back"></div>
+              <div class="wf-nav-title">Snelknop instellen</div>
+            </div>
+            <div class="wf-set-sec">
+              <div class="wf-set-lbl">Standaard actie</div>
+              <div class="wf-set-card">
+                <!-- Vertel het me — checked -->
+                <div class="wf-set-row">
+                  <div class="wf-set-icon" style="background:rgba(155,127,212,0.12);">
+                    <svg width="11" height="11" viewBox="0 0 24 24" stroke="#9B7FD4"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg>
+                  </div>
+                  <div class="wf-set-body">
+                    <div class="wf-set-title">Vertel het me</div>
+                    <div class="wf-set-sub">Spreken of typen — direct open</div>
+                  </div>
+                  <div class="wf-radio checked"></div>
+                </div>
+                <!-- Laat me zien -->
+                <div class="wf-set-row">
+                  <div class="wf-set-icon" style="background:rgba(200,120,74,0.10);">
+                    <svg width="11" height="11" viewBox="0 0 24 24" stroke="#C8784A"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                  </div>
+                  <div class="wf-set-body">
+                    <div class="wf-set-title">Laat me zien</div>
+                    <div class="wf-set-sub">Blader per categorie</div>
+                  </div>
+                  <div class="wf-radio"></div>
+                </div>
+                <!-- Ik weet wat ik wil -->
+                <div class="wf-set-row">
+                  <div class="wf-set-icon" style="background:rgba(26,22,18,0.06);">
+                    <svg width="11" height="11" viewBox="0 0 24 24" stroke="#8A8070"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                  </div>
+                  <div class="wf-set-body">
+                    <div class="wf-set-title">Ik weet wat ik wil</div>
+                    <div class="wf-set-sub">Direct zoeken</div>
+                  </div>
+                  <div class="wf-radio"></div>
+                </div>
+                <!-- Altijd menu tonen -->
+                <div class="wf-set-row">
+                  <div class="wf-set-icon" style="background:rgba(26,22,18,0.06);">
+                    <svg width="11" height="11" viewBox="0 0 24 24" stroke="#8A8070"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                  </div>
+                  <div class="wf-set-body">
+                    <div class="wf-set-title">Altijd menu tonen</div>
+                    <div class="wf-set-sub">Kies elke keer opnieuw</div>
+                  </div>
+                  <div class="wf-radio"></div>
+                </div>
+              </div>
+              <div class="wf-set-info">Als je een vaste modus kiest, gaat de knop daar direct naartoe. Lang indrukken toont altijd het volledige menu.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ANNOTATION -->
+      <div class="ann-panel" style="padding-top:28px;">
+        <div class="ann highlight">
+          <div class="ann-lbl purple">4 opties</div>
+          <div class="ann-body">
+            <div class="chip-row"><span class="chip cta">Vertel het me</span><span class="arr">→</span> mic icoon</div>
+            <div class="chip-row"><span class="chip">Laat me zien</span><span class="arr">→</span> grid icoon</div>
+            <div class="chip-row"><span class="chip">Ik weet wat ik wil</span><span class="arr">→</span> loep icoon</div>
+            <div class="chip-row"><span class="chip">Altijd menu</span><span class="arr">→</span> plus icoon</div>
+          </div>
+        </div>
+        <div class="ann">
+          <div class="ann-lbl">Waar in settings</div>
+          <div class="ann-body">
+            <strong>Profile tab → Instellingen → Snelknop</strong><br><br>
+            Niet diep begraven, maar ook niet prominent. De meeste gebruikers houden de default. Power users vinden het vanzelf — of via de link onderaan de action sheet.
+          </div>
+        </div>
+        <div class="ann">
+          <div class="ann-lbl">Toegangspaden</div>
+          <div class="ann-body">
+            <strong>Pad 1:</strong> Action sheet → "Snelknop instellen" link onderaan<br><br>
+            <strong>Pad 2:</strong> Profile tab → Instellingen → Snelknop<br><br>
+            Beide paden komen uit op hetzelfde settings scherm.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       SECTION 4 — DECISION LOG
+  ═══════════════════════════════ -->
+  <div class="sec">
+    <div class="sec-eye">04</div>
+    <div class="sec-title">Beslissingen vastgelegd</div>
+    <div class="sec-rule"></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;">
+      <div class="ann">
+        <div class="ann-lbl green">Besloten · Plus als default</div>
+        <div class="ann-body">Plus-icoon is de default. Geen aanname bij eerste gebruik. Na een week weet Martijn dat hij altijd voice kiest — dan stelt hij het in.</div>
+      </div>
+      <div class="ann">
+        <div class="ann-lbl green">Besloten · Long press veiligheidsnet</div>
+        <div class="ann-body">Long press opent altijd de volledige action sheet, ongeacht de vaste modus. Geen enkele optie gaat verloren.</div>
+      </div>
+      <div class="ann">
+        <div class="ann-lbl green">Besloten · Settings niet bij onboarding</div>
+        <div class="ann-body">Geen snelknop-keuze bij onboarding. Gebruiker leert eerst de app kennen. Instelling volgt organisch.</div>
+      </div>
+      <div class="ann">
+        <div class="ann-lbl green">Besloten · Link in action sheet</div>
+        <div class="ann-body">"Snelknop instellen" als subtiele link onderaan de action sheet. Discoverable voor power users zonder prominent te zijn voor nieuwe gebruikers.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LINKS -->
+  <div style="display:flex;gap:10px;flex-wrap:wrap;padding-top:20px;border-top:1px solid var(--ink-08);">
+    <a href="s12-fab-action-sheet-hifi.html" style="font-size:12px;font-weight:500;color:var(--cta);text-decoration:none;background:rgba(155,127,212,0.08);border:1px solid rgba(155,127,212,0.2);padding:6px 14px;border-radius:100px;">→ Hi-fi nudge</a>
+    <a href="../system/fab-spec.html" style="font-size:12px;font-weight:500;color:var(--mid);text-decoration:none;background:rgba(26,22,18,0.05);border:1px solid var(--ink-10);padding:6px 14px;border-radius:100px;">→ FAB spec (design system)</a>
+    <a href="../system/ux-flow.html" style="font-size:12px;font-weight:500;color:var(--mid);text-decoration:none;background:rgba(26,22,18,0.05);border:1px solid var(--ink-10);padding:6px 14px;border-radius:100px;">→ UX flow overview</a>
+  </div>
+
+</div>
+</body>
+</html>

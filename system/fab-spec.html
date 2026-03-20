@@ -391,6 +391,67 @@ body{background:#BDB8AE;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:
   </div>
 </div>
 
+<!-- ── SMART FAB BEHAVIOUR ── -->
+<div class="sec-lbl" style="margin-top:48px;">Smart FAB gedrag · vaste modus · v2.3</div>
+<div class="icon-strip">
+  <div class="is-title" style="margin-bottom:20px;">FAB past zijn icoon aan op basis van de ingestelde voorkeur in settings</div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:20px;">
+
+    <div style="background:rgba(26,22,18,0.03);border:1px solid rgba(26,22,18,0.08);border-radius:10px;padding:14px 16px;">
+      <div style="font-size:9px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--mid);margin-bottom:10px;">Default — Altijd menu</div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="is-box" style="background:var(--cta);border-radius:12px;flex-shrink:0;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FAF8FF" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div style="font-size:11px;color:var(--mid);line-height:1.5;">Plus icoon → opent action sheet met 3 opties. Eerlijke default zonder aanname.</div>
+      </div>
+    </div>
+
+    <div style="background:rgba(155,127,212,0.04);border:1px solid rgba(155,127,212,0.22);border-radius:10px;padding:14px 16px;">
+      <div style="font-size:9px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:#5C3E8A;margin-bottom:10px;">Vertel het me — Voice</div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="is-box" style="background:var(--cta);border-radius:12px;flex-shrink:0;">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#FAF8FF" stroke-width="1.8" stroke-linecap="round"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg>
+        </div>
+        <div style="font-size:11px;color:var(--mid);line-height:1.5;">Mic icoon → tappen gaat direct naar voice. Geen action sheet.</div>
+      </div>
+    </div>
+
+    <div style="background:rgba(26,22,18,0.03);border:1px solid rgba(26,22,18,0.08);border-radius:10px;padding:14px 16px;">
+      <div style="font-size:9px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--mid);margin-bottom:10px;">Laat me zien — Browse</div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="is-box" style="background:var(--cta);border-radius:12px;flex-shrink:0;">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#FAF8FF" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </div>
+        <div style="font-size:11px;color:var(--mid);line-height:1.5;">Grid icoon → tappen gaat direct naar browse per categorie.</div>
+      </div>
+    </div>
+
+    <div style="background:rgba(26,22,18,0.03);border:1px solid rgba(26,22,18,0.08);border-radius:10px;padding:14px 16px;">
+      <div style="font-size:9px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--mid);margin-bottom:10px;">Ik weet wat ik wil — Search</div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="is-box" style="background:var(--cta);border-radius:12px;flex-shrink:0;">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#FAF8FF" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </div>
+        <div style="font-size:11px;color:var(--mid);line-height:1.5;">Loep icoon → tappen gaat direct naar zoeken.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+    <div style="background:rgba(26,22,18,0.03);border:1px solid rgba(26,22,18,0.08);border-radius:10px;padding:13px 15px;">
+      <div style="font-size:9px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Long press — veiligheidsnet</div>
+      <div style="font-size:11px;color:var(--mid);line-height:1.6;">Long press op FAB opent <strong style="color:var(--ink);font-weight:500;">altijd</strong> de volledige action sheet, ongeacht de ingestelde modus. Geen enkele optie gaat verloren.</div>
+    </div>
+    <div style="background:rgba(26,22,18,0.03);border:1px solid rgba(26,22,18,0.08);border-radius:10px;padding:13px 15px;">
+      <div style="font-size:9px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Snelknop instellen</div>
+      <div style="font-size:11px;color:var(--mid);line-height:1.6;">Toegankelijk via: (1) subtiele link onderaan de action sheet, (2) Profile → Instellingen → <strong style="color:var(--ink);font-weight:500;">Snelknop</strong>. Niet bij onboarding — gebruiker leert eerst de app kennen.</div>
+    </div>
+  </div>
+</div>
+
 <div style="font-size:10px;color:rgba(26,22,18,0.18);letter-spacing:1.5px;text-transform:uppercase;text-align:center;">nudgii · Floating tab bar + FAB action sheet · March 2026 · Elf Consult</div>
 
 <script>
