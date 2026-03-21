@@ -18,6 +18,13 @@ html{scroll-behavior:smooth;}
   --cv:#4A82A0;--cvb:rgba(74,130,160,0.10);
   --cg:#5A9060;--cgb:rgba(90,144,96,0.10);
   --cs:#8060A8;--csb:rgba(128,96,168,0.10);
+  --surface:#FFFFFF;
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;
+  --space-6:24px;--space-8:32px;--space-12:48px;--space-16:64px;
+  --shadow-card:none;
+  --shadow-tab-bar:0 4px 20px rgba(26,22,18,0.11);
+  --shadow-fab:0 4px 16px rgba(155,127,212,0.35);
+  --shadow-sheet:0 -2px 20px rgba(26,22,18,0.12);
 }
 
 body{
@@ -141,7 +148,7 @@ body{
 .sub{font-size:10px;font-style:italic;color:var(--mid);line-height:1.5;margin-bottom:14px;font-weight:300;}
 
 /* preview cards — welcome */
-.pc{background:white;border-radius:9px;border:1px solid var(--border);padding:7px 10px;margin-bottom:5px;display:flex;align-items:center;gap:7px;box-shadow:0 1px 2px rgba(26,22,18,0.03);}
+.pc{background:var(--surface);border-radius:9px;border:1px solid var(--border);padding:7px 10px;margin-bottom:5px;display:flex;align-items:center;gap:7px;box-shadow:0 1px 2px rgba(26,22,18,0.03);}
 .pci{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .pci svg{width:10px;height:10px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
 .pci-h{background:var(--chb);}.pci-h svg{stroke:var(--ch);}
@@ -173,7 +180,7 @@ body{
 .slbl{font-size:7px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid-lt);padding:9px 0 5px;}
 
 /* nudge cards */
-.nc{background:white;border-radius:9px;border:1px solid var(--border);padding:8px 10px;margin-bottom:5px;display:flex;align-items:center;gap:8px;box-shadow:0 1px 2px rgba(26,22,18,0.03);}
+.nc{background:var(--surface);border-radius:9px;border:1px solid var(--border);padding:8px 10px;margin-bottom:5px;display:flex;align-items:center;gap:8px;box-shadow:0 1px 2px rgba(26,22,18,0.03);}
 .nci{width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .nci svg{width:10px;height:10px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
 .nb{flex:1;min-width:0;}
@@ -237,7 +244,7 @@ body{
 
 /* ── AI RESPONSE ── */
 .ai-msg{
-  background:white;border-radius:0 12px 12px 12px;
+  background:var(--surface);border-radius:0 12px 12px 12px;
   border:1px solid var(--border);
   padding:10px 12px;margin-bottom:10px;
   box-shadow:0 1px 3px rgba(26,22,18,0.04);
@@ -258,7 +265,7 @@ body{
 /* ── PATH B: BROWSE ── */
 .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
 .cat-tile{
-  background:white;border-radius:12px;border:1px solid var(--border);
+  background:var(--surface);border-radius:12px;border:1px solid var(--border);
   padding:12px 10px;display:flex;flex-direction:column;gap:6px;
   box-shadow:0 1px 3px rgba(26,22,18,0.04);cursor:pointer;
 }
@@ -270,7 +277,7 @@ body{
 /* ── PATH C: SEARCH ── */
 .search-bar{
   display:flex;align-items:center;gap:7px;
-  background:white;border-radius:10px;border:1.5px solid var(--ap-dk);
+  background:var(--surface);border-radius:10px;border:1.5px solid var(--ap-dk);
   padding:8px 11px;margin-bottom:10px;
   box-shadow:0 1px 3px rgba(26,22,18,0.04);
 }
@@ -279,7 +286,7 @@ body{
 .search-placeholder{font-size:11px;color:var(--mid);flex:1;}
 
 .search-result{
-  background:white;border-radius:9px;border:1px solid var(--border);
+  background:var(--surface);border-radius:9px;border:1px solid var(--border);
   padding:8px 10px;margin-bottom:5px;display:flex;align-items:center;gap:8px;
   box-shadow:0 1px 2px rgba(26,22,18,0.03);
 }
@@ -290,7 +297,7 @@ body{
 
 /* ── REVIEW SCREEN ── */
 .review-item{
-  background:white;border-radius:11px;border:1px solid var(--border);
+  background:var(--surface);border-radius:11px;border:1px solid var(--border);
   margin-bottom:7px;overflow:hidden;box-shadow:0 1px 3px rgba(26,22,18,0.04);
 }
 .ri-header{
@@ -315,7 +322,7 @@ body{
   width:100%;height:42px;border-radius:100px;
   display:flex;align-items:center;justify-content:center;gap:8px;
   font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;
-  cursor:pointer;margin-bottom:8px;border:1.5px solid var(--border-md);background:white;
+  cursor:pointer;margin-bottom:8px;border:1.5px solid var(--border-md);background:var(--surface);
   color:var(--ink);
 }
 .auth-btn-icon{width:18px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
@@ -677,7 +684,7 @@ body{
           <div class="auth-divider"><div class="auth-divider-line"></div><div class="auth-divider-txt">of</div><div class="auth-divider-line"></div></div>
 
           <!-- Magic link -->
-          <div style="display:flex;gap:6px;align-items:center;background:white;border-radius:10px;border:1.5px solid var(--border-md);padding:7px 10px;margin-bottom:8px;">
+          <div style="display:flex;gap:6px;align-items:center;background:var(--surface);border-radius:10px;border:1.5px solid var(--border-md);padding:7px 10px;margin-bottom:8px;">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             <div style="font-size:11px;color:var(--mid);flex:1;">e-mailadres</div>
           </div>

@@ -6,7 +6,7 @@
 <title>nudgii · S-08 Push permission — lo-fi nudge</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{--cream:#F5F0E8;--ink:#1A1612;--cta:#9B7FD4;--ap:#E8A87C;--ap-dk:#C8784A;--terra:#C4503A;--mid:#8A8070;--mid-lt:#B0A898;--plum:#2D1F4A;--ink-06:rgba(26,22,18,0.06);--ink-10:rgba(26,22,18,0.10);--ink-16:rgba(26,22,18,0.16);--ink-24:rgba(26,22,18,0.24)}
+:root{--cream:#F5F0E8;--ink:#1A1612;--cta:#9B7FD4;--ap:#E8A87C;--ap-dk:#C8784A;--terra:#C4503A;--mid:#8A8070;--mid-lt:#B0A898;--plum:#2D1F4A;--ink-06:rgba(26,22,18,0.06);--ink-10:rgba(26,22,18,0.10);--ink-16:rgba(26,22,18,0.16);--ink-24:rgba(26,22,18,0.24);--surface:#FFFFFF;--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-6:24px;--space-8:32px;--space-12:48px;--space-16:64px;--shadow-card:none;--shadow-tab-bar:0 4px 20px rgba(26,22,18,0.11);--shadow-fab:0 4px 16px rgba(155,127,212,0.35);--shadow-sheet:0 -2px 20px rgba(26,22,18,0.12)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px}
 nav{background:var(--cream);border-bottom:1px solid var(--ink-10);padding:0 32px;display:flex;align-items:center;gap:16px;height:48px;position:sticky;top:0;z-index:100}
@@ -27,7 +27,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px}
 .screen{background:#f8f6f2;border-radius:20px;overflow:hidden}
 
 /* wireframe atoms */
-.wf-zone{border-bottom:1.5px dashed var(--ink-10);padding:16px 16px 14px;background:#fff;position:relative}
+.wf-zone{border-bottom:1.5px dashed var(--ink-10);padding:16px 16px 14px;background:var(--surface);position:relative}
 .wf-zone:last-child{border-bottom:none}
 .zone-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .zone-lbl{font-size:8.5px;font-weight:500;letter-spacing:0.8px;text-transform:uppercase;color:var(--mid-lt)}
@@ -55,14 +55,14 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px}
 .wf-ben-sub{height:7px;border-radius:2px;background:var(--ink-10);width:85%}
 
 /* CTAs */
-.wf-cta-zone{background:#fff;padding:12px 16px 16px;border-top:1.5px dashed var(--ink-10)}
+.wf-cta-zone{background:var(--surface);padding:12px 16px 16px;border-top:1.5px dashed var(--ink-10)}
 .wf-primary{height:46px;border-radius:100px;background:var(--ink-16);margin-bottom:6px}
 .wf-secondary{height:38px;border-radius:100px;background:transparent;border:1.5px solid var(--ink-10)}
 .wf-cta-lbl{font-size:8.5px;font-weight:500;letter-spacing:0.5px;text-align:center;color:var(--mid);margin-top:4px;text-transform:uppercase}
 
 /* iOS native dialog overlay */
 .wf-overlay{background:rgba(26,22,18,0.18);padding:16px 12px;border-top:1.5px dashed var(--ink-16)}
-.wf-dialog{background:white;border-radius:14px;padding:14px;border:1px solid var(--ink-10)}
+.wf-dialog{background:var(--surface);border-radius:14px;padding:14px;border:1px solid var(--ink-10)}
 .wf-dialog-title{height:10px;border-radius:2px;background:var(--ink-24);width:75%;margin:0 auto 6px}
 .wf-dialog-body{height:8px;border-radius:2px;background:var(--ink-10);width:90%;margin:0 auto 12px}
 .wf-dialog-body2{height:8px;border-radius:2px;background:var(--ink-10);width:70%;margin:0 auto 14px}
@@ -81,7 +81,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px}
 .ti-pin{background:rgba(90,144,96,0.08);color:#2A5A30}
 .ti-once{background:rgba(155,127,212,0.08);color:#5C3E8A}
 .ti-ios{background:rgba(26,22,18,0.06);color:var(--mid)}
-.box{background:#fff;border:1px solid var(--ink-10);border-radius:10px;padding:14px;margin-top:20px}
+.box{background:var(--surface);border:1px solid var(--ink-10);border-radius:10px;padding:14px;margin-top:20px}
 .box-lbl{font-size:10px;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;color:var(--mid);margin-bottom:8px}
 .box p{font-size:12px;color:var(--mid);line-height:1.55;margin-bottom:6px}
 .box p:last-child{margin:0}

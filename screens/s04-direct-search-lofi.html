@@ -79,7 +79,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 .z-search{padding:8px 12px 6px;background:#F5F0E8;}
 .search-field{
   width:100%;height:40px;border-radius:10px;
-  background:#fff;border:1.5px solid rgba(155,127,212,0.50);
+  background:var(--surface);border:1.5px solid rgba(155,127,212,0.50);
   display:flex;align-items:center;gap:7px;padding:0 10px;
   box-shadow:0 0 0 3px rgba(155,127,212,0.08);
 }
@@ -93,7 +93,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 .sf-clear svg{width:8px;height:8px;stroke:var(--mid);stroke-width:2;fill:none;stroke-linecap:round;}
 
 /* Zone D — Search results dropdown */
-.z-results{background:#fff;border:1px solid rgba(26,22,18,0.08);margin:0 12px;border-radius:10px;box-shadow:0 4px 16px rgba(26,22,18,0.09);overflow:hidden;}
+.z-results{background:var(--surface);border:1px solid rgba(26,22,18,0.08);margin:0 12px;border-radius:10px;box-shadow:0 4px 16px rgba(26,22,18,0.09);overflow:hidden;}
 .res-row{display:flex;align-items:center;gap:8px;padding:8px 10px;border-bottom:1px solid rgba(26,22,18,0.06);cursor:default;}
 .res-row:last-child{border-bottom:none;}
 .res-row.active{background:rgba(155,127,212,0.04);}
@@ -118,7 +118,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 /* Zone E — Added items list */
 .z-added{padding:8px 12px 6px;background:#F5F0E8;}
 .added-lbl{font-size:8px;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;color:var(--mid);margin-bottom:5px;}
-.added-item{display:flex;align-items:center;gap:6px;padding:6px 8px;background:#fff;border-radius:8px;margin-bottom:3px;border:1px solid rgba(26,22,18,0.07);}
+.added-item{display:flex;align-items:center;gap:6px;padding:6px 8px;background:var(--surface);border-radius:8px;margin-bottom:3px;border:1px solid rgba(26,22,18,0.07);}
 .ai-chip{width:20px;height:20px;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .ai-chip svg{width:9px;height:9px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
 .aic-home{background:var(--chb);}
@@ -136,7 +136,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 
 /* Keyboard suggestion bar */
 .z-keyboard{padding:6px 8px;background:rgba(26,22,18,0.05);border-top:1px solid rgba(26,22,18,0.08);display:flex;gap:4px;overflow:hidden;}
-.kb-sug{font-size:9px;color:var(--mid);padding:3px 8px;background:#fff;border-radius:100px;border:1px solid rgba(26,22,18,0.08);white-space:nowrap;flex-shrink:0;}
+.kb-sug{font-size:9px;color:var(--mid);padding:3px 8px;background:var(--surface);border-radius:100px;border:1px solid rgba(26,22,18,0.08);white-space:nowrap;flex-shrink:0;}
 
 /* ── RIGHT COLUMN ── */
 .right{flex:1;min-width:280px;}
@@ -146,7 +146,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 .sec-rule{height:1px;background:var(--ink-08);margin-bottom:20px;}
 
 /* Zone cards */
-.zone-card{background:#fff;border:1px solid var(--ink-08);border-radius:10px;padding:13px 15px;margin-bottom:8px;}
+.zone-card{background:var(--surface);border:1px solid var(--ink-08);border-radius:10px;padding:13px 15px;margin-bottom:8px;}
 .zone-card.highlight{border-color:rgba(155,127,212,0.25);background:rgba(155,127,212,0.03);}
 .zone-card.cta-card{border-color:rgba(155,127,212,0.30);background:rgba(155,127,212,0.04);}
 .zc-head{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
@@ -173,7 +173,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 
 /* Rules grid */
 .rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.rule-item{background:#fff;border:1px solid var(--ink-08);border-radius:8px;padding:10px 12px;}
+.rule-item{background:var(--surface);border:1px solid var(--ink-08);border-radius:8px;padding:10px 12px;}
 .ri-label{font-size:10px;font-weight:500;color:var(--ink);margin-bottom:2px;}
 .ri-desc{font-size:10px;color:var(--mid);line-height:1.5;}
 
@@ -377,12 +377,12 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
                 <div style="padding:6px 12px 10px;">
                   <div style="font-size:8px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Populair bij anderen</div>
                   <div style="display:flex;flex-wrap:wrap;gap:4px;">
-                    <div style="font-size:9px;font-weight:500;padding:4px 9px;background:#fff;border-radius:100px;border:1px solid rgba(26,22,18,0.10);color:var(--ink);">Vaatwasser</div>
-                    <div style="font-size:9px;font-weight:500;padding:4px 9px;background:#fff;border-radius:100px;border:1px solid rgba(26,22,18,0.10);color:var(--ink);">Auto</div>
-                    <div style="font-size:9px;font-weight:500;padding:4px 9px;background:#fff;border-radius:100px;border:1px solid rgba(26,22,18,0.10);color:var(--ink);">Verwarmingsketel</div>
-                    <div style="font-size:9px;font-weight:500;padding:4px 9px;background:#fff;border-radius:100px;border:1px solid rgba(26,22,18,0.10);color:var(--ink);">Grasmaaier</div>
-                    <div style="font-size:9px;font-weight:500;padding:4px 9px;background:#fff;border-radius:100px;border:1px solid rgba(26,22,18,0.10);color:var(--ink);">Netflix</div>
-                    <div style="font-size:9px;font-weight:500;padding:4px 9px;background:#fff;border-radius:100px;border:1px solid rgba(26,22,18,0.10);color:var(--ink);">Airco</div>
+                    <div style="font-size:9px;font-weight:500;padding:4px 9px;background:var(--surface);border-radius:100px;border:1px solid rgba(26,22,18,0.10);color:var(--ink);">Vaatwasser</div>
+                    <div style="font-size:9px;font-weight:500;padding:4px 9px;background:var(--surface);border-radius:100px;border:1px solid rgba(26,22,18,0.10);color:var(--ink);">Auto</div>
+                    <div style="font-size:9px;font-weight:500;padding:4px 9px;background:var(--surface);border-radius:100px;border:1px solid rgba(26,22,18,0.10);color:var(--ink);">Verwarmingsketel</div>
+                    <div style="font-size:9px;font-weight:500;padding:4px 9px;background:var(--surface);border-radius:100px;border:1px solid rgba(26,22,18,0.10);color:var(--ink);">Grasmaaier</div>
+                    <div style="font-size:9px;font-weight:500;padding:4px 9px;background:var(--surface);border-radius:100px;border:1px solid rgba(26,22,18,0.10);color:var(--ink);">Netflix</div>
+                    <div style="font-size:9px;font-weight:500;padding:4px 9px;background:var(--surface);border-radius:100px;border:1px solid rgba(26,22,18,0.10);color:var(--ink);">Airco</div>
                   </div>
                 </div>
               </div>
@@ -392,7 +392,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
                 <div class="zone-tag" style="top:6px;">D₂</div>
                 <div style="padding:6px 12px 10px;">
                   <div style="font-size:8px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Niet gevonden staat</div>
-                  <div style="background:#fff;border:1px solid rgba(26,22,18,0.08);border-radius:10px;padding:10px 12px;text-align:center;">
+                  <div style="background:var(--surface);border:1px solid rgba(26,22,18,0.08);border-radius:10px;padding:10px 12px;text-align:center;">
                     <div style="font-size:10px;font-weight:500;color:var(--ink);margin-bottom:3px;">"zwembad" niet gevonden.</div>
                     <div style="font-size:9px;color:var(--mid);line-height:1.5;">Voeg het zelf toe als aangepast item.</div>
                     <div style="margin-top:7px;font-size:9px;font-weight:500;color:var(--cta);cursor:default;">+ "zwembad" toevoegen</div>
