@@ -175,6 +175,13 @@ section{padding-top:48px;}
 /* full flow container */
 .flow-canvas{overflow-x:auto;padding-bottom:8px;}
 .flow-inner{display:flex;align-items:flex-start;gap:0;min-width:max-content;padding:4px 0 12px;}
+
+/* ── NODE LINK ROW (lo / hi quick links below card) ── */
+.node-links{display:flex;gap:4px;margin-top:4px;justify-content:center;}
+.nl-btn{font-size:9px;font-weight:500;padding:2px 8px;border-radius:100px;text-decoration:none;transition:opacity .15s;}
+.nl-btn.lo{background:rgba(90,144,96,0.10);color:#2A5A30;border:1px solid rgba(90,144,96,0.20);}
+.nl-btn.hi{background:rgba(155,127,212,0.10);color:#5C3E8A;border:1px solid rgba(155,127,212,0.22);}
+.nl-btn:hover{opacity:.7;}
 </style>
 </head>
 <body>
@@ -231,15 +238,19 @@ section{padding-top:48px;}
 
         <!-- S-01 Welcome -->
         <div class="node">
-          <a class="node-card tag-ob" href="../screens/s01-welcome-hifi.html" target="_blank">
+          <div class="node-card tag-ob" style="cursor:default;">
             <div class="node-id">S-01</div>
             <div class="node-name">Welcome screen</div>
             <div class="node-badges">
-              <span class="nb nb-lo">lo</span>
+              <span class="nb nb-lo done">lo ✓</span>
               <span class="nb nb-hi done">hi ✓</span>
             </div>
             <div class="node-status ns-ready"></div>
-          </a>
+          </div>
+          <div class="node-links">
+            <a class="nl-btn lo" href="../screens/s01-welcome-lofi.html" target="_blank">lo-fi</a>
+            <a class="nl-btn hi" href="../screens/s01-welcome-hifi.html" target="_blank">hi-fi</a>
+          </div>
           <span class="s-badge s-ready">Ready</span>
         </div>
 
@@ -251,29 +262,35 @@ section{padding-top:48px;}
           <div class="branch" style="padding-top:0;">
             <!-- Path A -->
             <div class="node">
-              <div class="node-card tag-ob" style="width:130px;">
+              <div class="node-card tag-ob" style="width:130px;cursor:default;">
                 <div class="node-id" style="color:#5C3E8A;">S-02 · Path A</div>
                 <div class="node-name">Voice onboarding</div>
                 <div class="node-badges">
-                  <span class="nb nb-lo">lo</span>
+                  <span class="nb nb-lo done">lo ✓</span>
                   <span class="nb nb-hi">hi</span>
                 </div>
-                <div class="node-status ns-dec"></div>
+                <div class="node-status ns-wip"></div>
               </div>
-              <span class="s-badge s-dec">Decision</span>
+              <div class="node-links">
+                <a class="nl-btn lo" href="../screens/s02-voice-onboarding-lofi.html" target="_blank">lo-fi</a>
+              </div>
+              <span class="s-badge s-wip">In progress</span>
             </div>
             <!-- Path B -->
             <div class="node" style="margin-top:2px;">
-              <div class="node-card tag-ob" style="width:130px;">
+              <div class="node-card tag-ob" style="width:130px;cursor:default;">
                 <div class="node-id" style="color:#5C3E8A;">S-03 · Path B</div>
                 <div class="node-name">Browse categories</div>
                 <div class="node-badges">
-                  <span class="nb nb-lo">lo</span>
+                  <span class="nb nb-lo done">lo ✓</span>
                   <span class="nb nb-hi">hi</span>
                 </div>
-                <div class="node-status ns-todo"></div>
+                <div class="node-status ns-wip"></div>
               </div>
-              <span class="s-badge s-todo">To do</span>
+              <div class="node-links">
+                <a class="nl-btn lo" href="../screens/s03-browse-categories-lofi.html" target="_blank">lo-fi</a>
+              </div>
+              <span class="s-badge s-wip">In progress</span>
             </div>
             <!-- Path C -->
             <div class="node" style="margin-top:2px;">
@@ -295,7 +312,7 @@ section{padding-top:48px;}
 
         <!-- S-05 Review -->
         <div class="node" style="padding-top:26px;">
-          <div class="node-card tag-ob">
+          <div class="node-card tag-ob" style="cursor:default;">
             <div class="node-id">S-05</div>
             <div class="node-name">Onboarding review</div>
             <div class="node-badges">
@@ -303,6 +320,9 @@ section{padding-top:48px;}
               <span class="nb nb-hi done">hi ✓</span>
             </div>
             <div class="node-status ns-wip"></div>
+          </div>
+          <div class="node-links">
+            <a class="nl-btn hi" href="../screens/s05-onboarding-review-hifi.html" target="_blank">hi-fi</a>
           </div>
           <span class="s-badge s-wip">In progress</span>
         </div>
@@ -343,7 +363,7 @@ section{padding-top:48px;}
 
         <!-- S-08 Push -->
         <div class="node" style="padding-top:26px;">
-          <a class="node-card tag-ob" href="../screens/s08-push-permission-lofi.html" target="_blank">
+          <div class="node-card tag-ob" style="cursor:default;">
             <div class="node-id">S-08</div>
             <div class="node-name">Push permission</div>
             <div class="node-badges">
@@ -351,7 +371,10 @@ section{padding-top:48px;}
               <span class="nb nb-hi">hi</span>
             </div>
             <div class="node-status ns-wip"></div>
-          </a>
+          </div>
+          <div class="node-links">
+            <a class="nl-btn lo" href="../screens/s08-push-permission-lofi.html" target="_blank">lo-fi</a>
+          </div>
           <span class="s-badge s-wip">In progress</span>
         </div>
 
@@ -407,7 +430,7 @@ section{padding-top:48px;}
           <div class="conn-row">
             <div class="arrow" style="padding-top:0;"><div class="arr-line"></div></div>
             <div class="node">
-              <a class="node-card tag-db" href="../system/design-system.html" target="_blank">
+              <div class="node-card tag-db">
                 <div class="node-id">S-10</div>
                 <div class="node-name">Dashboard — empty</div>
                 <div class="node-badges">
@@ -415,7 +438,7 @@ section{padding-top:48px;}
                   <span class="nb nb-hi done">hi ✓</span>
                 </div>
                 <div class="node-status ns-ready"></div>
-              </a>
+              </div>
               <span class="s-badge s-ready">Ready</span>
             </div>
           </div>
@@ -424,15 +447,15 @@ section{padding-top:48px;}
           <div class="conn-row">
             <div class="arrow" style="padding-top:0;"><div class="arr-line"></div></div>
             <div class="node">
-              <a class="node-card tag-db" href="../system/design-system.html" target="_blank">
+              <div class="node-card tag-db">
                 <div class="node-id">S-11</div>
                 <div class="node-name">Done overlay</div>
                 <div class="node-badges">
                   <span class="nb nb-lo">lo</span>
-                  <span class="nb nb-hi done">hi ✓</span>
+                  <span class="nb nb-hi">hi</span>
                 </div>
                 <div class="node-status ns-dec"></div>
-              </a>
+              </div>
               <span class="s-badge s-dec">Decision</span>
             </div>
           </div>
@@ -441,15 +464,19 @@ section{padding-top:48px;}
           <div class="conn-row">
             <div class="arrow" style="padding-top:0;"><div class="arr-line"></div></div>
             <div class="node">
-              <a class="node-card tag-db" href="../screens/s12-fab-action-sheet-hifi.html" target="_blank">
+              <div class="node-card tag-db" style="cursor:default;">
                 <div class="node-id">S-12</div>
                 <div class="node-name">FAB action sheet</div>
                 <div class="node-badges">
-                  <span class="nb nb-lo">lo</span>
+                  <span class="nb nb-lo done">lo ✓</span>
                   <span class="nb nb-hi done">hi ✓</span>
                 </div>
                 <div class="node-status ns-ready"></div>
-              </a>
+              </div>
+              <div class="node-links">
+                <a class="nl-btn lo" href="../screens/s12-fab-smart-lofi.html" target="_blank">lo-fi</a>
+                <a class="nl-btn hi" href="../screens/s12-fab-action-sheet-hifi.html" target="_blank">hi-fi</a>
+              </div>
               <span class="s-badge s-ready">Ready</span>
             </div>
           </div>
@@ -490,7 +517,7 @@ section{padding-top:48px;}
 
         <!-- S-13 Task detail -->
         <div class="node">
-          <a class="node-card tag-tk" href="../screens/s13-task-detail-lofi.html" target="_blank">
+          <div class="node-card tag-tk" style="cursor:default;">
             <div class="node-id">S-13</div>
             <div class="node-name">Task detail — default</div>
             <div class="node-badges">
@@ -498,7 +525,10 @@ section{padding-top:48px;}
               <span class="nb nb-hi">hi</span>
             </div>
             <div class="node-status ns-wip"></div>
-          </a>
+          </div>
+          <div class="node-links">
+            <a class="nl-btn lo" href="../screens/s13-task-detail-lofi.html" target="_blank">lo-fi</a>
+          </div>
           <span class="s-badge s-wip">In progress</span>
         </div>
 
