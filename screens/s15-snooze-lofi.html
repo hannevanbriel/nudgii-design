@@ -6,7 +6,7 @@
 <title>nudgii · S-15 Snooze sheet — lo-fi nudge</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{--cream:#F5F0E8;--ink:#1A1612;--cta:#9B7FD4;--ap:#E8A87C;--ap-dk:#C8784A;--terra:#C4503A;--mid:#8A8070;--mid-lt:#B0A898;--ink-08:rgba(26,22,18,0.08);--ink-12:rgba(26,22,18,0.12);--ink-20:rgba(26,22,18,0.20)}
+:root{--cream:#F5F0E8;--ink:#1A1612;--cta:#9B7FD4;--ap:#E8A87C;--ap-dk:#C8784A;--terra:#C4503A;--mid:#8A8070;--mid-lt:#B0A898;--ink-08:rgba(26,22,18,0.08);--ink-12:rgba(26,22,18,0.12);--ink-20:rgba(26,22,18,0.20);--surface:#FFFFFF;--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-6:24px;--space-8:32px;--space-12:48px;--space-16:64px;--shadow-card:none;--shadow-tab-bar:0 4px 20px rgba(26,22,18,0.11);--shadow-fab:0 4px 16px rgba(155,127,212,0.35);--shadow-sheet:0 -2px 20px rgba(26,22,18,0.12)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px}
 nav{background:var(--cream);border-bottom:1px solid var(--ink-12);padding:0 32px;display:flex;align-items:center;gap:16px;height:48px;position:sticky;top:0;z-index:100}
@@ -21,12 +21,12 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px}
 .meta-pill.phase{background:rgba(155,127,212,0.08);color:#5C3E8A;border-color:rgba(155,127,212,0.2)}
 .meta-pill.status{background:rgba(232,168,124,0.10);color:#7A4A1A;border-color:rgba(232,168,124,0.2)}
 .controls{display:flex;gap:8px;margin-bottom:28px}
-.btn{font-size:12px;font-weight:500;padding:7px 16px;border-radius:100px;border:1px solid var(--ink-12);background:#fff;color:var(--mid);cursor:pointer;transition:all .15s}
+.btn{font-size:12px;font-weight:500;padding:7px 16px;border-radius:100px;border:1px solid var(--ink-12);background:var(--surface);color:var(--mid);cursor:pointer;transition:all .15s}
 .btn.on{background:var(--ink);color:var(--cream);border-color:var(--ink)}
 .layout{display:flex;gap:40px;align-items:flex-start;flex-wrap:wrap}
 .phone{width:295px;flex-shrink:0;background:#ddd9d0;border-radius:28px;padding:14px;border:2px solid rgba(26,22,18,0.15)}
 .screen{background:rgba(26,22,18,0.08);border-radius:16px;overflow:hidden;min-height:460px;display:flex;align-items:flex-end}
-.sheet{background:#fff;border-radius:16px 16px 0 0;width:100%}
+.sheet{background:var(--surface);border-radius:16px 16px 0 0;width:100%}
 .handle{width:32px;height:3px;border-radius:2px;background:var(--ink-12);margin:10px auto 0}
 .shead{padding:14px 14px 10px}
 .stitle{height:12px;width:52%;border-radius:2px;background:var(--ink-20);margin-bottom:5px}
@@ -51,7 +51,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px}
 .ann-n{width:22px;height:22px;border-radius:50%;background:var(--ink);color:var(--cream);font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
 .ann-body .t{font-size:13px;font-weight:500;margin-bottom:2px}
 .ann-body .d{font-size:12px;color:var(--mid);line-height:1.55}
-.box{background:#fff;border:1px solid var(--ink-12);border-radius:10px;padding:14px;margin-top:20px}
+.box{background:var(--surface);border:1px solid var(--ink-12);border-radius:10px;padding:14px;margin-top:20px}
 .box-label{font-size:10px;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;color:var(--mid);margin-bottom:8px}
 .box p{font-size:12px;color:var(--mid);line-height:1.55;margin-bottom:5px}
 .box p:last-child{margin:0}
