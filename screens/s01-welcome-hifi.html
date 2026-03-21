@@ -67,22 +67,20 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
 .w-h1{font-family:'DM Serif Display',serif;font-size:33px;color:var(--ink);line-height:0.97;letter-spacing:-0.55px;margin-bottom:8px;}
 .w-sub{font-size:12px;font-style:italic;color:var(--mid);line-height:1.55;margin-bottom:20px;font-weight:300;}
 .w-h1 em{font-style:italic;color:var(--ap-dk);}
-.preview{background:var(--surface);border-radius:11px;border:1px solid var(--border);padding:9px 11px;margin-bottom:6px;display:flex;align-items:center;gap:9px;box-shadow:0 1px 2px rgba(26,22,18,0.04);}
-.ci{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.ci svg{width:12px;height:12px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+/* Preview tiles — 3 horizontal, v2.4 spec */
+.prev-row{display:flex;gap:5px;margin-bottom:14px;}
+.prev-tile{flex:1;background:var(--surface);border-radius:8px;padding:7px 6px;border:0.5px solid var(--border);}
+.ci{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:4px;}
+.ci svg{width:11px;height:11px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
 .ci-h{background:var(--chb);}.ci-h svg{stroke:var(--ch);}
 .ci-v{background:var(--cvb);}.ci-v svg{stroke:var(--cv);}
 .ci-g{background:var(--cgb);}.ci-g svg{stroke:var(--cg);}
-.pb{flex:1;min-width:0;}
-.pn{font-size:12px;font-weight:500;color:var(--ink);letter-spacing:-0.1px;}
-.ps{font-size:10px;font-style:italic;color:var(--mid);margin-top:1px;}
-.pt{font-size:10px;font-weight:500;flex-shrink:0;}
-.pt-ov{color:var(--terra);}
-.pt-td{color:var(--ap-dk);}
-.pt-ok{color:var(--mid-lt);}
-.pdiv{display:flex;align-items:center;gap:10px;margin:16px 0 13px;}
+.ptn{font-size:8px;font-weight:500;color:var(--ink);line-height:1.2;margin-bottom:1px;}
+.pts{font-size:7px;font-weight:500;color:var(--mid-a);}
+.pts-ov{color:var(--terra);}
+.pdiv{display:flex;align-items:center;gap:10px;margin:10px 0 13px;}
 .pd-line{flex:1;height:1px;background:var(--border-md);}
-.pd-txt{font-size:10px;color:var(--mid);white-space:nowrap;}
+.pd-txt{font-size:10px;color:var(--mid-a);white-space:nowrap;}
 
 /* ── CORRECTED CTA: plum-lt #9B7FD4 · locked v2.3 ── */
 .btn-a{
@@ -97,7 +95,7 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
 .btn-a:active{opacity:0.82;}
 .mic{width:22px;height:22px;border-radius:50%;background:rgba(250,248,255,0.15);display:flex;align-items:center;justify-content:center;}
 .mic svg{width:11px;height:11px;stroke:#FAF8FF;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;}
-.btn-hint{font-size:10px;color:var(--mid);text-align:center;margin-bottom:11px;}
+/* .btn-hint removed v2.4 — hint texts below buttons not part of the design */
 .btn-b{width:100%;height:46px;border-radius:100px;border:1.5px solid var(--border-md);background:transparent;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink);cursor:pointer;margin-bottom:5px;transition:background 0.12s;}
 .btn-b:active{background:rgba(26,22,18,0.04);}
 .btn-c{width:100%;height:36px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--mid);cursor:pointer;}
@@ -157,6 +155,14 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
       <span class="cl-tag cl-fix">v2.4</span>
       <div class="cl-body"><strong>Headline italic apricot.</strong> "aandacht nodig." wrapped in em tag, styled italic in <code>var(--ap-dk)</code>. Free badge updated to sage-lt background (#EAF3DE) with sage text (#3B6D11) — "Gratis starten". Progress dots added top-right (dot 1 active = plum-lt, dots 2+3 inactive).</div>
     </div>
+    <div class="cl-row">
+      <span class="cl-tag cl-fix">v2.4</span>
+      <div class="cl-body"><strong>Preview cards redesigned → 3 horizontal mini-tiles.</strong> Full-width stacked dashboard cards replaced with compact 3-column layout (flex:1, gap:5px). Each tile: category icon chip 22×22px, item name 8px/500, status label 7px. Witty subtitles removed — belong on dashboard only. Overdue = terra, neutral = mid-accessible.</div>
+    </div>
+    <div class="cl-row">
+      <span class="cl-tag cl-fix">v2.4</span>
+      <div class="cl-body"><strong>Hint texts removed.</strong> "gewoon spreken of typen" and "blader per categorie" below buttons removed. Button labels are self-explanatory. Hint text below buttons never belongs on this screen.</div>
+    </div>
   </div>
 
   <div class="row">
@@ -175,29 +181,29 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
           </div>
           <div class="w-h1">Je huis heeft<br><em>aandacht nodig.</em></div>
           <div class="w-sub">Automatisch ingevuld, voor alles wat je bezit.</div>
-          <div class="preview">
-            <div class="ci ci-h"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-            <div class="pb"><div class="pn">Vaatwasser zoutbak</div><div class="ps">it's starting to smell</div></div>
-            <div class="pt pt-ov">5 dagen</div>
-          </div>
-          <div class="preview">
-            <div class="ci ci-v"><svg viewBox="0 0 24 24"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg></div>
-            <div class="pb"><div class="pn">Winterbanden wisselen</div><div class="ps">giving you the look</div></div>
-            <div class="pt pt-td">deze week</div>
-          </div>
-          <div class="preview">
-            <div class="ci ci-g"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1 1.1 2.8.8 5.3-.6 7.4"/></svg></div>
-            <div class="pb"><div class="pn">Olijfboom snoeien</div><div class="ps">februari · België</div></div>
-            <div class="pt pt-ok">maart</div>
+          <div class="prev-row">
+            <div class="prev-tile">
+              <div class="ci ci-h"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+              <div class="ptn">Vaatwasser</div>
+              <div class="pts pts-ov">achterstallig</div>
+            </div>
+            <div class="prev-tile">
+              <div class="ci ci-v"><svg viewBox="0 0 24 24"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/></svg></div>
+              <div class="ptn">Winterbanden</div>
+              <div class="pts">deze week · BE</div>
+            </div>
+            <div class="prev-tile">
+              <div class="ci ci-g"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1"/></svg></div>
+              <div class="ptn">Olijfboom</div>
+              <div class="pts">feb · nl-BE</div>
+            </div>
           </div>
           <div class="pdiv"><div class="pd-line"></div><div class="pd-txt">Hoe wil je starten?</div><div class="pd-line"></div></div>
           <button class="btn-a">
             <div class="mic"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg></div>
             Vertel het me
           </button>
-          <div class="btn-hint">gewoon spreken of typen</div>
           <button class="btn-b">Laat me zien wat ik kan bijhouden</button>
-          <div class="btn-hint">blader per categorie</div>
           <button class="btn-c">Ik weet wat ik nodig heb</button>
         </div>
       </div>
@@ -217,29 +223,29 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
           </div>
           <div class="w-h1">Je huis heeft<br><em>aandacht nodig.</em></div>
           <div class="w-sub">Automatisch ingevuld, voor alles wat je bezit.</div>
-          <div class="preview">
-            <div class="ci ci-h"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-            <div class="pb"><div class="pn">Cv-ketel service</div><div class="ps">voor de winter begint</div></div>
-            <div class="pt pt-ov">achterstallig</div>
-          </div>
-          <div class="preview">
-            <div class="ci ci-v"><svg viewBox="0 0 24 24"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg></div>
-            <div class="pb"><div class="pn">Winterbanden wisselen</div><div class="ps">het wordt kouder</div></div>
-            <div class="pt pt-td">deze week</div>
-          </div>
-          <div class="preview">
-            <div class="ci ci-g"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1 1.1 2.8.8 5.3-.6 7.4"/></svg></div>
-            <div class="pb"><div class="pn">Tuin winterklaar maken</div><div class="ps">planten beschermen</div></div>
-            <div class="pt pt-ok">november</div>
+          <div class="prev-row">
+            <div class="prev-tile">
+              <div class="ci ci-h"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+              <div class="ptn">Cv-ketel</div>
+              <div class="pts pts-ov">achterstallig</div>
+            </div>
+            <div class="prev-tile">
+              <div class="ci ci-v"><svg viewBox="0 0 24 24"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/></svg></div>
+              <div class="ptn">Winterbanden</div>
+              <div class="pts">deze week</div>
+            </div>
+            <div class="prev-tile">
+              <div class="ci ci-g"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1"/></svg></div>
+              <div class="ptn">Tuin winterklaar</div>
+              <div class="pts">november</div>
+            </div>
           </div>
           <div class="pdiv"><div class="pd-line"></div><div class="pd-txt">Hoe wil je starten?</div><div class="pd-line"></div></div>
           <button class="btn-a">
             <div class="mic"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg></div>
             Vertel het me
           </button>
-          <div class="btn-hint">gewoon spreken of typen</div>
           <button class="btn-b">Laat me zien wat ik kan bijhouden</button>
-          <div class="btn-hint">blader per categorie</div>
           <button class="btn-c">Ik weet wat ik nodig heb</button>
         </div>
       </div>
@@ -257,8 +263,12 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
         <div class="ann-txt"><strong>20px height · left-aligned.</strong> Left pill: ink. Right pill: plum-lt at 45% opacity. Apricot-dk dot. Mirrors the homescreen icon exactly.</div>
       </div>
       <div class="ann">
-        <div class="ann-lbl">Preview cards — locked</div>
-        <div class="ann-txt">Static. Never rotating. Auto-selected from device locale. Not interactive.<br><br><strong>nl-BE:</strong> Vaatwasser / Winterbanden / Olijfboom<br><strong>nl-NL:</strong> Cv-ketel / Winterbanden / Tuin<br><strong>fr:</strong> Lave-vaisselle / Pneus hiver / Taille des oliviers</div>
+        <div class="ann-lbl">Preview cards — locked v2.4</div>
+        <div class="ann-txt"><strong>3 horizontal mini-tiles. Never stacked, never full-width, never a carousel.</strong> Each tile: 22×22px icon chip, item name (8px 500), status label (7px). No witty subtitle — that belongs on the dashboard, not the welcome screen.<br><br><strong>nl-BE:</strong> Vaatwasser (achterstallig) · Winterbanden (deze week · BE) · Olijfboom (feb · nl-BE)<br><strong>nl-NL:</strong> Cv-ketel (achterstallig) · Winterbanden (deze week) · Tuin winterklaar (november)<br><strong>fr:</strong> Lave-vaisselle · Pneus hiver · Taille des oliviers</div>
+      </div>
+      <div class="ann">
+        <div class="ann-lbl">Buttons — no hint text</div>
+        <div class="ann-txt">The copy below each button ("gewoon spreken of typen", "blader per categorie") was removed in v2.4. The button labels are self-explanatory. Adding hints creates visual clutter and breaks the hierarchy. <strong>Never add hint text below buttons on S-01.</strong></div>
       </div>
       <div class="ann">
         <div class="ann-lbl">Path hierarchy — locked</div>
