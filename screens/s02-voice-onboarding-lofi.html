@@ -12,6 +12,13 @@
   --mid:#8A8070;--mid-lt:#B0A898;--plum:#2D1F4A;
   --ink-06:rgba(26,22,18,0.06);--ink-08:rgba(26,22,18,0.08);
   --ink-10:rgba(26,22,18,0.10);--ink-16:rgba(26,22,18,0.16);
+  --surface:#FFFFFF;
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;
+  --space-6:24px;--space-8:32px;--space-12:48px;--space-16:64px;
+  --shadow-card:none;
+  --shadow-tab-bar:0 4px 20px rgba(26,22,18,0.11);
+  --shadow-fab:0 4px 16px rgba(155,127,212,0.35);
+  --shadow-sheet:0 -2px 20px rgba(26,22,18,0.12);
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
@@ -65,7 +72,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 
 /* Zone C — nudgii text bubble */
 .z-nudgii{padding:10px 16px 6px;background:#F5F0E8;}
-.nudgii-bubble{background:#fff;border:1px solid rgba(26,22,18,0.08);border-radius:12px 12px 12px 4px;padding:10px 12px;box-shadow:0 1px 3px rgba(26,22,18,0.05);}
+.nudgii-bubble{background:var(--surface);border:1px solid rgba(26,22,18,0.08);border-radius:12px 12px 12px 4px;padding:10px 12px;box-shadow:0 1px 3px rgba(26,22,18,0.05);}
 .nb-from{font-size:8px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--mid);margin-bottom:5px;}
 .nb-text{font-size:11px;line-height:1.6;color:var(--ink);}
 .nb-text em{font-style:italic;color:var(--cta);}
@@ -115,7 +122,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 .sec-rule{height:1px;background:var(--ink-08);margin-bottom:20px;}
 
 /* ── ZONE CARDS ── */
-.zone-card{background:#fff;border:1px solid var(--ink-08);border-radius:10px;padding:13px 15px;margin-bottom:8px;}
+.zone-card{background:var(--surface);border:1px solid var(--ink-08);border-radius:10px;padding:13px 15px;margin-bottom:8px;}
 .zone-card.highlight{border-color:rgba(155,127,212,0.25);background:rgba(155,127,212,0.03);}
 .zone-card.cta-card{border-color:rgba(155,127,212,0.30);background:rgba(155,127,212,0.04);}
 .zone-card.warn{border-color:rgba(200,120,80,0.30);background:rgba(200,120,80,0.03);}
@@ -141,7 +148,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 
 /* ── RULES GRID ── */
 .rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.rule-item{background:#fff;border:1px solid var(--ink-08);border-radius:8px;padding:10px 12px;}
+.rule-item{background:var(--surface);border:1px solid var(--ink-08);border-radius:8px;padding:10px 12px;}
 .ri-icon{font-size:16px;margin-bottom:4px;}
 .ri-label{font-size:10px;font-weight:500;color:var(--ink);margin-bottom:2px;}
 .ri-desc{font-size:10px;color:var(--mid);line-height:1.5;}
@@ -425,7 +432,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
             <td>Bevestiging of correctie.</td>
           </tr>
         </table>
-        <div style="margin-top:10px;background:#fff;border:1px solid var(--ink-08);border-radius:8px;padding:10px 12px;">
+        <div style="margin-top:10px;background:var(--surface);border:1px solid var(--ink-08);border-radius:8px;padding:10px 12px;">
           <div style="font-size:10px;font-weight:500;color:var(--ink);margin-bottom:4px;">Stijlregel voor nudgii copy</div>
           <div style="font-size:11px;color:var(--mid);line-height:1.6;">Eén vraag per beurt. Altijd een opt-out ("weet ik niet", "overslaan"). Geen jargon. Nooit twee zinnen als één kan. Bevestig altijd wat je gehoord hebt voor je de volgende vraag stelt.</div>
         </div>
