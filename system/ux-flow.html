@@ -200,7 +200,7 @@ section{padding-top:48px;}
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-eye">nudgii · UX Flow · v0.2 · March 2026</div>
+    <div class="hero-eye">nudgii · UX Flow · v0.3 · March 2026</div>
     <h1 class="hero-title">Every screen.<br>Every connection.</h1>
     <p class="hero-sub">Complete UX flow for nudgii — 28 screens across 6 flows. Use this as the build order reference. Each flow is built lo-fi first, hi-fi second. No hi-fi starts before lo-fi is approved.</p>
 
@@ -220,6 +220,21 @@ section{padding-top:48px;}
       <span class="leg pr"><span class="leg-dot"></span>Profile</span>
       <span class="leg sys"><span class="leg-dot"></span>System / edge</span>
     </div>
+
+    <!-- v0.3 changes callout -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px;">
+      <div style="background:#F7F3FF;border:1px solid rgba(155,127,212,0.22);border-radius:12px;padding:16px 18px;grid-column:1/-1;">
+        <div style="font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:#5C3E8A;margin-bottom:10px;">v0.3 changes — 2026-03-21</div>
+        <ul style="font-size:11px;color:#4A2E78;line-height:1.85;padding-left:16px;">
+          <li><strong style="color:#2D1F4A;">Path A = voice OR text — same engine.</strong> "Vertel het me" opens the conversational AI interface. "Liever typen?" is a first-class equal alternative — same Claude API call, same review outcome. Not a fallback, not secondary.</li>
+          <li><strong style="color:#2D1F4A;">Last maintenance chip default locked.</strong> Always "6 maanden geleden" (amber chip). Never "Recent", never "Unknown". Locked on S-03 and S-04. User can update on S-05.</li>
+          <li><strong style="color:#2D1F4A;">S-07 auto-advance removed.</strong> Completion screen never auto-advances to dashboard. User must tap "Open mijn schema" consciously. No timer, no countdown.</li>
+          <li><strong style="color:#2D1F4A;">S-05 confirm-only.</strong> No inline editing on review screen. Delete (×) per item only. Scan icon (Phosphor Camera) per item row for richer AI output. Deep edits belong post-dashboard.</li>
+          <li><strong style="color:#2D1F4A;">Location screen removed.</strong> Region detected silently from device locale. No permission screen, no user decision required at onboarding.</li>
+          <li><strong style="color:#2D1F4A;">OD-01 resolved.</strong> Done overlay fires from dashboard swipe only (>40% threshold). Task detail "mark done" = quiet in-screen banner only. S-07 completion = sage check circle — no plum overlay.</li>
+        </ul>
+      </div>
+    </div>
   </div>
 
   <!-- ═══════════════════════════════════════════
@@ -238,7 +253,7 @@ section{padding-top:48px;}
 
         <!-- S-01 Welcome -->
         <div class="node">
-          <div class="node-card tag-ob" style="cursor:default;">
+          <div class="node-card tag-ob" style="cursor:default;width:140px;">
             <div class="node-id">S-01</div>
             <div class="node-name">Welcome screen</div>
             <div class="node-badges">
@@ -252,6 +267,21 @@ section{padding-top:48px;}
             <a class="nl-btn hi" href="../screens/s01-welcome-hifi.html" target="_blank">hi-fi</a>
           </div>
           <span class="s-badge s-ready">Ready</span>
+          <div class="flow-note" style="width:140px;margin-top:6px;font-size:10px;padding:8px 10px;">
+            <strong>Layout zones (locked):</strong><br>
+            A · ii mark + Gratis starten badge<br>
+            B · 3 progress dots right-aligned<br>
+            C · DM Serif 22px headline + italic lead<br>
+            D · 3 nudge-cards — never carousel<br>
+            E · "Hoe wil je starten?" divider<br>
+            F · Path A — fill 50px (primary)<br>
+            G · Path B — border-only 46px<br>
+            H · Path C — ghost link 36px<br><br>
+            <strong>Preview cards by locale:</strong><br>
+            nl-BE: Vaatwasser / Winterbanden / Olijfboom<br>
+            nl-NL: Cv-ketel / Winterbanden / Tuin<br>
+            fr-BE: Lave-vaisselle / Pneus hiver / Olivier
+          </div>
         </div>
 
         <div class="arrow"><div class="arr-line"></div></div>
@@ -275,6 +305,22 @@ section{padding-top:48px;}
                 <a class="nl-btn lo" href="../screens/s02-voice-onboarding-lofi.html" target="_blank">lo-fi</a>
               </div>
               <span class="s-badge s-wip">In progress</span>
+              <div class="flow-note" style="width:130px;margin-top:6px;font-size:10px;padding:8px 10px;">
+                <strong>Voice OR text — same engine.</strong><br>
+                "Liever typen?" always visible.<br>
+                Both → identical Claude API call.<br><br>
+                <strong>Voice flow:</strong><br>
+                1. Mic opens → chat bubble<br>
+                2. User speaks → chips fade out<br>
+                3. Live transcript &lt;500ms<br>
+                4. Claude API call<br>
+                5. "Goed. 4 items, 17 taken."<br>
+                6. → S-05 review<br><br>
+                <strong>Example chips:</strong><br>
+                cv-ketel · vaatwasser · auto · olijfboom · zonnepanelen<br><br>
+                <strong>S-26 edge:</strong> mic fails → text fallback<br>
+                <strong>S-27 edge:</strong> parse fail → redirect S-03
+              </div>
             </div>
             <!-- Path B -->
             <div class="node" style="margin-top:2px;">
@@ -315,7 +361,7 @@ section{padding-top:48px;}
 
         <!-- S-05 Review -->
         <div class="node" style="padding-top:26px;">
-          <div class="node-card tag-ob" style="cursor:default;">
+          <div class="node-card tag-ob" style="cursor:default;width:140px;">
             <div class="node-id">S-05</div>
             <div class="node-name">Onboarding review</div>
             <div class="node-badges">
@@ -328,6 +374,15 @@ section{padding-top:48px;}
             <a class="nl-btn hi" href="../screens/s05-onboarding-review-hifi.html" target="_blank">hi-fi</a>
           </div>
           <span class="s-badge s-wip">In progress</span>
+          <div class="flow-note" style="width:140px;margin-top:6px;font-size:10px;padding:8px 10px;">
+            <strong>Confirm-only.</strong> No inline editing.<br>
+            Delete (×) per item row only.<br>
+            Scan icon per row (Phosphor Camera).<br><br>
+            Item counter: "3 van 10 gratis · Pro = onbeperkt" (plum-lt text, right-aligned)<br><br>
+            11+ items: amber callout "2 items bewaard voor Pro."<br><br>
+            CTA: "Opslaan en doorgaan"<br>
+            Secondary: "Later verdergaan" ghost link
+          </div>
         </div>
 
         <div class="arrow" style="padding-top:46px;"><div class="arr-line"></div></div>
@@ -350,7 +405,7 @@ section{padding-top:48px;}
 
         <!-- S-07 Completion -->
         <div class="node" style="padding-top:26px;">
-          <div class="node-card tag-ob">
+          <div class="node-card tag-ob" style="width:140px;">
             <div class="node-id">S-07</div>
             <div class="node-name">Onboarding complete</div>
             <div class="node-badges">
@@ -360,6 +415,14 @@ section{padding-top:48px;}
             <div class="node-status ns-wip"></div>
           </div>
           <span class="s-badge s-wip">In progress</span>
+          <div class="flow-note" style="width:140px;margin-top:6px;font-size:10px;padding:8px 10px;">
+            <strong>No auto-advance.</strong> User taps CTA consciously.<br><br>
+            Check circle: sage-lt bg + sage border + sage checkmark — NOT plum.<br><br>
+            Headline: "Je bent klaar. Echt klaar." DM Serif 20px<br>
+            Sub: "Je eerste nudge komt maandag." italic mid<br><br>
+            Preview card: real tasks shown (terra overdue, apricot-dk upcoming)<br><br>
+            CTA: "Open mijn schema" — no timer, plum-lt fill
+          </div>
         </div>
 
         <div class="arrow" style="padding-top:46px;"><div class="arr-line"></div></div>
@@ -457,6 +520,79 @@ section{padding-top:48px;}
     </div>
   </section>
 
+  <!-- ═══════════════════════════════════════════
+       v0.3 — SCREEN SPECS + EDGE CASES
+  ═══════════════════════════════════════════ -->
+  <section style="padding-top:36px;">
+    <div class="flow-head">
+      <span class="flow-num" style="color:var(--f-sys);">v0.3</span>
+      <span class="flow-name" style="color:var(--f-sys);font-size:18px;">Screen specs · Edge cases · Notifications</span>
+      <span class="flow-sep"></span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+
+      <!-- S-06 Auth spec -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;">
+        <div style="font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--mid);margin-bottom:8px;">S-06 — Auth (deferred)</div>
+        <div style="font-size:11px;color:var(--ink);line-height:1.7;">
+          User has 60+ seconds invested by S-06 — conversion higher here than at the door.<br><br>
+          <strong>Layout:</strong> ii mark 22px centred · Headline "Bijna klaar." DM Serif 18px · Subline about saving schedule<br><br>
+          <strong>Auth options:</strong> Apple SSO (first — iOS HIG) · Google SSO (second) · Magic link (inline "Check je e-mail" on tap — no new screen)<br><br>
+          <strong>Auth failure:</strong> Retry visible immediately · session state preserved · items never lost
+        </div>
+      </div>
+
+      <!-- S-08 Push spec -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;">
+        <div style="font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--mid);margin-bottom:8px;">S-08 — Push permission</div>
+        <div style="font-size:11px;color:var(--ink);line-height:1.7;">
+          Shown after S-07, before dashboard. Context is given first — explaining why push matters.<br><br>
+          If declined: user continues to dashboard regardless. Not a blocker.<br><br>
+          Restore path: S-23 Settings → Notifications
+        </div>
+      </div>
+
+      <!-- Edge cases S-26, S-27 -->
+      <div style="background:#FFF5F5;border:1px solid rgba(163,45,45,0.18);border-radius:12px;padding:16px 18px;">
+        <div style="font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:#A32D2D;margin-bottom:8px;">Edge cases — S-26 · S-27</div>
+        <div style="font-size:11px;color:#7A2A2A;line-height:1.7;">
+          <strong>S-26 Mic fails:</strong><br>
+          Message: "Microfoon werkt niet. Tik hieronder om te typen."<br>
+          Action: redirect to text input — never a dead-end.<br><br>
+          <strong>S-27 Claude parse fails:</strong><br>
+          Message: "Dat was lastig te begrijpen. Laten we het anders proberen."<br>
+          Action: redirect to S-03 Browse categories.<br><br>
+          <strong>Both edge states:</strong> calm tone, clear action, never alarming.
+        </div>
+      </div>
+
+      <!-- Notifications spec -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;">
+        <div style="font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--mid);margin-bottom:8px;">Notification rules</div>
+        <table style="width:100%;border-collapse:collapse;font-size:10px;color:var(--ink);line-height:1.6;">
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:4px 6px;font-weight:500;">Weekly digest email</td>
+            <td style="padding:4px 6px;color:var(--mid);">Mon 08:00 (user-configurable). Subject must reference specific item.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:4px 6px;font-weight:500;">Due date push</td>
+            <td style="padding:4px 6px;color:var(--mid);">Day of due_date at configured time. One nudge — never repeat same day.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:4px 6px;font-weight:500;">Overdue push</td>
+            <td style="padding:4px 6px;color:var(--mid);">1 day after due_date if not done. Terra urgency, honest tone.</td>
+          </tr>
+          <tr>
+            <td style="padding:4px 6px;font-weight:500;">Return notification</td>
+            <td style="padding:4px 6px;color:var(--mid);">First open after away_mode_until. "Welcome back — here's what piled up."</td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
   <div class="rule"></div>
 
   <!-- ═══════════════════════════════════════════
@@ -549,7 +685,7 @@ section{padding-top:48px;}
       </div>
     </div>
 
-    <div class="flow-note"><strong>S-11 trigger decision:</strong> Done overlay fires from dashboard swipe only (recommendation). Task detail gets a quieter in-screen completion banner. Decide before building S-11 or S-13.</div>
+    <div class="flow-note"><strong>OD-01 resolved 2026-03-18:</strong> Done overlay fires from dashboard swipe only (>40% threshold). Task detail "mark done" = quiet in-screen completion banner — no full-screen overlay. S-07 completion uses sage check circle, not plum. These are locked — no longer a decision item.</div>
   </section>
 
   <div class="rule"></div>

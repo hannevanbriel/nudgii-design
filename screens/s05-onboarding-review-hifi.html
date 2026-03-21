@@ -110,7 +110,7 @@ body{
 
 /* ── PHONE ── */
 .phone{
-  width:240px;border-radius:38px;overflow:hidden;
+  width:300px;height:648px;border-radius:38px;overflow:hidden;
   background:var(--cream);
   border:1.5px solid rgba(26,22,18,0.09);
   box-shadow:0 20px 48px rgba(26,22,18,0.18),0 4px 12px rgba(26,22,18,0.08),inset 0 1px 0 rgba(255,255,255,0.65);
@@ -604,7 +604,10 @@ body{
         <div class="notch"><div class="np"></div></div>
         <div class="sbar"><span>9:41</span><div class="batt"></div></div>
         <div class="s">
-          <div class="h1 h1-sm" style="margin-bottom:3px;">Hier is je schema.</div>
+          <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:3px;">
+            <div class="h1 h1-sm" style="margin-bottom:0;">Hier is je schema.</div>
+            <div style="font-size:10px;color:var(--plum-lt);font-weight:500;white-space:nowrap;margin-left:6px;">3 van 10 gratis · Pro = onbeperkt</div>
+          </div>
           <div class="sub">Pas aan wat niet klopt.</div>
 
           <!-- item 1 — expanded -->
@@ -613,6 +616,8 @@ body{
               <div class="ri-icon" style="background:var(--chb);"><svg viewBox="0 0 24 24" style="stroke:var(--ch);"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
               <div class="ri-name">Vaatwasser</div>
               <div class="ri-count">3 nudges</div>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--plum-lt)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M3 7V5a2 2 0 012-2h2M17 3h2a2 2 0 012 2v2M21 17v2a2 2 0 01-2 2h-2M7 21H5a2 2 0 01-2-2v-2"/></svg>
+              <div style="width:16px;height:16px;border-radius:50%;background:rgba(196,80,58,0.12);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--terra);font-weight:600;flex-shrink:0;cursor:default;">×</div>
               <div class="ri-arrow">∨</div>
             </div>
             <div class="ri-tasks">
@@ -628,6 +633,8 @@ body{
               <div class="ri-icon" style="background:var(--cvb);"><svg viewBox="0 0 24 24" style="stroke:var(--cv);"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg></div>
               <div class="ri-name">Auto</div>
               <div class="ri-count">5 nudges</div>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--plum-lt)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M3 7V5a2 2 0 012-2h2M17 3h2a2 2 0 012 2v2M21 17v2a2 2 0 01-2 2h-2M7 21H5a2 2 0 01-2-2v-2"/></svg>
+              <div style="width:16px;height:16px;border-radius:50%;background:rgba(196,80,58,0.12);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--terra);font-weight:600;flex-shrink:0;cursor:default;">×</div>
               <div class="ri-arrow">›</div>
             </div>
           </div>
@@ -638,11 +645,19 @@ body{
               <div class="ri-icon" style="background:var(--cgb);"><svg viewBox="0 0 24 24" style="stroke:var(--cg);"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1 1.1 2.8.8 5.3-.6 7.4"/></svg></div>
               <div class="ri-name">Olijfboom</div>
               <div class="ri-count">2 nudges</div>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--plum-lt)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M3 7V5a2 2 0 012-2h2M17 3h2a2 2 0 012 2v2M21 17v2a2 2 0 01-2 2h-2M7 21H5a2 2 0 01-2-2v-2"/></svg>
+              <div style="width:16px;height:16px;border-radius:50%;background:rgba(196,80,58,0.12);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--terra);font-weight:600;flex-shrink:0;cursor:default;">×</div>
               <div class="ri-arrow">›</div>
             </div>
           </div>
 
-          <button class="btn-full">Ziet er goed uit.</button>
+          <!-- amber callout: 11+ items -->
+          <div style="background:#FAEEDA;border:1px solid rgba(133,79,11,0.18);border-radius:8px;padding:7px 10px;margin-bottom:7px;display:flex;align-items:flex-start;gap:6px;">
+            <div style="font-size:8px;color:#854F0B;line-height:1.5;"><strong style="font-weight:600;">2 items bewaard voor Pro.</strong> Upgrade om alles toe te voegen.</div>
+          </div>
+
+          <button class="btn-full">Opslaan en doorgaan</button>
+          <div style="text-align:center;margin-top:6px;font-size:9px;color:var(--mid);cursor:default;">Later verdergaan</div>
         </div>
       </div>
       <div class="ann-band">First item expanded by default. Rest collapsed. All editable inline. CTA is <strong>always enabled</strong> — never conditional.</div>

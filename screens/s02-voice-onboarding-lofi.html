@@ -47,7 +47,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 /* ── PHONE ── */
 .phone-wrap{flex-shrink:0;}
 .phone-lbl{font-size:9px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:rgba(26,22,18,0.32);text-align:center;margin-bottom:10px;}
-.phone{width:280px;background:#d8d4cb;border-radius:36px;padding:10px;border:2px solid rgba(26,22,18,0.20);box-shadow:0 12px 40px rgba(26,22,18,0.14);position:relative;}
+.phone{width:300px;height:648px;background:#d8d4cb;border-radius:36px;padding:10px;border:2px solid rgba(26,22,18,0.20);box-shadow:0 12px 40px rgba(26,22,18,0.14);position:relative;overflow:hidden;}
 .screen{background:#F5F0E8;border-radius:26px;overflow:hidden;}
 
 /* ── ZONE BLOCKS ── */
@@ -177,7 +177,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 
   <!-- HEADER -->
   <h1>Voice onboarding</h1>
-  <p class="sub">Path A — de gebruiker spreekt, nudgii luistert en antwoordt in tekst. Conversatiestijl: één vraag per beurt, kort en vriendelijk. Maximaal 1 minuut opnametijd per beurt.</p>
+  <p class="sub">Path A — <strong>voice OF tekst — zelfde engine.</strong> De gebruiker spreekt of typt, nudgii antwoordt altijd in tekst. Conversatiestijl: één vraag per beurt, kort en vriendelijk. Maximaal 1 minuut opnametijd per beurt. "Liever typen?" is een gelijkwaardig alternatief — nooit verborgen.</p>
   <div class="meta">
     <span class="mp lo">Lo-fi</span>
     <span class="mp ob">Onboarding flow</span>
@@ -229,7 +229,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
                 <div class="z-nudgii">
                   <div class="nudgii-bubble">
                     <div class="nb-from">nudgii</div>
-                    <div class="nb-text">Vertel me wat je thuis hebt — huis, tuin, auto, abonnementen. Alles wat je wil bijhouden.</div>
+                    <div class="nb-text">Vertel me wat je hebt — apparaten, je auto, planten, van alles. Ik regel de rest.</div>
                   </div>
                 </div>
               </div>
@@ -265,6 +265,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
                     <span style="font-size:8px;color:var(--mid);background:var(--surface);border:0.5px solid rgba(26,22,18,0.13);border-radius:100px;padding:2px 7px;">vaatwasser</span>
                     <span style="font-size:8px;color:var(--mid);background:var(--surface);border:0.5px solid rgba(26,22,18,0.13);border-radius:100px;padding:2px 7px;">auto</span>
                     <span style="font-size:8px;color:var(--mid);background:var(--surface);border:0.5px solid rgba(26,22,18,0.13);border-radius:100px;padding:2px 7px;">olijfboom</span>
+                    <span style="font-size:8px;color:var(--mid);background:var(--surface);border:0.5px solid rgba(26,22,18,0.13);border-radius:100px;padding:2px 7px;">zonnepanelen</span>
                   </div>
                   <div style="font-size:8px;color:var(--mid-lt);font-style:italic;">of spreek vrij</div>
                 </div>
@@ -279,7 +280,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
                       <svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>
                     </div>
                     <div class="mic-hint">Tik om te spreken<br><span class="mic-timer">max 1:00</span></div>
-                    <div style="font-size:9px;color:var(--cta);text-decoration:underline;cursor:pointer;margin-top:3px;">Liever typen?</div>
+                    <div style="font-size:11px;color:var(--cta);text-decoration:underline;cursor:pointer;margin-top:4px;text-align:center;">Liever typen?</div>
                   </div>
                 </div>
               </div>
@@ -410,7 +411,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
           <div class="zc-head"><span class="zc-badge">E2</span><span class="zc-name">Voorbeeld chips — cold-start helper</span></div>
           <div class="zc-body">
             Getoond boven de mic-knop bij eerste bezoek (cold-start). Flex-wrap rij.<br>
-            Chips: <strong>cv-ketel · vaatwasser · auto · olijfboom</strong> (nl-BE defaults).<br>
+            Chips: <strong>cv-ketel · vaatwasser · auto · olijfboom · zonnepanelen</strong> (nl-BE defaults).<br>
             Stijl: wit/surface achtergrond, border <code>0.5px solid rgba(26,22,18,0.13)</code>, border-radius 100px, padding <code>2px 7px</code>, font <code>8px DM Sans</code>, kleur <code>colorMid</code>.<br>
             <div class="zc-rule"></div>
             Example chips tonen bij cold-start. Tapping een chip vult het in als tekst én start spraak. "Liever typen?" is altijd zichtbaar — zelfde gewicht als de chip hint, plum-lt underline.
@@ -442,7 +443,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
           <tr><th>Stap</th><th>nudgii vraagt</th><th>Verwacht antwoord</th></tr>
           <tr>
             <td class="turn-nudgii">Stap 1</td>
-            <td>"Vertel me wat je thuis hebt — huis, tuin, auto, abonnementen. Alles wat je wil bijhouden."</td>
+            <td>"Vertel me wat je hebt — apparaten, je auto, planten, van alles. Ik regel de rest."</td>
             <td>Vrij formaat. Opsomming van bezittingen.</td>
           </tr>
           <tr>
