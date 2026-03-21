@@ -59,7 +59,7 @@ section{padding-top:40px;}
 .locale-table tr:last-child td{border-bottom:none;}
 
 /* ── PERSONA COLUMNS ── */
-.persona-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:4px;}
+.persona-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:4px;}
 .persona-card{background:var(--surface);border:1px solid var(--border-md);border-radius:10px;padding:14px 16px;}
 .pc-name{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px;}
 .pc-locale{font-size:10px;font-family:monospace;color:var(--mid);margin-bottom:10px;}
@@ -216,6 +216,18 @@ section{padding-top:40px;}
         <div class="pc-row"><strong>Pro trigger:</strong> maand 3–4 (word-of-mouth)</div>
         <span class="pc-tag tag-a">Path A</span>
         <span class="pc-tag tag-pro">Pro maand 3–4</span>
+      </div>
+
+      <div class="persona-card" style="border-color:rgba(155,127,212,0.30);background:rgba(155,127,212,0.03);">
+        <div class="pc-name" style="display:flex;align-items:center;gap:8px;">Arne <span style="font-size:9px;font-weight:600;padding:2px 7px;border-radius:100px;background:rgba(155,127,212,0.12);color:#5C3E8A;">Hoogste ARPU</span></div>
+        <div class="pc-locale">nl-BE / nl-NL · 41 · large home · power user</div>
+        <div class="pc-row"><strong>S-01 cards:</strong> Airco · Auto · Abonnementen</div>
+        <div class="pc-row"><strong>Onboarding:</strong> Path B (Browse fast — nooit laten wachten)</div>
+        <div class="pc-row"><strong>Bezit:</strong> Meerdere airco's, auto's, grote tuin, dozijn abonnementen</div>
+        <div class="pc-row"><strong>Pro trigger:</strong> Dag 3 · raakt 10-item ceiling direct · upgradet zonder copy te lezen</div>
+        <div class="pc-row" style="color:var(--terra);"><strong>Key constraints:</strong> Max 1 verduidelijkingsvraag per voice-interactie · Geen laadstatus &gt;500ms bij browsen · Review-scherm mag items niet forceren open</div>
+        <span class="pc-tag" style="background:rgba(155,127,212,0.12);color:#5C3E8A;">Path B</span>
+        <span class="pc-tag" style="background:rgba(155,127,212,0.20);color:#5C3E8A;">Pro dag 3</span>
       </div>
 
     </div>
