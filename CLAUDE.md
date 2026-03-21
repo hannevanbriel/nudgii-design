@@ -161,6 +161,15 @@ const Color colorApricotDk = Color(0xFFC8784A);  // Due-soon date labels ONLY �
 const Color colorTerra     = Color(0xFFC4503A);  // Overdue status — date label + task name ONLY
 const Color colorPlum      = Color(0xFF2D1F4A);  // Done overlay background ONLY — nowhere else
 const Color colorMid       = Color(0xFF8A8070);  // Italic subtitles, hint text, section labels
+const Color colorMidAccessible = Color(0xFF6B6358);  // All functional mid text — WCAG AA 4.6:1 on cream
+
+// Semantic feedback tokens
+const Color colorSage      = Color(0xFF3B6D11);   // success text
+const Color colorSageLt    = Color(0xFFEAF3DE);   // success background
+const Color colorRed       = Color(0xFFA32D2D);   // error text
+const Color colorRedLt     = Color(0xFFFCEBEB);   // error background
+const Color colorAmber     = Color(0xFF854F0B);   // warning text
+const Color colorAmberLt   = Color(0xFFFAEEDA);   // warning background
 
 // Category colors
 const Color catHome         = Color(0xFFC87850);
@@ -185,6 +194,8 @@ const Color darkTextMid    = Color(0xFF96A89C);
 - `colorTerra` = overdue status ONLY — date label color + task name. Nothing else
 - Category colors appear ONLY inside category icon chips. Never on status, never on UI icons
 - No gradients anywhere in the app — zero exceptions
+- `colorMid` (#8A8070) = decorative italic subtitles ONLY — 2.8:1 contrast fails WCAG AA. Never on functional text
+- `colorMidAccessible` (#6B6358) = all functional mid-coloured text (hints, labels, descriptions) — 4.6:1 AA pass
 
 ---
 
