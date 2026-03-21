@@ -6,7 +6,7 @@
 <title>nudgii · Design Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{--cream:#F5F0E8;--ink:#1A1612;--cta:#9B7FD4;--cta-fg:#FAF8FF;--ap:#E8A87C;--ap-dk:#C8784A;--terra:#C4503A;--plum:#2D1F4A;--mid:#8A8070;--mid-lt:#B0A898;--ink-08:rgba(26,22,18,0.08);--ink-12:rgba(26,22,18,0.12);--ink-20:rgba(26,22,18,0.20)}
+:root{--cream:#F5F0E8;--ink:#1A1612;--cta:#9B7FD4;--cta-fg:#FAF8FF;--ap:#E8A87C;--ap-dk:#C8784A;--terra:#C4503A;--plum:#2D1F4A;--mid:#8A8070;--mid-lt:#B0A898;--ink-08:rgba(26,22,18,0.08);--ink-12:rgba(26,22,18,0.12);--ink-20:rgba(26,22,18,0.20);--surface:#FFFFFF;--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-6:24px;--space-8:32px;--space-12:48px;--space-16:64px;--shadow-card:none;--shadow-tab-bar:0 4px 20px rgba(26,22,18,0.11);--shadow-fab:0 4px 16px rgba(155,127,212,0.35);--shadow-sheet:0 -2px 20px rgba(26,22,18,0.12)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.6}
@@ -31,7 +31,7 @@ nav{position:sticky;top:0;z-index:100;background:var(--cream);border-bottom:1px 
 
 /* phase rail */
 .phases{display:flex;overflow-x:auto;padding-bottom:4px}
-.phase{flex-shrink:0;padding:14px 20px;background:#fff;border:1px solid var(--ink-12);border-right:none;min-width:160px}
+.phase{flex-shrink:0;padding:14px 20px;background:var(--surface);border:1px solid var(--ink-12);border-right:none;min-width:160px}
 .phase:first-child{border-radius:10px 0 0 10px}
 .phase:last-child{border-right:1px solid var(--ink-12);border-radius:0 10px 10px 0}
 .phase-n{font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid-lt);margin-bottom:4px}
@@ -48,7 +48,7 @@ nav{position:sticky;top:0;z-index:100;background:var(--cream);border-bottom:1px 
 .sec-title{font-family:'DM Serif Display',serif;font-size:24px}
 .sec-sub{font-size:13px;color:var(--mid)}
 .dec-list{display:flex;flex-direction:column;gap:8px;padding-bottom:40px}
-.dec{display:flex;gap:12px;background:#fff;border:1px solid rgba(196,80,58,0.18);border-radius:10px;padding:14px 16px}
+.dec{display:flex;gap:12px;background:var(--surface);border:1px solid rgba(196,80,58,0.18);border-radius:10px;padding:14px 16px}
 .dec-icon{width:20px;height:20px;border-radius:50%;background:rgba(196,80,58,0.10);color:var(--terra);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
 .dec-title{font-size:13px;font-weight:500;margin-bottom:3px}
 .dec-text{font-size:12px;color:var(--mid);line-height:1.5;margin-bottom:4px}
@@ -64,7 +64,7 @@ nav{position:sticky;top:0;z-index:100;background:var(--cream);border-bottom:1px 
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(276px,1fr));gap:10px;padding:0 32px}
 
 /* screen card */
-.sc{background:#fff;border:1px solid var(--ink-12);border-radius:12px;overflow:hidden;transition:all .18s;display:block;text-decoration:none}
+.sc{background:var(--surface);border:1px solid var(--ink-12);border-radius:12px;overflow:hidden;transition:all .18s;display:block;text-decoration:none}
 .sc:hover{border-color:var(--ink-20);transform:translateY(-1px)}
 .sc-head{padding:13px 15px 10px;border-bottom:1px solid var(--ink-08);display:flex;align-items:flex-start;gap:10px}
 .sc-id{font-size:10px;font-weight:500;letter-spacing:1px;color:var(--mid-lt);min-width:34px;padding-top:2px;font-family:monospace}
@@ -100,7 +100,7 @@ nav{position:sticky;top:0;z-index:100;background:var(--cream);border-bottom:1px 
 
 /* system grid */
 .sys-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;padding:0 32px 40px}
-.sysc{background:#fff;border:1px solid var(--ink-12);border-radius:10px;padding:14px 15px;text-decoration:none;display:block;transition:all .18s;color:var(--ink)}
+.sysc{background:var(--surface);border:1px solid var(--ink-12);border-radius:10px;padding:14px 15px;text-decoration:none;display:block;transition:all .18s;color:var(--ink)}
 .sysc:hover{border-color:var(--ink-20);transform:translateY(-1px)}
 .sysc-title{font-size:13px;font-weight:500;margin-bottom:3px}
 .sysc-sub{font-size:11px;color:var(--mid)}
@@ -173,7 +173,7 @@ footer strong{color:var(--mid);font-weight:500}
 
   <!-- UX Flow featured link -->
   <div style="padding:0 32px 12px;">
-    <a href="system/ux-flow.html" target="_blank" style="display:flex;align-items:center;gap:18px;background:#fff;border:1.5px solid rgba(155,127,212,0.28);border-radius:12px;padding:16px 20px;text-decoration:none;color:var(--ink);transition:all .18s;" onmouseover="this.style.borderColor='var(--cta)';this.style.transform='translateY(-1px)'" onmouseout="this.style.borderColor='rgba(155,127,212,0.28)';this.style.transform=''">
+    <a href="system/ux-flow.html" target="_blank" style="display:flex;align-items:center;gap:18px;background:var(--surface);border:1.5px solid rgba(155,127,212,0.28);border-radius:12px;padding:16px 20px;text-decoration:none;color:var(--ink);transition:all .18s;" onmouseover="this.style.borderColor='var(--cta)';this.style.transform='translateY(-1px)'" onmouseout="this.style.borderColor='rgba(155,127,212,0.28)';this.style.transform=''">
       <div style="width:40px;height:40px;border-radius:10px;background:rgba(155,127,212,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9B7FD4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 17.5h7M17.5 14v7"/></svg>
       </div>
