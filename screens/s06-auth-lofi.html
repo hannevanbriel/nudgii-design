@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · S-06 Auth screen — lo-fi</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F5F0E8;--ink:#1A1612;--cta:#9B7FD4;--cta-fg:#FAF8FF;
+  --ap:#E8A87C;--ap-dk:#C8784A;--terra:#C4503A;
+  --mid:#8A8070;--mid-lt:#B0A898;--plum:#2D1F4A;
+  --ink-06:rgba(26,22,18,0.06);--ink-08:rgba(26,22,18,0.08);
+  --ink-10:rgba(26,22,18,0.10);--ink-16:rgba(26,22,18,0.16);
+  --surface:#FFFFFF;
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;
+  --space-6:24px;--space-8:32px;--space-12:48px;--space-16:64px;
+  --shadow-fab:0 4px 16px rgba(155,127,212,0.35);
+  --shadow-sheet:0 -2px 20px rgba(26,22,18,0.12);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px;}
+
+/* ── NAV ── */
+nav{background:var(--cream);border-bottom:1px solid var(--ink-10);padding:0 32px;display:flex;align-items:center;gap:16px;height:48px;position:sticky;top:0;z-index:100;}
+.nav-back{font-size:13px;color:var(--mid);text-decoration:none;display:flex;align-items:center;gap:8px;}
+.nav-back:hover{color:var(--ink);}
+.nav-sep{color:var(--ink-16);}
+.nav-title{font-size:13px;font-weight:500;}
+.nav-id{margin-left:auto;font-size:10px;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;color:var(--mid-lt);font-family:monospace;}
+
+/* ── PAGE ── */
+.page{padding:36px 32px 100px;max-width:1200px;margin:0 auto;}
+h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
+.sub{font-size:14px;color:var(--mid);margin-bottom:10px;max-width:580px;line-height:1.6;}
+.meta{display:flex;gap:8px;margin-bottom:40px;flex-wrap:wrap;}
+.mp{font-size:11px;font-weight:500;padding:3px 10px;border-radius:100px;border:1px solid var(--ink-10);color:var(--mid);}
+.mp.lo{background:rgba(90,144,96,0.08);color:#2A5A30;border-color:rgba(90,144,96,0.2);}
+.mp.ob{background:rgba(155,127,212,0.08);color:#5C3E8A;border-color:rgba(155,127,212,0.2);}
+
+/* ── MAIN LAYOUT ── */
+.layout{display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap;}
+
+/* ── PHONE ── */
+.phone-wrap{flex-shrink:0;}
+.phone-lbl{font-size:9px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:rgba(26,22,18,0.32);text-align:center;margin-bottom:10px;}
+.phone{width:280px;background:#d8d4cb;border-radius:36px;padding:10px;border:2px solid rgba(26,22,18,0.20);box-shadow:0 12px 40px rgba(26,22,18,0.14);position:relative;}
+.screen{background:#F5F0E8;border-radius:26px;overflow:hidden;}
+
+/* ── ZONE BLOCKS ── */
+.zone{border-bottom:1.5px dashed rgba(26,22,18,0.12);position:relative;}
+.zone:last-child{border-bottom:none;}
+.zone-tag{position:absolute;top:6px;right:8px;font-size:8px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;background:rgba(26,22,18,0.07);color:var(--mid);padding:2px 6px;border-radius:3px;pointer-events:none;}
+
+/* Zone A — Status bar */
+.z-sbar{height:20px;background:#F5F0E8;display:flex;justify-content:space-between;align-items:center;padding:0 16px;font-size:8px;font-weight:500;color:rgba(26,22,18,0.32);}
+
+/* Zone B — Progress dots */
+.z-progress{padding:10px 16px 8px;background:#F5F0E8;display:flex;justify-content:flex-end;align-items:center;gap:5px;}
+.prog-dot{width:6px;height:6px;border-radius:50%;}
+.prog-dot.active{background:var(--cta);}
+.prog-dot.inactive{background:rgba(26,22,18,0.10);}
+
+/* Zone C — Header */
+.z-header{padding:14px 16px 10px;background:#F5F0E8;display:flex;flex-direction:column;align-items:center;text-align:center;}
+.ii-mark{display:flex;align-items:flex-start;gap:3px;margin-bottom:10px;}
+.ii-l{width:7px;height:20px;border-radius:100px;background:var(--ink);}
+.ii-r{width:7px;height:20px;border-radius:100px;background:rgba(155,127,212,0.45);position:relative;}
+.ii-dot{width:5px;height:5px;border-radius:50%;background:var(--ap-dk);position:absolute;top:2px;right:-2px;}
+.header-title{font-family:'DM Serif Display',serif;font-size:18px;color:var(--ink);line-height:1.1;margin-bottom:4px;}
+.header-sub{font-size:10px;color:var(--mid);line-height:1.5;max-width:200px;}
+
+/* Zone D + E — Auth buttons */
+.z-auth{padding:8px 14px;background:#F5F0E8;}
+.auth-btn{display:flex;align-items:center;justify-content:center;gap:8px;height:44px;border-radius:100px;border:1px solid rgba(26,22,18,0.18);background:var(--surface);font-size:11px;font-weight:500;color:var(--ink);margin-bottom:6px;cursor:default;}
+.auth-btn svg{flex-shrink:0;}
+
+/* Zone F — Divider */
+.z-divider{padding:4px 14px;background:#F5F0E8;display:flex;align-items:center;gap:8px;}
+.div-line{flex:1;height:1px;background:var(--ink-10);}
+.div-text{font-size:9px;color:var(--mid-lt);}
+
+/* Zone G — Email input */
+.z-email{padding:6px 14px;background:#F5F0E8;}
+.email-input{height:44px;border-radius:10px;border:1px solid rgba(26,22,18,0.16);background:var(--surface);display:flex;align-items:center;padding:0 12px;font-size:10px;color:var(--mid-lt);}
+
+/* Zone H — CTA button */
+.z-cta{padding:6px 14px 8px;background:#F5F0E8;}
+.cta-btn{height:50px;border-radius:100px;background:var(--cta);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--cta-fg);cursor:default;box-shadow:0 2px 12px rgba(155,127,212,0.28);}
+
+/* Zone I — Privacy note */
+.z-privacy{padding:6px 14px 16px;background:#F5F0E8;}
+.privacy-text{font-size:7px;color:var(--mid-lt);text-align:center;line-height:1.55;}
+.privacy-text span{text-decoration:underline;}
+
+/* ── RIGHT COLUMN ── */
+.right{flex:1;min-width:280px;}
+.sec{margin-bottom:36px;}
+.sec-eye{font-size:9px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:4px;}
+.sec-title{font-family:'DM Serif Display',serif;font-size:18px;color:var(--ink);margin-bottom:14px;}
+.sec-rule{height:1px;background:var(--ink-08);margin-bottom:20px;}
+
+/* ── ZONE CARDS ── */
+.zone-card{background:var(--surface);border:1px solid var(--ink-08);border-radius:10px;padding:13px 15px;margin-bottom:8px;}
+.zone-card.highlight{border-color:rgba(155,127,212,0.25);background:rgba(155,127,212,0.03);}
+.zone-card.cta-card{border-color:rgba(155,127,212,0.30);background:rgba(155,127,212,0.04);}
+.zone-card.warn{border-color:rgba(200,120,80,0.30);background:rgba(200,120,80,0.03);}
+.zc-head{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
+.zc-badge{font-size:9px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;padding:2px 7px;border-radius:3px;background:rgba(26,22,18,0.07);color:var(--mid);flex-shrink:0;}
+.zc-badge.purple{background:rgba(155,127,212,0.12);color:#5C3E8A;}
+.zc-badge.green{background:rgba(90,144,96,0.10);color:#2A5A30;}
+.zc-name{font-size:12px;font-weight:500;color:var(--ink);}
+.zc-body{font-size:11px;color:var(--mid);line-height:1.65;}
+.zc-body strong{color:var(--ink);font-weight:500;}
+.zc-body code{font-family:monospace;font-size:10px;background:rgba(26,22,18,0.06);padding:1px 4px;border-radius:3px;color:var(--ink);}
+.zc-rule{height:1px;background:var(--ink-08);margin:8px 0;}
+
+/* ── RULES GRID ── */
+.rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.rule-item{background:var(--surface);border:1px solid var(--ink-08);border-radius:8px;padding:10px 12px;}
+.ri-label{font-size:10px;font-weight:500;color:var(--ink);margin-bottom:2px;}
+.ri-desc{font-size:10px;color:var(--mid);line-height:1.5;}
+
+/* ── BOTTOM LINKS ── */
+.links{display:flex;gap:10px;flex-wrap:wrap;padding-top:24px;border-top:1px solid var(--ink-08);}
+.link-btn{font-size:12px;font-weight:500;text-decoration:none;padding:6px 14px;border-radius:100px;}
+.link-btn.hi{color:var(--cta);background:rgba(155,127,212,0.08);border:1px solid rgba(155,127,212,0.2);}
+.link-btn.sys{color:var(--mid);background:var(--ink-06);border:1px solid var(--ink-10);}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-back" href="../index.html">
+    <svg width="18" height="18" viewBox="0 0 80 80" style="border-radius:4px;flex-shrink:0"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
+    Design hub
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">S-06 · Auth screen</span>
+  <span class="nav-id">Lo-fi · March 2026</span>
+</nav>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <h1>Auth screen</h1>
+  <p class="sub">Deferred auth — komt na S-05 review, voor S-07 completion. Gebruiker heeft al 60s geïnvesteerd en items gezien. Laagste wrijving: Apple bovenaan, Google tweede, magic link als email-pad.</p>
+  <div class="meta">
+    <span class="mp lo">Lo-fi</span>
+    <span class="mp ob">Onboarding flow</span>
+    <span class="mp">S-06</span>
+    <span class="mp">S-05 → S-06 → S-07</span>
+  </div>
+
+  <!-- MAIN LAYOUT -->
+  <div class="layout">
+
+    <!-- PHONE WIREFRAME -->
+    <div class="phone-wrap">
+      <div class="phone-lbl">Auth screen · wireframe</div>
+      <div class="phone">
+        <div class="screen">
+
+          <!-- ZONE A — Status bar -->
+          <div class="zone">
+            <div class="zone-tag">A</div>
+            <div class="z-sbar">
+              <span>9:41</span>
+              <span>●●●</span>
+            </div>
+          </div>
+
+          <!-- ZONE B — Progress dots (step 2 of 3) -->
+          <div class="zone">
+            <div class="zone-tag">B</div>
+            <div class="z-progress">
+              <div class="prog-dot active"></div>
+              <div class="prog-dot active"></div>
+              <div class="prog-dot inactive"></div>
+            </div>
+          </div>
+
+          <!-- ZONE C — ii mark + headline + subtitle -->
+          <div class="zone">
+            <div class="zone-tag">C</div>
+            <div class="z-header">
+              <div class="ii-mark">
+                <div class="ii-l"></div>
+                <div class="ii-r"><div class="ii-dot"></div></div>
+              </div>
+              <div class="header-title">Bijna klaar.</div>
+              <div class="header-sub">Maak een gratis account aan om je schema op te slaan.</div>
+            </div>
+          </div>
+
+          <!-- ZONE D — Apple sign-in -->
+          <div class="zone">
+            <div class="zone-tag">D</div>
+            <div class="z-auth">
+              <div class="auth-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--ink)"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.37c1.3.07 2.2.74 2.96.76 1.1-.21 2.16-.9 3.3-.84 1.42.08 2.49.67 3.19 1.72-2.93 1.78-2.23 5.68.55 6.77-.65 1.49-1.49 2.96-2 4.5zM12.03 7.25c-.16-2.36 1.83-4.44 4.1-4.63.29 2.7-2.45 4.75-4.1 4.63z"/></svg>
+                Doorgaan met Apple
+              </div>
+            </div>
+          </div>
+
+          <!-- ZONE E — Google sign-in -->
+          <div class="zone">
+            <div class="zone-tag">E</div>
+            <div class="z-auth" style="padding-top:0;">
+              <div class="auth-btn">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                Doorgaan met Google
+              </div>
+            </div>
+          </div>
+
+          <!-- ZONE F — Divider -->
+          <div class="zone">
+            <div class="zone-tag">F</div>
+            <div class="z-divider">
+              <div class="div-line"></div>
+              <div class="div-text">of</div>
+              <div class="div-line"></div>
+            </div>
+          </div>
+
+          <!-- ZONE G — Email input -->
+          <div class="zone">
+            <div class="zone-tag">G</div>
+            <div class="z-email">
+              <div class="email-input">e-mailadres</div>
+            </div>
+          </div>
+
+          <!-- ZONE H — CTA button -->
+          <div class="zone">
+            <div class="zone-tag">H</div>
+            <div class="z-cta">
+              <div class="cta-btn">Stuur magische link</div>
+            </div>
+          </div>
+
+          <!-- ZONE I — Privacy note -->
+          <div class="zone">
+            <div class="zone-tag">I</div>
+            <div class="z-privacy">
+              <div class="privacy-text">Door verder te gaan ga je akkoord met onze <span>Gebruiksvoorwaarden</span></div>
+            </div>
+          </div>
+
+        </div><!-- /screen -->
+      </div><!-- /phone -->
+    </div><!-- /phone-wrap -->
+
+    <!-- RIGHT COLUMN -->
+    <div class="right">
+
+      <!-- ZONES -->
+      <div class="sec">
+        <div class="sec-eye">Zones</div>
+        <div class="sec-title">Scherm-opbouw</div>
+        <div class="sec-rule"></div>
+
+        <div class="zone-card">
+          <div class="zc-head"><span class="zc-badge">A</span><span class="zc-name">Status bar</span></div>
+          <div class="zc-body">Standaard iOS status bar. Hoogte 20px. Transparant over cream achtergrond.</div>
+        </div>
+
+        <div class="zone-card">
+          <div class="zc-head"><span class="zc-badge">B</span><span class="zc-name">Voortgangsindicator — stap 2 van 3</span></div>
+          <div class="zc-body">
+            3 dots, top-right. Actief: <code>colorCta #9B7FD4</code>. Inactief: <code>rgba(26,22,18,0.10)</code>. Maat 6×6px, gap 5px.<br>
+            <div class="zc-rule"></div>
+            <strong>Stap 2 blijft actief.</strong> Zeigarnik: bijna klaar gevoel versterkt. Gebruiker heeft al S-05 doorlopen — de voortgang is zichtbaar verdiend.
+          </div>
+        </div>
+
+        <div class="zone-card highlight">
+          <div class="zc-head"><span class="zc-badge purple">C</span><span class="zc-name">ii-mark + headline + subtitle</span></div>
+          <div class="zc-body">
+            ii-mark gecentreerd (links=ink, rechts=cta 45% opacity, stip=apricot-dk).<br>
+            <strong>"Bijna klaar."</strong> — DM Serif Display 18px. Deferred auth = gebruiker heeft al 60s geïnvesteerd + taken gezien.<br>
+            Geen "Maak een account aan" als opening — dat klinkt als werk.<br>
+            <div class="zc-rule"></div>
+            Subtitle: "Maak een gratis account aan om je schema op te slaan." — DM Sans 10px, colorMid, gecentreerd.
+          </div>
+        </div>
+
+        <div class="zone-card">
+          <div class="zc-head"><span class="zc-badge">D</span><span class="zc-name">Apple sign-in — altijd bovenaan</span></div>
+          <div class="zc-body">
+            <strong>Apple altijd bovenaan op iOS</strong> — iOS HIG richtlijn. Niet afwijken.<br>
+            Stijl: 44px height, wit achtergrond, grijs border <code>rgba(26,22,18,0.18)</code>, border-radius 100px.<br>
+            Label: "Doorgaan met Apple" — sentence case.
+          </div>
+        </div>
+
+        <div class="zone-card">
+          <div class="zc-head"><span class="zc-badge">E</span><span class="zc-name">Google sign-in — tweede optie</span></div>
+          <div class="zc-body">
+            Google als tweede optie. Zelfde stijl als Apple button. Google logo links van label.
+          </div>
+        </div>
+
+        <div class="zone-card">
+          <div class="zc-head"><span class="zc-badge">F / G / H</span><span class="zc-name">Email-pad — magic link</span></div>
+          <div class="zc-body">
+            <strong>Magic link = geen wachtwoord</strong> — laagste wrijving voor email-pad.<br>
+            Zone G: email input, 44px, border-radius 10px, placeholder "e-mailadres".<br>
+            Zone H: CTA "Stuur magische link" — 50px, colorCta achtergrond, pill-radius, colorCtaFg tekst.<br>
+            <div class="zc-rule"></div>
+            Na klik: inline "Check je e-mail — link verstuurd." binnen Zone H. <strong>Geen nieuwe screen.</strong><br>
+            <div class="zc-rule"></div>
+            <strong>Edge case — auth mislukt:</strong> retry button verschijnt, state NOOIT verloren. Sessie bewaard lokaal tot auth slaagt.
+          </div>
+        </div>
+
+        <div class="zone-card">
+          <div class="zc-head"><span class="zc-badge">I</span><span class="zc-name">Privacy note</span></div>
+          <div class="zc-body">
+            7px DM Sans, colorMid-lt, gecentreerd. "Door verder te gaan ga je akkoord met onze Gebruiksvoorwaarden". Link underline op "Gebruiksvoorwaarden".
+          </div>
+        </div>
+      </div>
+
+      <!-- LOCKED RULES -->
+      <div class="sec">
+        <div class="sec-eye">Regels</div>
+        <div class="sec-title">Vergrendelde beslissingen</div>
+        <div class="sec-rule"></div>
+        <div class="rules-grid">
+          <div class="rule-item">
+            <div class="ri-label">Deferred auth</div>
+            <div class="ri-desc">Gebruiker ziet waarde eerst (S-01 → S-05), auth komt na review. Nooit als eerste scherm.</div>
+          </div>
+          <div class="rule-item">
+            <div class="ri-label">Apple altijd bovenaan</div>
+            <div class="ri-desc">iOS HIG verplichting. Apple login staat altijd boven Google op iOS. Niet afwijken.</div>
+          </div>
+          <div class="rule-item">
+            <div class="ri-label">Magic link = geen wachtwoord</div>
+            <div class="ri-desc">Laagste wrijving voor het email-pad. Geen wachtwoord aanmaken, geen wachtwoord onthouden.</div>
+          </div>
+          <div class="rule-item">
+            <div class="ri-label">State nooit verloren</div>
+            <div class="ri-desc">Auth-fout = retry knop, niet opnieuw beginnen. Onboarding state lokaal bewaard tot auth slaagt.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NAVIGATIE -->
+      <div class="sec">
+        <div class="sec-eye">Navigatie</div>
+        <div class="sec-title">Aangrenzende schermen</div>
+        <div class="sec-rule"></div>
+        <div class="zone-card">
+          <div class="zc-body">
+            <strong>Komt van:</strong> S-05 Onboarding review — gebruiker tikt "Bevestigen" na review van items.<br>
+            <strong>Gaat naar:</strong> S-07 Onboarding completion — na succesvolle auth (Apple / Google / magic link).
+          </div>
+        </div>
+      </div>
+
+      <!-- LINKS -->
+      <div class="links">
+        <a class="link-btn sys" href="../index.html">← Design hub</a>
+        <a class="link-btn sys" href="s05-onboarding-review-hifi.html">S-05 Review</a>
+        <a class="link-btn sys" href="../system/ux-flow.html">UX flow</a>
+        <a class="link-btn sys" href="../system/design-system.html">Design system</a>
+      </div>
+
+    </div><!-- /right -->
+  </div><!-- /layout -->
+</div><!-- /page -->
+
+</body>
+</html>

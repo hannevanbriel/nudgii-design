@@ -254,7 +254,19 @@ body{background:#BDB8AE;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:
           </div>
         </div>
 
-        <!-- Option 2: Browse categories -->
+        <!-- Option 2: Scan (visually accented — primary action) -->
+        <div class="ao" style="background:rgba(155,127,212,0.15);border:1px solid rgba(155,127,212,0.25);">
+          <div class="ao-icon" style="background:rgba(155,127,212,0.18);">
+            <svg width="16" height="16" viewBox="0 0 256 256" fill="none" stroke="var(--cta)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><polyline points="80,40 40,40 40,80"/><polyline points="176,40 216,40 216,80"/><polyline points="80,216 40,216 40,176"/><polyline points="176,216 216,216 216,176"/><line x1="32" y1="128" x2="224" y2="128" stroke-width="12" stroke-dasharray="16 10" opacity="0.35"/></svg>
+          </div>
+          <div class="ao-body">
+            <div class="ao-title" style="color:var(--cta);">Scan een item</div>
+            <div class="ao-sub">Herken en voeg direct toe</div>
+          </div>
+          <span style="font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;background:rgba(45,31,74,0.10);color:#2D1F4A;flex-shrink:0;align-self:flex-start;margin-top:2px;">Primair</span>
+        </div>
+
+        <!-- Option 3: Browse categories -->
         <div class="ao">
           <div class="ao-icon" style="background:rgba(26,22,18,0.06);">
             <svg width="16" height="16" viewBox="0 0 256 256" fill="none" stroke="var(--mid)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><rect x="32" y="32" width="80" height="80" rx="8"/><rect x="144" y="32" width="80" height="80" rx="8"/><rect x="32" y="144" width="80" height="80" rx="8"/><rect x="144" y="144" width="80" height="80" rx="8"/></svg>
@@ -262,17 +274,6 @@ body{background:#BDB8AE;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:
           <div class="ao-body">
             <div class="ao-title">Blader per categorie</div>
             <div class="ao-sub">kies uit thuis, auto, tuin…</div>
-          </div>
-        </div>
-
-        <!-- Option 3: Search/type -->
-        <div class="ao">
-          <div class="ao-icon" style="background:rgba(26,22,18,0.06);">
-            <svg width="16" height="16" viewBox="0 0 256 256" fill="none" stroke="var(--mid)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><circle cx="112" cy="112" r="80"/><line x1="168" y1="168" x2="224" y2="224"/></svg>
-          </div>
-          <div class="ao-body">
-            <div class="ao-title">Ik weet wat ik nodig heb</div>
-            <div class="ao-sub">zoek direct</div>
           </div>
         </div>
 
@@ -317,14 +318,16 @@ body{background:#BDB8AE;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:
       </div>
     </div>
     <div class="ann">
-      <div class="ann-lbl">Action sheet — 3 paths</div>
+      <div class="ann-lbl">Action sheet — v1.0 · 3 opties</div>
       <div class="ann-body">
         Appears from bottom-right, anchored to FAB.<br>
         Width: <code>188px</code><br>
         Cards: white, <code>16px</code> radius, shadow<br>
         Stagger delay: 40/80/120ms<br>
         Animation: <code>translateY + scale</code>, spring easing<br><br>
-        <strong>Same 3 paths as onboarding.</strong> Voice → Browse → Search. The same language throughout the whole app lifecycle.
+        <strong>Scan is de visueel geaccentueerde actie in de FAB sheet (v1.0).</strong> Plum-lt tint + "Primair" badge. Positie ergonomisch midden — beste duimbereik na Voice. Browse blijft beschikbaar als 3e optie.<br><br>
+        Order: Voice (bottom) → Scan (middle, accented) → Browse (top).<br><br>
+        <strong>Note:</strong> S-02b (volledig scan-scherm binnenin Path A) is v1.1 — blokkeert v1.0 launch niet.
       </div>
     </div>
     <div class="ann">

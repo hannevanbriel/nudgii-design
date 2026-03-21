@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · Personalisatie · vier mechanismen</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F5F0E8;--ink:#1A1612;--mid:#8A8070;--mid-lt:#B0A898;
+  --border:rgba(26,22,18,0.08);--border-md:rgba(26,22,18,0.12);
+  --cta:#9B7FD4;--cta-fg:#FAF8FF;
+  --ap:#E8A87C;--ap-dk:#C8784A;--terra:#C4503A;--plum:#2D1F4A;
+  --surface:#FFFFFF;
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;
+  --space-6:24px;--space-8:32px;--space-12:48px;--space-16:64px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;color:var(--ink);line-height:1.5;}
+
+/* ── HUB NAV ── */
+.hub-nav{position:sticky;top:0;z-index:999;background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 24px;display:flex;align-items:center;gap:16px;height:44px;}
+.hub-back{font-size:13px;color:var(--mid);text-decoration:none;display:flex;align-items:center;gap:8px;}
+.hub-back:hover{color:var(--ink);}
+.hub-title{font-size:13px;font-weight:500;color:var(--ink);}
+.hub-tag{margin-left:auto;font-size:10px;font-weight:500;color:var(--mid-lt);letter-spacing:1.2px;text-transform:uppercase;font-family:monospace;}
+
+/* ── PAGE ── */
+.page{max-width:1000px;margin:0 auto;padding:0 32px 100px;}
+
+/* ── HERO ── */
+.hero{padding:48px 0 32px;border-bottom:1px solid var(--border);}
+.hero-eye{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:8px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:32px;color:var(--ink);line-height:1.05;letter-spacing:-0.5px;margin-bottom:6px;}
+.hero-sub{font-size:13px;color:var(--mid);max-width:560px;line-height:1.6;}
+
+/* ── SECTION ── */
+section{padding-top:40px;}
+.sec-eye{font-size:9px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:6px;}
+.sec-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);margin-bottom:16px;}
+.sec-rule{height:1px;background:var(--border);margin-bottom:20px;}
+
+/* ── MECHANISM CARDS ── */
+.mech-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.mech-card{background:var(--surface);border:1px solid var(--border-md);border-radius:12px;padding:18px 20px;}
+.mc-eye{font-size:9px;font-weight:500;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:6px;}
+.mc-title{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:10px;}
+.mc-body{font-size:11px;color:var(--mid);line-height:1.65;}
+.mc-body strong{color:var(--ink);font-weight:500;}
+.mc-body code{font-family:monospace;font-size:10px;background:rgba(26,22,18,0.06);padding:1px 4px;border-radius:3px;color:var(--ink);}
+.mc-rule{height:1px;background:var(--border);margin:10px 0;}
+
+/* ── LOCALE TABLE ── */
+.locale-table{width:100%;border-collapse:collapse;font-size:11px;margin-top:10px;}
+.locale-table th{text-align:left;font-size:9px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--mid);padding:6px 10px 6px 0;border-bottom:1px solid var(--border-md);}
+.locale-table td{padding:7px 10px 7px 0;border-bottom:1px solid var(--border);color:var(--mid);vertical-align:top;line-height:1.5;}
+.locale-table td:first-child{color:var(--ink);font-weight:500;white-space:nowrap;font-family:monospace;font-size:10px;}
+.locale-table tr:last-child td{border-bottom:none;}
+
+/* ── PERSONA COLUMNS ── */
+.persona-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:4px;}
+.persona-card{background:var(--surface);border:1px solid var(--border-md);border-radius:10px;padding:14px 16px;}
+.pc-name{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px;}
+.pc-locale{font-size:10px;font-family:monospace;color:var(--mid);margin-bottom:10px;}
+.pc-row{font-size:11px;color:var(--mid);line-height:1.6;margin-bottom:4px;}
+.pc-row strong{color:var(--ink);font-weight:500;}
+.pc-tag{display:inline-block;font-size:9px;font-weight:500;padding:2px 7px;border-radius:100px;margin-top:6px;}
+.tag-a{background:rgba(155,127,212,0.10);color:#5C3E8A;}
+.tag-b{background:rgba(74,130,160,0.10);color:#1A4A60;}
+.tag-c{background:rgba(196,80,58,0.07);color:#8B3020;}
+.tag-pro{background:rgba(90,144,96,0.10);color:#2A5A30;}
+</style>
+</head>
+<body>
+
+<!-- Hub nav -->
+<div class="hub-nav">
+  <a class="hub-back" href="../index.html">
+    <svg width="18" height="18" viewBox="0 0 80 80" style="border-radius:4px;flex-shrink:0"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
+    Design hub
+  </a>
+  <span class="hub-title">Personalisatie · vier mechanismen</span>
+  <span class="hub-tag">System</span>
+</div>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eye">nudgii · Personalisatie · March 2026</div>
+    <h1 class="hero-title">Personalisatie</h1>
+    <p class="hero-sub">Hoe nudgii bepaalt wat het toont — locale, templates, AI-output, gebruikersregels.</p>
+  </div>
+
+  <!-- SECTION 1 — Four mechanisms -->
+  <section>
+    <div class="sec-eye">Mechanismen</div>
+    <div class="sec-title">Vier mechanismen</div>
+    <div class="sec-rule"></div>
+
+    <div class="mech-grid">
+
+      <!-- Card 1 — Locale -->
+      <div class="mech-card" style="border-color:rgba(74,130,160,0.22);background:rgba(74,130,160,0.03);">
+        <div class="mc-eye" style="color:#1A4A60;">1 · Locale-regels (device)</div>
+        <div class="mc-title">Stille locale-detectie</div>
+        <div class="mc-body">
+          Device locale wordt <strong>silently gelezen bij installatie</strong> — geen vraag aan gebruiker.<br>
+          Bepaalt: welke items S-01 toont, welke taal de digest gebruikt, welke seizoenslogica actief is.
+          <div class="mc-rule"></div>
+          <table class="locale-table">
+            <tr><th>Locale</th><th>Standaard items S-01</th></tr>
+            <tr><td>nl-BE</td><td>Vaatwasser · Winterbanden · Olijfboom</td></tr>
+            <tr><td>nl-NL</td><td>Cv-ketel · Winterbanden · Tuin</td></tr>
+            <tr><td>fr-BE</td><td>Lave-vaisselle · Pneus hiver · Olivier</td></tr>
+            <tr><td>de-DE</td><td>Heizung · Winterreifen · Garten (v1.1)</td></tr>
+          </table>
+          <div class="mc-rule"></div>
+          <strong>Regel:</strong> NOOIT locale-content voor het verkeerde land tonen. Locale bepaalt ook seizoenslogica, kennisbank-taal en digest-taal.
+        </div>
+      </div>
+
+      <!-- Card 2 — Templates -->
+      <div class="mech-card" style="border-color:rgba(90,144,96,0.22);background:rgba(90,144,96,0.03);">
+        <div class="mc-eye" style="color:#2A5A30;">2 · Templates (pre-loaded)</div>
+        <div class="mc-title">nudgii's moat — 30+ templates</div>
+        <div class="mc-body">
+          30+ templates shipped with the app. Elke template bevat: naam, categorie, standaard-interval, why-it-matters copy, seizoenslogica.<br>
+          <div class="mc-rule"></div>
+          <strong>Voorbeelden:</strong><br>
+          Vaatwasser zout — 6–8 weken<br>
+          Cv-ketel service — 12 maanden<br>
+          Winterbanden — seizoensgebonden (voor november)<br>
+          Olijfboom snoei — feb + aug (BE/NL/FR)<br>
+          <div class="mc-rule"></div>
+          Templates zijn startpunten — <strong>altijd overschrijfbaar door gebruiker</strong>.<br>
+          Templates leven in Supabase. PM beheert via dashboard — geen app release nodig voor updates.
+        </div>
+      </div>
+
+      <!-- Card 3 — AI output -->
+      <div class="mech-card" style="border-color:rgba(155,127,212,0.22);background:rgba(155,127,212,0.03);">
+        <div class="mc-eye" style="color:#5C3E8A;">3 · AI-output (Claude API)</div>
+        <div class="mc-title">Eén JSON-call, volledig reviewbaar</div>
+        <div class="mc-body">
+          Claude API — <code>claude-sonnet-4-6</code> — single JSON call.<br>
+          Returns: <code>item_type</code>, <code>brand</code>, <code>model</code>, <code>tasks[]</code>.<br>
+          <div class="mc-rule"></div>
+          Context altijd meegestuurd: locale + today's date + last-maintenance waarde.<br>
+          <div class="mc-rule"></div>
+          <strong>Voorbeelden:</strong><br>
+          "4 airco's" → Claude stelt verduidelijkingsvraag (max 1)<br>
+          "Cv-ketel en vaatwasser" → templates laden direct<br>
+          <div class="mc-rule"></div>
+          AI-output is <strong>altijd reviewbaar op S-05</strong> voor opslaan. Nooit stilletjes opgeslagen.
+        </div>
+      </div>
+
+      <!-- Card 4 — User rules -->
+      <div class="mech-card">
+        <div class="mc-eye" style="color:var(--mid);">4 · Gebruikersregels (live)</div>
+        <div class="mc-title">Post-onboarding CRUD</div>
+        <div class="mc-body">
+          Na onboarding kan de gebruiker alles aanpassen via Supabase-backed CRUD:<br>
+          <div class="mc-rule"></div>
+          · Interval aanpassen (per taak)<br>
+          · Holiday mode activeren<br>
+          · Taak snoozen (met reden)<br>
+          · Custom item toevoegen<br>
+          · Regio corrigeren (S-24)<br>
+          <div class="mc-rule"></div>
+          Alle regels worden lokaal gecached voor offline gebruik. Sync bij reconnect.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 2 — Per-persona preview -->
+  <section>
+    <div class="sec-eye">Personas</div>
+    <div class="sec-title">Per-persona preview</div>
+    <div class="sec-rule"></div>
+
+    <div class="persona-grid">
+
+      <div class="persona-card">
+        <div class="pc-name">Martijn</div>
+        <div class="pc-locale">nl-BE · 38 · homeowner</div>
+        <div class="pc-row"><strong>S-01 cards:</strong> Vaatwasser · Winterbanden · Olijfboom</div>
+        <div class="pc-row"><strong>Onboarding:</strong> Path A (Voice)</div>
+        <div class="pc-row"><strong>Templates actief:</strong> Vaatwasser zout · Winterbanden · Cv-ketel · Airco</div>
+        <div class="pc-row"><strong>Pro trigger:</strong> maand 2–3</div>
+        <span class="pc-tag tag-a">Path A</span>
+        <span class="pc-tag tag-pro">Pro maand 2–3</span>
+      </div>
+
+      <div class="persona-card">
+        <div class="pc-name">Sara</div>
+        <div class="pc-locale">nl-BE / nl-NL · 44 · city apartment</div>
+        <div class="pc-row"><strong>S-01 cards:</strong> Cv-ketel · Abonnementen · Planten</div>
+        <div class="pc-row"><strong>Onboarding:</strong> Path B of C (Browse / Search)</div>
+        <div class="pc-row"><strong>Templates actief:</strong> Abonnementen · Planten · Cv-ketel</div>
+        <div class="pc-row"><strong>Pro trigger:</strong> maand 1–2 (custom interval limiet)</div>
+        <span class="pc-tag tag-b">Path B/C</span>
+        <span class="pc-tag tag-pro">Pro maand 1–2</span>
+      </div>
+
+      <div class="persona-card">
+        <div class="pc-name">Lena</div>
+        <div class="pc-locale">nl-BE · 29 · first home</div>
+        <div class="pc-row"><strong>S-01 cards:</strong> Vaatwasser · Huur-check · Planten</div>
+        <div class="pc-row"><strong>Onboarding:</strong> Path A (Guided conversation)</div>
+        <div class="pc-row"><strong>Templates actief:</strong> Vaatwasser · Rookmelder · Planten</div>
+        <div class="pc-row"><strong>Pro trigger:</strong> maand 3–4 (word-of-mouth)</div>
+        <span class="pc-tag tag-a">Path A</span>
+        <span class="pc-tag tag-pro">Pro maand 3–4</span>
+      </div>
+
+    </div>
+  </section>
+
+</div><!-- /page -->
+</body>
+</html>

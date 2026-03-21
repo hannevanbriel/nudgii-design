@@ -397,6 +397,66 @@ section{padding-top:48px;}
     <div class="flow-note"><strong>OD-03 resolved 2026-03-21:</strong> nudgii never speaks. Voice = user input only, max 1 min/turn. nudgii always responds in text. S-02 lo-fi is done and unblocked. Paths B and C are also in progress.</div>
   </section>
 
+  <!-- ═══════════════════════════════════════════
+       ONBOARDING FLOW DETAIL · v2.0
+  ═══════════════════════════════════════════ -->
+  <section style="padding-top:40px;">
+    <div class="flow-head">
+      <span class="flow-num" style="color:var(--f-ob);">Detail</span>
+      <span class="flow-name" style="color:var(--f-ob);font-size:18px;">Onboarding flow detail · v2.0 · 5 fixes verwerkt</span>
+      <span class="flow-sep"></span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+
+      <!-- 5 fixes -->
+      <div style="background:#FFFBF0;border:1px solid rgba(200,120,74,0.22);border-radius:12px;padding:16px 18px;">
+        <div style="font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:#7A4A1A;margin-bottom:10px;">5 fixes verwerkt</div>
+        <ol style="font-size:11px;color:#5A3A10;line-height:1.7;padding-left:16px;">
+          <li>Visuele hiërarchie S-01 — Path A dominant (fill), B secundair (border), C ghost</li>
+          <li>Voice cold-start — voorbeeld chips tonen voor microfoon opent (cv-ketel · vaatwasser · auto · olijfboom)</li>
+          <li>Last-maintenance default — altijd "6 mnd geleden", nooit "recent"</li>
+          <li>Review confirm-only — alleen delete (×), geen inline editor op S-05</li>
+          <li>Completion auto-advance verwijderd — CTA "Open mijn schema" vereist</li>
+        </ol>
+      </div>
+
+      <!-- 4 edge cases -->
+      <div style="background:#FFF5F5;border:1px solid rgba(163,45,45,0.18);border-radius:12px;padding:16px 18px;">
+        <div style="font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:#A32D2D;margin-bottom:10px;">4 edge cases</div>
+        <ul style="font-size:11px;color:#7A2A2A;line-height:1.7;padding-left:14px;">
+          <li>S-26 Mic fout → inline tekst fallback "Liever typen?", nooit dead-end</li>
+          <li>S-27 Parse fail → fallback naar browse, toast "Probeer anders"</li>
+          <li>Auth mislukt → retry, onboarding state NOOIT verloren</li>
+          <li>11+ items → amber callout "2 items wacht op Pro", nooit stilletjes kappen</li>
+        </ul>
+      </div>
+
+      <!-- 2 monetization moments -->
+      <div style="background:#F7F3FF;border:1px solid rgba(155,127,212,0.22);border-radius:12px;padding:16px 18px;">
+        <div style="font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:#5C3E8A;margin-bottom:10px;">2 monetisatie-momenten</div>
+        <ul style="font-size:11px;color:#4A2E78;line-height:1.7;padding-left:14px;">
+          <li>S-05 item teller: "x van 10 gratis · Pro = onbeperkt" (plum-lt text, not a banner)</li>
+          <li>S-09 overdue zichtbaar: terra urgency → engagement → conversion (helpful first)</li>
+        </ul>
+      </div>
+
+      <!-- 6 strong points -->
+      <div style="background:#F2FAF0;border:1px solid rgba(90,144,96,0.20);border-radius:12px;padding:16px 18px;">
+        <div style="font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:#2A5A30;margin-bottom:10px;">6 sterke punten — niet aanpassen</div>
+        <ul style="font-size:11px;color:#1E4228;line-height:1.7;padding-left:14px;">
+          <li>Deferred auth</li>
+          <li>Zeigarnik completion loop</li>
+          <li>1-tap login</li>
+          <li>Silent locale detection</li>
+          <li>Dashboard never empty</li>
+          <li>3-path self-select</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
   <div class="rule"></div>
 
   <!-- ═══════════════════════════════════════════

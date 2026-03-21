@@ -255,6 +255,21 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
                 </div>
               </div>
 
+              <!-- ZONE E2 — Example chips (cold-start helper) -->
+              <div class="zone">
+                <div class="zone-tag">E2</div>
+                <div style="padding:6px 12px 4px;background:#F5F0E8;">
+                  <div style="font-size:8px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--mid);margin-bottom:5px;">Voorbeelden</div>
+                  <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:4px;">
+                    <span style="font-size:8px;color:var(--mid);background:var(--surface);border:0.5px solid rgba(26,22,18,0.13);border-radius:100px;padding:2px 7px;">cv-ketel</span>
+                    <span style="font-size:8px;color:var(--mid);background:var(--surface);border:0.5px solid rgba(26,22,18,0.13);border-radius:100px;padding:2px 7px;">vaatwasser</span>
+                    <span style="font-size:8px;color:var(--mid);background:var(--surface);border:0.5px solid rgba(26,22,18,0.13);border-radius:100px;padding:2px 7px;">auto</span>
+                    <span style="font-size:8px;color:var(--mid);background:var(--surface);border:0.5px solid rgba(26,22,18,0.13);border-radius:100px;padding:2px 7px;">olijfboom</span>
+                  </div>
+                  <div style="font-size:8px;color:var(--mid-lt);font-style:italic;">of spreek vrij</div>
+                </div>
+              </div>
+
               <!-- ZONE F — Mic input: idle state -->
               <div class="zone">
                 <div class="zone-tag">F</div>
@@ -264,6 +279,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
                       <svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>
                     </div>
                     <div class="mic-hint">Tik om te spreken<br><span class="mic-timer">max 1:00</span></div>
+                    <div style="font-size:9px;color:var(--cta);text-decoration:underline;cursor:pointer;margin-top:3px;">Liever typen?</div>
                   </div>
                 </div>
               </div>
@@ -390,14 +406,27 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
           </div>
         </div>
 
+        <div class="zone-card">
+          <div class="zc-head"><span class="zc-badge">E2</span><span class="zc-name">Voorbeeld chips — cold-start helper</span></div>
+          <div class="zc-body">
+            Getoond boven de mic-knop bij eerste bezoek (cold-start). Flex-wrap rij.<br>
+            Chips: <strong>cv-ketel · vaatwasser · auto · olijfboom</strong> (nl-BE defaults).<br>
+            Stijl: wit/surface achtergrond, border <code>0.5px solid rgba(26,22,18,0.13)</code>, border-radius 100px, padding <code>2px 7px</code>, font <code>8px DM Sans</code>, kleur <code>colorMid</code>.<br>
+            <div class="zc-rule"></div>
+            Example chips tonen bij cold-start. Tapping een chip vult het in als tekst én start spraak. "Liever typen?" is altijd zichtbaar — zelfde gewicht als de chip hint, plum-lt underline.
+          </div>
+        </div>
+
         <div class="zone-card cta-card">
           <div class="zc-head"><span class="zc-badge purple">F</span><span class="zc-name">Microfoon-invoer</span></div>
           <div class="zc-body">
-            <strong>Idle:</strong> Grote ronde mic-knop, 52×52px, <code>colorCta</code> achtergrond, shadow. Hint-tekst "Tik om te spreken" + "max 1:00" in <code>colorMid-lt</code>.<br>
+            <strong>Idle:</strong> Grote ronde mic-knop, 52×52px, <code>colorCta</code> achtergrond, shadow. Hint-tekst "Tik om te spreken" + "max 1:00" in <code>colorMid-lt</code>. Onder de hint: <strong>"Liever typen?"</strong> in <code>colorCta</code> met underline — altijd zichtbaar, nooit verborgen.<br>
             <div class="zc-rule"></div>
             <strong>Opname actief:</strong> Waveform-animatie + rode REC-stip + timer <code>0:12</code>. Knop verdwijnt, hint "Tik nogmaals om te stoppen · max 1:00".<br>
             <div class="zc-rule"></div>
             <strong>Timer gedrag:</strong> Op 0:50 verschijnt subtiele waarschuwing "Nog 10 seconden". Op 1:00 stopt opname automatisch.<br>
+            <div class="zc-rule"></div>
+            <strong>"Liever typen?" gedrag:</strong> Op tap verschijnt tekstinvoerveld als vervanging van de mic-knop. Gelijkwaardig alternatief — nooit verborgen, nooit kleiner dan chip-hint tekst.<br>
             <div class="zc-rule"></div>
             <strong>Flutter:</strong> Gebruik <code>flutter_sound</code> of <code>record</code> package. Max duration via <code>RecordConfig(maxDuration: Duration(minutes: 1))</code>.
           </div>
@@ -450,7 +479,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
           </div>
           <div class="rule-item">
             <div class="ri-label">Gebruiker max 1 min</div>
-            <div class="ri-desc">Per opnamebeurt maximaal 1 minuut. Op 0:50 verschijnt een waarschuwing. Op 1:00 stopt de opname automatisch.</div>
+            <div class="ri-desc">Per opnamebeurt maximaal 1 minuut. Op 0:50 verschijnt een waarschuwing. Op 1:00 stopt de opname automatisch. Keyboard fallback "Liever typen?" altijd zichtbaar — gelijkwaardig alternatief, nooit verborgen.</div>
           </div>
           <div class="rule-item">
             <div class="ri-label">Eén vraag per beurt</div>

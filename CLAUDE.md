@@ -279,6 +279,36 @@ Disabled: bg `rgba(155,127,212,0.35)`, text `rgba(250,248,255,0.5)` — never `O
 - Spring animation: 400–450ms `cubic-bezier(0.34,1.56,0.64,1)` for ii mark scale + headline translateY
 - This is the only theatrical motion in the app
 
+### Progress indicator (onboarding)
+3 dots, top-right corner, all onboarding screens S-01 through S-07.
+Active: colorCta #9B7FD4 · Inactive: rgba(26,22,18,0.10) · Size 6×6px · Gap 5px
+Step 1 = S-01/S-02/S-03/S-04 active. Step 2 = S-05/S-06. Step 3 = S-07.
+
+### Example chips (S-02 voice onboarding)
+Shown above the mic button to help cold-start users. Flex-wrap row.
+Content (nl-BE): cv-ketel · vaatwasser · auto · olijfboom
+Background: white/surface · Border: 0.5px solid rgba(26,22,18,0.13) · Border-radius: 100px · Padding: 2px 7px · Font: 8px DM Sans
+
+### Last maintenance chip (S-03 browse + S-04 search)
+Every item row shows a last-maintenance chip.
+Default = "6 mnd geleden" (amber-lt background, amber text) — NEVER "recent", NEVER empty.
+User can change this on S-05. If user says they just maintained it, chip becomes "recent" (ink-06 bg, mid text).
+
+### Toast (corrected)
+Light semantic backgrounds — NEVER dark ink.
+- Success: sage-lt #EAF3DE · text sage #3B6D11 · green dot
+- Neutral (undo): cream #F5F0E8 · border bm · text ink · plum-lt dot
+- Error: red-lt #FCEBEB · text red #A32D2D · terra dot
+Shape: border-radius 100px · padding 9px 16px · max-width 260px
+Position: center-bottom · 14px above tab bar
+Duration: 2.5s visible · 250ms fade-out
+
+### Error card (corrected)
+NO border-left stripe. Full border with semantically-colored background.
+Structure: icon-chip (28×28px, red-lt bg, terra icon) + title + body + action link
+Background: red-lt #FCEBEB · Border: 1px solid rgba(163,45,45,0.18) · all sides
+Action link: colorCta, underline, with right-arrow icon
+
 ---
 
 ## 11. Motion tokens
@@ -355,6 +385,12 @@ These are locked decisions. Do not question them in design or code reviews.
 - ❌ Never use category colors on tab bar or action button icons
 - ❌ Never capitalize nudgii — always lowercase, including in code comments
 - ❌ Never write "Nudgii" or "NUDGII" anywhere
+- ❌ Never use a dark ink background on toasts — use semantic light backgrounds (sage-lt / red-lt / cream) only
+- ❌ Never use border-left accent on error cards — use full-border + red-lt background + icon-chip
+- ❌ Never show "recent" as a last-maintenance chip default — always "6 mnd geleden"
+- ❌ Never auto-advance from S-07 completion — always require user tap ("Open mijn schema")
+- ❌ Never put CTA buttons side by side on onboarding screens — always vertically stacked
+- ❌ Never show more than 3 preview nudge-cards on S-01 — never a 4th, never a carousel
 
 ---
 
@@ -367,6 +403,11 @@ Update this section when open decisions are resolved.
 | OD-01 | Done overlay trigger — dashboard swipe only. Task detail gets quiet in-screen completion banner, not the full overlay. | ✅ Yes | 2026-03-18 |
 | OD-02 | Ask tab first load content | ❌ No | — |
 | OD-03 | Voice onboarding: nudgii never speaks. Voice = user input only, max 1 min/turn. nudgii always responds in text. TTS deferred indefinitely. | ✅ Yes | 2026-03-21 |
+| Toast design | Light semantic backgrounds (sage-lt/red-lt/cream). Dark ink toast removed. | ✅ Yes | 2026-03-21 |
+| Error card | No border-left stripe. Full-border + icon-chip. | ✅ Yes | 2026-03-21 |
+| Last maint. chip default | Always "6 mnd geleden" — never "recent" | ✅ Yes | 2026-03-21 |
+| S-07 auto-advance | Never auto-advance from completion. CTA "Open mijn schema" required | ✅ Yes | 2026-03-21 |
+| Scan placement v1.0 | S-05 camera icon (all paths) + FAB scan accent. S-02b full scan is v1.1 | ✅ Yes | 2026-03-21 |
 
 ---
 
