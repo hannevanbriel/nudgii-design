@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · S-04 Direct search — lo-fi</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F5F0E8;--ink:#1A1612;--cta:#9B7FD4;--cta-fg:#FAF8FF;
+  --ap:#E8A87C;--ap-dk:#C8784A;--terra:#C4503A;
+  --mid:#8A8070;--mid-lt:#B0A898;--plum:#2D1F4A;
+  --ch:#C87850;--chb:rgba(200,120,80,0.10);
+  --cv:#4A82A0;--cvb:rgba(74,130,160,0.10);
+  --cg:#5A9060;--cgb:rgba(90,144,96,0.10);
+  --cs:#8060A8;--csb:rgba(128,96,168,0.10);
+  --ink-06:rgba(26,22,18,0.06);--ink-08:rgba(26,22,18,0.08);
+  --ink-10:rgba(26,22,18,0.10);--ink-16:rgba(26,22,18,0.16);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px;}
+
+/* ── NAV ── */
+nav{background:var(--cream);border-bottom:1px solid var(--ink-10);padding:0 32px;display:flex;align-items:center;gap:16px;height:48px;position:sticky;top:0;z-index:100;}
+.nav-back{font-size:13px;color:var(--mid);text-decoration:none;display:flex;align-items:center;gap:8px;}
+.nav-back:hover{color:var(--ink);}
+.nav-sep{color:var(--ink-16);}
+.nav-title{font-size:13px;font-weight:500;}
+.nav-id{margin-left:auto;font-size:10px;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;color:var(--mid-lt);font-family:monospace;}
+
+/* ── PAGE ── */
+.page{padding:36px 32px 100px;max-width:1200px;margin:0 auto;}
+h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
+.sub{font-size:14px;color:var(--mid);margin-bottom:10px;max-width:580px;line-height:1.6;}
+.meta{display:flex;gap:8px;margin-bottom:40px;flex-wrap:wrap;}
+.mp{font-size:11px;font-weight:500;padding:3px 10px;border-radius:100px;border:1px solid var(--ink-10);color:var(--mid);}
+.mp.lo{background:rgba(90,144,96,0.08);color:#2A5A30;border-color:rgba(90,144,96,0.2);}
+.mp.ob{background:rgba(155,127,212,0.08);color:#5C3E8A;border-color:rgba(155,127,212,0.2);}
+
+/* ── MAIN LAYOUT ── */
+.layout{display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap;}
+.phones-row{display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;}
+
+/* ── PHONE ── */
+.phone-wrap{flex-shrink:0;}
+.phone-lbl{font-size:9px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:rgba(26,22,18,0.32);text-align:center;margin-bottom:10px;}
+.phone{width:280px;background:#d8d4cb;border-radius:36px;padding:10px;border:2px solid rgba(26,22,18,0.20);box-shadow:0 12px 40px rgba(26,22,18,0.14);}
+.screen{background:#F5F0E8;border-radius:26px;overflow:hidden;}
+
+/* ── ZONES ── */
+.zone{border-bottom:1.5px dashed rgba(26,22,18,0.12);position:relative;}
+.zone:last-child{border-bottom:none;}
+.zone-tag{position:absolute;top:6px;right:8px;font-size:8px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;background:rgba(26,22,18,0.07);color:var(--mid);padding:2px 6px;border-radius:3px;pointer-events:none;z-index:2;}
+
+/* Zone A */
+.z-sbar{height:20px;background:#F5F0E8;display:flex;justify-content:space-between;align-items:center;padding:0 16px;font-size:8px;font-weight:500;color:rgba(26,22,18,0.32);}
+
+/* Zone B — Top bar */
+.z-topbar{padding:10px 16px 8px;display:flex;align-items:center;justify-content:space-between;background:#F5F0E8;}
+.ii{display:flex;align-items:flex-start;gap:3px;}
+.ii-l{width:7px;height:20px;border-radius:100px;background:var(--ink);}
+.ii-r{width:7px;height:20px;border-radius:100px;background:rgba(155,127,212,0.45);position:relative;}
+.ii-dot{width:5px;height:5px;border-radius:50%;background:var(--ap-dk);position:absolute;top:2px;right:-2px;}
+.progress-wrap{flex:1;margin:0 12px;}
+.prog-label{font-size:8px;color:var(--mid);margin-bottom:3px;text-align:right;}
+.prog-bar{height:3px;background:rgba(26,22,18,0.10);border-radius:100px;overflow:hidden;}
+.prog-fill{height:100%;background:var(--cta);border-radius:100px;}
+.skip-btn{font-size:9px;color:var(--mid);cursor:default;}
+
+/* Zone C — Search input */
+.z-search{padding:8px 12px 6px;background:#F5F0E8;}
+.search-field{
+  width:100%;height:40px;border-radius:10px;
+  background:#fff;border:1.5px solid rgba(155,127,212,0.50);
+  display:flex;align-items:center;gap:7px;padding:0 10px;
+  box-shadow:0 0 0 3px rgba(155,127,212,0.08);
+}
+.search-field.idle{border-color:rgba(26,22,18,0.12);box-shadow:none;}
+.sf-icon svg{width:13px;height:13px;stroke:var(--mid);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.sf-icon.active svg{stroke:var(--cta);}
+.sf-text{flex:1;font-size:11px;color:var(--ink);}
+.sf-text.placeholder{color:var(--mid-lt);}
+.sf-cursor{width:1.5px;height:13px;background:var(--cta);display:inline-block;margin-left:1px;}
+.sf-clear{width:16px;height:16px;border-radius:50%;background:rgba(26,22,18,0.10);display:flex;align-items:center;justify-content:center;}
+.sf-clear svg{width:8px;height:8px;stroke:var(--mid);stroke-width:2;fill:none;stroke-linecap:round;}
+
+/* Zone D — Search results dropdown */
+.z-results{background:#fff;border:1px solid rgba(26,22,18,0.08);margin:0 12px;border-radius:10px;box-shadow:0 4px 16px rgba(26,22,18,0.09);overflow:hidden;}
+.res-row{display:flex;align-items:center;gap:8px;padding:8px 10px;border-bottom:1px solid rgba(26,22,18,0.06);cursor:default;}
+.res-row:last-child{border-bottom:none;}
+.res-row.active{background:rgba(155,127,212,0.04);}
+.res-icon{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.res-icon svg{width:10px;height:10px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.ri-home{background:var(--chb);}
+.ri-home svg{stroke:var(--ch);}
+.ri-vehicle{background:var(--cvb);}
+.ri-vehicle svg{stroke:var(--cv);}
+.ri-garden{background:var(--cgb);}
+.ri-garden svg{stroke:var(--cg);}
+.res-body{flex:1;}
+.res-name{font-size:10.5px;font-weight:500;color:var(--ink);}
+.res-name .hl{color:var(--cta);}
+.res-cat{font-size:8.5px;color:var(--mid);margin-top:1px;}
+.res-add{font-size:9px;font-weight:500;color:var(--cta);flex-shrink:0;}
+.res-added{font-size:9px;color:var(--mid-lt);flex-shrink:0;}
+.res-check{width:14px;height:14px;border-radius:50%;background:var(--cta);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.res-check svg{width:8px;height:8px;stroke:#FAF8FF;stroke-width:2.5;fill:none;}
+.res-no-results{padding:12px 10px;font-size:10px;color:var(--mid);text-align:center;font-style:italic;}
+
+/* Zone E — Added items list */
+.z-added{padding:8px 12px 6px;background:#F5F0E8;}
+.added-lbl{font-size:8px;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;color:var(--mid);margin-bottom:5px;}
+.added-item{display:flex;align-items:center;gap:6px;padding:6px 8px;background:#fff;border-radius:8px;margin-bottom:3px;border:1px solid rgba(26,22,18,0.07);}
+.ai-chip{width:20px;height:20px;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ai-chip svg{width:9px;height:9px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.aic-home{background:var(--chb);}
+.aic-home svg{stroke:var(--ch);}
+.aic-vehicle{background:var(--cvb);}
+.aic-vehicle svg{stroke:var(--cv);}
+.ai-name{flex:1;font-size:10px;font-weight:500;color:var(--ink);}
+.ai-remove{width:14px;height:14px;border-radius:50%;background:rgba(26,22,18,0.07);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ai-remove svg{width:8px;height:8px;stroke:var(--mid);stroke-width:2;fill:none;stroke-linecap:round;}
+
+/* Zone F — CTA */
+.z-cta{padding:8px 14px 14px;background:#F5F0E8;}
+.cta-btn{width:100%;height:46px;border-radius:100px;border:none;background:var(--cta);color:var(--cta-fg);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:default;box-shadow:0 2px 10px rgba(155,127,212,0.30);display:flex;align-items:center;justify-content:center;}
+.cta-btn.disabled{background:rgba(155,127,212,0.35);color:rgba(250,248,255,0.5);box-shadow:none;}
+
+/* Keyboard suggestion bar */
+.z-keyboard{padding:6px 8px;background:rgba(26,22,18,0.05);border-top:1px solid rgba(26,22,18,0.08);display:flex;gap:4px;overflow:hidden;}
+.kb-sug{font-size:9px;color:var(--mid);padding:3px 8px;background:#fff;border-radius:100px;border:1px solid rgba(26,22,18,0.08);white-space:nowrap;flex-shrink:0;}
+
+/* ── RIGHT COLUMN ── */
+.right{flex:1;min-width:280px;}
+.sec{margin-bottom:36px;}
+.sec-eye{font-size:9px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:4px;}
+.sec-title{font-family:'DM Serif Display',serif;font-size:18px;color:var(--ink);margin-bottom:14px;}
+.sec-rule{height:1px;background:var(--ink-08);margin-bottom:20px;}
+
+/* Zone cards */
+.zone-card{background:#fff;border:1px solid var(--ink-08);border-radius:10px;padding:13px 15px;margin-bottom:8px;}
+.zone-card.highlight{border-color:rgba(155,127,212,0.25);background:rgba(155,127,212,0.03);}
+.zone-card.cta-card{border-color:rgba(155,127,212,0.30);background:rgba(155,127,212,0.04);}
+.zc-head{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
+.zc-badge{font-size:9px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;padding:2px 7px;border-radius:3px;background:rgba(26,22,18,0.07);color:var(--mid);flex-shrink:0;}
+.zc-badge.purple{background:rgba(155,127,212,0.12);color:#5C3E8A;}
+.zc-badge.green{background:rgba(90,144,96,0.10);color:#2A5A30;}
+.zc-name{font-size:12px;font-weight:500;color:var(--ink);}
+.zc-body{font-size:11px;color:var(--mid);line-height:1.65;}
+.zc-body strong{color:var(--ink);font-weight:500;}
+.zc-body code{font-family:monospace;font-size:10px;background:rgba(26,22,18,0.06);padding:1px 4px;border-radius:3px;color:var(--ink);}
+.zc-rule{height:1px;background:var(--ink-08);margin:8px 0;}
+
+/* Persona callout */
+.persona-card{background:rgba(74,130,160,0.05);border:1px solid rgba(74,130,160,0.18);border-radius:10px;padding:12px 15px;margin-bottom:16px;}
+.pc-name{font-size:10px;font-weight:500;color:#1A4A60;margin-bottom:3px;}
+.pc-body{font-size:11px;color:var(--mid);line-height:1.6;}
+
+/* Search states table */
+.state-table{width:100%;border-collapse:collapse;font-size:11px;}
+.state-table th{text-align:left;font-size:9px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--mid);padding:0 12px 8px 0;border-bottom:1px solid var(--ink-10);}
+.state-table td{padding:7px 12px 7px 0;border-bottom:1px solid var(--ink-08);color:var(--mid);vertical-align:top;line-height:1.5;}
+.state-table td:first-child{color:var(--ink);font-weight:500;white-space:nowrap;width:100px;}
+.state-table tr:last-child td{border-bottom:none;}
+
+/* Rules grid */
+.rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.rule-item{background:#fff;border:1px solid var(--ink-08);border-radius:8px;padding:10px 12px;}
+.ri-label{font-size:10px;font-weight:500;color:var(--ink);margin-bottom:2px;}
+.ri-desc{font-size:10px;color:var(--mid);line-height:1.5;}
+
+/* Bottom links */
+.links{display:flex;gap:10px;flex-wrap:wrap;padding-top:24px;border-top:1px solid var(--ink-08);}
+.link-btn{font-size:12px;font-weight:500;text-decoration:none;padding:6px 14px;border-radius:100px;}
+.link-btn.hi{color:var(--cta);background:rgba(155,127,212,0.08);border:1px solid rgba(155,127,212,0.2);}
+.link-btn.sys{color:var(--mid);background:var(--ink-06);border:1px solid var(--ink-10);}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-back" href="../index.html">
+    <svg width="18" height="18" viewBox="0 0 80 80" style="border-radius:4px;flex-shrink:0"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
+    Design hub
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">S-04 · Direct search — Path C</span>
+  <span class="nav-id">Lo-fi · March 2026</span>
+</nav>
+
+<div class="page">
+
+  <h1>Direct search</h1>
+  <p class="sub">Path C — de gebruiker typt direct wat ze hebben. Geen categorieoverzicht, geen gesprek. Zoekresultaten verschijnen live. Sara's pad: ze weet precies wat ze heeft.</p>
+  <div class="meta">
+    <span class="mp lo">Lo-fi</span>
+    <span class="mp ob">Onboarding flow</span>
+    <span class="mp">S-04</span>
+    <span class="mp">Pad C → S-05 Overzicht</span>
+  </div>
+
+  <div class="layout">
+
+    <!-- PHONES -->
+    <div>
+      <div class="phones-row">
+
+        <!-- PHONE 1: Typing, results showing -->
+        <div class="phone-wrap">
+          <div class="phone-lbl">State 1 · zoekresultaten</div>
+          <div class="phone">
+            <div class="screen">
+
+              <!-- Zone A -->
+              <div class="zone">
+                <div class="zone-tag">A</div>
+                <div class="z-sbar"><span>9:41</span><span>●●●</span></div>
+              </div>
+
+              <!-- Zone B — Top bar -->
+              <div class="zone">
+                <div class="zone-tag">B</div>
+                <div class="z-topbar">
+                  <div class="ii">
+                    <div class="ii-l"></div>
+                    <div class="ii-r"><div class="ii-dot"></div></div>
+                  </div>
+                  <div class="progress-wrap">
+                    <div class="prog-label">Items zoeken</div>
+                    <div class="prog-bar"><div class="prog-fill" style="width:35%"></div></div>
+                  </div>
+                  <span class="skip-btn">Overslaan</span>
+                </div>
+              </div>
+
+              <!-- Zone C — Search field (active, text entered) -->
+              <div class="zone">
+                <div class="zone-tag">C</div>
+                <div class="z-search">
+                  <div class="search-field">
+                    <div class="sf-icon active">
+                      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+                    </div>
+                    <span class="sf-text">vaatwa<span class="sf-cursor"></span></span>
+                    <div class="sf-clear">
+                      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Zone D — Live results -->
+              <div class="zone">
+                <div class="zone-tag">D</div>
+                <div style="padding:0 12px 8px;">
+                  <div class="z-results">
+                    <div class="res-row active">
+                      <div class="res-icon ri-home">
+                        <svg viewBox="0 0 24 24"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5Z"/><path d="M9 21V12h6v9"/></svg>
+                      </div>
+                      <div class="res-body">
+                        <div class="res-name"><span class="hl">Vaatwa</span>sser</div>
+                        <div class="res-cat">Thuis · Keuken</div>
+                      </div>
+                      <span class="res-add">+ Voeg toe</span>
+                    </div>
+                    <div class="res-row">
+                      <div class="res-icon ri-home">
+                        <svg viewBox="0 0 24 24"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5Z"/><path d="M9 21V12h6v9"/></svg>
+                      </div>
+                      <div class="res-body">
+                        <div class="res-name"><span class="hl">Vaatwa</span>s-tabs</div>
+                        <div class="res-cat">Thuis · Keuken · verbruiksgoed</div>
+                      </div>
+                      <span class="res-add">+ Voeg toe</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Zone E — Added items (2 already added) -->
+              <div class="zone">
+                <div class="zone-tag">E</div>
+                <div class="z-added">
+                  <div class="added-lbl">Toegevoegd · 2</div>
+                  <div class="added-item">
+                    <div class="ai-chip aic-home">
+                      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5Z"/><path d="M9 21V12h6v9"/></svg>
+                    </div>
+                    <span class="ai-name">Airco</span>
+                    <div class="ai-remove">
+                      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </div>
+                  </div>
+                  <div class="added-item">
+                    <div class="ai-chip aic-vehicle">
+                      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="9" width="22" height="11" rx="2"/><path d="M5 9V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v2"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg>
+                    </div>
+                    <span class="ai-name">Auto · Volkswagen Golf</span>
+                    <div class="ai-remove">
+                      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Zone F — CTA (active) -->
+              <div class="zone">
+                <div class="zone-tag">F</div>
+                <div class="z-cta">
+                  <div class="cta-btn">Klaar · 2 items →</div>
+                </div>
+              </div>
+
+              <!-- Keyboard suggestion bar -->
+              <div class="z-keyboard">
+                <div class="kb-sug">vaatwasser</div>
+                <div class="kb-sug">vaatwasgel</div>
+                <div class="kb-sug">vaat</div>
+              </div>
+
+            </div><!-- /screen -->
+          </div>
+        </div>
+
+        <!-- PHONE 2: Empty search + idle state -->
+        <div class="phone-wrap">
+          <div class="phone-lbl">State 2 · leeg / niet gevonden</div>
+          <div class="phone">
+            <div class="screen">
+
+              <!-- Zone A -->
+              <div class="zone">
+                <div class="z-sbar"><span>9:41</span><span>●●●</span></div>
+              </div>
+
+              <!-- Zone B -->
+              <div class="zone">
+                <div class="z-topbar">
+                  <div class="ii">
+                    <div class="ii-l"></div>
+                    <div class="ii-r"><div class="ii-dot"></div></div>
+                  </div>
+                  <div class="progress-wrap">
+                    <div class="prog-label">Items zoeken</div>
+                    <div class="prog-bar"><div class="prog-fill" style="width:0%"></div></div>
+                  </div>
+                  <span class="skip-btn">Overslaan</span>
+                </div>
+              </div>
+
+              <!-- Zone C — Search idle / placeholder -->
+              <div class="zone">
+                <div class="zone-tag">C</div>
+                <div class="z-search">
+                  <div class="search-field idle">
+                    <div class="sf-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+                    </div>
+                    <span class="sf-text placeholder">Zoek een item…</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Zone D — Quick-start suggestions (idle state) -->
+              <div class="zone">
+                <div class="zone-tag">D</div>
+                <div style="padding:6px 12px 10px;">
+                  <div style="font-size:8px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Populair bij anderen</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:4px;">
+                    <div style="font-size:9px;font-weight:500;padding:4px 9px;background:#fff;border-radius:100px;border:1px solid rgba(26,22,18,0.10);color:var(--ink);">Vaatwasser</div>
+                    <div style="font-size:9px;font-weight:500;padding:4px 9px;background:#fff;border-radius:100px;border:1px solid rgba(26,22,18,0.10);color:var(--ink);">Auto</div>
+                    <div style="font-size:9px;font-weight:500;padding:4px 9px;background:#fff;border-radius:100px;border:1px solid rgba(26,22,18,0.10);color:var(--ink);">Verwarmingsketel</div>
+                    <div style="font-size:9px;font-weight:500;padding:4px 9px;background:#fff;border-radius:100px;border:1px solid rgba(26,22,18,0.10);color:var(--ink);">Grasmaaier</div>
+                    <div style="font-size:9px;font-weight:500;padding:4px 9px;background:#fff;border-radius:100px;border:1px solid rgba(26,22,18,0.10);color:var(--ink);">Netflix</div>
+                    <div style="font-size:9px;font-weight:500;padding:4px 9px;background:#fff;border-radius:100px;border:1px solid rgba(26,22,18,0.10);color:var(--ink);">Airco</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Zone D2 — No results state -->
+              <div class="zone" style="border-top:1.5px dashed rgba(26,22,18,0.12);">
+                <div class="zone-tag" style="top:6px;">D₂</div>
+                <div style="padding:6px 12px 10px;">
+                  <div style="font-size:8px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Niet gevonden staat</div>
+                  <div style="background:#fff;border:1px solid rgba(26,22,18,0.08);border-radius:10px;padding:10px 12px;text-align:center;">
+                    <div style="font-size:10px;font-weight:500;color:var(--ink);margin-bottom:3px;">"zwembad" niet gevonden.</div>
+                    <div style="font-size:9px;color:var(--mid);line-height:1.5;">Voeg het zelf toe als aangepast item.</div>
+                    <div style="margin-top:7px;font-size:9px;font-weight:500;color:var(--cta);cursor:default;">+ "zwembad" toevoegen</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Zone F — CTA (disabled, 0 items) -->
+              <div class="zone">
+                <div class="zone-tag">F</div>
+                <div class="z-cta">
+                  <div class="cta-btn disabled">Klaar</div>
+                </div>
+              </div>
+
+            </div><!-- /screen -->
+          </div>
+        </div>
+
+      </div><!-- /phones-row -->
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="right">
+
+      <!-- PERSONA CALLOUT -->
+      <div class="persona-card">
+        <div class="pc-name">Sara · 44 · stadsappartement · Path C</div>
+        <div class="pc-body">Weet precies wat ze heeft. Wil geen categorieoverzicht doorklikken. Typt "vaatwasser", "auto", "airco" in tien seconden en is klaar. Upgradet maand 1–2 als ze het custom interval-limiet raakt.</div>
+      </div>
+
+      <!-- ZONES -->
+      <div class="sec">
+        <div class="sec-eye">Zones</div>
+        <div class="sec-title">Scherm-opbouw</div>
+        <div class="sec-rule"></div>
+
+        <div class="zone-card">
+          <div class="zc-head"><span class="zc-badge">A</span><span class="zc-name">Status bar</span></div>
+          <div class="zc-body">Standaard iOS, 20px, transparant over cream.</div>
+        </div>
+
+        <div class="zone-card">
+          <div class="zc-head"><span class="zc-badge">B</span><span class="zc-name">Top bar — logo + voortgang + overslaan</span></div>
+          <div class="zc-body">
+            ii-mark + progress label "Items zoeken" (geen stapnummer — dit pad heeft geen vaste stappen) + "Overslaan" rechts.<br>
+            Progress fill = percentage van de 10-item-limiet dat bereikt is.
+          </div>
+        </div>
+
+        <div class="zone-card highlight">
+          <div class="zc-head"><span class="zc-badge purple">C</span><span class="zc-name">Zoekveld</span></div>
+          <div class="zc-body">
+            <strong>Hoogte:</strong> 40px. Border-radius: 10px. Achtergrond: wit.<br>
+            <strong>Idle:</strong> border <code>rgba(26,22,18,0.12)</code>, placeholder "Zoek een item…" in <code>colorMid-lt</code>.<br>
+            <strong>Focus/actief:</strong> border <code>rgba(155,127,212,0.50)</code> + <code>colorCta</code> glow (<code>0 0 0 3px rgba(155,127,212,0.08)</code>). Cursor knippert.<br>
+            <div class="zc-rule"></div>
+            <strong>Flutter:</strong> <code>TextField</code> met <code>autofocus: true</code>. Border via <code>OutlineInputBorder</code>. Minimale latency: resultaten verschijnen na 150ms debounce (niet direct op elke keystroke).<br>
+            <div class="zc-rule"></div>
+            Zoekveld staat altijd bovenaan — scrollt niet weg.
+          </div>
+        </div>
+
+        <div class="zone-card highlight">
+          <div class="zc-head"><span class="zc-badge purple">D</span><span class="zc-name">Zoekresultaten / suggesties</span></div>
+          <div class="zc-body">
+            <strong>Idle (geen tekst):</strong> "Populair bij anderen" — 6 suggestie-chips op basis van populariteitsdata in Supabase. Tippen opent de volle zoekopdracht.<br>
+            <div class="zc-rule"></div>
+            <strong>Actief (≥1 karakter):</strong> Live resultaten-dropdown. Max 5 rijen. Elke rij: categorie-icon (22×22px) + naam met gemarkeerde zoekterm (<code>colorCta</code>) + categorie-pad + "Voeg toe" rechts.<br>
+            <div class="zc-rule"></div>
+            <strong>Al toegevoegd:</strong> "Voeg toe" vervangen door grijs vinkje + "Toegevoegd".<br>
+            <div class="zc-rule"></div>
+            <strong>Geen resultaten:</strong> Inline card met "{zoekterm} niet gevonden. + [term] toevoegen" — navigeert naar custom item flow (Pro feature, maar aangemaakt als placeholder in free tier).<br>
+            <div class="zc-rule"></div>
+            Resultaten komen uit de pre-geladen taxonomie in Supabase. Fuzzy matching — "vaatw" vindt "vaatwasser".
+          </div>
+        </div>
+
+        <div class="zone-card">
+          <div class="zc-head"><span class="zc-badge green">E</span><span class="zc-name">Toegevoegde items</span></div>
+          <div class="zc-body">
+            Verschijnt zodra ≥1 item is toegevoegd. Scrollbaar als de lijst groeit. Elke rij: categorie-chip (20×20px) + naam + × knop rechts om te verwijderen.<br>
+            <div class="zc-rule"></div>
+            Label telt live: "Toegevoegd · 3". Bij 10 items: label rood + "Maximum bereikt. Upgrade voor meer."
+          </div>
+        </div>
+
+        <div class="zone-card cta-card">
+          <div class="zc-head"><span class="zc-badge purple">F</span><span class="zc-name">CTA-knop</span></div>
+          <div class="zc-body">
+            <strong>Disabled (0 items):</strong> bg <code>rgba(155,127,212,0.35)</code>, tekst <code>rgba(250,248,255,0.5)</code> — nooit <code>Opacity</code> widget.<br>
+            <strong>Actief (≥1):</strong> "Klaar · X items →", bg <code>colorCta</code>, shadow actief.<br>
+            Hoogte 46px, radius 100px.
+          </div>
+        </div>
+      </div>
+
+      <!-- SEARCH STATES -->
+      <div class="sec">
+        <div class="sec-eye">Toestanden</div>
+        <div class="sec-title">Alle zoek-states</div>
+        <div class="sec-rule"></div>
+        <table class="state-table">
+          <tr><th>Staat</th><th>Wat ziet de gebruiker</th></tr>
+          <tr>
+            <td>Idle</td>
+            <td>Placeholder + "Populair bij anderen" suggestie-chips. Geen dropdown. Zoekveld idle stijl.</td>
+          </tr>
+          <tr>
+            <td>Typen</td>
+            <td>Live dropdown max 5 resultaten. Matching deel van naam in colorCta. 150ms debounce.</td>
+          </tr>
+          <tr>
+            <td>Geen resultaten</td>
+            <td>Inline "niet gevonden" card met optie om custom item toe te voegen.</td>
+          </tr>
+          <tr>
+            <td>Item toegevoegd</td>
+            <td>Verschijnt in Zone E. Rij in dropdown toont vinkje + "Toegevoegd" in plaats van "+ Voeg toe".</td>
+          </tr>
+          <tr>
+            <td>10-item limiet</td>
+            <td>Zone E label rood. Zoekresultaten tonen slot-icon + "Upgrade voor meer". CTA blijft actief.</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- LOCKED RULES -->
+      <div class="sec">
+        <div class="sec-eye">Regels</div>
+        <div class="sec-title">Vergrendelde beslissingen</div>
+        <div class="sec-rule"></div>
+        <div class="rules-grid">
+          <div class="rule-item">
+            <div class="ri-label">Autofocus bij openen</div>
+            <div class="ri-desc">Zoekveld heeft <code>autofocus: true</code>. Toetsenbord opent direct. Geen extra tap nodig.</div>
+          </div>
+          <div class="rule-item">
+            <div class="ri-label">Fuzzy matching</div>
+            <div class="ri-desc">"vaatw" → "vaatwasser". Geen exacte match vereist. Matching deel gemarkeerd in colorCta.</div>
+          </div>
+          <div class="rule-item">
+            <div class="ri-label">150ms debounce</div>
+            <div class="ri-desc">Niet elke keystroke triggert een query. 150ms wachten na laatste toets — snel genoeg voor Sara, licht genoeg voor Supabase.</div>
+          </div>
+          <div class="rule-item">
+            <div class="ri-label">Overslaan altijd zichtbaar</div>
+            <div class="ri-desc">Navigeert naar S-05 met de items die al zijn toegevoegd. Kan ook 0 items zijn.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NAVIGATIE -->
+      <div class="sec">
+        <div class="sec-eye">Navigatie</div>
+        <div class="sec-title">Aangrenzende schermen</div>
+        <div class="sec-rule"></div>
+        <div class="zone-card">
+          <div class="zc-body">
+            <strong>Komt van:</strong> S-01 Welcome — Path C ghost-knop "Ik weet wat ik wil" getikt.<br>
+            <strong>Gaat naar:</strong> S-05 Onboarding review — na "Klaar" CTA of "Overslaan".<br>
+            <strong>Custom item →:</strong> Toekomstig scherm (buiten MVP scope) — toont modal met naam + categorie kiezen.<br>
+            <strong>10-item limiet →:</strong> S-22 Pro upgrade paywall (toekomstig).
+          </div>
+        </div>
+      </div>
+
+      <!-- LINKS -->
+      <div class="links">
+        <a class="link-btn sys" href="../index.html">← Design hub</a>
+        <a class="link-btn sys" href="s01-welcome-lofi.html">S-01 Welcome</a>
+        <a class="link-btn sys" href="s02-voice-onboarding-lofi.html">S-02 Voice</a>
+        <a class="link-btn sys" href="s03-browse-categories-lofi.html">S-03 Browse</a>
+        <a class="link-btn sys" href="../system/ux-flow.html">UX flow</a>
+        <a class="link-btn sys" href="../system/design-system.html">Design system</a>
+      </div>
+
+    </div><!-- /right -->
+  </div><!-- /layout -->
+</div><!-- /page -->
+
+</body>
+</html>

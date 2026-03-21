@@ -97,7 +97,7 @@ Status as of March 2026. Always check `nudgii-design/index.html` for current sta
 | Screen | Name | Status |
 |---|---|---|
 | S-01 | Welcome screen | ✅ Ready for dev |
-| S-02 | Voice onboarding — Path A | ⛔ Decision needed (TTS) |
+| S-02 | Voice onboarding — Path A | 🔶 In progress (OD-03 resolved 2026-03-21) |
 | S-03 | Browse categories — Path B | 🔲 To do |
 | S-04 | Direct search — Path C | 🔲 To do |
 | S-05 | Onboarding review | 🔶 In progress |
@@ -106,7 +106,7 @@ Status as of March 2026. Always check `nudgii-design/index.html` for current sta
 | S-08 | Push permission screen | 🔶 In progress (lo-fi done) |
 | S-09 | Dashboard — default | ✅ Ready for dev |
 | S-10 | Dashboard — empty | ✅ Ready for dev |
-| S-11 | Done overlay | ⛔ Decision needed (trigger) |
+| S-11 | Done overlay | 🔶 In progress (OD-01 resolved 2026-03-18) |
 | S-12 | FAB action sheet | ✅ Ready for dev |
 | S-13 | Task detail — default | 🔶 In progress (lo-fi done) |
 | S-14 | Task detail — done state | 🔶 In progress |
@@ -141,7 +141,8 @@ Three options: (a) empty state with prompt suggestions, (b) open voice input imm
 **Status: UNRESOLVED — product decision needed**
 
 **OD-03 — Voice onboarding: does nudgii speak first?** *(affects S-02 and entire onboarding tone)*
-**RESOLVED — 2026-03-21.** nudgii never speaks. No TTS, ever. Voice = user input only. User records up to 1 minute per turn. nudgii always responds in text. UX spec §2.2 is overridden by this decision.
+UX spec §2.2 says "nudgii speaks first — non-negotiable." MVP scope defers TTS (voice output) to post-launch. These contradict.
+**Status: UNRESOLVED**
 
 ---
 
@@ -363,9 +364,9 @@ Update this section when open decisions are resolved.
 
 | ID | Decision | Resolved | Date |
 |---|---|---|---|
-| OD-01 | Done overlay trigger | No | — |
-| OD-02 | Ask tab first load content | No | — |
-| OD-03 | Voice onboarding TTS contradiction | Yes — nudgii types only, user speaks (max 1 min/turn) | 2026-03-21 |
+| OD-01 | Done overlay trigger — dashboard swipe only. Task detail gets quiet in-screen completion banner, not the full overlay. | ✅ Yes | 2026-03-18 |
+| OD-02 | Ask tab first load content | ❌ No | — |
+| OD-03 | Voice onboarding: nudgii never speaks. Voice = user input only, max 1 min/turn. nudgii always responds in text. TTS deferred indefinitely. | ✅ Yes | 2026-03-21 |
 
 ---
 
