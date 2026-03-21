@@ -16,6 +16,13 @@
   --cs:#8060A8;--csb:rgba(128,96,168,0.10);
   --ink-06:rgba(26,22,18,0.06);--ink-08:rgba(26,22,18,0.08);
   --ink-10:rgba(26,22,18,0.10);--ink-16:rgba(26,22,18,0.16);
+  --surface:#FFFFFF;
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;
+  --space-6:24px;--space-8:32px;--space-12:48px;--space-16:64px;
+  --shadow-card:none;
+  --shadow-tab-bar:0 4px 20px rgba(26,22,18,0.11);
+  --shadow-fab:0 4px 16px rgba(155,127,212,0.35);
+  --shadow-sheet:0 -2px 20px rgba(26,22,18,0.12);
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
@@ -70,7 +77,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 
 /* Zone C — nudgii prompt */
 .z-nudgii{padding:8px 16px 6px;background:#F5F0E8;}
-.nudgii-bubble{background:#fff;border:1px solid rgba(26,22,18,0.08);border-radius:12px 12px 12px 4px;padding:9px 12px;box-shadow:0 1px 3px rgba(26,22,18,0.05);}
+.nudgii-bubble{background:var(--surface);border:1px solid rgba(26,22,18,0.08);border-radius:12px 12px 12px 4px;padding:9px 12px;box-shadow:0 1px 3px rgba(26,22,18,0.05);}
 .nb-from{font-size:8px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--mid);margin-bottom:4px;}
 .nb-text{font-size:10.5px;line-height:1.6;color:var(--ink);}
 
@@ -121,7 +128,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 /* Zone D2 — Item list */
 .z-itemlist{padding:4px 12px 6px;background:#F5F0E8;}
 .item-section-lbl{font-size:8px;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;color:var(--mid);padding:6px 0 4px;}
-.item-row{display:flex;align-items:center;gap:8px;padding:7px 10px;background:#fff;border-radius:8px;margin-bottom:4px;border:1px solid rgba(26,22,18,0.07);}
+.item-row{display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--surface);border-radius:8px;margin-bottom:4px;border:1px solid rgba(26,22,18,0.07);}
 .item-row.checked{background:rgba(200,120,80,0.06);border-color:rgba(200,120,80,0.20);}
 .item-cb{width:16px;height:16px;border-radius:4px;border:1.5px solid rgba(26,22,18,0.20);flex-shrink:0;display:flex;align-items:center;justify-content:center;}
 .item-cb.on{background:var(--cta);border-color:var(--cta);}
@@ -139,7 +146,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 .sec-rule{height:1px;background:var(--ink-08);margin-bottom:20px;}
 
 /* ── ZONE CARDS ── */
-.zone-card{background:#fff;border:1px solid var(--ink-08);border-radius:10px;padding:13px 15px;margin-bottom:8px;}
+.zone-card{background:var(--surface);border:1px solid var(--ink-08);border-radius:10px;padding:13px 15px;margin-bottom:8px;}
 .zone-card.highlight{border-color:rgba(155,127,212,0.25);background:rgba(155,127,212,0.03);}
 .zone-card.cta-card{border-color:rgba(155,127,212,0.30);background:rgba(155,127,212,0.04);}
 .zc-head{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
@@ -166,7 +173,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 
 /* ── RULES GRID ── */
 .rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.rule-item{background:#fff;border:1px solid var(--ink-08);border-radius:8px;padding:10px 12px;}
+.rule-item{background:var(--surface);border:1px solid var(--ink-08);border-radius:8px;padding:10px 12px;}
 .ri-label{font-size:10px;font-weight:500;color:var(--ink);margin-bottom:2px;}
 .ri-desc{font-size:10px;color:var(--mid);line-height:1.5;}
 
@@ -540,7 +547,7 @@ svg.i{width:12px;height:12px;fill:none;stroke:white;stroke-width:1.8;stroke-line
             <td>Digitaal (streaming, software, cloud) · Verzekeringen · Lidmaatschappen</td>
           </tr>
         </table>
-        <div style="margin-top:10px;background:#fff;border:1px solid var(--ink-08);border-radius:8px;padding:10px 12px;">
+        <div style="margin-top:10px;background:var(--surface);border:1px solid var(--ink-08);border-radius:8px;padding:10px 12px;">
           <div style="font-size:10px;font-weight:500;color:var(--ink);margin-bottom:3px;">Taxonomie-bron</div>
           <div style="font-size:11px;color:var(--mid);line-height:1.6;">Pre-geladen in de app. Gebruikers kunnen geen categorieën aanmaken in de free tier — alleen in Pro (aangepaste categorieën). Taxonomie wordt beheerd in Supabase, niet hardcoded.</div>
         </div>
