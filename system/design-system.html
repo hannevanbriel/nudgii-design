@@ -283,7 +283,7 @@ section{padding-top:60px;}
         <a class="toc-a" href="#brand"><span class="toc-n">01</span>Brand & logo</a>
         <a class="toc-a" href="#color"><span class="toc-n">02</span>Color tokens</a>
         <a class="toc-a" href="#dark"><span class="toc-n">03</span>Dark mode</a>
-        <a class="toc-a" href="#category"><span class="toc-n">04</span>Category colors</a>
+        <a class="toc-a" href="#category"><span class="toc-n">04</span>Categories, items &amp; tasks</a>
         <a class="toc-a" href="#typography"><span class="toc-n">05</span>Typography</a>
         <a class="toc-a" href="#spacing"><span class="toc-n">06</span>Spacing</a>
         <a class="toc-a" href="#layout"><span class="toc-n">07</span>Layout & shell</a>
@@ -418,8 +418,8 @@ section{padding-top:60px;}
   <!-- 04 CATEGORY -->
   <section id="category">
     <div class="sec-eye">04</div>
-    <h2 class="sec-title">Category colors</h2>
-    <p class="sec-desc">Category tells the user WHAT. Status tells them WHEN. These two systems never overlap.</p>
+    <h2 class="sec-title">Categories, items &amp; tasks</h2>
+    <p class="sec-desc">nudgii organises everything into a three-level hierarchy: categories contain items, items contain tasks. Every visual element in the app reflects this structure.</p>
 
     <div class="cat-row">
       <div class="ctile"><div class="cicon" style="background:var(--chb);"><svg viewBox="0 0 24 24" style="stroke:var(--ch);"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div><div class="cname">Home</div><div class="chex">#C87850</div><div class="cnote">Warm · apricot family</div></div></div>
@@ -435,6 +435,275 @@ section{padding-top:60px;}
       <div class="rcard-body">Category colors appear <strong>only in the icon chip</strong> (30–34px rounded square). Never in: date labels, section headers, card backgrounds, tab bar, filter chip backgrounds, or anywhere carrying status meaning.<br><br><strong>Adding a new category:</strong> pick one muted hue not already in the system. Add <code>--c-name: #hex</code> and <code>--c-name-bg: rgba(r,g,b,0.10)</code>. One icon SVG. Done — the system absorbs it without redesign.</div>
     </div>
     </div>
+
+    <!-- ── HIERARCHY OVERVIEW ── -->
+    <div style="margin-top:28px;">
+    <div class="rcard">
+      <div class="rcard-title">Category → Item → Task</div>
+      <div class="rcard-body" style="margin-bottom:14px;">nudgii has a strict three-level hierarchy. <strong>Categories</strong> group related items. <strong>Items</strong> are things the user owns. <strong>Tasks</strong> are scheduled maintenance actions on an item.</div>
+      <!-- Visual hierarchy diagram -->
+      <div style="background:var(--cream);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;">
+        <!-- Level 1: Category -->
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:10px;height:10px;border-radius:50%;background:var(--ch);flex-shrink:0;"></div>
+          <span style="font-size:12px;font-weight:500;color:var(--ink);">Home</span>
+          <span style="font-size:10px;color:var(--mid);font-style:italic;">category — groups related items. 4 in MVP.</span>
+        </div>
+        <!-- Level 2: Item -->
+        <div style="display:flex;align-items:center;gap:8px;padding-left:22px;">
+          <div style="width:22px;height:22px;border-radius:6px;background:var(--chb);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--ch)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <span style="font-size:12px;font-weight:500;color:var(--ink);">Dishwasher</span>
+          <span style="font-size:10px;color:var(--mid);font-style:italic;">item — something the user owns. Has a name, optional brand/model, and tasks.</span>
+        </div>
+        <!-- Level 3: Task -->
+        <div style="display:flex;align-items:center;gap:8px;padding-left:52px;">
+          <div style="width:5px;height:5px;border-radius:50%;background:var(--mid);flex-shrink:0;"></div>
+          <span style="font-size:11px;color:var(--ink);">Add dishwasher salt</span>
+          <span style="font-size:10px;color:var(--mid);font-style:italic;">task — a specific maintenance action with a schedule and due date.</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding-left:52px;">
+          <div style="width:5px;height:5px;border-radius:50%;background:var(--mid);flex-shrink:0;"></div>
+          <span style="font-size:11px;color:var(--ink);">Clean filter</span>
+          <span style="font-size:10px;color:var(--mid);font-style:italic;">task</span>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- ── CATEGORY CHIP COMPONENT ── -->
+    <div style="margin-top:16px;">
+    <div class="comp-card">
+      <div class="comp-header">
+        <div class="comp-name">Category chip</div>
+        <span class="tag tag-lock">icon container only</span>
+      </div>
+      <div class="comp-body">
+        <!-- Visual demo -->
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px;">
+          <!-- Home -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+            <div style="width:28px;height:28px;border-radius:8px;background:var(--chb);display:flex;align-items:center;justify-content:center;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ch)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            </div>
+            <span style="font-size:9px;color:var(--mid);">Home</span>
+          </div>
+          <!-- Vehicle -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+            <div style="width:28px;height:28px;border-radius:8px;background:var(--cvb);display:flex;align-items:center;justify-content:center;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--cv)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg>
+            </div>
+            <span style="font-size:9px;color:var(--mid);">Vehicle</span>
+          </div>
+          <!-- Garden -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+            <div style="width:28px;height:28px;border-radius:8px;background:var(--cgb);display:flex;align-items:center;justify-content:center;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--cg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1"/><path d="M11.88 11.88C10 14 9 16 9 20"/></svg>
+            </div>
+            <span style="font-size:9px;color:var(--mid);">Garden</span>
+          </div>
+          <!-- Subscriptions -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+            <div style="width:28px;height:28px;border-radius:8px;background:var(--csb);display:flex;align-items:center;justify-content:center;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--cs)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </div>
+            <span style="font-size:9px;color:var(--mid);">Subscriptions</span>
+          </div>
+        </div>
+        <!-- Spec table -->
+        <div class="spec-grid">
+          <div class="spec-row"><div class="spec-l">Size</div><div class="spec-r">28×28px</div></div>
+          <div class="spec-row"><div class="spec-l">Border-radius</div><div class="spec-r">8px (rounded square)</div></div>
+          <div class="spec-row"><div class="spec-l">Background</div><div class="spec-r">Category color at 10% opacity</div></div>
+          <div class="spec-row"><div class="spec-l">Icon</div><div class="spec-r">Phosphor outline · 12px · stroke-width 1.5 · category color at full opacity</div></div>
+          <div class="spec-row"><div class="spec-l">Usage</div><div class="spec-r">Inside item rows and nudge cards only — never standalone, never on buttons or labels</div></div>
+          <div class="spec-row" style="border-bottom:none;"><div class="spec-l">Never</div><div class="spec-r">Filled icons · category color at full opacity background · mixing categories</div></div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- ── CATEGORY STRIP ── -->
+    <div style="margin-top:16px;">
+    <div class="comp-card">
+      <div class="comp-header">
+        <div class="comp-name">Category strip</div>
+        <span class="tag tag-new">S-01 only · decorative</span>
+      </div>
+      <div class="comp-body">
+        <!-- Visual demo -->
+        <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin-bottom:18px;">
+          <div style="display:inline-flex;align-items:center;gap:5px;background:var(--surface);border:0.5px solid rgba(26,22,18,0.10);border-radius:100px;padding:4px 9px 4px 7px;">
+            <div style="width:7px;height:7px;border-radius:50%;background:var(--ch);flex-shrink:0;"></div>
+            <span style="font-size:10px;font-weight:500;color:var(--ink);">Home</span>
+          </div>
+          <div style="display:inline-flex;align-items:center;gap:5px;background:var(--surface);border:0.5px solid rgba(26,22,18,0.10);border-radius:100px;padding:4px 9px 4px 7px;">
+            <div style="width:7px;height:7px;border-radius:50%;background:var(--cv);flex-shrink:0;"></div>
+            <span style="font-size:10px;font-weight:500;color:var(--ink);">Vehicle</span>
+          </div>
+          <div style="display:inline-flex;align-items:center;gap:5px;background:var(--surface);border:0.5px solid rgba(26,22,18,0.10);border-radius:100px;padding:4px 9px 4px 7px;">
+            <div style="width:7px;height:7px;border-radius:50%;background:var(--cg);flex-shrink:0;"></div>
+            <span style="font-size:10px;font-weight:500;color:var(--ink);">Garden</span>
+          </div>
+          <div style="display:inline-flex;align-items:center;gap:5px;background:var(--surface);border:0.5px solid rgba(26,22,18,0.10);border-radius:100px;padding:4px 9px 4px 7px;">
+            <div style="width:7px;height:7px;border-radius:50%;background:var(--cs);flex-shrink:0;"></div>
+            <span style="font-size:10px;font-weight:500;color:var(--ink);">Subscriptions</span>
+          </div>
+        </div>
+        <!-- Spec table -->
+        <div class="spec-grid">
+          <div class="spec-row"><div class="spec-l">Purpose</div><div class="spec-r">Shows users the breadth of what nudgii covers before they commit. Answers "is this only for boilers?" without a word of explanation.</div></div>
+          <div class="spec-row"><div class="spec-l">Background</div><div class="spec-r">white / <code>--surface</code></div></div>
+          <div class="spec-row"><div class="spec-l">Border</div><div class="spec-r">0.5px solid <code>rgba(26,22,18,0.10)</code></div></div>
+          <div class="spec-row"><div class="spec-l">Border-radius</div><div class="spec-r">100px (full pill)</div></div>
+          <div class="spec-row"><div class="spec-l">Padding</div><div class="spec-r">4px 9px 4px 7px</div></div>
+          <div class="spec-row"><div class="spec-l">Dot</div><div class="spec-r">7px circle · category color at full opacity · left of label</div></div>
+          <div class="spec-row"><div class="spec-l">Label</div><div class="spec-r">DM Sans 500 · 10px · <code>--ink</code></div></div>
+          <div class="spec-row"><div class="spec-l">Gap between pills</div><div class="spec-r">5px</div></div>
+          <div class="spec-row"><div class="spec-l">Behaviour on S-01</div><div class="spec-r">Decorative only — static, not tappable</div></div>
+          <div class="spec-row" style="border-bottom:none;"><div class="spec-l">Flutter</div><div class="spec-r"><code>Wrap</code> widget — not <code>Row</code>, not <code>ListView</code></div></div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- ── ITEM ROW CARD ── -->
+    <div style="margin-top:16px;">
+    <div class="comp-card">
+      <div class="comp-header">
+        <div class="comp-name">Item row</div>
+        <span class="tag tag-lock">dashboard · review · onboarding</span>
+      </div>
+      <div class="comp-body">
+        <!-- Visual demo: cards on cream -->
+        <div style="background:var(--cream);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:6px;margin-bottom:18px;">
+          <!-- Item 1 -->
+          <div style="background:var(--surface);border-radius:10px;border:0.5px solid rgba(26,22,18,0.08);box-shadow:0 1px 3px rgba(26,22,18,0.04);padding:10px 12px;display:flex;align-items:center;gap:10px;">
+            <div style="width:28px;height:28px;border-radius:8px;background:var(--chb);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ch)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            </div>
+            <span style="font-size:13px;font-weight:500;color:var(--ink);letter-spacing:-0.1px;flex:1;">Dishwasher</span>
+            <span style="font-size:10px;color:var(--mid-a);">3 tasks</span>
+          </div>
+          <!-- Item 2 -->
+          <div style="background:var(--surface);border-radius:10px;border:0.5px solid rgba(26,22,18,0.08);box-shadow:0 1px 3px rgba(26,22,18,0.04);padding:10px 12px;display:flex;align-items:center;gap:10px;">
+            <div style="width:28px;height:28px;border-radius:8px;background:var(--cvb);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--cv)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg>
+            </div>
+            <span style="font-size:13px;font-weight:500;color:var(--ink);letter-spacing:-0.1px;flex:1;">Winter tyres</span>
+            <span style="font-size:10px;color:var(--mid-a);">1 task</span>
+          </div>
+          <!-- Item 3 -->
+          <div style="background:var(--surface);border-radius:10px;border:0.5px solid rgba(26,22,18,0.08);box-shadow:0 1px 3px rgba(26,22,18,0.04);padding:10px 12px;display:flex;align-items:center;gap:10px;">
+            <div style="width:28px;height:28px;border-radius:8px;background:var(--cgb);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--cg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1"/><path d="M11.88 11.88C10 14 9 16 9 20"/></svg>
+            </div>
+            <span style="font-size:13px;font-weight:500;color:var(--ink);letter-spacing:-0.1px;flex:1;">Olive tree</span>
+            <span style="font-size:10px;color:var(--mid-a);">2 tasks</span>
+          </div>
+        </div>
+        <!-- Spec table -->
+        <div class="spec-grid">
+          <div class="spec-row"><div class="spec-l">Background</div><div class="spec-r">white / <code>--surface</code></div></div>
+          <div class="spec-row"><div class="spec-l">Border-radius</div><div class="spec-r">10px</div></div>
+          <div class="spec-row"><div class="spec-l">Border</div><div class="spec-r">0.5px solid <code>rgba(26,22,18,0.08)</code></div></div>
+          <div class="spec-row"><div class="spec-l">Shadow</div><div class="spec-r"><code>0 1px 3px rgba(26,22,18,0.04)</code></div></div>
+          <div class="spec-row"><div class="spec-l">Padding</div><div class="spec-r">10px 12px</div></div>
+          <div class="spec-row"><div class="spec-l">Gap between cards</div><div class="spec-r">6px (onboarding / review) · 8px (dashboard)</div></div>
+          <div class="spec-row"><div class="spec-l">Item name</div><div class="spec-r">DM Sans 500 · 13–14px · <code>--ink</code> · ls -0.1px</div></div>
+          <div class="spec-row"><div class="spec-l">Category chip</div><div class="spec-r">28×28px — see Category chip above</div></div>
+          <div class="spec-row" style="border-bottom:none;"><div class="spec-l">Tap behaviour</div><div class="spec-r">Opens Item detail (S-17)</div></div>
+        </div>
+        <div style="margin-top:12px;">
+          <div class="rcard" style="background:rgba(196,80,58,0.04);border-color:rgba(196,80,58,0.12);">
+            <div class="rcard-title" style="color:var(--terra);">Rules <span class="tag tag-never">never</span></div>
+            <div class="rcard-body">Never border-bottom separators between items — the cream gap IS the separator.<br>Never wrap multiple items in one container card.<br>Category color never bleeds outside the icon chip.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- ── TASK / NUDGE CARD REFERENCE ── -->
+    <div style="margin-top:16px;">
+    <div class="comp-card">
+      <div class="comp-header">
+        <div class="comp-name">Task (nudge card)</div>
+        <span class="tag tag-lock">dashboard</span>
+        <a href="#components" style="font-size:11px;color:var(--cta);text-decoration:none;margin-left:auto;">Full spec in Section 08 ↓</a>
+      </div>
+      <div class="comp-body">
+        <div class="rcard" style="margin-bottom:14px;">
+          <div class="rcard-title">Where task cards appear</div>
+          <div class="rcard-body">
+            <strong>Dashboard (S-09):</strong> full nudge card with swipe-to-complete gesture.<br>
+            <strong>Item detail (S-17, not yet designed):</strong> simpler row listed below the item header.<br>
+            <strong>Onboarding review (S-05):</strong> collapsed under the item row, expandable on tap.
+          </div>
+        </div>
+        <!-- Status color reference -->
+        <div style="font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:10px;">Status colours</div>
+        <div class="spec-grid">
+          <div class="spec-row"><div class="spec-l">Overdue</div><div class="spec-r">Task name + date label both in <code style="color:var(--terra);">#C4503A colorTerra</code></div></div>
+          <div class="spec-row"><div class="spec-l">Due soon (≤ 7 d)</div><div class="spec-r">Date label in <code style="color:var(--ap-dk);">#C8784A colorApricotDk</code></div></div>
+          <div class="spec-row" style="border-bottom:none;"><div class="spec-l">Future (&gt; 7 days)</div><div class="spec-r">Date label <code>rgba(26,22,18,0.20)</code> — muted, not prominent</div></div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- ── BEHAVIOUR ACROSS SCREENS ── -->
+    <div style="margin-top:16px;">
+    <div class="rcard">
+      <div class="rcard-title">How categories, items and tasks appear across the flow</div>
+      <div style="margin-top:12px;border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+        <!-- Table header -->
+        <div style="display:grid;grid-template-columns:110px 170px 1fr;background:rgba(26,22,18,0.025);border-bottom:1px solid var(--border);">
+          <div style="font-size:10px;font-weight:500;letter-spacing:0.5px;color:var(--ink);padding:8px 12px;">Screen</div>
+          <div style="font-size:10px;font-weight:500;letter-spacing:0.5px;color:var(--ink);padding:8px 12px;border-left:1px solid var(--border);">Element visible</div>
+          <div style="font-size:10px;font-weight:500;letter-spacing:0.5px;color:var(--ink);padding:8px 12px;border-left:1px solid var(--border);">Behaviour</div>
+        </div>
+        <!-- Rows -->
+        <div style="display:grid;grid-template-columns:110px 170px 1fr;border-bottom:1px solid var(--border);">
+          <div style="font-size:11px;font-weight:500;color:var(--ink);padding:8px 12px;">S-01 Welcome</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">Category strip (4 pills)</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">Decorative — shows breadth, not tappable</div>
+        </div>
+        <div style="display:grid;grid-template-columns:110px 170px 1fr;border-bottom:1px solid var(--border);">
+          <div style="font-size:11px;font-weight:500;color:var(--ink);padding:8px 12px;">S-02 Voice</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">User describes items by voice</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">nudgii maps voice input to item + category automatically</div>
+        </div>
+        <div style="display:grid;grid-template-columns:110px 170px 1fr;border-bottom:1px solid var(--border);">
+          <div style="font-size:11px;font-weight:500;color:var(--ink);padding:8px 12px;">S-03 Browse</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">Full category list with item count</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">Tap category → expands items in that category</div>
+        </div>
+        <div style="display:grid;grid-template-columns:110px 170px 1fr;border-bottom:1px solid var(--border);">
+          <div style="font-size:11px;font-weight:500;color:var(--ink);padding:8px 12px;">S-04 Search</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">Search results across all items</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">Results show item row with category chip</div>
+        </div>
+        <div style="display:grid;grid-template-columns:110px 170px 1fr;border-bottom:1px solid var(--border);">
+          <div style="font-size:11px;font-weight:500;color:var(--ink);padding:8px 12px;">S-05 Review</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">Item rows + task rows below each</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">Expandable — tap item to reveal its tasks</div>
+        </div>
+        <div style="display:grid;grid-template-columns:110px 170px 1fr;border-bottom:1px solid var(--border);">
+          <div style="font-size:11px;font-weight:500;color:var(--ink);padding:8px 12px;">S-09 Dashboard</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">Nudge cards sorted by urgency</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">Swipe right → done overlay</div>
+        </div>
+        <div style="display:grid;grid-template-columns:110px 170px 1fr;">
+          <div style="font-size:11px;font-weight:500;color:var(--ink);padding:8px 12px;">S-17 Item detail</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">Item header + task list</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">Tap task → task detail (S-13)</div>
+        </div>
+      </div>
+    </div>
+    </div>
+
   </section>
 
   <div class="rule"></div>

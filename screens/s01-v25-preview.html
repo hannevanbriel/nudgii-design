@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · S-01 v2.5 preview — two changes</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F5F0E8;--ink:#1A1612;--mid:#8A8070;--mid-a:#6B6358;
+  --border:rgba(26,22,18,0.08);--border-md:rgba(26,22,18,0.12);
+  --ap:#E8A87C;--ap-dk:#C8784A;--terra:#C4503A;
+  --plum:#2D1F4A;--cta:#9B7FD4;--cta-fg:#FAF8FF;
+  --sage:#3B6D11;--sage-lt:#EAF3DE;
+  --ch:#C87850;--chb:rgba(200,120,80,0.10);
+  --cv:#4A82A0;--cvb:rgba(74,130,160,0.10);
+  --cg:#5A9060;--cgb:rgba(90,144,96,0.10);
+  --cs:#8060A8;--csb:rgba(128,96,168,0.10);
+  --surface:#FFFFFF;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:#C8C3BA;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;}
+
+nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 32px;display:flex;align-items:center;gap:16px;height:48px;position:sticky;top:0;z-index:100;}
+.nav-back{font-size:13px;color:var(--mid);text-decoration:none;display:flex;align-items:center;gap:8px;}
+.nav-title{font-size:13px;font-weight:500;color:var(--ink);}
+.nav-tag{margin-left:auto;font-size:10px;font-weight:500;padding:3px 10px;border-radius:100px;background:rgba(155,127,212,0.10);color:#5C3E8A;border:1px solid rgba(155,127,212,0.20);}
+
+.page{padding:40px 32px 80px;display:flex;flex-direction:column;align-items:center;gap:40px;}
+.eyebrow{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:rgba(26,22,18,0.28);text-align:center;width:100%;}
+.row{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;align-items:flex-start;width:100%;max-width:960px;}
+
+/* PHONE */
+.phone{width:390px;height:844px;border-radius:50px;overflow:hidden;background:var(--cream);border:1.5px solid rgba(26,22,18,0.09);box-shadow:0 28px 60px rgba(26,22,18,0.18),0 6px 16px rgba(26,22,18,0.07),inset 0 1px 0 rgba(255,255,255,0.65);position:relative;flex-shrink:0;display:flex;flex-direction:column;}
+.notch{height:24px;background:var(--cream);display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px;}
+.np{width:102px;height:8px;border-radius:100px;background:rgba(26,22,18,0.10);}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:5px 18px 0;font-size:11px;font-weight:500;color:rgba(26,22,18,0.36);}
+.batt{width:14px;height:6px;border:1.5px solid rgba(26,22,18,0.28);border-radius:2px;position:relative;}
+.batt::after{content:'';position:absolute;left:1px;top:1px;right:2px;bottom:1px;background:rgba(26,22,18,0.32);border-radius:1px;}
+.prog-bar{width:100%;height:3px;background:rgba(26,22,18,0.08);}
+.prog-fill{height:3px;border-radius:0 100px 100px 0;background:var(--cta);width:20%;}
+
+/* SCREEN */
+.w-screen{padding:14px 20px 0;flex:1;display:flex;flex-direction:column;}
+.w-content{flex:1;}
+.w-bottom{padding-bottom:24px;}
+.w-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;}
+.ii{display:flex;align-items:flex-start;gap:3px;}
+.ii-l{width:7px;height:20px;border-radius:100px;background:var(--ink);}
+.ii-r{width:7px;height:20px;border-radius:100px;background:rgba(155,127,212,0.45);position:relative;}
+.ii-dot{width:5px;height:5px;border-radius:50%;background:var(--ap-dk);position:absolute;top:2px;right:-2px;}
+.free-badge{display:inline-flex;align-items:center;gap:4px;background:var(--sage-lt);border-radius:100px;padding:4px 10px 4px 7px;font-size:10px;font-weight:500;color:var(--sage);}
+.fb-dot{width:5px;height:5px;border-radius:50%;background:var(--sage);}
+
+/* HEADLINE — locked */
+.w-h1{font-family:'DM Serif Display',serif;font-size:33px;color:var(--ink);line-height:0.97;letter-spacing:-0.55px;margin-bottom:8px;}
+.w-h1 em{font-style:italic;color:var(--ap-dk);}
+
+/* CHANGE 1 — promise line. Replaces "But we can remind you." */
+.promise-line{font-size:13px;font-style:italic;color:var(--mid);line-height:1.5;margin-bottom:14px;font-weight:400;}
+
+/* CHANGE 2 — category strip */
+.cat-strip{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px;}
+.cat-pill{display:inline-flex;align-items:center;gap:5px;background:var(--surface);border:0.5px solid rgba(26,22,18,0.10);border-radius:100px;padding:4px 9px 4px 7px;font-size:10px;font-weight:500;color:var(--ink);}
+.cat-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+
+/* PREVIEW ITEMS — locked */
+.prev-items{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
+.prev-item{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface);border-radius:10px;border:0.5px solid rgba(26,22,18,0.08);box-shadow:0 1px 3px rgba(26,22,18,0.04);}
+.prev-item-info{flex:1;}
+.prev-item-name{font-size:13px;font-weight:500;color:var(--ink);}
+.prev-item-status{font-size:11px;color:var(--mid);margin-top:1px;}
+.ov{color:var(--terra);font-weight:500;}
+.ci{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ci svg{width:13px;height:13px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+
+/* DIVIDER */
+.pdiv{display:flex;align-items:center;gap:10px;margin:10px 0 13px;}
+.pd-line{flex:1;height:1px;background:var(--border-md);}
+.pd-txt{font-size:10px;color:var(--mid-a);white-space:nowrap;}
+
+/* BUTTONS — locked */
+.btn-a{width:100%;height:50px;border-radius:100px;border:none;background:var(--cta);color:var(--cta-fg);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;margin-bottom:5px;box-shadow:0 2px 12px rgba(155,127,212,0.32);}
+.mic{width:22px;height:22px;border-radius:50%;background:rgba(250,248,255,0.15);display:flex;align-items:center;justify-content:center;}
+.mic svg{width:11px;height:11px;stroke:var(--cta-fg);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.btn-b{width:100%;height:46px;border-radius:100px;border:1.5px solid var(--border-md);background:transparent;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink);cursor:pointer;margin-bottom:5px;}
+.btn-c{width:100%;height:36px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--mid);cursor:pointer;}
+
+/* ANNOTATION PANEL */
+.phone-wrap{position:relative;}
+.ann-marker{position:absolute;left:-9px;width:18px;height:18px;border-radius:50%;color:#FAF8FF;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;z-index:10;box-shadow:0 1px 6px rgba(0,0,0,0.20);pointer-events:none;}
+.ann-new{background:#9B7FD4;}
+.ann-lock{background:rgba(26,22,18,0.25);}
+.ann-wrap{flex:1;min-width:260px;max-width:340px;display:flex;flex-direction:column;gap:8px;}
+.ann{background:var(--surface);border-radius:10px;padding:12px 14px;border:1px solid var(--border);display:flex;align-items:flex-start;gap:10px;}
+.ann.new{border-color:rgba(155,127,212,0.30);background:rgba(155,127,212,0.04);}
+.ann.locked{opacity:0.65;}
+.ann-n{width:18px;height:18px;border-radius:50%;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;color:#FAF8FF;}
+.ann-body{flex:1;}
+.ann-lbl{font-size:10px;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;color:var(--mid);margin-bottom:4px;display:flex;align-items:center;gap:6px;}
+.new-tag{font-size:9px;font-weight:600;padding:1px 6px;border-radius:3px;background:rgba(155,127,212,0.15);color:#5C3E8A;letter-spacing:0;}
+.lock-tag{font-size:9px;font-weight:500;padding:1px 6px;border-radius:3px;background:rgba(26,22,18,0.07);color:var(--mid);letter-spacing:0;}
+.ann-txt{font-size:11px;color:rgba(26,22,18,0.55);line-height:1.6;}
+.ann-txt strong{color:rgba(26,22,18,0.75);font-weight:500;}
+
+/* COPY OPTIONS PANEL */
+.copy-panel{background:rgba(155,127,212,0.07);border:0.5px solid rgba(155,127,212,0.20);border-radius:10px;padding:12px 14px;margin-top:4px;}
+.copy-lbl{font-size:9px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--cta);margin-bottom:8px;}
+.copy-opt{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink);line-height:1.9;}
+.copy-opt em{font-style:italic;}
+.copy-pref{font-size:9px;font-weight:500;padding:1px 6px;border-radius:3px;background:rgba(155,127,212,0.15);color:#5C3E8A;margin-left:4px;}
+
+/* DECISION STRIP */
+.decision-strip{width:100%;max-width:960px;background:var(--surface);border-radius:12px;border:1px solid var(--border);padding:18px 22px;display:flex;gap:24px;flex-wrap:wrap;}
+.dec-col{flex:1;min-width:200px;}
+.dec-title{font-size:10px;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;color:var(--mid);margin-bottom:10px;}
+.dec-item{font-size:12px;color:var(--ink);line-height:1.7;padding-left:12px;position:relative;}
+.dec-item::before{content:'→';position:absolute;left:0;color:var(--mid);}
+.dec-note{font-size:11px;color:var(--mid);margin-top:8px;font-style:italic;line-height:1.5;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-back" href="../index.html">
+    <svg width="20" height="20" viewBox="0 0 80 80" style="border-radius:5px;flex-shrink:0"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
+    <span>Design hub</span>
+  </a>
+  <span style="color:var(--border-md);">/</span>
+  <span class="nav-title">S-01 v2.5 — preview only</span>
+  <span class="nav-tag">Preview · not committed</span>
+</nav>
+
+<div class="page">
+  <div class="eyebrow">S-01 · Welcome screen · v2.5 preview · two changes · approve before committing</div>
+
+  <div class="row">
+
+    <!-- PHONE -->
+    <div>
+      <div style="font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(26,22,18,0.28);text-align:center;margin-bottom:8px;">English copy · 390×844px</div>
+      <div class="phone-wrap">
+
+        <!-- Annotation markers -->
+        <!-- 1 = promise line, new -->
+        <div class="ann-marker ann-new" style="top:162px;">1</div>
+        <!-- 2 = category strip, new -->
+        <div class="ann-marker ann-new" style="top:200px;">2</div>
+        <!-- 3 = preview items, locked -->
+        <div class="ann-marker ann-lock" style="top:256px;">3</div>
+        <!-- 4 = button zone, locked -->
+        <div class="ann-marker ann-lock" style="top:724px;">4</div>
+
+        <div class="phone">
+          <div class="notch"><div class="np"></div></div>
+          <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+          <!-- progress bar — outside SafeArea, full-bleed -->
+          <div class="prog-bar"><div class="prog-fill"></div></div>
+
+          <div class="w-screen">
+            <div class="w-content">
+
+              <!-- top row — locked -->
+              <div class="w-top">
+                <div class="ii">
+                  <div class="ii-l"></div>
+                  <div class="ii-r"><div class="ii-dot"></div></div>
+                </div>
+                <div class="free-badge"><div class="fb-dot"></div>Free · no credit card</div>
+              </div>
+
+              <!-- headline — locked -->
+              <div class="w-h1">Your stuff won't<br><em>maintain itself.</em></div>
+
+              <!-- CHANGE 1: promise line (replaces "But we can remind you.") -->
+              <div class="promise-line">nudgii knows when, for everything you own.</div>
+
+              <!-- CHANGE 2: category strip -->
+              <div class="cat-strip">
+                <div class="cat-pill"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
+                <div class="cat-pill"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
+                <div class="cat-pill"><span class="cat-dot" style="background:#5A9060;"></span>Garden</div>
+                <div class="cat-pill"><span class="cat-dot" style="background:#8060A8;"></span>Subscriptions</div>
+              </div>
+
+              <!-- preview items — locked -->
+              <div class="prev-items">
+                <div class="prev-item">
+                  <div class="ci" style="background:var(--chb);">
+                    <svg viewBox="0 0 24 24" style="stroke:var(--ch);"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                  </div>
+                  <div class="prev-item-info">
+                    <div class="prev-item-name">Dishwasher</div>
+                    <div class="prev-item-status ov">overdue</div>
+                  </div>
+                </div>
+                <div class="prev-item">
+                  <div class="ci" style="background:var(--cvb);">
+                    <svg viewBox="0 0 24 24" style="stroke:var(--cv);"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg>
+                  </div>
+                  <div class="prev-item-info">
+                    <div class="prev-item-name">Winter tyres</div>
+                    <div class="prev-item-status">this week · BE</div>
+                  </div>
+                </div>
+                <div class="prev-item">
+                  <div class="ci" style="background:var(--cgb);">
+                    <svg viewBox="0 0 24 24" style="stroke:var(--cg);"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1"/><path d="M11.88 11.88C10 14 9 16 9 20"/></svg>
+                  </div>
+                  <div class="prev-item-info">
+                    <div class="prev-item-name">Olive tree</div>
+                    <div class="prev-item-status">Feb · BE</div>
+                  </div>
+                </div>
+              </div>
+
+            </div><!-- /w-content -->
+
+            <!-- button zone — locked -->
+            <div class="w-bottom">
+              <div class="pdiv">
+                <div class="pd-line"></div>
+                <div class="pd-txt">How do you want to start?</div>
+                <div class="pd-line"></div>
+              </div>
+              <button class="btn-a">
+                <div class="mic">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg>
+                </div>
+                Tell me what you have
+              </button>
+              <button class="btn-b">Show me what I can track</button>
+              <button class="btn-c">I know what I need</button>
+            </div>
+
+          </div><!-- /w-screen -->
+        </div><!-- /phone -->
+      </div><!-- /phone-wrap -->
+    </div>
+
+    <!-- ANNOTATION PANEL -->
+    <div class="ann-wrap">
+
+      <div style="font-size:10px;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;color:var(--mid);margin-bottom:4px;">Two changes · everything else locked</div>
+
+      <!-- Change 1 -->
+      <div class="ann new">
+        <div class="ann-n" style="background:#9B7FD4;">1</div>
+        <div class="ann-body">
+          <div class="ann-lbl">Promise line <span class="new-tag">new</span></div>
+          <div class="ann-txt">
+            Replaces "But we can remind you." — bridges the emotional headline and the CTA commitment. <strong>DM Sans 400 italic · 13px · colorMid #8A8070.</strong><br><br>
+            <div class="copy-panel">
+              <div class="copy-lbl">Copy options</div>
+              <div class="copy-opt">
+                A. <em>"nudgii knows when, for everything you own."</em> <span class="copy-pref">preferred</span><br>
+                B. <em>"Automatic. Seasonal. Always on time."</em><br>
+                C. <em>"One app for everything that needs maintenance."</em>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Change 2 -->
+      <div class="ann new">
+        <div class="ann-n" style="background:#9B7FD4;">2</div>
+        <div class="ann-body">
+          <div class="ann-lbl">Category strip <span class="new-tag">new</span></div>
+          <div class="ann-txt">
+            4 pills showing app breadth. Answers "is this only for boilers?" without adding explanation. Uses exact category color tokens from design system.<br><br>
+            <strong>Decorative on S-01</strong> — static, not tappable. Behaviour evolves on S-02/03/04 where categories become selectable.<br><br>
+            <strong>Spec:</strong> white bg · border 0.5px rgba(26,22,18,0.10) · pill radius · 7px color dot · DM Sans 500 10px ink.
+          </div>
+        </div>
+      </div>
+
+      <!-- Locked items -->
+      <div class="ann locked">
+        <div class="ann-n" style="background:rgba(26,22,18,0.25);">3</div>
+        <div class="ann-body">
+          <div class="ann-lbl">Preview items <span class="lock-tag">locked</span></div>
+          <div class="ann-txt">3 item rows · dashboard visual language · category icon chip + name + status. Untouched.</div>
+        </div>
+      </div>
+
+      <div class="ann locked">
+        <div class="ann-n" style="background:rgba(26,22,18,0.25);">4</div>
+        <div class="ann-body">
+          <div class="ann-lbl">Button zone <span class="lock-tag">locked</span></div>
+          <div class="ann-txt">Path A 50px plum-lt · Path B 46px border · Path C 36px ghost. Hierarchy unchanged.</div>
+        </div>
+      </div>
+
+    </div><!-- /ann-wrap -->
+  </div><!-- /row -->
+
+  <!-- Decision strip -->
+  <div class="decision-strip">
+    <div class="dec-col">
+      <div class="dec-title">If you approve</div>
+      <div class="dec-item">Promise line replaces subtitle in s01-welcome-hifi.html</div>
+      <div class="dec-item">Category strip added between promise line + preview items</div>
+      <div class="dec-item">Annotation panel updated with new markers</div>
+      <div class="dec-item">Changelog entry added (v1.2 · ADDITIVE)</div>
+    </div>
+    <div class="dec-col">
+      <div class="dec-title">Pending decision</div>
+      <div class="dec-item">Promise line copy: Option A, B, or C?</div>
+      <div class="dec-item">Category strip tappable in future? (S-02/03/04 context)</div>
+      <div class="dec-note">Once confirmed, the real s01-welcome-hifi.html is updated and this preview file is removed.</div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+</body>
+</html>

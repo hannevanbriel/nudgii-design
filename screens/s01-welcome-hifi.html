@@ -70,6 +70,14 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
 .w-sub{font-size:12px;font-style:italic;color:var(--mid);line-height:1.55;margin-bottom:20px;font-weight:300;}
 .w-h1 em{font-style:italic;color:var(--ap-dk);}
 
+/* Promise line — replaces "But we can remind you." */
+.promise-line{font-size:13px;font-style:italic;color:var(--mid);line-height:1.5;margin-bottom:12px;font-weight:400;}
+
+/* Category strip — S-01 only, decorative */
+.cat-strip{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px;}
+.cat-pill{display:inline-flex;align-items:center;gap:5px;background:var(--surface);border:0.5px solid rgba(26,22,18,0.10);border-radius:100px;padding:4px 9px 4px 7px;font-size:10px;font-weight:500;color:var(--ink);}
+.cat-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+
 /* Preview items — item row style, matches dashboard visual language */
 .prev-items{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
 .prev-item{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface);border-radius:10px;border:0.5px solid rgba(26,22,18,0.08);box-shadow:0 1px 3px rgba(26,22,18,0.04);}
@@ -158,8 +166,10 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
         <div class="ann-marker" style="top:88px;">2</div>
         <div class="ann-marker" style="top:88px;left:auto;right:-9px;">3</div>
         <div class="ann-marker" style="top:148px;">4</div>
-        <div class="ann-marker" style="top:258px;">5</div>
-        <div class="ann-marker" style="top:720px;">6</div>
+        <div class="ann-marker" style="top:220px;">5</div>
+        <div class="ann-marker" style="top:255px;">6</div>
+        <div class="ann-marker" style="top:312px;">7</div>
+        <div class="ann-marker" style="top:728px;">8</div>
       <div class="phone">
         <div class="notch"><div class="np"></div></div>
         <div class="sbar"><span>9:41</span><div class="batt"></div></div>
@@ -171,7 +181,13 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
               <div class="free-badge"><div class="fb-dot"></div>Free · no credit card</div>
             </div>
             <div class="w-h1">Your stuff won't<br><em>maintain itself.</em></div>
-            <div class="w-sub">But we can remind you.</div>
+            <div class="promise-line">nudgii knows when, for everything you own.</div>
+            <div class="cat-strip">
+              <div class="cat-pill"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
+              <div class="cat-pill"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
+              <div class="cat-pill"><span class="cat-dot" style="background:#5A9060;"></span>Garden</div>
+              <div class="cat-pill"><span class="cat-dot" style="background:#8060A8;"></span>Subscriptions</div>
+            </div>
             <div class="prev-items">
               <div class="prev-item">
                 <div class="ci ci-h"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
@@ -225,7 +241,13 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
               <div class="free-badge"><div class="fb-dot"></div>Free · no credit card</div>
             </div>
             <div class="w-h1">Your stuff won't<br><em>maintain itself.</em></div>
-            <div class="w-sub">But we can remind you.</div>
+            <div class="promise-line">nudgii knows when, for everything you own.</div>
+            <div class="cat-strip">
+              <div class="cat-pill"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
+              <div class="cat-pill"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
+              <div class="cat-pill"><span class="cat-dot" style="background:#5A9060;"></span>Garden</div>
+              <div class="cat-pill"><span class="cat-dot" style="background:#8060A8;"></span>Subscriptions</div>
+            </div>
             <div class="prev-items">
               <div class="prev-item">
                 <div class="ci ci-h"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
@@ -290,19 +312,35 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
       <div class="ann">
         <div class="ann-n">4</div>
         <div class="ann-body">
-          <div class="ann-lbl">Headline</div>
-          <div class="ann-txt">DM Serif Display 33px · lh 0.97 · ls -0.55px. "maintain itself." in <strong>em tag → italic → colorApricotDk #C8784A</strong>. One serif moment per screen. Sub: DM Sans 400 italic 12px mid.</div>
+          <div class="ann-lbl">Headline — locked</div>
+          <div class="ann-txt">DM Serif Display 33px · lh 0.97 · ls -0.55px. "maintain itself." in <strong>em tag → italic → colorApricotDk #C8784A</strong>. One serif moment per screen.</div>
+        </div>
+      </div>
+      <div class="ann fix">
+        <div class="ann-n">5</div>
+        <div class="ann-body">
+          <div class="fix-lbl">v2.6 · additive</div>
+          <div class="ann-lbl">Promise line</div>
+          <div class="ann-txt">Replaces "But we can remind you." — bridges the emotional headline and the CTA. <strong>DM Sans 400 italic · 13px · colorMid #8A8070.</strong><br>Copy: <em>"nudgii knows when, for everything you own."</em></div>
+        </div>
+      </div>
+      <div class="ann fix">
+        <div class="ann-n">6</div>
+        <div class="ann-body">
+          <div class="fix-lbl">v2.6 · additive</div>
+          <div class="ann-lbl">Category strip</div>
+          <div class="ann-txt">4 pills showing app breadth. Answers "is this only for boilers?" in one glance. Uses category color tokens. <strong>Decorative on S-01 — static, not tappable.</strong><br>White bg · border 0.5px rgba(26,22,18,0.10) · pill radius · 7px color dot · DM Sans 500 10px.</div>
         </div>
       </div>
       <div class="ann">
-        <div class="ann-n">5</div>
+        <div class="ann-n">7</div>
         <div class="ann-body">
           <div class="ann-lbl">Preview items — item row style</div>
           <div class="ann-txt">3 rows using dashboard visual language. White card on cream · category icon chip 28×28px · item name 13px/500 · status 11px. Overdue = terra. <strong>Never mini-tile columns, never a shared card wrapper.</strong><br><br><strong>nl-BE:</strong> Dishwasher (overdue) · Winter tyres (this week) · Olive tree (Feb)<br><strong>nl-NL:</strong> CV boiler (overdue) · Winter tyres · Garden ready (Nov)</div>
         </div>
       </div>
       <div class="ann">
-        <div class="ann-n">6</div>
+        <div class="ann-n">8</div>
         <div class="ann-body">
           <div class="ann-lbl">Button zone — path hierarchy locked</div>
           <div class="ann-txt">A: plum-lt fill · 50px · mic icon affordance circle (22×22px rgba(250,248,255,0.15)) — dominant path<br>B: border only · 46px — secondary<br>C: ghost text · 36px — power users only<br><br>No sign-up on this screen. Auth deferred until after user sees value.</div>
@@ -315,6 +353,14 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
   <!-- CHANGELOG -->
   <div class="changelog">
     <div class="cl-title">Changelog</div>
+    <div class="cl-row">
+      <span class="cl-tag cl-fix">v2.6</span>
+      <div class="cl-body"><strong>Promise line added (ADDITIVE).</strong> Replaces "But we can remind you." with <em>"nudgii knows when, for everything you own."</em> — DM Sans 400 italic · 13px · colorMid. Bridges emotional headline and CTA commitment. Flutter: same widget as previous subtitle, copy + class name updated.</div>
+    </div>
+    <div class="cl-row">
+      <span class="cl-tag cl-fix">v2.6</span>
+      <div class="cl-body"><strong>Category strip added (ADDITIVE).</strong> 4 pills between promise line and preview items: Home · Vehicle · Garden · Subscriptions. Color dots from category token set. Decorative on S-01 — static, not tappable. Flutter: Wrap widget with pill Container children. White bg · border 0.5px rgba(26,22,18,0.10) · border-radius 100px · padding 4px 9px 4px 7px · 7px dot · DM Sans 500 10px.</div>
+    </div>
     <div class="cl-row">
       <span class="cl-tag cl-fix">v2.5</span>
       <div class="cl-body"><strong>Preview items redesigned as item rows.</strong> Consistent with dashboard visual language. White card on cream — category icon chip (28×28px) + item name (13px 500) + status label (11px). Overdue = terra. Never mini-tiles, never columns. Progress dots replaced with single continuous bar. Sticky bottom button zone. English copy throughout. Free badge updated to "Free · no credit card". Mockup updated to 390×844px (iPhone 15).</div>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · S-01 v2.6 — selectable items preview</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F5F0E8;--ink:#1A1612;--mid:#8A8070;--mid-a:#6B6358;
+  --border:rgba(26,22,18,0.08);--border-md:rgba(26,22,18,0.12);
+  --ap-dk:#C8784A;--terra:#C4503A;
+  --cta:#9B7FD4;--cta-fg:#FAF8FF;
+  --sage:#3B6D11;--sage-lt:#EAF3DE;
+  --ch:#C87850;--chb:rgba(200,120,80,0.10);
+  --cv:#4A82A0;--cvb:rgba(74,130,160,0.10);
+  --cg:#5A9060;--cgb:rgba(90,144,96,0.10);
+  --cs:#8060A8;--csb:rgba(128,96,168,0.10);
+  --surface:#FFFFFF;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:#C8C3BA;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;}
+
+nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 32px;display:flex;align-items:center;gap:16px;height:48px;position:sticky;top:0;z-index:100;}
+.nav-back{font-size:13px;color:var(--mid);text-decoration:none;display:flex;align-items:center;gap:8px;}
+.nav-title{font-size:13px;font-weight:500;color:var(--ink);}
+.nav-tag{margin-left:auto;font-size:10px;font-weight:500;padding:3px 10px;border-radius:100px;background:rgba(155,127,212,0.10);color:#5C3E8A;border:1px solid rgba(155,127,212,0.20);}
+
+.page{padding:40px 32px 80px;display:flex;flex-direction:column;align-items:center;gap:40px;}
+.eyebrow{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:rgba(26,22,18,0.28);text-align:center;width:100%;}
+.row{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;align-items:flex-start;width:100%;max-width:1080px;}
+
+/* PHONE */
+.phone{width:390px;height:844px;border-radius:50px;overflow:hidden;background:var(--cream);border:1.5px solid rgba(26,22,18,0.09);box-shadow:0 28px 60px rgba(26,22,18,0.18),0 6px 16px rgba(26,22,18,0.07),inset 0 1px 0 rgba(255,255,255,0.65);position:relative;flex-shrink:0;display:flex;flex-direction:column;}
+.notch{height:24px;background:var(--cream);display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px;}
+.np{width:102px;height:8px;border-radius:100px;background:rgba(26,22,18,0.10);}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:5px 18px 0;font-size:11px;font-weight:500;color:rgba(26,22,18,0.36);}
+.batt{width:14px;height:6px;border:1.5px solid rgba(26,22,18,0.28);border-radius:2px;position:relative;}
+.batt::after{content:'';position:absolute;left:1px;top:1px;right:2px;bottom:1px;background:rgba(26,22,18,0.32);border-radius:1px;}
+.prog-bar{width:100%;height:3px;background:rgba(26,22,18,0.08);}
+.prog-fill{height:3px;border-radius:0 100px 100px 0;background:var(--cta);width:20%;}
+.w-screen{padding:14px 20px 0;flex:1;display:flex;flex-direction:column;}
+.w-content{flex:1;}
+.w-bottom{padding-bottom:24px;}
+.w-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;}
+.ii{display:flex;align-items:flex-start;gap:3px;}
+.ii-l{width:7px;height:20px;border-radius:100px;background:var(--ink);}
+.ii-r{width:7px;height:20px;border-radius:100px;background:rgba(155,127,212,0.45);position:relative;}
+.ii-dot{width:5px;height:5px;border-radius:50%;background:var(--ap-dk);position:absolute;top:2px;right:-2px;}
+.free-badge{display:inline-flex;align-items:center;gap:4px;background:var(--sage-lt);border-radius:100px;padding:4px 10px 4px 7px;font-size:10px;font-weight:500;color:var(--sage);}
+.fb-dot{width:5px;height:5px;border-radius:50%;background:var(--sage);}
+.w-h1{font-family:'DM Serif Display',serif;font-size:33px;color:var(--ink);line-height:0.97;letter-spacing:-0.55px;margin-bottom:8px;}
+.w-h1 em{font-style:italic;color:var(--ap-dk);}
+.promise-line{font-size:13px;font-style:italic;color:var(--mid);line-height:1.5;margin-bottom:12px;}
+.cat-strip{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px;}
+.cat-pill{display:inline-flex;align-items:center;gap:5px;background:var(--surface);border:0.5px solid rgba(26,22,18,0.10);border-radius:100px;padding:4px 9px 4px 7px;font-size:10px;font-weight:500;color:var(--ink);}
+.cat-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+
+/* ITEM ROWS — default + selected states */
+.prev-items{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
+
+.prev-item{
+  display:flex;align-items:center;gap:10px;padding:10px 12px;
+  background:var(--surface);border-radius:10px;
+  border:0.5px solid rgba(26,22,18,0.08);
+  box-shadow:0 1px 3px rgba(26,22,18,0.04);
+  cursor:pointer;transition:border-color 0.15s,background 0.15s;
+}
+/* Selected state */
+.prev-item.selected{
+  border:1px solid rgba(155,127,212,0.35);
+  background:rgba(155,127,212,0.04);
+  box-shadow:0 1px 3px rgba(155,127,212,0.08);
+}
+.prev-item-info{flex:1;min-width:0;}
+.prev-item-name{font-size:13px;font-weight:500;color:var(--ink);}
+.prev-item-status{font-size:11px;color:var(--mid);margin-top:1px;}
+.ov{color:var(--terra);font-weight:500;}
+
+/* Checkmark — hidden by default, shown when selected */
+.item-check{
+  width:18px;height:18px;border-radius:50%;
+  border:1.5px solid rgba(26,22,18,0.15);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:background 0.15s,border-color 0.15s;
+}
+.item-check svg{display:none;width:10px;height:10px;stroke:var(--cta-fg);stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.prev-item.selected .item-check{background:var(--cta);border-color:var(--cta);}
+.prev-item.selected .item-check svg{display:block;}
+
+/* Category icon chip */
+.ci{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ci svg{width:13px;height:13px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+
+/* "Something else" row — always 4th */
+.prev-item.else-row{
+  border:0.5px dashed rgba(26,22,18,0.15);
+  background:transparent;
+  box-shadow:none;
+}
+.prev-item.else-row:hover{background:rgba(26,22,18,0.02);}
+.else-chip{width:28px;height:28px;border-radius:8px;background:rgba(26,22,18,0.05);border:1px solid rgba(26,22,18,0.09);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.else-chip svg{width:13px;height:13px;fill:none;stroke:var(--mid);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.else-name{font-size:13px;font-weight:500;color:var(--mid-a);}
+.else-sub{font-size:11px;color:rgba(26,22,18,0.3);margin-top:1px;}
+
+/* Divider + buttons */
+.pdiv{display:flex;align-items:center;gap:10px;margin:10px 0 13px;}
+.pd-line{flex:1;height:1px;background:var(--border-md);}
+.pd-txt{font-size:10px;color:var(--mid-a);white-space:nowrap;}
+.btn-a{width:100%;height:50px;border-radius:100px;border:none;background:var(--cta);color:var(--cta-fg);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;margin-bottom:5px;box-shadow:0 2px 12px rgba(155,127,212,0.32);}
+.mic{width:22px;height:22px;border-radius:50%;background:rgba(250,248,255,0.15);display:flex;align-items:center;justify-content:center;}
+.mic svg{width:11px;height:11px;stroke:var(--cta-fg);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.btn-b{width:100%;height:46px;border-radius:100px;border:1.5px solid var(--border-md);background:transparent;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink);cursor:pointer;margin-bottom:5px;}
+.btn-c{width:100%;height:36px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--mid);cursor:pointer;}
+
+/* INTERACTION SCRIPT highlight */
+.phone-lbl{font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(26,22,18,0.28);text-align:center;margin-bottom:8px;}
+.phone-lbl em{display:block;font-style:normal;font-weight:300;letter-spacing:0;text-transform:none;margin-top:2px;font-size:11px;}
+
+/* STATES PANEL — two phones side by side */
+.state-lbl{font-size:9px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:rgba(26,22,18,0.30);text-align:center;margin-bottom:8px;}
+
+/* ANNOTATION */
+.ann-wrap{flex:1;min-width:260px;max-width:340px;display:flex;flex-direction:column;gap:8px;}
+.ann{background:var(--surface);border-radius:10px;padding:12px 14px;border:1px solid var(--border);display:flex;align-items:flex-start;gap:10px;}
+.ann.new{border-color:rgba(155,127,212,0.30);background:rgba(155,127,212,0.04);}
+.ann-n{width:18px;height:18px;border-radius:50%;background:var(--cta);color:#FAF8FF;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.ann-body{flex:1;}
+.ann-lbl{font-size:10px;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;color:var(--mid);margin-bottom:4px;display:flex;align-items:center;gap:6px;}
+.new-tag{font-size:9px;font-weight:600;padding:1px 6px;border-radius:3px;background:rgba(155,127,212,0.15);color:#5C3E8A;letter-spacing:0;}
+.ann-txt{font-size:11px;color:rgba(26,22,18,0.55);line-height:1.65;}
+.ann-txt strong{color:rgba(26,22,18,0.75);font-weight:500;}
+.ann-txt em{font-style:italic;}
+
+/* Spec box inside annotation */
+.spec-inline{margin-top:8px;border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.spec-inline-row{display:grid;grid-template-columns:90px 1fr;border-bottom:1px solid var(--border);font-size:10px;}
+.spec-inline-row:last-child{border-bottom:none;}
+.spec-inline-l{padding:5px 8px;font-weight:500;color:var(--ink);background:rgba(26,22,18,0.02);}
+.spec-inline-r{padding:5px 8px;color:var(--mid);}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-back" href="../index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--mid);">
+    <svg width="20" height="20" viewBox="0 0 80 80" style="border-radius:5px;flex-shrink:0"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
+    <span>Design hub</span>
+  </a>
+  <span style="color:var(--border-md);">/</span>
+  <span class="nav-title">S-01 — selectable items · preview</span>
+  <span class="nav-tag">Preview · not committed</span>
+</nav>
+
+<div class="page">
+  <div class="eyebrow">S-01 · Selectable items · v2.6 preview · approve before committing</div>
+
+  <div class="row">
+
+    <!-- STATE A: nothing selected (default) -->
+    <div>
+      <div class="state-lbl">Default — nothing selected<em>CTAs fully active from the start</em></div>
+      <div class="phone">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <div class="prog-bar"><div class="prog-fill"></div></div>
+        <div class="w-screen">
+          <div class="w-content">
+            <div class="w-top">
+              <div class="ii"><div class="ii-l"></div><div class="ii-r"><div class="ii-dot"></div></div></div>
+              <div class="free-badge"><div class="fb-dot"></div>Free · no credit card</div>
+            </div>
+            <div class="w-h1">Your stuff won't<br><em>maintain itself.</em></div>
+            <div class="promise-line">nudgii knows when, for everything you own.</div>
+            <div class="cat-strip">
+              <div class="cat-pill"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
+              <div class="cat-pill"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
+              <div class="cat-pill"><span class="cat-dot" style="background:#5A9060;"></span>Garden</div>
+              <div class="cat-pill"><span class="cat-dot" style="background:#8060A8;"></span>Subscriptions</div>
+            </div>
+            <div class="prev-items">
+              <!-- Item 1: default, unselected -->
+              <div class="prev-item">
+                <div class="ci" style="background:var(--chb);"><svg viewBox="0 0 24 24" style="stroke:var(--ch);"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+                <div class="prev-item-info"><div class="prev-item-name">Dishwasher</div><div class="prev-item-status ov">overdue</div></div>
+                <div class="item-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+              </div>
+              <!-- Item 2 -->
+              <div class="prev-item">
+                <div class="ci" style="background:var(--cvb);"><svg viewBox="0 0 24 24" style="stroke:var(--cv);"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg></div>
+                <div class="prev-item-info"><div class="prev-item-name">Winter tyres</div><div class="prev-item-status">this week · BE</div></div>
+                <div class="item-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+              </div>
+              <!-- Item 3 -->
+              <div class="prev-item">
+                <div class="ci" style="background:var(--cgb);"><svg viewBox="0 0 24 24" style="stroke:var(--cg);"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1"/><path d="M11.88 11.88C10 14 9 16 9 20"/></svg></div>
+                <div class="prev-item-info"><div class="prev-item-name">Olive tree</div><div class="prev-item-status">Feb · BE</div></div>
+                <div class="item-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+              </div>
+              <!-- Something else row -->
+              <div class="prev-item else-row">
+                <div class="else-chip"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+                <div class="prev-item-info"><div class="else-name">Something else</div><div class="else-sub">explore all categories →</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="w-bottom">
+            <div class="pdiv"><div class="pd-line"></div><div class="pd-txt">How do you want to start?</div><div class="pd-line"></div></div>
+            <button class="btn-a"><div class="mic"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg></div>Tell me what you have</button>
+            <button class="btn-b">Show me what I can track</button>
+            <button class="btn-c">I know what I need</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATE B: items selected -->
+    <div>
+      <div class="state-lbl">Selected state — 2 items tapped<em>Context carried into chosen path</em></div>
+      <div class="phone">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <div class="prog-bar"><div class="prog-fill"></div></div>
+        <div class="w-screen">
+          <div class="w-content">
+            <div class="w-top">
+              <div class="ii"><div class="ii-l"></div><div class="ii-r"><div class="ii-dot"></div></div></div>
+              <div class="free-badge"><div class="fb-dot"></div>Free · no credit card</div>
+            </div>
+            <div class="w-h1">Your stuff won't<br><em>maintain itself.</em></div>
+            <div class="promise-line">nudgii knows when, for everything you own.</div>
+            <div class="cat-strip">
+              <div class="cat-pill"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
+              <div class="cat-pill"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
+              <div class="cat-pill"><span class="cat-dot" style="background:#5A9060;"></span>Garden</div>
+              <div class="cat-pill"><span class="cat-dot" style="background:#8060A8;"></span>Subscriptions</div>
+            </div>
+            <div class="prev-items">
+              <!-- Item 1: SELECTED -->
+              <div class="prev-item selected">
+                <div class="ci" style="background:var(--chb);"><svg viewBox="0 0 24 24" style="stroke:var(--ch);"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+                <div class="prev-item-info"><div class="prev-item-name">Dishwasher</div><div class="prev-item-status ov">overdue</div></div>
+                <div class="item-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+              </div>
+              <!-- Item 2: SELECTED -->
+              <div class="prev-item selected">
+                <div class="ci" style="background:var(--cvb);"><svg viewBox="0 0 24 24" style="stroke:var(--cv);"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg></div>
+                <div class="prev-item-info"><div class="prev-item-name">Winter tyres</div><div class="prev-item-status">this week · BE</div></div>
+                <div class="item-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+              </div>
+              <!-- Item 3: unselected -->
+              <div class="prev-item">
+                <div class="ci" style="background:var(--cgb);"><svg viewBox="0 0 24 24" style="stroke:var(--cg);"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1"/><path d="M11.88 11.88C10 14 9 16 9 20"/></svg></div>
+                <div class="prev-item-info"><div class="prev-item-name">Olive tree</div><div class="prev-item-status">Feb · BE</div></div>
+                <div class="item-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+              </div>
+              <!-- Something else -->
+              <div class="prev-item else-row">
+                <div class="else-chip"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+                <div class="prev-item-info"><div class="else-name">Something else</div><div class="else-sub">explore all categories →</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="w-bottom">
+            <div class="pdiv"><div class="pd-line"></div><div class="pd-txt">How do you want to start?</div><div class="pd-line"></div></div>
+            <button class="btn-a"><div class="mic"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg></div>Tell me what you have</button>
+            <button class="btn-b">Show me what I can track</button>
+            <button class="btn-c">I know what I need</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANNOTATIONS -->
+    <div class="ann-wrap">
+
+      <div class="ann new">
+        <div class="ann-n">→</div>
+        <div class="ann-body">
+          <div class="ann-lbl">Selectable item rows <span class="new-tag">new</span></div>
+          <div class="ann-txt">
+            Tap any row to <strong>toggle selected.</strong> Multiple allowed. Nothing required — buttons work either way.<br><br>
+            <strong>Selected carries context:</strong><br>
+            · Path A (voice): nudgii pre-loads "I see you have a dishwasher and winter tyres — what else?"<br>
+            · Path B (browse): those categories open first<br><br>
+            <div class="spec-inline">
+              <div class="spec-inline-row"><div class="spec-inline-l">Default</div><div class="spec-inline-r">border 0.5px rgba(26,22,18,0.08) · white bg · check circle: empty outline</div></div>
+              <div class="spec-inline-row"><div class="spec-inline-l">Selected</div><div class="spec-inline-r">border 1px rgba(155,127,212,0.35) · bg rgba(155,127,212,0.04) · check: colorCta fill + white tick</div></div>
+              <div class="spec-inline-row"><div class="spec-inline-l">Animation</div><div class="spec-inline-r">150ms ease-out on border + background</div></div>
+              <div class="spec-inline-row"><div class="spec-inline-l">Flutter</div><div class="spec-inline-r">AnimatedContainer 150ms + GestureDetector onTap → setState(selected toggle)</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ann new">
+        <div class="ann-n">+</div>
+        <div class="ann-body">
+          <div class="ann-lbl">"Something else" row <span class="new-tag">new</span></div>
+          <div class="ann-txt">
+            Always 4th. Dashed border signals "different action." Tapping it routes directly to <strong>Path B (browse categories)</strong> — no voice, no search.<br><br>
+            Solves the edge case: someone with no car, no garden, renting — none of the three examples fit. They always have a way in.<br><br>
+            <div class="spec-inline">
+              <div class="spec-inline-row"><div class="spec-inline-l">Border</div><div class="spec-inline-r">0.5px dashed rgba(26,22,18,0.15)</div></div>
+              <div class="spec-inline-row"><div class="spec-inline-l">Background</div><div class="spec-inline-r">Transparent (no white fill)</div></div>
+              <div class="spec-inline-row"><div class="spec-inline-l">Icon chip</div><div class="spec-inline-r">Neutral bg rgba(26,22,18,0.05) · Phosphor Plus 13px · colorMid</div></div>
+              <div class="spec-inline-row"><div class="spec-inline-l">Label</div><div class="spec-inline-r">DM Sans 500 13px · colorMidAccessible</div></div>
+              <div class="spec-inline-row"><div class="spec-inline-l">Sublabel</div><div class="spec-inline-r">"explore all categories →" · 11px · rgba(26,22,18,0.30)</div></div>
+              <div class="spec-inline-row"><div class="spec-inline-l">Action</div><div class="spec-inline-r">Routes to Path B (browse) — bypasses voice/search choice</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ann">
+        <div class="ann-n" style="background:rgba(26,22,18,0.22);">→</div>
+        <div class="ann-body">
+          <div class="ann-lbl">Button zone — unchanged</div>
+          <div class="ann-txt">CTAs are always active — selection is optional context, not a required gate. Buttons never change label or state based on selection.<br><br>
+          <em>Nothing selected = CTAs work exactly as before. Something selected = same CTAs, with pre-loaded context passed behind the scenes.</em></div>
+        </div>
+      </div>
+
+      <div class="ann">
+        <div class="ann-n" style="background:rgba(26,22,18,0.22);">?</div>
+        <div class="ann-body">
+          <div class="ann-lbl">Open question</div>
+          <div class="ann-txt">Are the 3 example items <strong>fixed</strong> (always Dishwasher · Winter tyres · Olive tree) or <strong>seasonal/locale-aware</strong> (pulled from a small curated set based on month + region)?<br><br>Seasonal makes the selection feel real, not random. Requires a small backend call or a locale+month config table. Decision affects MVP scope.</div>
+        </div>
+      </div>
+
+    </div><!-- /ann-wrap -->
+  </div><!-- /row -->
+</div><!-- /page -->
+
+<script>
+// Live interaction demo — toggle selected state on click
+document.querySelectorAll('.prev-item:not(.else-row)').forEach(item => {
+  item.addEventListener('click', () => item.classList.toggle('selected'));
+});
+document.querySelectorAll('.prev-item.else-row').forEach(item => {
+  item.style.cursor = 'pointer';
+});
+</script>
+</body>
+</html>
