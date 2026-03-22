@@ -146,7 +146,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 
   <!-- HEADER -->
   <h1>Auth screen</h1>
-  <p class="sub">Deferred auth — komt na S-05 review, voor S-07 completion. Gebruiker heeft al 60s geïnvesteerd en items gezien. Laagste wrijving: Apple bovenaan, Google tweede, magic link als email-pad.</p>
+  <p class="sub">Deferred auth — comes after S-05 review, before S-07 completion. User has already invested 60s and seen their items. Lowest friction: Apple first, Google second, magic link for the email path.</p>
   <div class="meta">
     <span class="mp lo">Lo-fi</span>
     <span class="mp ob">Onboarding flow</span>
@@ -172,7 +172,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
             </div>
           </div>
 
-          <!-- ZONE B — Progress dots (step 2 of 3 — middle dot active) -->
+          <!-- ZONE B — Progress bar (80% — S-06 is step 4 of 5) -->
           <div class="zone">
             <div class="zone-tag">B</div>
             <div class="z-progress">
@@ -190,8 +190,8 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
                 <div class="ii-l"></div>
                 <div class="ii-r"><div class="ii-dot"></div></div>
               </div>
-              <div class="header-title">Bijna klaar.</div>
-              <div class="header-sub">Maak een gratis account aan om je schema op te slaan.</div>
+              <div class="header-title">Almost done.</div>
+              <div class="header-sub">Create your free account to save your schedule.</div>
             </div>
           </div>
 
@@ -201,7 +201,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
             <div class="z-auth">
               <div class="auth-btn">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--ink)"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.37c1.3.07 2.2.74 2.96.76 1.1-.21 2.16-.9 3.3-.84 1.42.08 2.49.67 3.19 1.72-2.93 1.78-2.23 5.68.55 6.77-.65 1.49-1.49 2.96-2 4.5zM12.03 7.25c-.16-2.36 1.83-4.44 4.1-4.63.29 2.7-2.45 4.75-4.1 4.63z"/></svg>
-                Inloggen met Apple
+                Continue with Apple
               </div>
             </div>
           </div>
@@ -212,7 +212,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
             <div class="z-auth" style="padding-top:0;">
               <div class="auth-btn">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-                Inloggen met Google
+                Continue with Google
               </div>
             </div>
           </div>
@@ -222,7 +222,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
             <div class="zone-tag">F</div>
             <div class="z-divider">
               <div class="div-line"></div>
-              <div class="div-text">of</div>
+              <div class="div-text">or</div>
               <div class="div-line"></div>
             </div>
           </div>
@@ -231,7 +231,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
           <div class="zone">
             <div class="zone-tag">G</div>
             <div class="z-email">
-              <div class="email-input">e-mailadres</div>
+              <div class="email-input">email address</div>
             </div>
           </div>
 
@@ -239,7 +239,15 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
           <div class="zone">
             <div class="zone-tag">H</div>
             <div class="z-cta">
-              <div class="cta-btn">Stuur magic link</div>
+              <div class="cta-btn">Send magic link</div>
+            </div>
+          </div>
+
+          <!-- ZONE H-reassurance — Free account note -->
+          <div class="zone">
+            <div class="zone-tag" style="background:rgba(90,144,96,0.08);color:#2A5A30;">NOTE</div>
+            <div style="padding:4px 14px 6px;background:#F5F0E8;">
+              <div style="text-align:center;font-size:9px;color:var(--mid);margin-top:8px;">Free account · no credit card required</div>
             </div>
           </div>
 
@@ -252,8 +260,8 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
                   <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#C4503A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                 </div>
                 <div>
-                  <div style="font-size:10px;font-weight:500;color:#A32D2D;margin-bottom:2px;">Inloggen mislukt.</div>
-                  <div style="font-size:9px;color:#A32D2D;line-height:1.5;">Probeer opnieuw — je gegevens zijn bewaard.</div>
+                  <div style="font-size:10px;font-weight:500;color:#A32D2D;margin-bottom:2px;">Sign in failed.</div>
+                  <div style="font-size:9px;color:#A32D2D;line-height:1.5;">Try again — your data is saved.</div>
                 </div>
               </div>
             </div>
@@ -263,7 +271,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
           <div class="zone">
             <div class="zone-tag">I</div>
             <div class="z-privacy">
-              <div class="privacy-text">Door verder te gaan ga je akkoord met onze <span>Gebruiksvoorwaarden</span></div>
+              <div class="privacy-text">By continuing you agree to our <span>Terms of service</span></div>
             </div>
           </div>
 
@@ -277,7 +285,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
       <!-- ZONES -->
       <div class="sec">
         <div class="sec-eye">Zones</div>
-        <div class="sec-title">Scherm-opbouw</div>
+        <div class="sec-title">Screen layout</div>
         <div class="sec-rule"></div>
 
         <div class="zone-card">
@@ -286,70 +294,72 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
         </div>
 
         <div class="zone-card">
-          <div class="zc-head"><span class="zc-badge">B</span><span class="zc-name">Voortgangsindicator — stap 2 van 3</span></div>
+          <div class="zc-head"><span class="zc-badge">B</span><span class="zc-name">Progress indicator — 80% (step 4 of 5)</span></div>
           <div class="zc-body">
-            3 dots, top-right. Actief: <code>colorCta #9B7FD4</code>. Inactief: <code>rgba(26,22,18,0.10)</code>. Maat 6×6px, gap 5px.<br>
+            Continuous progress bar, 3px, full-width, edge-to-edge. Fill: <code>colorCta #9B7FD4</code>. Background: <code>rgba(26,22,18,0.08)</code>.<br>
             <div class="zc-rule"></div>
-            <strong>Stap 2 blijft actief.</strong> Zeigarnik: bijna klaar gevoel versterkt. Gebruiker heeft al S-05 doorlopen — de voortgang is zichtbaar verdiend.
+            <strong>S-06 = 80% filled.</strong> Zeigarnik effect: almost-there feeling reinforced. User has completed S-05 — progress is visibly earned.
           </div>
         </div>
 
         <div class="zone-card highlight">
           <div class="zc-head"><span class="zc-badge purple">C</span><span class="zc-name">ii-mark + headline + subtitle</span></div>
           <div class="zc-body">
-            ii-mark gecentreerd (links=ink, rechts=cta 45% opacity, stip=apricot-dk).<br>
-            <strong>"Bijna klaar."</strong> — DM Serif Display 18px. Deferred auth = gebruiker heeft al 60s geïnvesteerd + taken gezien.<br>
-            Geen "Maak een account aan" als opening — dat klinkt als werk.<br>
+            ii-mark centered (left=ink, right=cta 45% opacity, dot=apricot-dk).<br>
+            <strong>"Almost done."</strong> — DM Serif Display 18px. Deferred auth = user has already invested 60s + seen their tasks.<br>
+            No "Create an account" as opener — that sounds like work.<br>
             <div class="zc-rule"></div>
-            Subtitle: "Maak een gratis account aan om je schema op te slaan." — DM Sans 10px, colorMid, gecentreerd.
+            Subtitle: "Create your free account to save your schedule." — DM Sans 10px, colorMid, centered.
           </div>
         </div>
 
         <div class="zone-card">
-          <div class="zc-head"><span class="zc-badge">D</span><span class="zc-name">Apple sign-in — altijd bovenaan</span></div>
+          <div class="zc-head"><span class="zc-badge">D</span><span class="zc-name">Apple sign-in — always first</span></div>
           <div class="zc-body">
-            <strong>Apple altijd bovenaan op iOS</strong> — iOS HIG richtlijn. Niet afwijken.<br>
-            Stijl: 44px height, wit achtergrond, grijs border <code>rgba(26,22,18,0.18)</code>, border-radius 100px.<br>
-            Label: "Inloggen met Apple" — sentence case.
+            <strong>Apple always first on iOS</strong> — iOS HIG requirement. Do not deviate.<br>
+            Style: 44px height, white background, grey border <code>rgba(26,22,18,0.18)</code>, border-radius 100px.<br>
+            Label: "Continue with Apple" — sentence case.
           </div>
         </div>
 
         <div class="zone-card">
-          <div class="zc-head"><span class="zc-badge">E</span><span class="zc-name">Google sign-in — tweede optie</span></div>
+          <div class="zc-head"><span class="zc-badge">E</span><span class="zc-name">Google sign-in — second option</span></div>
           <div class="zc-body">
-            Google als tweede optie. Zelfde stijl als Apple button. Google logo links van label.
+            Google as second option. Same style as Apple button. Google logo left of label.
           </div>
         </div>
 
         <div class="zone-card">
-          <div class="zc-head"><span class="zc-badge">F / G / H</span><span class="zc-name">Email-pad — magic link</span></div>
+          <div class="zc-head"><span class="zc-badge">F / G / H</span><span class="zc-name">Email path — magic link</span></div>
           <div class="zc-body">
-            <strong>Magic link = geen wachtwoord</strong> — laagste wrijving voor email-pad.<br>
-            Zone G: email input, 44px, border-radius 10px, placeholder "e-mailadres".<br>
-            Zone H: CTA "Stuur magic link" — 50px, colorCta achtergrond, pill-radius, colorCtaFg tekst.<br>
+            <strong>Magic link = no password</strong> — lowest friction for the email path.<br>
+            Zone G: email input, 44px, border-radius 10px, placeholder "email address".<br>
+            Zone H: CTA "Send magic link" — 50px, colorCta background, pill-radius, colorCtaFg text.<br>
             <div class="zc-rule"></div>
-            Na klik: inline "Check je e-mail — link verstuurd." binnen Zone H. <strong>Geen nieuwe screen.</strong><br>
+            On tap: inline "Check your email — link sent." within Zone H. <strong>No new screen.</strong><br>
             <div class="zc-rule"></div>
-            <strong>Edge case — auth mislukt:</strong> retry button verschijnt, state NOOIT verloren. Sessie bewaard lokaal tot auth slaagt.
+            Reassurance line: "Free account · no credit card required" shown below Zone H — 9px DM Sans, colorMid, centered. Reduces hesitation at the account creation moment.<br>
+            <div class="zc-rule"></div>
+            <strong>Edge case — auth fails:</strong> retry button appears, state NEVER lost. Session stored locally until auth succeeds.
           </div>
         </div>
 
         <div class="zone-card warn">
           <div class="zc-head"><span class="zc-badge orange">H2</span><span class="zc-name">Auth failure state</span></div>
           <div class="zc-body">
-            Verschijnt alleen bij mislukte auth. <strong>Inline error card</strong> onder de CTA — geen nieuw scherm.<br>
-            Achtergrond: <code>red-lt #FCEBEB</code> · Border: <code>1px solid rgba(163,45,45,0.18)</code> · alle kanten — geen border-left accent.<br>
-            Icoon-chip: 20×20px, red-lt achtergrond, terra icon.<br>
-            Kopie: <strong>"Inloggen mislukt. Probeer opnieuw — je gegevens zijn bewaard."</strong><br>
+            Shown only on failed auth. <strong>Inline error card</strong> below the CTA — no new screen.<br>
+            Background: <code>red-lt #FCEBEB</code> · Border: <code>1px solid rgba(163,45,45,0.18)</code> · all sides — no border-left accent.<br>
+            Icon-chip: 20×20px, red-lt background, terra icon.<br>
+            Copy: <strong>"Sign in failed. Try again — your data is saved."</strong><br>
             <div class="zc-rule"></div>
-            <strong>Session state preserved — items NOT lost on auth failure.</strong> Onboarding state lokaal bewaard tot auth slaagt.
+            <strong>Session state preserved — items NOT lost on auth failure.</strong> Onboarding state stored locally until auth succeeds.
           </div>
         </div>
 
         <div class="zone-card">
           <div class="zc-head"><span class="zc-badge">I</span><span class="zc-name">Privacy note</span></div>
           <div class="zc-body">
-            7px DM Sans, colorMid-lt, gecentreerd. "Door verder te gaan ga je akkoord met onze Gebruiksvoorwaarden". Link underline op "Gebruiksvoorwaarden".
+            7px DM Sans, colorMid-lt, centered. "By continuing you agree to our Terms of service". Link underline on "Terms of service".
           </div>
         </div>
       </div>
@@ -357,24 +367,28 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
       <!-- LOCKED RULES -->
       <div class="sec">
         <div class="sec-eye">Regels</div>
-        <div class="sec-title">Vergrendelde beslissingen</div>
+        <div class="sec-title">Locked decisions</div>
         <div class="sec-rule"></div>
         <div class="rules-grid">
           <div class="rule-item">
             <div class="ri-label">Deferred auth</div>
-            <div class="ri-desc">Gebruiker ziet waarde eerst (S-01 → S-05), auth komt na review. Nooit als eerste scherm.</div>
+            <div class="ri-desc">User sees value first (S-01 → S-05), auth comes after review. Never as the first screen.</div>
           </div>
           <div class="rule-item">
-            <div class="ri-label">Apple altijd bovenaan</div>
-            <div class="ri-desc">iOS HIG verplichting. Apple login staat altijd boven Google op iOS. Niet afwijken.</div>
+            <div class="ri-label">Apple always first</div>
+            <div class="ri-desc">iOS HIG requirement. Apple login always above Google on iOS. Do not deviate.</div>
           </div>
           <div class="rule-item">
-            <div class="ri-label">Magic link = geen wachtwoord</div>
-            <div class="ri-desc">Laagste wrijving voor het email-pad. Geen wachtwoord aanmaken, geen wachtwoord onthouden.</div>
+            <div class="ri-label">Magic link = no password</div>
+            <div class="ri-desc">Lowest friction for the email path. No password to create, no password to remember.</div>
           </div>
           <div class="rule-item">
-            <div class="ri-label">State nooit verloren</div>
-            <div class="ri-desc">Auth-fout = retry knop, niet opnieuw beginnen. Onboarding state lokaal bewaard tot auth slaagt.</div>
+            <div class="ri-label">State never lost</div>
+            <div class="ri-desc">Auth failure = retry button, not start over. Onboarding state stored locally until auth succeeds.</div>
+          </div>
+          <div class="rule-item">
+            <div class="ri-label">Reassurance line</div>
+            <div class="ri-desc">"Free account · no credit card required" shown below magic link CTA. Reduces hesitation at account creation moment.</div>
           </div>
         </div>
       </div>
@@ -382,12 +396,12 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
       <!-- NAVIGATIE -->
       <div class="sec">
         <div class="sec-eye">Navigatie</div>
-        <div class="sec-title">Aangrenzende schermen</div>
+        <div class="sec-title">Adjacent screens</div>
         <div class="sec-rule"></div>
         <div class="zone-card">
           <div class="zc-body">
-            <strong>Komt van:</strong> S-05 Onboarding review — gebruiker tikt "Bevestigen" na review van items.<br>
-            <strong>Gaat naar:</strong> S-07 Onboarding completion — na succesvolle auth (Apple / Google / magic link).
+            <strong>Comes from:</strong> S-05 Onboarding review — user taps "Confirm" after reviewing items.<br>
+            <strong>Goes to:</strong> S-07 Onboarding completion — after successful auth (Apple / Google / magic link).
           </div>
         </div>
       </div>

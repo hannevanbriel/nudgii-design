@@ -99,15 +99,13 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 .wf-cs{font-size:8.5px;font-style:italic;color:var(--mid);margin-top:1px;}
 .wf-cd{font-size:9px;font-weight:500;flex-shrink:0;}
 
-/* Segmented progress bar — 3 phases */
-.seg-bar{display:flex;gap:3px;width:100%;padding:0;}
-.seg{flex:1;height:2.5px;border-radius:100px;background:rgba(26,22,18,0.08);}
-.seg.on{background:var(--cta);}
+/* Single continuous progress bar — fills left to right across 5 steps */
+.prog-bar{width:100%;height:3px;background:rgba(26,22,18,0.08);}
+.prog-fill{height:3px;border-radius:100px;background:var(--cta);width:20%;} /* S-01 = step 1 of 5 = 20% */
 
 /* Item row style (Zone D) */
-.prev-items{background:var(--surface);border-radius:9px;border:1px solid rgba(26,22,18,0.08);overflow:hidden;margin-bottom:10px;}
-.prev-item{display:flex;align-items:center;gap:9px;padding:9px 10px;border-bottom:0.5px solid rgba(26,22,18,0.06);}
-.prev-item:last-child{border-bottom:none;}
+.prev-items{display:flex;flex-direction:column;gap:6px;margin-bottom:10px;}
+.prev-item{display:flex;align-items:center;gap:9px;padding:9px 10px;background:var(--surface);border-radius:9px;border:0.5px solid rgba(26,22,18,0.08);}
 .prev-item-info{flex:1;}
 .prev-item-name{font-size:10px;font-weight:500;color:var(--ink);}
 .prev-item-status{font-size:8.5px;color:var(--mid);margin-top:1px;}
@@ -222,9 +220,9 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
             </div>
           </div>
 
-          <!-- Segmented progress bar — 3 phases, Phase 1 active -->
+          <!-- Single continuous progress bar — S-01 = step 1 of 5 = 20% fill -->
           <div style="padding:6px 0 2px;">
-            <div class="seg-bar"><div class="seg on"></div><div class="seg"></div><div class="seg"></div></div>
+            <div class="prog-bar"><div class="prog-fill"></div></div>
           </div>
 
           <!-- ZONE B — ii mark + free badge -->
@@ -364,7 +362,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
         <div class="zone-card highlight">
           <div class="zc-head"><span class="zc-badge purple">D</span><span class="zc-name">Preview items — item row style</span></div>
           <div class="zc-body">
-            3 item rows matching the dashboard visual language. White card on cream, border. Left: category icon chip (24×24px, category-colored). Item name 10px/500 + status label 8.5px. Overdue = terra. Never mini-tiles, never columns — items always look like items throughout the app.
+            3 item rows matching the dashboard visual language. Each item is its own white card — 6px gap between cards (cream shows through). Never border-bottom separators. Left: category icon chip (24×24px, category-colored). Item name 10px/500 + status label 8.5px. Overdue = terra. Never mini-tiles, never columns — items always look like items throughout the app.
           </div>
         </div>
 

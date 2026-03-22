@@ -279,6 +279,14 @@ Pressed: bg `#7D62B3`, scale 0.97, 100ms ease-out.
 Loading: text hidden, centered spinner colorCtaFg, button stays full width.
 Disabled: bg `rgba(155,127,212,0.35)`, text `rgba(250,248,255,0.5)` — never `Opacity` widget on buttons.
 
+### Item list spacing — system rule
+Items are always individual white cards on cream background. The cream gap between cards IS the visual separator.
+Gap between item cards: 6px (onboarding, preview, review) · 8px (dashboard — more breathing room)
+Each item: background var(--surface) · border-radius 9–10px · border 0.5px solid rgba(26,22,18,0.08) · box-shadow 0 1px 3px rgba(26,22,18,0.04)
+Container: display:flex · flex-direction:column · gap:6px (or 8px) · NO background · NO border · NO overflow:hidden
+❌ Never border-bottom separators between items — items are cards, not table rows
+❌ Never a single container card wrapping all items — each item is its own card
+
 ### Nudge cards
 - White on cream background (subtle but essential — creates depth)
 - NO left border accent lines — ever. Status lives in date label color only
@@ -317,15 +325,18 @@ Never mini-tile columns — items look like items everywhere in the app.
 HTML mockups — flex column on screen, flex:1 on content, margin-top:auto on button zone.
 
 ### Progress indicator (onboarding)
-Segmented progress bar — 3 horizontal segments, full-width, edge-to-edge, below the status bar (own dedicated row, NOT on the logo/badge row).
-Height: 2.5px · Border-radius: 100px · Gap between segments: 3px
-Active segment: colorCta #9B7FD4 · Inactive: rgba(26,22,18,0.08)
-Segments = phases, not individual screens:
-- Phase 1 (S-01 → S-02/03/04): segment 1 active
-- Phase 2 (S-05 → S-06): segments 1–2 active
-- Phase 3 (S-07): all 3 segments active
-Flutter: Row of 3 Expanded containers, height 2.5, with AnimatedContainer for fill transition (150ms ease-out).
-❌ Never use dots — 3 dots implies 3 equal steps and is misleading when screens number 4–7.
+Single continuous progress bar — fills left to right, 5 equal steps.
+Height: 3px · Border-radius: 100px · Full-width, edge-to-edge below status bar (own dedicated row)
+Background: rgba(26,22,18,0.08) · Fill: colorCta #9B7FD4
+Step fills (S-01 to S-07): 20% → 40% → 60% → 80% → 100%
+- S-01: 20% (app opened, path not yet chosen)
+- S-02 / S-03 / S-04: 40% (path chosen, entering items)
+- S-05: 60% (reviewing items)
+- S-06: 80% (creating account)
+- S-07: 100% (complete — brief colorCta pulse animation)
+Flutter: LinearProgressIndicator with custom colors + ClipRRect(borderRadius) + AnimatedContainer (300ms ease-in-out).
+❌ Never segmented bars — any fixed visual count implies a fixed step count.
+❌ Never dots — same problem.
 
 ### Example chips (S-02 voice onboarding)
 Shown above the mic button to help cold-start users. Flex-wrap row.
@@ -413,7 +424,46 @@ Design deliverables live in a separate `Design` List in ClickUp (Figma links, no
 
 ---
 
-## 16. What NOT to do
+## 16. Responsive layout — iOS + Android
+
+nudgii builds mobile-first for iOS (primary) and Android (secondary). iPad is planned post-launch.
+
+**Shell pattern (all screens):**
+```
+SafeArea (handles notch, home indicator, status bar automatically)
+└── Column
+    ├── Fixed: status bar + progress bar (onboarding) or greeting row (app)
+    ├── Expanded: scrollable content (fills all remaining space)
+    └── Fixed: bottom zone — sticky CTAs (onboarding) OR tab bar (app) — never both
+```
+
+**SafeArea is non-negotiable:** Never hardcode bottom padding. SafeArea absorbs the difference between Face ID (34px), Home button (0px), and Android home bar (varies).
+
+**Two font-size breakpoints (headline only):**
+- Default (≥ 380px width): DM Serif Display 33px welcome · 25–27px dashboard greeting
+- Small (< 380px width, e.g. iPhone SE): 28px welcome · 22px greeting
+- Flutter: `MediaQuery.of(context).size.width < 380 ? 28.0 : 33.0`
+
+**Side padding breakpoints:**
+- Default (< 420px): 16px horizontal
+- Large (≥ 420px, e.g. Pro Max): 20–24px horizontal
+
+**Text scale cap (accessibility):** Apply at app root:
+`MediaQuery.of(context).copyWith(textScaleFactor: MediaQuery.of(context).textScaleFactor.clamp(0.85, 1.3))`
+
+**Bottom zones (never on same screen):**
+| Context | Bottom zone |
+|---|---|
+| Onboarding S-01→S-07 | Sticky CTA zone · margin-top:auto · padding-bottom: 24px + SafeArea |
+| App S-09+ | Floating pill tab bar · 52px height · 14px from screen edge · +SafeArea |
+
+**Design mockup standard:** 300×648px phone = iPhone 14 standard (390×844 logical at 0.77× scale). Primary design target. SE and Pro Max edge cases shown only when specifically testing breakpoints.
+
+**iPad (post-launch):** Two-column layout, sidebar nav replacing tab bar. Not in current scope — avoid hardcoding anything that would break at 768px+ width.
+
+---
+
+## 17. What NOT to do
 
 These are locked decisions. Do not question them in design or code reviews.
 
@@ -434,13 +484,16 @@ These are locked decisions. Do not question them in design or code reviews.
 - ❌ Never auto-advance from S-07 completion — always require user tap ("Open mijn schema")
 - ❌ Never put CTA buttons side by side on onboarding screens — always vertically stacked
 - ❌ Never show mini-tile columns for preview items on S-01 — use item row style (same as dashboard)
+- ❌ Never use border-bottom to separate items in a list — each item is its own card with gap between
+- ❌ Never wrap multiple items in a single container card — gap + individual cards only
+- ❌ Never hardcode bottom padding for safe area — always use SafeArea widget in Flutter
 - ❌ Never show more than 3 preview items on S-01 — never a 4th, never a carousel
 - ❌ Never use Dutch copy in design files (lo-fi, hi-fi, prototype) — English only in all design artefacts
 - ❌ Never write locale-specific copy as the primary copy in design files — label it explicitly (e.g., "nl-BE example")
 
 ---
 
-## 17. Decisions log
+## 18. Decisions log
 
 Update this section when open decisions are resolved.
 
@@ -459,6 +512,10 @@ Update this section when open decisions are resolved.
 | Free badge copy | "Free · no credit card" — English. Sage-lt bg, sage text. | ✅ Yes | 2026-03-22 |
 | Design file language | All design files (lo-fi, hi-fi, prototype) use English copy. App ships in nl/fr. | ✅ Yes | 2026-03-22 |
 | Sticky bottom layout | Button zone anchored to bottom via flex:1 content + margin-top:auto. All screens with CTAs. | ✅ Yes | 2026-03-22 |
+| Progress bar | Single continuous bar (3px, 5 steps, 20%→100%) replaces segmented bar. Any fixed visual count implies fixed step count. | ✅ Yes | 2026-03-22 |
+| Item spacing | Gap-based individual cards (6–8px gap) replaces border-bottom separators. Cream between cards = separator. | ✅ Yes | 2026-03-22 |
+| Responsive layout | SafeArea + Expanded shell pattern. Two headline breakpoints (380px). Text scale capped at 1.3×. | ✅ Yes | 2026-03-22 |
+| Auth reassurance | "Free · no credit card" shown on S-06 auth screen below magic link. | ✅ Yes | 2026-03-22 |
 
 ---
 
