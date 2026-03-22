@@ -321,13 +321,13 @@ body {
 .tab-bar { flex: 1; background: var(--surface); border-radius: 18px; padding: 7px 6px 9px; display: flex; justify-content: space-around; align-items: center; box-shadow: 0 4px 20px rgba(26,22,18,0.11); border: 1px solid rgba(26,22,18,0.07); }
 .tab { display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; min-width: 44px; }
 .tab-icon svg { width: 16px; height: 16px; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-.tab.active .tab-icon svg { stroke: var(--ink); }
+.tab.active .tab-icon svg { stroke: var(--cta); }
 .tab.inactive .tab-icon svg { stroke: rgba(26,22,18,0.20); }
 .tab-lbl { font-size: 7px; font-weight: 500; }
-.tab.active .tab-lbl { color: var(--ink); }
+.tab.active .tab-lbl { color: var(--cta); }
 .tab.inactive .tab-lbl { color: rgba(26,22,18,0.20); }
-.tab-pip { width: 3px; height: 3px; border-radius: 50%; background: var(--cta); }
-.fab { width: 34px; height: 34px; background: var(--cta); border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(155,127,212,0.38); flex-shrink: 0; }
+.tab-pip { display: none; }
+.fab { width: 40px; height: 40px; background: var(--cta); border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(155,127,212,0.38); flex-shrink: 0; }
 .fab svg { width: 15px; height: 15px; stroke: var(--cta-fg); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
 /* ── ANNOTATIONS ── */
