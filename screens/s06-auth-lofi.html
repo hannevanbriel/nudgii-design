@@ -154,10 +154,10 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
     <div class="phone-wrap">
       <div class="phone-lbl">Auth screen · wireframe</div>
       <div class="phone">
-        <div class="screen">
+        <div class="screen" style="height:100%;display:flex;flex-direction:column;">
 
           <!-- ZONE A — Status bar -->
-          <div class="zone">
+          <div class="zone" style="flex-shrink:0;">
             <div class="zone-tag">A</div>
             <div class="z-sbar">
               <span>9:41</span>
@@ -165,108 +165,52 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
             </div>
           </div>
 
-          <!-- ZONE B — Progress bar (80% — S-06 is step 4 of 5) -->
-          <div class="zone">
+          <!-- ZONE B — Progress bar 80% -->
+          <div class="zone" style="flex-shrink:0;">
             <div class="zone-tag">B</div>
-            <div class="z-progress">
-              <div class="prog-dot inactive"></div>
-              <div class="prog-dot active"></div>
-              <div class="prog-dot inactive"></div>
-            </div>
+            <div class="z-progress"><div class="prog-fill"></div></div>
           </div>
 
-          <!-- ZONE C — ii mark + headline + subtitle -->
-          <div class="zone">
+          <!-- ZONE C — Content area: ii mark + headline (vertically centered) -->
+          <div class="zone z-content" style="flex:1;">
             <div class="zone-tag">C</div>
-            <div class="z-header">
-              <div class="ii-mark">
-                <div class="ii-l"></div>
-                <div class="ii-r"><div class="ii-dot"></div></div>
-              </div>
-              <div class="header-title">Almost done.</div>
-              <div class="header-sub">Create your free account to save your schedule.</div>
+            <div class="ii-mark">
+              <div class="ii-l"></div>
+              <div class="ii-r"><div class="ii-dot"></div></div>
             </div>
+            <div class="header-title">Almost done.</div>
+            <div class="header-sub">Save your schedule with a free account.</div>
           </div>
 
-          <!-- ZONE D — Apple sign-in -->
-          <div class="zone">
-            <div class="zone-tag">D</div>
-            <div class="z-auth">
-              <div class="auth-btn">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--ink)"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.37c1.3.07 2.2.74 2.96.76 1.1-.21 2.16-.9 3.3-.84 1.42.08 2.49.67 3.19 1.72-2.93 1.78-2.23 5.68.55 6.77-.65 1.49-1.49 2.96-2 4.5zM12.03 7.25c-.16-2.36 1.83-4.44 4.1-4.63.29 2.7-2.45 4.75-4.1 4.63z"/></svg>
-                Continue with Apple
-              </div>
+          <!-- ZONE D+E — Sticky bottom: SSO buttons -->
+          <div class="zone z-bottom" style="flex-shrink:0;">
+            <div class="zone-tag">D · E</div>
+            <div class="auth-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--ink)"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.37c1.3.07 2.2.74 2.96.76 1.1-.21 2.16-.9 3.3-.84 1.42.08 2.49.67 3.19 1.72-2.93 1.78-2.23 5.68.55 6.77-.65 1.49-1.49 2.96-2 4.5zM12.03 7.25c-.16-2.36 1.83-4.44 4.1-4.63.29 2.7-2.45 4.75-4.1 4.63z"/></svg>
+              Continue with Apple
             </div>
+            <div class="auth-btn">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+              Continue with Google
+            </div>
+            <!-- F — email toggle (text link, no divider) -->
+            <div class="email-toggle">or <span>use email instead</span></div>
           </div>
 
-          <!-- ZONE E — Google sign-in -->
-          <div class="zone">
-            <div class="zone-tag">E</div>
-            <div class="z-auth" style="padding-top:0;">
-              <div class="auth-btn">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-                Continue with Google
-              </div>
-            </div>
+          <!-- ZONE G+H — Email expand state (shown in second phone; here as inline annotation) -->
+          <div class="zone z-email-expand" style="flex-shrink:0;">
+            <div class="zone-tag" style="background:rgba(155,127,212,0.08);color:#5C3E8A;">G · H</div>
+            <div class="email-input">email address</div>
+            <div class="cta-btn">Send magic link</div>
           </div>
 
-          <!-- ZONE F — Divider -->
-          <div class="zone">
-            <div class="zone-tag">F</div>
-            <div class="z-divider">
-              <div class="div-line"></div>
-              <div class="div-text">or</div>
-              <div class="div-line"></div>
-            </div>
+          <!-- Reassurance + privacy -->
+          <div class="zone z-reassure" style="flex-shrink:0;">
+            <div class="reassure-text">Free account · no credit card required</div>
+            <div style="height:6px;"></div>
+            <div class="reassure-text"><span>Terms of service</span></div>
           </div>
-
-          <!-- ZONE G — Email input -->
-          <div class="zone">
-            <div class="zone-tag">G</div>
-            <div class="z-email">
-              <div class="email-input">email address</div>
-            </div>
-          </div>
-
-          <!-- ZONE H — CTA button -->
-          <div class="zone">
-            <div class="zone-tag">H</div>
-            <div class="z-cta">
-              <div class="cta-btn">Send magic link</div>
-            </div>
-          </div>
-
-          <!-- ZONE H-reassurance — Free account note -->
-          <div class="zone">
-            <div class="zone-tag" style="background:rgba(90,144,96,0.08);color:#2A5A30;">NOTE</div>
-            <div style="padding:4px 14px 6px;background:#F5F0E8;">
-              <div style="text-align:center;font-size:9px;color:var(--mid);margin-top:8px;">Free account · no credit card required</div>
-            </div>
-          </div>
-
-          <!-- ZONE H2 — Auth failure state (demo) -->
-          <div class="zone">
-            <div class="zone-tag" style="background:rgba(163,45,45,0.08);color:#A32D2D;">ERR</div>
-            <div style="padding:5px 14px 6px;background:#F5F0E8;">
-              <div style="background:#FCEBEB;border:1px solid rgba(163,45,45,0.18);border-radius:8px;padding:8px 10px;display:flex;align-items:flex-start;gap:8px;">
-                <div style="width:20px;height:20px;border-radius:6px;background:#FCEBEB;border:1px solid rgba(163,45,45,0.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#C4503A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                </div>
-                <div>
-                  <div style="font-size:10px;font-weight:500;color:#A32D2D;margin-bottom:2px;">Sign in failed.</div>
-                  <div style="font-size:9px;color:#A32D2D;line-height:1.5;">Try again — your data is saved.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- ZONE I — Privacy note -->
-          <div class="zone">
-            <div class="zone-tag">I</div>
-            <div class="z-privacy">
-              <div class="privacy-text">By continuing you agree to our <span>Terms of service</span></div>
-            </div>
-          </div>
+          <div class="z-safe"></div>
 
         </div><!-- /screen -->
       </div><!-- /phone -->
