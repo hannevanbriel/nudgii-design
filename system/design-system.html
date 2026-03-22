@@ -605,82 +605,6 @@ section{padding-top:60px;}
       </div>
     </div>
 
-    <!-- Progress bar -->
-    <div class="comp-card" style="margin-bottom:24px;">
-      <div class="comp-header">
-        <div class="comp-name">Progress bar — onboarding</div>
-        <span class="tag tag-never">full-bleed · outside SafeArea</span>
-      </div>
-      <div class="comp-body">
-
-        <!-- Visual demo -->
-        <div style="margin-bottom:18px;">
-          <div style="font-size:9px;font-weight:600;color:rgba(26,22,18,0.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Steps S-01 → S-07</div>
-          <div style="display:flex;flex-direction:column;gap:10px;">
-            <div style="display:flex;align-items:center;gap:12px;">
-              <div style="font-size:9px;color:rgba(26,22,18,0.45);width:28px;flex-shrink:0;">S-01</div>
-              <div style="flex:1;height:3px;background:rgba(26,22,18,0.08);border-radius:100px;position:relative;"><div style="position:absolute;left:0;top:0;height:3px;width:20%;background:#9B7FD4;border-radius:100px;"></div></div>
-              <div style="font-size:9px;color:#9B7FD4;width:24px;text-align:right;flex-shrink:0;">20%</div>
-            </div>
-            <div style="display:flex;align-items:center;gap:12px;">
-              <div style="font-size:9px;color:rgba(26,22,18,0.45);width:28px;flex-shrink:0;">S-02</div>
-              <div style="flex:1;height:3px;background:rgba(26,22,18,0.08);border-radius:100px;position:relative;"><div style="position:absolute;left:0;top:0;height:3px;width:40%;background:#9B7FD4;border-radius:100px;"></div></div>
-              <div style="font-size:9px;color:#9B7FD4;width:24px;text-align:right;flex-shrink:0;">40%</div>
-            </div>
-            <div style="display:flex;align-items:center;gap:12px;">
-              <div style="font-size:9px;color:rgba(26,22,18,0.45);width:28px;flex-shrink:0;">S-05</div>
-              <div style="flex:1;height:3px;background:rgba(26,22,18,0.08);border-radius:100px;position:relative;"><div style="position:absolute;left:0;top:0;height:3px;width:60%;background:#9B7FD4;border-radius:100px;"></div></div>
-              <div style="font-size:9px;color:#9B7FD4;width:24px;text-align:right;flex-shrink:0;">60%</div>
-            </div>
-            <div style="display:flex;align-items:center;gap:12px;">
-              <div style="font-size:9px;color:rgba(26,22,18,0.45);width:28px;flex-shrink:0;">S-06</div>
-              <div style="flex:1;height:3px;background:rgba(26,22,18,0.08);border-radius:100px;position:relative;"><div style="position:absolute;left:0;top:0;height:3px;width:80%;background:#9B7FD4;border-radius:100px;"></div></div>
-              <div style="font-size:9px;color:#9B7FD4;width:24px;text-align:right;flex-shrink:0;">80%</div>
-            </div>
-            <div style="display:flex;align-items:center;gap:12px;">
-              <div style="font-size:9px;color:rgba(26,22,18,0.45);width:28px;flex-shrink:0;">S-07</div>
-              <div style="flex:1;height:3px;background:rgba(26,22,18,0.08);border-radius:100px;position:relative;"><div style="position:absolute;left:0;top:0;height:3px;width:100%;background:#9B7FD4;border-radius:100px;"></div></div>
-              <div style="font-size:9px;color:#9B7FD4;width:24px;text-align:right;flex-shrink:0;">100%</div>
-            </div>
-          </div>
-          <div style="font-size:9px;color:rgba(26,22,18,0.4);margin-top:8px;">S-02, S-03, S-04 all sit at 40% — path chosen, entering items. S-07 gets a brief colorCta pulse animation on reach.</div>
-        </div>
-
-        <div class="spec-grid" style="margin-bottom:16px;">
-          <div class="spec-row"><div class="spec-l">Height</div><div class="spec-r">3px</div></div>
-          <div class="spec-row"><div class="spec-l">Border-radius</div><div class="spec-r">100px</div></div>
-          <div class="spec-row"><div class="spec-l">Width</div><div class="spec-r">Full-width, edge-to-edge — zero side padding</div></div>
-          <div class="spec-row"><div class="spec-l">Position</div><div class="spec-r">Outside SafeArea (top: false). Sits between status bar and safe content area</div></div>
-          <div class="spec-row"><div class="spec-l">Background</div><div class="spec-r"><code>rgba(26,22,18,0.08)</code></div></div>
-          <div class="spec-row"><div class="spec-l">Fill</div><div class="spec-r"><code>colorCta #9B7FD4</code></div></div>
-          <div class="spec-row" style="border-bottom:none;"><div class="spec-l">Animation</div><div class="spec-r">AnimatedContainer 300ms ease-in-out. S-07 pulse: brief colorCta opacity 1→0.4→1.</div></div>
-        </div>
-
-        <div class="dark-panel">
-          <div class="dark-lbl">Flutter</div>
-          <pre style="font-family:monospace;font-size:10.5px;color:rgba(239,240,232,0.8);line-height:1.7;overflow-x:auto;">ClipRRect(
-  borderRadius: BorderRadius.circular(100),
-  child: AnimatedContainer(
-    duration: Duration(milliseconds: 300),
-    curve: Curves.easeInOut,
-    height: 3,
-    width: double.infinity,
-    child: LinearProgressIndicator(
-      value: 0.80, // S-06
-      backgroundColor: Color(0x141A1612), // rgba(26,22,18,0.08)
-      valueColor: AlwaysStoppedAnimation(Color(0xFF9B7FD4)),
-    ),
-  ),
-)</pre>
-        </div>
-
-        <div class="rcard" style="margin-top:14px;border-color:rgba(163,45,45,0.15);">
-          <div class="rcard-title">Never <span style="color:#C4503A;">dots or segmented bars</span></div>
-          <div class="rcard-body">Any fixed visual count implies a fixed step count. The flow has 5–7 screens depending on path. A continuous bar makes no promise about how many steps remain.</div>
-        </div>
-      </div>
-    </div>
-
     <!-- Sticky bottom zone -->
     <div class="comp-card" style="margin-bottom:24px;">
       <div class="comp-header">
@@ -927,29 +851,79 @@ final sidePad = MediaQuery.of(context).size.width &lt; 420 ? 16.0 : 20.0;</pre>
     </div>
 
     <!-- ── COMPONENT: ONBOARDING PROGRESS BAR ── -->
-    <div class="rcard" style="margin-bottom:20px;">
-      <div class="rcard-title" style="margin-bottom:12px;">Onboarding progress bar <a href="../screens/s01-welcome-hifi.html" style="font-size:10px;color:var(--cta);text-decoration:none;margin-left:8px;">↗ S-01</a></div>
-      <!-- VISUAL DEMO -->
-      <div style="background:var(--cream-2);border-radius:10px;padding:20px;margin-bottom:16px;display:flex;flex-direction:column;gap:14px;">
-        <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:4px;">S-01 · 20%</div>
-        <div style="background:rgba(26,22,18,0.08);border-radius:100px;height:3px;width:100%;"><div style="height:3px;border-radius:100px;background:#9B7FD4;width:20%;"></div></div>
-        <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:4px;">S-02 / S-03 / S-04 · 40%</div>
-        <div style="background:rgba(26,22,18,0.08);border-radius:100px;height:3px;width:100%;"><div style="height:3px;border-radius:100px;background:#9B7FD4;width:40%;"></div></div>
-        <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:4px;">S-05 · 60%</div>
-        <div style="background:rgba(26,22,18,0.08);border-radius:100px;height:3px;width:100%;"><div style="height:3px;border-radius:100px;background:#9B7FD4;width:60%;"></div></div>
-        <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:4px;">S-06 · 80%</div>
-        <div style="background:rgba(26,22,18,0.08);border-radius:100px;height:3px;width:100%;"><div style="height:3px;border-radius:100px;background:#9B7FD4;width:80%;"></div></div>
-        <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:4px;">S-07 · 100%</div>
-        <div style="background:rgba(26,22,18,0.08);border-radius:100px;height:3px;width:100%;"><div style="height:3px;border-radius:100px;background:#9B7FD4;width:100%;"></div></div>
+    <div class="comp-card" style="margin-bottom:20px;">
+      <div class="comp-header">
+        <div class="comp-name">Onboarding progress bar</div>
+        <span class="tag tag-never">full-bleed · outside SafeArea</span>
+        <a href="../screens/s01-welcome-hifi.html" style="font-size:10px;color:var(--cta);text-decoration:none;margin-left:auto;">↗ S-01</a>
       </div>
-      <div class="rcard-body">
-        Single continuous bar. Full width, edge-to-edge. 5 steps — no fixed dot count. A dot count implies a fixed step count. This bar doesn't.<br><br>
-        <strong>Track:</strong> full width · height 3px · border-radius 100px · <code>rgba(26,22,18,0.08)</code><br>
-        <strong>Fill:</strong> height 3px · border-radius 100px · <code>--cta #9B7FD4</code><br>
-        <strong>Position:</strong> top of screen, full bleed (inside safe area) — no side padding<br>
-        <strong>Steps:</strong> S-01 = 20% · S-02/03/04 = 40% · S-05 = 60% · S-06 = 80% · S-07 = 100%<br>
-        <strong>Transition:</strong> 300ms ease-in-out on step change<br>
-        <strong>Flutter:</strong> <code>LinearProgressIndicator</code> wrapped in <code>ClipRRect(borderRadius: 100px)</code> + <code>AnimatedContainer</code> 300ms ease-in-out. Never <code>StepProgressIndicator</code>.
+      <div class="comp-body">
+        <!-- Visual demo -->
+        <div style="margin-bottom:18px;">
+          <div style="font-size:9px;font-weight:600;color:rgba(26,22,18,0.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">Steps S-01 → S-07</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="font-size:9px;color:rgba(26,22,18,0.45);width:60px;flex-shrink:0;">S-01</div>
+              <div style="flex:1;height:3px;background:rgba(26,22,18,0.08);border-radius:100px;position:relative;"><div style="position:absolute;left:0;top:0;height:3px;width:20%;background:#9B7FD4;border-radius:100px;"></div></div>
+              <div style="font-size:9px;color:#9B7FD4;width:28px;text-align:right;flex-shrink:0;">20%</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="font-size:9px;color:rgba(26,22,18,0.45);width:60px;flex-shrink:0;">S-02/03/04</div>
+              <div style="flex:1;height:3px;background:rgba(26,22,18,0.08);border-radius:100px;position:relative;"><div style="position:absolute;left:0;top:0;height:3px;width:40%;background:#9B7FD4;border-radius:100px;"></div></div>
+              <div style="font-size:9px;color:#9B7FD4;width:28px;text-align:right;flex-shrink:0;">40%</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="font-size:9px;color:rgba(26,22,18,0.45);width:60px;flex-shrink:0;">S-05</div>
+              <div style="flex:1;height:3px;background:rgba(26,22,18,0.08);border-radius:100px;position:relative;"><div style="position:absolute;left:0;top:0;height:3px;width:60%;background:#9B7FD4;border-radius:100px;"></div></div>
+              <div style="font-size:9px;color:#9B7FD4;width:28px;text-align:right;flex-shrink:0;">60%</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="font-size:9px;color:rgba(26,22,18,0.45);width:60px;flex-shrink:0;">S-06</div>
+              <div style="flex:1;height:3px;background:rgba(26,22,18,0.08);border-radius:100px;position:relative;"><div style="position:absolute;left:0;top:0;height:3px;width:80%;background:#9B7FD4;border-radius:100px;"></div></div>
+              <div style="font-size:9px;color:#9B7FD4;width:28px;text-align:right;flex-shrink:0;">80%</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="font-size:9px;color:rgba(26,22,18,0.45);width:60px;flex-shrink:0;">S-07</div>
+              <div style="flex:1;height:3px;background:rgba(26,22,18,0.08);border-radius:100px;position:relative;"><div style="position:absolute;left:0;top:0;height:3px;width:100%;background:#9B7FD4;border-radius:100px;"></div></div>
+              <div style="font-size:9px;color:#9B7FD4;width:28px;text-align:right;flex-shrink:0;">100%</div>
+            </div>
+          </div>
+          <div style="font-size:9px;color:rgba(26,22,18,0.4);margin-top:8px;line-height:1.5;">S-02, S-03, S-04 all sit at 40% — path chosen, entering items. S-07 gets a brief <code style="font-size:9px;">colorCta</code> pulse animation on reach.</div>
+        </div>
+
+        <div class="spec-grid" style="margin-bottom:16px;">
+          <div class="spec-row"><div class="spec-l">Height</div><div class="spec-r">3px</div></div>
+          <div class="spec-row"><div class="spec-l">Border-radius</div><div class="spec-r">100px</div></div>
+          <div class="spec-row"><div class="spec-l">Width</div><div class="spec-r">Full-width, edge-to-edge — zero side padding</div></div>
+          <div class="spec-row"><div class="spec-l">Position</div><div class="spec-r">Outside SafeArea (<code>top: false</code>). Full-bleed between status bar and safe content area — no horizontal inset</div></div>
+          <div class="spec-row"><div class="spec-l">Track</div><div class="spec-r"><code>rgba(26,22,18,0.08)</code> — subtle warm grey</div></div>
+          <div class="spec-row"><div class="spec-l">Fill</div><div class="spec-r"><code>colorCta #9B7FD4</code></div></div>
+          <div class="spec-row" style="border-bottom:none;"><div class="spec-l">Animation</div><div class="spec-r">300ms ease-in-out on every step change. S-07 completion: brief <code>colorCta</code> opacity pulse 1→0.4→1</div></div>
+        </div>
+
+        <div class="dark-panel" style="margin-bottom:14px;">
+          <div class="dark-lbl">Flutter</div>
+          <pre style="font-family:monospace;font-size:10.5px;color:rgba(239,240,232,0.8);line-height:1.7;overflow-x:auto;">ClipRRect(
+  borderRadius: BorderRadius.circular(100),
+  child: AnimatedContainer(
+    duration: Duration(milliseconds: 300),
+    curve: Curves.easeInOut,
+    height: 3,
+    width: double.infinity,
+    child: LinearProgressIndicator(
+      value: 0.80, // e.g. S-06
+      backgroundColor: Color(0x141A1612), // rgba(26,22,18,0.08)
+      valueColor: AlwaysStoppedAnimation(Color(0xFF9B7FD4)),
+    ),
+  ),
+)
+// ❌ Never StepProgressIndicator — fixed count implies fixed screens</pre>
+        </div>
+
+        <div class="rcard" style="border-color:rgba(163,45,45,0.15);">
+          <div class="rcard-title">Never <span style="color:#C4503A;">dots or segmented bars</span></div>
+          <div class="rcard-body">Any fixed visual count implies a fixed step count. The onboarding flow has 5–7 screens depending on path chosen. A continuous bar makes no promise about how many steps remain.</div>
+        </div>
       </div>
     </div>
 
