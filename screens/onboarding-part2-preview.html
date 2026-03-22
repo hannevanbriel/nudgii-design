@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S-06 → S-07 → S-09 · Auth + Completion + Dashboard · Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream: #F5F0E8;
+  --ink: #1A1612;
+  --cta: #9B7FD4;
+  --cta-fg: #FAF8FF;
+  --apricot: #E8A87C;
+  --apricot-dk: #C8784A;
+  --terra: #C4503A;
+  --mid: #8A8070;
+  --mid-ac: #6B6358;
+  --sage: #3B6D11;
+  --sage-lt: #EAF3DE;
+  --surface: #FFFFFF;
+  --border: rgba(26,22,18,0.08);
+  --cat-home: #C87850;
+  --cat-vehicle: #4A82A0;
+  --cat-garden: #5A9060;
+  --cat-sub: #8060A8;
+}
+
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: #DDD8CE;
+  color: var(--ink);
+  padding: 36px 32px 48px;
+  min-height: 100vh;
+}
+
+/* ── PAGE HEADER ── */
+.page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.page-logo { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 500; color: rgba(26,22,18,0.55); text-decoration: none; }
+.page-badge { font-size: 10px; font-weight: 500; padding: 4px 10px; border-radius: 100px; background: rgba(155,127,212,0.12); color: var(--cta); border: 0.5px solid rgba(155,127,212,0.25); }
+.page-title { font-size: 10px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid); margin-bottom: 28px; }
+
+/* ── FLOW BAR ── */
+.flow-bar { display: flex; align-items: center; gap: 0; margin-bottom: 28px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+.flow-bar::-webkit-scrollbar { display: none; }
+.flow-step-pill { display: flex; align-items: center; gap: 6px; background: var(--surface); border: 0.5px solid var(--border); border-radius: 100px; padding: 5px 10px 5px 6px; font-size: 10px; font-weight: 500; color: var(--ink); white-space: nowrap; flex-shrink: 0; }
+.flow-step-pill.dim { opacity: 0.35; }
+.flow-step-pill.done { opacity: 0.50; }
+.flow-num { width: 16px; height: 16px; border-radius: 50%; background: var(--cta); color: var(--cta-fg); font-size: 8px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.flow-num.check { background: var(--sage); }
+.flow-arrow { font-size: 11px; color: rgba(26,22,18,0.28); padding: 0 8px; flex-shrink: 0; }
+
+/* ── SCREENS ROW ── */
+.screens-row { display: flex; gap: 20px; align-items: flex-start; overflow-x: auto; padding-bottom: 8px; }
+.screen-col { flex-shrink: 0; display: flex; flex-direction: column; gap: 10px; align-items: center; }
+.screen-label { font-size: 9px; font-weight: 500; letter-spacing: 1.3px; text-transform: uppercase; color: var(--mid); }
+
+/* ── PHONE FRAME ── */
+.phone {
+  width: 280px; height: 606px;
+  background: var(--cream);
+  border-radius: 36px; overflow: hidden; position: relative;
+  box-shadow: 0 20px 50px rgba(26,22,18,0.20), 0 4px 14px rgba(26,22,18,0.10);
+  border: 1px solid rgba(26,22,18,0.07);
+  display: flex; flex-direction: column;
+}
+.phone::before {
+  content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 72px; height: 6px; background: var(--ink); border-radius: 0 0 4px 4px; z-index: 10;
+}
+
+/* ── STATUS BAR ── */
+.sbar { height: 26px; padding: 8px 16px 0; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.sbar-time { font-size: 9px; font-weight: 600; color: var(--ink); }
+.sbar-icons { display: flex; align-items: center; gap: 4px; }
+.sbar-icons svg { width: 11px; height: 11px; }
+
+/* ── PROGRESS BAR ── */
+.prog { height: 3px; background: rgba(26,22,18,0.08); flex-shrink: 0; }
+.prog-fill { height: 100%; background: var(--cta); border-radius: 0 100px 100px 0; }
+.prog-fill.full { border-radius: 0; }
+
+/* ── SCREEN STRUCTURE ── */
+.scr { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+.scroll { flex: 1; overflow-y: auto; padding: 14px 14px 0; scrollbar-width: none; }
+.scroll::-webkit-scrollbar { display: none; }
+.btm { padding: 0 14px 14px; flex-shrink: 0; }
+
+/* ── SHARED ATOMS ── */
+.ii { font-size: 15px; font-weight: 800; letter-spacing: -2px; color: var(--ink); line-height: 1; }
+.ii span { color: var(--apricot); }
+.ii-lg { font-size: 42px; font-weight: 800; letter-spacing: -5px; color: var(--ink); line-height: 1; display: block; }
+.ii-lg span { color: var(--apricot); }
+
+.free-badge { display: inline-flex; align-items: center; gap: 4px; background: var(--sage-lt); border: 0.5px solid rgba(59,109,17,0.15); border-radius: 100px; padding: 2px 7px; font-size: 7.5px; font-weight: 500; color: var(--sage); }
+.free-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--sage); flex-shrink: 0; }
+
+.brand-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px 0; flex-shrink: 0; }
+
+/* ── TYPOGRAPHY ── */
+.h1 { font-family: 'DM Serif Display', Georgia, serif; font-size: 24px; font-weight: 400; line-height: 0.97; letter-spacing: -0.4px; color: var(--ink); margin-bottom: 8px; }
+.h1 em { color: var(--apricot); font-style: italic; }
+.h2 { font-family: 'DM Serif Display', Georgia, serif; font-size: 22px; font-weight: 400; line-height: 1.0; letter-spacing: -0.35px; color: var(--ink); margin-bottom: 7px; }
+.sub { font-size: 8.5px; color: var(--mid-ac); line-height: 1.5; margin-bottom: 12px; }
+.micro { font-size: 7.5px; color: var(--mid); font-style: italic; margin-bottom: 7px; }
+
+/* ── CHIP ── */
+.chip { width: 22px; height: 22px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.chip svg { width: 11px; height: 11px; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.chip.home { background: rgba(200,120,80,0.10); }
+.chip.home svg { stroke: var(--cat-home); }
+.chip.vehicle { background: rgba(74,130,160,0.10); }
+.chip.vehicle svg { stroke: var(--cat-vehicle); }
+.chip.garden { background: rgba(90,144,96,0.10); }
+.chip.garden svg { stroke: var(--cat-garden); }
+.chip.sub { background: rgba(128,96,168,0.10); }
+.chip.sub svg { stroke: var(--cat-sub); }
+
+/* ── BUTTONS ── */
+.btn { width: 100%; height: 36px; border-radius: 100px; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 7px; }
+.btn.primary { background: var(--cta); color: var(--cta-fg); box-shadow: 0 2px 10px rgba(155,127,212,0.28); }
+.btn.secondary { background: transparent; border: 1px solid rgba(26,22,18,0.18); color: var(--ink); }
+.btn.ghost { background: transparent; color: var(--mid-ac); font-size: 8.5px; height: 28px; margin-bottom: 0; }
+.btn.ink { background: var(--ink); color: var(--cream); }
+.btn svg { flex-shrink: 0; }
+
+/* ═══════════════════════════════════════
+   S-06 AUTH SPECIFIC
+═══════════════════════════════════════ */
+.auth-wrap { padding: 20px 14px 0; flex: 1; display: flex; flex-direction: column; }
+
+.auth-heading {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 24px; font-weight: 400; line-height: 1.0;
+  letter-spacing: -0.35px; color: var(--ink);
+  margin-bottom: 6px;
+}
+.auth-sub { font-size: 8.5px; color: var(--mid-ac); line-height: 1.5; margin-bottom: 20px; }
+
+.auth-buttons { display: flex; flex-direction: column; gap: 0; }
+
+.sso-btn {
+  width: 100%; height: 38px;
+  border-radius: 100px; cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  margin-bottom: 8px; border: none;
+}
+.sso-btn.apple { background: var(--ink); color: var(--cream); }
+.sso-btn.google { background: var(--surface); color: var(--ink); border: 1px solid rgba(26,22,18,0.16); }
+.sso-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+.email-toggle {
+  text-align: center; font-size: 8px; color: var(--mid);
+  padding: 4px 0 16px; cursor: pointer;
+}
+.email-toggle u { text-decoration: underline; text-decoration-color: rgba(138,128,112,0.4); }
+
+/* Email expanded state */
+.email-input {
+  background: var(--surface);
+  border: 0.5px solid rgba(26,22,18,0.14);
+  border-radius: 10px; padding: 0 12px;
+  height: 36px; display: flex; align-items: center; gap: 8px;
+  margin-bottom: 8px;
+}
+.email-input svg { width: 11px; height: 11px; stroke: var(--mid); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+.email-placeholder { font-size: 8px; color: var(--mid); flex: 1; }
+.email-cursor { width: 1px; height: 12px; background: var(--cta); animation: blink 1s infinite; }
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+.auth-divider {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 12px;
+}
+.auth-divider-line { flex: 1; height: 0.5px; background: rgba(26,22,18,0.10); }
+.auth-divider-text { font-size: 7.5px; color: var(--mid); white-space: nowrap; }
+
+.auth-reassure {
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+  font-size: 7px; color: var(--mid); margin-top: auto; padding-bottom: 4px;
+}
+.auth-reassure-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--mid); opacity: 0.5; }
+
+/* ═══════════════════════════════════════
+   S-07 COMPLETION SPECIFIC
+═══════════════════════════════════════ */
+.completion-wrap {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; padding: 28px 14px 0; text-align: center;
+}
+
+.completion-ii {
+  font-size: 48px; font-weight: 900;
+  letter-spacing: -6px; color: var(--ink);
+  line-height: 1; margin-bottom: 20px;
+  display: block;
+}
+.completion-ii span { color: var(--apricot); }
+
+.completion-h {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 26px; font-weight: 400;
+  line-height: 1.0; letter-spacing: -0.4px;
+  color: var(--ink); margin-bottom: 8px;
+}
+.completion-sub {
+  font-size: 9px; color: var(--mid-ac);
+  line-height: 1.5; margin-bottom: 22px;
+  font-style: italic;
+}
+
+/* Summary pill */
+.summary-pill {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 100px;
+  padding: 6px 14px;
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-bottom: 24px;
+}
+.sum-item { font-size: 8px; font-weight: 500; color: var(--ink); }
+.sum-sep { width: 3px; height: 3px; border-radius: 50%; background: rgba(26,22,18,0.18); }
+
+/* First nudge preview */
+.first-nudge-label { font-size: 7px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: var(--mid); margin-bottom: 8px; }
+.first-nudge-card {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(26,22,18,0.04);
+  padding: 8px 10px;
+  display: flex; align-items: center; gap: 8px;
+  width: 100%; margin-bottom: 6px;
+  text-align: left;
+}
+.fnc-content { flex: 1; }
+.fnc-name { font-size: 9px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+.fnc-sub { font-size: 7px; color: var(--mid); font-style: italic; }
+.fnc-date { font-size: 8px; font-weight: 500; color: var(--apricot-dk); flex-shrink: 0; }
+
+/* ═══════════════════════════════════════
+   S-09 DASHBOARD SPECIFIC
+═══════════════════════════════════════ */
+.dash-phone { background: var(--cream); }
+
+/* Fixed greeting row */
+.greeting-row {
+  padding: 12px 16px 10px;
+  flex-shrink: 0;
+  border-bottom: 0.5px solid rgba(26,22,18,0.06);
+}
+.greeting-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px; }
+.greeting-name {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 19px; font-weight: 400;
+  line-height: 0.95; letter-spacing: -0.3px; color: var(--ink);
+}
+.greeting-name em { color: var(--apricot); font-style: normal; }
+.greeting-sub { font-size: 8px; color: var(--mid-ac); }
+.settings-btn {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: rgba(26,22,18,0.05);
+  display: flex; align-items: center; justify-content: center;
+}
+.settings-btn svg { width: 13px; height: 13px; stroke: var(--mid-ac); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Dashboard scroll has bottom padding for tab bar */
+.dash-scroll { flex: 1; overflow-y: auto; padding: 10px 14px 80px; scrollbar-width: none; }
+.dash-scroll::-webkit-scrollbar { display: none; }
+
+/* Section label */
+.sec-lbl { font-size: 7px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: var(--mid); margin: 10px 0 6px; }
+.sec-lbl:first-child { margin-top: 0; }
+
+/* Nudge cards */
+.nudge-cards { display: flex; flex-direction: column; gap: 5px; }
+.ncard {
+  background: var(--surface);
+  border: 0.5px solid rgba(26,22,18,0.08);
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(26,22,18,0.04);
+  padding: 9px 10px;
+  display: flex; align-items: center; gap: 8px;
+  position: relative; overflow: hidden;
+}
+/* Swipe hint on first card */
+.ncard.swipe-hint::after {
+  content: 'swipe to complete →';
+  position: absolute; right: -60px; top: 50%; transform: translateY(-50%);
+  font-size: 6px; color: rgba(155,127,212,0.5); white-space: nowrap;
+  font-style: italic;
+}
+.ncontent { flex: 1; min-width: 0; }
+.nname { font-size: 9px; font-weight: 500; color: var(--ink); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nsub { font-size: 7px; color: var(--mid); font-style: italic; }
+.ndate { font-size: 8px; font-weight: 500; flex-shrink: 0; }
+.overdue { color: var(--terra); }
+.soon { color: var(--apricot-dk); }
+.ok { color: var(--mid-ac); }
+
+/* Done card */
+.ncard.done { opacity: 0.35; }
+.ncard.done .nname { text-decoration: line-through; text-decoration-color: rgba(26,22,18,0.35); }
+
+/* ── TAB BAR + FAB ── */
+.shell-bottom {
+  position: absolute;
+  bottom: 12px; left: 12px; right: 12px;
+  display: flex; align-items: flex-end; gap: 8px;
+  z-index: 20;
+  pointer-events: none;
+}
+.tab-bar {
+  flex: 1;
+  background: var(--surface);
+  border-radius: 18px;
+  padding: 8px 6px 10px;
+  display: flex; justify-content: space-around; align-items: center;
+  box-shadow: 0 4px 20px rgba(26,22,18,0.11);
+  border: 1px solid rgba(26,22,18,0.07);
+}
+.tab {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  cursor: pointer; min-width: 44px;
+}
+.tab-icon { width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; }
+.tab-icon svg { width: 16px; height: 16px; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.tab.active .tab-icon svg { stroke: var(--ink); }
+.tab.inactive .tab-icon svg { stroke: rgba(26,22,18,0.22); }
+.tab-label { font-size: 7px; font-weight: 500; }
+.tab.active .tab-label { color: var(--ink); }
+.tab.inactive .tab-label { color: rgba(26,22,18,0.22); }
+.tab-pip { width: 3px; height: 3px; border-radius: 50%; background: var(--cta); margin-top: 1px; }
+
+/* FAB */
+.fab {
+  width: 34px; height: 34px;
+  background: var(--cta);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 14px rgba(155,127,212,0.38);
+  flex-shrink: 0;
+}
+.fab svg { width: 15px; height: 15px; stroke: var(--cta-fg); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── ANNOTATIONS ── */
+.ann-row { display: flex; gap: 20px; margin-top: 20px; overflow-x: auto; padding-bottom: 4px; }
+.ann-card { flex-shrink: 0; width: 280px; background: var(--surface); border: 0.5px solid var(--border); border-radius: 12px; padding: 12px 14px; }
+.ann-title { font-size: 8px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: var(--mid); margin-bottom: 9px; }
+.ann-item { display: flex; gap: 7px; margin-bottom: 7px; align-items: flex-start; }
+.ann-icon { width: 14px; height: 14px; border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; font-size: 8px; }
+.ann-icon.new { background: rgba(155,127,212,0.12); color: var(--cta); }
+.ann-icon.upd { background: rgba(232,168,124,0.15); color: var(--apricot-dk); }
+.ann-icon.key { background: rgba(59,109,17,0.10); color: var(--sage); }
+.ann-icon.lock { background: rgba(26,22,18,0.06); color: var(--mid-ac); }
+.ann-text { font-size: 7.5px; color: var(--mid-ac); line-height: 1.5; }
+.ann-text strong { color: var(--ink); font-weight: 500; }
+
+/* ── STATUS ICONS SVG helpers ── */
+.sig { display:flex; } /* signal */
+.bat { display:flex; } /* battery */
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="page-header">
+  <a class="page-logo" href="../index.html">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+      <rect width="18" height="18" rx="5" fill="#1A1612"/>
+      <text x="3.5" y="13" fill="#F5F0E8" font-size="11" font-family="Georgia, serif">ii</text>
+    </svg>
+    Design hub
+  </a>
+  <span class="page-badge">Preview · not committed</span>
+</div>
+<div class="page-title">S-06 · S-07 · S-09 · Auth + Completion + Dashboard · Approve before committing</div>
+
+<!-- Flow bar -->
+<div class="flow-bar">
+  <div class="flow-step-pill done">
+    <div class="flow-num check">
+      <svg width="8" height="8" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    S-01 → S-07a
+  </div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step-pill"><div class="flow-num">5</div>S-06 · Auth</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step-pill"><div class="flow-num">6</div>S-07 · Done</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step-pill"><div class="flow-num">7</div>S-09 · Dashboard</div>
+</div>
+
+<!-- ═══════════════════════ SCREENS ═══════════════════════ -->
+<div class="screens-row">
+
+  <!-- ═══ S-06 AUTH — default state ═══ -->
+  <div class="screen-col">
+    <div class="screen-label">S-06 · Auth — default</div>
+    <div class="phone">
+      <div class="sbar">
+        <span class="sbar-time">9:41</span>
+        <div class="sbar-icons">
+          <svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg>
+          <svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+      <div class="prog"><div class="prog-fill" style="width:80%"></div></div>
+
+      <div class="scr">
+        <div class="brand-row">
+          <div class="ii">i<span>i</span></div>
+          <div class="free-badge"><div class="free-dot"></div>Free · no credit card</div>
+        </div>
+
+        <div class="auth-wrap">
+          <div class="auth-heading">Save your<br>schedule.</div>
+          <div class="auth-sub">Sign in to keep your tasks safe and synced across devices.</div>
+
+          <div class="auth-buttons">
+            <!-- Apple -->
+            <button class="sso-btn apple">
+              <svg viewBox="0 0 14 17" fill="white">
+                <path d="M11.5 8.8c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.6-1.9-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.8C1.4 3.4 0 4.8 0 7.3c0 3.5 3 7.2 4.3 9.2.9 1.4 2 2.9 3.4 2.8 1.4-.1 1.9-.9 3.6-.9 1.7 0 2.1.9 3.6.8 1.5-.1 2.4-1.4 3.3-2.8.7-1 1-1.9 1.3-2 0 0-2.4-1-2.4-3.6z"/>
+                <path d="M9.3 2.2C10 1.3 10.5.1 10.3-1c-1 .1-2.2.7-3 1.6-.7.8-1.3 2-1.1 3.1 1.1.1 2.2-.5 3.1-1.5z"/>
+              </svg>
+              Continue with Apple
+            </button>
+
+            <!-- Google -->
+            <button class="sso-btn google">
+              <svg viewBox="0 0 18 18" width="14" height="14">
+                <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/>
+                <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z"/>
+                <path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/>
+                <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z"/>
+              </svg>
+              Continue with Google
+            </button>
+
+            <div class="email-toggle">or <u>use email instead</u></div>
+          </div>
+
+          <div class="auth-reassure">
+            <span>Free forever for up to 10 items</span>
+            <div class="auth-reassure-dot"></div>
+            <span>Cancel anytime</span>
+            <div class="auth-reassure-dot"></div>
+            <span>No card needed</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ S-06 AUTH — email expanded ═══ -->
+  <div class="screen-col">
+    <div class="screen-label">S-06 · Auth — email open</div>
+    <div class="phone">
+      <div class="sbar">
+        <span class="sbar-time">9:41</span>
+        <div class="sbar-icons">
+          <svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg>
+          <svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+      <div class="prog"><div class="prog-fill" style="width:80%"></div></div>
+      <div class="scr">
+        <div class="brand-row">
+          <div class="ii">i<span>i</span></div>
+          <div class="free-badge"><div class="free-dot"></div>Free · no credit card</div>
+        </div>
+        <div class="auth-wrap">
+          <div class="auth-heading">Save your<br>schedule.</div>
+          <div class="auth-sub">Sign in to keep your tasks safe and synced across devices.</div>
+
+          <div class="auth-buttons">
+            <button class="sso-btn apple">
+              <svg viewBox="0 0 14 17" fill="white" width="14" height="14"><path d="M11.5 8.8c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.6-1.9-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.8C1.4 3.4 0 4.8 0 7.3c0 3.5 3 7.2 4.3 9.2.9 1.4 2 2.9 3.4 2.8 1.4-.1 1.9-.9 3.6-.9 1.7 0 2.1.9 3.6.8 1.5-.1 2.4-1.4 3.3-2.8.7-1 1-1.9 1.3-2 0 0-2.4-1-2.4-3.6z"/><path d="M9.3 2.2C10 1.3 10.5.1 10.3-1c-1 .1-2.2.7-3 1.6-.7.8-1.3 2-1.1 3.1 1.1.1 2.2-.5 3.1-1.5z"/></svg>
+              Continue with Apple
+            </button>
+            <button class="sso-btn google">
+              <svg viewBox="0 0 18 18" width="14" height="14"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z"/></svg>
+              Continue with Google
+            </button>
+
+            <!-- Email divider -->
+            <div class="auth-divider">
+              <div class="auth-divider-line"></div>
+              <div class="auth-divider-text">or continue with email</div>
+              <div class="auth-divider-line"></div>
+            </div>
+
+            <!-- Email input (revealed) -->
+            <div class="email-input" style="border-color:rgba(155,127,212,0.45); box-shadow:0 0 0 2px rgba(155,127,212,0.10);">
+              <svg viewBox="0 0 16 16"><rect x="1" y="3" width="14" height="10" rx="2"/><polyline points="1,3 8,9 15,3"/></svg>
+              <div class="email-placeholder" style="color:var(--ink);">hanne@</div>
+              <div class="email-cursor"></div>
+            </div>
+
+            <!-- Magic link CTA -->
+            <button class="btn primary" style="margin-bottom:6px;">Send magic link →</button>
+            <div style="text-align:center; font-size:7px; color:var(--mid); margin-bottom:8px;">One tap in your email — no password needed.</div>
+          </div>
+
+          <div class="auth-reassure">
+            <span>Free forever for up to 10 items</span>
+            <div class="auth-reassure-dot"></div>
+            <span>No card needed</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ S-07 COMPLETION ═══ -->
+  <div class="screen-col">
+    <div class="screen-label">S-07 · Completion</div>
+    <div class="phone">
+      <div class="sbar">
+        <span class="sbar-time">9:41</span>
+        <div class="sbar-icons">
+          <svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg>
+          <svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+      <!-- 100% progress bar -->
+      <div class="prog"><div class="prog-fill full" style="width:100%"></div></div>
+
+      <div class="scr">
+        <div class="completion-wrap">
+          <!-- Large ii mark -->
+          <div class="completion-ii">i<span>i</span></div>
+
+          <div class="completion-h">You're in.</div>
+          <div class="completion-sub">nudgii's got it from here.<br>Your dishwasher is already taking notes.</div>
+
+          <!-- Summary pill -->
+          <div class="summary-pill">
+            <span class="sum-item">2 items</span>
+            <div class="sum-sep"></div>
+            <span class="sum-item">7 tasks ready</span>
+            <div class="sum-sep"></div>
+            <span class="sum-item">first nudge Oct 20</span>
+          </div>
+
+          <!-- First nudge preview -->
+          <div class="first-nudge-label">Your first reminder</div>
+          <div class="first-nudge-card">
+            <div class="chip vehicle">
+              <svg viewBox="0 0 16 16"><path d="M2 9.5L4 5h8l2 4.5"/><path d="M1 9.5h14"/><circle cx="4.5" cy="12" r="2"/><circle cx="11.5" cy="12" r="2"/></svg>
+            </div>
+            <div class="fnc-content">
+              <div class="fnc-name">Switch to winter tyres</div>
+              <div class="fnc-sub">Car · before Nov · BE</div>
+            </div>
+            <div class="fnc-date">Oct 20</div>
+          </div>
+
+          <div style="font-size:7.5px; color:var(--mid); text-align:center; margin-top:4px; font-style:italic;">We'll remind you at the right time. Promise.</div>
+        </div>
+
+        <div class="btm" style="padding-top:16px;">
+          <button class="btn primary">Open my schedule →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ S-09 DASHBOARD ═══ -->
+  <div class="screen-col">
+    <div class="screen-label">S-09 · Dashboard</div>
+    <div class="phone dash-phone" style="position:relative;">
+      <div class="sbar">
+        <span class="sbar-time">9:41</span>
+        <div class="sbar-icons">
+          <svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg>
+          <svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+      <!-- No progress bar on dashboard -->
+      <div class="scr">
+        <!-- Fixed greeting -->
+        <div class="greeting-row">
+          <div class="greeting-top">
+            <div class="greeting-name">Good morning,<br><em>Hanne.</em></div>
+            <div class="settings-btn">
+              <!-- Faders icon (settings) -->
+              <svg viewBox="0 0 16 16"><line x1="2" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="14" y2="12"/><circle cx="5" cy="4" r="1.5" fill="white" stroke="var(--mid-ac)"/><circle cx="10" cy="8" r="1.5" fill="white" stroke="var(--mid-ac)"/><circle cx="7" cy="12" r="1.5" fill="white" stroke="var(--mid-ac)"/></svg>
+            </div>
+          </div>
+          <div class="greeting-sub">4 tasks need attention</div>
+        </div>
+
+        <!-- Scrollable tasks -->
+        <div class="dash-scroll">
+
+          <!-- OVERDUE -->
+          <div class="sec-lbl">Overdue</div>
+          <div class="nudge-cards">
+            <div class="ncard">
+              <div class="chip home">
+                <svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg>
+              </div>
+              <div class="ncontent">
+                <div class="nname">Clean dishwasher filter</div>
+                <div class="nsub">Dishwasher · every 6–8 wks</div>
+              </div>
+              <div class="ndate overdue">overdue</div>
+            </div>
+          </div>
+
+          <!-- THIS WEEK -->
+          <div class="sec-lbl">This week</div>
+          <div class="nudge-cards">
+            <div class="ncard">
+              <div class="chip vehicle">
+                <svg viewBox="0 0 16 16"><path d="M2 9.5L4 5h8l2 4.5"/><path d="M1 9.5h14"/><circle cx="4.5" cy="12" r="2"/><circle cx="11.5" cy="12" r="2"/></svg>
+              </div>
+              <div class="ncontent">
+                <div class="nname">Switch to winter tyres</div>
+                <div class="nsub">Car · before Nov · BE</div>
+              </div>
+              <div class="ndate soon">Oct 20</div>
+            </div>
+          </div>
+
+          <!-- COMING UP -->
+          <div class="sec-lbl">Coming up</div>
+          <div class="nudge-cards">
+            <div class="ncard">
+              <div class="chip home">
+                <svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg>
+              </div>
+              <div class="ncontent">
+                <div class="nname">Refill dishwasher salt</div>
+                <div class="nsub">Dishwasher · every 6–8 wks</div>
+              </div>
+              <div class="ndate ok">Nov 8</div>
+            </div>
+            <div class="ncard">
+              <div class="chip vehicle">
+                <svg viewBox="0 0 16 16"><path d="M2 9.5L4 5h8l2 4.5"/><path d="M1 9.5h14"/><circle cx="4.5" cy="12" r="2"/><circle cx="11.5" cy="12" r="2"/></svg>
+              </div>
+              <div class="ncontent">
+                <div class="nname">Check tyre pressure</div>
+                <div class="nsub">Car · monthly</div>
+              </div>
+              <div class="ndate ok">Nov 1</div>
+            </div>
+            <div class="ncard">
+              <div class="chip home">
+                <svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg>
+              </div>
+              <div class="ncontent">
+                <div class="nname">Run hot maintenance wash</div>
+                <div class="nsub">Dishwasher · monthly</div>
+              </div>
+              <div class="ndate ok">Nov 14</div>
+            </div>
+          </div>
+
+        </div><!-- /dash-scroll -->
+      </div>
+
+      <!-- Floating tab bar + FAB -->
+      <div class="shell-bottom">
+        <div class="tab-bar">
+          <!-- Tasks tab (active) -->
+          <div class="tab active">
+            <div class="tab-icon">
+              <svg viewBox="0 0 20 20" stroke="var(--ink)">
+                <rect x="3" y="2" width="14" height="16" rx="2"/>
+                <line x1="7" y1="7" x2="13" y2="7"/>
+                <line x1="7" y1="10.5" x2="13" y2="10.5"/>
+                <line x1="7" y1="14" x2="11" y2="14"/>
+              </svg>
+            </div>
+            <div class="tab-label">Tasks</div>
+            <div class="tab-pip"></div>
+          </div>
+          <!-- Ask tab -->
+          <div class="tab inactive">
+            <div class="tab-icon">
+              <svg viewBox="0 0 20 20" stroke="rgba(26,22,18,0.22)">
+                <path d="M10 2C5.6 2 2 5.1 2 9s3.6 7 8 7c.9 0 1.8-.1 2.6-.4L17 18l-.4-3.6C17.9 13.1 18 11.1 18 9c0-3.9-3.6-7-8-7z"/>
+                <path d="M7 8h.01M10 8h.01M13 8h.01" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="tab-label">Ask</div>
+          </div>
+          <!-- Profile tab -->
+          <div class="tab inactive">
+            <div class="tab-icon">
+              <svg viewBox="0 0 20 20" stroke="rgba(26,22,18,0.22)">
+                <circle cx="10" cy="7" r="3"/>
+                <path d="M3 18c0-3.9 3.1-7 7-7s7 3.1 7 7"/>
+              </svg>
+            </div>
+            <div class="tab-label">Profile</div>
+          </div>
+        </div>
+        <!-- FAB -->
+        <div class="fab">
+          <svg viewBox="0 0 16 16"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /screens-row -->
+
+<!-- ═══ ANNOTATIONS ═══ -->
+<div class="ann-row">
+
+  <div class="ann-card">
+    <div class="ann-title">S-06 · auth design</div>
+    <div class="ann-item">
+      <div class="ann-icon key">★</div>
+      <div class="ann-text"><strong>"Save your schedule"</strong> — not "Create account." Reframes auth as protecting something the user already built. Higher perceived value, lower resistance.</div>
+    </div>
+    <div class="ann-item">
+      <div class="ann-icon lock">↓</div>
+      <div class="ann-text"><strong>Apple first, Google second</strong> — per spec. Email toggle reveals inline below Google button, no separate screen. Magic link only — no password field.</div>
+    </div>
+    <div class="ann-item">
+      <div class="ann-icon key">★</div>
+      <div class="ann-text">Three-part reassurance line at the bottom: "Free forever for 10 items · Cancel anytime · No card needed." Addresses every objection in one line.</div>
+    </div>
+  </div>
+
+  <div class="ann-card">
+    <div class="ann-title">S-06 · email state</div>
+    <div class="ann-item">
+      <div class="ann-icon new">N</div>
+      <div class="ann-text"><strong>Email toggle is a text link</strong> — "or use email instead." Tap reveals the email input + CTA inline. No navigation, no separate screen, no modal.</div>
+    </div>
+    <div class="ann-item">
+      <div class="ann-icon lock">✓</div>
+      <div class="ann-text"><strong>Magic link only.</strong> One tap in email — no password. Copy: "One tap in your email — no password needed." Reduces friction to near zero.</div>
+    </div>
+    <div class="ann-item">
+      <div class="ann-icon key">★</div>
+      <div class="ann-text">Email input focus state: colorCta border + subtle shadow ring. Matches the CTA colour system — the active element always speaks in purple.</div>
+    </div>
+  </div>
+
+  <div class="ann-card">
+    <div class="ann-title">S-07 · completion rules</div>
+    <div class="ann-item">
+      <div class="ann-icon lock">↓</div>
+      <div class="ann-text"><strong>Never auto-advance.</strong> CTA "Open my schedule →" is required. User must tap — per decisions log. Gives them a moment to feel done.</div>
+    </div>
+    <div class="ann-item">
+      <div class="ann-icon key">★</div>
+      <div class="ann-text"><strong>Summary pill</strong> ("2 items · 7 tasks ready · first nudge Oct 20") creates a sense of accomplishment without being verbose. One line, scannable.</div>
+    </div>
+    <div class="ann-item">
+      <div class="ann-icon key">★</div>
+      <div class="ann-text">Witty sub: <em>"Your dishwasher is already taking notes."</em> Earned humour — the onboarding is complete, so a light joke lands well. Not on an error, not on a payment screen.</div>
+    </div>
+    <div class="ann-item">
+      <div class="ann-icon lock">↓</div>
+      <div class="ann-text"><strong>Cream background — not plum.</strong> Plum is reserved for the task done overlay only. This is a warm, grounded moment — same cream as the rest of onboarding.</div>
+    </div>
+  </div>
+
+  <div class="ann-card">
+    <div class="ann-title">S-09 · dashboard shell</div>
+    <div class="ann-item">
+      <div class="ann-icon new">N</div>
+      <div class="ann-text"><strong>Floating pill tab bar</strong> — custom widget, NOT Flutter BottomNavigationBar. 3 tabs: Tasks (active) · Ask · Profile. Active = full ink + 3px colorCta pip.</div>
+    </div>
+    <div class="ann-item">
+      <div class="ann-icon new">N</div>
+      <div class="ann-text"><strong>FAB</strong> — 46×46px, borderRadius 15px (rounded square, not circle), colorCta. Adjacent to pill bar. Plus icon, rotates 45° to × when action sheet is open.</div>
+    </div>
+    <div class="ann-item">
+      <div class="ann-icon key">★</div>
+      <div class="ann-text"><strong>Greeting with name in apricot</strong> — DM Serif Display 25–27px, name rendered in <code style="font-size:7px;background:rgba(26,22,18,0.06);padding:1px 4px;border-radius:3px;">colorApricot</code>. One serif moment, one screen.</div>
+    </div>
+    <div class="ann-item">
+      <div class="ann-icon key">★</div>
+      <div class="ann-text"><strong>Section labels</strong> — Overdue / This week / Coming up. 9px uppercase, colorMid, letter-spacing 1.8px. The only uppercase text in the app.</div>
+    </div>
+    <div class="ann-item">
+      <div class="ann-icon lock">↓</div>
+      <div class="ann-text"><strong>No left border accent.</strong> Status lives in date label colour only — terra = overdue, apricot-dk = due soon, mid = ok. Cards are identical in shape, different in date colour.</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
