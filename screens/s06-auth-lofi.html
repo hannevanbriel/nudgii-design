@@ -45,8 +45,8 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 /* ── PHONE ── */
 .phone-wrap{flex-shrink:0;}
 .phone-lbl{font-size:9px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:rgba(26,22,18,0.32);text-align:center;margin-bottom:10px;}
-.phone{width:390px;height:844px;background:#d8d4cb;border-radius:50px;padding:10px;border:2px solid rgba(26,22,18,0.20);box-shadow:0 12px 40px rgba(26,22,18,0.14);position:relative;overflow:hidden;}
-.screen{background:#F5F0E8;border-radius:26px;overflow:hidden;}
+.phone{width:390px;height:844px;background:#d8d4cb;border-radius:50px;padding:10px;border:2px solid rgba(26,22,18,0.20);box-shadow:0 12px 40px rgba(26,22,18,0.14);position:relative;overflow:hidden;display:flex;flex-direction:column;}
+.screen{background:#F5F0E8;border-radius:26px;overflow:hidden;height:100%;display:flex;flex-direction:column;}
 
 /* ── ZONE BLOCKS ── */
 .zone{border-bottom:1.5px dashed rgba(26,22,18,0.12);position:relative;}
@@ -227,76 +227,69 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 
         <div class="zone-card">
           <div class="zc-head"><span class="zc-badge">A</span><span class="zc-name">Status bar</span></div>
-          <div class="zc-body">Standaard iOS status bar. Hoogte 20px. Transparant over cream achtergrond.</div>
+          <div class="zc-body">Standard iOS status bar. 20px height. Transparent over cream.</div>
         </div>
 
         <div class="zone-card">
-          <div class="zc-head"><span class="zc-badge">B</span><span class="zc-name">Progress indicator — 80% (step 4 of 5)</span></div>
+          <div class="zc-head"><span class="zc-badge">B</span><span class="zc-name">Progress bar — 80% (step 4 of 5)</span></div>
           <div class="zc-body">
-            Continuous progress bar, 3px, full-width, edge-to-edge. Fill: <code>colorCta #9B7FD4</code>. Background: <code>rgba(26,22,18,0.08)</code>.<br>
+            Continuous bar, 3px, full-width edge-to-edge. Fill: <code>colorCta #9B7FD4</code>. Track: <code>rgba(26,22,18,0.08)</code>.<br>
             <div class="zc-rule"></div>
-            <strong>S-06 = 80% filled.</strong> Zeigarnik effect: almost-there feeling reinforced. User has completed S-05 — progress is visibly earned.
+            <strong>S-06 = 80%.</strong> Zeigarnik effect — user can see they're almost done. Progress is visibly earned after completing S-05.
           </div>
         </div>
 
         <div class="zone-card highlight">
-          <div class="zc-head"><span class="zc-badge purple">C</span><span class="zc-name">ii-mark + headline + subtitle</span></div>
+          <div class="zc-head"><span class="zc-badge purple">C</span><span class="zc-name">Content area — vertically centered</span></div>
           <div class="zc-body">
+            <strong>Shell pattern:</strong> <code>flex:1</code> — fills all space between progress bar and sticky bottom.<br>
             ii-mark centered (left=ink, right=cta 45% opacity, dot=apricot-dk).<br>
-            <strong>"Almost done."</strong> — DM Serif Display 18px. Deferred auth = user has already invested 60s + seen their tasks.<br>
-            No "Create an account" as opener — that sounds like work.<br>
+            <strong>"Almost done."</strong> — DM Serif Display 22px. Deferred auth = user has invested 60s and seen their tasks. Not "Create an account" — that sounds like work.<br>
             <div class="zc-rule"></div>
-            Subtitle: "Create your free account to save your schedule." — DM Sans 10px, colorMid, centered.
+            Subtitle: "Save your schedule with a free account." — DM Sans 10px, colorMid, centered.
+          </div>
+        </div>
+
+        <div class="zone-card cta-card">
+          <div class="zc-head"><span class="zc-badge purple">D · E</span><span class="zc-name">Sticky bottom — SSO buttons</span></div>
+          <div class="zc-body">
+            <strong>Apple always first</strong> — iOS HIG requirement. Do not deviate.<br>
+            Both buttons: 44px height · white bg · border <code>rgba(26,22,18,0.18)</code> · border-radius 100px · 6px gap between them.<br>
+            <div class="zc-rule"></div>
+            Below Google: text link <strong>"or use email instead"</strong> — <code>colorCta</code>, no button style, no divider line.<br>
+            Tapping reveals email input + CTA inline (Zone G+H expands above the buttons). SSO buttons slide up. No new screen, no navigation.
           </div>
         </div>
 
         <div class="zone-card">
-          <div class="zc-head"><span class="zc-badge">D</span><span class="zc-name">Apple sign-in — always first</span></div>
+          <div class="zc-head"><span class="zc-badge">G · H</span><span class="zc-name">Email expand state</span></div>
           <div class="zc-body">
-            <strong>Apple always first on iOS</strong> — iOS HIG requirement. Do not deviate.<br>
-            Style: 44px height, white background, grey border <code>rgba(26,22,18,0.18)</code>, border-radius 100px.<br>
-            Label: "Continue with Apple" — sentence case.
-          </div>
-        </div>
-
-        <div class="zone-card">
-          <div class="zc-head"><span class="zc-badge">E</span><span class="zc-name">Google sign-in — second option</span></div>
-          <div class="zc-body">
-            Google as second option. Same style as Apple button. Google logo left of label.
-          </div>
-        </div>
-
-        <div class="zone-card">
-          <div class="zc-head"><span class="zc-badge">F / G / H</span><span class="zc-name">Email path — magic link</span></div>
-          <div class="zc-body">
-            <strong>Magic link = no password</strong> — lowest friction for the email path.<br>
+            Revealed inline when user taps "use email instead". Pushes up from above the SSO buttons.<br>
             Zone G: email input, 44px, border-radius 10px, placeholder "email address".<br>
-            Zone H: CTA "Send magic link" — 50px, colorCta background, pill-radius, colorCtaFg text.<br>
+            Zone H: CTA "Send magic link" — 46px, <code>colorCta</code> bg, pill-radius, <code>colorCtaFg</code> text.<br>
             <div class="zc-rule"></div>
-            On tap: inline "Check your email — link sent." within Zone H. <strong>No new screen.</strong><br>
+            On send: inline confirmation replaces CTA — "Check your inbox." — <strong>no new screen.</strong><br>
             <div class="zc-rule"></div>
-            Reassurance line: "Free account · no credit card required" shown below Zone H — 9px DM Sans, colorMid, centered. Reduces hesitation at the account creation moment.<br>
-            <div class="zc-rule"></div>
-            <strong>Edge case — auth fails:</strong> retry button appears, state NEVER lost. Session stored locally until auth succeeds.
+            <strong>Magic link = no password to create or remember.</strong> Lowest friction for the email path.
           </div>
         </div>
 
         <div class="zone-card warn">
-          <div class="zc-head"><span class="zc-badge orange">H2</span><span class="zc-name">Auth failure state</span></div>
+          <div class="zc-head"><span class="zc-badge">ERR</span><span class="zc-name">Auth failure state</span></div>
           <div class="zc-body">
-            Shown only on failed auth. <strong>Inline error card</strong> below the CTA — no new screen.<br>
-            Background: <code>red-lt #FCEBEB</code> · Border: <code>1px solid rgba(163,45,45,0.18)</code> · all sides — no border-left accent.<br>
-            Icon-chip: 20×20px, red-lt background, terra icon.<br>
+            Inline error card below the CTA — no new screen.<br>
+            Background: <code>red-lt #FCEBEB</code> · full border <code>rgba(163,45,45,0.18)</code> — no border-left accent.<br>
             Copy: <strong>"Sign in failed. Try again — your data is saved."</strong><br>
             <div class="zc-rule"></div>
-            <strong>Session state preserved — items NOT lost on auth failure.</strong> Onboarding state stored locally until auth succeeds.
+            <strong>Onboarding state is stored locally</strong> — items are never lost on auth failure.
           </div>
         </div>
 
         <div class="zone-card">
-          <div class="zc-head"><span class="zc-badge">I</span><span class="zc-name">Privacy note</span></div>
+          <div class="zc-head"><span class="zc-badge">NOTE</span><span class="zc-name">Reassurance + privacy</span></div>
           <div class="zc-body">
-            7px DM Sans, colorMid-lt, centered. "By continuing you agree to our Terms of service". Link underline on "Terms of service".
+            "Free account · no credit card required" — 8px DM Sans, colorMid, centered. Reduces hesitation at account creation.<br>
+            "Terms of service" text link below — 8px, underline.
           </div>
         </div>
       </div>

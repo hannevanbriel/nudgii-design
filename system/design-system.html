@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>nudgii · Design System v2.3</title>
+<title>nudgii · Design system</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -19,7 +19,7 @@ html{scroll-behavior:smooth;}
   --border-md:rgba(26,22,18,0.12);
   --ap:       #E8A87C;
   --ap-dk:    #C8784A;   /* due-soon status dates ONLY — no longer CTA */
-  --cta:      #9B7FD4;   /* PRIMARY CTA — light plum, locked v2.2 */
+  --cta:      #9B7FD4;   /* PRIMARY CTA — light plum, locked */
   --terra:    #C4503A;
   --plum:     #2D1F4A;
   --plum-lt:  #9B7FD4;
@@ -160,7 +160,7 @@ section{padding-top:60px;}
 /* buttons */
 .btn{display:inline-flex;align-items:center;gap:7px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;padding:13px 22px;border-radius:100px;border:none;cursor:pointer;letter-spacing:-0.1px;transition:opacity 0.12s;}
 .btn:active{opacity:0.8;}
-.btn-cta{background:#9B7FD4;color:#FAF8FF;}  /* PRIMARY CTA — light plum v2.2 */
+.btn-cta{background:#9B7FD4;color:#FAF8FF;}  /* PRIMARY CTA */
 .btn-secondary{background:transparent;color:var(--ink);border:1.5px solid var(--border-md);}
 .btn-ghost{background:transparent;color:var(--mid);border:none;font-size:13px;}
 .btn-sm{font-size:12px;padding:9px 16px;}
@@ -216,7 +216,7 @@ section{padding-top:60px;}
 ::-webkit-scrollbar-thumb{background:var(--border-md);border-radius:2px;}
 </style>
 <style>.nudgii-hub-nav{position:sticky;top:0;z-index:999;background:#F5F0E8;border-bottom:1px solid rgba(26,22,18,0.12);padding:0 24px;display:flex;align-items:center;gap:16px;height:44px;font-family:'DM Sans',sans-serif}.nudgii-hub-nav a{font-size:13px;color:#8A8070;text-decoration:none}.nudgii-hub-nav a:first-child::before{content:'← ';}.nudgii-hub-nav span{font-size:13px;font-weight:500;color:#1A1612}.nudgii-hub-nav .tag{margin-left:auto;font-size:10px;font-weight:500;color:#B0A898;letter-spacing:1.2px;text-transform:uppercase;font-family:monospace}</style></head>
-<body><div class="nudgii-hub-nav"><a href="../index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:#8A8070"><svg width="18" height="18" viewBox="0 0 80 80" style="border-radius:4px;flex-shrink:0"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg><span>Design hub</span></a><span>Design system v2.3</span><span class="tag">System</span></div>
+<body><div class="nudgii-hub-nav"><a href="../index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:#8A8070"><svg width="18" height="18" viewBox="0 0 80 80" style="border-radius:4px;flex-shrink:0"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg><span>Design hub</span></a><span>Design system</span><span class="tag">System</span></div>
 
 <nav>
   <div class="nav-inner">
@@ -232,15 +232,13 @@ section{padding-top:60px;}
       <a class="nav-link" href="#typography">Typography</a>
       <a class="nav-link" href="#spacing">Spacing</a>
       <a class="nav-link" href="#components">Components</a>
-      <a class="nav-link" href="#icons">Icons</a>
+      <a class="nav-link" href="#icons">App icons</a>
       <a class="nav-link" href="#motion">Motion</a>
-      <a class="nav-link" href="#icons-system">Icons</a>
+      <a class="nav-link" href="#icons-system">Icon system</a>
       <a class="nav-link" href="#figma">Figma</a>
       <a class="nav-link" href="#rules">Rules</a>
-      <a class="nav-link" href="#v24">Components</a>
       <a class="nav-link" href="#copy">Copy</a>
     </div>
-    <span class="v-tag">v2.3 final</span>
   </div>
 </nav>
 
@@ -248,7 +246,7 @@ section{padding-top:60px;}
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-eye">nudgii Design System · v2.3 · March 2026 · Final</div>
+    <div class="hero-eye">nudgii Design system · March 2026</div>
     <h1 class="hero-title">Everything decided.<br>Nothing open.</h1>
     <p class="hero-sub">All tokens, rules, components, and Figma workflow for nudgii. If it's not in here it's not decided. If it's in here it doesn't get questioned in a design review.</p>
     <div class="hero-pills">
@@ -273,14 +271,13 @@ section{padding-top:60px;}
         <a class="toc-a" href="#category"><span class="toc-n">04</span>Category colors</a>
         <a class="toc-a" href="#typography"><span class="toc-n">05</span>Typography</a>
         <a class="toc-a" href="#spacing"><span class="toc-n">06</span>Spacing</a>
-        <a class="toc-a" href="#components"><span class="toc-n">07</span>Components</a>
+        <a class="toc-a" href="#components"><span class="toc-n">07</span>Component library</a>
         <a class="toc-a" href="#icons"><span class="toc-n">08</span>App icons</a>
         <a class="toc-a" href="#motion"><span class="toc-n">09</span>Motion</a>
         <a class="toc-a" href="#icons-system"><span class="toc-n">10</span>Icon system</a>
         <a class="toc-a" href="#figma"><span class="toc-n">11</span>Figma workflow</a>
         <a class="toc-a" href="#rules"><span class="toc-n">12</span>Locked rules</a>
-        <a class="toc-a" href="#v24"><span class="toc-n">13</span>Component library</a>
-        <a class="toc-a" href="#copy"><span class="toc-n">14</span>Copy library v1.1</a>
+        <a class="toc-a" href="#copy"><span class="toc-n">13</span>Copy library</a>
       </div>
     </div>
   </div>
@@ -297,7 +294,7 @@ section{padding-top:60px;}
     </div>
 
     <div class="rcard">
-      <div class="rcard-title">ii lettermark — welcome screen spec <span class="tag tag-lock">locked v2.2</span></div>
+      <div class="rcard-title">ii lettermark — welcome screen spec <span class="tag tag-lock">locked</span></div>
       <div class="rcard-body"><strong>20px height. Left-aligned. Inline with the free badge.</strong> Not centered. Not a hero.<br><br>The mark mirrors the icon exactly — same three colors in miniature:<br><br>Left pill: <code>cream #F5F0E8</code> with ink outline (mirrors icon left cream pill)<br>Right pill: <code>plum-lt #9B7FD4 at 55% opacity</code> (mirrors icon right pill — also the CTA color)<br>Dot: <code>apricot #E8A87C</code> top-right (mirrors icon dot — warm accent)<br><br>This is why the welcome screen now coheres with the homescreen icon. The ii mark, the CTA button, and the icon right pill are all <code>#9B7FD4</code> — one color, three moments.</div>
     </div>
 
@@ -321,18 +318,18 @@ section{padding-top:60px;}
     <div class="token-grid">
       <div class="ttile"><div class="tsw" style="background:#F5F0E8;"></div><div class="tbody"><div class="tname">Cream</div><div class="thex">#F5F0E8</div><div class="trole">App background</div></div></div>
       <div class="ttile"><div class="tsw" style="background:#1A1612;"></div><div class="tbody"><div class="tname">Ink</div><div class="thex">#1A1612</div><div class="trole">All body text. Warm charcoal — no blue hue.</div><div class="tnote">Changed from #1E2832 (too blue)</div></div></div>
-      <div class="ttile" style="outline:2px solid #9B7FD4;outline-offset:2px;border-radius:11px;"><div class="tsw" style="background:#9B7FD4;"></div><div class="tbody"><div class="tname">CTA · plum-lt <span style="font-size:9px;color:#7040C0;font-weight:500;">updated v2.2</span></div><div class="thex">#9B7FD4</div><div class="trole">Primary CTA button. Active filter chip. Tab pip. Also Pro badge.</div><div class="tnote">Replaces apricot-dk as CTA</div></div></div>
+      <div class="ttile" style="outline:2px solid #9B7FD4;outline-offset:2px;border-radius:11px;"><div class="tsw" style="background:#9B7FD4;"></div><div class="tbody"><div class="tname">CTA · plum-lt <span style="font-size:9px;color:#7040C0;font-weight:500;"></span></div><div class="thex">#9B7FD4</div><div class="trole">Primary CTA button. Active filter chip. Tab pip. Also Pro badge.</div><div class="tnote">Replaces apricot-dk as CTA</div></div></div>
       <div class="ttile"><div class="tsw" style="background:#E8A87C;"></div><div class="tbody"><div class="tname">Apricot</div><div class="thex">#E8A87C</div><div class="trole">ii dot · greeting name em · streak number · done overlay dot.</div><div class="tnote">Warm accent only — never buttons</div></div></div>
-      <div class="ttile"><div class="tsw" style="background:#C8784A;"></div><div class="tbody"><div class="tname">Apricot-dk</div><div class="thex">#C8784A</div><div class="trole">Due-soon date labels only. No longer CTA.</div><div class="tnote">Role narrowed in v2.2</div></div></div>
+      <div class="ttile"><div class="tsw" style="background:#C8784A;"></div><div class="tbody"><div class="tname">Apricot-dk</div><div class="thex">#C8784A</div><div class="trole">Due-soon date labels only. No longer CTA.</div><div class="tnote">Due-soon labels only — not buttons</div></div></div>
       <div class="ttile"><div class="tsw" style="background:#C4503A;"></div><div class="tbody"><div class="tname">Terra</div><div class="thex">#C4503A</div><div class="trole">Overdue status — date label + task name. Nothing else.</div></div></div>
       <div class="ttile"><div class="tsw" style="background:#2D1F4A;"></div><div class="tbody"><div class="tname">Plum</div><div class="thex">#2D1F4A</div><div class="trole">Done overlay background. Sacred. Appears nowhere else.</div></div></div>
-      <div class="ttile"><div class="tsw" style="background:#9B7FD4;"></div><div class="tbody"><div class="tname">Plum-lt</div><div class="thex">#9B7FD4</div><div class="trole">Pro badge only. No other use.</div><div class="tnote">New in v2.1</div></div></div>
+      <div class="ttile"><div class="tsw" style="background:#9B7FD4;"></div><div class="tbody"><div class="tname">Plum-lt</div><div class="thex">#9B7FD4</div><div class="trole">Pro badge only. No other use.</div><div class="tnote">Pro badge, profile screen only</div></div></div>
       <div class="ttile"><div class="tsw" style="background:#8A8070;"></div><div class="tbody"><div class="tname">Mid</div><div class="thex">#8A8070</div><div class="trole">Italic subtitles. Hint text. Section labels.</div></div></div>
     </div>
 
     <!-- COLOR THREAD -->
     <div style="background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:18px 20px;margin-bottom:9px;box-shadow:0 1px 3px rgba(26,22,18,0.04);">
-      <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:5px;display:flex;align-items:center;gap:7px;">The color thread <span class="tag tag-lock">v2.2 core decision</span></div>
+      <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:5px;display:flex;align-items:center;gap:7px;">The color thread <span class="tag tag-lock">locked</span></div>
       <div style="font-size:12px;color:var(--mid);line-height:1.65;margin-bottom:16px;">One color family connects the entire user journey — homescreen to first tap to reward moment. The welcome screen ii mark, the CTA button, and the done overlay all share the same two plum hues.</div>
       <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
         <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
@@ -362,7 +359,7 @@ section{padding-top:60px;}
     </div>
 
     <div class="rcard">
-      <div class="rcard-title">Primary CTA — light plum <span class="tag tag-new">updated v2.2</span></div>
+      <div class="rcard-title">Primary CTA — light plum <span class="tag tag-new"></span></div>
       <div class="rcard-body"><strong>All primary action buttons use <code>#9B7FD4</code> background with <code>#FAF8FF</code> lavender-cream text.</strong> This applies to: welcome screen Path A button, onboarding confirm buttons, dashboard add button, active filter chip, tab bar active pip.<br><br>Contrast ratio: 4.7:1 on cream (passes WCAG AA). Box shadow: <code>0 2px 12px rgba(155,127,212,0.28)</code> — subtle plum glow that ties the button to the icon.<br><br><strong>Why light plum:</strong> the icon right pill, the CTA button, and the Pro badge are all <code>#9B7FD4</code>. The done overlay is <code>#2D1F4A</code> — same family, 3× deeper. Tapping the button feels like a preview of the reward. The color thread: icon → CTA → overlay.<br><br>Apricot-dk <code>#C8784A</code> is now status-only — due-soon date labels. Never used on interactive elements.</div>
     </div>
   </section>
@@ -496,14 +493,39 @@ section{padding-top:60px;}
 
   <div class="rule"></div>
 
-  <!-- 07 COMPONENTS -->
+  <!-- 07 COMPONENT LIBRARY -->
   <section id="components">
     <div class="sec-eye">07</div>
-    <h2 class="sec-title">Components</h2>
-    <p class="sec-desc">All components reference tokens. No hardcoded hex in Flutter or Figma.</p>
+    <h2 class="sec-title">Component library</h2>
+    <p class="sec-desc">Each component is a standalone definition — visual demo, specs, rules, Flutter note. This is the source of truth. When a component changes, this definition updates in the same pass.</p>
 
-    <!-- Component heights -->
-    <div class="rcard" style="margin-bottom:28px;">
+    <!-- Accessibility note -->
+    <div class="rcard" style="margin-bottom:20px;border-color:rgba(196,80,58,0.20);background:rgba(196,80,58,0.02);">
+      <div class="rcard-title">Colour accessibility — two mid tokens <span class="tag tag-never">App Store risk if violated</span></div>
+      <div class="rcard-body">
+        Two tokens exist for two jobs — never swap them:
+        <table style="width:100%;border-collapse:collapse;font-size:12px;margin-top:10px;line-height:1.8;">
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:4px 8px;font-weight:500;">--mid #8A8070</td>
+            <td style="padding:4px 8px;color:var(--terra);">2.8:1 · FAILS AA</td>
+            <td style="padding:4px 8px;">Decorative ONLY — witty italic card subtitles. Never functional.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:4px 8px;font-weight:500;">--mid-a #6B6358</td>
+            <td style="padding:4px 8px;color:#3A6E40;font-weight:500;">4.6:1 · AA PASS</td>
+            <td style="padding:4px 8px;font-weight:500;">All functional text — hints, labels, body, descriptions.</td>
+          </tr>
+          <tr>
+            <td style="padding:4px 8px;font-weight:500;">--cta #9B7FD4</td>
+            <td style="padding:4px 8px;color:#3A6E40;font-weight:500;">4.7:1 · AA PASS</td>
+            <td style="padding:4px 8px;">CTA button — passes AA with colorCtaFg (#FAF8FF) text.</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Specs overview -->
+    <div class="rcard" style="margin-bottom:20px;">
       <div class="rcard-title">Component heights <span class="tag tag-lock">locked — never deviate</span></div>
       <div class="rcard-body">
         <table style="width:100%;border-collapse:collapse;font-size:12px;line-height:1.8;">
@@ -511,80 +533,305 @@ section{padding-top:60px;}
             <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;width:200px;">Primary CTA button</td><td style="color:var(--mid);">50px</td></tr>
             <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">Secondary button</td><td style="color:var(--mid);">46px</td></tr>
             <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">Ghost / text button</td><td style="color:var(--mid);">36px</td></tr>
-            <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">Input field</td><td style="color:var(--mid);">44px <span style="font-style:italic;color:var(--mid-lt);">— minimum touch target, Apple HIG</span></td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">Input field</td><td style="color:var(--mid);">44px — minimum touch target, Apple HIG</td></tr>
             <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">Task card min-height</td><td style="color:var(--mid);">56px</td></tr>
             <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">FAB</td><td style="color:var(--mid);">46 × 46px</td></tr>
             <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">Tab bar height</td><td style="color:var(--mid);">52px</td></tr>
             <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">Nav bar</td><td style="color:var(--mid);">44px</td></tr>
-            <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">Bottom sheet handle</td><td style="color:var(--mid);">3px hoog · 32px breed</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">Bottom sheet handle</td><td style="color:var(--mid);">3px high · 32px wide</td></tr>
             <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">Settings row</td><td style="color:var(--mid);">48px</td></tr>
             <tr><td style="padding:4px 0;color:var(--ink);font-weight:500;">Snooze option row</td><td style="color:var(--mid);">52px</td></tr>
           </tbody>
         </table>
-        <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">Minimum touch target voor <strong>alle</strong> interactieve elementen: <code>44 × 44px</code>. Ook als het visuele element kleiner is. In Flutter: <code>SizedBox(width: 44, height: 44)</code> of <code>IconButton</code>.</div>
+        <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">Minimum tap target for <strong>all</strong> interactive elements: <code>44 × 44px</code>. Even when the visual element is smaller. Flutter: <code>SizedBox(width: 44, height: 44)</code> or <code>IconButton</code>.</div>
       </div>
     </div>
 
-    <!-- Shadow hierarchy -->
     <div class="rcard" style="margin-bottom:28px;">
       <div class="rcard-title">Shadow hierarchy <span class="tag tag-lock">locked</span></div>
       <div class="rcard-body">
-        Shadows communiceren elevatie — nooit decoratie. Nooit een shadow toevoegen voor esthetiek.<br><br>
-        <code>--shadow-card: none</code> — cards gebruiken border, geen shadow<br>
+        Shadows communicate elevation — never decoration. Never add a shadow for aesthetics.<br><br>
+        <code>--shadow-card: none</code> — cards use border, not shadow<br>
         <code>--shadow-tab-bar: 0 4px 20px rgba(26,22,18,0.11)</code> — floating pill tab bar<br>
         <code>--shadow-fab: 0 4px 16px rgba(155,127,212,0.35)</code> — FAB (plum glow)<br>
         <code>--shadow-sheet: 0 -2px 20px rgba(26,22,18,0.12)</code> — bottom sheet
       </div>
     </div>
 
-    <div class="cgroup">
-      <div class="cgroup-title">Buttons</div>
-      <div class="cgroup-row">
-        <button class="btn btn-cta">
-          <div class="mic-btn"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg></div>
-          Vertel het me
-        </button>
-        <button class="btn btn-secondary">Laat me zien</button>
-        <button class="btn btn-ghost">Ik weet wat ik nodig heb</button>
-        <button class="btn btn-cta btn-sm">Bevestigen</button>
+    <!-- ── COMPONENT: CTA BUTTON ── -->
+    <div class="rcard" style="margin-bottom:20px;">
+      <div class="rcard-title" style="margin-bottom:12px;">CTA button <a href="../screens/s01-welcome-hifi.html" style="font-size:10px;color:var(--cta);text-decoration:none;margin-left:8px;">↗ S-01</a></div>
+      <!-- VISUAL DEMO -->
+      <div style="background:var(--cream-2);border-radius:10px;padding:20px;margin-bottom:16px;display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-start;">
+          <div>
+            <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Primary — with mic (Path A)</div>
+            <button class="btn btn-cta">
+              <div class="mic-btn"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg></div>
+              Tell me what you have
+            </button>
+          </div>
+          <div>
+            <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Primary — no mic (standard)</div>
+            <button class="btn btn-cta btn-sm">Confirm</button>
+          </div>
+          <div>
+            <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Secondary</div>
+            <button class="btn btn-secondary btn-sm">Show me what to track</button>
+          </div>
+          <div>
+            <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Ghost</div>
+            <button class="btn btn-ghost">I know what I need</button>
+          </div>
+        </div>
       </div>
-      <div style="margin-top:10px;" class="rcard">
-        <div class="rcard-title">Button rules <span class="tag tag-new">CTA updated v2.2</span></div>
-        <div class="rcard-body"><strong>Primary CTA: light plum (#9B7FD4) background, lavender-white (#FAF8FF) text.</strong> Contrast 4.7:1 on cream — passes WCAG AA for large text. The CTA color comes directly from the icon's right pill — icon → button → done overlay is one visual thread.<br><br>Apricot-dk (#C8784A) is no longer a button color — it is status dates (due-soon) only. Secondary: border only, transparent bg. Ghost: no border, mid color text. All buttons sentence case, pill radius.</div>
+      <div class="rcard-body">
+        <strong>Primary CTA:</strong> bg <code>colorCta #9B7FD4</code> · text <code>colorCtaFg #FAF8FF</code> · contrast 4.7:1 on cream (WCAG AA) · shadow <code>0 2px 12px rgba(155,127,212,0.28)</code> · border-radius pill · height 50px<br><br>
+        <strong>States:</strong><br>
+        Default — as above.<br>
+        Pressed — bg <code>#7D62B3</code>, scale 0.97, 100ms ease-out.<br>
+        Loading — text hidden, centered spinner colorCtaFg, button stays full width. Never <code>Opacity</code> widget — change colors instead.<br>
+        Disabled — bg <code>rgba(155,127,212,0.35)</code>, text <code>rgba(250,248,255,0.5)</code>.<br><br>
+        <strong>Mic button (inside CTA, Path A voice onboarding only):</strong><br>
+        22×22px circle · bg <code>rgba(250,248,255,0.15)</code> · Phosphor Microphone icon 11px · stroke <code>#FAF8FF</code> · stroke-width 1.8 · centered left of label<br>
+        Flutter: <code>Row([Container(width:22, height:22, decoration:BoxDecoration(shape:circle, color:rgba(250,248,255,0.15))), SizedBox(width:8), Text])</code><br><br>
+        <strong>Secondary:</strong> transparent bg · border 1.5px <code>rgba(26,22,18,0.12)</code> · ink text · height 46px<br>
+        <strong>Ghost:</strong> no border · mid color text · height 36px<br>
+        <strong>All buttons:</strong> sentence case · never title case · never ALL CAPS · DM Sans 500
       </div>
     </div>
 
-    <div class="cgroup">
-      <div class="cgroup-title">Nudge cards — no left border</div>
-      <div class="cgroup-row">
-        <div class="ncard"><div class="nci" style="background:var(--chb);"><svg viewBox="0 0 24 24" style="stroke:var(--ch);"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="nb"><div class="nn nn-ov">Vaatwasser zoutbak</div><div class="ns">it's starting to smell</div></div><div class="nd" style="color:var(--terra);">5d</div></div>
-        <div class="ncard"><div class="nci" style="background:var(--cvb);"><svg viewBox="0 0 24 24" style="stroke:var(--cv);"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg></div><div class="nb"><div class="nn">Winterbanden</div><div class="ns">giving you the look</div></div><div class="nd" style="color:var(--ap-dk);">do 20</div></div>
-        <div class="ncard"><div class="nci" style="background:var(--csb);"><svg viewBox="0 0 24 24" style="stroke:var(--cs);"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div><div class="nb"><div class="nn">Netflix review</div><div class="ns">quietly charging away</div></div><div class="nd" style="color:rgba(26,22,18,0.2);">apr 2</div></div>
+    <!-- ── COMPONENT: ONBOARDING PROGRESS BAR ── -->
+    <div class="rcard" style="margin-bottom:20px;">
+      <div class="rcard-title" style="margin-bottom:12px;">Onboarding progress bar <a href="../screens/s01-welcome-hifi.html" style="font-size:10px;color:var(--cta);text-decoration:none;margin-left:8px;">↗ S-01</a></div>
+      <!-- VISUAL DEMO -->
+      <div style="background:var(--cream-2);border-radius:10px;padding:20px;margin-bottom:16px;display:flex;flex-direction:column;gap:14px;">
+        <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:4px;">S-01 · 20%</div>
+        <div style="background:rgba(26,22,18,0.08);border-radius:100px;height:3px;width:100%;"><div style="height:3px;border-radius:100px;background:#9B7FD4;width:20%;"></div></div>
+        <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:4px;">S-02 / S-03 / S-04 · 40%</div>
+        <div style="background:rgba(26,22,18,0.08);border-radius:100px;height:3px;width:100%;"><div style="height:3px;border-radius:100px;background:#9B7FD4;width:40%;"></div></div>
+        <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:4px;">S-05 · 60%</div>
+        <div style="background:rgba(26,22,18,0.08);border-radius:100px;height:3px;width:100%;"><div style="height:3px;border-radius:100px;background:#9B7FD4;width:60%;"></div></div>
+        <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:4px;">S-06 · 80%</div>
+        <div style="background:rgba(26,22,18,0.08);border-radius:100px;height:3px;width:100%;"><div style="height:3px;border-radius:100px;background:#9B7FD4;width:80%;"></div></div>
+        <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:4px;">S-07 · 100%</div>
+        <div style="background:rgba(26,22,18,0.08);border-radius:100px;height:3px;width:100%;"><div style="height:3px;border-radius:100px;background:#9B7FD4;width:100%;"></div></div>
+      </div>
+      <div class="rcard-body">
+        Single continuous bar. Full width, edge-to-edge. 5 steps — no fixed dot count. A dot count implies a fixed step count. This bar doesn't.<br><br>
+        <strong>Track:</strong> full width · height 3px · border-radius 100px · <code>rgba(26,22,18,0.08)</code><br>
+        <strong>Fill:</strong> height 3px · border-radius 100px · <code>--cta #9B7FD4</code><br>
+        <strong>Position:</strong> top of screen, full bleed (inside safe area) — no side padding<br>
+        <strong>Steps:</strong> S-01 = 20% · S-02/03/04 = 40% · S-05 = 60% · S-06 = 80% · S-07 = 100%<br>
+        <strong>Transition:</strong> 300ms ease-in-out on step change<br>
+        <strong>Flutter:</strong> <code>LinearProgressIndicator</code> wrapped in <code>ClipRRect(borderRadius: 100px)</code> + <code>AnimatedContainer</code> 300ms ease-in-out. Never <code>StepProgressIndicator</code>.
       </div>
     </div>
 
-    <div class="cgroup">
-      <div class="cgroup-title">Done overlay + Pro badge</div>
-      <div class="cgroup-row" style="align-items:center;">
+    <!-- ── COMPONENT: NUDGE CARD ── -->
+    <div class="rcard" style="margin-bottom:20px;">
+      <div class="rcard-title" style="margin-bottom:12px;">Nudge card <a href="../screens/s09-dashboard-hifi.html" style="font-size:10px;color:var(--cta);text-decoration:none;margin-left:8px;">↗ S-09</a></div>
+      <!-- VISUAL DEMO -->
+      <div style="background:var(--cream-2);border-radius:10px;padding:20px;margin-bottom:16px;display:flex;flex-direction:column;gap:6px;">
+        <div class="ncard"><div class="nci" style="background:var(--chb);"><svg viewBox="0 0 24 24" style="stroke:var(--ch);width:12px;height:12px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="nb"><div class="nn nn-ov">Dishwasher salt</div><div class="ns">it's starting to smell</div></div><div class="nd" style="color:var(--terra);">5d</div></div>
+        <div class="ncard"><div class="nci" style="background:var(--cvb);"><svg viewBox="0 0 24 24" style="stroke:var(--cv);width:12px;height:12px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg></div><div class="nb"><div class="nn">Winter tyres</div><div class="ns">giving you the look</div></div><div class="nd" style="color:var(--ap-dk);">Thu 20</div></div>
+        <div class="ncard"><div class="nci" style="background:var(--csb);"><svg viewBox="0 0 24 24" style="stroke:var(--cs);width:12px;height:12px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div><div class="nb"><div class="nn">Netflix review</div><div class="ns">quietly charging away</div></div><div class="nd" style="color:rgba(26,22,18,0.2);">Apr 2</div></div>
+      </div>
+      <div class="rcard-body">
+        White card on cream background. The cream gap between cards is the visual separator — no border-bottom, no dividers.<br><br>
+        <strong>Card:</strong> bg white · border-radius 10–11px · border 0.5px solid <code>rgba(26,22,18,0.08)</code> · shadow <code>0 1px 3px rgba(26,22,18,0.04)</code><br>
+        <strong>Category icon chip:</strong> 28×28px · border-radius 8px · category-colored bg at 10% opacity · Phosphor outline icon 12px · stroke 1.5<br>
+        <strong>Task name:</strong> DM Sans 500 · 13–14px · <code>--ink</code> · ls -0.1px<br>
+        <strong>Witty subtitle:</strong> DM Sans 400 italic · 10–11px · <code>--mid</code> (decorative, not functional)<br>
+        <strong>Date label:</strong> DM Sans 500 · 11px · overdue = <code>--terra</code> · due-soon = <code>--ap-dk</code> · future = <code>rgba(26,22,18,0.2)</code><br>
+        <strong>Gap between cards:</strong> 6px (onboarding/review) · 8px (dashboard)<br>
+        <strong>No left-border accent lines — ever.</strong> Status lives in the date label color only.<br>
+        <strong>Swipe right:</strong> completes at 40% threshold · reveals done overlay on release<br>
+        <strong>Done state:</strong> opacity 0.35 + strikethrough · <code>AnimatedOpacity</code> 250ms
+      </div>
+    </div>
+
+    <!-- ── COMPONENT: DONE OVERLAY ── -->
+    <div class="rcard" style="margin-bottom:20px;">
+      <div class="rcard-title" style="margin-bottom:12px;">Done overlay</div>
+      <!-- VISUAL DEMO -->
+      <div style="background:var(--cream-2);border-radius:10px;padding:20px;margin-bottom:16px;">
         <div class="done-mini">
           <div class="dm-ii"><div class="dm-l"></div><div class="dm-r"><div class="dm-dot"></div></div></div>
           <div class="dm-title">Done. <em>Your dishwasher approves.</em></div>
           <div class="dm-sub">Next in 6 weeks</div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <div class="rcard" style="max-width:260px;">
-            <div class="rcard-title">Pro badge <span class="tag tag-new">new v2.1</span> <span class="tag tag-pro">plum-lt</span></div>
-            <div class="rcard-body">Full pill style, profile screen only. <code>#9B7FD4</code> dot and text, 10% opacity bg, 20% opacity border.<br><br>
-              <div style="margin-top:8px;"><div class="pro-pill"><div class="pro-dot"></div>nudgii Pro</div></div>
-            </div>
+      </div>
+      <div class="rcard-body">
+        Full-screen plum overlay. The only theatrical moment in the app.<br><br>
+        <strong>Background:</strong> <code>colorPlum #2D1F4A</code> — the only place this color appears in the app.<br>
+        <strong>Trigger:</strong> dashboard swipe-to-complete only. Task detail gets a quiet in-screen completion banner — not this overlay.<br>
+        <strong>ii mark:</strong> 40px · left pill plum-pale · right pill rgba(196,168,232,0.28) · dot apricot<br>
+        <strong>Headline:</strong> "Done." · DM Serif Display regular · cream · 28–30px<br>
+        <strong>Em-accent:</strong> item-specific witty line · DM Serif Display italic · apricot (#E8A87C) · max 5 words<br>
+        <strong>Sub:</strong> "Next reminder in [interval]" · DM Sans · cream 55% · 11px<br>
+        <strong>Animation:</strong> 400–450ms <code>cubic-bezier(0.34,1.56,0.64,1)</code> · ii mark scale + headline translateY · spring only here<br>
+        <strong>Copy rules:</strong> item as implicit subject ("Your dishwasher approves." not "Great job!") · dry-comic · never exclamation marks · never emojis
+      </div>
+    </div>
+
+    <!-- ── COMPONENT: TOAST ── -->
+    <div class="rcard" style="margin-bottom:20px;">
+      <div class="rcard-title" style="margin-bottom:12px;">Toast</div>
+      <!-- VISUAL DEMO -->
+      <div style="background:var(--cream-2);border-radius:10px;padding:20px;margin-bottom:16px;display:flex;flex-direction:column;gap:10px;align-items:center;">
+        <div style="display:inline-flex;align-items:center;gap:7px;background:#EAF3DE;border:1px solid rgba(59,109,17,0.20);border-radius:100px;padding:9px 16px;font-size:12px;font-weight:500;color:#3B6D11;max-width:260px;box-shadow:0 2px 16px rgba(26,22,18,0.12);">
+          <div style="width:6px;height:6px;border-radius:50%;background:#3B6D11;flex-shrink:0;"></div>
+          Magic link sent
+        </div>
+        <div style="display:inline-flex;align-items:center;gap:7px;background:#F5F0E8;border:1px solid rgba(26,22,18,0.12);border-radius:100px;padding:9px 16px;font-size:12px;font-weight:500;color:#1A1612;max-width:260px;box-shadow:0 2px 16px rgba(26,22,18,0.12);">
+          <div style="width:6px;height:6px;border-radius:50%;background:#9B7FD4;flex-shrink:0;"></div>
+          Item removed · undo
+        </div>
+        <div style="display:inline-flex;align-items:center;gap:7px;background:#FCEBEB;border:1px solid rgba(163,45,45,0.20);border-radius:100px;padding:9px 16px;font-size:12px;font-weight:500;color:#A32D2D;max-width:260px;box-shadow:0 2px 16px rgba(26,22,18,0.12);">
+          <div style="width:6px;height:6px;border-radius:50%;background:#C4503A;flex-shrink:0;"></div>
+          No connection. Try again.
+        </div>
+      </div>
+      <div class="rcard-body">
+        One component, three semantic variants. Light backgrounds only — never dark ink.<br><br>
+        <table style="width:100%;border-collapse:collapse;font-size:12px;line-height:1.8;">
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;width:80px;">Success</td><td style="padding:4px 8px;">bg <code>--sage-lt #EAF3DE</code> · text <code>--sage #3B6D11</code> · dot sage</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Neutral</td><td style="padding:4px 8px;">bg <code>--cream #F5F0E8</code> · text <code>--ink</code> · dot <code>--cta</code></td></tr>
+          <tr><td style="padding:4px 8px;font-weight:500;">Error</td><td style="padding:4px 8px;">bg <code>--red-lt #FCEBEB</code> · text <code>--red #A32D2D</code> · dot terra</td></tr>
+        </table>
+        <br>
+        <strong>Shape:</strong> border-radius 100px · padding 9px 16px · max-width 260px<br>
+        <strong>Shadow:</strong> 0 2px 16px rgba(26,22,18,0.12)<br>
+        <strong>Position:</strong> center-bottom · 14px above tab bar<br>
+        <strong>Duration:</strong> 2.5s visible · 250ms fade-out<br>
+        <strong>Rules:</strong> Never two toasts simultaneously. Never dark ink background. Never on errors that need a persistent error card.<br>
+        <strong>Flutter:</strong> Custom overlay widget — not default <code>SnackBar</code> (wrong position and shape).
+      </div>
+    </div>
+
+    <!-- ── COMPONENT: ERROR CARD ── -->
+    <div class="rcard" style="margin-bottom:20px;">
+      <div class="rcard-title" style="margin-bottom:12px;">Error card <a href="../screens/s06-auth-lofi.html" style="font-size:10px;color:var(--cta);text-decoration:none;margin-left:8px;">↗ S-06</a></div>
+      <!-- VISUAL DEMO -->
+      <div style="background:var(--cream-2);border-radius:10px;padding:20px;margin-bottom:16px;">
+        <div style="background:#FCEBEB;border:1px solid rgba(163,45,45,0.18);border-radius:12px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;max-width:380px;">
+          <div style="width:28px;height:28px;border-radius:8px;background:rgba(196,80,58,0.15);flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C4503A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
           </div>
-          <div class="rcard" style="max-width:260px;">
-            <div class="rcard-title">Plum sacred <span class="tag tag-never">never elsewhere</span></div>
-            <div class="rcard-body">Plum (<code>#2D1F4A</code>) appears only in the done overlay background. Plum-lt (<code>#9B7FD4</code>) has two roles: <strong>CTA button</strong> and <strong>Pro badge</strong>. It does not appear in category chips, section headers, card backgrounds, or status labels.</div>
+          <div style="flex:1;">
+            <div style="font-size:12px;font-weight:500;color:#1A1612;margin-bottom:3px;">Microphone not working</div>
+            <div style="font-size:11px;color:#6B6358;line-height:1.5;margin-bottom:6px;">No problem. Tap below to type instead.</div>
+            <div style="font-size:11px;color:#9B7FD4;text-decoration:underline;display:inline-flex;align-items:center;gap:3px;">Type instead <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#9B7FD4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           </div>
         </div>
       </div>
+      <div class="rcard-body">
+        Full semantic background + icon-chip. No border-left accent.<br><br>
+        <strong>Background:</strong> <code>--red-lt #FCEBEB</code><br>
+        <strong>Border:</strong> 1px solid rgba(163,45,45,0.18) — all sides. <span style="color:var(--terra);font-weight:500;">No border-left accent stripe — ever.</span><br>
+        <strong>Icon-chip:</strong> 28×28px · border-radius 8px · rgba(196,80,58,0.15) bg · Phosphor WarningCircle 14px stroke 1.8 · terra<br>
+        <strong>Title:</strong> DM Sans 500 12px · ink<br>
+        <strong>Body:</strong> DM Sans 400 11px · <code>--mid-a #6B6358</code><br>
+        <strong>Action link:</strong> <code>--cta</code> · underline · Phosphor ArrowRight 10px · always present<br>
+        <strong>Copy rules:</strong> never technical error codes · always an exit · never em-dash
+      </div>
     </div>
+
+    <!-- ── COMPONENT: FREE BADGE ── -->
+    <div class="rcard" style="margin-bottom:20px;">
+      <div class="rcard-title" style="margin-bottom:12px;">Free badge <a href="../screens/s01-welcome-hifi.html" style="font-size:10px;color:var(--cta);text-decoration:none;margin-left:8px;">↗ S-01</a></div>
+      <!-- VISUAL DEMO -->
+      <div style="background:var(--cream-2);border-radius:10px;padding:20px;margin-bottom:16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+        <div style="display:inline-flex;align-items:center;gap:5px;background:#EAF3DE;border-radius:100px;padding:4px 10px 4px 7px;font-size:10px;font-weight:500;color:#3B6D11;">
+          <div style="width:5px;height:5px;border-radius:50%;background:#3B6D11;"></div>
+          Free · no credit card
+        </div>
+        <div style="font-size:11px;color:var(--mid);font-style:italic;">Used on S-01 and S-06</div>
+      </div>
+      <div class="rcard-body">
+        Sage-lt green — not neutral grey (which reads as "limited"). Green communicates "free = positive."<br><br>
+        <strong>Background:</strong> <code>--sage-lt #EAF3DE</code><br>
+        <strong>Text:</strong> <code>--sage #3B6D11</code> · 10px · weight 500<br>
+        <strong>Dot:</strong> 5px · border-radius 50% · <code>--sage</code><br>
+        <strong>Copy (EN):</strong> "Free · no credit card"<br>
+        <strong>Copy (NL):</strong> "Gratis · geen creditcard"<br>
+        <strong>Padding:</strong> 4px 10px 4px 7px · border-radius 100px<br>
+        <strong>Placement:</strong> S-01 top-right inline with ii mark · S-06 below magic link CTA
+      </div>
+    </div>
+
+    <!-- ── COMPONENT: PRO BADGE ── -->
+    <div class="rcard" style="margin-bottom:20px;">
+      <div class="rcard-title" style="margin-bottom:12px;">Pro badge <a href="../screens/s20-profile-free-hifi.html" style="font-size:10px;color:var(--cta);text-decoration:none;margin-left:8px;">↗ S-20</a></div>
+      <!-- VISUAL DEMO -->
+      <div style="background:var(--cream-2);border-radius:10px;padding:20px;margin-bottom:16px;">
+        <div class="pro-pill"><div class="pro-dot"></div>nudgii Pro</div>
+      </div>
+      <div class="rcard-body">
+        Full pill style. Profile screen only.<br><br>
+        <strong>Background:</strong> <code>rgba(155,127,212,0.12)</code><br>
+        <strong>Border:</strong> <code>rgba(155,127,212,0.20)</code><br>
+        <strong>Text + dot:</strong> <code>--cta #9B7FD4</code> · 10px · weight 500<br>
+        <strong>Padding:</strong> 4px 10px 4px 7px · border-radius 100px<br>
+        <strong>Rules:</strong> Never call it "Premium" (implies free is low quality). Pro = more capacity for users whose homes have more to track.
+      </div>
+    </div>
+
+    <!-- ── COMPONENT: SKELETON LOADING ── -->
+    <div class="rcard" style="margin-bottom:20px;">
+      <div class="rcard-title" style="margin-bottom:12px;">Skeleton loading</div>
+      <!-- VISUAL DEMO -->
+      <div style="background:var(--cream-2);border-radius:10px;padding:20px;margin-bottom:16px;">
+        <div style="display:flex;flex-direction:column;gap:6px;max-width:300px;">
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:10px 12px;display:flex;align-items:center;gap:10px;">
+            <div style="width:28px;height:28px;border-radius:8px;background:#E8E3D8;flex-shrink:0;position:relative;overflow:hidden;"><div style="position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.5) 50%,transparent 100%);animation:shimmer 1.4s infinite;"></div></div>
+            <div style="flex:1;"><div style="height:9px;border-radius:4px;background:#E8E3D8;width:70%;margin-bottom:6px;position:relative;overflow:hidden;"><div style="position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.5) 50%,transparent 100%);animation:shimmer 1.4s infinite;"></div></div><div style="height:7px;border-radius:4px;background:#EDE9E0;width:45%;"></div></div>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:10px 12px;display:flex;align-items:center;gap:10px;">
+            <div style="width:28px;height:28px;border-radius:8px;background:#E8E3D8;flex-shrink:0;"></div>
+            <div style="flex:1;"><div style="height:9px;border-radius:4px;background:#E8E3D8;width:55%;margin-bottom:6px;"></div><div style="height:7px;border-radius:4px;background:#EDE9E0;width:35%;"></div></div>
+          </div>
+        </div>
+      </div>
+      <style>@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(200%)}}</style>
+      <div class="rcard-body">
+        Shown while Claude processes voice/text input (2–4 seconds). Never a spinner alone for operations over 1 second.<br><br>
+        <strong>Skeleton icon:</strong> <code>#E8E3D8</code> · 28×28px · border-radius 7px<br>
+        <strong>Skeleton lines:</strong> primary <code>#E8E3D8</code> · secondary <code>#EDE9E0</code> · border-radius 4px<br>
+        <strong>Shimmer:</strong> left → right · 1400ms infinite · rgba(255,255,255,0.5) sweep<br>
+        <strong>Max:</strong> 3 skeleton cards — never more<br>
+        <strong>Flutter:</strong> Custom <code>AnimationController</code> + gradient sweep. Not the shimmer package.
+      </div>
+    </div>
+
+    <!-- ── COMPONENT: TYPOGRAPHY SCALE ── -->
+    <div class="rcard" style="margin-bottom:20px;">
+      <div class="rcard-title" style="margin-bottom:12px;">Typography scale — onboarding vs. daily</div>
+      <div class="rcard-body">
+        Same fonts, different scales. Onboarding screens have more space and a different rhythm than the daily dashboard.<br><br>
+        <table style="width:100%;border-collapse:collapse;font-size:12px;margin-top:12px;line-height:1.8;">
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Element</td>
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Onboarding (S-01→S-07)</td>
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Daily (S-09+)</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Headline</td><td style="padding:4px 8px;">DM Serif Display · 22–33px · lh 0.97 · ls -0.5px</td><td style="padding:4px 8px;">DM Serif Display · 25–27px · greeting only</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Serif em</td><td style="padding:4px 8px;">ap-dk #C8784A · italic · key word</td><td style="padding:4px 8px;">apricot #E8A87C · name highlight</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Lead / subtitle</td><td style="padding:4px 8px;">DM Sans 400 italic · 10px · mid · lh 1.45</td><td style="padding:4px 8px;">—</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Body</td><td style="padding:4px 8px;">DM Sans 400 · 10px · lh 1.5</td><td style="padding:4px 8px;">DM Sans 400 · 15px · lh 1.55</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Section label</td><td style="padding:4px 8px;">DM Sans 500 · 9px · ls 0.06em · uppercase · mid-a — ONLY uppercase element</td><td style="padding:4px 8px;">Same</td></tr>
+          <tr><td style="padding:4px 8px;font-weight:500;">Button</td><td style="padding:4px 8px;">DM Sans 500 · 11–14px · sentence case</td><td style="padding:4px 8px;">DM Sans 500 · 13–14px · sentence case</td></tr>
+        </table>
+        <br>
+        <strong>Responsive breakpoints (Flutter):</strong><br>
+        Small (&lt;380px, e.g. iPhone SE): welcome headline 28px · greeting 22px<br>
+        Default (≥380px): welcome headline 33px · greeting 25–27px<br>
+        Side padding: &lt;420px → 16px · ≥420px → 20–24px<br>
+        Text scale cap: <code>textScaleFactor.clamp(0.85, 1.3)</code> at app root
+      </div>
+    </div>
+
   </section>
 
   <div class="rule"></div>
@@ -685,7 +932,7 @@ section{padding-top:60px;}
     </div>
 
     <div class="rcard">
-      <div class="rcard-title">Revised icons — 3 changes <span class="tag tag-new">updated v2.3</span></div>
+      <div class="rcard-title">Revised icons — 3 changes <span class="tag tag-new">locked</span></div>
       <div class="rcard-body">
         <strong>Settings:</strong> <code>Faders</code> — three vertical sliders. Reads as preferences/personalisation, not mechanical configuration. Replaces <code>GearSix</code>.<br><br>
         <strong>Camera / AI scan:</strong> <code>Scan</code> — four corner brackets with a dashed scan line. Universally understood as "scan this object." Replaces <code>CameraPlus</code> which implied photography.<br><br>
@@ -694,7 +941,7 @@ section{padding-top:60px;}
     </div>
 
     <div class="rcard">
-      <div class="rcard-title">Tab bar — floating pill <span class="tag tag-new">updated v2.3</span></div>
+      <div class="rcard-title">Tab bar — floating pill <span class="tag tag-new">locked</span></div>
       <div class="rcard-body">
         nudgii uses a <strong>floating pill tab bar</strong> — a white rounded card that hovers above screen content with a shadow. No hard border-top edge. Content scrolls behind it.<br><br>
         <strong>Spec:</strong> background <code>var(--surface)</code> · border-radius <code>22px</code> · padding <code>9px 4px 11px</code> · shadow <code>0 4px 20px rgba(26,22,18,0.11)</code> · border <code>1px solid rgba(26,22,18,0.07)</code> · bottom <code>14px</code> from screen edge.<br><br>
@@ -703,7 +950,7 @@ section{padding-top:60px;}
     </div>
 
     <div class="rcard">
-      <div class="rcard-title">FAB — floating action button <span class="tag tag-new">updated v2.3</span></div>
+      <div class="rcard-title">FAB — floating action button <span class="tag tag-new">locked</span></div>
       <div class="rcard-body">
         <strong>Position:</strong> bottom-right, adjacent to the tab pill. Never inside the pill.<br>
         <strong>Shape:</strong> rounded square <code>46×46px</code>, border-radius <code>15px</code>. Not a circle — matches the pill's visual language.<br>
@@ -734,7 +981,7 @@ section{padding-top:60px;}
         Never resize icons outside the defined zone sizes.<br>
         Never use an icon purely for decoration — every icon must carry meaning.<br>
         Never use category colors on tab bar or action button icons.<br>
-        Never use <code>GearSix</code>, <code>CameraPlus</code>, or <code>PencilSimple</code> — replaced in v2.3.
+        Never use <code>GearSix</code>, <code>CameraPlus</code>, or <code>PencilSimple</code> — replaced — do not use.
       </div>
     </div>
   </section>
@@ -783,221 +1030,25 @@ section{padding-top:60px;}
       <div class="rcard"><div class="rcard-title"><span class="tag tag-lock">always</span> nudgii lowercase</div><div class="rcard-body">Always nudgii — never Nudgii, never NUDGII. In all app copy, marketing, documentation, and code comments. The double-i is the brand's typographic signature.</div></div>
       <div class="rcard"><div class="rcard-title"><span class="tag tag-lock">always</span> One serif moment per screen</div><div class="rcard-body">DM Serif Display appears once per screen. Welcome: headline. Dashboard: greeting. Detail: witty opener. Done overlay: confirmation. Never two visible simultaneously.</div></div>
       <div class="rcard"><div class="rcard-title"><span class="tag tag-lock">always</span> White cards on cream</div><div class="rcard-body">Task cards and UI cards are white on cream. Subtle but essential — creates depth without contrast. Never use off-white for cards on cream — they merge.</div></div>
-      <div class="rcard"><div class="rcard-title"><span class="tag tag-lock">always</span> CTA = light plum <span class="tag tag-new">updated v2.2</span></div><div class="rcard-body"><code>#9B7FD4</code> on all primary action buttons. Pulled directly from the icon's right pill — the color thread is icon → CTA → done overlay. Lavender-white <code>#FAF8FF</code> text. Never ink, never apricot, never green. Apricot-dk is now status dates only.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-lock">always</span> CTA = light plum <span class="tag tag-new"></span></div><div class="rcard-body"><code>#9B7FD4</code> on all primary action buttons. Pulled directly from the icon's right pill — the color thread is icon → CTA → done overlay. Lavender-white <code>#FAF8FF</code> text. Never ink, never apricot, never green. Apricot-dk is now status dates only.</div></div>
       <div class="rcard"><div class="rcard-title"><span class="tag tag-lock">always</span> Sentence case everywhere</div><div class="rcard-body">Buttons, chips, labels, section headers — sentence case. Never Title Case. Never ALL CAPS in user-facing copy. This includes filter chip labels and tab bar labels.</div></div>
     </div>
   </section>
 
   <div class="rule"></div>
 
-  <!-- 13 COMPONENT LIBRARY -->
-  <section id="v24">
-    <div class="sec-eye">13</div>
-    <h2 class="sec-title">Component library</h2>
-    <p class="sec-desc">Each component is a standalone definition. Visual demo + specs + rules. This is the source of truth — not Figma, not code. When a component changes, this page updates in the same pass.</p>
-
-    <!-- ACCESSIBILITY NOTE -->
-    <div class="rcard" style="margin-bottom:28px;border-color:rgba(196,80,58,0.20);background:rgba(196,80,58,0.02);">
-      <div class="rcard-title">Colour accessibility — two mid tokens <span class="tag tag-never">App Store risk if violated</span></div>
-      <div class="rcard-body">
-        <code>--mid #8A8070</code> on cream = 2.8:1 — fails WCAG AA. Two tokens exist for two jobs:
-        <table style="width:100%;border-collapse:collapse;font-size:12px;margin-top:10px;line-height:1.8;">
-          <tr style="border-bottom:1px solid var(--border);">
-            <td style="padding:4px 8px;font-weight:500;">--mid #8A8070</td>
-            <td style="padding:4px 8px;color:var(--terra);">2.8:1 · FAILS AA</td>
-            <td style="padding:4px 8px;">Decorative ONLY — witty italic card subtitles. Never functional.</td>
-          </tr>
-          <tr style="border-bottom:1px solid var(--border);">
-            <td style="padding:4px 8px;font-weight:500;">--mid-a #6B6358</td>
-            <td style="padding:4px 8px;color:#3A6E40;font-weight:500;">4.6:1 · AA PASS</td>
-            <td style="padding:4px 8px;font-weight:500;">All functional text — hints, labels, body, descriptions.</td>
-          </tr>
-          <tr>
-            <td style="padding:4px 8px;font-weight:500;">--cta #9B7FD4</td>
-            <td style="padding:4px 8px;color:#3A6E40;font-weight:500;">4.7:1 · AA PASS</td>
-            <td style="padding:4px 8px;">CTA button text background — unchanged.</td>
-          </tr>
-        </table>
-      </div>
-    </div>
-
-    <!-- ── COMPONENT: ONBOARDING PROGRESS BAR ── -->
-    <div class="rcard" style="margin-bottom:20px;">
-      <div class="rcard-title" style="margin-bottom:12px;">Onboarding progress bar <a href="../screens/s01-welcome-hifi.html" style="font-size:10px;color:var(--cta);text-decoration:none;margin-left:8px;">↗ S-01</a></div>
-      <!-- VISUAL DEMO -->
-      <div style="background:var(--cream-2);border-radius:10px;padding:20px;margin-bottom:16px;display:flex;flex-direction:column;gap:14px;">
-        <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:4px;">S-01 · 20%</div>
-        <div style="background:rgba(26,22,18,0.08);border-radius:100px;height:3px;width:100%;"><div style="height:3px;border-radius:100px;background:#9B7FD4;width:20%;"></div></div>
-        <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:4px;">S-02 / S-03 / S-04 · 40%</div>
-        <div style="background:rgba(26,22,18,0.08);border-radius:100px;height:3px;width:100%;"><div style="height:3px;border-radius:100px;background:#9B7FD4;width:40%;"></div></div>
-        <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:4px;">S-05 · 60%</div>
-        <div style="background:rgba(26,22,18,0.08);border-radius:100px;height:3px;width:100%;"><div style="height:3px;border-radius:100px;background:#9B7FD4;width:60%;"></div></div>
-        <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:4px;">S-06 · 80%</div>
-        <div style="background:rgba(26,22,18,0.08);border-radius:100px;height:3px;width:100%;"><div style="height:3px;border-radius:100px;background:#9B7FD4;width:80%;"></div></div>
-        <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:4px;">S-07 · 100%</div>
-        <div style="background:rgba(26,22,18,0.08);border-radius:100px;height:3px;width:100%;"><div style="height:3px;border-radius:100px;background:#9B7FD4;width:100%;"></div></div>
-      </div>
-      <div class="rcard-body">
-        Single continuous bar. Full width. 5 steps — no fixed dot count. A dot count implies a fixed number of screens. This bar doesn't.<br><br>
-        <strong>Track:</strong> full width · height 3px · border-radius 100px · <code>rgba(26,22,18,0.08)</code><br>
-        <strong>Fill:</strong> height 3px · border-radius 100px · <code>--cta #9B7FD4</code><br>
-        <strong>Position:</strong> top of screen, full bleed (inside safe area) — no side padding<br>
-        <strong>Steps:</strong> S-01 = 20% · S-02/03/04 = 40% · S-05 = 60% · S-06 = 80% · S-07 = 100%<br>
-        <strong>Transition:</strong> 300ms ease-in-out on step change<br>
-        <strong>Flutter:</strong> <code>LinearProgressIndicator</code> wrapped in <code>ClipRRect(borderRadius: 100px)</code> + <code>AnimatedContainer</code> 300ms ease-in-out. Never <code>StepProgressIndicator</code>.
-      </div>
-    </div>
-
-    <!-- ── COMPONENT: TOAST ── -->
-    <div class="rcard" style="margin-bottom:20px;">
-      <div class="rcard-title" style="margin-bottom:12px;">Toast</div>
-      <!-- VISUAL DEMO -->
-      <div style="background:var(--cream-2);border-radius:10px;padding:20px;margin-bottom:16px;display:flex;flex-direction:column;gap:10px;align-items:center;">
-        <div style="display:inline-flex;align-items:center;gap:7px;background:#EAF3DE;border:1px solid rgba(59,109,17,0.20);border-radius:100px;padding:9px 16px;font-size:12px;font-weight:500;color:#3B6D11;max-width:260px;box-shadow:0 2px 16px rgba(26,22,18,0.12);">
-          <div style="width:6px;height:6px;border-radius:50%;background:#3B6D11;flex-shrink:0;"></div>
-          Magic link verstuurd
-        </div>
-        <div style="display:inline-flex;align-items:center;gap:7px;background:#F5F0E8;border:1px solid rgba(26,22,18,0.12);border-radius:100px;padding:9px 16px;font-size:12px;font-weight:500;color:#1A1612;max-width:260px;box-shadow:0 2px 16px rgba(26,22,18,0.12);">
-          <div style="width:6px;height:6px;border-radius:50%;background:#9B7FD4;flex-shrink:0;"></div>
-          Item verwijderd
-        </div>
-        <div style="display:inline-flex;align-items:center;gap:7px;background:#FCEBEB;border:1px solid rgba(163,45,45,0.20);border-radius:100px;padding:9px 16px;font-size:12px;font-weight:500;color:#A32D2D;max-width:260px;box-shadow:0 2px 16px rgba(26,22,18,0.12);">
-          <div style="width:6px;height:6px;border-radius:50%;background:#C4503A;flex-shrink:0;"></div>
-          Verbinding mislukt · probeer opnieuw
-        </div>
-      </div>
-      <div class="rcard-body">
-        One component, three semantic variants. Light backgrounds only — never dark ink.<br><br>
-        <table style="width:100%;border-collapse:collapse;font-size:12px;line-height:1.8;">
-          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;width:80px;">Success</td><td style="padding:4px 8px;">bg <code>--sage-lt #EAF3DE</code> · text <code>--sage #3B6D11</code> · dot sage</td></tr>
-          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Neutral</td><td style="padding:4px 8px;">bg <code>--cream #F5F0E8</code> · text <code>--ink</code> · dot <code>--cta</code></td></tr>
-          <tr><td style="padding:4px 8px;font-weight:500;">Error</td><td style="padding:4px 8px;">bg <code>--red-lt #FCEBEB</code> · text <code>--red #A32D2D</code> · dot terra</td></tr>
-        </table>
-        <br>
-        <strong>Shape:</strong> border-radius 100px · padding 9px 16px · max-width 260px<br>
-        <strong>Shadow:</strong> 0 2px 16px rgba(26,22,18,0.12)<br>
-        <strong>Position:</strong> center-bottom · 14px above tab bar<br>
-        <strong>Duration:</strong> 2.5s visible · 250ms fade-out<br>
-        <strong>Rules:</strong> Never two toasts simultaneously. Never dark ink background. Never on error states that need a persistent error card.<br>
-        <strong>Flutter:</strong> Custom overlay widget — not default <code>SnackBar</code> (wrong position and shape).
-      </div>
-    </div>
-
-    <!-- ── COMPONENT: ERROR CARD ── -->
-    <div class="rcard" style="margin-bottom:20px;">
-      <div class="rcard-title" style="margin-bottom:12px;">Error card <a href="../screens/s06-auth-lofi.html" style="font-size:10px;color:var(--cta);text-decoration:none;margin-left:8px;">↗ S-06</a></div>
-      <!-- VISUAL DEMO -->
-      <div style="background:var(--cream-2);border-radius:10px;padding:20px;margin-bottom:16px;">
-        <div style="background:#FCEBEB;border:1px solid rgba(163,45,45,0.18);border-radius:12px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;max-width:380px;">
-          <div style="width:28px;height:28px;border-radius:8px;background:rgba(196,80,58,0.15);flex-shrink:0;display:flex;align-items:center;justify-content:center;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C4503A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          </div>
-          <div style="flex:1;">
-            <div style="font-size:12px;font-weight:500;color:#1A1612;margin-bottom:3px;">Microfoon werkt niet</div>
-            <div style="font-size:11px;color:#6B6358;line-height:1.5;margin-bottom:6px;">Geen probleem. Tik hieronder om te typen in plaats van te spreken.</div>
-            <div style="font-size:11px;color:#9B7FD4;text-decoration:underline;display:inline-flex;align-items:center;gap:3px;">Liever typen <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#9B7FD4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-          </div>
-        </div>
-      </div>
-      <div class="rcard-body">
-        Full semantic background + icon-chip. No border-left accent — explicitly locked.<br><br>
-        <strong>Background:</strong> <code>--red-lt #FCEBEB</code><br>
-        <strong>Border:</strong> 1px solid rgba(163,45,45,0.18) — all sides, no accent stripe<br>
-        <strong>Border-left accent:</strong> <span style="color:var(--terra);font-weight:500;">never</span> — most overused pattern, explicitly forbidden<br>
-        <strong>Icon-chip:</strong> 28×28px · border-radius 8px · rgba(196,80,58,0.15) bg · Phosphor WarningCircle 14px stroke 1.8 · terra<br>
-        <strong>Title:</strong> DM Sans 500 12px · ink<br>
-        <strong>Body:</strong> DM Sans 400 11px · <code>--mid-a #6B6358</code><br>
-        <strong>Action link:</strong> <code>--cta</code> · underline · Phosphor ArrowRight 10px · always present<br>
-        <strong>Copy rules:</strong> Never technical error codes. Always an exit. Never em-dash.
-      </div>
-    </div>
-
-    <!-- ── COMPONENT: FREE BADGE ── -->
-    <div class="rcard" style="margin-bottom:20px;">
-      <div class="rcard-title" style="margin-bottom:12px;">Free badge <a href="../screens/s01-welcome-hifi.html" style="font-size:10px;color:var(--cta);text-decoration:none;margin-left:8px;">↗ S-01</a></div>
-      <!-- VISUAL DEMO -->
-      <div style="background:var(--cream-2);border-radius:10px;padding:20px;margin-bottom:16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-        <div style="display:inline-flex;align-items:center;gap:5px;background:#EAF3DE;border-radius:100px;padding:4px 10px 4px 7px;font-size:10px;font-weight:500;color:#3B6D11;">
-          <div style="width:5px;height:5px;border-radius:50%;background:#3B6D11;"></div>
-          Free · no credit card
-        </div>
-        <div style="font-size:11px;color:var(--mid);font-style:italic;">Used on S-01 and S-06</div>
-      </div>
-      <div class="rcard-body">
-        Communicates "free = positive." Sage-lt green — not neutral grey (which reads as "limited").<br><br>
-        <strong>Background:</strong> <code>--sage-lt #EAF3DE</code><br>
-        <strong>Text:</strong> <code>--sage #3B6D11</code> · 10px · weight 500<br>
-        <strong>Dot:</strong> 5px · border-radius 50% · <code>--sage</code><br>
-        <strong>Copy (EN):</strong> "Free · no credit card"<br>
-        <strong>Copy (NL):</strong> "Gratis · geen creditcard"<br>
-        <strong>Padding:</strong> 4px 10px 4px 7px · border-radius 100px<br>
-        <strong>Placement:</strong> S-01 below path selector · S-06 below magic link input
-      </div>
-    </div>
-
-    <!-- ── COMPONENT: SKELETON LOADING ── -->
-    <div class="rcard" style="margin-bottom:20px;">
-      <div class="rcard-title" style="margin-bottom:12px;">Skeleton loading</div>
-      <!-- VISUAL DEMO -->
-      <div style="background:var(--cream-2);border-radius:10px;padding:20px;margin-bottom:16px;">
-        <div style="display:flex;flex-direction:column;gap:6px;max-width:300px;">
-          <div style="background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:10px 12px;display:flex;align-items:center;gap:10px;">
-            <div style="width:28px;height:28px;border-radius:8px;background:#E8E3D8;flex-shrink:0;position:relative;overflow:hidden;"><div style="position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.5) 50%,transparent 100%);animation:shimmer 1.4s infinite;"></div></div>
-            <div style="flex:1;"><div style="height:9px;border-radius:4px;background:#E8E3D8;width:70%;margin-bottom:6px;position:relative;overflow:hidden;"><div style="position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.5) 50%,transparent 100%);animation:shimmer 1.4s infinite;"></div></div><div style="height:7px;border-radius:4px;background:#EDE9E0;width:45%;"></div></div>
-          </div>
-          <div style="background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:10px 12px;display:flex;align-items:center;gap:10px;">
-            <div style="width:28px;height:28px;border-radius:8px;background:#E8E3D8;flex-shrink:0;"></div>
-            <div style="flex:1;"><div style="height:9px;border-radius:4px;background:#E8E3D8;width:55%;margin-bottom:6px;"></div><div style="height:7px;border-radius:4px;background:#EDE9E0;width:35%;"></div></div>
-          </div>
-          <div style="text-align:center;font-size:9px;font-style:italic;color:var(--mid);margin-top:4px;">nudgii denkt even na…</div>
-        </div>
-      </div>
-      <style>@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(200%)}}</style>
-      <div class="rcard-body">
-        Shown while Claude processes voice/text input (2–4 seconds). Never a spinner alone for operations over 1 second.<br><br>
-        <strong>Skeleton icon:</strong> <code>#E8E3D8</code> · 28×28px · border-radius 7px<br>
-        <strong>Skeleton lines:</strong> primary <code>#E8E3D8</code> · secondary <code>#EDE9E0</code> · border-radius 4px<br>
-        <strong>Shimmer:</strong> left → right · 1400ms infinite · rgba(255,255,255,0.5) sweep<br>
-        <strong>Label:</strong> "nudgii denkt even na…" · 9px italic · mid · centered below cards<br>
-        <strong>Max:</strong> 3 skeleton cards — never more<br>
-        <strong>Flutter:</strong> Custom <code>AnimationController</code> + gradient sweep. Not the shimmer package.
-      </div>
-    </div>
-
-    <!-- ── COMPONENT: TYPOGRAPHY SCALE ── -->
-    <div class="rcard" style="margin-bottom:20px;">
-      <div class="rcard-title" style="margin-bottom:12px;">Typography scale — onboarding vs. daily</div>
-      <div class="rcard-body">
-        Onboarding screens have a different rhythm than the daily dashboard. Same fonts, different scales.<br><br>
-        <table style="width:100%;border-collapse:collapse;font-size:12px;margin-top:12px;line-height:1.8;">
-          <tr style="border-bottom:1px solid var(--border);">
-            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Element</td>
-            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Onboarding (S-01→S-07)</td>
-            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Daily (S-09+)</td>
-          </tr>
-          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Headline</td><td style="padding:4px 8px;">DM Serif Display · 22px · lh 0.97 · ls -0.5px</td><td style="padding:4px 8px;">DM Serif Display · 25–27px · greeting only</td></tr>
-          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Serif em</td><td style="padding:4px 8px;">ap-dk #C8784A · italic · key word</td><td style="padding:4px 8px;">apricot #E8A87C · name highlight</td></tr>
-          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Lead</td><td style="padding:4px 8px;">DM Sans 400 italic · 10px · mid · lh 1.45</td><td style="padding:4px 8px;">—</td></tr>
-          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Body</td><td style="padding:4px 8px;">DM Sans 400 · 10px · lh 1.5</td><td style="padding:4px 8px;">DM Sans 400 · 15px · lh 1.55</td></tr>
-          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Sub-label</td><td style="padding:4px 8px;">DM Sans 500 · 9px · ls 0.06em · uppercase · mid-a</td><td style="padding:4px 8px;">Same</td></tr>
-          <tr><td style="padding:4px 8px;font-weight:500;">Button</td><td style="padding:4px 8px;">DM Sans 500 · 11px · sentence case</td><td style="padding:4px 8px;">DM Sans 500 · 13–14px · sentence case</td></tr>
-        </table>
-      </div>
-    </div>
-
-  </section>
 
   <div class="rule"></div>
 
-  <!-- 14 COPY LIBRARY -->
+  <!-- 13 COPY LIBRARY -->
   <section id="copy">
-    <div class="sec-eye">14</div>
-    <h2 class="sec-title">Copy library — v1.1</h2>
+    <div class="sec-eye">13</div>
+    <h2 class="sec-title">Copy library</h2>
     <p class="sec-desc">nudgii's voice is warm, direct, and gently funny. All copy lives here. Use this as the single source of truth — never improvise in code or Figma.</p>
 
     <!-- VOICE & TONE RULES -->
     <div class="rcard" style="margin-bottom:9px;">
-      <div class="rcard-title">Voice &amp; tone rules <span class="tag tag-lock">locked v1.1</span></div>
+      <div class="rcard-title">Voice &amp; tone rules <span class="tag tag-lock">locked</span></div>
       <div class="rcard-body">
         <strong>nudgii speaks like a witty, competent friend — warm, direct, gently funny.</strong><br><br>
         <ul style="padding-left:16px;line-height:1.9;margin-top:4px;">
@@ -1196,7 +1247,7 @@ section{padding-top:60px;}
   <div style="padding:28px 0 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;">
     <div style="display:flex;align-items:center;gap:9px;">
       <svg width="18" height="18" viewBox="0 0 80 80" style="border-radius:4px;"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
-      <span style="font-size:13px;font-weight:500;color:var(--ink);">nudgii Design System v2.3 · Final</span>
+      <span style="font-size:13px;font-weight:500;color:var(--ink);">nudgii Design system</span>
     </div>
     <div style="font-size:12px;color:var(--mid);">Elf Consult · March 2026 · Next: Figma Variables →</div>
   </div>
