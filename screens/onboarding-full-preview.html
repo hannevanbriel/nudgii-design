@@ -535,7 +535,13 @@ body {
     <div class="scr">
       <div class="top-bar" style="padding-bottom:0;"><div class="back-btn"><svg viewBox="0 0 12 12"><polyline points="8,2 4,6 8,10"/></svg></div></div>
       <div class="search-bar"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/></svg><div class="search-text">Search items…</div></div>
-      <div class="cat-filters"><div class="cat-f on">All</div><div class="cat-f">Home</div><div class="cat-f">Vehicle</div><div class="cat-f">Garden</div><div class="cat-f">Subscriptions</div></div>
+      <div class="cat-filters">
+        <div class="cat-f on">All</div>
+        <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#C87850;margin-right:4px;vertical-align:middle;"></span>Home</div>
+        <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#4A82A0;margin-right:4px;vertical-align:middle;"></span>Vehicle</div>
+        <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#5A9060;margin-right:4px;vertical-align:middle;"></span>Garden</div>
+        <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#8060A8;margin-right:4px;vertical-align:middle;"></span>Subscriptions</div>
+      </div>
       <div class="scroll" style="padding-top:8px;">
         <div class="sec-lbl" style="margin-top:0;">Home</div>
         <div class="browse-rows">
@@ -795,19 +801,27 @@ body {
           <div class="greeting-name">Good morning,<br><em>Hanne.</em></div>
           <div class="settings-btn"><svg viewBox="0 0 16 16"><line x1="2" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="14" y2="12"/><circle cx="5" cy="4" r="1.5" fill="white" stroke="var(--mid-ac)"/><circle cx="10" cy="8" r="1.5" fill="white" stroke="var(--mid-ac)"/><circle cx="7" cy="12" r="1.5" fill="white" stroke="var(--mid-ac)"/></svg></div>
         </div>
-        <div class="greeting-sub">4 tasks need attention</div>
+        <div class="greeting-sub">6 tasks need attention</div>
       </div>
       <div class="dash-scroll">
-        <div class="sec-lbl" style="margin-top:0;">This week</div>
+        <!-- Overdue -->
+        <div class="sec-lbl" style="margin-top:0;">Overdue</div>
+        <div class="dcard"><div class="chip vehicle"><svg viewBox="0 0 16 16"><path d="M2 9.5L4 5h8l2 4.5"/><path d="M1 9.5h14"/><circle cx="4.5" cy="12" r="2"/><circle cx="11.5" cy="12" r="2"/></svg></div><div class="dcontent"><div class="dname" style="color:var(--terra);">Switch to winter tyres</div><div class="dsub">Car · before Nov</div></div><div class="ddate overdue">Oct 24</div></div>
+
+        <!-- This week -->
+        <div class="sec-lbl">This week</div>
         <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div><div class="dcontent"><div class="dname">Annual boiler service</div><div class="dsub">CV ketel · yearly</div></div><div class="ddate soon">Oct 28</div></div>
+        <div class="dcard"><div class="chip garden"><svg viewBox="0 0 16 16"><path d="M8 14V7"/><path d="M8 7C8 4 5 2 2 3c0 3 2 5 6 4"/><path d="M8 7c0-3 3-5 6-4 0 3-2 5-6 4"/></svg></div><div class="dcontent"><div class="dname">Prune olive tree</div><div class="dsub">Olive tree · twice yearly</div></div><div class="ddate soon">Oct 30</div></div>
+
+        <!-- Coming up -->
         <div class="sec-lbl">Coming up</div>
         <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div><div class="dcontent"><div class="dname">Clean dishwasher filter</div><div class="dsub">Dishwasher · every 6–8 wks</div></div><div class="ddate ok">Nov 8</div></div>
-        <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div><div class="dcontent"><div class="dname">Refill dishwasher salt</div><div class="dsub">Dishwasher · every 6–8 wks</div></div><div class="ddate ok">Nov 8</div></div>
+        <div class="dcard"><div class="chip sub"><svg viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M5 8h6M8 5v6"/></svg></div><div class="dcontent"><div class="dname">Renew Netflix subscription</div><div class="dsub">Subscriptions · yearly</div></div><div class="ddate ok">Nov 12</div></div>
         <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div><div class="dcontent"><div class="dname">Check CO detector</div><div class="dsub">CV ketel · yearly</div></div><div class="ddate ok">Nov 15</div></div>
 
         <!-- Upgrade nudge (free tier) -->
-        <div style="background:rgba(155,127,212,0.06);border:0.5px solid rgba(155,127,212,0.18);border-radius:10px;padding:8px 10px;margin-top:10px;display:flex;align-items:center;gap:8px;">
-          <div style="flex:1;"><div style="font-size:8px;font-weight:500;color:var(--ink);margin-bottom:2px;">2 of 10 items used</div><div style="font-size:7px;color:var(--mid-ac);">Add up to 8 more. Go Pro for unlimited.</div></div>
+        <div style="background:rgba(155,127,212,0.06);border:0.5px solid rgba(155,127,212,0.18);border-radius:10px;padding:8px 10px;margin-top:8px;display:flex;align-items:center;gap:8px;">
+          <div style="flex:1;"><div style="font-size:8px;font-weight:500;color:var(--ink);margin-bottom:2px;">4 of 10 items used</div><div style="font-size:7px;color:var(--mid-ac);">Add up to 6 more. Go Pro for unlimited.</div></div>
           <div style="font-size:7.5px;font-weight:500;color:var(--cta);white-space:nowrap;">+ Add item</div>
         </div>
       </div>
