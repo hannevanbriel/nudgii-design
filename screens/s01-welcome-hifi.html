@@ -42,7 +42,7 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
 .eyebrow{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:rgba(26,22,18,0.28);text-align:center;width:100%;max-width:960px;}
 
 /* PHONE */
-.phone{width:300px;height:648px;border-radius:44px;overflow:hidden;background:var(--cream);border:1.5px solid rgba(26,22,18,0.09);box-shadow:0 28px 60px rgba(26,22,18,0.18),0 6px 16px rgba(26,22,18,0.07),inset 0 1px 0 rgba(255,255,255,0.65);position:relative;flex-shrink:0;}
+.phone{width:300px;height:648px;border-radius:44px;overflow:hidden;background:var(--cream);border:1.5px solid rgba(26,22,18,0.09);box-shadow:0 28px 60px rgba(26,22,18,0.18),0 6px 16px rgba(26,22,18,0.07),inset 0 1px 0 rgba(255,255,255,0.65);position:relative;flex-shrink:0;display:flex;flex-direction:column;}
 .notch{height:24px;background:var(--cream);display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px;}
 .np{width:78px;height:7px;border-radius:100px;background:rgba(26,22,18,0.10);}
 .sbar{display:flex;justify-content:space-between;align-items:center;padding:5px 18px 0;font-size:11px;font-weight:500;color:rgba(26,22,18,0.36);}
@@ -51,33 +51,40 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
 .phone-lbl{font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(26,22,18,0.28);text-align:center;margin-bottom:8px;}
 .phone-lbl em{display:block;font-style:normal;font-weight:300;letter-spacing:0;text-transform:none;margin-top:2px;font-size:11px;}
 
+/* Segmented progress bar — 3 phases, replaces dots */
+.seg-bar{display:flex;gap:3px;padding:0;width:100%;}
+.seg{flex:1;height:2.5px;border-radius:100px;background:rgba(26,22,18,0.08);}
+.seg.on{background:var(--plum-lt);}
+
 /* WELCOME SCREEN */
-.w-screen{padding:14px 20px 28px;}
+.w-screen{padding:14px 20px 0;flex:1;display:flex;flex-direction:column;}
+.w-content{flex:1;}
+.w-bottom{padding-bottom:24px;}
 .w-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;}
 .ii{display:flex;align-items:flex-start;gap:3px;}
 .ii-l{width:7px;height:20px;border-radius:100px;background:var(--ink);}
 .ii-r{width:7px;height:20px;border-radius:100px;background:rgba(155,127,212,0.45);position:relative;}
 .ii-dot{width:5px;height:5px;border-radius:50%;background:var(--ap-dk);position:absolute;top:2px;right:-2px;}
-/* Progress dots (onboarding) */
-.prog{display:flex;gap:5px;justify-content:flex-end;}
-.pd{width:6px;height:6px;border-radius:50%;background:rgba(26,22,18,0.10);}
-.pd.on{background:var(--plum-lt);}
 .free-badge{display:inline-flex;align-items:center;gap:4px;background:var(--sage-lt);border-radius:100px;padding:4px 10px 4px 7px;font-size:10px;font-weight:500;color:var(--sage);}
 .fb-dot{width:5px;height:5px;border-radius:50%;background:var(--sage);}
 .w-h1{font-family:'DM Serif Display',serif;font-size:33px;color:var(--ink);line-height:0.97;letter-spacing:-0.55px;margin-bottom:8px;}
 .w-sub{font-size:12px;font-style:italic;color:var(--mid);line-height:1.55;margin-bottom:20px;font-weight:300;}
 .w-h1 em{font-style:italic;color:var(--ap-dk);}
-/* Preview tiles — 3 horizontal, v2.4 spec */
-.prev-row{display:flex;gap:5px;margin-bottom:14px;}
-.prev-tile{flex:1;background:var(--surface);border-radius:8px;padding:7px 6px;border:0.5px solid var(--border);}
-.ci{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:4px;}
-.ci svg{width:11px;height:11px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+
+/* Preview items — item row style, matches dashboard visual language */
+.prev-items{background:var(--surface);border-radius:10px;border:0.5px solid rgba(26,22,18,0.08);overflow:hidden;margin-bottom:16px;box-shadow:0 1px 3px rgba(26,22,18,0.05);}
+.prev-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:0.5px solid rgba(26,22,18,0.06);}
+.prev-item:last-child{border-bottom:none;}
+.prev-item-info{flex:1;min-width:0;}
+.prev-item-name{font-size:13px;font-weight:500;color:var(--ink);line-height:1.2;}
+.prev-item-status{font-size:11px;color:var(--mid);margin-top:1px;}
+.prev-item-ov{color:var(--terra);font-weight:500;}
+.ci{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ci svg{width:13px;height:13px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
 .ci-h{background:var(--chb);}.ci-h svg{stroke:var(--ch);}
 .ci-v{background:var(--cvb);}.ci-v svg{stroke:var(--cv);}
 .ci-g{background:var(--cgb);}.ci-g svg{stroke:var(--cg);}
-.ptn{font-size:8px;font-weight:500;color:var(--ink);line-height:1.2;margin-bottom:1px;}
-.pts{font-size:7px;font-weight:500;color:var(--mid-a);}
-.pts-ov{color:var(--terra);}
+
 .pdiv{display:flex;align-items:center;gap:10px;margin:10px 0 13px;}
 .pd-line{flex:1;height:1px;background:var(--border-md);}
 .pd-txt{font-size:10px;color:var(--mid-a);white-space:nowrap;}
@@ -134,11 +141,15 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
 </nav>
 
 <div class="page">
-  <div class="eyebrow">S-01 · Welcome screen · Hi-fi nudge · v2.4 aligned · March 2026</div>
+  <div class="eyebrow">S-01 · Welcome screen · Hi-fi nudge · v2.5 · March 2026</div>
 
   <!-- CHANGELOG -->
   <div class="changelog">
-    <div class="cl-title">v2.4 corrections applied to this screen</div>
+    <div class="cl-title">Changelog</div>
+    <div class="cl-row">
+      <span class="cl-tag cl-fix">v2.5</span>
+      <div class="cl-body"><strong>Preview items redesigned as item rows.</strong> Consistent with dashboard visual language. White card on cream — category icon chip (28×28px) + item name (13px 500) + status label (11px). Overdue = terra. Never mini-tiles, never columns. Progress dots replaced with segmented bar. Sticky bottom button zone. English copy throughout. Free badge updated to "Free · no credit card".</div>
+    </div>
     <div class="cl-row">
       <span class="cl-tag cl-fix">Fixed</span>
       <div class="cl-body"><strong>CTA button color corrected.</strong> Previous version used <code>var(--ink)</code> (dark). Correct value per design system v2.2+: <code>#9B7FD4</code> (light plum) with <code>#FAF8FF</code> text and <code>box-shadow: 0 2px 12px rgba(155,127,212,0.32)</code>.</div>
@@ -153,15 +164,11 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
     </div>
     <div class="cl-row">
       <span class="cl-tag cl-fix">v2.4</span>
-      <div class="cl-body"><strong>Headline italic apricot.</strong> "aandacht nodig." wrapped in em tag, styled italic in <code>var(--ap-dk)</code>. Free badge updated to sage-lt background (#EAF3DE) with sage text (#3B6D11) — "Gratis starten". Progress dots added top-right (dot 1 active = plum-lt, dots 2+3 inactive).</div>
+      <div class="cl-body"><strong>Headline italic apricot.</strong> "maintain itself." wrapped in em tag, styled italic in <code>var(--ap-dk)</code>. Free badge uses sage-lt background (#EAF3DE) with sage text (#3B6D11). Progress indicator top-right (step 1 active).</div>
     </div>
     <div class="cl-row">
       <span class="cl-tag cl-fix">v2.4</span>
-      <div class="cl-body"><strong>Preview cards redesigned → 3 horizontal mini-tiles.</strong> Full-width stacked dashboard cards replaced with compact 3-column layout (flex:1, gap:5px). Each tile: category icon chip 22×22px, item name 8px/500, status label 7px. Witty subtitles removed — belong on dashboard only. Overdue = terra, neutral = mid-accessible.</div>
-    </div>
-    <div class="cl-row">
-      <span class="cl-tag cl-fix">v2.4</span>
-      <div class="cl-body"><strong>Hint texts removed.</strong> "gewoon spreken of typen" and "blader per categorie" below buttons removed. Button labels are self-explanatory. Hint text below buttons never belongs on this screen.</div>
+      <div class="cl-body"><strong>Hint texts removed.</strong> Button labels are self-explanatory. Hint text below buttons never belongs on this screen.</div>
     </div>
   </div>
 
@@ -173,38 +180,48 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
       <div class="phone">
         <div class="notch"><div class="np"></div></div>
         <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <div class="seg-bar"><div class="seg on"></div><div class="seg"></div><div class="seg"></div></div>
         <div class="w-screen">
-          <div class="prog" style="margin-bottom:8px;"><div class="pd on"></div><div class="pd"></div><div class="pd"></div></div>
-          <div class="w-top">
-            <div class="ii"><div class="ii-l"></div><div class="ii-r"><div class="ii-dot"></div></div></div>
-            <div class="free-badge"><div class="fb-dot"></div>Gratis starten</div>
+          <div class="w-content">
+            <div class="w-top">
+              <div class="ii"><div class="ii-l"></div><div class="ii-r"><div class="ii-dot"></div></div></div>
+              <div class="free-badge"><div class="fb-dot"></div>Free · no credit card</div>
+            </div>
+            <div class="w-h1">Your stuff won't<br><em>maintain itself.</em></div>
+            <div class="w-sub">But we can remind you.</div>
+            <div class="prev-items">
+              <div class="prev-item">
+                <div class="ci ci-h"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+                <div class="prev-item-info">
+                  <div class="prev-item-name">Dishwasher</div>
+                  <div class="prev-item-status prev-item-ov">overdue</div>
+                </div>
+              </div>
+              <div class="prev-item">
+                <div class="ci ci-v"><svg viewBox="0 0 24 24"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/></svg></div>
+                <div class="prev-item-info">
+                  <div class="prev-item-name">Winter tyres</div>
+                  <div class="prev-item-status">this week · BE</div>
+                </div>
+              </div>
+              <div class="prev-item">
+                <div class="ci ci-g"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1"/></svg></div>
+                <div class="prev-item-info">
+                  <div class="prev-item-name">Olive tree</div>
+                  <div class="prev-item-status">Feb · BE</div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="w-h1">Je huis heeft<br><em>aandacht nodig.</em></div>
-          <div class="w-sub">Automatisch ingevuld, voor alles wat je bezit.</div>
-          <div class="prev-row">
-            <div class="prev-tile">
-              <div class="ci ci-h"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
-              <div class="ptn">Vaatwasser</div>
-              <div class="pts pts-ov">achterstallig</div>
-            </div>
-            <div class="prev-tile">
-              <div class="ci ci-v"><svg viewBox="0 0 24 24"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/></svg></div>
-              <div class="ptn">Winterbanden</div>
-              <div class="pts">deze week · BE</div>
-            </div>
-            <div class="prev-tile">
-              <div class="ci ci-g"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1"/></svg></div>
-              <div class="ptn">Olijfboom</div>
-              <div class="pts">feb · nl-BE</div>
-            </div>
+          <div class="w-bottom">
+            <div class="pdiv"><div class="pd-line"></div><div class="pd-txt">How do you want to start?</div><div class="pd-line"></div></div>
+            <button class="btn-a">
+              <div class="mic"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg></div>
+              Tell me what you have
+            </button>
+            <button class="btn-b">Show me what I can track</button>
+            <button class="btn-c">I know what I need</button>
           </div>
-          <div class="pdiv"><div class="pd-line"></div><div class="pd-txt">Hoe wil je starten?</div><div class="pd-line"></div></div>
-          <button class="btn-a">
-            <div class="mic"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg></div>
-            Vertel het me
-          </button>
-          <button class="btn-b">Laat me zien wat ik kan bijhouden</button>
-          <button class="btn-c">Ik weet wat ik nodig heb</button>
         </div>
       </div>
     </div>
@@ -215,38 +232,48 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
       <div class="phone">
         <div class="notch"><div class="np"></div></div>
         <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <div class="seg-bar"><div class="seg on"></div><div class="seg"></div><div class="seg"></div></div>
         <div class="w-screen">
-          <div class="prog" style="margin-bottom:8px;"><div class="pd on"></div><div class="pd"></div><div class="pd"></div></div>
-          <div class="w-top">
-            <div class="ii"><div class="ii-l"></div><div class="ii-r"><div class="ii-dot"></div></div></div>
-            <div class="free-badge"><div class="fb-dot"></div>Gratis starten</div>
+          <div class="w-content">
+            <div class="w-top">
+              <div class="ii"><div class="ii-l"></div><div class="ii-r"><div class="ii-dot"></div></div></div>
+              <div class="free-badge"><div class="fb-dot"></div>Free · no credit card</div>
+            </div>
+            <div class="w-h1">Your stuff won't<br><em>maintain itself.</em></div>
+            <div class="w-sub">But we can remind you.</div>
+            <div class="prev-items">
+              <div class="prev-item">
+                <div class="ci ci-h"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+                <div class="prev-item-info">
+                  <div class="prev-item-name">CV boiler</div>
+                  <div class="prev-item-status prev-item-ov">overdue</div>
+                </div>
+              </div>
+              <div class="prev-item">
+                <div class="ci ci-v"><svg viewBox="0 0 24 24"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/></svg></div>
+                <div class="prev-item-info">
+                  <div class="prev-item-name">Winter tyres</div>
+                  <div class="prev-item-status">this week</div>
+                </div>
+              </div>
+              <div class="prev-item">
+                <div class="ci ci-g"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1"/></svg></div>
+                <div class="prev-item-info">
+                  <div class="prev-item-name">Garden ready</div>
+                  <div class="prev-item-status">Nov</div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="w-h1">Je huis heeft<br><em>aandacht nodig.</em></div>
-          <div class="w-sub">Automatisch ingevuld, voor alles wat je bezit.</div>
-          <div class="prev-row">
-            <div class="prev-tile">
-              <div class="ci ci-h"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
-              <div class="ptn">Cv-ketel</div>
-              <div class="pts pts-ov">achterstallig</div>
-            </div>
-            <div class="prev-tile">
-              <div class="ci ci-v"><svg viewBox="0 0 24 24"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/></svg></div>
-              <div class="ptn">Winterbanden</div>
-              <div class="pts">deze week</div>
-            </div>
-            <div class="prev-tile">
-              <div class="ci ci-g"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1"/></svg></div>
-              <div class="ptn">Tuin winterklaar</div>
-              <div class="pts">november</div>
-            </div>
+          <div class="w-bottom">
+            <div class="pdiv"><div class="pd-line"></div><div class="pd-txt">How do you want to start?</div><div class="pd-line"></div></div>
+            <button class="btn-a">
+              <div class="mic"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg></div>
+              Tell me what you have
+            </button>
+            <button class="btn-b">Show me what I can track</button>
+            <button class="btn-c">I know what I need</button>
           </div>
-          <div class="pdiv"><div class="pd-line"></div><div class="pd-txt">Hoe wil je starten?</div><div class="pd-line"></div></div>
-          <button class="btn-a">
-            <div class="mic"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg></div>
-            Vertel het me
-          </button>
-          <button class="btn-b">Laat me zien wat ik kan bijhouden</button>
-          <button class="btn-c">Ik weet wat ik nodig heb</button>
         </div>
       </div>
     </div>
@@ -263,12 +290,16 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
         <div class="ann-txt"><strong>20px height · left-aligned.</strong> Left pill: ink. Right pill: plum-lt at 45% opacity. Apricot-dk dot. Mirrors the homescreen icon exactly.</div>
       </div>
       <div class="ann">
-        <div class="ann-lbl">Preview cards — locked v2.4</div>
-        <div class="ann-txt"><strong>3 horizontal mini-tiles. Never stacked, never full-width, never a carousel.</strong> Each tile: 22×22px icon chip, item name (8px 500), status label (7px). No witty subtitle — that belongs on the dashboard, not the welcome screen.<br><br><strong>nl-BE:</strong> Vaatwasser (achterstallig) · Winterbanden (deze week · BE) · Olijfboom (feb · nl-BE)<br><strong>nl-NL:</strong> Cv-ketel (achterstallig) · Winterbanden (deze week) · Tuin winterklaar (november)<br><strong>fr:</strong> Lave-vaisselle · Pneus hiver · Taille des oliviers</div>
+        <div class="ann-lbl">Preview items — item row style</div>
+        <div class="ann-txt"><strong>3 item rows using the same visual language as the dashboard. White card on cream — category icon chip (28×28px) + item name (13px 500) + status label (11px). Overdue = terra. Consistent with how items appear throughout the app. Never mini-tiles, never columns.</strong><br><br><strong>nl-BE:</strong> Dishwasher (overdue) · Winter tyres (this week · BE) · Olive tree (Feb · BE)<br><strong>nl-NL:</strong> CV boiler (overdue) · Winter tyres (this week) · Garden ready (Nov)</div>
+      </div>
+      <div class="ann">
+        <div class="ann-lbl">Free badge — copy locked</div>
+        <div class="ann-txt"><strong>"Free · no credit card"</strong> — sage-lt background, sage text, sage dot. Honest, reassuring, no pressure. Positioned top-right alongside the ii mark.</div>
       </div>
       <div class="ann">
         <div class="ann-lbl">Buttons — no hint text</div>
-        <div class="ann-txt">The copy below each button ("gewoon spreken of typen", "blader per categorie") was removed in v2.4. The button labels are self-explanatory. Adding hints creates visual clutter and breaks the hierarchy. <strong>Never add hint text below buttons on S-01.</strong></div>
+        <div class="ann-txt">The button labels are self-explanatory. Adding hints creates visual clutter and breaks the hierarchy. <strong>Never add hint text below buttons on S-01.</strong></div>
       </div>
       <div class="ann">
         <div class="ann-lbl">Path hierarchy — locked</div>

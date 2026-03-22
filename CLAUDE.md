@@ -290,10 +290,42 @@ Disabled: bg `rgba(155,127,212,0.35)`, text `rgba(250,248,255,0.5)` — never `O
 - Spring animation: 400–450ms `cubic-bezier(0.34,1.56,0.64,1)` for ii mark scale + headline translateY
 - This is the only theatrical motion in the app
 
+### S-01 Welcome screen — layout spec
+```
+[Notch + status bar]
+[Segmented progress bar — full-width, edge-to-edge, 2.5px]
+[Content area — flex:1, scrollable]
+   ii mark (left) + free badge "Free · no credit card" (right)
+   Headline DM Serif Display 33px + subtitle italic DM Sans
+   3 preview item rows (dashboard visual language)
+[Sticky bottom zone — margin-top:auto]
+   Divider "How do you want to start?" (center)
+   Path A: plum-lt fill 50px — "Tell me what you have"
+   Path B: border 46px — "Show me what I can track"
+   Path C: ghost 36px — "I know what I need"
+   24px safe area padding
+```
+
+**Free badge:** sage-lt background `#EAF3DE` · sage text `#3B6D11` · sage dot · copy: "Free · no credit card"
+
+**Preview items:** 3 item rows in a white card (same visual language as dashboard item cards).
+Each row: category icon chip 28×28px (category-colored bg, Phosphor outline icon) + item name 13px/500 + status label 11px.
+Status colors: overdue = terra, upcoming = apricot-dk, neutral = mid.
+Never mini-tile columns — items look like items everywhere in the app.
+
+**Sticky bottom:** Flutter — Column with Expanded(child: scrollable content) + SizedBox bottom zone.
+HTML mockups — flex column on screen, flex:1 on content, margin-top:auto on button zone.
+
 ### Progress indicator (onboarding)
-3 dots, top-right corner, all onboarding screens S-01 through S-07.
-Active: colorCta #9B7FD4 · Inactive: rgba(26,22,18,0.10) · Size 6×6px · Gap 5px
-Step 1 = S-01/S-02/S-03/S-04 active. Step 2 = S-05/S-06. Step 3 = S-07.
+Segmented progress bar — 3 horizontal segments, full-width, edge-to-edge, below the status bar (own dedicated row, NOT on the logo/badge row).
+Height: 2.5px · Border-radius: 100px · Gap between segments: 3px
+Active segment: colorCta #9B7FD4 · Inactive: rgba(26,22,18,0.08)
+Segments = phases, not individual screens:
+- Phase 1 (S-01 → S-02/03/04): segment 1 active
+- Phase 2 (S-05 → S-06): segments 1–2 active
+- Phase 3 (S-07): all 3 segments active
+Flutter: Row of 3 Expanded containers, height 2.5, with AnimatedContainer for fill transition (150ms ease-out).
+❌ Never use dots — 3 dots implies 3 equal steps and is misleading when screens number 4–7.
 
 ### Example chips (S-02 voice onboarding)
 Shown above the mic button to help cold-start users. Flex-wrap row.
@@ -401,7 +433,10 @@ These are locked decisions. Do not question them in design or code reviews.
 - ❌ Never show "recent" as a last-maintenance chip default — always "6 mnd geleden"
 - ❌ Never auto-advance from S-07 completion — always require user tap ("Open mijn schema")
 - ❌ Never put CTA buttons side by side on onboarding screens — always vertically stacked
-- ❌ Never show more than 3 preview nudge-cards on S-01 — never a 4th, never a carousel
+- ❌ Never show mini-tile columns for preview items on S-01 — use item row style (same as dashboard)
+- ❌ Never show more than 3 preview items on S-01 — never a 4th, never a carousel
+- ❌ Never use Dutch copy in design files (lo-fi, hi-fi, prototype) — English only in all design artefacts
+- ❌ Never write locale-specific copy as the primary copy in design files — label it explicitly (e.g., "nl-BE example")
 
 ---
 
@@ -419,6 +454,11 @@ Update this section when open decisions are resolved.
 | Last maint. chip default | Always "6 mnd geleden" — never "recent" | ✅ Yes | 2026-03-21 |
 | S-07 auto-advance | Never auto-advance from completion. CTA "Open mijn schema" required | ✅ Yes | 2026-03-21 |
 | Scan placement v1.0 | S-05 camera icon (all paths) + FAB scan accent. S-02b full scan is v1.1 | ✅ Yes | 2026-03-21 |
+| Progress indicator | Segmented bar (3 phases, 2.5px, full-width) replaces 3 dots. Dots were misleading for 4–7 screen flows. | ✅ Yes | 2026-03-22 |
+| Preview items S-01 | Item row style (same as dashboard) replaces 3-column mini-tiles. Items look like items everywhere. | ✅ Yes | 2026-03-22 |
+| Free badge copy | "Free · no credit card" — English. Sage-lt bg, sage text. | ✅ Yes | 2026-03-22 |
+| Design file language | All design files (lo-fi, hi-fi, prototype) use English copy. App ships in nl/fr. | ✅ Yes | 2026-03-22 |
+| Sticky bottom layout | Button zone anchored to bottom via flex:1 content + margin-top:auto. All screens with CTAs. | ✅ Yes | 2026-03-22 |
 
 ---
 
