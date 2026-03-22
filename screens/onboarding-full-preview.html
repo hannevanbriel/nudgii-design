@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full onboarding · S-01 → S-09 · Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream: #F5F0E8;
+  --ink: #1A1612;
+  --cta: #9B7FD4;
+  --cta-fg: #FAF8FF;
+  --apricot: #E8A87C;
+  --apricot-dk: #C8784A;
+  --terra: #C4503A;
+  --mid: #8A8070;
+  --mid-ac: #6B6358;
+  --sage: #3B6D11;
+  --sage-lt: #EAF3DE;
+  --surface: #FFFFFF;
+  --border: rgba(26,22,18,0.08);
+  --cat-home: #C87850;
+  --cat-vehicle: #4A82A0;
+  --cat-garden: #5A9060;
+  --cat-sub: #8060A8;
+}
+
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: #D8D3C9;
+  color: var(--ink);
+  padding: 36px 32px 48px;
+}
+
+/* ── PAGE HEADER ── */
+.page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.page-logo { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 500; color: rgba(26,22,18,0.50); text-decoration: none; }
+.page-badge { font-size: 10px; font-weight: 500; padding: 4px 10px; border-radius: 100px; background: rgba(155,127,212,0.12); color: var(--cta); border: 0.5px solid rgba(155,127,212,0.25); }
+.page-title { font-size: 10px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid); margin-bottom: 24px; }
+
+/* ── FLOW BAR ── */
+.flow-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; margin-bottom: 24px; }
+.fp { display: flex; align-items: center; gap: 5px; background: var(--surface); border: 0.5px solid var(--border); border-radius: 100px; padding: 4px 10px 4px 5px; font-size: 9.5px; font-weight: 500; color: var(--ink); white-space: nowrap; }
+.fp.or-path { background: rgba(155,127,212,0.06); border-color: rgba(155,127,212,0.20); color: var(--mid-ac); font-style: italic; }
+.fn { width: 15px; height: 15px; border-radius: 50%; background: var(--cta); color: var(--cta-fg); font-size: 7.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.fa { font-size: 10px; color: rgba(26,22,18,0.25); padding: 0 3px; }
+
+/* ── SCREENS AREA ── */
+.screens-wrap { overflow-x: auto; padding-bottom: 12px; }
+.screens-row { display: flex; gap: 16px; align-items: flex-start; width: max-content; }
+.screen-col { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+.screen-label { font-size: 8.5px; font-weight: 500; letter-spacing: 1.3px; text-transform: uppercase; color: var(--mid); text-align: center; }
+
+/* ── PATH SEPARATOR ── */
+.path-sep {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  height: 606px; padding-top: 52px;
+  gap: 6px;
+}
+.path-sep-line { width: 1px; flex: 1; background: rgba(26,22,18,0.12); }
+.path-sep-or { font-size: 9px; font-style: italic; color: var(--mid); }
+
+/* ── PHONE ── */
+.phone {
+  width: 280px; height: 606px;
+  background: var(--cream);
+  border-radius: 36px; overflow: hidden; position: relative;
+  box-shadow: 0 18px 48px rgba(26,22,18,0.18), 0 3px 12px rgba(26,22,18,0.09);
+  border: 1px solid rgba(26,22,18,0.07);
+  display: flex; flex-direction: column;
+}
+.phone::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 72px; height: 6px; background: var(--ink); border-radius: 0 0 4px 4px; z-index: 10; }
+.phone.dark { background: var(--ink); }
+.phone.dark::before { background: rgba(255,255,255,0.12); }
+
+/* ── STATUS BAR ── */
+.sbar { height: 26px; padding: 8px 16px 0; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.sbar-time { font-size: 9px; font-weight: 600; color: var(--ink); }
+.sbar-time.lt { color: rgba(245,240,232,0.80); }
+.sbar-icons { display: flex; align-items: center; gap: 4px; }
+.sbar-icons svg { width: 11px; height: 11px; }
+
+/* ── PROGRESS BAR ── */
+.prog { height: 3px; background: rgba(26,22,18,0.08); flex-shrink: 0; }
+.prog.lt { background: rgba(255,255,255,0.08); }
+.prog-fill { height: 100%; background: var(--cta); border-radius: 0 100px 100px 0; }
+.prog-fill.full { border-radius: 0; }
+
+/* ── SCREEN STRUCTURE ── */
+.scr { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+.scroll { flex: 1; overflow-y: auto; padding: 12px 14px 0; scrollbar-width: none; }
+.scroll::-webkit-scrollbar { display: none; }
+.btm { padding: 0 14px 14px; flex-shrink: 0; }
+.top-bar { display: flex; align-items: center; gap: 8px; padding: 8px 14px 0; flex-shrink: 0; }
+.brand-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px 0; flex-shrink: 0; }
+
+/* ── SHARED ATOMS ── */
+.ii { font-size: 15px; font-weight: 800; letter-spacing: -2px; color: var(--ink); line-height: 1; }
+.ii span { color: var(--apricot); }
+
+.free-badge { display: inline-flex; align-items: center; gap: 4px; background: var(--sage-lt); border: 0.5px solid rgba(59,109,17,0.15); border-radius: 100px; padding: 2px 7px; font-size: 7.5px; font-weight: 500; color: var(--sage); }
+.free-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--sage); flex-shrink: 0; }
+
+.back-btn { width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; border-radius: 7px; background: rgba(26,22,18,0.05); flex-shrink: 0; }
+.back-btn svg { width: 11px; height: 11px; stroke: var(--ink); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── TYPOGRAPHY ── */
+.h1 { font-family: 'DM Serif Display', Georgia, serif; font-size: 23px; font-weight: 400; line-height: 0.97; letter-spacing: -0.4px; color: var(--ink); margin-bottom: 7px; }
+.h1 em { color: var(--apricot); font-style: italic; }
+.h2 { font-family: 'DM Serif Display', Georgia, serif; font-size: 20px; font-weight: 400; line-height: 1.0; letter-spacing: -0.3px; color: var(--ink); margin-bottom: 6px; }
+.h3 { font-family: 'DM Serif Display', Georgia, serif; font-size: 16px; font-weight: 400; line-height: 1.1; letter-spacing: -0.25px; color: var(--ink); margin-bottom: 5px; }
+.promise { font-size: 9px; font-style: italic; color: var(--mid); line-height: 1.5; margin-bottom: 10px; }
+.sub { font-size: 8px; color: var(--mid-ac); line-height: 1.5; margin-bottom: 10px; }
+.micro { font-size: 7.5px; color: var(--mid); font-style: italic; margin-bottom: 6px; }
+.sec-lbl { font-size: 7px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid); margin: 10px 0 6px; }
+.sec-lbl:first-child { margin-top: 0; }
+
+/* ── CATEGORY CHIPS ── */
+.chip { width: 22px; height: 22px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.chip svg { width: 11px; height: 11px; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.chip.home { background: rgba(200,120,80,0.10); } .chip.home svg { stroke: var(--cat-home); }
+.chip.vehicle { background: rgba(74,130,160,0.10); } .chip.vehicle svg { stroke: var(--cat-vehicle); }
+.chip.garden { background: rgba(90,144,96,0.10); } .chip.garden svg { stroke: var(--cat-garden); }
+.chip.sub { background: rgba(128,96,168,0.10); } .chip.sub svg { stroke: var(--cat-sub); }
+.chip.neutral { background: rgba(26,22,18,0.05); } .chip.neutral svg { stroke: var(--mid); }
+
+/* ── CHECK CIRCLE ── */
+.chk { width: 15px; height: 15px; border-radius: 50%; border: 1.5px solid rgba(26,22,18,0.14); background: transparent; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; }
+.chk svg { display: none; width: 8px; height: 8px; stroke: var(--cta-fg); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.chk.on { background: var(--cta); border-color: var(--cta); }
+.chk.on svg { display: block; }
+
+/* ── CAT STRIP (S-01) ── */
+.cat-strip { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 10px; }
+.cat-pill { display: inline-flex; align-items: center; gap: 4px; background: var(--surface); border: 0.5px solid rgba(26,22,18,0.10); border-radius: 100px; padding: 3px 7px 3px 5px; font-size: 7.5px; font-weight: 500; color: var(--ink); }
+.cat-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── TASK ROWS (S-01 selectable) ── */
+.task-rows { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
+.trow { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.08); border-radius: 8px; box-shadow: 0 1px 3px rgba(26,22,18,0.04); padding: 7px 8px; display: flex; align-items: center; gap: 7px; cursor: pointer; transition: border-color 0.15s, background 0.15s; user-select: none; }
+.trow.sel { border: 1px solid rgba(155,127,212,0.35); background: rgba(155,127,212,0.04); }
+.trow.else { border: 0.5px dashed rgba(26,22,18,0.14); background: transparent; box-shadow: none; }
+.tinfo { flex: 1; min-width: 0; }
+.tname { font-size: 9px; font-weight: 500; color: var(--ink); line-height: 1.3; margin-bottom: 2px; }
+.tmeta { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.cadence { font-size: 7px; color: var(--mid-ac); background: rgba(26,22,18,0.05); border: 0.5px solid rgba(26,22,18,0.07); border-radius: 100px; padding: 1px 5px; }
+.tctx { font-size: 7px; color: var(--mid); }
+.else-name { font-size: 9px; font-weight: 500; color: var(--mid-ac); }
+.else-sub { font-size: 7px; color: rgba(26,22,18,0.28); }
+
+/* ── BUTTONS ── */
+.btn { width: 100%; height: 36px; border-radius: 100px; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 7px; }
+.btn.primary { background: var(--cta); color: var(--cta-fg); box-shadow: 0 2px 10px rgba(155,127,212,0.28); }
+.btn.secondary { background: transparent; border: 1px solid rgba(26,22,18,0.18); color: var(--ink); }
+.btn.ghost { background: transparent; color: var(--mid-ac); font-size: 8.5px; height: 28px; margin-bottom: 0; }
+.mic-bubble { width: 16px; height: 16px; border-radius: 50%; background: rgba(250,248,255,0.18); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.mic-bubble svg { width: 9px; height: 9px; stroke: var(--cta-fg); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.scan-link { display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 7.5px; color: var(--mid); padding-top: 5px; }
+.scan-link svg { width: 9px; height: 9px; stroke: var(--mid); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.divider { text-align: center; font-size: 7.5px; color: var(--mid); position: relative; margin-bottom: 9px; padding-top: 8px; }
+.divider::before, .divider::after { content: ''; position: absolute; top: calc(50% + 4px); height: 0.5px; background: rgba(26,22,18,0.10); width: 28%; }
+.divider::before { left: 0; } .divider::after { right: 0; }
+
+/* ── ITEM COUNTER (S-02 / S-03 / S-05) ── */
+.item-counter { display: flex; align-items: center; justify-content: space-between; padding: 8px 14px 0; flex-shrink: 0; }
+.counter-pill { display: inline-flex; align-items: center; gap: 5px; background: rgba(155,127,212,0.08); border: 0.5px solid rgba(155,127,212,0.20); border-radius: 100px; padding: 3px 8px; font-size: 7.5px; font-weight: 500; color: var(--mid-ac); }
+.counter-fill { display: flex; gap: 3px; align-items: center; }
+.counter-dot { width: 6px; height: 6px; border-radius: 50%; }
+.counter-dot.filled { background: var(--cta); }
+.counter-dot.empty { background: rgba(155,127,212,0.20); }
+
+/* ── S-02 SPECIFIC ── */
+.context-pill { background: rgba(155,127,212,0.07); border: 0.5px solid rgba(155,127,212,0.22); border-radius: 8px; padding: 7px 10px; margin-bottom: 10px; display: flex; align-items: center; gap: 7px; }
+.ctx-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--cta); flex-shrink: 0; }
+.ctx-text { font-size: 7.5px; color: var(--mid-ac); line-height: 1.4; }
+.ctx-text strong { color: var(--ink); font-weight: 500; }
+
+.voice-center { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 0 6px; }
+.waveform { display: flex; align-items: center; gap: 3px; height: 34px; margin-bottom: 8px; }
+.wbar { width: 3px; border-radius: 100px; background: var(--cta); opacity: 0.75; }
+@keyframes wv { 0%,100%{height:4px;} 50%{height:100%;} }
+.wbar:nth-child(1){animation:wv 0.9s ease-in-out infinite;animation-delay:0.00s}
+.wbar:nth-child(2){animation:wv 0.9s ease-in-out infinite;animation-delay:0.10s}
+.wbar:nth-child(3){animation:wv 0.9s ease-in-out infinite;animation-delay:0.20s}
+.wbar:nth-child(4){animation:wv 0.9s ease-in-out infinite;animation-delay:0.13s}
+.wbar:nth-child(5){animation:wv 0.9s ease-in-out infinite;animation-delay:0.25s}
+.wbar:nth-child(6){animation:wv 0.9s ease-in-out infinite;animation-delay:0.07s}
+.wbar:nth-child(7){animation:wv 0.9s ease-in-out infinite;animation-delay:0.17s}
+.wbar:nth-child(8){animation:wv 0.9s ease-in-out infinite;animation-delay:0.03s}
+.voice-status { font-size: 7.5px; color: var(--mid); font-style: italic; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; margin-bottom: 4px; }
+.chip-ex { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.12); border-radius: 100px; padding: 2px 8px; font-size: 7px; color: var(--mid-ac); cursor: pointer; }
+
+.input-bar { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.12); border-radius: 100px; padding: 0 8px; height: 36px; display: flex; align-items: center; gap: 7px; box-shadow: 0 1px 6px rgba(26,22,18,0.06); margin-bottom: 5px; }
+.ibar-icon { width: 22px; height: 22px; border-radius: 50%; background: rgba(26,22,18,0.05); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.ibar-icon svg { width: 11px; height: 11px; stroke: var(--mid-ac); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.ibar-text { flex: 1; font-size: 8px; color: var(--mid); }
+.ibar-mic { width: 26px; height: 26px; border-radius: 50%; background: var(--cta); display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 8px rgba(155,127,212,0.35); }
+.ibar-mic svg { width: 12px; height: 12px; stroke: var(--cta-fg); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.input-note { text-align: center; font-size: 6.5px; color: var(--mid); opacity: 0.65; }
+
+/* ── S-03 SPECIFIC ── */
+.search-bar { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.12); border-radius: 10px; padding: 0 10px; height: 32px; display: flex; align-items: center; gap: 6px; margin: 8px 14px 0; flex-shrink: 0; }
+.search-bar svg { width: 11px; height: 11px; stroke: var(--mid); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.search-text { font-size: 8px; color: var(--mid); flex: 1; }
+.cat-filters { display: flex; gap: 4px; padding: 8px 14px 0; overflow-x: auto; scrollbar-width: none; flex-shrink: 0; }
+.cat-filters::-webkit-scrollbar { display: none; }
+.cat-f { font-size: 7.5px; font-weight: 500; padding: 3px 9px; border-radius: 100px; flex-shrink: 0; border: 0.5px solid rgba(26,22,18,0.12); background: var(--surface); color: var(--mid-ac); cursor: pointer; }
+.cat-f.on { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+.browse-rows { display: flex; flex-direction: column; gap: 4px; }
+.brow { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.08); border-radius: 8px; padding: 7px 8px; display: flex; align-items: center; gap: 7px; cursor: pointer; }
+.brow.sel { border: 1px solid rgba(155,127,212,0.35); background: rgba(155,127,212,0.04); }
+.bname { flex: 1; font-size: 9px; font-weight: 500; color: var(--ink); }
+.task-badge { font-size: 6.5px; color: var(--mid-ac); background: rgba(26,22,18,0.05); border: 0.5px solid rgba(26,22,18,0.06); border-radius: 100px; padding: 1px 5px; }
+.cta-count { background: rgba(250,248,255,0.22); border-radius: 100px; padding: 1px 7px; font-size: 8px; font-weight: 600; }
+
+/* ── S-05 SPECIFIC ── */
+.rev-card { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.08); border-radius: 10px; box-shadow: 0 1px 3px rgba(26,22,18,0.04); margin-bottom: 6px; overflow: hidden; }
+.rev-head { padding: 8px 10px; display: flex; align-items: center; gap: 6px; border-bottom: 0.5px solid rgba(26,22,18,0.06); }
+.rev-name { flex: 1; font-size: 9px; font-weight: 500; color: var(--ink); }
+.scan-btn { width: 20px; height: 20px; border-radius: 5px; background: rgba(26,22,18,0.04); border: 0.5px solid rgba(26,22,18,0.07); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.scan-btn svg { width: 10px; height: 10px; stroke: var(--mid); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.remove-btn { width: 20px; height: 20px; border-radius: 5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer; }
+.remove-btn svg { width: 10px; height: 10px; stroke: rgba(26,22,18,0.30); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+.rev-tasks { padding: 7px 10px 6px; display: flex; flex-direction: column; gap: 5px; }
+.rtask { display: flex; align-items: center; gap: 6px; }
+.rtask-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(26,22,18,0.14); flex-shrink: 0; }
+.rtask-name { flex: 1; font-size: 8px; color: var(--mid-ac); }
+.rtask-cad { font-size: 6.5px; color: var(--mid); background: rgba(26,22,18,0.04); border-radius: 100px; padding: 1px 5px; }
+.rtask.locked .rtask-name { color: rgba(26,22,18,0.20); }
+.rtask.locked .rtask-dot { background: rgba(26,22,18,0.06); }
+.pro-lock { font-size: 6.5px; color: var(--cta); background: rgba(155,127,212,0.10); border-radius: 100px; padding: 1px 5px; border: 0.5px solid rgba(155,127,212,0.18); }
+
+/* "When last done?" row */
+.last-done-row { padding: 6px 10px 8px; border-top: 0.5px solid rgba(26,22,18,0.05); display: flex; align-items: center; gap: 6px; }
+.last-done-label { font-size: 7px; color: var(--mid); flex-shrink: 0; }
+.last-done-opts { display: flex; gap: 4px; }
+.ldo { font-size: 7px; font-weight: 500; padding: 2px 7px; border-radius: 100px; border: 0.5px solid rgba(26,22,18,0.12); background: var(--surface); color: var(--mid-ac); cursor: pointer; }
+.ldo.active { background: rgba(26,22,18,0.07); border-color: rgba(26,22,18,0.20); color: var(--ink); }
+
+/* Item counter banner */
+.item-limit-note { background: rgba(155,127,212,0.06); border: 0.5px solid rgba(155,127,212,0.18); border-radius: 8px; padding: 7px 10px; margin-bottom: 8px; font-size: 7.5px; color: var(--mid-ac); line-height: 1.4; }
+.item-limit-note strong { color: var(--ink); font-weight: 500; }
+
+/* ── S-07a SPECIFIC ── */
+.aha-eyebrow { font-size: 7.5px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: var(--cta); margin-bottom: 6px; }
+.aha-line { font-size: 8px; color: var(--mid-ac); line-height: 1.5; margin-bottom: 12px; font-style: italic; }
+.nudge-cards { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
+.ncard { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.08); border-radius: 10px; box-shadow: 0 1px 3px rgba(26,22,18,0.04); padding: 8px 10px; display: flex; align-items: center; gap: 8px; }
+.ncontent { flex: 1; min-width: 0; }
+.nname { font-size: 9px; font-weight: 500; color: var(--ink); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nsub { font-size: 7px; color: var(--mid); font-style: italic; }
+.ndate { font-size: 8px; font-weight: 500; flex-shrink: 0; }
+.date-soon { color: var(--apricot-dk); }
+.date-ok { color: var(--mid-ac); }
+
+.value-box { background: rgba(155,127,212,0.06); border: 0.5px solid rgba(155,127,212,0.18); border-radius: 8px; padding: 8px 10px; margin-bottom: 10px; text-align: center; }
+.value-box p { font-size: 7.5px; color: var(--mid-ac); line-height: 1.55; }
+.value-box strong { color: var(--ink); font-weight: 500; }
+.save-note { text-align: center; font-size: 7px; color: var(--mid); margin-top: 4px; }
+
+/* ── S-06 AUTH ── */
+.auth-wrap { padding: 18px 14px 0; flex: 1; display: flex; flex-direction: column; }
+.auth-heading { font-family: 'DM Serif Display', Georgia, serif; font-size: 22px; font-weight: 400; line-height: 1.0; letter-spacing: -0.35px; color: var(--ink); margin-bottom: 6px; }
+.auth-sub { font-size: 8px; color: var(--mid-ac); line-height: 1.5; margin-bottom: 18px; }
+.sso-btn { width: 100%; height: 38px; border-radius: 100px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px; border: none; }
+.sso-btn.apple { background: var(--ink); color: var(--cream); }
+.sso-btn.google { background: var(--surface); color: var(--ink); border: 1px solid rgba(26,22,18,0.16); }
+.email-toggle { text-align: center; font-size: 8px; color: var(--mid); padding: 4px 0 0; cursor: pointer; }
+.auth-reassure { display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 6.5px; color: var(--mid); margin-top: auto; padding-bottom: 4px; flex-wrap: wrap; }
+.auth-rdot { width: 3px; height: 3px; border-radius: 50%; background: var(--mid); opacity: 0.4; flex-shrink: 0; }
+
+/* ── S-07 COMPLETION (dark) ── */
+.completion-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px 20px 0; text-align: center; }
+.comp-ii { font-size: 52px; font-weight: 900; letter-spacing: -7px; line-height: 1; margin-bottom: 18px; color: var(--cream); display: block; }
+.comp-ii span { color: var(--apricot); }
+.comp-h { font-family: 'DM Serif Display', Georgia, serif; font-size: 28px; font-weight: 400; line-height: 1.0; letter-spacing: -0.4px; color: var(--cream); margin-bottom: 8px; }
+.comp-sub { font-size: 9px; color: rgba(245,240,232,0.55); line-height: 1.5; margin-bottom: 22px; font-style: italic; }
+.summary-pill { background: rgba(255,255,255,0.07); border: 0.5px solid rgba(255,255,255,0.12); border-radius: 100px; padding: 6px 14px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+.sum-item { font-size: 8px; font-weight: 500; color: rgba(245,240,232,0.80); }
+.sum-sep { width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,0.20); }
+.first-nudge-label { font-size: 7px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: rgba(245,240,232,0.35); margin-bottom: 8px; }
+.fncard { background: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.10); border-radius: 10px; padding: 8px 10px; display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; }
+.fncard-content { flex: 1; }
+.fncard-name { font-size: 9px; font-weight: 500; color: rgba(245,240,232,0.85); margin-bottom: 2px; }
+.fncard-sub { font-size: 7px; color: rgba(245,240,232,0.40); font-style: italic; }
+.fncard-date { font-size: 8px; font-weight: 500; color: var(--apricot-dk); flex-shrink: 0; }
+.comp-promise { font-size: 7px; color: rgba(245,240,232,0.30); margin-top: 8px; font-style: italic; }
+.btn.primary.dark-screen { background: var(--cta); color: var(--cta-fg); }
+.open-note { text-align: center; font-size: 7px; color: rgba(245,240,232,0.30); margin-top: 4px; }
+
+/* ── S-09 DASHBOARD ── */
+.greeting-row { padding: 12px 16px 10px; flex-shrink: 0; border-bottom: 0.5px solid rgba(26,22,18,0.06); }
+.greeting-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 2px; }
+.greeting-name { font-family: 'DM Serif Display', Georgia, serif; font-size: 19px; font-weight: 400; line-height: 0.95; letter-spacing: -0.3px; color: var(--ink); }
+.greeting-name em { color: var(--apricot); font-style: normal; }
+.greeting-sub { font-size: 8px; color: var(--mid-ac); }
+.settings-btn { width: 28px; height: 28px; border-radius: 8px; background: rgba(26,22,18,0.05); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+.settings-btn svg { width: 13px; height: 13px; stroke: var(--mid-ac); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+.dash-scroll { flex: 1; overflow-y: auto; padding: 10px 14px 80px; scrollbar-width: none; }
+.dash-scroll::-webkit-scrollbar { display: none; }
+.dcard { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.08); border-radius: 10px; box-shadow: 0 1px 3px rgba(26,22,18,0.04); padding: 9px 10px; display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+.dcontent { flex: 1; min-width: 0; }
+.dname { font-size: 9px; font-weight: 500; color: var(--ink); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dsub { font-size: 7px; color: var(--mid); font-style: italic; }
+.ddate { font-size: 8px; font-weight: 500; flex-shrink: 0; }
+.overdue { color: var(--terra); }
+.soon { color: var(--apricot-dk); }
+.ok { color: var(--mid-ac); }
+
+/* Tab bar + FAB */
+.shell-btm { position: absolute; bottom: 12px; left: 12px; right: 12px; display: flex; align-items: flex-end; gap: 8px; z-index: 20; }
+.tab-bar { flex: 1; background: var(--surface); border-radius: 18px; padding: 7px 6px 9px; display: flex; justify-content: space-around; align-items: center; box-shadow: 0 4px 20px rgba(26,22,18,0.11); border: 1px solid rgba(26,22,18,0.07); }
+.tab { display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; min-width: 44px; }
+.tab-icon svg { width: 16px; height: 16px; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.tab.active .tab-icon svg { stroke: var(--ink); }
+.tab.inactive .tab-icon svg { stroke: rgba(26,22,18,0.20); }
+.tab-lbl { font-size: 7px; font-weight: 500; }
+.tab.active .tab-lbl { color: var(--ink); }
+.tab.inactive .tab-lbl { color: rgba(26,22,18,0.20); }
+.tab-pip { width: 3px; height: 3px; border-radius: 50%; background: var(--cta); }
+.fab { width: 34px; height: 34px; background: var(--cta); border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(155,127,212,0.38); flex-shrink: 0; }
+.fab svg { width: 15px; height: 15px; stroke: var(--cta-fg); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── ANNOTATIONS ── */
+.ann-section { margin-top: 24px; }
+.ann-title-row { font-size: 9px; font-weight: 500; letter-spacing: 1.3px; text-transform: uppercase; color: var(--mid); margin-bottom: 12px; }
+.ann-row { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 4px; }
+.ann-card { flex-shrink: 0; width: 280px; background: var(--surface); border: 0.5px solid var(--border); border-radius: 12px; padding: 12px 14px; }
+.ann-t { font-size: 8px; font-weight: 500; letter-spacing: 1.1px; text-transform: uppercase; color: var(--mid); margin-bottom: 8px; }
+.ann-item { display: flex; gap: 7px; margin-bottom: 6px; align-items: flex-start; }
+.ann-i { width: 14px; height: 14px; border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; font-size: 8px; }
+.ann-i.new { background: rgba(155,127,212,0.12); color: var(--cta); }
+.ann-i.upd { background: rgba(232,168,124,0.15); color: var(--apricot-dk); }
+.ann-i.key { background: rgba(59,109,17,0.10); color: var(--sage); }
+.ann-i.lock { background: rgba(26,22,18,0.06); color: var(--mid-ac); }
+.ann-i.q { background: rgba(200,120,80,0.12); color: var(--cat-home); }
+.ann-txt { font-size: 7.5px; color: var(--mid-ac); line-height: 1.5; }
+.ann-txt strong { color: var(--ink); font-weight: 500; }
+
+/* Subtitle options display */
+.subtitle-opts { background: rgba(26,22,18,0.03); border: 0.5px solid var(--border); border-radius: 8px; padding: 8px 10px; margin-top: 6px; }
+.sopt { display: flex; align-items: flex-start; gap: 6px; margin-bottom: 5px; }
+.sopt:last-child { margin-bottom: 0; }
+.sopt-tag { font-size: 6px; font-weight: 500; padding: 1px 5px; border-radius: 100px; flex-shrink: 0; margin-top: 2px; }
+.sopt-tag.pick { background: rgba(59,109,17,0.12); color: var(--sage); }
+.sopt-tag.alt { background: rgba(26,22,18,0.07); color: var(--mid-ac); }
+.sopt-text { font-size: 7.5px; color: var(--mid-ac); line-height: 1.4; font-style: italic; }
+.sopt-text strong { color: var(--ink); font-style: normal; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="page-header">
+  <a class="page-logo" href="../index.html">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect width="18" height="18" rx="5" fill="#1A1612"/><text x="3.5" y="13" fill="#F5F0E8" font-size="11" font-family="Georgia, serif">ii</text></svg>
+    Design hub
+  </a>
+  <span class="page-badge">Preview · not committed</span>
+</div>
+<div class="page-title">Full onboarding · S-01 → S-09 · All screens · Approve before committing</div>
+
+<!-- Flow bar -->
+<div class="flow-bar">
+  <div class="fp"><div class="fn">1</div>S-01 Welcome</div>
+  <div class="fa">→</div>
+  <div class="fp"><div class="fn">2</div>S-02 Tell nudgii</div>
+  <span style="font-size:9px;color:rgba(26,22,18,0.28);padding:0 2px;">or</span>
+  <div class="fp or-path">S-03 Discover</div>
+  <div class="fa">→</div>
+  <div class="fp"><div class="fn">3</div>S-05 Review</div>
+  <div class="fa">→</div>
+  <div class="fp"><div class="fn">4</div>S-07a AHA</div>
+  <div class="fa">→</div>
+  <div class="fp"><div class="fn">5</div>S-06 Auth</div>
+  <div class="fa">→</div>
+  <div class="fp"><div class="fn">6</div>S-07 You're in</div>
+  <div class="fa">→</div>
+  <div class="fp"><div class="fn">7</div>S-09 Dashboard</div>
+</div>
+
+<!-- SCREENS -->
+<div class="screens-wrap">
+<div class="screens-row">
+
+<!-- ═══ S-01 WELCOME ═══ -->
+<div class="screen-col">
+  <div class="screen-label">S-01 · Welcome · 20%</div>
+  <div class="phone">
+    <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
+    <div class="prog"><div class="prog-fill" style="width:20%"></div></div>
+    <div class="scr">
+      <div class="brand-row">
+        <div class="ii">i<span>i</span></div>
+        <div class="free-badge"><div class="free-dot"></div>Free · no credit card</div>
+      </div>
+      <div class="scroll">
+        <div class="h1" style="margin-top:8px;">Your stuff won't<br><em>maintain itself.</em></div>
+        <!-- UPDATED SUBTITLE -->
+        <div class="promise">Add what you own. We handle the rest.</div>
+        <div class="cat-strip">
+          <div class="cat-pill"><span class="cat-dot" style="background:#C87850"></span>Home</div>
+          <div class="cat-pill"><span class="cat-dot" style="background:#4A82A0"></span>Vehicle</div>
+          <div class="cat-pill"><span class="cat-dot" style="background:#5A9060"></span>Garden</div>
+          <div class="cat-pill"><span class="cat-dot" style="background:#8060A8"></span>Subscriptions</div>
+        </div>
+        <div class="micro">For example — tap what applies to you:</div>
+        <div class="task-rows">
+          <!-- Row 1: Dishwasher -->
+          <div class="trow" onclick="toggle(this)">
+            <div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div>
+            <div class="tinfo"><div class="tname">Clean dishwasher filter</div><div class="tmeta"><span class="cadence">every 6–8 wks</span><span class="tctx">· dishwasher</span></div></div>
+            <div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
+          </div>
+          <!-- Row 2: CV ketel — pre-selected -->
+          <div class="trow sel" onclick="toggle(this)">
+            <div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/><line x1="8" y1="2" x2="8" y2="4"/></svg></div>
+            <div class="tinfo"><div class="tname">Boiler / CV ketel service</div><div class="tmeta"><span class="cadence">annual · autumn · BE</span></div></div>
+            <div class="chk on"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
+          </div>
+          <!-- Row 3: Winter tyres -->
+          <div class="trow" onclick="toggle(this)">
+            <div class="chip vehicle"><svg viewBox="0 0 16 16"><path d="M2 9.5L4 5h8l2 4.5"/><path d="M1 9.5h14"/><circle cx="4.5" cy="12" r="2"/><circle cx="11.5" cy="12" r="2"/></svg></div>
+            <div class="tinfo"><div class="tname">Switch to winter tyres</div><div class="tmeta"><span class="cadence">before Nov · BE</span></div></div>
+            <div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
+          </div>
+          <!-- Row 4: Something else -->
+          <div class="trow else">
+            <div class="chip neutral"><svg viewBox="0 0 16 16"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg></div>
+            <div class="tinfo"><div class="else-name">Something else</div><div class="else-sub">explore all categories →</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="btm">
+        <div class="divider">How do you want to start?</div>
+        <button class="btn primary"><div class="mic-bubble"><svg viewBox="0 0 16 16"><rect x="5" y="1" width="6" height="9" rx="3"/><path d="M3 8a5 5 0 0010 0"/><line x1="8" y1="13" x2="8" y2="15"/></svg></div>Tell me what you have</button>
+        <button class="btn secondary">Show me what I can track</button>
+        <div class="scan-link"><svg viewBox="0 0 16 16"><path d="M2 6V3.5A1.5 1.5 0 013.5 2H6"/><path d="M10 2h2.5A1.5 1.5 0 0114 3.5V6"/><path d="M14 10v2.5a1.5 1.5 0 01-1.5 1.5H10"/><path d="M6 14H3.5A1.5 1.5 0 012 12.5V10"/></svg>or start by scanning an item</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PATH SEP -->
+<div class="path-sep">
+  <div class="path-sep-line"></div>
+  <div class="path-sep-or">A</div>
+  <div class="path-sep-line"></div>
+</div>
+
+<!-- ═══ S-02 TELL NUDGII ═══ -->
+<div class="screen-col">
+  <div class="screen-label">S-02 · Tell nudgii · 40%</div>
+  <div class="phone">
+    <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
+    <div class="prog"><div class="prog-fill" style="width:40%"></div></div>
+    <div class="scr">
+      <div class="top-bar"><div class="back-btn"><svg viewBox="0 0 12 12"><polyline points="8,2 4,6 8,10"/></svg></div></div>
+      <!-- Item counter -->
+      <div class="item-counter">
+        <div style="font-size:9px;font-weight:500;color:var(--ink);">What do you own?</div>
+        <div class="counter-pill">
+          <div class="counter-fill">
+            <div class="counter-dot filled"></div>
+            <div class="counter-dot empty"></div>
+            <div class="counter-dot empty"></div>
+          </div>
+          1 of 3
+        </div>
+      </div>
+      <div class="scroll" style="padding-top:8px;">
+        <div class="sub">Say it, type it, or snap a photo. nudgii handles the rest.</div>
+        <div class="context-pill">
+          <div class="ctx-dot"></div>
+          <div class="ctx-text"><strong>CV ketel noted.</strong> What else do you have?</div>
+        </div>
+        <div class="voice-center">
+          <div class="waveform"><div class="wbar"></div><div class="wbar"></div><div class="wbar"></div><div class="wbar"></div><div class="wbar"></div><div class="wbar"></div><div class="wbar"></div><div class="wbar"></div></div>
+          <div class="voice-status">Listening…</div>
+        </div>
+        <div class="micro" style="text-align:center;margin-bottom:6px;">Or try a suggestion:</div>
+        <div class="chips">
+          <div class="chip-ex">dishwasher</div>
+          <div class="chip-ex">airco filter</div>
+          <div class="chip-ex">winter tyres</div>
+          <div class="chip-ex">smoke detector</div>
+          <div class="chip-ex">gutter cleaning</div>
+        </div>
+      </div>
+      <div class="btm">
+        <div class="input-bar">
+          <div class="ibar-icon"><svg viewBox="0 0 16 16"><path d="M2 6V3.5A1.5 1.5 0 013.5 2H6"/><path d="M10 2h2.5A1.5 1.5 0 0114 3.5V6"/><path d="M14 10v2.5a1.5 1.5 0 01-1.5 1.5H10"/><path d="M6 14H3.5A1.5 1.5 0 012 12.5V10"/></svg></div>
+          <div class="ibar-text">Tap mic or type…</div>
+          <div class="ibar-mic"><svg viewBox="0 0 16 16"><rect x="5" y="1" width="6" height="9" rx="3"/><path d="M3 8a5 5 0 0010 0"/><line x1="8" y1="13" x2="8" y2="15"/></svg></div>
+        </div>
+        <div class="input-note">voice stays on your device · nudgii always responds in text</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PATH SEP -->
+<div class="path-sep">
+  <div class="path-sep-line"></div>
+  <div class="path-sep-or">B</div>
+  <div class="path-sep-line"></div>
+</div>
+
+<!-- ═══ S-03 DISCOVER ═══ -->
+<div class="screen-col">
+  <div class="screen-label">S-03 · Discover · 40%</div>
+  <div class="phone">
+    <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
+    <div class="prog"><div class="prog-fill" style="width:40%"></div></div>
+    <div class="scr">
+      <div class="top-bar" style="padding-bottom:0;"><div class="back-btn"><svg viewBox="0 0 12 12"><polyline points="8,2 4,6 8,10"/></svg></div>
+      <div class="counter-pill" style="margin-left:auto;">
+        <div class="counter-fill"><div class="counter-dot filled"></div><div class="counter-dot filled"></div><div class="counter-dot empty"></div></div>
+        2 of 3
+      </div></div>
+      <div class="search-bar"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/></svg><div class="search-text">Search items…</div></div>
+      <div class="cat-filters"><div class="cat-f on">All</div><div class="cat-f">Home</div><div class="cat-f">Vehicle</div><div class="cat-f">Garden</div><div class="cat-f">Subscriptions</div></div>
+      <div class="scroll" style="padding-top:8px;">
+        <div class="sec-lbl" style="margin-top:0;">Home</div>
+        <div class="browse-rows">
+          <div class="brow sel"><div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div><div class="bname">Dishwasher</div><div class="task-badge">3 reminders</div><div class="chk on"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div></div>
+          <div class="brow"><div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div><div class="bname">Boiler / CV ketel</div><div class="task-badge">2 reminders</div><div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div></div>
+          <div class="brow"><div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div><div class="bname">Airco / heat pump</div><div class="task-badge">2 reminders</div><div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div></div>
+        </div>
+        <div class="sec-lbl">Vehicle</div>
+        <div class="browse-rows">
+          <div class="brow sel"><div class="chip vehicle"><svg viewBox="0 0 16 16"><path d="M2 9.5L4 5h8l2 4.5"/><path d="M1 9.5h14"/><circle cx="4.5" cy="12" r="2"/><circle cx="11.5" cy="12" r="2"/></svg></div><div class="bname">Car</div><div class="task-badge">4 reminders</div><div class="chk on"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div></div>
+          <div class="brow"><div class="chip vehicle"><svg viewBox="0 0 16 16"><path d="M2 9.5L4 5h8l2 4.5"/><path d="M1 9.5h14"/><circle cx="4.5" cy="12" r="2"/><circle cx="11.5" cy="12" r="2"/></svg></div><div class="bname">Motorcycle</div><div class="task-badge">3 reminders</div><div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div></div>
+        </div>
+        <div class="sec-lbl">Garden</div>
+        <div class="browse-rows">
+          <div class="brow"><div class="chip garden"><svg viewBox="0 0 16 16"><line x1="8" y1="14" x2="8" y2="7"/><path d="M5 11c0-2.5 3-7 3-7s3 4.5 3 7a3 3 0 01-6 0z"/></svg></div><div class="bname">Hedge / haag</div><div class="task-badge">2 reminders</div><div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div></div>
+        </div>
+      </div>
+      <div class="btm"><button class="btn primary">Continue with 2 items <span class="cta-count">2</span></button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ S-05 REVIEW ═══ -->
+<div class="screen-col">
+  <div class="screen-label">S-05 · Review · 60%</div>
+  <div class="phone">
+    <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
+    <div class="prog"><div class="prog-fill" style="width:60%"></div></div>
+    <div class="scr">
+      <div class="top-bar"><div class="back-btn"><svg viewBox="0 0 12 12"><polyline points="8,2 4,6 8,10"/></svg></div></div>
+      <div class="scroll" style="padding-top:10px;">
+        <div class="h3">Here's what nudgii found.</div>
+        <div class="sub" style="margin-bottom:10px;">Scan to confirm brand or model. Tell nudgii when you last did each task.</div>
+
+        <!-- Card: CV ketel -->
+        <div class="rev-card">
+          <div class="rev-head">
+            <div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div>
+            <div class="rev-name">Boiler / CV ketel</div>
+            <div class="scan-btn"><svg viewBox="0 0 16 16"><path d="M2 6V3.5A1.5 1.5 0 013.5 2H6"/><path d="M10 2h2.5A1.5 1.5 0 0114 3.5V6"/><path d="M14 10v2.5a1.5 1.5 0 01-1.5 1.5H10"/><path d="M6 14H3.5A1.5 1.5 0 012 12.5V10"/></svg></div>
+            <div class="remove-btn"><svg viewBox="0 0 12 12"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></div>
+          </div>
+          <div class="rev-tasks">
+            <div class="rtask"><div class="rtask-dot"></div><div class="rtask-name">Annual boiler service</div><div class="rtask-cad">yearly · autumn</div></div>
+            <div class="rtask"><div class="rtask-dot"></div><div class="rtask-name">Check CO detector</div><div class="rtask-cad">yearly</div></div>
+            <div class="rtask locked"><div class="rtask-dot"></div><div class="rtask-name">Bleed radiators</div><span class="pro-lock">Pro</span></div>
+          </div>
+          <div class="last-done-row">
+            <div class="last-done-label">Last done:</div>
+            <div class="last-done-opts">
+              <div class="ldo">Recently</div>
+              <div class="ldo">A while ago</div>
+              <div class="ldo active">Not sure</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card: Dishwasher -->
+        <div class="rev-card">
+          <div class="rev-head">
+            <div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div>
+            <div class="rev-name">Dishwasher</div>
+            <div class="scan-btn"><svg viewBox="0 0 16 16"><path d="M2 6V3.5A1.5 1.5 0 013.5 2H6"/><path d="M10 2h2.5A1.5 1.5 0 0114 3.5V6"/><path d="M14 10v2.5a1.5 1.5 0 01-1.5 1.5H10"/><path d="M6 14H3.5A1.5 1.5 0 012 12.5V10"/></svg></div>
+            <div class="remove-btn"><svg viewBox="0 0 12 12"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></div>
+          </div>
+          <div class="rev-tasks">
+            <div class="rtask"><div class="rtask-dot"></div><div class="rtask-name">Clean dishwasher filter</div><div class="rtask-cad">every 6–8 wks</div></div>
+            <div class="rtask"><div class="rtask-dot"></div><div class="rtask-name">Refill dishwasher salt</div><div class="rtask-cad">every 6–8 wks</div></div>
+            <div class="rtask locked"><div class="rtask-dot"></div><div class="rtask-name">Hot maintenance wash</div><span class="pro-lock">Pro</span></div>
+          </div>
+          <div class="last-done-row">
+            <div class="last-done-label">Last done:</div>
+            <div class="last-done-opts">
+              <div class="ldo active">Recently</div>
+              <div class="ldo">A while ago</div>
+              <div class="ldo">Not sure</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add another link -->
+        <div style="text-align:center; padding:6px 0 2px;">
+          <span style="font-size:7.5px; color:var(--cta); font-weight:500; cursor:pointer;">+ Add another item</span>
+          <span style="font-size:7.5px; color:var(--mid);"> · 1 of 3 slots used</span>
+        </div>
+      </div>
+      <div class="btm"><button class="btn primary">Looks good →</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ S-07a AHA ═══ -->
+<div class="screen-col">
+  <div class="screen-label">S-07a · AHA · 75%</div>
+  <div class="phone">
+    <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
+    <div class="prog"><div class="prog-fill" style="width:75%"></div></div>
+    <div class="scr">
+      <div class="scroll" style="padding-top:18px;">
+        <div class="aha-eyebrow">Your schedule is ready</div>
+        <div class="h2">Your first month<br>looks like this.</div>
+        <div class="aha-line">nudgii worked out the timing from what you told us. You didn't figure out a single date.</div>
+        <div class="nudge-cards">
+          <div class="ncard">
+            <div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div>
+            <div class="ncontent"><div class="nname">Annual boiler service</div><div class="nsub">CV ketel · yearly · BE</div></div>
+            <div class="ndate date-soon">Oct 28</div>
+          </div>
+          <div class="ncard">
+            <div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div>
+            <div class="ncontent"><div class="nname">Clean dishwasher filter</div><div class="nsub">Dishwasher · every 6–8 wks</div></div>
+            <div class="ndate date-ok">Nov 8</div>
+          </div>
+          <div class="ncard">
+            <div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div>
+            <div class="ncontent"><div class="nname">Refill dishwasher salt</div><div class="nsub">Dishwasher · every 6–8 wks</div></div>
+            <div class="ndate date-ok">Nov 8</div>
+          </div>
+          <div class="ncard">
+            <div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div>
+            <div class="ncontent"><div class="nname">Check CO detector</div><div class="nsub">CV ketel · yearly</div></div>
+            <div class="ndate date-ok">Nov 15</div>
+          </div>
+        </div>
+        <div class="value-box"><p><strong>You told us what.</strong> nudgii figured out when — and why it matters. Every time.</p></div>
+      </div>
+      <div class="btm">
+        <button class="btn primary">Save my schedule →</button>
+        <div class="save-note">Free · no credit card · 30 seconds</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ S-06 AUTH ═══ -->
+<div class="screen-col">
+  <div class="screen-label">S-06 · Auth · 80%</div>
+  <div class="phone">
+    <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
+    <div class="prog"><div class="prog-fill" style="width:80%"></div></div>
+    <div class="scr">
+      <div class="brand-row"><div class="ii">i<span>i</span></div><div class="free-badge"><div class="free-dot"></div>Free · no credit card</div></div>
+      <div class="auth-wrap">
+        <div class="auth-heading">Save your<br>schedule.</div>
+        <div class="auth-sub">Sign in to keep your tasks safe and synced across devices.</div>
+        <button class="sso-btn apple">
+          <svg viewBox="0 0 14 17" fill="white" width="13" height="13"><path d="M11.5 8.8c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.6-1.9-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.8C1.4 3.4 0 4.8 0 7.3c0 3.5 3 7.2 4.3 9.2.9 1.4 2 2.9 3.4 2.8 1.4-.1 1.9-.9 3.6-.9 1.7 0 2.1.9 3.6.8 1.5-.1 2.4-1.4 3.3-2.8.7-1 1-1.9 1.3-2 0 0-2.4-1-2.4-3.6z"/><path d="M9.3 2.2C10 1.3 10.5.1 10.3-1c-1 .1-2.2.7-3 1.6-.7.8-1.3 2-1.1 3.1 1.1.1 2.2-.5 3.1-1.5z"/></svg>
+          Continue with Apple
+        </button>
+        <button class="sso-btn google" style="width:100%;height:38px;border-radius:100px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:9px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px;border:1px solid rgba(26,22,18,0.16);background:var(--surface);color:var(--ink);">
+          <svg viewBox="0 0 18 18" width="13" height="13"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z"/></svg>
+          Continue with Google
+        </button>
+        <div class="email-toggle" style="text-align:center;font-size:8px;color:var(--mid);padding:4px 0 0;cursor:pointer;">or <u style="text-decoration-color:rgba(138,128,112,0.4);">use email instead</u></div>
+        <div class="auth-reassure">
+          <span>Free up to 10 items</span><div class="auth-rdot"></div>
+          <span>Cancel anytime</span><div class="auth-rdot"></div>
+          <span>No card needed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ S-07 COMPLETION (DARK) ═══ -->
+<div class="screen-col">
+  <div class="screen-label">S-07 · You're in · 100%</div>
+  <div class="phone dark">
+    <div class="sbar"><span class="sbar-time" style="color:rgba(245,240,232,0.70);">9:41</span><div class="sbar-icons" style="opacity:0.40;"><svg viewBox="0 0 11 10" fill="rgba(245,240,232,0.8)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="rgba(245,240,232,0.8)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="rgba(245,240,232,0.8)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
+    <!-- 100% progress bar in CTA color -->
+    <div class="prog" style="background:rgba(255,255,255,0.06);"><div class="prog-fill full" style="width:100%;"></div></div>
+    <div class="scr">
+      <div class="completion-wrap">
+        <div class="comp-ii">i<span>i</span></div>
+        <div class="comp-h">You're in.</div>
+        <div class="comp-sub">nudgii's got it from here.<br>Your boiler is already taking notes.</div>
+        <div class="summary-pill">
+          <span class="sum-item">2 items</span>
+          <div class="sum-sep"></div>
+          <span class="sum-item">4 tasks ready</span>
+          <div class="sum-sep"></div>
+          <span class="sum-item">first nudge Oct 28</span>
+        </div>
+        <div class="first-nudge-label">Your first reminder</div>
+        <div class="fncard">
+          <div class="chip home" style="background:rgba(200,120,80,0.15);"><svg viewBox="0 0 16 16" style="stroke:#C87850;"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div>
+          <div class="fncard-content">
+            <div class="fncard-name">Annual boiler service</div>
+            <div class="fncard-sub">CV ketel · yearly · BE</div>
+          </div>
+          <div class="fncard-date">Oct 28</div>
+        </div>
+        <div class="comp-promise">We'll remind you at the right time. Every time.</div>
+      </div>
+      <div class="btm" style="padding-top:14px;">
+        <button class="btn primary dark-screen" style="background:var(--cta);color:var(--cta-fg);">Open my schedule →</button>
+        <div class="open-note">Tap when you're ready — no rush.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ S-09 DASHBOARD ═══ -->
+<div class="screen-col">
+  <div class="screen-label">S-09 · Dashboard</div>
+  <div class="phone" style="position:relative;">
+    <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
+    <!-- No progress bar on dashboard -->
+    <div class="scr">
+      <div class="greeting-row">
+        <div class="greeting-top">
+          <div class="greeting-name">Good morning,<br><em>Hanne.</em></div>
+          <div class="settings-btn"><svg viewBox="0 0 16 16"><line x1="2" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="14" y2="12"/><circle cx="5" cy="4" r="1.5" fill="white" stroke="var(--mid-ac)"/><circle cx="10" cy="8" r="1.5" fill="white" stroke="var(--mid-ac)"/><circle cx="7" cy="12" r="1.5" fill="white" stroke="var(--mid-ac)"/></svg></div>
+        </div>
+        <div class="greeting-sub">4 tasks need attention</div>
+      </div>
+      <div class="dash-scroll">
+        <div class="sec-lbl" style="margin-top:0;">This week</div>
+        <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div><div class="dcontent"><div class="dname">Annual boiler service</div><div class="dsub">CV ketel · yearly</div></div><div class="ddate soon">Oct 28</div></div>
+        <div class="sec-lbl">Coming up</div>
+        <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div><div class="dcontent"><div class="dname">Clean dishwasher filter</div><div class="dsub">Dishwasher · every 6–8 wks</div></div><div class="ddate ok">Nov 8</div></div>
+        <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div><div class="dcontent"><div class="dname">Refill dishwasher salt</div><div class="dsub">Dishwasher · every 6–8 wks</div></div><div class="ddate ok">Nov 8</div></div>
+        <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div><div class="dcontent"><div class="dname">Check CO detector</div><div class="dsub">CV ketel · yearly</div></div><div class="ddate ok">Nov 15</div></div>
+
+        <!-- Upgrade nudge (free tier) -->
+        <div style="background:rgba(155,127,212,0.06);border:0.5px solid rgba(155,127,212,0.18);border-radius:10px;padding:8px 10px;margin-top:10px;display:flex;align-items:center;gap:8px;">
+          <div style="flex:1;"><div style="font-size:8px;font-weight:500;color:var(--ink);margin-bottom:2px;">2 of 10 items used</div><div style="font-size:7px;color:var(--mid-ac);">Add up to 8 more. Go Pro for unlimited.</div></div>
+          <div style="font-size:7.5px;font-weight:500;color:var(--cta);white-space:nowrap;">+ Add item</div>
+        </div>
+      </div>
+    </div>
+    <!-- Tab bar + FAB -->
+    <div class="shell-btm">
+      <div class="tab-bar">
+        <div class="tab active"><div class="tab-icon"><svg viewBox="0 0 20 20"><rect x="3" y="2" width="14" height="16" rx="2" stroke="var(--ink)" fill="none"/><line x1="7" y1="7" x2="13" y2="7" stroke="var(--ink)"/><line x1="7" y1="10.5" x2="13" y2="10.5" stroke="var(--ink)"/><line x1="7" y1="14" x2="11" y2="14" stroke="var(--ink)"/></svg></div><div class="tab-lbl">Tasks</div><div class="tab-pip"></div></div>
+        <div class="tab inactive"><div class="tab-icon"><svg viewBox="0 0 20 20"><path d="M10 2C5.6 2 2 5.1 2 9s3.6 7 8 7c.9 0 1.8-.1 2.6-.4L17 18l-.4-3.6C17.9 13.1 18 11.1 18 9c0-3.9-3.6-7-8-7z" stroke="rgba(26,22,18,0.20)" fill="none"/><path d="M7 9h.01M10 9h.01M13 9h.01" stroke="rgba(26,22,18,0.20)" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div><div class="tab-lbl">Ask</div></div>
+        <div class="tab inactive"><div class="tab-icon"><svg viewBox="0 0 20 20"><circle cx="10" cy="7" r="3" stroke="rgba(26,22,18,0.20)" fill="none"/><path d="M3 18c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="rgba(26,22,18,0.20)" fill="none"/></svg></div><div class="tab-lbl">Profile</div></div>
+      </div>
+      <div class="fab"><svg viewBox="0 0 16 16"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /screens-row -->
+</div><!-- /screens-wrap -->
+
+<!-- ANNOTATIONS -->
+<div class="ann-section">
+  <div class="ann-title-row">Design decisions · open questions · changes from previous preview</div>
+  <div class="ann-row">
+
+    <div class="ann-card">
+      <div class="ann-t">S-01 · subtitle options</div>
+      <div class="ann-item"><div class="ann-i upd">↑</div><div class="ann-txt"><strong>On screen:</strong> "Add what you own. We handle the rest." — simplest, most direct. Action-oriented.</div></div>
+      <div class="subtitle-opts">
+        <div class="sopt"><span class="sopt-tag pick">on screen</span><div class="sopt-text"><strong>"Add what you own. We handle the rest."</strong> — simplest, most direct</div></div>
+        <div class="sopt"><span class="sopt-tag alt">alt A</span><div class="sopt-text"><strong>"You know what you have. nudgii knows when."</strong> — splits the value prop perfectly</div></div>
+        <div class="sopt"><span class="sopt-tag alt">alt B</span><div class="sopt-text"><em>(remove it entirely)</em> — headline + task rows communicate everything</div></div>
+      </div>
+    </div>
+
+    <div class="ann-card">
+      <div class="ann-t">S-01 · CV ketel swap</div>
+      <div class="ann-item"><div class="ann-i upd">↑</div><div class="ann-txt"><strong>Replaced hedge trim with CV ketel / boiler service.</strong> 95%+ of Belgian/Dutch homes have central heating. Annual service is safety-critical and almost universally forgotten. Shows nudgii knows the stuff that actually matters.</div></div>
+      <div class="ann-item"><div class="ann-i key">★</div><div class="ann-txt">Hedge moves to S-03 browse (Garden section). Still discoverable, not front-loaded on S-01.</div></div>
+      <div class="ann-item"><div class="ann-i q">?</div><div class="ann-txt"><strong>Open:</strong> Should one example always be pre-selected? Currently CV ketel is pre-selected to demo the state. Or should all start unselected and user decides?</div></div>
+    </div>
+
+    <div class="ann-card">
+      <div class="ann-t">S-02 · item counter</div>
+      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>3-dot counter pill</strong> top-right — "1 of 3". Caps onboarding at 3 items. Keeps setup fast, leaves room to grow on the free tier (10 total). Dots fill as items are confirmed.</div></div>
+      <div class="ann-item"><div class="ann-i key">★</div><div class="ann-txt"><strong>After 3 items nudgii says:</strong> "Great start — you can always add more from the dashboard." No hard wall. Gentle guide.</div></div>
+      <div class="ann-item"><div class="ann-i lock">↓</div><div class="ann-txt">AI parse cap: 3 items per onboarding session = 3 Claude API calls. Controls cost, keeps the magic. User arrives at dashboard with 2/10 slots used — room to grow.</div></div>
+    </div>
+
+    <div class="ann-card">
+      <div class="ann-t">S-05 · "when last done"</div>
+      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>Replaces status dots entirely.</strong> We can't know overdue at onboarding — there's no history yet. Instead, 3-tap quick picker per item: <strong>Recently · A while ago · Not sure.</strong></div></div>
+      <div class="ann-item"><div class="ann-i key">★</div><div class="ann-txt">Default: "Not sure" → nudgii schedules the first reminder soon (conservative). "Recently" → adds 6–8 wks before first nudge. Personalises the schedule without asking invasive questions.</div></div>
+      <div class="ann-item"><div class="ann-i upd">↑</div><div class="ann-txt"><strong>Remove button (×)</strong> per card. Users can remove items from review. Add another item link below ("+ Add another item · 1 of 3 slots used").</div></div>
+      <div class="ann-item"><div class="ann-i lock">↓</div><div class="ann-txt"><strong>Pro lock row</strong> per card — 3rd task shown greyed with "Pro" pill. Soft upsell visible during setup without blocking anything. Free users get 2 tasks per item during onboarding.</div></div>
+    </div>
+
+    <div class="ann-card">
+      <div class="ann-t">S-07a · no status colours</div>
+      <div class="ann-item"><div class="ann-i upd">↑</div><div class="ann-txt"><strong>Removed terra red "overdue" from AHA screen.</strong> We don't know overdue at this point — "last done" was just collected on S-05. All cards show upcoming dates only: apricot-dk for soon, mid for further out.</div></div>
+      <div class="ann-item"><div class="ann-i upd">↑</div><div class="ann-txt"><strong>Changed "Your first week" → "Your first month"</strong> — with CV ketel service in Oct and dishwasher tasks in Nov, "first week" was misleading. "First month" is more accurate and still impactful.</div></div>
+    </div>
+
+    <div class="ann-card">
+      <div class="ann-t">S-07 · dark completion screen</div>
+      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>Ink background (#1A1612)</strong> — not plum (reserved for task-done overlay). The shift cream → ink → cream (dashboard) creates a distinct threshold moment. Premium without being theatrical.</div></div>
+      <div class="ann-item"><div class="ann-i key">★</div><div class="ann-txt">ii mark in cream/apricot at large scale (52px). Works as a visual anchor without breaking any colour rules. No gradients.</div></div>
+      <div class="ann-item"><div class="ann-i key">★</div><div class="ann-txt">Witty sub personalised to items added: <em>"Your boiler is already taking notes."</em> Earned humour — onboarding is complete, mood is right. Would say "dishwasher" if that was the main item.</div></div>
+      <div class="ann-item"><div class="ann-i lock">↓</div><div class="ann-txt">CTA: "Open my schedule →" — required tap, never auto-advance. Note below: "Tap when you're ready — no rush." Gives users the moment.</div></div>
+    </div>
+
+    <div class="ann-card">
+      <div class="ann-t">S-09 · dashboard · free tier state</div>
+      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>Upgrade nudge at bottom</strong> — "2 of 10 items used. Add up to 8 more. Go Pro for unlimited." Visible but not intrusive. Appears below all tasks, never above.</div></div>
+      <div class="ann-item"><div class="ann-i key">★</div><div class="ann-txt">No "overdue" section on first load — user just set up, all tasks are upcoming. Overdue section appears only when something is actually past due.</div></div>
+      <div class="ann-item"><div class="ann-i lock">↓</div><div class="ann-txt">Tab bar: Tasks (active, purple pip) · Ask · Profile. FAB: colorCta rounded square adjacent to pill. Custom widget — never BottomNavigationBar.</div></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function toggle(row) {
+  if (row.classList.contains('else')) return;
+  row.classList.toggle('sel');
+  const chk = row.querySelector('.chk');
+  if (chk) chk.classList.toggle('on');
+}
+</script>
+</body>
+</html>
