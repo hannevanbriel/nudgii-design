@@ -403,6 +403,8 @@ body {
   <div class="fa">→</div>
   <div class="fp"><div class="fn">5</div>S-06 Auth</div>
   <div class="fa">→</div>
+  <div class="fp or-path">S-06b email</div>
+  <div class="fa">→</div>
   <div class="fp"><div class="fn">6</div>S-07 You're in</div>
   <div class="fa">→</div>
   <div class="fp"><div class="fn">7</div>S-09 Dashboard</div>
@@ -438,19 +440,19 @@ body {
           <!-- Row 1: Dishwasher -->
           <div class="trow" onclick="toggle(this)">
             <div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div>
-            <div class="tinfo"><div class="tname">Clean dishwasher filter</div><div class="tmeta"><span class="cadence">every 6–8 wks</span><span class="tctx">· dishwasher</span></div></div>
+            <div class="tinfo"><div class="tname">Clean dishwasher filter</div><div class="tmeta"><span class="cadence">every 6–8 wks</span></div></div>
             <div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
           </div>
           <!-- Row 2: CV ketel -->
           <div class="trow" onclick="toggle(this)">
             <div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/><line x1="8" y1="2" x2="8" y2="4"/></svg></div>
-            <div class="tinfo"><div class="tname">Boiler / CV ketel service</div><div class="tmeta"><span class="cadence">annual · autumn · BE</span></div></div>
+            <div class="tinfo"><div class="tname">Boiler / CV ketel service</div><div class="tmeta"><span class="cadence">annual · autumn</span></div></div>
             <div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
           </div>
           <!-- Row 3: Winter tyres -->
           <div class="trow" onclick="toggle(this)">
             <div class="chip vehicle"><svg viewBox="0 0 16 16"><path d="M2 9.5L4 5h8l2 4.5"/><path d="M1 9.5h14"/><circle cx="4.5" cy="12" r="2"/><circle cx="11.5" cy="12" r="2"/></svg></div>
-            <div class="tinfo"><div class="tname">Switch to winter tyres</div><div class="tmeta"><span class="cadence">before Nov · BE</span></div></div>
+            <div class="tinfo"><div class="tname">Switch to winter tyres</div><div class="tmeta"><span class="cadence">before Nov</span></div></div>
             <div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
           </div>
           <!-- Row 4: Something else -->
@@ -462,7 +464,7 @@ body {
       </div>
       <div class="btm">
         <div class="divider">How do you want to start?</div>
-        <button class="btn primary"><div class="mic-bubble"><svg viewBox="0 0 16 16"><rect x="5" y="1" width="6" height="9" rx="3"/><path d="M3 8a5 5 0 0010 0"/><line x1="8" y1="13" x2="8" y2="15"/></svg></div>Tell me what you have</button>
+        <button class="btn primary">Tell me what you have</button>
         <button class="btn secondary">Show me what I can track</button>
         <div class="scan-link"><svg viewBox="0 0 16 16"><path d="M2 6V3.5A1.5 1.5 0 013.5 2H6"/><path d="M10 2h2.5A1.5 1.5 0 0114 3.5V6"/><path d="M14 10v2.5a1.5 1.5 0 01-1.5 1.5H10"/><path d="M6 14H3.5A1.5 1.5 0 012 12.5V10"/></svg>or start by scanning an item</div>
       </div>
@@ -484,8 +486,9 @@ body {
     <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
     <div class="prog"><div class="prog-fill" style="width:40%"></div></div>
     <div class="scr">
-      <div class="top-bar"><div class="back-btn"><svg viewBox="0 0 12 12"><polyline points="8,2 4,6 8,10"/></svg></div><div style="font-size:9px;font-weight:500;color:var(--ink);">What do you own?</div></div>
-      <div class="scroll" style="padding-top:8px;">
+      <div class="top-bar"><div class="back-btn"><svg viewBox="0 0 12 12"><polyline points="8,2 4,6 8,10"/></svg></div></div>
+      <div class="scroll" style="padding-top:6px;">
+        <div class="h3" style="margin-bottom:4px;">What do you own?</div>
         <div class="sub">Say it, type it, or snap a photo. nudgii handles the rest.</div>
         <div class="context-pill">
           <div class="ctx-dot"></div>
@@ -507,10 +510,10 @@ body {
       <div class="btm">
         <div class="input-bar">
           <div class="ibar-icon"><svg viewBox="0 0 16 16"><path d="M2 6V3.5A1.5 1.5 0 013.5 2H6"/><path d="M10 2h2.5A1.5 1.5 0 0114 3.5V6"/><path d="M14 10v2.5a1.5 1.5 0 01-1.5 1.5H10"/><path d="M6 14H3.5A1.5 1.5 0 012 12.5V10"/></svg></div>
-          <div class="ibar-text">Tap mic or type…</div>
+          <div class="ibar-text">Say it, type it, or snap a photo…</div>
           <div class="ibar-mic"><svg viewBox="0 0 16 16"><rect x="5" y="1" width="6" height="9" rx="3"/><path d="M3 8a5 5 0 0010 0"/><line x1="8" y1="13" x2="8" y2="15"/></svg></div>
         </div>
-        <div class="input-note">voice stays on your device · nudgii always responds in text</div>
+        <div class="input-note">audio sent for transcription only · deleted after · responds in text</div>
       </div>
     </div>
   </div>
@@ -578,7 +581,7 @@ body {
           <div class="rev-tasks">
             <div class="rtask"><div class="rtask-dot"></div><div class="rtask-name">Annual boiler service</div><div class="rtask-cad">yearly · autumn</div></div>
             <div class="rtask"><div class="rtask-dot"></div><div class="rtask-name">Check CO detector</div><div class="rtask-cad">yearly</div></div>
-            <div class="rtask locked"><div class="rtask-dot"></div><div class="rtask-name">Bleed radiators</div><span class="pro-lock">Pro</span></div>
+            <div class="rtask"><div class="rtask-dot"></div><div class="rtask-name">Bleed radiators</div><div class="rtask-cad">before winter</div></div>
           </div>
           <div class="last-done-row">
             <div class="last-done-label">Last done:</div>
@@ -601,7 +604,7 @@ body {
           <div class="rev-tasks">
             <div class="rtask"><div class="rtask-dot"></div><div class="rtask-name">Clean dishwasher filter</div><div class="rtask-cad">every 6–8 wks</div></div>
             <div class="rtask"><div class="rtask-dot"></div><div class="rtask-name">Refill dishwasher salt</div><div class="rtask-cad">every 6–8 wks</div></div>
-            <div class="rtask locked"><div class="rtask-dot"></div><div class="rtask-name">Hot maintenance wash</div><span class="pro-lock">Pro</span></div>
+            <div class="rtask"><div class="rtask-dot"></div><div class="rtask-name">Hot maintenance wash</div><div class="rtask-cad">monthly</div></div>
           </div>
           <div class="last-done-row">
             <div class="last-done-label">Last done:</div>
@@ -637,7 +640,7 @@ body {
         <div class="nudge-cards">
           <div class="ncard">
             <div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div>
-            <div class="ncontent"><div class="nname">Annual boiler service</div><div class="nsub">CV ketel · yearly · BE</div></div>
+            <div class="ncontent"><div class="nname">Annual boiler service</div><div class="nsub">CV ketel · yearly</div></div>
             <div class="ndate date-soon">Oct 28</div>
           </div>
           <div class="ncard">
@@ -656,7 +659,7 @@ body {
             <div class="ndate date-ok">Nov 15</div>
           </div>
         </div>
-        <div class="value-box"><p><strong>You told us what.</strong> nudgii figured out when — and why it matters. Every time.</p></div>
+        <div class="value-box"><p><strong>You told us what.</strong> nudgii figured out when, and why it matters. Every time.</p></div>
       </div>
       <div class="btm">
         <button class="btn primary">Save my schedule →</button>
@@ -691,62 +694,90 @@ body {
           <span>Cancel anytime</span><div class="auth-rdot"></div>
           <span>No card needed</span>
         </div>
+        <div style="text-align:center;padding-top:14px;"><span style="font-size:7.5px;color:rgba(138,128,112,0.60);cursor:pointer;">Continue without account</span></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ═══ S-07 COMPLETION (CELEBRATION) ═══ -->
+<!-- ═══ S-06b EMAIL STATE ═══ -->
+<div class="screen-col">
+  <div class="screen-label">S-06b · Email / magic link</div>
+  <div class="phone">
+    <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
+    <div class="prog"><div class="prog-fill" style="width:80%"></div></div>
+    <div class="scr">
+      <div class="brand-row"><div class="ii">i<span>i</span></div><div class="free-badge"><div class="free-dot"></div>Free · no credit card</div></div>
+      <div class="auth-wrap">
+        <div class="auth-heading">Save your<br>schedule.</div>
+        <div class="auth-sub" style="margin-bottom:14px;">Sign in to keep your tasks safe and synced across devices.</div>
+        <!-- Email input revealed -->
+        <div style="background:var(--surface);border:1px solid rgba(155,127,212,0.35);border-radius:10px;padding:0 12px;height:40px;display:flex;align-items:center;margin-bottom:8px;">
+          <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="var(--mid-ac)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-right:7px;"><rect x="1" y="3.5" width="14" height="9" rx="1.5"/><path d="M1 3.5l7 5 7-5"/></svg>
+          <span style="font-size:8.5px;color:var(--mid);">your@email.com</span>
+        </div>
+        <button class="btn primary" style="margin-bottom:6px;">Send magic link</button>
+        <div style="text-align:center;font-size:7px;color:var(--mid);line-height:1.5;margin-bottom:12px;">We'll email you a one-tap sign-in link.<br>No password. Ever.</div>
+        <!-- Post-send state (after tap) -->
+        <div style="background:var(--sage-lt);border:0.5px solid rgba(59,109,17,0.14);border-radius:10px;padding:10px 12px;display:flex;align-items:flex-start;gap:8px;margin-bottom:10px;">
+          <div style="width:16px;height:16px;border-radius:50%;background:rgba(59,109,17,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;"><svg viewBox="0 0 10 10" width="8" height="8" fill="none" stroke="var(--sage)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
+          <div><div style="font-size:8px;font-weight:500;color:var(--ink);margin-bottom:2px;">Check your email</div><div style="font-size:7px;color:var(--mid-ac);line-height:1.4;">Link sent to your@email.com. Tap it to sign in — no password needed.</div></div>
+        </div>
+        <div class="auth-reassure">
+          <span>Free up to 10 items</span><div class="auth-rdot"></div>
+          <span>No card needed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ S-07 COMPLETION (PLUM) ═══ -->
 <div class="screen-col">
   <div class="screen-label">S-07 · You're in · 100%</div>
-  <div class="phone" style="position:relative;">
-    <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
-    <!-- 100% progress bar -->
-    <div class="prog"><div class="prog-fill full" style="width:100%;"></div></div>
+  <div class="phone" style="background:#2D1F4A;position:relative;">
+    <div class="sbar"><span class="sbar-time" style="color:rgba(245,240,232,0.65);">9:41</span><div class="sbar-icons" style="opacity:0.35;"><svg viewBox="0 0 11 10" fill="rgba(245,240,232,0.9)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="rgba(245,240,232,0.9)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="rgba(245,240,232,0.9)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
+    <!-- 100% progress bar on plum -->
+    <div class="prog" style="background:rgba(255,255,255,0.06);"><div class="prog-fill full" style="width:100%;"></div></div>
     <div class="scr" style="position:relative;overflow:hidden;">
-      <!-- Confetti dots — category colors, no gradients -->
-      <div class="confetti" style="width:6px;height:6px;background:#C87850;top:14%;left:9%;opacity:0.55;"></div>
-      <div class="confetti" style="width:5px;height:5px;background:#9B7FD4;top:10%;left:72%;opacity:0.50;"></div>
-      <div class="confetti" style="width:7px;height:7px;background:#5A9060;top:22%;left:88%;opacity:0.45;"></div>
-      <div class="confetti" style="width:4px;height:4px;background:#4A82A0;top:32%;left:6%;opacity:0.50;"></div>
-      <div class="confetti" style="width:5px;height:5px;background:#E8A87C;top:8%;left:50%;opacity:0.40;"></div>
-      <div class="confetti" style="width:6px;height:6px;background:#8060A8;top:60%;left:92%;opacity:0.40;"></div>
-      <div class="confetti" style="width:4px;height:4px;background:#C87850;top:68%;left:5%;opacity:0.35;"></div>
-      <div class="confetti" style="width:5px;height:5px;background:#5A9060;top:78%;left:82%;opacity:0.35;"></div>
-      <div class="confetti" style="width:4px;height:4px;background:#9B7FD4;top:44%;left:8%;opacity:0.30;"></div>
-      <div class="confetti" style="width:3px;height:3px;background:#4A82A0;top:18%;left:30%;opacity:0.35;"></div>
-      <div class="confetti" style="width:5px;height:5px;background:#E8A87C;top:55%;left:78%;opacity:0.40;"></div>
-      <div class="confetti" style="width:3px;height:3px;background:#C87850;top:82%;left:22%;opacity:0.30;"></div>
+      <!-- Subtle confetti dots — lighter on plum -->
+      <div class="confetti" style="width:5px;height:5px;background:rgba(200,120,80,0.45);top:12%;left:8%;"></div>
+      <div class="confetti" style="width:6px;height:6px;background:rgba(155,127,212,0.50);top:8%;left:74%;"></div>
+      <div class="confetti" style="width:4px;height:4px;background:rgba(90,144,96,0.40);top:24%;left:90%;"></div>
+      <div class="confetti" style="width:5px;height:5px;background:rgba(74,130,160,0.40);top:35%;left:5%;"></div>
+      <div class="confetti" style="width:4px;height:4px;background:rgba(232,168,124,0.50);top:7%;left:48%;"></div>
+      <div class="confetti" style="width:6px;height:6px;background:rgba(128,96,168,0.35);top:62%;left:93%;"></div>
+      <div class="confetti" style="width:3px;height:3px;background:rgba(200,120,80,0.35);top:70%;left:4%;"></div>
+      <div class="confetti" style="width:4px;height:4px;background:rgba(90,144,96,0.30);top:80%;left:84%;"></div>
+      <div class="confetti" style="width:3px;height:3px;background:rgba(245,240,232,0.18);top:46%;left:9%;"></div>
+      <div class="confetti" style="width:4px;height:4px;background:rgba(245,240,232,0.14);top:16%;left:28%;"></div>
 
-      <div class="cel-wrap">
-        <!-- Dotted ring around ii mark -->
-        <div class="ii-ring-wrap">
-          <div class="ii-ring"></div>
-          <div class="comp-ii-cel">i<span>i</span></div>
+      <div class="cel-wrap" style="justify-content:center;">
+        <!-- nudgii logo mark — SVG inline, cream + CTA + apricot -->
+        <div style="margin-bottom:24px;">
+          <svg width="58" height="66" viewBox="199 162 626 700" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#F2EDE4" d="M324.2,161.93h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87v-442.39c0-71.17,56.05-128.87,125.18-128.87Z"/>
+            <path fill="#9B7FD4" d="M649.98,161.93h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87v-442.39c0-71.17,56.05-128.87,125.18-128.87Z"/>
+            <circle fill="#E8A87C" cx="734.98" cy="281.22" r="90"/>
+          </svg>
         </div>
-        <div class="comp-h-cel">You're in.</div>
-        <div class="comp-sub-cel">Your boiler is relieved.<br>We've got it from here.</div>
-        <div class="sum-pill-lt">
-          <span class="sum-item-lt">2 items</span>
-          <div class="sum-sep-lt"></div>
-          <span class="sum-item-lt">4 tasks ready</span>
-          <div class="sum-sep-lt"></div>
-          <span class="sum-item-lt">first nudge Oct 28</span>
+        <!-- Eyebrow -->
+        <div style="font-size:8px;font-weight:500;letter-spacing:1.3px;text-transform:uppercase;color:rgba(245,240,232,0.40);margin-bottom:10px;">you're in</div>
+        <!-- Personal headline — DM Serif Display italic, apricot — like the done overlay card -->
+        <div style="font-family:'DM Serif Display',Georgia,serif;font-size:26px;font-style:italic;font-weight:400;line-height:1.05;letter-spacing:-0.3px;color:#E8A87C;margin-bottom:8px;text-align:center;">Your boiler<br>is relieved.</div>
+        <!-- Sub — simple, cream -->
+        <div style="font-size:8.5px;color:rgba(245,240,232,0.50);line-height:1.55;font-style:italic;margin-bottom:28px;text-align:center;">We've got it from here.</div>
+        <!-- First nudge pill — minimal -->
+        <div style="background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.10);border-radius:100px;padding:5px 14px;display:inline-flex;align-items:center;gap:7px;margin-bottom:8px;">
+          <span style="font-size:7.5px;color:rgba(245,240,232,0.70);">First reminder</span>
+          <div style="width:3px;height:3px;border-radius:50%;background:rgba(232,168,124,0.50);"></div>
+          <span style="font-size:7.5px;font-weight:500;color:#E8A87C;">Oct 28</span>
         </div>
-        <div class="nudge-lbl-lt">Your first reminder</div>
-        <div class="fn-card-lt">
-          <div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div>
-          <div class="fncard-content">
-            <div class="fncard-name">Annual boiler service</div>
-            <div class="fncard-sub">CV ketel · yearly · BE</div>
-          </div>
-          <div class="fncard-date date-soon">Oct 28</div>
-        </div>
-        <div class="cel-promise">We'll remind you at the right time. Every time.</div>
+        <div style="font-size:7px;color:rgba(245,240,232,0.28);font-style:italic;margin-bottom:0;">Annual boiler service</div>
       </div>
       <div class="btm" style="padding-top:10px;">
-        <button class="btn primary">Open my schedule →</button>
-        <div style="text-align:center;font-size:7px;color:var(--mid);margin-top:2px;">Tap when you're ready — no rush.</div>
+        <button class="btn primary" style="background:#9B7FD4;color:#FAF8FF;">Open my schedule</button>
+        <div style="text-align:center;font-size:7px;color:rgba(245,240,232,0.28);margin-top:3px;">Tap when you're ready. No rush.</div>
       </div>
     </div>
   </div>
