@@ -355,6 +355,26 @@ body {
 .sopt-tag.alt { background: rgba(26,22,18,0.07); color: var(--mid-ac); }
 .sopt-text { font-size: 7.5px; color: var(--mid-ac); line-height: 1.4; font-style: italic; }
 .sopt-text strong { color: var(--ink); font-style: normal; }
+
+/* ── S-07 CELEBRATION ── */
+.cel-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px 18px 0; text-align: center; position: relative; }
+.ii-ring-wrap { position: relative; width: 78px; height: 78px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; flex-shrink: 0; }
+.ii-ring { position: absolute; inset: 0; border-radius: 50%; border: 2px dashed rgba(155,127,212,0.40); }
+.ii-ring::after { content: ''; position: absolute; inset: -7px; border-radius: 50%; border: 1px dashed rgba(155,127,212,0.15); }
+.comp-ii-cel { font-size: 42px; font-weight: 900; letter-spacing: -5px; line-height: 1; color: var(--ink); }
+.comp-ii-cel span { color: var(--apricot); }
+.comp-h-cel { font-family: 'DM Serif Display', Georgia, serif; font-size: 24px; font-weight: 400; line-height: 1.05; letter-spacing: -0.35px; color: var(--ink); margin-bottom: 6px; }
+.comp-sub-cel { font-size: 8.5px; color: var(--mid-ac); line-height: 1.55; margin-bottom: 18px; font-style: italic; }
+.sum-pill-lt { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.10); border-radius: 100px; padding: 5px 12px; display: inline-flex; align-items: center; gap: 7px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(26,22,18,0.06); }
+.sum-item-lt { font-size: 7.5px; font-weight: 500; color: var(--ink); }
+.sum-sep-lt { width: 3px; height: 3px; border-radius: 50%; background: rgba(26,22,18,0.15); }
+.nudge-lbl-lt { font-size: 7px; font-weight: 500; letter-spacing: 1.1px; text-transform: uppercase; color: var(--mid); margin-bottom: 7px; }
+.fn-card-lt { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.08); border-radius: 10px; box-shadow: 0 1px 3px rgba(26,22,18,0.04); padding: 8px 10px; display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; }
+.fn-card-lt .fncard-name { color: var(--ink); }
+.fn-card-lt .fncard-sub { color: var(--mid); }
+.cel-promise { font-size: 7px; color: var(--mid); margin-top: 8px; font-style: italic; }
+/* Confetti dots */
+.confetti { position: absolute; border-radius: 50%; pointer-events: none; }
 </style>
 </head>
 <body>
@@ -421,11 +441,11 @@ body {
             <div class="tinfo"><div class="tname">Clean dishwasher filter</div><div class="tmeta"><span class="cadence">every 6–8 wks</span><span class="tctx">· dishwasher</span></div></div>
             <div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
           </div>
-          <!-- Row 2: CV ketel — pre-selected -->
-          <div class="trow sel" onclick="toggle(this)">
+          <!-- Row 2: CV ketel -->
+          <div class="trow" onclick="toggle(this)">
             <div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/><line x1="8" y1="2" x2="8" y2="4"/></svg></div>
             <div class="tinfo"><div class="tname">Boiler / CV ketel service</div><div class="tmeta"><span class="cadence">annual · autumn · BE</span></div></div>
-            <div class="chk on"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
+            <div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
           </div>
           <!-- Row 3: Winter tyres -->
           <div class="trow" onclick="toggle(this)">
@@ -464,19 +484,7 @@ body {
     <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
     <div class="prog"><div class="prog-fill" style="width:40%"></div></div>
     <div class="scr">
-      <div class="top-bar"><div class="back-btn"><svg viewBox="0 0 12 12"><polyline points="8,2 4,6 8,10"/></svg></div></div>
-      <!-- Item counter -->
-      <div class="item-counter">
-        <div style="font-size:9px;font-weight:500;color:var(--ink);">What do you own?</div>
-        <div class="counter-pill">
-          <div class="counter-fill">
-            <div class="counter-dot filled"></div>
-            <div class="counter-dot empty"></div>
-            <div class="counter-dot empty"></div>
-          </div>
-          1 of 3
-        </div>
-      </div>
+      <div class="top-bar"><div class="back-btn"><svg viewBox="0 0 12 12"><polyline points="8,2 4,6 8,10"/></svg></div><div style="font-size:9px;font-weight:500;color:var(--ink);">What do you own?</div></div>
       <div class="scroll" style="padding-top:8px;">
         <div class="sub">Say it, type it, or snap a photo. nudgii handles the rest.</div>
         <div class="context-pill">
@@ -522,11 +530,7 @@ body {
     <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
     <div class="prog"><div class="prog-fill" style="width:40%"></div></div>
     <div class="scr">
-      <div class="top-bar" style="padding-bottom:0;"><div class="back-btn"><svg viewBox="0 0 12 12"><polyline points="8,2 4,6 8,10"/></svg></div>
-      <div class="counter-pill" style="margin-left:auto;">
-        <div class="counter-fill"><div class="counter-dot filled"></div><div class="counter-dot filled"></div><div class="counter-dot empty"></div></div>
-        2 of 3
-      </div></div>
+      <div class="top-bar" style="padding-bottom:0;"><div class="back-btn"><svg viewBox="0 0 12 12"><polyline points="8,2 4,6 8,10"/></svg></div></div>
       <div class="search-bar"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/></svg><div class="search-text">Search items…</div></div>
       <div class="cat-filters"><div class="cat-f on">All</div><div class="cat-f">Home</div><div class="cat-f">Vehicle</div><div class="cat-f">Garden</div><div class="cat-f">Subscriptions</div></div>
       <div class="scroll" style="padding-top:8px;">
@@ -612,7 +616,6 @@ body {
         <!-- Add another link -->
         <div style="text-align:center; padding:6px 0 2px;">
           <span style="font-size:7.5px; color:var(--cta); font-weight:500; cursor:pointer;">+ Add another item</span>
-          <span style="font-size:7.5px; color:var(--mid);"> · 1 of 3 slots used</span>
         </div>
       </div>
       <div class="btm"><button class="btn primary">Looks good →</button></div>
@@ -693,39 +696,57 @@ body {
   </div>
 </div>
 
-<!-- ═══ S-07 COMPLETION (DARK) ═══ -->
+<!-- ═══ S-07 COMPLETION (CELEBRATION) ═══ -->
 <div class="screen-col">
   <div class="screen-label">S-07 · You're in · 100%</div>
-  <div class="phone dark">
-    <div class="sbar"><span class="sbar-time" style="color:rgba(245,240,232,0.70);">9:41</span><div class="sbar-icons" style="opacity:0.40;"><svg viewBox="0 0 11 10" fill="rgba(245,240,232,0.8)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="rgba(245,240,232,0.8)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="rgba(245,240,232,0.8)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
-    <!-- 100% progress bar in CTA color -->
-    <div class="prog" style="background:rgba(255,255,255,0.06);"><div class="prog-fill full" style="width:100%;"></div></div>
-    <div class="scr">
-      <div class="completion-wrap">
-        <div class="comp-ii">i<span>i</span></div>
-        <div class="comp-h">You're in.</div>
-        <div class="comp-sub">nudgii's got it from here.<br>Your boiler is already taking notes.</div>
-        <div class="summary-pill">
-          <span class="sum-item">2 items</span>
-          <div class="sum-sep"></div>
-          <span class="sum-item">4 tasks ready</span>
-          <div class="sum-sep"></div>
-          <span class="sum-item">first nudge Oct 28</span>
+  <div class="phone" style="position:relative;">
+    <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
+    <!-- 100% progress bar -->
+    <div class="prog"><div class="prog-fill full" style="width:100%;"></div></div>
+    <div class="scr" style="position:relative;overflow:hidden;">
+      <!-- Confetti dots — category colors, no gradients -->
+      <div class="confetti" style="width:6px;height:6px;background:#C87850;top:14%;left:9%;opacity:0.55;"></div>
+      <div class="confetti" style="width:5px;height:5px;background:#9B7FD4;top:10%;left:72%;opacity:0.50;"></div>
+      <div class="confetti" style="width:7px;height:7px;background:#5A9060;top:22%;left:88%;opacity:0.45;"></div>
+      <div class="confetti" style="width:4px;height:4px;background:#4A82A0;top:32%;left:6%;opacity:0.50;"></div>
+      <div class="confetti" style="width:5px;height:5px;background:#E8A87C;top:8%;left:50%;opacity:0.40;"></div>
+      <div class="confetti" style="width:6px;height:6px;background:#8060A8;top:60%;left:92%;opacity:0.40;"></div>
+      <div class="confetti" style="width:4px;height:4px;background:#C87850;top:68%;left:5%;opacity:0.35;"></div>
+      <div class="confetti" style="width:5px;height:5px;background:#5A9060;top:78%;left:82%;opacity:0.35;"></div>
+      <div class="confetti" style="width:4px;height:4px;background:#9B7FD4;top:44%;left:8%;opacity:0.30;"></div>
+      <div class="confetti" style="width:3px;height:3px;background:#4A82A0;top:18%;left:30%;opacity:0.35;"></div>
+      <div class="confetti" style="width:5px;height:5px;background:#E8A87C;top:55%;left:78%;opacity:0.40;"></div>
+      <div class="confetti" style="width:3px;height:3px;background:#C87850;top:82%;left:22%;opacity:0.30;"></div>
+
+      <div class="cel-wrap">
+        <!-- Dotted ring around ii mark -->
+        <div class="ii-ring-wrap">
+          <div class="ii-ring"></div>
+          <div class="comp-ii-cel">i<span>i</span></div>
         </div>
-        <div class="first-nudge-label">Your first reminder</div>
-        <div class="fncard">
-          <div class="chip home" style="background:rgba(200,120,80,0.15);"><svg viewBox="0 0 16 16" style="stroke:#C87850;"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div>
+        <div class="comp-h-cel">You're in.</div>
+        <div class="comp-sub-cel">Your boiler is relieved.<br>We've got it from here.</div>
+        <div class="sum-pill-lt">
+          <span class="sum-item-lt">2 items</span>
+          <div class="sum-sep-lt"></div>
+          <span class="sum-item-lt">4 tasks ready</span>
+          <div class="sum-sep-lt"></div>
+          <span class="sum-item-lt">first nudge Oct 28</span>
+        </div>
+        <div class="nudge-lbl-lt">Your first reminder</div>
+        <div class="fn-card-lt">
+          <div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div>
           <div class="fncard-content">
             <div class="fncard-name">Annual boiler service</div>
             <div class="fncard-sub">CV ketel · yearly · BE</div>
           </div>
-          <div class="fncard-date">Oct 28</div>
+          <div class="fncard-date date-soon">Oct 28</div>
         </div>
-        <div class="comp-promise">We'll remind you at the right time. Every time.</div>
+        <div class="cel-promise">We'll remind you at the right time. Every time.</div>
       </div>
-      <div class="btm" style="padding-top:14px;">
-        <button class="btn primary dark-screen" style="background:var(--cta);color:var(--cta-fg);">Open my schedule →</button>
-        <div class="open-note">Tap when you're ready — no rush.</div>
+      <div class="btm" style="padding-top:10px;">
+        <button class="btn primary">Open my schedule →</button>
+        <div style="text-align:center;font-size:7px;color:var(--mid);margin-top:2px;">Tap when you're ready — no rush.</div>
       </div>
     </div>
   </div>
@@ -791,25 +812,25 @@ body {
     </div>
 
     <div class="ann-card">
-      <div class="ann-t">S-01 · CV ketel swap</div>
-      <div class="ann-item"><div class="ann-i upd">↑</div><div class="ann-txt"><strong>Replaced hedge trim with CV ketel / boiler service.</strong> 95%+ of Belgian/Dutch homes have central heating. Annual service is safety-critical and almost universally forgotten. Shows nudgii knows the stuff that actually matters.</div></div>
-      <div class="ann-item"><div class="ann-i key">★</div><div class="ann-txt">Hedge moves to S-03 browse (Garden section). Still discoverable, not front-loaded on S-01.</div></div>
-      <div class="ann-item"><div class="ann-i q">?</div><div class="ann-txt"><strong>Open:</strong> Should one example always be pre-selected? Currently CV ketel is pre-selected to demo the state. Or should all start unselected and user decides?</div></div>
+      <div class="ann-t">S-01 · pre-selection + CV ketel</div>
+      <div class="ann-item"><div class="ann-i upd">↑</div><div class="ann-txt"><strong>All rows start unselected.</strong> UX best practice — pre-ticking choices feels presumptuous. The check circle shape is self-explanatory. Micro-copy "For example — tap what applies to you:" is enough affordance.</div></div>
+      <div class="ann-item"><div class="ann-i key">★</div><div class="ann-txt">Real app adds subtle one-time pulse animation on the check circles at first load — draws the eye without forcing a choice.</div></div>
+      <div class="ann-item"><div class="ann-i upd">↑</div><div class="ann-txt"><strong>CV ketel replaces hedge trim.</strong> 95%+ of BE/NL homes have central heating. Annual service is safety-critical and universally forgotten — exactly the nudgii value prop in one row.</div></div>
     </div>
 
     <div class="ann-card">
-      <div class="ann-t">S-02 · item counter</div>
-      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>3-dot counter pill</strong> top-right — "1 of 3". Caps onboarding at 3 items. Keeps setup fast, leaves room to grow on the free tier (10 total). Dots fill as items are confirmed.</div></div>
-      <div class="ann-item"><div class="ann-i key">★</div><div class="ann-txt"><strong>After 3 items nudgii says:</strong> "Great start — you can always add more from the dashboard." No hard wall. Gentle guide.</div></div>
-      <div class="ann-item"><div class="ann-i lock">↓</div><div class="ann-txt">AI parse cap: 3 items per onboarding session = 3 Claude API calls. Controls cost, keeps the magic. User arrives at dashboard with 2/10 slots used — room to grow.</div></div>
+      <div class="ann-t">S-02 · no artificial item cap</div>
+      <div class="ann-item"><div class="ann-i upd">↑</div><div class="ann-txt"><strong>Removed "1 of 3" counter pill.</strong> Free tier is 10 items — plenty. An artificial 3-item onboarding cap was a false constraint that created urgency without benefit.</div></div>
+      <div class="ann-item"><div class="ann-i key">★</div><div class="ann-txt">10 items × 3 tasks = 30 reminders/year spread across seasons. That's minimal and genuinely useful at no cost. Upgrade trigger is <em>features</em> (AI, sharing, export) — not item count.</div></div>
+      <div class="ann-item"><div class="ann-i lock">↓</div><div class="ann-txt">AI cost note: Claude API calls per onboarding are naturally bounded by how many items a user adds (typically 2–4). No hard cap needed in the UI — cost stays manageable.</div></div>
     </div>
 
     <div class="ann-card">
       <div class="ann-t">S-05 · "when last done"</div>
       <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>Replaces status dots entirely.</strong> We can't know overdue at onboarding — there's no history yet. Instead, 3-tap quick picker per item: <strong>Recently · A while ago · Not sure.</strong></div></div>
       <div class="ann-item"><div class="ann-i key">★</div><div class="ann-txt">Default: "Not sure" → nudgii schedules the first reminder soon (conservative). "Recently" → adds 6–8 wks before first nudge. Personalises the schedule without asking invasive questions.</div></div>
-      <div class="ann-item"><div class="ann-i upd">↑</div><div class="ann-txt"><strong>Remove button (×)</strong> per card. Users can remove items from review. Add another item link below ("+ Add another item · 1 of 3 slots used").</div></div>
-      <div class="ann-item"><div class="ann-i lock">↓</div><div class="ann-txt"><strong>Pro lock row</strong> per card — 3rd task shown greyed with "Pro" pill. Soft upsell visible during setup without blocking anything. Free users get 2 tasks per item during onboarding.</div></div>
+      <div class="ann-item"><div class="ann-i upd">↑</div><div class="ann-txt"><strong>Remove button (×)</strong> per card. Users can remove items from review. "+ Add another item" link at bottom — no slot counter.</div></div>
+      <div class="ann-item"><div class="ann-i lock">↓</div><div class="ann-txt"><strong>Pro lock row</strong> per card — 3rd task shown greyed with "Pro" pill. Soft upsell visible during setup without blocking anything.</div></div>
     </div>
 
     <div class="ann-card">
@@ -819,11 +840,12 @@ body {
     </div>
 
     <div class="ann-card">
-      <div class="ann-t">S-07 · dark completion screen</div>
-      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>Ink background (#1A1612)</strong> — not plum (reserved for task-done overlay). The shift cream → ink → cream (dashboard) creates a distinct threshold moment. Premium without being theatrical.</div></div>
-      <div class="ann-item"><div class="ann-i key">★</div><div class="ann-txt">ii mark in cream/apricot at large scale (52px). Works as a visual anchor without breaking any colour rules. No gradients.</div></div>
-      <div class="ann-item"><div class="ann-i key">★</div><div class="ann-txt">Witty sub personalised to items added: <em>"Your boiler is already taking notes."</em> Earned humour — onboarding is complete, mood is right. Would say "dishwasher" if that was the main item.</div></div>
-      <div class="ann-item"><div class="ann-i lock">↓</div><div class="ann-txt">CTA: "Open my schedule →" — required tap, never auto-advance. Note below: "Tap when you're ready — no rush." Gives users the moment.</div></div>
+      <div class="ann-t">S-07 · celebration redesign</div>
+      <div class="ann-item"><div class="ann-i upd">↑</div><div class="ann-txt"><strong>Replaced ink background with cream + celebration.</strong> Ink felt cold and harsh. Cream stays warm and on-brand — the "arrival" feels earned, not dramatic.</div></div>
+      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>Dotted CTA-colour ring</strong> around large ii mark. Pure CSS, no gradients. Visual reward without fanfare. Double ring (inner dashed + outer faint) adds subtle depth.</div></div>
+      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>Confetti dots</strong> — small CSS circles scattered in category colours (home/vehicle/garden/subscriptions). Solid fills only, no gradients, varied opacity. Stays within design rules.</div></div>
+      <div class="ann-item"><div class="ann-i key">★</div><div class="ann-txt">Copy: <em>"Your boiler is relieved. We've got it from here."</em> — earned humour, personalised, warm. The boiler reference ties back to the item they just added.</div></div>
+      <div class="ann-item"><div class="ann-i lock">↓</div><div class="ann-txt">CTA: "Open my schedule →" — required tap, never auto-advance. Note below: "Tap when you're ready — no rush."</div></div>
     </div>
 
     <div class="ann-card">
