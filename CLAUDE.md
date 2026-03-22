@@ -457,7 +457,16 @@ SafeArea (handles notch, home indicator, status bar automatically)
 | Onboarding S-01→S-07 | Sticky CTA zone · margin-top:auto · padding-bottom: 24px + SafeArea |
 | App S-09+ | Floating pill tab bar · 52px height · 14px from screen edge · +SafeArea |
 
-**Design mockup standard:** 300×648px phone = iPhone 14 standard (390×844 logical at 0.77× scale). Primary design target. SE and Pro Max edge cases shown only when specifically testing breakpoints.
+**Design mockup standard:** 390×844px — iPhone 15 logical pixels. This is the actual device width Flutter builds at and the default Figma frame. All HTML mockups use this exact size. Confirmed by developer 2026-03-22.
+
+| Device | Width | Scale vs 390 |
+|---|---|---|
+| iPhone SE | 375px | 0.96 |
+| iPhone 15 | 390px | 1.00 ← basis |
+| iPhone 15 Pro | 393px | 1.01 |
+| iPhone 15 Plus / Pro Max | 430px | 1.10 |
+
+SE and Pro Max edge cases shown only when specifically testing breakpoints. Side padding breakpoint: `< 420px → 16px`, `≥ 420px → 20–24px`.
 
 **iPad (post-launch):** Two-column layout, sidebar nav replacing tab bar. Not in current scope — avoid hardcoding anything that would break at 768px+ width.
 
