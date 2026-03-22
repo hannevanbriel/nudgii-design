@@ -231,6 +231,7 @@ section{padding-top:60px;}
       <a class="nav-link" href="#category">Categories</a>
       <a class="nav-link" href="#typography">Typography</a>
       <a class="nav-link" href="#spacing">Spacing</a>
+      <a class="nav-link" href="#layout">Layout</a>
       <a class="nav-link" href="#components">Components</a>
       <a class="nav-link" href="#icons">App icons</a>
       <a class="nav-link" href="#motion">Motion</a>
@@ -271,13 +272,14 @@ section{padding-top:60px;}
         <a class="toc-a" href="#category"><span class="toc-n">04</span>Category colors</a>
         <a class="toc-a" href="#typography"><span class="toc-n">05</span>Typography</a>
         <a class="toc-a" href="#spacing"><span class="toc-n">06</span>Spacing</a>
-        <a class="toc-a" href="#components"><span class="toc-n">07</span>Component library</a>
-        <a class="toc-a" href="#icons"><span class="toc-n">08</span>App icons</a>
-        <a class="toc-a" href="#motion"><span class="toc-n">09</span>Motion</a>
-        <a class="toc-a" href="#icons-system"><span class="toc-n">10</span>Icon system</a>
-        <a class="toc-a" href="#figma"><span class="toc-n">11</span>Figma workflow</a>
-        <a class="toc-a" href="#rules"><span class="toc-n">12</span>Locked rules</a>
-        <a class="toc-a" href="#copy"><span class="toc-n">13</span>Copy library</a>
+        <a class="toc-a" href="#layout"><span class="toc-n">07</span>Layout & shell</a>
+        <a class="toc-a" href="#components"><span class="toc-n">08</span>Component library</a>
+        <a class="toc-a" href="#icons"><span class="toc-n">09</span>App icons</a>
+        <a class="toc-a" href="#motion"><span class="toc-n">10</span>Motion</a>
+        <a class="toc-a" href="#icons-system"><span class="toc-n">11</span>Icon system</a>
+        <a class="toc-a" href="#figma"><span class="toc-n">12</span>Figma workflow</a>
+        <a class="toc-a" href="#rules"><span class="toc-n">13</span>Locked rules</a>
+        <a class="toc-a" href="#copy"><span class="toc-n">14</span>Copy library</a>
       </div>
     </div>
   </div>
@@ -493,9 +495,318 @@ section{padding-top:60px;}
 
   <div class="rule"></div>
 
-  <!-- 07 COMPONENT LIBRARY -->
-  <section id="components">
+  <!-- 07 LAYOUT & SHELL -->
+  <section id="layout">
     <div class="sec-eye">07</div>
+    <h2 class="sec-title">Layout &amp; shell</h2>
+    <p class="sec-desc">Every nudgii screen uses the same shell pattern. SafeArea, sticky bottom zones, progress bar positioning, and responsive scaling are non-negotiable — they must be correct on every screen without exception.</p>
+
+    <!-- Shell pattern -->
+    <div class="comp-card" style="margin-bottom:24px;">
+      <div class="comp-header">
+        <div class="comp-name">Shell pattern</div>
+        <span class="tag tag-never">always required</span>
+      </div>
+      <div class="comp-body">
+
+        <!-- Visual diagram -->
+        <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;margin-bottom:20px;">
+          <div style="width:160px;flex-shrink:0;">
+            <div style="width:160px;height:320px;background:#F5F0E8;border-radius:16px;border:1.5px solid rgba(26,22,18,0.15);overflow:hidden;display:flex;flex-direction:column;font-family:'DM Sans',sans-serif;">
+              <!-- Status bar -->
+              <div style="height:22px;background:#E8E3DA;display:flex;align-items:center;justify-content:flex-end;padding:0 10px;gap:4px;flex-shrink:0;">
+                <div style="width:14px;height:5px;background:rgba(26,22,18,0.25);border-radius:2px;"></div>
+                <div style="width:8px;height:8px;background:rgba(26,22,18,0.25);border-radius:50%;"></div>
+              </div>
+              <!-- Progress bar (outside SafeArea) -->
+              <div style="height:3px;background:rgba(26,22,18,0.08);flex-shrink:0;position:relative;">
+                <div style="position:absolute;left:0;top:0;height:3px;width:80%;background:#9B7FD4;border-radius:0 100px 100px 0;"></div>
+              </div>
+              <!-- SafeArea boundary indicator -->
+              <div style="height:1px;background:rgba(155,127,212,0.3);flex-shrink:0;"></div>
+              <!-- Content zone -->
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px;gap:6px;">
+                <div style="font-size:8px;font-weight:600;color:#9B7FD4;letter-spacing:0.5px;text-transform:uppercase;">Content zone</div>
+                <div style="font-size:7px;color:rgba(26,22,18,0.4);text-align:center;line-height:1.4;">Expanded<br>SingleChildScrollView</div>
+                <div style="width:80px;height:1px;background:rgba(26,22,18,0.08);"></div>
+                <div style="width:100%;display:flex;flex-direction:column;gap:4px;">
+                  <div style="height:20px;background:white;border-radius:6px;border:0.5px solid rgba(26,22,18,0.08);"></div>
+                  <div style="height:20px;background:white;border-radius:6px;border:0.5px solid rgba(26,22,18,0.08);"></div>
+                  <div style="height:20px;background:white;border-radius:6px;border:0.5px solid rgba(26,22,18,0.08);"></div>
+                </div>
+              </div>
+              <!-- Bottom zone -->
+              <div style="background:#EDE8DF;border-top:1px solid rgba(26,22,18,0.08);padding:8px;flex-shrink:0;">
+                <div style="font-size:7px;font-weight:600;color:#9B7FD4;text-align:center;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:5px;">Bottom zone</div>
+                <div style="height:22px;background:#9B7FD4;border-radius:100px;display:flex;align-items:center;justify-content:center;">
+                  <div style="font-size:7px;color:white;font-weight:500;">Sticky CTA or Tab bar</div>
+                </div>
+                <!-- SafeArea bottom padding -->
+                <div style="height:8px;"></div>
+              </div>
+            </div>
+            <div style="font-size:9px;color:rgba(26,22,18,0.45);text-align:center;margin-top:6px;">390×844px — iPhone 15</div>
+          </div>
+
+          <div style="flex:1;min-width:200px;">
+            <div class="dark-panel" style="margin-bottom:0;">
+              <div class="dark-lbl">Flutter shell pattern</div>
+              <pre style="font-family:monospace;font-size:10.5px;color:rgba(239,240,232,0.8);line-height:1.7;overflow-x:auto;">Scaffold(
+  body: SafeArea(
+    top: false,  // ← progress bar bleeds full-width
+    child: Column(
+      children: [
+        // Fixed: progress bar (onboarding only)
+        LinearProgressIndicator(...),
+        // Expanded: scrollable content
+        Expanded(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: screenWidth &lt; 420 ? 16 : 20,
+              ),
+              child: content,
+            ),
+          ),
+        ),
+        // Fixed: bottom zone — sticky CTAs or tab bar
+        // NEVER use Spacer inside Expanded to push down
+        bottomZone,
+      ],
+    ),
+  ),
+)</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="spec-grid">
+          <div class="spec-row"><div class="spec-l">Mockup base</div><div class="spec-r">390×844px (iPhone 15 logical pixels). All HTML mockups use this size.</div></div>
+          <div class="spec-row"><div class="spec-l">SafeArea top</div><div class="spec-r"><code>top: false</code> — progress bar and status bar must bleed full-width outside SafeArea</div></div>
+          <div class="spec-row"><div class="spec-l">SafeArea bottom</div><div class="spec-r">Always included. Never hardcode bottom padding. SafeArea absorbs Face ID (34px), Home button (0px), Android home bar (varies)</div></div>
+          <div class="spec-row"><div class="spec-l">Content zone</div><div class="spec-r"><code>Expanded(child: SingleChildScrollView(...))</code> — content scrolls, shell does not</div></div>
+          <div class="spec-row"><div class="spec-l">Bottom zone</div><div class="spec-r">Fixed Column outside Expanded. Never <code>Spacer</code>, never <code>Expanded</code> to push a button down</div></div>
+          <div class="spec-row" style="border-bottom:none;"><div class="spec-l">Never together</div><div class="spec-r">Onboarding sticky CTAs and floating tab bar never appear on the same screen</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="comp-card" style="margin-bottom:24px;">
+      <div class="comp-header">
+        <div class="comp-name">Progress bar — onboarding</div>
+        <span class="tag tag-never">full-bleed · outside SafeArea</span>
+      </div>
+      <div class="comp-body">
+
+        <!-- Visual demo -->
+        <div style="margin-bottom:18px;">
+          <div style="font-size:9px;font-weight:600;color:rgba(26,22,18,0.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Steps S-01 → S-07</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="font-size:9px;color:rgba(26,22,18,0.45);width:28px;flex-shrink:0;">S-01</div>
+              <div style="flex:1;height:3px;background:rgba(26,22,18,0.08);border-radius:100px;position:relative;"><div style="position:absolute;left:0;top:0;height:3px;width:20%;background:#9B7FD4;border-radius:100px;"></div></div>
+              <div style="font-size:9px;color:#9B7FD4;width:24px;text-align:right;flex-shrink:0;">20%</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="font-size:9px;color:rgba(26,22,18,0.45);width:28px;flex-shrink:0;">S-02</div>
+              <div style="flex:1;height:3px;background:rgba(26,22,18,0.08);border-radius:100px;position:relative;"><div style="position:absolute;left:0;top:0;height:3px;width:40%;background:#9B7FD4;border-radius:100px;"></div></div>
+              <div style="font-size:9px;color:#9B7FD4;width:24px;text-align:right;flex-shrink:0;">40%</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="font-size:9px;color:rgba(26,22,18,0.45);width:28px;flex-shrink:0;">S-05</div>
+              <div style="flex:1;height:3px;background:rgba(26,22,18,0.08);border-radius:100px;position:relative;"><div style="position:absolute;left:0;top:0;height:3px;width:60%;background:#9B7FD4;border-radius:100px;"></div></div>
+              <div style="font-size:9px;color:#9B7FD4;width:24px;text-align:right;flex-shrink:0;">60%</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="font-size:9px;color:rgba(26,22,18,0.45);width:28px;flex-shrink:0;">S-06</div>
+              <div style="flex:1;height:3px;background:rgba(26,22,18,0.08);border-radius:100px;position:relative;"><div style="position:absolute;left:0;top:0;height:3px;width:80%;background:#9B7FD4;border-radius:100px;"></div></div>
+              <div style="font-size:9px;color:#9B7FD4;width:24px;text-align:right;flex-shrink:0;">80%</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="font-size:9px;color:rgba(26,22,18,0.45);width:28px;flex-shrink:0;">S-07</div>
+              <div style="flex:1;height:3px;background:rgba(26,22,18,0.08);border-radius:100px;position:relative;"><div style="position:absolute;left:0;top:0;height:3px;width:100%;background:#9B7FD4;border-radius:100px;"></div></div>
+              <div style="font-size:9px;color:#9B7FD4;width:24px;text-align:right;flex-shrink:0;">100%</div>
+            </div>
+          </div>
+          <div style="font-size:9px;color:rgba(26,22,18,0.4);margin-top:8px;">S-02, S-03, S-04 all sit at 40% — path chosen, entering items. S-07 gets a brief colorCta pulse animation on reach.</div>
+        </div>
+
+        <div class="spec-grid" style="margin-bottom:16px;">
+          <div class="spec-row"><div class="spec-l">Height</div><div class="spec-r">3px</div></div>
+          <div class="spec-row"><div class="spec-l">Border-radius</div><div class="spec-r">100px</div></div>
+          <div class="spec-row"><div class="spec-l">Width</div><div class="spec-r">Full-width, edge-to-edge — zero side padding</div></div>
+          <div class="spec-row"><div class="spec-l">Position</div><div class="spec-r">Outside SafeArea (top: false). Sits between status bar and safe content area</div></div>
+          <div class="spec-row"><div class="spec-l">Background</div><div class="spec-r"><code>rgba(26,22,18,0.08)</code></div></div>
+          <div class="spec-row"><div class="spec-l">Fill</div><div class="spec-r"><code>colorCta #9B7FD4</code></div></div>
+          <div class="spec-row" style="border-bottom:none;"><div class="spec-l">Animation</div><div class="spec-r">AnimatedContainer 300ms ease-in-out. S-07 pulse: brief colorCta opacity 1→0.4→1.</div></div>
+        </div>
+
+        <div class="dark-panel">
+          <div class="dark-lbl">Flutter</div>
+          <pre style="font-family:monospace;font-size:10.5px;color:rgba(239,240,232,0.8);line-height:1.7;overflow-x:auto;">ClipRRect(
+  borderRadius: BorderRadius.circular(100),
+  child: AnimatedContainer(
+    duration: Duration(milliseconds: 300),
+    curve: Curves.easeInOut,
+    height: 3,
+    width: double.infinity,
+    child: LinearProgressIndicator(
+      value: 0.80, // S-06
+      backgroundColor: Color(0x141A1612), // rgba(26,22,18,0.08)
+      valueColor: AlwaysStoppedAnimation(Color(0xFF9B7FD4)),
+    ),
+  ),
+)</pre>
+        </div>
+
+        <div class="rcard" style="margin-top:14px;border-color:rgba(163,45,45,0.15);">
+          <div class="rcard-title">Never <span style="color:#C4503A;">dots or segmented bars</span></div>
+          <div class="rcard-body">Any fixed visual count implies a fixed step count. The flow has 5–7 screens depending on path. A continuous bar makes no promise about how many steps remain.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sticky bottom zone -->
+    <div class="comp-card" style="margin-bottom:24px;">
+      <div class="comp-header">
+        <div class="comp-name">Sticky bottom zone</div>
+      </div>
+      <div class="comp-body">
+
+        <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:18px;">
+          <!-- Onboarding variant -->
+          <div style="flex:1;min-width:140px;">
+            <div style="font-size:9px;font-weight:600;color:rgba(26,22,18,0.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Onboarding S-01→S-07</div>
+            <div style="background:#EDE8DF;border:1.5px solid rgba(26,22,18,0.10);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:6px;">
+              <div style="height:30px;background:#9B7FD4;border-radius:100px;display:flex;align-items:center;justify-content:center;"><span style="font-size:9px;color:white;font-weight:500;">Primary CTA</span></div>
+              <div style="height:24px;background:white;border:1px solid rgba(26,22,18,0.15);border-radius:100px;display:flex;align-items:center;justify-content:center;"><span style="font-size:9px;color:rgba(26,22,18,0.6);">Secondary CTA</span></div>
+              <div style="height:14px;"></div><!-- SafeArea padding -->
+            </div>
+            <div style="font-size:9px;color:rgba(26,22,18,0.4);margin-top:5px;">CTAs always vertically stacked — never side by side</div>
+          </div>
+          <!-- App variant -->
+          <div style="flex:1;min-width:140px;">
+            <div style="font-size:9px;font-weight:600;color:rgba(26,22,18,0.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">App S-09+</div>
+            <div style="background:#EDE8DF;border:1.5px solid rgba(26,22,18,0.10);border-radius:12px;padding:12px;">
+              <div style="height:44px;background:white;border-radius:22px;box-shadow:0 4px 20px rgba(26,22,18,0.11);border:1px solid rgba(26,22,18,0.07);display:flex;align-items:center;justify-content:space-around;padding:0 12px;">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+                  <div style="width:16px;height:16px;background:rgba(26,22,18,0.15);border-radius:3px;"></div>
+                  <div style="width:3px;height:3px;background:#9B7FD4;border-radius:50%;"></div>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+                  <div style="width:16px;height:16px;background:rgba(26,22,18,0.06);border-radius:3px;"></div>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+                  <div style="width:16px;height:16px;background:rgba(26,22,18,0.06);border-radius:3px;"></div>
+                </div>
+              </div>
+              <div style="height:14px;"></div><!-- SafeArea -->
+            </div>
+            <div style="font-size:9px;color:rgba(26,22,18,0.4);margin-top:5px;">Floating pill tab bar — custom widget, not BottomNavigationBar</div>
+          </div>
+        </div>
+
+        <div class="spec-grid">
+          <div class="spec-row"><div class="spec-l">Onboarding</div><div class="spec-r">Sticky CTA zone · padding 12px sides · padding-bottom: 24px + SafeArea · vertically stacked CTAs</div></div>
+          <div class="spec-row"><div class="spec-l">App</div><div class="spec-r">Floating pill tab bar · 52px height · 14px from screen edge + SafeArea</div></div>
+          <div class="spec-row"><div class="spec-l">Flutter pattern</div><div class="spec-r">Fixed Column at bottom of shell — outside <code>Expanded</code>. Never use <code>Spacer</code> to push content down.</div></div>
+          <div class="spec-row" style="border-bottom:none;"><div class="spec-l">Never together</div><div class="spec-r">Onboarding sticky CTAs and app tab bar never appear on the same screen</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Responsive scaling -->
+    <div class="comp-card" style="margin-bottom:24px;">
+      <div class="comp-header">
+        <div class="comp-name">Responsive scaling</div>
+      </div>
+      <div class="comp-body">
+
+        <div style="margin-bottom:16px;">
+          <div style="font-size:9px;font-weight:600;color:rgba(26,22,18,0.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Device widths vs 390px base</div>
+          <div style="display:flex;flex-direction:column;gap:0;">
+            <div style="display:flex;align-items:center;gap:0;height:28px;border-bottom:1px solid rgba(26,22,18,0.07);">
+              <div style="width:100px;font-size:9px;color:rgba(26,22,18,0.45);flex-shrink:0;">iPhone SE</div>
+              <div style="width:90px;height:10px;background:#E8A87C;border-radius:2px;"></div>
+              <div style="font-size:9px;color:rgba(26,22,18,0.5);margin-left:8px;">375px · 0.96×</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:0;height:28px;border-bottom:1px solid rgba(26,22,18,0.07);">
+              <div style="width:100px;font-size:9px;font-weight:600;color:var(--ink);flex-shrink:0;">iPhone 15 ← base</div>
+              <div style="width:96px;height:10px;background:#9B7FD4;border-radius:2px;"></div>
+              <div style="font-size:9px;color:#9B7FD4;margin-left:8px;">390px · 1.00×</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:0;height:28px;border-bottom:1px solid rgba(26,22,18,0.07);">
+              <div style="width:100px;font-size:9px;color:rgba(26,22,18,0.45);flex-shrink:0;">iPhone 15 Pro</div>
+              <div style="width:97px;height:10px;background:#C4C0BC;border-radius:2px;"></div>
+              <div style="font-size:9px;color:rgba(26,22,18,0.5);margin-left:8px;">393px · 1.01×</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:0;height:28px;">
+              <div style="width:100px;font-size:9px;color:rgba(26,22,18,0.45);flex-shrink:0;">iPhone Pro Max</div>
+              <div style="width:107px;height:10px;background:#C4C0BC;border-radius:2px;"></div>
+              <div style="font-size:9px;color:rgba(26,22,18,0.5);margin-left:8px;">430px · 1.10×</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="spec-grid" style="margin-bottom:16px;">
+          <div class="spec-row"><div class="spec-l">Scale formula</div><div class="spec-r"><code>(screenWidth / 390).clamp(0.9, 1.15)</code> — applied to all visual elements</div></div>
+          <div class="spec-row"><div class="spec-l">Headline — default</div><div class="spec-r">Width ≥ 380px → welcome 33px · greeting 25–27px</div></div>
+          <div class="spec-row"><div class="spec-l">Headline — small</div><div class="spec-r">Width &lt; 380px (iPhone SE) → welcome 28px · greeting 22px</div></div>
+          <div class="spec-row"><div class="spec-l">Side padding</div><div class="spec-r">Width &lt; 420px → 16px · Width ≥ 420px → 20–24px</div></div>
+          <div class="spec-row" style="border-bottom:none;"><div class="spec-l">Text scale cap</div><div class="spec-r"><code>textScaleFactor.clamp(0.85, 1.3)</code> at app root — accessibility large text still fits</div></div>
+        </div>
+
+        <div class="dark-panel">
+          <div class="dark-lbl">Flutter</div>
+          <pre style="font-family:monospace;font-size:10.5px;color:rgba(239,240,232,0.8);line-height:1.7;overflow-x:auto;">// App root — text scale cap
+MaterialApp(
+  builder: (context, child) {
+    final mq = MediaQuery.of(context);
+    return MediaQuery(
+      data: mq.copyWith(
+        textScaleFactor: mq.textScaleFactor.clamp(0.85, 1.3),
+      ),
+      child: child!,
+    );
+  },
+)
+
+// Per-screen scale formula
+final scale = (MediaQuery.of(context).size.width / 390).clamp(0.9, 1.15);
+
+// Headline breakpoint
+final headlineSize = MediaQuery.of(context).size.width &lt; 380 ? 28.0 : 33.0;
+
+// Side padding
+final sidePad = MediaQuery.of(context).size.width &lt; 420 ? 16.0 : 20.0;</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Never-do rules -->
+    <div class="rcard" style="border-color:rgba(163,45,45,0.15);background:rgba(163,45,45,0.02);">
+      <div class="rcard-title" style="color:#A32D2D;">Layout rules that never bend</div>
+      <div class="rcard-body">
+        <div style="display:flex;flex-direction:column;gap:6px;margin-top:4px;">
+          <div style="display:flex;gap:8px;align-items:baseline;"><span style="color:#C4503A;font-weight:600;flex-shrink:0;">✕</span><span>Never put the progress bar inside SafeArea — it must bleed full-width, <code>top: false</code></span></div>
+          <div style="display:flex;gap:8px;align-items:baseline;"><span style="color:#C4503A;font-weight:600;flex-shrink:0;">✕</span><span>Never use <code>Spacer</code> to push a CTA to the bottom — use a fixed Column outside Expanded</span></div>
+          <div style="display:flex;gap:8px;align-items:baseline;"><span style="color:#C4503A;font-weight:600;flex-shrink:0;">✕</span><span>Never wrap the entire screen in SingleChildScrollView — only the content zone scrolls</span></div>
+          <div style="display:flex;gap:8px;align-items:baseline;"><span style="color:#C4503A;font-weight:600;flex-shrink:0;">✕</span><span>Never use a fixed-count dot or step indicator for onboarding — continuous bar only</span></div>
+          <div style="display:flex;gap:8px;align-items:baseline;"><span style="color:#C4503A;font-weight:600;flex-shrink:0;">✕</span><span>Never flatten the shell pattern into a single scrollable Column</span></div>
+          <div style="display:flex;gap:8px;align-items:baseline;"><span style="color:#C4503A;font-weight:600;flex-shrink:0;">✕</span><span>Never hardcode bottom padding for safe area — always use SafeArea widget</span></div>
+          <div style="display:flex;gap:8px;align-items:baseline;"><span style="color:#C4503A;font-weight:600;flex-shrink:0;">✕</span><span>Never place CTAs side by side on onboarding screens — always vertically stacked</span></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- 08 COMPONENT LIBRARY -->
+  <section id="components">
+    <div class="sec-eye">08</div>
     <h2 class="sec-title">Component library</h2>
     <p class="sec-desc">Each component is a standalone definition — visual demo, specs, rules, Flutter note. This is the source of truth. When a component changes, this definition updates in the same pass.</p>
 
@@ -836,9 +1147,9 @@ section{padding-top:60px;}
 
   <div class="rule"></div>
 
-  <!-- 08 APP ICONS -->
+  <!-- 09 APP ICONS -->
   <section id="icons">
-    <div class="sec-eye">08</div>
+    <div class="sec-eye">09</div>
     <h2 class="sec-title">App icons</h2>
     <p class="sec-desc">Two variants. Plum ships by default. Apricot unlocks with Pro.</p>
 
@@ -864,9 +1175,9 @@ section{padding-top:60px;}
 
   <div class="rule"></div>
 
-  <!-- 09 MOTION -->
+  <!-- 10 MOTION -->
   <section id="motion">
-    <div class="sec-eye">09</div>
+    <div class="sec-eye">10</div>
     <h2 class="sec-title">Motion</h2>
     <p class="sec-desc">Purposeful. Motion communicates state change, never decorates.</p>
 
@@ -882,9 +1193,9 @@ section{padding-top:60px;}
 
   <div class="rule"></div>
 
-  <!-- 10 ICON SYSTEM -->
+  <!-- 11 ICON SYSTEM -->
   <section id="icons-system">
-    <div class="sec-eye">10</div>
+    <div class="sec-eye">11</div>
     <h2 class="sec-title">Icon system</h2>
     <p class="sec-desc">Phosphor Icons · regular weight · outline only throughout. One library, one weight, no exceptions.</p>
 
@@ -1015,9 +1326,9 @@ section{padding-top:60px;}
 
   <div class="rule"></div>
 
-  <!-- 11 LOCKED RULES -->
+  <!-- 12 LOCKED RULES -->
   <section id="rules">
-    <div class="sec-eye">12</div>
+    <div class="sec-eye">13</div>
     <h2 class="sec-title">Locked rules</h2>
     <p class="sec-desc">These don't get questioned in design reviews. They are decided.</p>
 
@@ -1040,9 +1351,9 @@ section{padding-top:60px;}
 
   <div class="rule"></div>
 
-  <!-- 13 COPY LIBRARY -->
+  <!-- 14 COPY LIBRARY -->
   <section id="copy">
-    <div class="sec-eye">13</div>
+    <div class="sec-eye">14</div>
     <h2 class="sec-title">Copy library</h2>
     <p class="sec-desc">nudgii's voice is warm, direct, and gently funny. All copy lives here. Use this as the single source of truth — never improvise in code or Figma.</p>
 

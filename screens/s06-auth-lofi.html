@@ -115,6 +115,18 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 .ri-label{font-size:10px;font-weight:500;color:var(--ink);margin-bottom:2px;}
 .ri-desc{font-size:10px;color:var(--mid);line-height:1.5;}
 
+/* ── CHANGELOG ── */
+.changelog{background:var(--surface);border-radius:12px;border:1px solid var(--ink-08);padding:20px 24px;margin-top:40px;}
+.cl-title{font-size:13px;font-weight:500;margin-bottom:12px;color:var(--ink);}
+.cl-row{display:flex;gap:12px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--ink-08);}
+.cl-row:last-child{border-bottom:none;}
+.cl-tag{font-size:9px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;padding:2px 7px;border-radius:3px;flex-shrink:0;margin-top:1px;}
+.cl-break{background:rgba(196,80,58,0.10);color:#993C1D;}
+.cl-add{background:rgba(155,127,212,0.12);color:#5C3E8A;}
+.cl-flutter{background:rgba(26,22,18,0.07);color:var(--mid);}
+.cl-body{font-size:12px;color:var(--mid);line-height:1.55;}
+.cl-body strong{color:var(--ink);font-weight:500;}
+
 /* ── BOTTOM LINKS ── */
 .links{display:flex;gap:10px;flex-wrap:wrap;padding-top:24px;border-top:1px solid var(--ink-08);}
 .link-btn{font-size:12px;font-weight:500;text-decoration:none;padding:6px 14px;border-radius:100px;}
@@ -346,6 +358,58 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 
     </div><!-- /right -->
   </div><!-- /layout -->
+
+  <!-- CHANGELOG -->
+  <div class="changelog">
+    <div class="cl-title">Changelog</div>
+
+    <div class="cl-row">
+      <span class="cl-tag cl-break">v1.1 · BREAKING</span>
+      <div class="cl-body">
+        <strong>Progress indicator replaced.</strong> Old 3-dot system removed. New: continuous bar, 3px height, full-width edge-to-edge, colorCta #9B7FD4 fill at 80% (S-06 = step 4 of 5).<br>
+        <em>Flutter: LinearProgressIndicator inside ClipRRect(borderRadius:100px), value:0.8. Remove old Row of dot Containers entirely.</em>
+      </div>
+    </div>
+
+    <div class="cl-row">
+      <span class="cl-tag cl-break">v1.1 · BREAKING</span>
+      <div class="cl-body">
+        <strong>Button layout restructured to sticky bottom zone.</strong> Previously: all zones stacked inline from top, large empty bottom half. Now: content area (ii mark + headline) uses flex:1 and is vertically centred. SSO buttons + email toggle are in a fixed bottom Column anchored to screen bottom.<br>
+        <em>Flutter: Column with Expanded(child: Center(child: headline content)) + fixed bottom Column (Apple btn, Google btn, text toggle). Not Spacer. Not SingleChildScrollView for the whole screen — only the content zone if content ever overflows.</em>
+      </div>
+    </div>
+
+    <div class="cl-row">
+      <span class="cl-tag cl-break">v1.1 · BREAKING</span>
+      <div class="cl-body">
+        <strong>Email path changed to inline toggle.</strong> Previously: "or" divider + always-visible email input + magic link CTA. Now: "or use email instead" text link (colorCta) below Google button. Tapping reveals email input + CTA inline above SSO buttons — no navigation, no new screen.<br>
+        <em>Flutter: AnimatedContainer or Visibility widget wrapping email input + CTA. Expand from height:0 to full height on tap, 200ms ease-in-out. SSO buttons stay visible below.</em>
+      </div>
+    </div>
+
+    <div class="cl-row">
+      <span class="cl-tag cl-add">v1.0 · ADDITIVE</span>
+      <div class="cl-body">
+        <strong>Auth failure state.</strong> Inline error card below magic link CTA on failed auth. Red-lt background, full border (no border-left accent), icon-chip 28×28px. Copy: "Sign in failed. Try again — your data is saved." Onboarding state is preserved locally — items never lost.<br>
+        <em>Flutter: Visibility(visible: authFailed) wrapping error card widget. Never navigate away. Keep onboarding state in local storage or provider.</em>
+      </div>
+    </div>
+
+    <div class="cl-row" style="background:rgba(26,22,18,0.02);border-radius:8px;padding:12px;border:1px solid var(--ink-08);">
+      <span class="cl-tag cl-flutter">Flutter</span>
+      <div class="cl-body" style="font-family:monospace;font-size:11px;line-height:1.9;color:var(--mid);">
+        <strong style="font-family:'DM Sans',sans-serif;display:block;margin-bottom:6px;color:var(--ink);">Standard implementation block · S-06</strong>
+        Mockup base:&nbsp;&nbsp;&nbsp;&nbsp;390px width (iPhone 15)<br>
+        SafeArea:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;top=false — progress bar is full-bleed outside SafeArea<br>
+        Scroll:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Content zone (headline area) in SingleChildScrollView if content grows<br>
+        Bottom zone:&nbsp;&nbsp;&nbsp;&nbsp;Sticky — fixed Column at bottom: Apple btn → Google btn → email toggle → reassurance → privacy<br>
+        Progress bar:&nbsp;&nbsp;&nbsp;Full width, 3px, value:0.8, outside SafeArea — no side padding<br>
+        Scaling:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All visual elements × (screenWidth/390).clamp(0.9, 1.15)<br>
+        Special:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Apple Sign In button must use official Sign In with Apple SDK button style. Email expand state: AnimatedContainer, 200ms ease-in-out. Auth state persisted locally until success.
+      </div>
+    </div>
+  </div>
+
 </div><!-- /page -->
 
 </body>

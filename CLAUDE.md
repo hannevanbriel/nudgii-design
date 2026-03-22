@@ -424,40 +424,17 @@ Design deliverables live in a separate `Design` List in ClickUp (Figma links, no
 
 ---
 
-## 16. Responsive layout — iOS + Android
+## 16. Layout, shell pattern & responsive behaviour
+
+> These rules apply to EVERY screen — lo-fi, hi-fi, mockup, prototype, and Flutter code. Apply them without being asked.
 
 nudgii builds mobile-first for iOS (primary) and Android (secondary). iPad is planned post-launch.
 
-**Shell pattern (all screens):**
-```
-SafeArea (handles notch, home indicator, status bar automatically)
-└── Column
-    ├── Fixed: status bar + progress bar (onboarding) or greeting row (app)
-    ├── Expanded: scrollable content (fills all remaining space)
-    └── Fixed: bottom zone — sticky CTAs (onboarding) OR tab bar (app) — never both
-```
+---
 
-**SafeArea is non-negotiable:** Never hardcode bottom padding. SafeArea absorbs the difference between Face ID (34px), Home button (0px), and Android home bar (varies).
+### Mockup standard
 
-**Two font-size breakpoints (headline only):**
-- Default (≥ 380px width): DM Serif Display 33px welcome · 25–27px dashboard greeting
-- Small (< 380px width, e.g. iPhone SE): 28px welcome · 22px greeting
-- Flutter: `MediaQuery.of(context).size.width < 380 ? 28.0 : 33.0`
-
-**Side padding breakpoints:**
-- Default (< 420px): 16px horizontal
-- Large (≥ 420px, e.g. Pro Max): 20–24px horizontal
-
-**Text scale cap (accessibility):** Apply at app root:
-`MediaQuery.of(context).copyWith(textScaleFactor: MediaQuery.of(context).textScaleFactor.clamp(0.85, 1.3))`
-
-**Bottom zones (never on same screen):**
-| Context | Bottom zone |
-|---|---|
-| Onboarding S-01→S-07 | Sticky CTA zone · margin-top:auto · padding-bottom: 24px + SafeArea |
-| App S-09+ | Floating pill tab bar · 52px height · 14px from screen edge · +SafeArea |
-
-**Design mockup standard:** 390×844px — iPhone 15 logical pixels. This is the actual device width Flutter builds at and the default Figma frame. All HTML mockups use this exact size. Confirmed by developer 2026-03-22.
+All HTML mockups: **390×844px** (iPhone 15 logical pixels). Phone frame: `border-radius: 50px`. Notch pill: `width: 102px; height: 8px`. This is the exact size Flutter builds at.
 
 | Device | Width | Scale vs 390 |
 |---|---|---|
@@ -466,9 +443,80 @@ SafeArea (handles notch, home indicator, status bar automatically)
 | iPhone 15 Pro | 393px | 1.01 |
 | iPhone 15 Plus / Pro Max | 430px | 1.10 |
 
-SE and Pro Max edge cases shown only when specifically testing breakpoints. Side padding breakpoint: `< 420px → 16px`, `≥ 420px → 20–24px`.
+---
 
-**iPad (post-launch):** Two-column layout, sidebar nav replacing tab bar. Not in current scope — avoid hardcoding anything that would break at 768px+ width.
+### Shell pattern — every screen uses this structure
+
+```
+SafeArea (handles notch, home indicator, status bar automatically)
+└── Column
+    ├── Fixed: progress bar (onboarding S-01→S-07) OR status/greeting row (app S-09+)
+    ├── Expanded: SingleChildScrollView — scrollable content zone
+    └── Fixed: bottom zone (sticky CTAs onboarding OR floating tab bar app) — never both
+```
+
+**Applied to every new screen — no exceptions. Never flatten this into a single scrollable view.**
+
+---
+
+### SafeArea rules
+
+- **Always wrap screens in SafeArea.** It absorbs the difference between Face ID (34px), Home button (0px), and Android home bar (varies).
+- **Never hardcode bottom padding** for safe area — SafeArea handles it.
+- **Progress bar is outside SafeArea** — it sits above the safe area, bleeding full-width under the status bar. `top: false` on SafeArea, progress bar in its own full-bleed row before the SafeArea kicks in.
+- Flutter: `SafeArea(top: false, child: Column([progressBar, Expanded(content), bottomZone]))`
+
+---
+
+### Sticky bottom zone
+
+- **Onboarding (S-01→S-07):** Fixed Column at the bottom of the screen. CTAs stack vertically. 24px padding-bottom + SafeArea inset.
+- **App (S-09+):** Floating pill tab bar, 52px height, 14px from screen edge + SafeArea.
+- **Never use `Spacer` to push the bottom zone** — use a fixed Column that sits outside the Expanded content zone.
+- **Never put both a sticky CTA zone and a tab bar on the same screen.**
+- HTML mockups: `flex: 1` on content zone + `margin-top: auto` on button zone.
+
+---
+
+### Progress bar (onboarding)
+
+- Full-width, edge-to-edge, **outside SafeArea** — no side padding, no indent.
+- Height: 3px · border-radius: 100px · track: `rgba(26,22,18,0.08)` · fill: `colorCta #9B7FD4`
+- Steps: S-01 = 20% · S-02/03/04 = 40% · S-05 = 60% · S-06 = 80% · S-07 = 100%
+- Flutter: `LinearProgressIndicator` inside `ClipRRect(borderRadius: 100px)` + `AnimatedContainer` 300ms ease-in-out.
+- **Never use dots, steps, or any fixed-count indicator** — a fixed count implies a fixed number of screens.
+
+---
+
+### Responsive scaling
+
+**Scaling formula (Flutter):** `All visual elements × (screenWidth / 390).clamp(0.9, 1.15)`
+
+This keeps the design proportional on SE (375px) through Pro Max (430px) without distorting at extremes.
+
+**Headline breakpoints:**
+- Default (≥ 380px): welcome 33px · greeting 25–27px
+- Small (< 380px, SE): welcome 28px · greeting 22px
+- Flutter: `MediaQuery.of(context).size.width < 380 ? 28.0 : 33.0`
+
+**Side padding breakpoints:**
+- Default (< 420px): 16px horizontal
+- Large (≥ 420px, Pro Max): 20–24px horizontal
+
+**Text scale cap (accessibility) — apply at app root:**
+`MediaQuery.of(context).copyWith(textScaleFactor: MediaQuery.of(context).textScaleFactor.clamp(0.85, 1.3))`
+
+---
+
+### Scroll behaviour
+
+- **Content zone only** uses `SingleChildScrollView` — not the entire screen.
+- The fixed top row (progress bar / greeting) and the fixed bottom zone (CTAs / tab bar) never scroll.
+- If content is short, it simply doesn't scroll — the bottom zone stays anchored regardless.
+
+---
+
+**iPad (post-launch):** Two-column layout, sidebar nav replacing tab bar. Not in current scope — avoid hardcoding anything that breaks at 768px+ width.
 
 ---
 
@@ -496,6 +544,11 @@ These are locked decisions. Do not question them in design or code reviews.
 - ❌ Never use border-bottom to separate items in a list — each item is its own card with gap between
 - ❌ Never wrap multiple items in a single container card — gap + individual cards only
 - ❌ Never hardcode bottom padding for safe area — always use SafeArea widget in Flutter
+- ❌ Never put the progress bar inside SafeArea — it must bleed full-width, top: false
+- ❌ Never use Spacer to push a CTA to the bottom — use a fixed Column outside Expanded
+- ❌ Never wrap the entire screen in SingleChildScrollView — only the content zone scrolls
+- ❌ Never use a fixed-count dot or step indicator for onboarding — continuous bar only
+- ❌ Never flatten the shell pattern into a single scrollable column — fixed top + Expanded + fixed bottom, always
 - ❌ Never show more than 3 preview items on S-01 — never a 4th, never a carousel
 - ❌ Never use Dutch copy in design files (lo-fi, hi-fi, prototype) — English only in all design artefacts
 - ❌ Never write locale-specific copy as the primary copy in design files — label it explicitly (e.g., "nl-BE example")
@@ -525,6 +578,11 @@ Update this section when open decisions are resolved.
 | Item spacing | Gap-based individual cards (6–8px gap) replaces border-bottom separators. Cream between cards = separator. | ✅ Yes | 2026-03-22 |
 | Responsive layout | SafeArea + Expanded shell pattern. Two headline breakpoints (380px). Text scale capped at 1.3×. | ✅ Yes | 2026-03-22 |
 | Auth reassurance | "Free · no credit card" shown on S-06 auth screen below magic link. | ✅ Yes | 2026-03-22 |
+| S-06 button layout | Sticky bottom zone: Apple first, Google second, "or use email instead" as text toggle. Email input + magic link CTA reveal inline on tap. No "or" divider. No always-visible email input. | ✅ Yes | 2026-03-22 |
+| S-06 progress indicator | Continuous bar at 80% fill — old 3-dot system removed. Matches spec from progress bar decision. | ✅ Yes | 2026-03-22 |
+| Design system versioning | No version numbers in design system title, nav, or component cards. Components are standalone definitions — they just ARE what they are. Sections 07 + 13 merged into single "Component library". Copy library is Section 13. | ✅ Yes | 2026-03-22 |
+| CTA button mic spec | Mic button inside Path A CTA: 22×22px circle, rgba(250,248,255,0.15) bg, Phosphor Microphone 11px, stroke #FAF8FF stroke-width 1.8. Now documented in design system Section 07 component card. | ✅ Yes | 2026-03-22 |
+| Hi-fi Flutter changelog | Every hi-fi screen must include a changelog section with: version+date, BREAKING/ADDITIVE, visual description, Flutter implementation notes, and standard Flutter block (mockup base, SafeArea, scroll, bottom zone, progress bar, scaling, special). See Section 19. | ✅ Yes | 2026-03-22 |
 
 ---
 

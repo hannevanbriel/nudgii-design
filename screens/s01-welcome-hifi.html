@@ -339,6 +339,19 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
       <span class="cl-tag cl-lock">v2.3</span>
       <div class="cl-body"><strong>Mic icon affordance added.</strong> Button A carries a Phosphor Microphone 11px icon inside a 22×22px circle (rgba(250,248,255,0.15)). Voice is the primary path — the icon makes it scannable at a glance.</div>
     </div>
+    <div class="cl-row" style="background:rgba(26,22,18,0.02);margin-top:8px;border-radius:8px;padding:12px;border:1px solid var(--border);">
+      <span class="cl-tag" style="background:rgba(26,22,18,0.07);color:var(--mid);flex-shrink:0;">Flutter</span>
+      <div class="cl-body" style="font-family:monospace;font-size:11px;line-height:1.9;color:var(--mid);">
+        <strong style="font-family:'DM Sans',sans-serif;display:block;margin-bottom:6px;color:var(--ink);">Standard implementation block · S-01</strong>
+        Mockup base:&nbsp;&nbsp;&nbsp;&nbsp;390px width (iPhone 15)<br>
+        SafeArea:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;top=false — progress bar is full-bleed outside SafeArea<br>
+        Scroll:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SingleChildScrollView for content zone (ii mark → preview items)<br>
+        Bottom zone:&nbsp;&nbsp;&nbsp;&nbsp;Sticky — fixed Column at bottom, NOT Spacer or Expanded<br>
+        Progress bar:&nbsp;&nbsp;&nbsp;Full width, 3px, outside SafeArea — no side padding<br>
+        Scaling:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All visual elements × (screenWidth/390).clamp(0.9, 1.15)<br>
+        Special:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Headline breakpoint: width &lt; 380px → 28px, ≥ 380px → 33px. Side padding: &lt; 420px → 16px, ≥ 420px → 20px. Text scale cap: clamp(0.85, 1.3).
+      </div>
+    </div>
   </div>
 
 </div>
