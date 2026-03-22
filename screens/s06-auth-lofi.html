@@ -56,43 +56,36 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 /* Zone A — Status bar */
 .z-sbar{height:20px;background:#F5F0E8;display:flex;justify-content:space-between;align-items:center;padding:0 16px;font-size:8px;font-weight:500;color:rgba(26,22,18,0.32);}
 
-/* Zone B — Progress dots */
-.z-progress{padding:10px 16px 8px;background:#F5F0E8;display:flex;justify-content:flex-end;align-items:center;gap:5px;}
-.prog-dot{width:6px;height:6px;border-radius:50%;}
-.prog-dot.active{background:var(--cta);}
-.prog-dot.inactive{background:rgba(26,22,18,0.10);}
+/* Zone B — Progress bar */
+.z-progress{height:3px;background:rgba(26,22,18,0.08);position:relative;}
+.prog-fill{height:3px;border-radius:100px;background:var(--cta);width:80%;}
 
-/* Zone C — Header */
-.z-header{padding:14px 16px 10px;background:#F5F0E8;display:flex;flex-direction:column;align-items:center;text-align:center;}
-.ii-mark{display:flex;align-items:flex-start;gap:3px;margin-bottom:10px;}
+/* Zone C — Header (content area, vertically centered) */
+.z-content{flex:1;background:#F5F0E8;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px 16px;}
+.ii-mark{display:flex;align-items:flex-start;gap:3px;margin-bottom:12px;}
 .ii-l{width:7px;height:20px;border-radius:100px;background:var(--ink);}
 .ii-r{width:7px;height:20px;border-radius:100px;background:rgba(155,127,212,0.45);position:relative;}
 .ii-dot{width:5px;height:5px;border-radius:50%;background:var(--ap-dk);position:absolute;top:2px;right:-2px;}
-.header-title{font-family:'DM Serif Display',serif;font-size:18px;color:var(--ink);line-height:1.1;margin-bottom:4px;}
-.header-sub{font-size:10px;color:var(--mid);line-height:1.5;max-width:200px;}
+.header-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);line-height:1.1;margin-bottom:6px;text-align:center;}
+.header-sub{font-size:10px;color:var(--mid);line-height:1.55;max-width:200px;text-align:center;}
 
-/* Zone D + E — Auth buttons */
-.z-auth{padding:8px 14px;background:#F5F0E8;}
+/* Zone D+E — Sticky bottom zone */
+.z-bottom{background:#F5F0E8;padding:12px 14px 0;border-top:1px solid rgba(26,22,18,0.07);}
 .auth-btn{display:flex;align-items:center;justify-content:center;gap:8px;height:44px;border-radius:100px;border:1px solid rgba(26,22,18,0.18);background:var(--surface);font-size:11px;font-weight:500;color:var(--ink);margin-bottom:6px;cursor:default;}
 .auth-btn svg{flex-shrink:0;}
+.email-toggle{text-align:center;font-size:10px;color:var(--mid);padding:4px 0 2px;cursor:default;}
+.email-toggle span{color:var(--cta);font-weight:500;}
 
-/* Zone F — Divider */
-.z-divider{padding:4px 14px;background:#F5F0E8;display:flex;align-items:center;gap:8px;}
-.div-line{flex:1;height:1px;background:var(--ink-10);}
-.div-text{font-size:9px;color:var(--mid-lt);}
-
-/* Zone G — Email input */
-.z-email{padding:6px 14px;background:#F5F0E8;}
+/* Email expanded state (inline reveal on tap) */
+.z-email-expand{padding:8px 14px 4px;background:#F5F0E8;}
 .email-input{height:44px;border-radius:10px;border:1px solid rgba(26,22,18,0.16);background:var(--surface);display:flex;align-items:center;padding:0 12px;font-size:10px;color:var(--mid-lt);}
+.cta-btn{height:46px;border-radius:100px;background:var(--cta);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--cta-fg);cursor:default;box-shadow:0 2px 12px rgba(155,127,212,0.28);margin-top:6px;}
 
-/* Zone H — CTA button */
-.z-cta{padding:6px 14px 8px;background:#F5F0E8;}
-.cta-btn{height:50px;border-radius:100px;background:var(--cta);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--cta-fg);cursor:default;box-shadow:0 2px 12px rgba(155,127,212,0.28);}
-
-/* Zone I — Privacy note */
-.z-privacy{padding:6px 14px 16px;background:#F5F0E8;}
-.privacy-text{font-size:7px;color:var(--mid-lt);text-align:center;line-height:1.55;}
-.privacy-text span{text-decoration:underline;}
+/* Reassurance + privacy */
+.z-reassure{padding:6px 14px 4px;background:#F5F0E8;text-align:center;}
+.reassure-text{font-size:8px;color:var(--mid);line-height:1.55;}
+.reassure-text span{text-decoration:underline;}
+.z-safe{height:20px;background:#F5F0E8;}
 
 /* ── RIGHT COLUMN ── */
 .right{flex:1;min-width:280px;}
