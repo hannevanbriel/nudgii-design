@@ -528,6 +528,51 @@ Update this section when open decisions are resolved.
 
 ---
 
+## 19. Hi-fi screen changelog format — required on every hi-fi file
+
+Every hi-fi screen file must include a changelog section below the phone mockup(s). This saves the developer from asking clarifying questions and prevents an hour of debugging per screen.
+
+**Hanne fills this in.** It takes ~10 minutes per screen. Without it, every layout tweak becomes a back-and-forth.
+
+### Changelog entry format
+
+Each entry in the changelog table:
+
+| Field | What to write |
+|---|---|
+| Version + date | e.g. `v1.1 · 2026-03-22` |
+| Type | `BREAKING` (existing Flutter code must change) or `ADDITIVE` (new element, no existing code breaks) |
+| What changed | Plain language description of the visual change — what the developer will see on screen |
+| Flutter notes | Implementation detail: position, scroll behaviour, sticky zones, scaling, widget type |
+
+### Standard Flutter implementation block — bottom of every hi-fi
+
+Add this block verbatim at the end of every hi-fi changelog section, updating the `Special` row per screen:
+
+```
+Mockup base:    390px width (iPhone 15)
+SafeArea:       top=false for content, progress bar outside SafeArea
+Scroll:         SingleChildScrollView for content zone
+Bottom zone:    Sticky — fixed Column at bottom, not Spacer
+Progress bar:   Full width, height 3px, outside SafeArea
+Scaling:        All visual elements × (screenWidth/390).clamp(0.9, 1.15)
+Special:        [screen-specific exceptions, or "none"]
+```
+
+### Example changelog entry
+
+```
+v1.1 · 2026-03-22 · BREAKING
+- Progress bar: replaced 3-dot indicator with continuous bar (3px, full-width, colorCta fill)
+  Flutter: LinearProgressIndicator inside ClipRRect(borderRadius:100px), AnimatedContainer 300ms ease-in-out
+- Button zone: moved from inline flow to sticky bottom Column
+  Flutter: Column with Expanded(child: ScrollView) + fixed bottom zone, not Spacer
+- Free badge: added below magic link CTA
+  Flutter: Text widget, sage-lt bg, pill Container, 8px DM Sans
+```
+
+---
+
 *Last updated: March 2026 · Maintained by Hanne Van Briel · ELF Consult*
 *Design system: https://hannevanbriel.github.io/nudgii-design/*
 *Repo: https://github.com/ELF-Consult/nudgii*
