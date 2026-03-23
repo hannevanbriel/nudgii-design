@@ -741,7 +741,7 @@ Resolved 2026-03-23. Applies to any screen that uses a chat-thread conversation 
 ### Conversation thread
 - Scrollable, fills the Expanded zone
 - nudgii bubbles: left-aligned, white surface bg, 0.5px border rgba(26,22,18,0.08), border-radius 12px 12px 12px 4px (bottom-left flat = sender side), max-width 88%
-- Sender label above first bubble in a sequence: 8px DM Sans 500, 1px letter-spacing, uppercase, colorMidAccessible. Text: "nudgii" — always lowercase, never "NUDGII"
+- Sender label above first bubble in a sequence: 8px DM Sans 500, 0.4px letter-spacing, no text-transform, colorMidAccessible. Text: "nudgii" — always lowercase, never "NUDGII", no CSS uppercase transform ever
 - User bubbles: right-aligned, colorCta (#9B7FD4) bg, colorCtaFg text, border-radius 12px 12px 4px 12px (bottom-right flat), max-width 84%
 - Confirmed items chips: sage-lt (#EAF3DE) bg, sage (#3B6D11) text, checkmark icon — appear inside nudgii's confirmation bubble after a turn
 - Suggestion chips: surface bg, 0.5px border rgba(26,22,18,0.13), 100px radius, 8px DM Sans — update contextually after each turn

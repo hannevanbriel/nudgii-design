@@ -137,9 +137,8 @@ nav{
 /* nudgii message */
 .nudgii-msg{display:flex;flex-direction:column;align-items:flex-start;gap:3px;}
 .nudgii-from{
-  font-size:8px;font-weight:500;letter-spacing:1px;
-  /* text-transform:uppercase is CSS — the text content is always lowercase "nudgii" */
-  text-transform:uppercase;
+  font-size:8px;font-weight:500;letter-spacing:0.4px;
+  text-transform:none;
   color:var(--mid-a);margin-bottom:1px;padding-left:2px;
 }
 .nudgii-bubble{
@@ -687,7 +686,7 @@ ul.ann-list li strong{color:var(--ink);font-weight:500;}
           Sender label
         </div>
         <div class="annot-body">
-          CSS uses <code>text-transform:uppercase</code> but the text content is always lowercase <strong>"nudgii"</strong>. Never "NUDGII" in the HTML. 8px DM Sans 500, letter-spacing 1px, <code>colorMidAccessible #6B6358</code>.
+          Always lowercase <strong>"nudgii"</strong> — never "NUDGII". No <code>text-transform</code>. 8px DM Sans 500, letter-spacing 0.4px, <code>colorMidAccessible #6B6358</code>. nudgii is always lowercase everywhere: in copy, labels, code, and documentation.
         </div>
       </div>
 
