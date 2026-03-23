@@ -625,6 +625,7 @@ Update this section when open decisions are resolved.
 |---|---|---|---|
 | OD-01 | Done overlay trigger — dashboard swipe only. Task detail gets quiet in-screen completion banner, not the full overlay. | ✅ Yes | 2026-03-18 |
 | OD-02 | Ask tab first load content | ❌ No | — |
+| S-02 conversation pattern | Option A: chat thread + persistent input bar. nudgii bubbles left (white), user bubbles right (CTA purple). No screen title — nudgii bubble is the opening. Persistent input bar: scan icon left, text center, mic right. S-01 context pre-loaded as confirmed chips when items were selected. Privacy note always visible. Discovery-first copy: "What do you have at home? I'll figure out what needs maintenance." | ✅ Yes | 2026-03-23 |
 | OD-03 | Voice onboarding: nudgii never speaks. Voice = user input only, max 1 min/turn. nudgii always responds in text. TTS deferred indefinitely. | ✅ Yes | 2026-03-21 |
 | Toast design | Light semantic backgrounds (sage-lt/red-lt/cream). Dark ink toast removed. | ✅ Yes | 2026-03-21 |
 | Error card | No border-left stripe. Full-border + icon-chip. | ✅ Yes | 2026-03-21 |
