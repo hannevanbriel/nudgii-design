@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · S-02 Conversation pattern — design proposal</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F5F0E8;--ink:#1A1612;--cta:#9B7FD4;--cta-fg:#FAF8FF;
+  --ap:#E8A87C;--ap-dk:#C8784A;--terra:#C4503A;--plum:#2D1F4A;
+  --mid:#8A8070;--mid-ac:#6B6358;--surface:#FFFFFF;
+  --sage:#3B6D11;--sage-lt:#EAF3DE;
+  --ink-06:rgba(26,22,18,0.06);--ink-08:rgba(26,22,18,0.08);
+  --ink-10:rgba(26,22,18,0.10);--ink-16:rgba(26,22,18,0.16);
+  --shadow-tab:0 4px 20px rgba(26,22,18,0.11);
+  --shadow-fab:0 6px 20px rgba(155,127,212,0.45);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px;}
+
+/* NAV */
+nav{background:var(--cream);border-bottom:1px solid var(--ink-10);padding:0 32px;display:flex;align-items:center;gap:12px;height:48px;position:sticky;top:0;z-index:100;}
+.nav-back{font-size:13px;color:var(--mid);text-decoration:none;display:flex;align-items:center;gap:8px;}
+.nav-back:hover{color:var(--ink);}
+.nav-sep{color:var(--ink-16);}
+.nav-title{font-size:13px;font-weight:500;}
+.nav-badge{margin-left:auto;font-size:10px;font-weight:500;letter-spacing:0.3px;padding:3px 10px;border-radius:100px;background:rgba(200,120,80,0.10);color:#7A3A10;border:1px solid rgba(200,120,80,0.20);}
+
+/* PAGE */
+.page{padding:40px 32px 100px;max-width:1400px;margin:0 auto;}
+h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
+.sub{font-size:14px;color:var(--mid-ac);margin-bottom:8px;max-width:620px;line-height:1.65;}
+.meta{display:flex;gap:8px;margin-bottom:40px;flex-wrap:wrap;}
+.mp{font-size:11px;font-weight:500;padding:3px 10px;border-radius:100px;border:1px solid var(--ink-10);color:var(--mid);}
+.mp.proposal{background:rgba(200,120,80,0.08);color:#7A3A10;border-color:rgba(200,120,80,0.20);}
+.mp.ob{background:rgba(155,127,212,0.08);color:#5C3E8A;border-color:rgba(155,127,212,0.2);}
+
+/* SECTION LABELS */
+.section-wrap{margin-bottom:60px;}
+.section-eye{font-size:9px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:6px;}
+.section-title{font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:6px;}
+.section-sub{font-size:13px;color:var(--mid-ac);max-width:560px;line-height:1.6;margin-bottom:24px;}
+.divider{height:1px;background:var(--ink-08);margin:48px 0;}
+
+/* PHONES ROW */
+.phones-row{display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap;}
+.phone-wrap{flex-shrink:0;}
+.phone-lbl{font-size:9px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:rgba(26,22,18,0.32);text-align:center;margin-bottom:10px;}
+.phone-sub{font-size:11px;color:var(--mid-ac);text-align:center;max-width:240px;margin:8px auto 0;line-height:1.5;}
+
+/* PHONE SHELL */
+.phone{width:280px;height:606px;background:#d8d4cb;border-radius:38px;padding:7px;border:2px solid rgba(26,22,18,0.20);box-shadow:0 12px 40px rgba(26,22,18,0.14);position:relative;overflow:hidden;flex-shrink:0;}
+.screen{background:var(--cream);border-radius:32px;overflow:hidden;height:100%;display:flex;flex-direction:column;}
+
+/* NOTCH */
+.notch{width:74px;height:6px;background:#1A1612;border-radius:3px;margin:6px auto 0;}
+
+/* STATUS BAR */
+.sbar{height:14px;display:flex;justify-content:space-between;align-items:center;padding:0 12px;font-size:6px;font-weight:500;color:rgba(26,22,18,0.35);}
+
+/* PROGRESS BAR - outside safearea, edge to edge */
+.prog{height:2px;background:rgba(26,22,18,0.08);flex-shrink:0;}
+.prog-fill{height:100%;background:var(--cta);border-radius:0 100px 100px 0;}
+
+/* BACK BUTTON ROW */
+.back-row{display:flex;align-items:center;padding:8px 11px 4px;flex-shrink:0;}
+.back-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:var(--surface);border-radius:8px;border:0.5px solid rgba(26,22,18,0.10);}
+.back-btn svg{width:9px;height:9px;stroke:var(--ink);stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.screen-title{font-size:11px;font-weight:500;margin-left:8px;color:var(--ink);}
+.step-label{margin-left:auto;font-size:8px;color:var(--mid-ac);}
+
+/* CONVERSATION AREA — scrollable */
+.conv-area{flex:1;overflow-y:auto;padding:6px 11px 8px;display:flex;flex-direction:column;gap:8px;}
+.conv-area::-webkit-scrollbar{display:none;}
+
+/* nudgii bubble */
+.nudgii-msg{display:flex;flex-direction:column;align-items:flex-start;gap:2px;}
+.nudgii-from{font-size:6px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--mid-ac);margin-bottom:1px;padding-left:2px;}
+.nudgii-bubble{background:var(--surface);border:0.5px solid rgba(26,22,18,0.08);border-radius:9px 9px 9px 3px;padding:7px 9px;box-shadow:0 1px 3px rgba(26,22,18,0.04);max-width:88%;}
+.nb-text{font-size:8.5px;line-height:1.6;color:var(--ink);}
+.nb-text em{font-style:italic;color:var(--cta);font-weight:500;}
+.nb-text strong{font-weight:500;}
+
+/* Confirmed items inline chips */
+.confirmed-chips{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px;}
+.cc-chip{display:inline-flex;align-items:center;gap:2px;background:var(--sage-lt);border-radius:100px;padding:1.5px 6px;font-size:7px;font-weight:500;color:var(--sage);}
+.cc-chip svg{width:7px;height:7px;stroke:var(--sage);stroke-width:2;fill:none;flex-shrink:0;}
+
+/* Suggestion chips */
+.suggest-row{display:flex;flex-wrap:wrap;gap:3px;margin-top:4px;}
+.sug-chip{background:var(--surface);border:0.5px solid rgba(26,22,18,0.13);border-radius:100px;padding:2px 7px;font-size:7px;color:var(--mid-ac);cursor:pointer;font-weight:400;}
+
+/* User bubble */
+.user-msg{display:flex;justify-content:flex-end;}
+.user-bubble{background:var(--cta);border-radius:9px 9px 3px 9px;padding:7px 9px;max-width:84%;}
+.ub-text{font-size:8.5px;line-height:1.6;color:var(--cta-fg);}
+
+/* Waveform / listening indicator */
+.listening-row{display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 0;}
+.wave{display:flex;align-items:center;gap:2px;height:22px;}
+.wbar{width:2.5px;border-radius:100px;background:var(--cta);}
+.wbar:nth-child(1){height:5px;opacity:0.4;}
+.wbar:nth-child(2){height:10px;opacity:0.6;}
+.wbar:nth-child(3){height:18px;}
+.wbar:nth-child(4){height:14px;opacity:0.8;}
+.wbar:nth-child(5){height:22px;}
+.wbar:nth-child(6){height:16px;opacity:0.8;}
+.wbar:nth-child(7){height:10px;opacity:0.6;}
+.wbar:nth-child(8){height:6px;opacity:0.4;}
+.wbar:nth-child(9){height:3px;opacity:0.3;}
+.listen-label{font-size:7px;color:var(--mid-ac);font-style:italic;}
+.transcript-preview{font-size:8px;color:var(--mid-ac);font-style:italic;text-align:center;padding:0 16px;line-height:1.5;}
+
+/* Typing indicator (nudgii thinking) */
+.typing-row{display:flex;align-items:center;gap:5px;padding:2px 0;}
+.typing-bubble{background:var(--surface);border:0.5px solid var(--ink-08);border-radius:9px 9px 9px 3px;padding:6px 9px;display:flex;gap:3px;align-items:center;}
+.t-dot{width:4px;height:4px;border-radius:50%;background:var(--mid);}
+
+/* INPUT BAR — fixed at bottom of screen */
+.input-bar-wrap{flex-shrink:0;padding:6px 10px 8px;background:var(--cream);border-top:0.5px solid rgba(26,22,18,0.07);}
+.input-bar{display:flex;align-items:center;gap:6px;background:var(--surface);border:0.5px solid rgba(26,22,18,0.12);border-radius:100px;padding:5px 5px 5px 9px;}
+.input-bar-icon{width:16px;height:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.input-bar-icon svg{width:12px;height:12px;stroke:var(--mid-ac);stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.input-placeholder{flex:1;font-size:7.5px;color:rgba(107,99,88,0.45);font-style:italic;}
+.mic-btn{width:26px;height:26px;border-radius:50%;background:var(--cta);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 8px rgba(155,127,212,0.35);}
+.mic-btn svg{width:11px;height:11px;stroke:var(--cta-fg);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.mic-btn.active{background:var(--terra);box-shadow:0 2px 8px rgba(196,80,58,0.35);}
+.privacy-note{text-align:center;font-size:6px;color:rgba(107,99,88,0.45);margin-top:3px;font-style:italic;letter-spacing:0.1px;}
+
+/* OLD PATTERN phone (reference) */
+.old-conv-area{flex:1;overflow-y:auto;padding:6px 11px 8px;display:flex;flex-direction:column;gap:8px;}
+.old-nudgii-label{font-size:6px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:var(--mid-ac);margin-bottom:2px;}
+.old-nudgii-b{background:var(--surface);border:0.5px solid rgba(26,22,18,0.10);border-radius:2px 9px 9px 9px;padding:7px 9px;box-shadow:0 1px 3px rgba(26,22,18,0.04);}
+.old-user-b{background:#9B7FD4;border-radius:9px 2px 9px 9px;padding:7px 9px;margin-left:24px;}
+.old-user-b .nb-text{color:#FAF8FF;}
+.old-mic-zone{display:flex;flex-direction:column;align-items:center;gap:5px;padding:8px 0 12px;flex-shrink:0;}
+.old-mic-hint{font-size:7px;color:var(--mid-ac);text-align:center;}
+.old-mic-btn{width:40px;height:40px;border-radius:50%;background:var(--cta);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(155,127,212,0.35);}
+.old-mic-btn svg{width:16px;height:16px;stroke:#FAF8FF;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+
+/* ANNOTATION COLUMN */
+.annot{flex:1;min-width:280px;max-width:400px;}
+.annot-card{background:var(--surface);border:1px solid var(--ink-08);border-radius:10px;padding:14px 16px;margin-bottom:10px;}
+.annot-card.new{border-color:rgba(155,127,212,0.22);background:rgba(155,127,212,0.03);}
+.annot-card.old{border-color:rgba(26,22,18,0.10);background:rgba(26,22,18,0.015);}
+.annot-card.decision{border-color:rgba(59,109,17,0.20);background:rgba(59,109,17,0.03);}
+.annot-head{font-size:10px;font-weight:500;letter-spacing:0.3px;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.badge-new{font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;background:rgba(155,127,212,0.12);color:#5C3E8A;}
+.badge-old{font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;background:rgba(26,22,18,0.07);color:var(--mid);}
+.badge-keep{font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;background:rgba(59,109,17,0.10);color:var(--sage);}
+.annot-body{font-size:11px;color:var(--mid-ac);line-height:1.65;}
+.annot-body strong{color:var(--ink);font-weight:500;}
+.annot-body code{font-family:monospace;font-size:10px;background:var(--ink-06);padding:1px 4px;border-radius:3px;color:var(--ink);}
+ul.annot-list{padding-left:14px;margin-top:4px;}
+ul.annot-list li{font-size:11px;color:var(--mid-ac);line-height:1.65;margin-bottom:2px;}
+ul.annot-list li strong{color:var(--ink);font-weight:500;}
+
+/* COMPARISON TABLE */
+.cmp-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:16px;}
+.cmp-table th{text-align:left;font-size:9px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--mid);padding:0 16px 8px 0;border-bottom:1px solid var(--ink-10);}
+.cmp-table td{padding:8px 16px 8px 0;border-bottom:1px solid var(--ink-08);color:var(--mid-ac);vertical-align:top;line-height:1.6;}
+.cmp-table td:first-child{font-weight:500;color:var(--ink);width:140px;}
+.cmp-table tr:last-child td{border-bottom:none;}
+.check{color:var(--sage);}
+.cross{color:var(--terra);}
+.neutral{color:var(--mid);}
+
+/* DECISION CARD */
+.decision-card{background:var(--surface);border:1px solid rgba(59,109,17,0.18);border-radius:12px;padding:20px 22px;margin-top:32px;}
+.dc-eye{font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--sage);margin-bottom:8px;}
+.dc-title{font-family:'DM Serif Display',serif;font-size:18px;margin-bottom:10px;}
+.dc-body{font-size:13px;color:var(--mid-ac);line-height:1.7;}
+.dc-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
+.dc-opt{background:var(--ink-06);border-radius:8px;padding:12px 14px;border:1px solid var(--ink-10);}
+.dc-opt.recommended{background:rgba(155,127,212,0.05);border-color:rgba(155,127,212,0.22);}
+.dc-opt-label{font-size:9px;font-weight:500;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:5px;}
+.dc-opt-label.rec{color:var(--cta);}
+.dc-opt-label.alt{color:var(--mid);}
+.dc-opt-title{font-size:13px;font-weight:500;margin-bottom:4px;}
+.dc-opt-body{font-size:11px;color:var(--mid-ac);line-height:1.6;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-back" href="../index.html">
+    <svg width="16" height="16" viewBox="0 0 80 80" style="border-radius:4px;flex-shrink:0"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><path fill="#9B7FD4" d="M14,14h0c12.15,0,22,10.14,22,22.66v25.89c0,12.52-9.86,22.66-22,22.66h0c-12.15,0-22-10.14-22-22.66V36.66C-8,24.14,1.85,14,14,14Z" transform="translate(14,9)"/><path fill="#2D1F4A" d="M36,14h0c12.15,0,22,10.14,22,22.66v25.89c0,12.52-9.86,22.66-22,22.66h0c-12.15,0-22-10.14-22-22.66V36.66C14,24.14,23.85,14,36,14Z" transform="translate(14,9)"/><circle fill="#E8A87C" cx="62" cy="22" r="8"/></svg>
+    Design hub
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">S-02 · Conversation pattern — design proposal</span>
+  <span class="nav-badge">Proposal · needs decision</span>
+</nav>
+
+<div class="page">
+
+  <h1>S-02 conversation pattern</h1>
+  <p class="sub">Three design proposals for the voice onboarding conversation: the existing lo-fi pattern as reference, and two new hi-fi directions. Review and decide before hi-fi production starts.</p>
+  <div class="meta">
+    <span class="mp proposal">Proposal</span>
+    <span class="mp ob">Onboarding · Path A</span>
+    <span class="mp">2026-03-23</span>
+  </div>
+
+  <!-- ─────────────────────────────────────
+       SECTION 1: REFERENCE — OLD PATTERN
+  ───────────────────────────────────────── -->
+  <div class="section-wrap">
+    <div class="section-eye">Reference</div>
+    <div class="section-title">Original lo-fi pattern</div>
+    <div class="section-sub">The existing lo-fi uses a chat-thread layout with message bubbles — nudgii on the left, user on the right. The mic floats in the middle of the screen. Shown here for reference only.</div>
+
+    <div class="phones-row">
+
+      <!-- Reference Phone: Idle state -->
+      <div class="phone-wrap">
+        <div class="phone-lbl">Original · turn 1 in progress</div>
+        <div class="phone">
+          <div class="screen">
+            <div class="notch"></div>
+            <div class="sbar"><span>9:41</span><span>●●●</span></div>
+            <div class="prog"><div class="prog-fill" style="width:40%"></div></div>
+
+            <div style="display:flex;align-items:center;padding:7px 10px 4px;gap:6px;flex-shrink:0;">
+              <div style="width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--surface);border-radius:7px;border:0.5px solid var(--ink-10);">
+                <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg>
+              </div>
+              <span style="font-size:8px;font-weight:500;color:var(--ink);">What do you own?</span>
+              <span style="margin-left:auto;font-size:7px;color:var(--mid-ac);">Step 2 of 5</span>
+            </div>
+
+            <div class="old-conv-area">
+              <!-- nudgii bubble 1 -->
+              <div>
+                <div class="old-nudgii-label">nudgii</div>
+                <div class="old-nudgii-b">
+                  <div class="nb-text">Tell me what you have: appliances, your car, plants, all of it. I'll handle the rest.</div>
+                </div>
+              </div>
+              <!-- User bubble -->
+              <div class="old-user-b">
+                <div class="nb-text">A house with a garden, two cars, a dishwasher and airco.</div>
+              </div>
+              <!-- nudgii follow-up -->
+              <div>
+                <div class="old-nudgii-label">nudgii</div>
+                <div class="old-nudgii-b">
+                  <div class="nb-text">Got it. <em>What brand and year are the cars?</em> Or just say "not sure", we can check later.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Old mic floating in middle -->
+            <div class="old-mic-zone">
+              <div class="old-mic-btn">
+                <svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+              </div>
+              <div class="old-mic-hint">Tap to speak · or type below</div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-sub">Warm and conversational. Mic floats in the middle of the screen, no input bar.</div>
+      </div>
+
+      <!-- ANNOTATION -->
+      <div class="annot" style="padding-top:28px;">
+        <div class="annot-card old">
+          <div class="annot-head">What works <span class="badge-keep">keep</span></div>
+          <div class="annot-body">
+            <ul class="annot-list">
+              <li><strong>Chat thread layout</strong> — feels like a familiar conversation. Users understand it immediately (WhatsApp/iMessage pattern).</li>
+              <li><strong>Bubble contrast</strong> — nudgii left (white), user right (purple). Direction signals who said what without labels.</li>
+              <li><strong>Follow-up question</strong> — single question per turn. Respects attention without overwhelming.</li>
+              <li><strong>Italic emphasis</strong> — key question highlighted in CTA color draws the eye to what needs answering.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="annot-card old">
+          <div class="annot-head">What needs updating <span class="badge-old">fix</span></div>
+          <div class="annot-body">
+            <ul class="annot-list">
+              <li><strong>Floating mic</strong> — disconnected from the conversation. Visually ambiguous: is it a button or decorative?</li>
+              <li><strong>No input bar</strong> — "or type below" refers to nothing visible. Users who want to type have no affordance.</li>
+              <li><strong>No scan option</strong> — scan is available at S-05 but not here. A missed opportunity for confident AI capture.</li>
+              <li><strong>No privacy signal</strong> — audio is transcription-only and deleted. Users don't know this. Trust gap.</li>
+              <li><strong>Dutch copy</strong> — all design files must use English copy.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ─────────────────────────────────────
+       SECTION 2: OPTION A — CHAT + INPUT BAR
+  ───────────────────────────────────────── -->
+  <div class="section-wrap">
+    <div class="section-eye">Option A — recommended</div>
+    <div class="section-title">Chat thread + persistent input bar</div>
+    <div class="section-sub">Keeps the conversational chat bubble pattern from the lo-fi — users already understand it. Replaces the floating mic with a persistent input bar at the bottom: scan icon left, text placeholder center, mic button right. Three states: empty, listening, and after a turn.</div>
+
+    <div class="phones-row">
+
+      <!-- PHONE A1: Empty state -->
+      <div class="phone-wrap">
+        <div class="phone-lbl">State 1 — empty / initial</div>
+        <div class="phone">
+          <div class="screen">
+            <div class="notch"></div>
+            <div class="sbar"><span>9:41</span><span>●●●</span></div>
+            <div class="prog"><div class="prog-fill" style="width:40%"></div></div>
+
+            <!-- Back row -->
+            <div class="back-row">
+              <div class="back-btn">
+                <svg viewBox="0 0 12 12"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg>
+              </div>
+              <span class="step-label">Step 2 of 5</span>
+            </div>
+
+            <!-- Conversation area -->
+            <div class="conv-area">
+              <!-- nudgii opening -->
+              <div class="nudgii-msg">
+                <div class="nudgii-from">nudgii</div>
+                <div class="nudgii-bubble">
+                  <div class="nb-text">What do you own? Say it, type it, or snap a photo. I'll handle the rest.</div>
+                </div>
+              </div>
+              <!-- Hint sub -->
+              <div style="font-size:7px;color:var(--mid-ac);font-style:italic;padding:0 2px;line-height:1.5;">2-3 items is plenty to start.</div>
+              <!-- Suggestion chips (contextual cold-start) -->
+              <div class="nudgii-msg">
+                <div style="font-size:6px;color:var(--mid-ac);margin-bottom:3px;padding-left:2px;">Or try a suggestion:</div>
+                <div class="suggest-row">
+                  <div class="sug-chip">dishwasher</div>
+                  <div class="sug-chip">car</div>
+                  <div class="sug-chip">airco filter</div>
+                  <div class="sug-chip">olive tree</div>
+                  <div class="sug-chip">cv boiler</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Input bar -->
+            <div class="input-bar-wrap">
+              <div class="input-bar">
+                <div class="input-bar-icon">
+                  <!-- scan icon (PhosphorIcons.scan) -->
+                  <svg viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                </div>
+                <div class="input-placeholder">Say it, type it, or snap a photo...</div>
+                <div class="mic-btn">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+                </div>
+              </div>
+              <div class="privacy-note">audio sent for transcription only · deleted after · responds in text</div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-sub">nudgii opens the conversation. Suggestion chips help cold-start users. Input bar is always visible.</div>
+      </div>
+
+      <!-- PHONE A2: Listening -->
+      <div class="phone-wrap">
+        <div class="phone-lbl">State 2 — listening</div>
+        <div class="phone">
+          <div class="screen">
+            <div class="notch"></div>
+            <div class="sbar"><span>9:41</span><span>●●●</span></div>
+            <div class="prog"><div class="prog-fill" style="width:40%"></div></div>
+
+            <div class="back-row">
+              <div class="back-btn">
+                <svg viewBox="0 0 12 12"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg>
+              </div>
+              <span class="step-label">Step 2 of 5</span>
+            </div>
+
+            <div class="conv-area">
+              <div class="nudgii-msg">
+                <div class="nudgii-from">nudgii</div>
+                <div class="nudgii-bubble">
+                  <div class="nb-text">What do you own? Say it, type it, or snap a photo. I'll handle the rest.</div>
+                </div>
+              </div>
+              <div style="font-size:7px;color:var(--mid-ac);font-style:italic;padding:0 2px;line-height:1.5;">2-3 items is plenty to start.</div>
+
+              <!-- Waveform + live transcript -->
+              <div class="listening-row">
+                <div class="wave">
+                  <div class="wbar"></div><div class="wbar"></div><div class="wbar"></div>
+                  <div class="wbar"></div><div class="wbar"></div><div class="wbar"></div>
+                  <div class="wbar"></div><div class="wbar"></div><div class="wbar"></div>
+                </div>
+                <div class="listen-label">Listening...</div>
+              </div>
+              <!-- Live transcript building -->
+              <div class="user-msg">
+                <div class="user-bubble" style="opacity:0.65;">
+                  <div class="ub-text">A house with a garden, two cars...</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Input bar — active mic -->
+            <div class="input-bar-wrap">
+              <div class="input-bar" style="border-color:rgba(196,80,58,0.30);background:rgba(196,80,58,0.03);">
+                <div class="input-bar-icon">
+                  <svg viewBox="0 0 24 24" stroke="rgba(26,22,18,0.25)"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                </div>
+                <div class="input-placeholder" style="color:rgba(196,80,58,0.45);">Listening, tap mic to stop...</div>
+                <div class="mic-btn active">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+                </div>
+              </div>
+              <div class="privacy-note">audio sent for transcription only · deleted after · responds in text</div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-sub">Waveform in the chat area. Live transcript builds as user speaks. Mic turns terra red to signal active recording.</div>
+      </div>
+
+      <!-- PHONE A3: After first turn -->
+      <div class="phone-wrap">
+        <div class="phone-lbl">State 3 — after first turn</div>
+        <div class="phone">
+          <div class="screen">
+            <div class="notch"></div>
+            <div class="sbar"><span>9:41</span><span>●●●</span></div>
+            <div class="prog"><div class="prog-fill" style="width:40%"></div></div>
+
+            <div class="back-row">
+              <div class="back-btn">
+                <svg viewBox="0 0 12 12"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg>
+              </div>
+              <span class="step-label">Step 2 of 5</span>
+            </div>
+
+            <div class="conv-area">
+              <!-- nudgii opening -->
+              <div class="nudgii-msg">
+                <div class="nudgii-from">nudgii</div>
+                <div class="nudgii-bubble">
+                  <div class="nb-text">What do you own? Say it, type it, or snap a photo. I'll handle the rest.</div>
+                </div>
+              </div>
+
+              <!-- User turn 1 -->
+              <div class="user-msg">
+                <div class="user-bubble">
+                  <div class="ub-text">A house with a garden, two cars, a dishwasher and airco.</div>
+                </div>
+              </div>
+
+              <!-- nudgii confirmation -->
+              <div class="nudgii-msg">
+                <div class="nudgii-from">nudgii</div>
+                <div class="nudgii-bubble">
+                  <div class="nb-text">Got it. Added to your schedule:</div>
+                  <div class="confirmed-chips">
+                    <div class="cc-chip">
+                      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                      House &amp; garden
+                    </div>
+                    <div class="cc-chip">
+                      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                      2x Car
+                    </div>
+                    <div class="cc-chip">
+                      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                      Dishwasher
+                    </div>
+                    <div class="cc-chip">
+                      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                      Airco
+                    </div>
+                  </div>
+                  <div class="nb-text" style="margin-top:6px;"><em>What brand are the cars?</em> Or just say "not sure", we can check later.</div>
+                </div>
+              </div>
+
+              <!-- New relevant suggestions -->
+              <div style="padding-left:2px;">
+                <div style="font-size:6px;color:var(--mid-ac);margin-bottom:3px;">Anything else?</div>
+                <div class="suggest-row">
+                  <div class="sug-chip">smoke detector</div>
+                  <div class="sug-chip">gutter cleaning</div>
+                  <div class="sug-chip">winter tyres</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Input bar — ready -->
+            <div class="input-bar-wrap">
+              <div class="input-bar">
+                <div class="input-bar-icon">
+                  <svg viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                </div>
+                <div class="input-placeholder">Say it, type it, or snap a photo...</div>
+                <div class="mic-btn">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+                </div>
+              </div>
+              <div class="privacy-note">audio sent for transcription only · deleted after · responds in text</div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-sub">Confirmed items shown as sage chips inside nudgii's reply. Contextual "anything else?" suggestions update based on what was captured.</div>
+      </div>
+
+      <!-- ANNOTATION OPTION A -->
+      <div class="annot" style="padding-top:28px;">
+        <div class="annot-card new">
+          <div class="annot-head">What's new in Option A <span class="badge-new">new</span></div>
+          <div class="annot-body">
+            <ul class="annot-list">
+              <li><strong>Persistent input bar</strong> — scan icon left, text input center, mic right. Always visible, always accessible. Removes the floating-mic ambiguity.</li>
+              <li><strong>Active mic state</strong> — mic turns terra red during recording. Input bar border changes color. Unmistakable recording signal.</li>
+              <li><strong>Confirmed items chips</strong> — sage-lt chips inside nudgii's confirmation message. User sees exactly what was captured without reading prose. Fast to scan, easy to correct.</li>
+              <li><strong>Contextual suggestions</strong> — suggestion chips update after each turn to reflect what's likely next given what was captured. "You added 2 cars, here's winter tyres."</li>
+              <li><strong>Privacy note</strong> — always visible below the input bar. Builds trust. Key for GDPR in BE/NL.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="annot-card decision">
+          <div class="annot-head">What stays from the original <span class="badge-keep">keep</span></div>
+          <div class="annot-body">
+            <ul class="annot-list">
+              <li>Chat thread layout with bubbles (the part users liked)</li>
+              <li>nudgii left / user right positioning</li>
+              <li>Italic emphasis on follow-up question</li>
+              <li>Single question per turn (max 1 clarifying question)</li>
+              <li>Suggestion chips for cold-start help</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ─────────────────────────────────────
+       SECTION 3: OPTION B — CONTEXTUAL FEED
+  ───────────────────────────────────────── -->
+  <div class="section-wrap">
+    <div class="section-eye">Option B — alternative</div>
+    <div class="section-title">Contextual feed — no chat thread</div>
+    <div class="section-sub">The alternative direction from the new mockup: no conversation thread visible. nudgii's responses appear as confirmation chips. Cleaner, more minimal. But loses the conversational warmth and makes multi-turn harder to follow.</div>
+
+    <div class="phones-row">
+
+      <!-- PHONE B1: Empty state -->
+      <div class="phone-wrap">
+        <div class="phone-lbl">State 1 — empty / initial</div>
+        <div class="phone">
+          <div class="screen">
+            <div class="notch"></div>
+            <div class="sbar"><span>9:41</span><span>●●●</span></div>
+            <div class="prog"><div class="prog-fill" style="width:40%"></div></div>
+
+            <div class="back-row">
+              <div class="back-btn">
+                <svg viewBox="0 0 12 12"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg>
+              </div>
+              <span class="step-label">Step 2 of 5</span>
+            </div>
+
+            <!-- Title zone -->
+            <div style="padding:8px 12px 6px;flex-shrink:0;">
+              <div style="font-family:'DM Serif Display',serif;font-size:16px;line-height:1.2;color:var(--ink);margin-bottom:4px;">What do you own?</div>
+              <div style="font-size:8px;color:var(--mid-ac);font-style:italic;">Say it, type it, or snap a photo.</div>
+              <div style="font-size:7px;color:var(--mid-ac);font-style:italic;margin-top:2px;">2-3 items is plenty to start.</div>
+            </div>
+
+            <!-- Empty feed -->
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:8px 12px;">
+              <div style="font-size:7px;color:var(--mid-ac);text-align:center;margin-bottom:4px;">Or try a suggestion:</div>
+              <div class="suggest-row" style="justify-content:center;">
+                <div class="sug-chip">dishwasher</div>
+                <div class="sug-chip">car</div>
+                <div class="sug-chip">airco filter</div>
+                <div class="sug-chip">cv boiler</div>
+                <div class="sug-chip">olive tree</div>
+              </div>
+            </div>
+
+            <!-- Waveform centered -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:5px;padding:4px 0 8px;flex-shrink:0;">
+              <div class="wave" style="opacity:0.3;">
+                <div class="wbar"></div><div class="wbar"></div><div class="wbar"></div>
+                <div class="wbar"></div><div class="wbar"></div>
+              </div>
+              <div style="font-size:7px;color:rgba(107,99,88,0.40);font-style:italic;">Tap to speak</div>
+            </div>
+
+            <!-- Input bar -->
+            <div class="input-bar-wrap">
+              <div class="input-bar">
+                <div class="input-bar-icon">
+                  <svg viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                </div>
+                <div class="input-placeholder">Say it, type it, or snap a photo...</div>
+                <div class="mic-btn">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+                </div>
+              </div>
+              <div class="privacy-note">audio sent for transcription only · deleted after · responds in text</div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-sub">Minimal, no chat thread. Title + suggestions fill the space. Cleaner but less warm.</div>
+      </div>
+
+      <!-- PHONE B2: After a turn -->
+      <div class="phone-wrap">
+        <div class="phone-lbl">State 2 — after first turn</div>
+        <div class="phone">
+          <div class="screen">
+            <div class="notch"></div>
+            <div class="sbar"><span>9:41</span><span>●●●</span></div>
+            <div class="prog"><div class="prog-fill" style="width:40%"></div></div>
+
+            <div class="back-row">
+              <div class="back-btn">
+                <svg viewBox="0 0 12 12"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg>
+              </div>
+              <span class="step-label">Step 2 of 5</span>
+            </div>
+
+            <div style="padding:8px 12px 4px;flex-shrink:0;">
+              <div style="font-family:'DM Serif Display',serif;font-size:15px;line-height:1.2;color:var(--ink);margin-bottom:3px;">What do you own?</div>
+            </div>
+
+            <!-- Added items feed (no bubbles, just chips/cards) -->
+            <div style="flex:1;overflow-y:auto;padding:4px 10px 6px;display:flex;flex-direction:column;gap:5px;">
+
+              <!-- Confirmed items as cards -->
+              <div style="font-size:7px;font-weight:500;letter-spacing:0.8px;text-transform:uppercase;color:var(--mid-ac);margin-bottom:2px;">Added</div>
+              <div style="background:var(--surface);border:0.5px solid rgba(26,22,18,0.08);border-radius:7px;padding:6px 9px;display:flex;align-items:center;gap:6px;">
+                <span style="font-size:8px;font-weight:500;color:var(--ink);">Dishwasher</span>
+                <span style="margin-left:auto;font-size:7px;color:var(--mid-ac);">3 tasks</span>
+              </div>
+              <div style="background:var(--surface);border:0.5px solid rgba(26,22,18,0.08);border-radius:7px;padding:6px 9px;display:flex;align-items:center;gap:6px;">
+                <span style="font-size:8px;font-weight:500;color:var(--ink);">Car (x2)</span>
+                <span style="margin-left:auto;font-size:7px;color:var(--mid-ac);">4 tasks</span>
+              </div>
+              <div style="background:var(--surface);border:0.5px solid rgba(26,22,18,0.08);border-radius:7px;padding:6px 9px;display:flex;align-items:center;gap:6px;">
+                <span style="font-size:8px;font-weight:500;color:var(--ink);">Airco</span>
+                <span style="margin-left:auto;font-size:7px;color:var(--mid-ac);">2 tasks</span>
+              </div>
+
+              <!-- nudgii follow-up as floating chip -->
+              <div style="background:rgba(155,127,212,0.08);border:0.5px solid rgba(155,127,212,0.20);border-radius:8px;padding:6px 9px;margin-top:4px;">
+                <div style="font-size:7px;font-weight:500;color:var(--cta);margin-bottom:2px;">nudgii asks</div>
+                <div style="font-size:8px;color:var(--ink);line-height:1.5;font-style:italic;">What brand are the cars? Or say "not sure".</div>
+              </div>
+
+              <div style="font-size:7px;color:var(--mid-ac);margin-top:4px;">Anything else?</div>
+              <div class="suggest-row">
+                <div class="sug-chip">smoke detector</div>
+                <div class="sug-chip">gutter cleaning</div>
+              </div>
+            </div>
+
+            <!-- Input bar -->
+            <div class="input-bar-wrap">
+              <div class="input-bar">
+                <div class="input-bar-icon">
+                  <svg viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                </div>
+                <div class="input-placeholder">Say it, type it, or snap a photo...</div>
+                <div class="mic-btn">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+                </div>
+              </div>
+              <div class="privacy-note">audio sent for transcription only · deleted after · responds in text</div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-sub">Added items as a growing list of cards. nudgii's follow-up appears as a distinct "nudgii asks" chip. More task-manager than conversation.</div>
+      </div>
+
+      <!-- ANNOTATION OPTION B -->
+      <div class="annot" style="padding-top:28px;">
+        <div class="annot-card old">
+          <div class="annot-head">Pros of Option B</div>
+          <div class="annot-body">
+            <ul class="annot-list">
+              <li>Cleaner first impression for new users who might feel intimidated by a chat interface</li>
+              <li>Added items are immediately visible as a list, no hunting through conversation bubbles</li>
+              <li>Easier to scale to many items without the screen filling up with chat bubbles</li>
+            </ul>
+          </div>
+        </div>
+        <div class="annot-card old">
+          <div class="annot-head">Cons of Option B</div>
+          <div class="annot-body">
+            <ul class="annot-list">
+              <li><strong>Loses conversational warmth.</strong> nudgii's follow-up question becomes a "nudgii asks" chip, not a natural part of dialogue.</li>
+              <li><strong>Mixed metaphors.</strong> Voice input + item card list is two different UI paradigms on one screen.</li>
+              <li><strong>Worse for multi-turn.</strong> After 3+ turns, the screen looks like a task list not a conversation. Users don't know when they're "done".</li>
+              <li><strong>nudgii's personality disappears.</strong> "Got it." and the italic question are nudgii's voice. Option B loses all of that.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ─────────────────────────────────────
+       RECOMMENDATION + COMPARISON
+  ───────────────────────────────────────── -->
+  <div class="section-wrap">
+    <div class="section-eye">Recommendation</div>
+    <div class="section-title">Summary comparison</div>
+
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>Criteria</th>
+          <th>Original lo-fi</th>
+          <th>Option A — chat + input bar</th>
+          <th>Option B — contextual feed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Conversational warmth</td>
+          <td><span class="check">✓</span> Strong</td>
+          <td><span class="check">✓</span> Strong — keeps bubbles</td>
+          <td><span class="cross">✗</span> Weak — feels like a form</td>
+        </tr>
+        <tr>
+          <td>Scan affordance</td>
+          <td><span class="cross">✗</span> Not present</td>
+          <td><span class="check">✓</span> Scan icon in input bar</td>
+          <td><span class="check">✓</span> Scan icon in input bar</td>
+        </tr>
+        <tr>
+          <td>Typing affordance</td>
+          <td><span class="neutral">~</span> "or type below" (no bar)</td>
+          <td><span class="check">✓</span> Clear input bar</td>
+          <td><span class="check">✓</span> Clear input bar</td>
+        </tr>
+        <tr>
+          <td>Multi-turn readability</td>
+          <td><span class="check">✓</span> Good — chat thread</td>
+          <td><span class="check">✓</span> Good — confirmed chips</td>
+          <td><span class="cross">✗</span> Gets crowded fast</td>
+        </tr>
+        <tr>
+          <td>Privacy signal</td>
+          <td><span class="cross">✗</span> Missing</td>
+          <td><span class="check">✓</span> Always visible below bar</td>
+          <td><span class="check">✓</span> Always visible below bar</td>
+        </tr>
+        <tr>
+          <td>nudgii personality</td>
+          <td><span class="check">✓</span> "Got it. <em>What brand?</em>"</td>
+          <td><span class="check">✓</span> Same — kept in bubbles</td>
+          <td><span class="cross">✗</span> "nudgii asks" chip is flat</td>
+        </tr>
+        <tr>
+          <td>Implementation complexity</td>
+          <td><span class="neutral">~</span> Simple</td>
+          <td><span class="neutral">~</span> Moderate — scroll + fixed bar</td>
+          <td><span class="neutral">~</span> Moderate — similar</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="decision-card">
+      <div class="dc-eye">Design recommendation</div>
+      <div class="dc-title">Option A: Chat thread + persistent input bar</div>
+      <div class="dc-body">Option A keeps what users already liked in the original (warm conversational bubbles, nudgii's voice) while fixing the three real issues: the floating mic with no text alternative, the missing privacy note, and the absent scan affordance. It also adds confirmed-item chips so users see exactly what was captured without parsing prose. Option B is cleaner but trades warmth for minimalism, and nudgii's personality is one of the strongest things the app has going for it in onboarding.</div>
+      <div class="dc-options">
+        <div class="dc-opt recommended">
+          <div class="dc-opt-label rec">Recommended</div>
+          <div class="dc-opt-title">Option A</div>
+          <div class="dc-opt-body">Chat thread with persistent input bar. Ship this as the S-02 hi-fi.</div>
+        </div>
+        <div class="dc-opt">
+          <div class="dc-opt-label alt">Alternative</div>
+          <div class="dc-opt-title">Option B</div>
+          <div class="dc-opt-body">Only if user testing shows chat feels intimidating for Lena persona (first-time homeowner).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
