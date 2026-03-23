@@ -135,7 +135,8 @@ body {
 .chk.on svg { display: block; }
 
 /* ── CAT STRIP (S-01) ── */
-.cat-strip { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 10px; }
+.cat-strip { display: flex; gap: 4px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-bottom: 10px; }
+.cat-strip::-webkit-scrollbar { display: none; }
 .cat-pill { display: inline-flex; align-items: center; gap: 4px; background: var(--surface); border: 0.5px solid rgba(26,22,18,0.10); border-radius: 100px; padding: 3px 7px 3px 5px; font-size: 7.5px; font-weight: 500; color: var(--ink); }
 .cat-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
 
@@ -444,11 +445,11 @@ body {
           <span style="font-size:7px;color:#6B6358;font-weight:500;">Ready in 2 minutes</span>
         </div>
         <div class="cat-strip">
-          <div class="cat-f on" style="font-size:7px;">All</div>
-          <div class="cat-f" style="font-size:7px;"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#C87850;margin-right:4px;vertical-align:middle;"></span>Home</div>
-          <div class="cat-f" style="font-size:7px;"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#4A82A0;margin-right:4px;vertical-align:middle;"></span>Vehicle</div>
-          <div class="cat-f" style="font-size:7px;"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#5A9060;margin-right:4px;vertical-align:middle;"></span>Garden</div>
-          <div class="cat-f" style="font-size:7px;"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#8060A8;margin-right:4px;vertical-align:middle;"></span>Subscriptions</div>
+          <div class="cat-f on">All</div>
+          <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#C87850;margin-right:4px;vertical-align:middle;"></span>Home</div>
+          <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#4A82A0;margin-right:4px;vertical-align:middle;"></span>Vehicle</div>
+          <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#5A9060;margin-right:4px;vertical-align:middle;"></span>Garden</div>
+          <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#8060A8;margin-right:4px;vertical-align:middle;"></span>Subscriptions</div>
         </div>
         <div class="micro">For example, tap what applies to you:</div>
         <div class="task-rows">
@@ -813,12 +814,12 @@ body {
         <div class="greeting-sub">6 tasks need attention</div>
       </div>
       <!-- Category filters -->
-      <div style="display:flex;gap:4px;padding:7px 14px 0;overflow-x:auto;scrollbar-width:none;flex-shrink:0;">
-        <div class="cat-f on" style="font-size:7px;">All</div>
-        <div class="cat-f" style="font-size:7px;"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#C87850;margin-right:4px;vertical-align:middle;"></span>Home</div>
-        <div class="cat-f" style="font-size:7px;"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#4A82A0;margin-right:4px;vertical-align:middle;"></span>Vehicle</div>
-        <div class="cat-f" style="font-size:7px;"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#5A9060;margin-right:4px;vertical-align:middle;"></span>Garden</div>
-        <div class="cat-f" style="font-size:7px;"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#8060A8;margin-right:4px;vertical-align:middle;"></span>Subscriptions</div>
+      <div class="cat-filters">
+        <div class="cat-f on">All</div>
+        <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#C87850;margin-right:4px;vertical-align:middle;"></span>Home</div>
+        <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#4A82A0;margin-right:4px;vertical-align:middle;"></span>Vehicle</div>
+        <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#5A9060;margin-right:4px;vertical-align:middle;"></span>Garden</div>
+        <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#8060A8;margin-right:4px;vertical-align:middle;"></span>Subscriptions</div>
       </div>
       <div class="dash-scroll" style="padding-top:8px;">
         <!-- Overdue -->
