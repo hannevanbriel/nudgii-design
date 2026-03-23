@@ -46,7 +46,7 @@ html{scroll-behavior:smooth;}
   /* Shadow hierarchy — elevation, not decoration */
   --shadow-card:    none;                              /* cards use border, not shadow */
   --shadow-tab-bar: 0 4px 20px rgba(26,22,18,0.11);
-  --shadow-fab:     0 4px 16px rgba(155,127,212,0.35);
+  --shadow-fab:     0 6px 20px rgba(155,127,212,0.45);
   --shadow-sheet:   0 -2px 20px rgba(26,22,18,0.12);
 
   /* Accessible mid — WCAG AA 4.6:1 on cream — use for ALL functional text */
@@ -325,7 +325,10 @@ section{padding-top:60px;}
     <!-- ii mark color versions -->
     <div class="rcard" style="margin-top:18px;">
       <div class="rcard-title">ii mark — 4 color versions <span class="tag" style="background:#EAF3DE;color:#3B6D11;">ClickUp 869ck812u</span></div>
-      <div class="rcard-body" style="margin-bottom:16px;">Four production-ready versions of the ii mark. Each has a defined surface it lives on. Never mix versions on the same surface.</div>
+      <div class="rcard-body" style="margin-bottom:16px;">Four production-ready versions of the ii mark. Each has a defined surface it lives on. Never mix versions on the same surface.<br><br>
+      <strong>Two SVG structures:</strong><br>
+      <strong>Dark-on-light bg (Versions A only):</strong> plum square background + cream left pill + CTA purple right pill + apricot dot. Used as the app icon — the bg square is part of the asset.<br>
+      <strong>Light-on-dark bg (Versions B, C, D):</strong> no bg square — pills float naked on their surface. Left pill adapts to surface (cream outline on light, cream fill on plum, near-white on dark sage). Right pill is always CTA purple. Apricot dot unchanged. Never use the square-bg version inline on a screen — the floating pill version is always correct for in-app use.</div>
 
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;">
 
@@ -1184,7 +1187,7 @@ final sidePad = MediaQuery.of(context).size.width &lt; 420 ? 16.0 : 20.0;</pre>
         Shadows communicate elevation — never decoration. Never add a shadow for aesthetics.<br><br>
         <code>--shadow-card: none</code> — cards use border, not shadow<br>
         <code>--shadow-tab-bar: 0 4px 20px rgba(26,22,18,0.11)</code> — floating pill tab bar<br>
-        <code>--shadow-fab: 0 4px 16px rgba(155,127,212,0.35)</code> — FAB (plum glow)<br>
+        <code>--shadow-fab: 0 6px 20px rgba(155,127,212,0.45)</code> — FAB (plum glow, elevated)<br>
         <code>--shadow-sheet: 0 -2px 20px rgba(26,22,18,0.12)</code> — bottom sheet
       </div>
     </div>
@@ -1844,7 +1847,9 @@ Overlay.of(context).insert(
       <div class="rcard-body">
         nudgii uses a <strong>floating pill tab bar</strong> — a white rounded card that hovers above screen content with a shadow. No hard border-top edge. Content scrolls behind it.<br><br>
         <strong>Spec:</strong> background <code>var(--surface)</code> · border-radius <code>22px</code> · padding <code>9px 4px 11px</code> · shadow <code>0 4px 20px rgba(26,22,18,0.11)</code> · border <code>1px solid rgba(26,22,18,0.07)</code> · bottom <code>14px</code> from screen edge.<br><br>
-        Active tab: full <code>ink</code> + 3px <code>cta</code> pip below label. Inactive: <code>ink 20% opacity</code>.
+        Active tab: icon stroke = <code>colorCta #9B7FD4</code> · label color = <code>colorCta #9B7FD4</code> · label weight <code>500</code>. No pip dot — colorCta on both icon and label is the active indicator. Inactive: icon + label at <code>ink 20% opacity</code>.<br><br>
+        <strong>Flutter note:</strong> set both <code>icon color</code> and <code>label TextStyle color</code> to <code>colorCta</code> for the active tab. No pip Container widget.<br>
+        <strong>CSS note:</strong> target <code>svg *</code> (not just <code>svg</code>) since Phosphor SVG children carry hardcoded stroke attributes that override parent stroke rules.
       </div>
     </div>
 
@@ -1853,7 +1858,8 @@ Overlay.of(context).insert(
       <div class="rcard-body">
         <strong>Position:</strong> bottom-right, adjacent to the tab pill. Never inside the pill.<br>
         <strong>Shape:</strong> rounded square <code>46×46px</code>, border-radius <code>15px</code>. Not a circle — matches the pill's visual language.<br>
-        <strong>Color:</strong> <code>cta #9B7FD4</code> background, <code>cta-fg #FAF8FF</code> Plus icon. Shadow <code>0 4px 16px rgba(155,127,212,0.35)</code>.<br>
+        <strong>Color:</strong> <code>cta #9B7FD4</code> background, <code>cta-fg #FAF8FF</code> Plus icon. Shadow <code>0 6px 20px rgba(155,127,212,0.45)</code>.<br>
+        <strong>Elevation:</strong> <code>margin-bottom: 4px</code> — FAB floats 4px above the tab bar bottom edge. This creates a clear visual hierarchy: navigation layer (tab bar) vs action layer (FAB). Flutter: apply bottom offset so FAB clears the tab bar.<br>
         <strong>On tap:</strong> Plus rotates to × (45° transform, spring easing). Scrim dims content to <code>rgba(26,22,18,0.18)</code>. Action sheet animates up from bottom-right.<br><br>
         <strong>Action sheet order — ergonomics first:</strong><br>
         ↑ Top (furthest reach) — <em>Ik weet wat ik nodig heb</em> · direct search · power users<br>

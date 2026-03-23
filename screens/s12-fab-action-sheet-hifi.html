@@ -21,7 +21,7 @@
   --space-6:24px;--space-8:32px;--space-12:48px;--space-16:64px;
   --shadow-card:none;
   --shadow-tab-bar:0 4px 20px rgba(26,22,18,0.11);
-  --shadow-fab:0 4px 16px rgba(155,127,212,0.35);
+  --shadow-fab:0 6px 20px rgba(155,127,212,0.45);
   --shadow-sheet:0 -2px 20px rgba(26,22,18,0.12);
 }
 body{background:#BDB8AE;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;padding:40px 16px 80px;display:flex;flex-direction:column;align-items:center;gap:48px;}
@@ -153,10 +153,11 @@ body{background:#BDB8AE;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:
 }
 .pi{display:flex;flex-direction:column;align-items:center;gap:2px;padding:0 3px;}
 .pi svg{width:18px;height:18px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke:rgba(26,22,18,0.2);}
-.pi.on svg{stroke:var(--ink);}
+.pi.on svg{stroke:var(--cta);}
+.pi.on svg *{stroke:var(--cta);}
 .pi-l{font-size:7px;color:rgba(26,22,18,0.2);}
-.pi.on .pi-l{color:var(--ink);font-weight:500;}
-.pi-pip{width:3px;height:3px;border-radius:50%;background:var(--cta);}
+.pi.on .pi-l{color:var(--cta);font-weight:500;}
+.pi-pip{width:3px;height:3px;border-radius:50%;background:var(--cta);display:none;}
 
 /* FAB */
 .fab{
@@ -165,7 +166,8 @@ body{background:#BDB8AE;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:
   border:none;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
   flex-shrink:0;
-  box-shadow:0 4px 16px rgba(155,127,212,0.35),0 1px 4px rgba(155,127,212,0.2);
+  margin-bottom:4px;
+  box-shadow:0 6px 20px rgba(155,127,212,0.45),0 1px 4px rgba(155,127,212,0.22);
   transition:transform 0.18s cubic-bezier(0.34,1.4,0.64,1),box-shadow 0.18s ease;
   position:relative;z-index:31;
 }
@@ -332,7 +334,8 @@ body{background:#BDB8AE;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:
         Border radius: <code>15px</code> — rounded square, not full circle<br>
         Background: <code>cta #9B7FD4</code><br>
         Icon: <code>Plus</code> → rotates to <code>×</code> when open<br>
-        Shadow: <code>0 4px 16px rgba(155,127,212,0.35)</code><br><br>
+        Shadow: <code>0 6px 20px rgba(155,127,212,0.45)</code><br>
+        Elevation: <code>margin-bottom: 4px</code> — floats above tab bar bottom edge<br><br>
         <strong>Rounded square, not circle</strong> — matches the pill's language and feels more considered than a typical circular FAB.
       </div>
     </div>
@@ -439,6 +442,46 @@ body{background:#BDB8AE;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:
 </div>
 
 <div style="font-size:10px;color:rgba(26,22,18,0.18);letter-spacing:1.5px;text-transform:uppercase;text-align:center;">nudgii · Floating tab bar + FAB action sheet · March 2026 · Elf Consult</div>
+
+<!-- CHANGELOG -->
+<div style="width:100%;max-width:1100px;background:#FFFFFF;border:1px solid rgba(26,22,18,0.08);border-radius:14px;padding:20px 24px;">
+  <div style="font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(26,22,18,0.28);margin-bottom:16px;">Changelog</div>
+
+  <style>
+    .cl-entry{border-bottom:1px solid rgba(26,22,18,0.07);padding:12px 0;}
+    .cl-entry:last-child{border-bottom:none;}
+    .cl-ver{font-size:10px;font-weight:500;color:rgba(26,22,18,0.45);letter-spacing:0.3px;margin-bottom:6px;}
+    .cl-body{font-size:11px;color:rgba(26,22,18,0.55);line-height:1.65;margin-bottom:4px;}
+    .cl-body:last-child{margin-bottom:0;}
+    .cl-body strong{color:rgba(26,22,18,0.72);font-weight:500;}
+  </style>
+
+  <div class="cl-entry">
+    <div class="cl-ver">v1.1 · 2026-03-22 · ADDITIVE</div>
+    <div class="cl-body"><strong>Initial hi-fi.</strong> Floating pill tab bar + FAB action sheet. 3 onboarding paths (Voice / Browse / Search). Interactive toggle on State 2. Icon strip showing 3 locked icon replacements (Faders / Scan / PencilLine).</div>
+  </div>
+
+  <div class="cl-entry">
+    <div class="cl-ver">v1.2 · 2026-03-23 · BREAKING</div>
+    <div class="cl-body"><strong>FAB shadow strengthened (BREAKING).</strong> Updated to 0 6px 20px rgba(155,127,212,0.45) — stronger elevation depth matching the raised positioning. Flutter: update BoxShadow accordingly.</div>
+    <div class="cl-body"><strong>FAB margin-bottom: 4px (BREAKING).</strong> FAB lifts 4px above tab bar bottom edge, creating clear visual hierarchy: navigation layer (tab bar) vs action layer (FAB). Flutter: position FAB with floatingActionButtonLocation: FloatingActionButtonLocation.endFloat and apply appropriate bottom offset.</div>
+    <div class="cl-body"><strong>Tab bar pip dot removed (BREAKING).</strong> Active tab indicated by colorCta on both icon AND label. No pip dot. Flutter: remove the Container pip widget from the active tab, set both icon stroke and label color to colorCta.</div>
+    <div class="cl-body"><strong>Tab bar active: full CTA color on icon + label (BREAKING).</strong> Active tab icon stroke = colorCta, label color = colorCta. CSS fix: must target svg * children (not just svg) since Phosphor SVG children have hardcoded stroke attributes. Flutter: set both icon color and label style color to colorCta.</div>
+  </div>
+
+  <div style="margin-top:14px;background:rgba(26,22,18,0.03);border-radius:9px;padding:12px 14px;">
+    <div style="font-size:9px;font-weight:500;color:rgba(26,22,18,0.35);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Flutter implementation</div>
+    <div style="font-size:10px;color:rgba(26,22,18,0.45);font-family:monospace;line-height:1.9;">
+      Mockup base:&nbsp;&nbsp;&nbsp;&nbsp;390px width (iPhone 15)<br>
+      SafeArea:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;top=false for content, progress bar outside SafeArea<br>
+      Scroll:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SingleChildScrollView for content zone<br>
+      Bottom zone:&nbsp;&nbsp;&nbsp;&nbsp;Sticky — fixed Column at bottom, not Spacer<br>
+      Progress bar:&nbsp;&nbsp;&nbsp;N/A — this is an app screen, not onboarding<br>
+      Scaling:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All visual elements × (screenWidth/390).clamp(0.9, 1.15)<br>
+      Special:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tab bar = custom widget — never BottomNavigationBar. FAB = custom positioned widget adjacent to pill, not inside it.
+    </div>
+  </div>
+</div>
 
 <script>
 let open = true; // starts open for demo

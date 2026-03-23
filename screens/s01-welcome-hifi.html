@@ -60,10 +60,7 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
 .w-content{flex:1;}
 .w-bottom{padding-bottom:24px;}
 .w-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;}
-.ii{display:flex;align-items:flex-start;gap:3px;}
-.ii-l{width:7px;height:20px;border-radius:100px;background:var(--ink);}
-.ii-r{width:7px;height:20px;border-radius:100px;background:rgba(155,127,212,0.45);position:relative;}
-.ii-dot{width:5px;height:5px;border-radius:50%;background:var(--ap-dk);position:absolute;top:2px;right:-2px;}
+.ii-mark{display:block;flex-shrink:0;}
 .free-badge{display:inline-flex;align-items:center;gap:4px;background:var(--sage-lt);border-radius:100px;padding:4px 10px 4px 7px;font-size:10px;font-weight:500;color:var(--sage);}
 .fb-dot{width:5px;height:5px;border-radius:50%;background:var(--sage);}
 .w-h1{font-family:'DM Serif Display',serif;font-size:33px;color:var(--ink);line-height:0.97;letter-spacing:-0.55px;margin-bottom:8px;}
@@ -74,8 +71,10 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
 .promise-line{font-size:13px;font-style:italic;color:var(--mid);line-height:1.5;margin-bottom:12px;font-weight:400;}
 
 /* Category strip — S-01 only, decorative */
-.cat-strip{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px;}
-.cat-pill{display:inline-flex;align-items:center;gap:5px;background:var(--surface);border:0.5px solid rgba(26,22,18,0.10);border-radius:100px;padding:4px 9px 4px 7px;font-size:10px;font-weight:500;color:var(--ink);}
+.cat-strip{display:flex;gap:5px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-bottom:14px;}
+.cat-strip::-webkit-scrollbar{display:none;}
+.cat-pill{display:inline-flex;align-items:center;gap:5px;background:var(--surface);border:0.5px solid rgba(26,22,18,0.12);border-radius:100px;padding:4px 10px;font-size:10px;font-weight:500;color:var(--mid-a);cursor:pointer;flex-shrink:0;}
+.cat-pill.active{background:var(--ink);color:#F5F0E8;border-color:var(--ink);}
 .cat-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
 
 /* Preview items — item row style, matches dashboard visual language */
@@ -177,12 +176,17 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
         <div class="w-screen">
           <div class="w-content">
             <div class="w-top">
-              <div class="ii"><div class="ii-l"></div><div class="ii-r"><div class="ii-dot"></div></div></div>
+              <svg class="ii-mark" width="18" height="20" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/></svg>
               <div class="free-badge"><div class="fb-dot"></div>Free · no credit card</div>
             </div>
             <div class="w-h1">Your stuff won't<br><em>maintain itself.</em></div>
             <div class="promise-line">nudgii knows when, for everything you own.</div>
+            <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(26,22,18,0.05);border:0.5px solid rgba(26,22,18,0.10);border-radius:100px;padding:3px 10px 3px 7px;margin:6px 0 12px;">
+  <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="#6B6358" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><polyline points="8,4.5 8,8 10.5,9.5"/></svg>
+  <span style="font-size:10px;color:#6B6358;font-weight:500;">Ready in 2 minutes</span>
+</div>
             <div class="cat-strip">
+              <div class="cat-pill active">All</div>
               <div class="cat-pill"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
               <div class="cat-pill"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
               <div class="cat-pill"><span class="cat-dot" style="background:#5A9060;"></span>Garden</div>
@@ -237,12 +241,17 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
         <div class="w-screen">
           <div class="w-content">
             <div class="w-top">
-              <div class="ii"><div class="ii-l"></div><div class="ii-r"><div class="ii-dot"></div></div></div>
+              <svg class="ii-mark" width="18" height="20" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/></svg>
               <div class="free-badge"><div class="fb-dot"></div>Free · no credit card</div>
             </div>
             <div class="w-h1">Your stuff won't<br><em>maintain itself.</em></div>
             <div class="promise-line">nudgii knows when, for everything you own.</div>
+            <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(26,22,18,0.05);border:0.5px solid rgba(26,22,18,0.10);border-radius:100px;padding:3px 10px 3px 7px;margin:6px 0 12px;">
+  <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="#6B6358" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><polyline points="8,4.5 8,8 10.5,9.5"/></svg>
+  <span style="font-size:10px;color:#6B6358;font-weight:500;">Ready in 2 minutes</span>
+</div>
             <div class="cat-strip">
+              <div class="cat-pill active">All</div>
               <div class="cat-pill"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
               <div class="cat-pill"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
               <div class="cat-pill"><span class="cat-dot" style="background:#5A9060;"></span>Garden</div>
@@ -353,6 +362,13 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
   <!-- CHANGELOG -->
   <div class="changelog">
     <div class="cl-title">Changelog</div>
+    <div class="cl-entry">
+  <div class="cl-ver">v1.3 · 2026-03-23 · ADDITIVE + BREAKING</div>
+  <div class="cl-body"><strong>ii mark replaced with SVG (BREAKING).</strong> CSS div-based ii mark replaced with inline SVG using correct brand colors: CTA purple left pill (#9B7FD4), plum right pill (#2D1F4A), apricot dot (#E8A87C). Flutter: use SvgPicture.asset with the ii_logo_dark_on_light_bg.svg asset on light backgrounds.</div>
+  <div class="cl-body"><strong>Category strip: scrollable single row + "All" added (BREAKING).</strong> flex-wrap removed, overflow-x:auto added. "All" pill added as first item (active state). Consistent with S-03 and S-09 filter rows. Flutter: SingleChildScrollView horizontal wrapping a Row of filter chips.</div>
+  <div class="cl-body"><strong>"Ready in 2 minutes" badge added (ADDITIVE).</strong> Appears below promise line, above category strip. Clock icon + "Ready in 2 minutes" in subtle warm neutral pill. Flutter: Row with Icon + Text inside Container with pill decoration.</div>
+  <div class="cl-body"><strong>Em dash removed from microcopy (BREAKING).</strong> "For example — tap" → "For example, tap". No em dashes anywhere in the app per design rules.</div>
+</div>
     <div class="cl-row">
       <span class="cl-tag cl-fix">v2.6</span>
       <div class="cl-body"><strong>Promise line added (ADDITIVE).</strong> Replaces "But we can remind you." with <em>"nudgii knows when, for everything you own."</em> — DM Sans 400 italic · 13px · colorMid. Bridges emotional headline and CTA commitment. Flutter: same widget as previous subtitle, copy + class name updated.</div>

@@ -154,7 +154,7 @@ All values locked in design-system v2.3. Never hardcode hex in Flutter — alway
 // Color tokens — light mode
 const Color colorCream     = Color(0xFFF5F0E8);  // App background
 const Color colorInk       = Color(0xFF1A1612);  // All body text — warm charcoal
-const Color colorCta       = Color(0xFF9B7FD4);  // Primary CTA, active chip, tab pip, Pro badge
+const Color colorCta       = Color(0xFF9B7FD4);  // Primary CTA, active filter chip, active tab icon+label, Pro badge
 const Color colorCtaFg     = Color(0xFFFAF8FF);  // Text on CTA button — lavender-white
 const Color colorApricot   = Color(0xFFE8A87C);  // ii dot, greeting name em, streak number
 const Color colorApricotDk = Color(0xFFC8784A);  // Due-soon date labels ONLY — no buttons
@@ -189,7 +189,7 @@ const Color darkTextMid    = Color(0xFF96A89C);
 
 **Color rules that never bend:**
 - `colorPlum` = done overlay ONLY. Never chips, headers, badges
-- `colorCta` = primary CTA button + active filter chip + tab pip + Pro badge. Two sanctioned uses only
+- `colorCta` = primary CTA button + active filter chip + active tab (icon + label) + Pro badge
 - `colorApricotDk` = due-soon date labels ONLY. Not buttons, not any interactive element
 - `colorTerra` = overdue status ONLY — date label color + task name. Nothing else
 - Category colors appear ONLY inside category icon chips. Never on status, never on UI icons
@@ -244,6 +244,7 @@ import 'package:google_fonts/google_fonts.dart';
 - Settings: `PhosphorIcons.faders` — NOT GearSix
 - Camera/AI scan: `PhosphorIcons.scan` — NOT CameraPlus
 - Edit/rename: `PhosphorIcons.pencilLine` — NOT PencilSimple
+- Back button: `PhosphorIcons.arrowLeft` — horizontal line + arrowhead. SVG: `<path d="M10 6H2"/><path d="M5 3L2 6L5 9"/>` in viewBox `0 0 12 12`. NOT a bare chevron, NOT CaretLeft.
 
 **Tab bar:** CalendarBlank / ChatCircleQuestion / User
 **FAB:** Plus → rotates 45° to × on open (do not swap icon, use `AnimatedRotation`)
@@ -258,16 +259,39 @@ Background: white | Border-radius: 22px | Padding: 9px 4px 11px
 Shadow: 0 4px 20px rgba(26,22,18,0.11) | Border: 1px solid rgba(26,22,18,0.07)
 Bottom: 14px from screen edge
 ```
-Active tab: full ink + 3px colorCta pip below label. Inactive: ink at 18% opacity.
+Active tab: colorCta (#9B7FD4) on BOTH icon stroke AND label. No pip dot — ever.
+Inactive tab: icon + label at rgba(26,22,18,0.20).
 Build as custom widget — NOT `BottomNavigationBar`.
+Flutter: target `svg *` children (not just `svg`) since Phosphor SVG children carry their own `stroke` attributes that override parent CSS.
 
 ### FAB
 ```
 Size: 46×46px | Border-radius: 15px (rounded square — NOT circle)
-Background: colorCta | Icon: colorCtaFg | Shadow: 0 4px 16px rgba(155,127,212,0.35)
+Background: colorCta | Icon: colorCtaFg (17px) | Shadow: 0 6px 20px rgba(155,127,212,0.45)
 Position: bottom-right, adjacent to pill, NOT inside pill
+Elevation: margin-bottom 4px — FAB lifts above tab bar bottom edge to signal action-vs-navigation hierarchy
 ```
 Action sheet order (ergonomics — voice nearest thumb): Voice (bottom) → Browse (middle) → Search (top)
+
+### ii mark — SVG variants
+
+Two in-app variants. Always use the correct one for the surface. Never swap them.
+
+**Dark-on-light (light backgrounds — cream, white):**
+- Left pill: `#9B7FD4` (CTA purple) · Right pill: `#2D1F4A` (plum) · Dot: `#E8A87C` (apricot)
+- Asset: `ii_logo_dark_on_light_bg.svg` — no background rect, pills float on surface
+- viewBox: `0 0 625.96 700.13`
+- Inline SVG: `<path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>`
+
+**Light-on-dark (dark backgrounds — plum done overlay, dark mode):**
+- Left pill: `#F5F0E8` (cream) · Right pill: `#9B7FD4` (CTA purple) · Dot: `#E8A87C` (apricot)
+- Asset: `ii_logo_light_on_dark bg_DEFAULT_OVERLAY.svg` — no background rect
+- Use on colorPlum (`#2D1F4A`) done overlay and dark mode surfaces
+
+**Never use the app icon asset (`nudgii_logo_dark_DEFAULT.svg`) inline** — it has a background rect baked in. In-app ii marks always use the floating pill versions above.
+
+Flutter: `SvgPicture.asset('assets/ii_logo_dark_on_light_bg.svg', width: 18, height: 20)` on light surfaces.
+Display size: 18×20px (hi-fi mockups) · Scale with `(screenWidth/390).clamp(0.9,1.15)`.
 
 ### CTA button
 ```
@@ -286,6 +310,23 @@ Each item: background var(--surface) · border-radius 9–10px · border 0.5px s
 Container: display:flex · flex-direction:column · gap:6px (or 8px) · NO background · NO border · NO overflow:hidden
 ❌ Never border-bottom separators between items — items are cards, not table rows
 ❌ Never a single container card wrapping all items — each item is its own card
+
+### Category filter strip
+
+Used on S-01 (preview), S-03 (browse), S-09 (dashboard). Same pattern everywhere.
+
+```
+Layout: single horizontal scrollable row — flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none
+Gap: 4–5px between pills | Margin-bottom: 10–14px
+```
+**"All" pill always first, always the initial active state.**
+Active pill: `background: var(--ink); color: #F5F0E8; border-color: var(--ink)`
+Inactive pill: `background: var(--surface); border: 0.5px solid rgba(26,22,18,0.12); color: var(--mid-a)`
+Pill shape: `border-radius: 100px; padding: 4px 10px; font-size: 10px; font-weight: 500; flex-shrink: 0`
+Category pills include a colored dot (`width: 6px; height: 6px; border-radius: 50%`) in category color, then label.
+Flutter: `SingleChildScrollView(scrollDirection: Axis.horizontal)` wrapping a `Row` of `FilterChip` widgets. Never a `Wrap`.
+❌ Never wrap to a second line — always a single scrollable row.
+❌ Never omit "All" — it is always the first pill.
 
 ### Nudge cards
 - White on cream background (subtle but essential — creates depth)
@@ -315,6 +356,8 @@ Container: display:flex · flex-direction:column · gap:6px (or 8px) · NO backg
 ```
 
 **Free badge:** sage-lt background `#EAF3DE` · sage text `#3B6D11` · sage dot · copy: "Free · no credit card"
+
+**"Ready in 2 minutes" badge:** Sits between the promise subtitle and the category filter strip. Clock icon (`PhosphorIcons.clock`, 9–11px, stroke `#6B6358`) + text "Ready in 2 minutes". Style: `background: rgba(26,22,18,0.05); border: 0.5px solid rgba(26,22,18,0.10); border-radius: 100px; padding: 3px 10px 3px 7px`. Font: 10px DM Sans 500, color `#6B6358`. Reduces drop-off by setting time expectation before the path-choice moment.
 
 **Preview items:** 3 item rows in a white card (same visual language as dashboard item cards).
 Each row: category icon chip 28×28px (category-colored bg, Phosphor outline icon) + item name 13px/500 + status label 11px.
@@ -520,7 +563,22 @@ This keeps the design proportional on SE (375px) through Pro Max (430px) without
 
 ---
 
-## 17. What NOT to do
+## 17. Onboarding UX decisions — micro-improvements
+
+These 5 tweaks were applied across the onboarding flow (2026-03-23) to reduce drop-off and uncertainty. Do not revert them.
+
+| Screen | Tweak | Rationale |
+|---|---|---|
+| S-01 | "Ready in 2 minutes" time badge added between subtitle and category strip | Sets expectation early, removes the biggest unknown before path-choice |
+| S-02 | Sub includes "2–3 items is plenty to start." hint (italic, `colorMidAccessible`) | Cold-start users freeze when they think they need to add everything at once |
+| S-05 | Sub: "Scan to confirm brand or model. You can adjust anything later." | Reduces review-screen friction; reminds user the AI scan is available; "adjust later" lowers perfectionism |
+| S-06 | "Continue without account" is a visible 8px link with separator + device note, not a 60%-opacity whisper | Lower-commitment path must be findable — hiding it increases abandonment, not sign-ups |
+| S-07 | Sub: "We'll remind you when it matters." (was "We've got it from here.") | User-centric framing (what they get) vs brand-centric (what we do) |
+| S-09 | "swipe right to complete" gesture hint below first overdue task | First-time users don't discover swipe on their own; hint disappears after first completion |
+
+---
+
+## 18. What NOT to do
 
 These are locked decisions. Do not question them in design or code reviews.
 
@@ -556,7 +614,7 @@ These are locked decisions. Do not question them in design or code reviews.
 
 ---
 
-## 18. Decisions log
+## 19. Decisions log
 
 Update this section when open decisions are resolved.
 
@@ -583,11 +641,19 @@ Update this section when open decisions are resolved.
 | S-06 progress indicator | Continuous bar at 80% fill — old 3-dot system removed. Matches spec from progress bar decision. | ✅ Yes | 2026-03-22 |
 | Design system versioning | No version numbers in design system title, nav, or component cards. Components are standalone definitions — they just ARE what they are. Sections 07 + 13 merged into single "Component library". Copy library is Section 13. | ✅ Yes | 2026-03-22 |
 | CTA button mic spec | Mic button inside Path A CTA: 22×22px circle, rgba(250,248,255,0.15) bg, Phosphor Microphone 11px, stroke #FAF8FF stroke-width 1.8. Now documented in design system Section 07 component card. | ✅ Yes | 2026-03-22 |
-| Hi-fi Flutter changelog | Every hi-fi screen must include a changelog section with: version+date, BREAKING/ADDITIVE, visual description, Flutter implementation notes, and standard Flutter block (mockup base, SafeArea, scroll, bottom zone, progress bar, scaling, special). See Section 19. | ✅ Yes | 2026-03-22 |
+| Hi-fi Flutter changelog | Every hi-fi screen must include a changelog section with: version+date, BREAKING/ADDITIVE, visual description, Flutter implementation notes, and standard Flutter block (mockup base, SafeArea, scroll, bottom zone, progress bar, scaling, special). See Section 20. | ✅ Yes | 2026-03-22 |
+| Tab bar active state | No pip dot. Active tab = colorCta on BOTH icon stroke AND label. Inactive = rgba(26,22,18,0.20). CSS: must target svg * children. Flutter: both icon color and label TextStyle set to colorCta. | ✅ Yes | 2026-03-23 |
+| FAB spec v1.1 | Shadow updated to 0 6px 20px rgba(155,127,212,0.45). Icon 17px. margin-bottom 4px for elevation above tab bar. | ✅ Yes | 2026-03-23 |
+| ii mark SVG | CSS text-based ii mark replaced with inline SVG everywhere. Two variants: dark-on-light (CTA purple + plum + apricot) for light surfaces; light-on-dark (cream + CTA purple + apricot) for plum/dark surfaces. See Section 10 component card. | ✅ Yes | 2026-03-23 |
+| Back button | Phosphor ArrowLeft: horizontal line + arrowhead. SVG paths d="M10 6H2" + d="M5 3L2 6L5 9" in viewBox 0 0 12 12. Replaces bare chevron. | ✅ Yes | 2026-03-23 |
+| Category filter strip | "All" pill always first (active), followed by category pills. Single scrollable row (nowrap + overflow-x:auto). No second line ever. Consistent across S-01, S-03, S-09. | ✅ Yes | 2026-03-23 |
+| "Ready in 2 minutes" badge | Added to S-01 between subtitle and category strip. Clock icon + label in subtle pill. Sets time expectation before path choice. | ✅ Yes | 2026-03-23 |
+| Onboarding UX micro-improvements | 5 targeted tweaks applied (S-02 hint, S-05 sub, S-06 skip visibility, S-07 sub, S-09 gesture hint). Documented in Section 17. | ✅ Yes | 2026-03-23 |
+| Em dash | Never use — anywhere in copy, labels, microcopy, code, or documentation. Use commas, colons, or line breaks instead. | ✅ Yes | 2026-03-23 |
 
 ---
 
-## 19. Hi-fi screen changelog format — required on every hi-fi file
+## 20. Hi-fi screen changelog format — required on every hi-fi file
 
 Every hi-fi screen file must include a changelog section below the phone mockup(s). This saves the developer from asking clarifying questions and prevents an hour of debugging per screen.
 
