@@ -437,6 +437,11 @@ body {
         <div class="h1" style="margin-top:8px;">Your stuff won't<br><em>maintain itself.</em></div>
         <!-- UPDATED SUBTITLE -->
         <div class="promise">Add what you own. We handle the rest.</div>
+        <!-- READY IN 2 MIN BADGE -->
+        <div style="display:inline-flex;align-items:center;gap:4px;background:rgba(26,22,18,0.05);border:0.5px solid rgba(26,22,18,0.10);border-radius:100px;padding:2px 8px 2px 5px;margin:5px 0 9px;">
+          <svg width="9" height="9" viewBox="0 0 16 16" fill="none" stroke="#6B6358" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><polyline points="8,4.5 8,8 10.5,9.5"/></svg>
+          <span style="font-size:7px;color:#6B6358;font-weight:500;">Ready in 2 minutes</span>
+        </div>
         <div class="cat-strip">
           <div class="cat-f" style="font-size:7px;"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#C87850;margin-right:4px;vertical-align:middle;"></span>Home</div>
           <div class="cat-f" style="font-size:7px;"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#4A82A0;margin-right:4px;vertical-align:middle;"></span>Vehicle</div>
@@ -498,6 +503,7 @@ body {
       <div class="scroll" style="padding-top:6px;">
         <div class="h3" style="margin-bottom:4px;">What do you own?</div>
         <div class="sub">Say it, type it, or snap a photo. nudgii handles the rest.</div>
+        <div style="font-size:7px;color:var(--mid-ac);font-style:italic;margin-bottom:8px;">2–3 items is plenty to start.</div>
         <div class="context-pill">
           <div class="ctx-dot"></div>
           <div class="ctx-text"><strong>CV ketel noted.</strong> What else do you have?</div>
@@ -582,7 +588,7 @@ body {
       <div class="top-bar"><div class="back-btn"><svg viewBox="0 0 12 12"><polyline points="8,2 4,6 8,10"/></svg></div></div>
       <div class="scroll" style="padding-top:10px;">
         <div class="h3">Here's what nudgii found.</div>
-        <div class="sub" style="margin-bottom:10px;">Scan to confirm brand or model. Tell nudgii when you last did each task.</div>
+        <div class="sub" style="margin-bottom:10px;">Scan to confirm brand or model. You can adjust anything later.</div>
 
         <!-- Card: CV ketel -->
         <div class="rev-card">
@@ -698,7 +704,10 @@ body {
           <span>Cancel anytime</span><div class="auth-rdot"></div>
           <span>No card needed</span>
         </div>
-        <div style="text-align:center;padding-top:14px;"><span style="font-size:7.5px;color:rgba(138,128,112,0.60);cursor:pointer;">Continue without account</span></div>
+        <div style="text-align:center;padding-top:12px;border-top:0.5px solid rgba(26,22,18,0.07);margin-top:4px;">
+          <span style="font-size:8px;color:var(--mid-ac);cursor:pointer;border-bottom:1px solid rgba(107,99,88,0.22);padding-bottom:1px;">Continue without account</span>
+          <div style="font-size:6.5px;color:rgba(107,99,88,0.55);margin-top:4px;">Your items stay on this device until you sign in.</div>
+        </div>
       </div>
     </div>
   </div>
@@ -769,8 +778,8 @@ body {
         <div style="font-size:8px;font-weight:500;letter-spacing:1.3px;text-transform:uppercase;color:rgba(245,240,232,0.40);margin-bottom:10px;">you're in</div>
         <!-- Personal headline — DM Serif Display italic, apricot — like the done overlay card -->
         <div style="font-family:'DM Serif Display',Georgia,serif;font-size:26px;font-style:italic;font-weight:400;line-height:1.05;letter-spacing:-0.3px;color:#E8A87C;margin-bottom:8px;text-align:center;">Your boiler<br>is relieved.</div>
-        <!-- Sub — simple, cream -->
-        <div style="font-size:8.5px;color:rgba(245,240,232,0.50);line-height:1.55;font-style:italic;margin-bottom:28px;text-align:center;">We've got it from here.</div>
+        <!-- Sub — user-centric, cream -->
+        <div style="font-size:8.5px;color:rgba(245,240,232,0.50);line-height:1.55;font-style:italic;margin-bottom:28px;text-align:center;">We'll remind you when it matters.</div>
         <!-- First nudge pill — minimal -->
         <div style="background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.10);border-radius:100px;padding:5px 14px;display:inline-flex;align-items:center;gap:7px;margin-bottom:8px;">
           <span style="font-size:7.5px;color:rgba(245,240,232,0.70);">First reminder</span>
@@ -813,6 +822,10 @@ body {
         <!-- Overdue -->
         <div class="sec-lbl" style="margin-top:0;">Overdue</div>
         <div class="dcard"><div class="chip vehicle"><svg viewBox="0 0 16 16"><path d="M2 9.5L4 5h8l2 4.5"/><path d="M1 9.5h14"/><circle cx="4.5" cy="12" r="2"/><circle cx="11.5" cy="12" r="2"/></svg></div><div class="dcontent"><div class="dname" style="color:var(--terra);">Switch to winter tyres</div><div class="dsub">Car · before Nov</div></div><div class="ddate overdue">Oct 24</div></div>
+        <div style="display:flex;align-items:center;justify-content:flex-end;gap:3px;padding:2px 14px 6px;">
+          <svg width="10" height="7" viewBox="0 0 10 7" fill="none"><path d="M1 3.5h8M6 1l2.5 2.5L6 6" stroke="#6B6358" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span style="font-size:6px;color:var(--mid-ac);font-style:italic;">swipe right to complete</span>
+        </div>
 
         <!-- This week -->
         <div class="sec-lbl">This week</div>
