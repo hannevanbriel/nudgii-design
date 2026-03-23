@@ -238,6 +238,14 @@ body {
 .rtask.locked .rtask-dot { background: rgba(26,22,18,0.06); }
 .pro-lock { font-size: 6.5px; color: var(--cta); background: rgba(155,127,212,0.10); border-radius: 100px; padding: 1px 5px; border: 0.5px solid rgba(155,127,212,0.18); }
 
+/* Collapsed review card */
+.rev-card.collapsed .rev-tasks { display: none; }
+.rev-card.collapsed .last-done-row { display: none; }
+.rev-collapsed-hint { padding: 7px 10px 8px; display: flex; align-items: center; gap: 5px; }
+.rch-count { font-size: 7px; color: var(--mid); flex: 1; }
+.rch-chevron { width: 14px; height: 14px; display: flex; align-items: center; justify-content: center; }
+.rch-chevron svg { width: 10px; height: 10px; stroke: rgba(26,22,18,0.25); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
 /* "When last done?" row */
 .last-done-row { padding: 6px 10px 8px; border-top: 0.5px solid rgba(26,22,18,0.05); display: flex; align-items: center; gap: 6px; }
 .last-done-label { font-size: 7px; color: var(--mid); flex-shrink: 0; }
@@ -430,10 +438,10 @@ body {
         <!-- UPDATED SUBTITLE -->
         <div class="promise">Add what you own. We handle the rest.</div>
         <div class="cat-strip">
-          <div class="cat-pill"><span class="cat-dot" style="background:#C87850"></span>Home</div>
-          <div class="cat-pill"><span class="cat-dot" style="background:#4A82A0"></span>Vehicle</div>
-          <div class="cat-pill"><span class="cat-dot" style="background:#5A9060"></span>Garden</div>
-          <div class="cat-pill"><span class="cat-dot" style="background:#8060A8"></span>Subscriptions</div>
+          <div class="cat-f" style="font-size:7px;"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#C87850;margin-right:4px;vertical-align:middle;"></span>Home</div>
+          <div class="cat-f" style="font-size:7px;"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#4A82A0;margin-right:4px;vertical-align:middle;"></span>Vehicle</div>
+          <div class="cat-f" style="font-size:7px;"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#5A9060;margin-right:4px;vertical-align:middle;"></span>Garden</div>
+          <div class="cat-f" style="font-size:7px;"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#8060A8;margin-right:4px;vertical-align:middle;"></span>Subscriptions</div>
         </div>
         <div class="micro">For example — tap what applies to you:</div>
         <div class="task-rows">
@@ -599,26 +607,16 @@ body {
           </div>
         </div>
 
-        <!-- Card: Dishwasher -->
-        <div class="rev-card">
+        <!-- Card: Dishwasher — collapsed, tap to expand -->
+        <div class="rev-card collapsed" style="cursor:pointer;">
           <div class="rev-head">
             <div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div>
             <div class="rev-name">Dishwasher</div>
-            <div class="scan-btn"><svg viewBox="0 0 16 16"><path d="M2 6V3.5A1.5 1.5 0 013.5 2H6"/><path d="M10 2h2.5A1.5 1.5 0 0114 3.5V6"/><path d="M14 10v2.5a1.5 1.5 0 01-1.5 1.5H10"/><path d="M6 14H3.5A1.5 1.5 0 012 12.5V10"/></svg></div>
             <div class="remove-btn"><svg viewBox="0 0 12 12"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></div>
           </div>
-          <div class="rev-tasks">
-            <div class="rtask"><div class="rtask-dot"></div><div class="rtask-name">Clean dishwasher filter</div><div class="rtask-cad">every 6–8 wks</div></div>
-            <div class="rtask"><div class="rtask-dot"></div><div class="rtask-name">Refill dishwasher salt</div><div class="rtask-cad">every 6–8 wks</div></div>
-            <div class="rtask"><div class="rtask-dot"></div><div class="rtask-name">Hot maintenance wash</div><div class="rtask-cad">monthly</div></div>
-          </div>
-          <div class="last-done-row">
-            <div class="last-done-label">Last done:</div>
-            <div class="last-done-opts">
-              <div class="ldo active">Recently</div>
-              <div class="ldo">A while ago</div>
-              <div class="ldo">Not sure</div>
-            </div>
+          <div class="rev-collapsed-hint">
+            <div class="rch-count">3 tasks · tap to review</div>
+            <div class="rch-chevron"><svg viewBox="0 0 10 10"><polyline points="2,4 5,7 8,4"/></svg></div>
           </div>
         </div>
 
@@ -803,7 +801,15 @@ body {
         </div>
         <div class="greeting-sub">6 tasks need attention</div>
       </div>
-      <div class="dash-scroll">
+      <!-- Category filters -->
+      <div style="display:flex;gap:4px;padding:7px 14px 0;overflow-x:auto;scrollbar-width:none;flex-shrink:0;">
+        <div class="cat-f on" style="font-size:7px;">All</div>
+        <div class="cat-f" style="font-size:7px;"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#C87850;margin-right:4px;vertical-align:middle;"></span>Home</div>
+        <div class="cat-f" style="font-size:7px;"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#4A82A0;margin-right:4px;vertical-align:middle;"></span>Vehicle</div>
+        <div class="cat-f" style="font-size:7px;"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#5A9060;margin-right:4px;vertical-align:middle;"></span>Garden</div>
+        <div class="cat-f" style="font-size:7px;"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#8060A8;margin-right:4px;vertical-align:middle;"></span>Subscriptions</div>
+      </div>
+      <div class="dash-scroll" style="padding-top:8px;">
         <!-- Overdue -->
         <div class="sec-lbl" style="margin-top:0;">Overdue</div>
         <div class="dcard"><div class="chip vehicle"><svg viewBox="0 0 16 16"><path d="M2 9.5L4 5h8l2 4.5"/><path d="M1 9.5h14"/><circle cx="4.5" cy="12" r="2"/><circle cx="11.5" cy="12" r="2"/></svg></div><div class="dcontent"><div class="dname" style="color:var(--terra);">Switch to winter tyres</div><div class="dsub">Car · before Nov</div></div><div class="ddate overdue">Oct 24</div></div>
@@ -819,11 +825,7 @@ body {
         <div class="dcard"><div class="chip sub"><svg viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M5 8h6M8 5v6"/></svg></div><div class="dcontent"><div class="dname">Renew Netflix subscription</div><div class="dsub">Subscriptions · yearly</div></div><div class="ddate ok">Nov 12</div></div>
         <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div><div class="dcontent"><div class="dname">Check CO detector</div><div class="dsub">CV ketel · yearly</div></div><div class="ddate ok">Nov 15</div></div>
 
-        <!-- Upgrade nudge (free tier) -->
-        <div style="background:rgba(155,127,212,0.06);border:0.5px solid rgba(155,127,212,0.18);border-radius:10px;padding:8px 10px;margin-top:8px;display:flex;align-items:center;gap:8px;">
-          <div style="flex:1;"><div style="font-size:8px;font-weight:500;color:var(--ink);margin-bottom:2px;">4 of 10 items used</div><div style="font-size:7px;color:var(--mid-ac);">Add up to 6 more. Go Pro for unlimited.</div></div>
-          <div style="font-size:7.5px;font-weight:500;color:var(--cta);white-space:nowrap;">+ Add item</div>
-        </div>
+        <!-- No upgrade nudge on first dashboard visit — item count lives in Profile -->
       </div>
     </div>
     <!-- Tab bar + FAB -->
