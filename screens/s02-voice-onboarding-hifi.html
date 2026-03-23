@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · S-02 Voice onboarding — hi-fi</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+
+:root{
+  --cream:#F5F0E8;--ink:#1A1612;--mid:#8A8070;--mid-lt:#B0A898;
+  --border:rgba(26,22,18,0.08);--border-md:rgba(26,22,18,0.12);
+  --ap:#E8A87C;--ap-dk:#C8784A;--terra:#C4503A;
+  --plum:#2D1F4A;--cta:#9B7FD4;--cta-fg:#FAF8FF;
+  --mid-a:#6B6358;
+  --sage:#3B6D11;--sage-lt:#EAF3DE;
+  --red:#A32D2D;--red-lt:#FCEBEB;
+  --surface:#FFFFFF;
+  --ink-06:rgba(26,22,18,0.06);--ink-08:rgba(26,22,18,0.08);
+  --ink-10:rgba(26,22,18,0.10);--ink-16:rgba(26,22,18,0.16);
+}
+
+body{
+  background:#CBC5BB;
+  font-family:'DM Sans',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  padding:0 0 80px;
+}
+
+/* ── NAV ── */
+nav{
+  background:var(--cream);border-bottom:1px solid var(--border-md);
+  padding:0 32px;display:flex;align-items:center;gap:16px;
+  height:48px;position:sticky;top:0;z-index:100;
+}
+.nav-back{
+  font-size:13px;color:var(--mid);text-decoration:none;
+  display:flex;align-items:center;gap:8px;
+}
+.nav-back:hover{color:var(--ink);}
+.nav-sep{color:var(--border-md);}
+.nav-title{font-size:13px;font-weight:500;}
+.nav-status{
+  margin-left:auto;font-size:10px;font-weight:500;
+  padding:3px 10px;border-radius:100px;
+  background:rgba(200,120,80,0.10);color:#7A3A10;
+  border:1px solid rgba(200,120,80,0.20);
+}
+
+/* ── PAGE ── */
+.page{padding:40px 32px 60px;max-width:1700px;margin:0 auto;}
+
+/* ── PAGE HEADER ── */
+.page-eyebrow{
+  font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(26,22,18,0.28);margin-bottom:10px;
+}
+.page-h1{
+  font-family:'DM Serif Display',serif;font-size:28px;
+  color:var(--ink);letter-spacing:-0.3px;margin-bottom:6px;
+}
+.page-sub{
+  font-size:14px;color:var(--mid-a);line-height:1.65;
+  max-width:640px;margin-bottom:12px;
+}
+.meta{display:flex;gap:8px;margin-bottom:48px;flex-wrap:wrap;}
+.mp{
+  font-size:11px;font-weight:500;padding:3px 10px;border-radius:100px;
+  border:1px solid var(--ink-10);color:var(--mid);
+}
+.mp.hifi{background:rgba(155,127,212,0.08);color:#5C3E8A;border-color:rgba(155,127,212,0.20);}
+.mp.ob{background:rgba(200,120,80,0.08);color:#7A3A10;border-color:rgba(200,120,80,0.18);}
+
+/* ── PHONES ROW ── */
+.phones-row{
+  display:flex;gap:28px;align-items:flex-start;
+  flex-wrap:nowrap;overflow-x:auto;
+  padding-bottom:20px;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(26,22,18,0.2) transparent;
+}
+.phones-row::-webkit-scrollbar{height:4px;}
+.phones-row::-webkit-scrollbar-thumb{background:rgba(26,22,18,0.2);border-radius:2px;}
+
+.phone-col{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+.phone-lbl{
+  font-size:9px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;
+  color:rgba(26,22,18,0.32);text-align:center;margin-bottom:8px;
+}
+.phone-sub{
+  font-size:11px;color:var(--mid-a);text-align:center;
+  max-width:280px;margin:10px auto 0;line-height:1.55;
+}
+
+/* ── PHONE SHELL ── */
+.phone{
+  width:390px;height:844px;border-radius:50px;overflow:hidden;
+  background:var(--cream);
+  border:1.5px solid rgba(26,22,18,0.09);
+  box-shadow:0 28px 60px rgba(26,22,18,0.18),0 6px 16px rgba(26,22,18,0.07),inset 0 1px 0 rgba(255,255,255,0.65);
+  position:relative;flex-shrink:0;
+  display:flex;flex-direction:column;
+}
+
+/* notch + status bar */
+.notch{height:24px;background:var(--cream);display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px;}
+.np{width:102px;height:8px;border-radius:100px;background:rgba(26,22,18,0.10);}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:5px 18px 0;font-size:11px;font-weight:500;color:rgba(26,22,18,0.36);}
+.batt{width:14px;height:6px;border:1.5px solid rgba(26,22,18,0.28);border-radius:2px;position:relative;}
+.batt::after{content:'';position:absolute;left:1px;top:1px;right:2px;bottom:1px;background:rgba(26,22,18,0.32);border-radius:1px;}
+
+/* progress bar — full-width outside safearea */
+.prog-bar{width:100%;height:3px;background:rgba(26,22,18,0.08);flex-shrink:0;}
+.prog-fill{height:3px;border-radius:0 100px 100px 0;background:var(--cta);}
+
+/* back button row */
+.back-row{
+  display:flex;align-items:center;padding:10px 16px 6px;
+  flex-shrink:0;
+}
+.back-btn{
+  width:32px;height:32px;display:flex;align-items:center;justify-content:center;
+  background:var(--surface);border-radius:9px;
+  border:0.5px solid rgba(26,22,18,0.10);flex-shrink:0;
+}
+.back-btn svg{width:9px;height:9px;stroke:var(--ink);stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+
+/* conversation area — flex:1 scrollable */
+.conv-area{
+  flex:1;overflow-y:auto;padding:8px 16px 10px;
+  display:flex;flex-direction:column;gap:10px;
+}
+.conv-area::-webkit-scrollbar{display:none;}
+
+/* nudgii message */
+.nudgii-msg{display:flex;flex-direction:column;align-items:flex-start;gap:3px;}
+.nudgii-from{
+  font-size:8px;font-weight:500;letter-spacing:1px;
+  /* text-transform:uppercase is CSS — the text content is always lowercase "nudgii" */
+  text-transform:uppercase;
+  color:var(--mid-a);margin-bottom:1px;padding-left:2px;
+}
+.nudgii-bubble{
+  background:var(--surface);
+  border:0.5px solid rgba(26,22,18,0.08);
+  border-radius:12px 12px 12px 4px;
+  padding:9px 12px;
+  box-shadow:0 1px 3px rgba(26,22,18,0.04);
+  max-width:88%;
+}
+.nb-text{font-size:12px;line-height:1.6;color:var(--ink);}
+.nb-text em{font-style:italic;color:var(--cta);font-weight:500;}
+
+/* confirmed item chips — inside nudgii bubble */
+.confirmed-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px;}
+.cc-chip{
+  display:inline-flex;align-items:center;gap:3px;
+  background:var(--sage-lt);border-radius:100px;
+  padding:2.5px 8px 2.5px 6px;
+  font-size:10px;font-weight:500;color:var(--sage);
+}
+.cc-chip svg{width:9px;height:9px;stroke:var(--sage);stroke-width:2;fill:none;flex-shrink:0;}
+
+/* hint sub text */
+.nb-hint{
+  font-size:10px;font-style:italic;color:var(--mid-a);
+  margin-top:5px;line-height:1.5;
+}
+
+/* suggestion chips row */
+.suggest-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;}
+.sug-chip{
+  background:var(--surface);
+  border:0.5px solid rgba(26,22,18,0.13);
+  border-radius:100px;padding:3px 9px;
+  font-size:10px;color:var(--mid-a);
+  font-weight:400;
+}
+
+/* user bubble */
+.user-msg{display:flex;justify-content:flex-end;}
+.user-bubble{
+  background:var(--cta);
+  border-radius:12px 12px 4px 12px;
+  padding:9px 12px;max-width:84%;
+}
+.ub-text{font-size:12px;line-height:1.6;color:var(--cta-fg);}
+
+/* waveform + listening state */
+.listen-block{
+  display:flex;flex-direction:column;align-items:center;
+  gap:6px;padding:12px 0 4px;
+}
+.wave{display:flex;align-items:center;gap:3px;height:28px;}
+.wbar{width:3px;border-radius:100px;background:var(--cta);}
+.wbar:nth-child(1){height:6px;opacity:0.35;}
+.wbar:nth-child(2){height:12px;opacity:0.55;}
+.wbar:nth-child(3){height:20px;opacity:0.75;}
+.wbar:nth-child(4){height:26px;}
+.wbar:nth-child(5){height:16px;opacity:0.70;}
+.wbar:nth-child(6){height:28px;}
+.wbar:nth-child(7){height:18px;opacity:0.75;}
+.wbar:nth-child(8){height:11px;opacity:0.55;}
+.wbar:nth-child(9){height:5px;opacity:0.30;}
+.listen-label{font-size:10px;font-style:italic;color:var(--mid-a);}
+
+/* faded user bubble (in-progress transcription) */
+.user-msg-faded{display:flex;justify-content:flex-end;opacity:0.65;}
+
+/* input bar wrap — fixed, outside scroll */
+.input-zone{
+  flex-shrink:0;
+  padding:7px 16px 10px;
+  background:var(--cream);
+  border-top:0.5px solid rgba(26,22,18,0.07);
+}
+.input-bar{
+  display:flex;align-items:center;gap:7px;
+  background:var(--surface);
+  border:0.5px solid rgba(26,22,18,0.12);
+  border-radius:100px;
+  padding:6px 6px 6px 12px;
+}
+.input-bar.listening{
+  border-color:rgba(196,80,58,0.30);
+}
+.ib-icon{
+  width:18px;height:18px;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.ib-icon svg{width:14px;height:14px;stroke:var(--mid-a);stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.ib-placeholder{
+  flex:1;font-size:10px;color:rgba(107,99,88,0.45);
+  font-style:italic;line-height:1;
+}
+.ib-placeholder.listening-text{color:rgba(196,80,58,0.65);}
+.mic-btn{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--cta);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  box-shadow:0 2px 8px rgba(155,127,212,0.35);
+}
+.mic-btn svg{width:12px;height:12px;stroke:var(--cta-fg);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.mic-btn.active{background:var(--terra);box-shadow:0 2px 8px rgba(196,80,58,0.35);}
+.terra{color:var(--terra);}
+
+/* privacy note below input bar */
+.privacy-note{
+  text-align:center;font-size:9px;
+  color:rgba(107,99,88,0.45);
+  margin-top:4px;font-style:italic;
+  letter-spacing:0.1px;
+}
+
+/* ── ANNOTATION COLUMN ── */
+.annot-col{
+  flex:0 0 340px;min-width:280px;
+  display:flex;flex-direction:column;gap:10px;
+  padding-top:0;
+}
+.annot-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:14px 16px;
+}
+.annot-card.decision{border-color:rgba(155,127,212,0.22);background:rgba(155,127,212,0.03);}
+.annot-head{
+  font-size:10px;font-weight:500;letter-spacing:0.3px;
+  margin-bottom:6px;display:flex;align-items:center;gap:6px;
+}
+.badge-state{
+  font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;
+  background:rgba(155,127,212,0.12);color:#5C3E8A;
+}
+.badge-rule{
+  font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;
+  background:rgba(59,109,17,0.10);color:var(--sage);
+}
+.badge-note{
+  font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;
+  background:rgba(26,22,18,0.07);color:var(--mid);
+}
+.annot-body{font-size:11px;color:var(--mid-a);line-height:1.65;}
+.annot-body strong{color:var(--ink);font-weight:500;}
+.annot-body code{font-family:monospace;font-size:10px;background:var(--ink-06);padding:1px 4px;border-radius:3px;color:var(--ink);}
+ul.ann-list{padding-left:14px;margin-top:4px;}
+ul.ann-list li{font-size:11px;color:var(--mid-a);line-height:1.65;margin-bottom:2px;}
+ul.ann-list li strong{color:var(--ink);font-weight:500;}
+
+/* section heading inside annot */
+.annot-section{
+  font-size:9px;font-weight:500;letter-spacing:1.6px;
+  text-transform:uppercase;color:rgba(26,22,18,0.28);
+  margin:20px 0 8px;
+}
+
+/* ── LAYOUT WRAPPER ── */
+.content-row{
+  display:flex;gap:40px;align-items:flex-start;
+}
+
+/* ── DIVIDER ── */
+.divider{height:1px;background:var(--border);margin:48px 0;}
+
+/* ── CHANGELOG ── */
+.changelog{
+  width:100%;max-width:1400px;
+  background:var(--surface);border-radius:12px;
+  border:1px solid var(--border);padding:24px 28px;
+}
+.cl-title{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:16px;}
+.cl-entry{margin-bottom:8px;}
+.cl-ver{font-size:10px;font-weight:500;letter-spacing:0.3px;color:var(--mid-a);margin-bottom:6px;}
+.cl-body{font-size:12px;color:var(--mid);line-height:1.6;margin-bottom:4px;}
+.cl-body strong{color:var(--ink);font-weight:500;}
+.cl-flutter{
+  background:rgba(26,22,18,0.02);border:1px solid var(--border);
+  border-radius:8px;padding:14px 16px;margin-top:12px;
+}
+.cl-flutter-head{font-size:11px;font-weight:500;color:var(--ink);margin-bottom:8px;}
+.cl-flutter-body{
+  font-family:monospace;font-size:11px;color:var(--mid);
+  line-height:1.9;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-back" href="../index.html">
+    <!-- ii mark SVG: dark-on-light variant -->
+    <svg width="16" height="18" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:2px;">
+      <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
+      <path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
+      <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
+    </svg>
+    Design hub
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">S-02 — Voice onboarding · Path A</span>
+  <span class="nav-status">In progress</span>
+</nav>
+
+<div class="page">
+
+  <!-- PAGE HEADER -->
+  <div class="page-eyebrow">S-02 · Voice onboarding · Hi-fi · 390×844px (iPhone 15) · March 2026</div>
+  <h1 class="page-h1">Voice onboarding — Path A</h1>
+  <p class="page-sub">Conversation pattern Option A: persistent chat thread with fixed input bar. nudgii leads with a single question, user replies by voice, type, or scan. 4 states shown: S-01 context pre-loaded, fresh start, listening, and after first turn.</p>
+  <div class="meta">
+    <span class="mp hifi">Hi-fi</span>
+    <span class="mp ob">Onboarding flow</span>
+    <span class="mp">S-02</span>
+    <span class="mp">Path A · Voice</span>
+    <span class="mp">March 2026</span>
+  </div>
+
+  <!-- CONTENT ROW: phones + annotation -->
+  <div class="content-row">
+
+    <!-- PHONES ROW -->
+    <div class="phones-row">
+
+      <!-- STATE 1a: S-01 context pre-loaded -->
+      <div class="phone-col">
+        <div class="phone-lbl">State 1a</div>
+        <div class="phone">
+          <div class="notch"><div class="np"></div></div>
+          <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+          <!-- progress bar 40% — S-02, outside SafeArea -->
+          <div class="prog-bar"><div class="prog-fill" style="width:40%;"></div></div>
+
+          <!-- back button -->
+          <div class="back-row">
+            <div class="back-btn">
+              <svg viewBox="0 0 12 12"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg>
+            </div>
+          </div>
+
+          <!-- conversation thread — flex:1, scrollable -->
+          <div class="conv-area">
+
+            <!-- nudgii opening: S-01 context carry-over -->
+            <div class="nudgii-msg">
+              <div class="nudgii-from">nudgii</div>
+              <div class="nudgii-bubble">
+                <div class="nb-text">Good start. Already added from your selection:</div>
+                <div class="confirmed-chips">
+                  <div class="cc-chip">
+                    <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+                    Dishwasher
+                  </div>
+                  <div class="cc-chip">
+                    <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+                    cv boiler
+                  </div>
+                </div>
+                <div class="nb-text" style="margin-top:7px;">What else do you have at home? Say it, type it, or snap a photo.</div>
+                <div class="suggest-row">
+                  <div class="sug-chip">car</div>
+                  <div class="sug-chip">airco filter</div>
+                  <div class="sug-chip">olive tree</div>
+                  <div class="sug-chip">smoke detector</div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /conv-area -->
+
+          <!-- fixed input bar -->
+          <div class="input-zone">
+            <div class="input-bar">
+              <!-- scan icon: four corner brackets -->
+              <div class="ib-icon">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--mid-a)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 8V6a2 2 0 0 1 2-2h2M4 16v2a2 2 0 0 0 2 2h2M16 4h2a2 2 0 0 1 2 2v2M16 20h2a2 2 0 0 0 2-2v-2"/>
+                </svg>
+              </div>
+              <span class="ib-placeholder">Say it, type it, or snap a photo...</span>
+              <div class="mic-btn">
+                <svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg>
+              </div>
+            </div>
+            <div class="privacy-note">audio sent for transcription only · deleted after · responds in text</div>
+          </div>
+
+        </div><!-- /phone -->
+        <div class="phone-sub">S-01 context carries over. Items selected on S-01 appear as pre-confirmed chips. nudgii opens with acknowledgment, not a repeated question.</div>
+      </div><!-- /state 1a -->
+
+
+      <!-- STATE 1b: No prior context — fresh start -->
+      <div class="phone-col">
+        <div class="phone-lbl">State 1b</div>
+        <div class="phone">
+          <div class="notch"><div class="np"></div></div>
+          <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+          <div class="prog-bar"><div class="prog-fill" style="width:40%;"></div></div>
+
+          <div class="back-row">
+            <div class="back-btn">
+              <svg viewBox="0 0 12 12"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg>
+            </div>
+          </div>
+
+          <div class="conv-area">
+
+            <!-- nudgii opening: discovery framing -->
+            <div class="nudgii-msg">
+              <div class="nudgii-from">nudgii</div>
+              <div class="nudgii-bubble">
+                <div class="nb-text">What do you have at home? I'll figure out what needs maintenance. Say it, type it, or snap a photo.</div>
+                <div class="nb-hint">2–3 items is plenty to start.</div>
+                <div class="suggest-row">
+                  <div class="sug-chip">dishwasher</div>
+                  <div class="sug-chip">car</div>
+                  <div class="sug-chip">cv boiler</div>
+                  <div class="sug-chip">airco filter</div>
+                  <div class="sug-chip">olive tree</div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /conv-area -->
+
+          <div class="input-zone">
+            <div class="input-bar">
+              <div class="ib-icon">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--mid-a)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 8V6a2 2 0 0 1 2-2h2M4 16v2a2 2 0 0 0 2 2h2M16 4h2a2 2 0 0 1 2 2v2M16 20h2a2 2 0 0 0 2-2v-2"/>
+                </svg>
+              </div>
+              <span class="ib-placeholder">Say it, type it, or snap a photo...</span>
+              <div class="mic-btn">
+                <svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg>
+              </div>
+            </div>
+            <div class="privacy-note">audio sent for transcription only · deleted after · responds in text</div>
+          </div>
+
+        </div><!-- /phone -->
+        <div class="phone-sub">Fresh start: no S-01 selection. nudgii opens with a discovery question. "2–3 items is plenty to start." reduces cold-start hesitation. Suggestions adapt to what has not been added yet.</div>
+      </div><!-- /state 1b -->
+
+
+      <!-- STATE 2: Listening -->
+      <div class="phone-col">
+        <div class="phone-lbl">State 2</div>
+        <div class="phone">
+          <div class="notch"><div class="np"></div></div>
+          <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+          <div class="prog-bar"><div class="prog-fill" style="width:40%;"></div></div>
+
+          <div class="back-row">
+            <div class="back-btn">
+              <svg viewBox="0 0 12 12"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg>
+            </div>
+          </div>
+
+          <div class="conv-area">
+
+            <!-- previous nudgii bubble still visible -->
+            <div class="nudgii-msg">
+              <div class="nudgii-from">nudgii</div>
+              <div class="nudgii-bubble">
+                <div class="nb-text">What do you have at home? I'll figure out what needs maintenance. Say it, type it, or snap a photo.</div>
+                <div class="nb-hint">2–3 items is plenty to start.</div>
+              </div>
+            </div>
+
+            <!-- waveform — live listening -->
+            <div class="listen-block">
+              <div class="wave">
+                <div class="wbar"></div>
+                <div class="wbar"></div>
+                <div class="wbar"></div>
+                <div class="wbar"></div>
+                <div class="wbar"></div>
+                <div class="wbar"></div>
+                <div class="wbar"></div>
+                <div class="wbar"></div>
+                <div class="wbar"></div>
+              </div>
+              <div class="listen-label">Listening...</div>
+            </div>
+
+            <!-- faded in-progress transcript -->
+            <div class="user-msg-faded">
+              <div class="user-bubble">
+                <div class="ub-text">A house with a garden, two cars...</div>
+              </div>
+            </div>
+
+          </div><!-- /conv-area -->
+
+          <!-- input bar: active / terra state -->
+          <div class="input-zone">
+            <div class="input-bar listening">
+              <div class="ib-icon">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="rgba(196,80,58,0.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 8V6a2 2 0 0 1 2-2h2M4 16v2a2 2 0 0 0 2 2h2M16 4h2a2 2 0 0 1 2 2v2M16 20h2a2 2 0 0 0 2-2v-2"/>
+                </svg>
+              </div>
+              <span class="ib-placeholder listening-text">Listening, tap mic to stop...</span>
+              <div class="mic-btn active">
+                <svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg>
+              </div>
+            </div>
+            <div class="privacy-note">audio sent for transcription only · deleted after · responds in text</div>
+          </div>
+
+        </div><!-- /phone -->
+        <div class="phone-sub">Listening state: waveform in conversation thread, not overlaid on the input bar. Mic turns terra (#C4503A). Input bar border shifts to terra tint. Partial transcript fades in as voice recognition builds it.</div>
+      </div><!-- /state 2 -->
+
+
+      <!-- STATE 3: After first turn -->
+      <div class="phone-col">
+        <div class="phone-lbl">State 3</div>
+        <div class="phone">
+          <div class="notch"><div class="np"></div></div>
+          <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+          <div class="prog-bar"><div class="prog-fill" style="width:40%;"></div></div>
+
+          <div class="back-row">
+            <div class="back-btn">
+              <svg viewBox="0 0 12 12"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg>
+            </div>
+          </div>
+
+          <div class="conv-area">
+
+            <!-- scrolled-up nudgii opening (smaller context) -->
+            <div class="nudgii-msg">
+              <div class="nudgii-from">nudgii</div>
+              <div class="nudgii-bubble">
+                <div class="nb-text" style="font-size:11px;color:rgba(26,22,18,0.55);">What do you have at home? I'll figure out what needs maintenance.</div>
+              </div>
+            </div>
+
+            <!-- user turn -->
+            <div class="user-msg">
+              <div class="user-bubble">
+                <div class="ub-text">A house with a garden, two cars, a dishwasher and airco.</div>
+              </div>
+            </div>
+
+            <!-- nudgii confirmation + follow-up -->
+            <div class="nudgii-msg">
+              <div class="nudgii-from">nudgii</div>
+              <div class="nudgii-bubble">
+                <div class="nb-text">Got it. Added to your schedule:</div>
+                <div class="confirmed-chips">
+                  <div class="cc-chip">
+                    <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+                    House &amp; garden
+                  </div>
+                  <div class="cc-chip">
+                    <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+                    2x Car
+                  </div>
+                  <div class="cc-chip">
+                    <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+                    Dishwasher
+                  </div>
+                  <div class="cc-chip">
+                    <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+                    Airco
+                  </div>
+                </div>
+                <div class="nb-text" style="margin-top:8px;"><em>What brand are the cars?</em> Or just say "not sure", we can check later.</div>
+                <div class="suggest-row">
+                  <div class="sug-chip">smoke detector</div>
+                  <div class="sug-chip">gutter cleaning</div>
+                  <div class="sug-chip">winter tyres</div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /conv-area -->
+
+          <!-- input bar: idle again -->
+          <div class="input-zone">
+            <div class="input-bar">
+              <div class="ib-icon">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--mid-a)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 8V6a2 2 0 0 1 2-2h2M4 16v2a2 2 0 0 0 2 2h2M16 4h2a2 2 0 0 1 2 2v2M16 20h2a2 2 0 0 0 2-2v-2"/>
+                </svg>
+              </div>
+              <span class="ib-placeholder">Reply or add more...</span>
+              <div class="mic-btn">
+                <svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg>
+              </div>
+            </div>
+            <div class="privacy-note">audio sent for transcription only · deleted after · responds in text</div>
+          </div>
+
+        </div><!-- /phone -->
+        <div class="phone-sub">After first turn: nudgii confirms all parsed items as sage chips, asks one clarifying follow-up question. Suggestion chips update contextually — only showing items not yet added.</div>
+      </div><!-- /state 3 -->
+
+    </div><!-- /phones-row -->
+
+    <!-- ANNOTATION COLUMN -->
+    <div class="annot-col">
+
+      <div class="annot-section">Shell + navigation</div>
+
+      <div class="annot-card">
+        <div class="annot-head">
+          <span class="badge-rule">Rule</span>
+          Progress bar — 40%
+        </div>
+        <div class="annot-body">
+          S-02 is step 2 of 5 = <strong>40% fill</strong>. Full-width edge-to-edge, 3px height, outside SafeArea. <code>colorCta #9B7FD4</code> fill. Track <code>rgba(26,22,18,0.08)</code>. Flutter: <code>LinearProgressIndicator</code> inside <code>ClipRRect(borderRadius:100px)</code>.
+        </div>
+      </div>
+
+      <div class="annot-card">
+        <div class="annot-head">
+          <span class="badge-rule">Rule</span>
+          No screen title
+        </div>
+        <div class="annot-body">
+          There is no heading above the conversation. nudgii's first bubble IS the opening. No "Step 2 of 5" label anywhere — the progress bar handles that. Back button only.
+        </div>
+      </div>
+
+      <div class="annot-card">
+        <div class="annot-head">
+          <span class="badge-rule">Rule</span>
+          Back button — arrowLeft SVG
+        </div>
+        <div class="annot-body">
+          32×32px container, surface bg, 9px border-radius, 0.5px border. SVG: <code>viewBox="0 0 12 12"</code>, paths <code>d="M10 6H2"</code> and <code>d="M5 3L2 6L5 9"</code>. Minimum tap target wrapped to 44×44px in Flutter with <code>SizedBox</code>.
+        </div>
+      </div>
+
+      <div class="annot-section">Conversation bubbles</div>
+
+      <div class="annot-card">
+        <div class="annot-head">
+          <span class="badge-rule">Rule</span>
+          Sender label
+        </div>
+        <div class="annot-body">
+          CSS uses <code>text-transform:uppercase</code> but the text content is always lowercase <strong>"nudgii"</strong>. Never "NUDGII" in the HTML. 8px DM Sans 500, letter-spacing 1px, <code>colorMidAccessible #6B6358</code>.
+        </div>
+      </div>
+
+      <div class="annot-card">
+        <div class="annot-head">
+          <span class="badge-note">nudgii bubbles</span>
+        </div>
+        <div class="annot-body">
+          Left-aligned. Surface white bg, <code>0.5px border rgba(26,22,18,0.08)</code>. Border-radius: <code>12px 12px 12px 4px</code> (bottom-left flat = "tail"). Max-width 88%. Box-shadow 0 1px 3px rgba(26,22,18,0.04).
+        </div>
+      </div>
+
+      <div class="annot-card">
+        <div class="annot-head">
+          <span class="badge-note">User bubbles</span>
+        </div>
+        <div class="annot-body">
+          Right-aligned. <code>colorCta #9B7FD4</code> bg, <code>colorCtaFg #FAF8FF</code> text. Border-radius: <code>12px 12px 4px 12px</code> (bottom-right flat). Max-width 84%.
+        </div>
+      </div>
+
+      <div class="annot-card">
+        <div class="annot-head">
+          <span class="badge-note">Confirmed chips</span>
+        </div>
+        <div class="annot-body">
+          Inside nudgii's confirmation bubble. <code>sage-lt #EAF3DE</code> bg, <code>sage #3B6D11</code> text, checkmark SVG icon 9px. flex-wrap row with 4px gap. Appear immediately after nudgii confirms the item — not in a separate message.
+        </div>
+      </div>
+
+      <div class="annot-section">State-specific decisions</div>
+
+      <div class="annot-card decision">
+        <div class="annot-head">
+          <span class="badge-state">State 1a</span>
+          S-01 context carry-over
+        </div>
+        <div class="annot-body">
+          If the user selected items on S-01 (tap-to-select preview items), those items pre-populate as confirmed chips in nudgii's opening bubble. nudgii acknowledges them, then asks what else. Suggestion chips exclude already-confirmed items.
+        </div>
+      </div>
+
+      <div class="annot-card decision">
+        <div class="annot-head">
+          <span class="badge-state">State 1b</span>
+          Cold-start hint
+        </div>
+        <div class="annot-body">
+          No context. nudgii opens with a discovery question. "2–3 items is plenty to start." appears as italic hint below the bubble text in <code>colorMidAccessible</code>. Removes the freeze response from users who think they must add everything.
+        </div>
+      </div>
+
+      <div class="annot-card decision">
+        <div class="annot-head">
+          <span class="badge-state">State 2</span>
+          Waveform placement
+        </div>
+        <div class="annot-body">
+          Waveform appears <strong>inside the conversation thread</strong>, not overlaid on the input bar. The in-progress transcript fades in at 0.65 opacity as a user bubble. Input bar border becomes <code>rgba(196,80,58,0.30)</code>. Mic circle turns <code>colorTerra #C4503A</code>.
+        </div>
+      </div>
+
+      <div class="annot-card decision">
+        <div class="annot-head">
+          <span class="badge-state">State 3</span>
+          One follow-up rule
+        </div>
+        <div class="annot-body">
+          nudgii asks at most <strong>one clarifying question per turn</strong>. Confirmed chips appear first, then the question. Suggestion chips update to only show items not yet added. Italic <code>em</code> on the question text highlights it as the active ask.
+        </div>
+      </div>
+
+      <div class="annot-section">Input bar</div>
+
+      <div class="annot-card">
+        <div class="annot-head">
+          <span class="badge-rule">Rule</span>
+          Scan icon
+        </div>
+        <div class="annot-body">
+          Four corner-bracket SVG (not a camera). Represents the AI scan entry point. <code>PhosphorIcons.scan</code> in Flutter, 14px, stroke <code>colorMidAccessible</code> stroke-width 1.5.
+        </div>
+      </div>
+
+      <div class="annot-card">
+        <div class="annot-head">
+          <span class="badge-rule">Rule</span>
+          Privacy note — always visible
+        </div>
+        <div class="annot-body">
+          7px italic DM Sans, <code>rgba(107,99,88,0.45)</code>. Always present below the input bar. Copy: "audio sent for transcription only · deleted after · responds in text". Centers reassurance at the exact moment the user decides to tap the mic.
+        </div>
+      </div>
+
+    </div><!-- /annot-col -->
+
+  </div><!-- /content-row -->
+
+  <div class="divider"></div>
+
+  <!-- CHANGELOG -->
+  <div class="changelog">
+    <div class="cl-title">Changelog</div>
+
+    <div class="cl-entry">
+      <div class="cl-ver">v1.0 · 2026-03-23 · ADDITIVE</div>
+      <div class="cl-body"><strong>Initial hi-fi.</strong> Conversation pattern Option A: chat thread + persistent input bar. Approved 2026-03-23.</div>
+      <div class="cl-body"><strong>4 states defined:</strong> S-01 context pre-loaded (1a), fresh start (1b), listening (2), after first turn (3).</div>
+      <div class="cl-body"><strong>No screen title.</strong> nudgii bubble is the opening. Progress bar at 40% fill. No "Step X of Y" label anywhere.</div>
+      <div class="cl-body"><strong>Input bar:</strong> scan icon (four-corner SVG) + italic placeholder + 28px mic circle (colorCta idle, colorTerra active). Fixed, outside scroll area. Flutter: fixed <code>Column</code> child below <code>Expanded(child: SingleChildScrollView)</code>.</div>
+      <div class="cl-body"><strong>Privacy note:</strong> always visible below input bar. 9px italic, <code>rgba(107,99,88,0.45)</code>. Not dismissable.</div>
+      <div class="cl-body"><strong>S-01 context (State 1a):</strong> items selected on S-01 appear as pre-confirmed sage chips in nudgii's first message. Suggestion chips adapt to exclude already-confirmed items.</div>
+      <div class="cl-body"><strong>Waveform (State 2):</strong> 9 bars inside conversation thread, not overlaid on input bar. colorCta fill. "Listening..." italic label. Partial transcript fades in at 0.65 opacity. Mic circle: colorTerra. Input bar border: rgba(196,80,58,0.30).</div>
+      <div class="cl-body"><strong>Follow-up rule (State 3):</strong> max one clarifying question per turn. Confirmed chips first, then question, then updated suggestion chips. Italic em on the question.</div>
+    </div>
+
+    <div class="cl-flutter">
+      <div class="cl-flutter-head">Standard Flutter implementation block · S-02</div>
+      <div class="cl-flutter-body">
+        Mockup base:&nbsp;&nbsp;&nbsp;&nbsp;390px width (iPhone 15)<br>
+        SafeArea:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;top=false, progress bar outside SafeArea<br>
+        Scroll:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SingleChildScrollView for conversation thread only<br>
+        Bottom zone:&nbsp;&nbsp;&nbsp;&nbsp;Fixed input bar — NOT inside scroll area<br>
+        Progress bar:&nbsp;&nbsp;&nbsp;Full width, height 3px, outside SafeArea, 40% fill<br>
+        Scaling:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All visual elements × (screenWidth/390).clamp(0.9, 1.15)<br>
+        Special:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Input bar always visible and fixed. Conversation thread scrolls independently. Waveform in conversation area (not overlaid on input bar). State driven by voice recognition lifecycle.
+      </div>
+    </div>
+
+  </div><!-- /changelog -->
+
+</div><!-- /page -->
+
+</body>
+</html>
