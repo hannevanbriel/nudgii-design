@@ -611,6 +611,9 @@ These are locked decisions. Do not question them in design or code reviews.
 - ❌ Never show more than 3 preview items on S-01 — never a 4th, never a carousel
 - ❌ Never use Dutch copy in design files (lo-fi, hi-fi, prototype) — English only in all design artefacts
 - ❌ Never write locale-specific copy as the primary copy in design files — label it explicitly (e.g., "nl-BE example")
+- ❌ Never add "Step X of Y" text labels anywhere on screen — the progress bar is the only progress indicator, ever
+- ❌ Never write "NUDGII" as a sender label in conversation UI — always lowercase "nudgii", same rule as everywhere else
+- ❌ Never design S-02 (or any onboarding step) as if prior steps didn't happen — carry context forward. If items were selected on S-01, they appear as pre-confirmed in S-02. Never ask the user for information they've already given.
 
 ---
 
@@ -695,6 +698,75 @@ v1.1 · 2026-03-22 · BREAKING
 - Free badge: added below magic link CTA
   Flutter: Text widget, sage-lt bg, pill Container, 8px DM Sans
 ```
+
+---
+
+## 21. How design rules stay current — source of truth protocol
+
+This file (CLAUDE.md) is the single source of truth for all design and product decisions. It is automatically read at the start of every Claude Code session. Any designer, developer, or AI assistant working on this project gets these rules without being told explicitly.
+
+**What lives here vs elsewhere:**
+
+| Source | Purpose | Who reads it |
+|---|---|---|
+| `CLAUDE.md` (this file) | All design rules, tokens, component specs, decisions, copy rules | Claude Code (auto), developers (reference) |
+| `system/design-system.html` | Visual component library with live demos | Designers, developers, stakeholders |
+| `index.html` (design hub) | Screen inventory, status, open decisions | Everyone — overview |
+| `docs/` | PRD, personas, UX flow, vision | PM reference |
+
+**Rules for keeping this file current:**
+- Every resolved design decision must be added to Section 19 (Decisions log) the same session it is resolved
+- Every new "never do X" rule must be added to Section 18 (What NOT to do) immediately
+- Every new component spec or token change must update Section 10 (Components) and Section 7 (Color tokens)
+- This file is the handoff document — if a rule is not here, it does not exist for the next person
+
+**What this means in practice:**
+- Claude never needs to be reminded of a rule that is written here. If it is written here, it applies automatically to every screen, lo-fi, hi-fi, prototype, and code file — without being asked.
+- If Claude builds something that contradicts a rule in this file, the rule wins and the work is corrected.
+- If Hanne notices a rule being applied inconsistently, the fix is to add or clarify it in this file — not to repeat it in chat.
+
+---
+
+## 22. S-02 conversation UI pattern — spec
+
+Resolved 2026-03-23. Applies to any screen that uses a chat-thread conversation between nudgii and the user.
+
+### Layout
+- Shell: SafeArea + Expanded(scrollable conversation thread) + fixed input bar at bottom
+- No screen title above the conversation — the nudgii opening bubble IS the screen entry point
+- Progress bar: full-width, outside SafeArea, at correct % for this step
+- Back button: PhosphorIcons.arrowLeft, 44x44px tap target, left of top row
+
+### Conversation thread
+- Scrollable, fills the Expanded zone
+- nudgii bubbles: left-aligned, white surface bg, 0.5px border rgba(26,22,18,0.08), border-radius 12px 12px 12px 4px (bottom-left flat = sender side), max-width 88%
+- Sender label above first bubble in a sequence: 8px DM Sans 500, 1px letter-spacing, uppercase, colorMidAccessible. Text: "nudgii" — always lowercase, never "NUDGII"
+- User bubbles: right-aligned, colorCta (#9B7FD4) bg, colorCtaFg text, border-radius 12px 12px 4px 12px (bottom-right flat), max-width 84%
+- Confirmed items chips: sage-lt (#EAF3DE) bg, sage (#3B6D11) text, checkmark icon — appear inside nudgii's confirmation bubble after a turn
+- Suggestion chips: surface bg, 0.5px border rgba(26,22,18,0.13), 100px radius, 8px DM Sans — update contextually after each turn
+- Hint sub-text (cold start): 8px italic DM Sans, colorMidAccessible, below nudgii's first bubble
+
+### Context carry-over from S-01
+If the user tapped or selected items on S-01 before choosing Path A: those items are pre-loaded into the conversation. nudgii opens with "I see you added [X, Y]. What else do you have?" and shows the pre-loaded items as confirmed chips. Never ask users for information they already gave. If no items were selected on S-01, nudgii opens fresh.
+
+### Input bar (fixed, bottom of screen)
+- Background: surface white, border 0.5px solid rgba(26,22,18,0.12), border-radius 100px
+- Left: PhosphorIcons.scan, 14px, colorMidAccessible, 44x44px tap target
+- Center: text input placeholder, 8px italic, rgba(107,99,88,0.45)
+- Right: mic button — 28px circle, colorCta bg, PhosphorIcons.microphone 13px, colorCtaFg stroke
+- Active recording state: border-color rgba(196,80,58,0.30), placeholder text changes, mic button turns colorTerra
+- Privacy note below bar: "audio sent for transcription only · deleted after · responds in text" — 7px italic DM Sans, rgba(107,99,88,0.45), always visible
+
+### Listening state
+- Waveform animation appears in the conversation area (not floating over input bar)
+- Live transcript builds as a faint user bubble (opacity 0.65) as speech is recognized
+- Max 1 minute per turn — countdown appears at 50s remaining
+
+### Copy direction
+- nudgii's opening message frames it as discovery, not inventory. "What do you have at home?" not "What do you own?". The user doesn't need to know what maintenance is required — that's nudgii's job.
+- Single question per turn, max 1 clarifying question
+- Italic CTA-colored emphasis on the key question within a nudgii bubble
+- nudgii's tone: warm, direct, gently funny — never clinical, never a form
 
 ---
 

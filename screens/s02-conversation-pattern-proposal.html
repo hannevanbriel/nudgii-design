@@ -198,9 +198,9 @@ ul.annot-list li strong{color:var(--ink);font-weight:500;}
 <div class="page">
 
   <h1>S-02 conversation pattern</h1>
-  <p class="sub">Three design proposals for the voice onboarding conversation: the existing lo-fi pattern as reference, and two new hi-fi directions. Review and decide before hi-fi production starts.</p>
+  <p class="sub">Updated proposal incorporating feedback: context carry-over from S-01, no step label, no screen title, lowercase sender label, discovery-first copy. Option A is the recommended direction.</p>
   <div class="meta">
-    <span class="mp proposal">Proposal</span>
+    <span class="mp proposal">Proposal v2 · needs decision</span>
     <span class="mp ob">Onboarding · Path A</span>
     <span class="mp">2026-03-23</span>
   </div>
@@ -235,7 +235,7 @@ ul.annot-list li strong{color:var(--ink);font-weight:500;}
             <div class="old-conv-area">
               <!-- nudgii bubble 1 -->
               <div>
-                <div class="old-nudgii-label">nudgii</div>
+                <div class="old-nudgii-label" style="text-transform:none;letter-spacing:0.5px;">nudgii</div>
                 <div class="old-nudgii-b">
                   <div class="nb-text">Tell me what you have: appliances, your car, plants, all of it. I'll handle the rest.</div>
                 </div>
@@ -246,7 +246,7 @@ ul.annot-list li strong{color:var(--ink);font-weight:500;}
               </div>
               <!-- nudgii follow-up -->
               <div>
-                <div class="old-nudgii-label">nudgii</div>
+                <div class="old-nudgii-label" style="text-transform:none;letter-spacing:0.5px;">nudgii</div>
                 <div class="old-nudgii-b">
                   <div class="nb-text">Got it. <em>What brand and year are the cars?</em> Or just say "not sure", we can check later.</div>
                 </div>
@@ -302,47 +302,56 @@ ul.annot-list li strong{color:var(--ink);font-weight:500;}
   <div class="section-wrap">
     <div class="section-eye">Option A — recommended</div>
     <div class="section-title">Chat thread + persistent input bar</div>
-    <div class="section-sub">Keeps the conversational chat bubble pattern from the lo-fi — users already understand it. Replaces the floating mic with a persistent input bar at the bottom: scan icon left, text placeholder center, mic button right. Three states: empty, listening, and after a turn.</div>
+    <div class="section-sub">Feedback applied: no screen title (nudgii bubble is the opening), no step label, lowercase "nudgii" sender, discovery-first copy, and S-01 context pre-loaded into State 1 when items were already selected.</div>
 
     <div class="phones-row">
 
-      <!-- PHONE A1: Empty state -->
+      <!-- PHONE A1: State 1a — WITH context from S-01 -->
       <div class="phone-wrap">
-        <div class="phone-lbl">State 1 — empty / initial</div>
+        <div class="phone-lbl">State 1a — with S-01 context</div>
         <div class="phone">
           <div class="screen">
             <div class="notch"></div>
             <div class="sbar"><span>9:41</span><span>●●●</span></div>
             <div class="prog"><div class="prog-fill" style="width:40%"></div></div>
 
-            <!-- Back row -->
+            <!-- Back row — no step label -->
             <div class="back-row">
               <div class="back-btn">
                 <svg viewBox="0 0 12 12"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg>
               </div>
-              <span class="step-label">Step 2 of 5</span>
             </div>
 
             <!-- Conversation area -->
             <div class="conv-area">
-              <!-- nudgii opening -->
+              <!-- nudgii opens WITH context from S-01 -->
               <div class="nudgii-msg">
                 <div class="nudgii-from">nudgii</div>
                 <div class="nudgii-bubble">
-                  <div class="nb-text">What do you own? Say it, type it, or snap a photo. I'll handle the rest.</div>
+                  <div class="nb-text">Good start. Already added from your selection:</div>
+                  <div class="confirmed-chips">
+                    <div class="cc-chip">
+                      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                      Dishwasher
+                    </div>
+                    <div class="cc-chip">
+                      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                      cv boiler
+                    </div>
+                  </div>
+                  <div class="nb-text" style="margin-top:6px;">What else do you have at home? Say it, type it, or snap a photo.</div>
                 </div>
               </div>
-              <!-- Hint sub -->
+              <!-- Hint -->
               <div style="font-size:7px;color:var(--mid-ac);font-style:italic;padding:0 2px;line-height:1.5;">2-3 items is plenty to start.</div>
-              <!-- Suggestion chips (contextual cold-start) -->
-              <div class="nudgii-msg">
-                <div style="font-size:6px;color:var(--mid-ac);margin-bottom:3px;padding-left:2px;">Or try a suggestion:</div>
+              <!-- Contextual suggestions based on what was already added -->
+              <div style="padding-left:2px;margin-top:2px;">
+                <div style="font-size:6px;color:var(--mid-ac);margin-bottom:3px;">Or try a suggestion:</div>
                 <div class="suggest-row">
-                  <div class="sug-chip">dishwasher</div>
                   <div class="sug-chip">car</div>
                   <div class="sug-chip">airco filter</div>
                   <div class="sug-chip">olive tree</div>
-                  <div class="sug-chip">cv boiler</div>
+                  <div class="sug-chip">smoke detector</div>
                 </div>
               </div>
             </div>
@@ -351,7 +360,6 @@ ul.annot-list li strong{color:var(--ink);font-weight:500;}
             <div class="input-bar-wrap">
               <div class="input-bar">
                 <div class="input-bar-icon">
-                  <!-- scan icon (PhosphorIcons.scan) -->
                   <svg viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
                 </div>
                 <div class="input-placeholder">Say it, type it, or snap a photo...</div>
@@ -363,7 +371,60 @@ ul.annot-list li strong{color:var(--ink);font-weight:500;}
             </div>
           </div>
         </div>
-        <div class="phone-sub">nudgii opens the conversation. Suggestion chips help cold-start users. Input bar is always visible.</div>
+        <div class="phone-sub">S-01 selections pre-confirmed. nudgii acknowledges them and asks what else. Suggestion chips adapt to what's already added.</div>
+      </div>
+
+      <!-- PHONE A1b: State 1b — NO context (fresh start) -->
+      <div class="phone-wrap">
+        <div class="phone-lbl">State 1b — no prior context</div>
+        <div class="phone">
+          <div class="screen">
+            <div class="notch"></div>
+            <div class="sbar"><span>9:41</span><span>●●●</span></div>
+            <div class="prog"><div class="prog-fill" style="width:40%"></div></div>
+
+            <div class="back-row">
+              <div class="back-btn">
+                <svg viewBox="0 0 12 12"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg>
+              </div>
+            </div>
+
+            <div class="conv-area">
+              <!-- nudgii fresh opening — no title, discovery framing -->
+              <div class="nudgii-msg">
+                <div class="nudgii-from">nudgii</div>
+                <div class="nudgii-bubble">
+                  <div class="nb-text">What do you have at home? I'll figure out what needs maintenance. Say it, type it, or snap a photo.</div>
+                </div>
+              </div>
+              <div style="font-size:7px;color:var(--mid-ac);font-style:italic;padding:0 2px;line-height:1.5;">2-3 items is plenty to start.</div>
+              <div style="padding-left:2px;margin-top:2px;">
+                <div style="font-size:6px;color:var(--mid-ac);margin-bottom:3px;">Or try a suggestion:</div>
+                <div class="suggest-row">
+                  <div class="sug-chip">dishwasher</div>
+                  <div class="sug-chip">car</div>
+                  <div class="sug-chip">cv boiler</div>
+                  <div class="sug-chip">airco filter</div>
+                  <div class="sug-chip">olive tree</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="input-bar-wrap">
+              <div class="input-bar">
+                <div class="input-bar-icon">
+                  <svg viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                </div>
+                <div class="input-placeholder">Say it, type it, or snap a photo...</div>
+                <div class="mic-btn">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+                </div>
+              </div>
+              <div class="privacy-note">audio sent for transcription only · deleted after · responds in text</div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-sub">No prior context. "What do you have at home?" frames it as discovery, not inventory. No screen title — the nudgii bubble IS the opening.</div>
       </div>
 
       <!-- PHONE A2: Listening -->
@@ -379,14 +440,13 @@ ul.annot-list li strong{color:var(--ink);font-weight:500;}
               <div class="back-btn">
                 <svg viewBox="0 0 12 12"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg>
               </div>
-              <span class="step-label">Step 2 of 5</span>
             </div>
 
             <div class="conv-area">
               <div class="nudgii-msg">
                 <div class="nudgii-from">nudgii</div>
                 <div class="nudgii-bubble">
-                  <div class="nb-text">What do you own? Say it, type it, or snap a photo. I'll handle the rest.</div>
+                  <div class="nb-text">What do you have at home? I'll figure out what needs maintenance. Say it, type it, or snap a photo.</div>
                 </div>
               </div>
               <div style="font-size:7px;color:var(--mid-ac);font-style:italic;padding:0 2px;line-height:1.5;">2-3 items is plenty to start.</div>
@@ -400,7 +460,6 @@ ul.annot-list li strong{color:var(--ink);font-weight:500;}
                 </div>
                 <div class="listen-label">Listening...</div>
               </div>
-              <!-- Live transcript building -->
               <div class="user-msg">
                 <div class="user-bubble" style="opacity:0.65;">
                   <div class="ub-text">A house with a garden, two cars...</div>
@@ -408,7 +467,6 @@ ul.annot-list li strong{color:var(--ink);font-weight:500;}
               </div>
             </div>
 
-            <!-- Input bar — active mic -->
             <div class="input-bar-wrap">
               <div class="input-bar" style="border-color:rgba(196,80,58,0.30);background:rgba(196,80,58,0.03);">
                 <div class="input-bar-icon">
@@ -423,7 +481,7 @@ ul.annot-list li strong{color:var(--ink);font-weight:500;}
             </div>
           </div>
         </div>
-        <div class="phone-sub">Waveform in the chat area. Live transcript builds as user speaks. Mic turns terra red to signal active recording.</div>
+        <div class="phone-sub">Waveform in conversation area. Live transcript fades in as speech is recognized. Input bar border turns terra to signal active recording.</div>
       </div>
 
       <!-- PHONE A3: After first turn -->
@@ -439,53 +497,36 @@ ul.annot-list li strong{color:var(--ink);font-weight:500;}
               <div class="back-btn">
                 <svg viewBox="0 0 12 12"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg>
               </div>
-              <span class="step-label">Step 2 of 5</span>
             </div>
 
             <div class="conv-area">
-              <!-- nudgii opening -->
               <div class="nudgii-msg">
                 <div class="nudgii-from">nudgii</div>
                 <div class="nudgii-bubble">
-                  <div class="nb-text">What do you own? Say it, type it, or snap a photo. I'll handle the rest.</div>
+                  <div class="nb-text">What do you have at home? I'll figure out what needs maintenance. Say it, type it, or snap a photo.</div>
                 </div>
               </div>
 
-              <!-- User turn 1 -->
               <div class="user-msg">
                 <div class="user-bubble">
                   <div class="ub-text">A house with a garden, two cars, a dishwasher and airco.</div>
                 </div>
               </div>
 
-              <!-- nudgii confirmation -->
               <div class="nudgii-msg">
                 <div class="nudgii-from">nudgii</div>
                 <div class="nudgii-bubble">
                   <div class="nb-text">Got it. Added to your schedule:</div>
                   <div class="confirmed-chips">
-                    <div class="cc-chip">
-                      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                      House &amp; garden
-                    </div>
-                    <div class="cc-chip">
-                      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                      2x Car
-                    </div>
-                    <div class="cc-chip">
-                      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                      Dishwasher
-                    </div>
-                    <div class="cc-chip">
-                      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                      Airco
-                    </div>
+                    <div class="cc-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>House &amp; garden</div>
+                    <div class="cc-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>2x Car</div>
+                    <div class="cc-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Dishwasher</div>
+                    <div class="cc-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Airco</div>
                   </div>
                   <div class="nb-text" style="margin-top:6px;"><em>What brand are the cars?</em> Or just say "not sure", we can check later.</div>
                 </div>
               </div>
 
-              <!-- New relevant suggestions -->
               <div style="padding-left:2px;">
                 <div style="font-size:6px;color:var(--mid-ac);margin-bottom:3px;">Anything else?</div>
                 <div class="suggest-row">
@@ -496,7 +537,6 @@ ul.annot-list li strong{color:var(--ink);font-weight:500;}
               </div>
             </div>
 
-            <!-- Input bar — ready -->
             <div class="input-bar-wrap">
               <div class="input-bar">
                 <div class="input-bar-icon">
@@ -511,7 +551,7 @@ ul.annot-list li strong{color:var(--ink);font-weight:500;}
             </div>
           </div>
         </div>
-        <div class="phone-sub">Confirmed items shown as sage chips inside nudgii's reply. Contextual "anything else?" suggestions update based on what was captured.</div>
+        <div class="phone-sub">Confirmed items as sage chips. Single follow-up question in italic CTA color. Contextual suggestions update based on what was captured.</div>
       </div>
 
       <!-- ANNOTATION OPTION A -->
