@@ -1870,6 +1870,120 @@ Overlay.of(context).insert(
     </div>
 
     <div class="rcard">
+      <div class="rcard-title">Voice input — listening state <span class="tag tag-new">locked · S-02</span></div>
+      <div class="rcard-body">
+        Used in S-02 (voice onboarding) whenever the microphone is active. Three parts: waveform, "Listening..." label, live transcript. The waveform appears inside the conversation thread — never overlaid on the input bar.
+
+        <div style="margin:16px 0;display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap;">
+
+          <!-- DEMO: idle/snapshot state -->
+          <div>
+            <div style="font-size:9px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:rgba(26,22,18,0.32);margin-bottom:8px;">Snapshot (static)</div>
+            <div style="background:#F5F0E8;border-radius:12px;padding:16px 20px;display:flex;flex-direction:column;align-items:center;gap:6px;">
+              <div style="display:flex;align-items:center;gap:3px;height:28px;">
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;height:6px;opacity:0.35;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;height:12px;opacity:0.55;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;height:20px;opacity:0.75;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;height:26px;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;height:16px;opacity:0.70;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;height:28px;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;height:18px;opacity:0.75;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;height:11px;opacity:0.55;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;height:5px;opacity:0.30;"></div>
+              </div>
+              <div style="font-size:10px;font-style:italic;color:#6B6358;">Listening...</div>
+            </div>
+          </div>
+
+          <!-- DEMO: animated state -->
+          <div>
+            <div style="font-size:9px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:rgba(26,22,18,0.32);margin-bottom:8px;">Animated (live)</div>
+            <style>
+              @keyframes wv1{0%,100%{height:6px;opacity:0.35;}50%{height:22px;opacity:0.9;}}
+              @keyframes wv2{0%,100%{height:12px;opacity:0.55;}50%{height:26px;opacity:1;}}
+              @keyframes wv3{0%,100%{height:20px;opacity:0.75;}50%{height:10px;opacity:0.4;}}
+              @keyframes wv4{0%,100%{height:26px;opacity:1;}50%{height:8px;opacity:0.35;}}
+              @keyframes wv5{0%,100%{height:16px;opacity:0.70;}50%{height:28px;opacity:1;}}
+              @keyframes wv6{0%,100%{height:28px;opacity:1;}50%{height:6px;opacity:0.30;}}
+              @keyframes wv7{0%,100%{height:18px;opacity:0.75;}50%{height:24px;opacity:0.95;}}
+              @keyframes wv8{0%,100%{height:11px;opacity:0.55;}50%{height:20px;opacity:0.80;}}
+              @keyframes wv9{0%,100%{height:5px;opacity:0.30;}50%{height:18px;opacity:0.70;}}
+            </style>
+            <div style="background:#F5F0E8;border-radius:12px;padding:16px 20px;display:flex;flex-direction:column;align-items:center;gap:6px;">
+              <div style="display:flex;align-items:center;gap:3px;height:28px;">
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv1 1.1s ease-in-out infinite;animation-delay:0.00s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv2 0.9s ease-in-out infinite;animation-delay:0.15s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv3 1.0s ease-in-out infinite;animation-delay:0.25s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv4 0.8s ease-in-out infinite;animation-delay:0.10s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv5 1.2s ease-in-out infinite;animation-delay:0.30s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv6 0.85s ease-in-out infinite;animation-delay:0.05s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv7 0.95s ease-in-out infinite;animation-delay:0.20s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv8 1.05s ease-in-out infinite;animation-delay:0.35s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv9 0.90s ease-in-out infinite;animation-delay:0.08s;"></div>
+              </div>
+              <div style="font-size:10px;font-style:italic;color:#6B6358;">Listening...</div>
+            </div>
+          </div>
+
+          <!-- DEMO: with live transcript -->
+          <div>
+            <div style="font-size:9px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:rgba(26,22,18,0.32);margin-bottom:8px;">With live transcript</div>
+            <div style="background:#F5F0E8;border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;min-width:180px;">
+              <div style="display:flex;align-items:center;gap:3px;height:28px;justify-content:center;">
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv1 1.1s ease-in-out infinite;animation-delay:0.00s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv2 0.9s ease-in-out infinite;animation-delay:0.15s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv3 1.0s ease-in-out infinite;animation-delay:0.25s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv4 0.8s ease-in-out infinite;animation-delay:0.10s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv5 1.2s ease-in-out infinite;animation-delay:0.30s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv6 0.85s ease-in-out infinite;animation-delay:0.05s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv7 0.95s ease-in-out infinite;animation-delay:0.20s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv8 1.05s ease-in-out infinite;animation-delay:0.35s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv9 0.90s ease-in-out infinite;animation-delay:0.08s;"></div>
+              </div>
+              <div style="font-size:9px;font-style:italic;color:#6B6358;text-align:center;">Listening...</div>
+              <!-- faded transcript -->
+              <div style="display:flex;justify-content:flex-end;">
+                <div style="background:#9B7FD4;border-radius:9px 9px 3px 9px;padding:6px 9px;opacity:0.65;max-width:90%;">
+                  <div style="font-size:9px;color:#FAF8FF;line-height:1.5;">A house with a garden...</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <strong>Waveform — 9 bars</strong><br>
+        <code>width: 3px</code> · <code>border-radius: 100px</code> · <code>background: colorCta #9B7FD4</code> · <code>gap: 3px</code> · container <code>height: 28px; display: flex; align-items: center</code><br><br>
+
+        Bar heights and opacities (left → right, at rest):<br>
+        <code>6px/0.35 · 12px/0.55 · 20px/0.75 · 26px/1.0 · 16px/0.70 · 28px/1.0 · 18px/0.75 · 11px/0.55 · 5px/0.30</code><br><br>
+
+        <strong>Animation — CSS</strong> (each bar gets its own keyframe so the heights feel independent and organic):<br>
+        Duration range: <code>0.8s–1.2s</code> · Easing: <code>ease-in-out</code> · Stagger delays: <code>0.00 · 0.15 · 0.25 · 0.10 · 0.30 · 0.05 · 0.20 · 0.35 · 0.08s</code><br>
+        Each keyframe: <code>0%,100% { height: [rest-height]; opacity: [rest-opacity]; } 50% { height: [peak-height]; opacity: 1.0; }</code><br><br>
+
+        <strong>"Listening..." label</strong><br>
+        <code>font-size: 10px · font-style: italic · color: colorMidAccessible #6B6358 · margin-top: 6px</code><br><br>
+
+        <strong>Live transcript</strong><br>
+        Appears as a right-aligned user bubble at <code>opacity: 0.65</code> as speech is recognized in real time. Uses the same user bubble style (colorCta bg, colorCtaFg text, border-radius 12px 12px 4px 12px). Fades in word by word as the transcript builds. On turn completion (mic tap), opacity animates to 1.0 and the bubble settles.<br><br>
+
+        <strong>Flutter implementation</strong><br>
+        <code>WaveformIndicator</code> — custom <code>StatefulWidget</code> with <code>AnimationController</code> per bar (9 controllers, each with its own duration and delay via <code>Future.delayed</code>):<br>
+        <code>AnimatedContainer(duration: Duration(milliseconds: 80), height: _barHeight[i], curve: Curves.easeInOut)</code><br>
+        Driven by a <code>Timer.periodic(Duration(milliseconds: 80))</code> that updates bar heights using a sine wave offset per bar.<br><br>
+        Alternatively: single <code>AnimationController(vsync: this, duration: Duration(milliseconds: 900))</code> + <code>CurvedAnimation</code> per bar with <code>Interval(delay, delay+0.5, curve: Curves.easeInOut)</code> for stagger.<br><br>
+        Live transcript: <code>StreamBuilder</code> on the speech recognition stream. Each recognized word appends to a <code>String</code> in state. <code>AnimatedOpacity</code> from 0 to 0.65 on first word, 0.65 to 1.0 on mic stop.<br><br>
+
+        <strong>Input bar — active listening state</strong><br>
+        Border color: <code>rgba(196,80,58,0.30)</code> (terra tint, signals recording)<br>
+        Background: <code>rgba(196,80,58,0.03)</code><br>
+        Placeholder text: <code>"Listening, tap mic to stop..."</code> in <code>rgba(196,80,58,0.55)</code><br>
+        Mic circle: <code>colorTerra #C4503A</code> background (replaces colorCta)<br>
+        Flutter: animate mic circle color with <code>AnimatedContainer</code> 150ms ease-out on recording state change.
+      </div>
+    </div>
+
+    <div class="rcard">
       <div class="rcard-title">Touch targets <span class="tag tag-never">never smaller</span></div>
       <div class="rcard-body">
         Minimum tap target: <strong>44×44px always</strong> — Apple HIG requirement, no exceptions.<br>
