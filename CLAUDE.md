@@ -533,6 +533,7 @@ These are locked decisions. Do not question them in design or code reviews.
 - ❌ Never use `Opacity` widget on buttons — change colors instead
 - ❌ Never use `BottomNavigationBar` for the tab bar — custom widget only
 - ❌ Never use category colors on tab bar or action button icons
+- ❌ Never use em dashes (—) anywhere — in copy, labels, microcopy, code comments, or documentation. Use commas, colons, or line breaks instead
 - ❌ Never capitalize nudgii — always lowercase, including in code comments
 - ❌ Never write "Nudgii" or "NUDGII" anywhere
 - ❌ Never use a dark ink background on toasts — use semantic light backgrounds (sage-lt / red-lt / cream) only
