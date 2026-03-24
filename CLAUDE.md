@@ -134,7 +134,7 @@ These must be resolved before the affected screens can be designed. Do not make 
 **OD-01 — Done overlay trigger** *(affects S-11, S-13, S-14)*
 Does the full-screen plum overlay fire from task detail "mark done", or only from dashboard swipe-to-complete?
 Recommendation on table: dashboard swipe only. Task detail gets a quieter in-screen completion banner.
-**Status: UNRESOLVED**
+**Status: RESOLVED (2026-03-18)** — Dashboard swipe only. Task detail gets a quiet in-screen completion banner.
 
 **OD-02 — Ask tab first load** *(affects S-18, S-19)*
 Three options: (a) empty state with prompt suggestions, (b) open voice input immediately, (c) contextual suggestions based on upcoming tasks.
@@ -142,7 +142,7 @@ Three options: (a) empty state with prompt suggestions, (b) open voice input imm
 
 **OD-03 — Voice onboarding: does nudgii speak first?** *(affects S-02 and entire onboarding tone)*
 UX spec §2.2 says "nudgii speaks first — non-negotiable." MVP scope defers TTS (voice output) to post-launch. These contradict.
-**Status: UNRESOLVED**
+**Status: RESOLVED (2026-03-21)** — nudgii never speaks. Voice = user input only, max 1 min/turn. nudgii responds in text. TTS deferred indefinitely.
 
 ---
 
@@ -654,6 +654,11 @@ Update this section when open decisions are resolved.
 | "Ready in 2 minutes" badge | Added to S-01 between subtitle and category strip. Clock icon + label in subtle pill. Sets time expectation before path choice. | ✅ Yes | 2026-03-23 |
 | Onboarding UX micro-improvements | 5 targeted tweaks applied (S-02 hint, S-05 sub, S-06 skip visibility, S-07 sub, S-09 gesture hint). Documented in Section 17. | ✅ Yes | 2026-03-23 |
 | Em dash | Never use — anywhere in copy, labels, microcopy, code, or documentation. Use commas, colons, or line breaks instead. | ✅ Yes | 2026-03-23 |
+| S-01 "All" pill removed | "All" pill removed from S-01 category strip (decorative, takes focus). Kept on S-03 and S-09 where it's a functional filter. | ✅ Yes | 2026-03-24 |
+| S-01 scan ghost link removed | "or start by scanning an item" removed from S-01 bottom zone. Redundant: scanning is available in S-02 input bar. Three clear paths is better than three + a footnote. | ✅ Yes | 2026-03-24 |
+| Category name on item rows | Every item row shows category name (Home, Vehicle, Garden) in the subtitle line. Consistent across all screens. Matches S-07a AHA format. | ✅ Yes | 2026-03-24 |
+| Pressed state bg color | Pressed states use rgba(26,22,18,0.03) (subtle dark tint) instead of rgba(245,240,232,0.6) (cream). Cream on cream was invisible. Applies to nudge cards and action sheet options. | ✅ Yes | 2026-03-24 |
+| Interaction states on cream | State tiles in interaction-states.html now use cream background instead of white, showing pressed states in realistic context. | ✅ Yes | 2026-03-24 |
 
 ---
 

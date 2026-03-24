@@ -75,7 +75,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,0.94);backdrop
 .state-grid-wide{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:14px;}
 
 /* ── STATE TILE ── */
-.state-tile{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:16px 14px 12px;display:flex;flex-direction:column;align-items:center;gap:10px;box-shadow:0 1px 3px rgba(26,22,18,0.04);}
+.state-tile{background:var(--cream);border:1px solid var(--border);border-radius:13px;padding:16px 14px 12px;display:flex;flex-direction:column;align-items:center;gap:10px;box-shadow:0 1px 3px rgba(26,22,18,0.04);}
 .state-name{font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(26,22,18,0.35);text-align:center;margin-top:2px;}
 .state-name.active{color:var(--cta);}
 .state-name.pressed{color:var(--ap-dk);}
@@ -138,7 +138,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,0.94);backdrop
 .nd{font-size:10px;font-weight:500;flex-shrink:0;}
 
 /* card states */
-.nc-pressed{background:rgba(245,240,232,0.6);border-radius:11px;border:1px solid var(--border);padding:9px 11px;display:flex;align-items:center;gap:9px;box-shadow:none;width:100%;transform:scale(0.985);}
+.nc-pressed{background:rgba(26,22,18,0.03);border-radius:11px;border:1px solid rgba(26,22,18,0.10);padding:9px 11px;display:flex;align-items:center;gap:9px;box-shadow:none;width:100%;transform:scale(0.985);}
 .nc-done{background:var(--surface);border-radius:11px;border:1px solid var(--border);padding:9px 11px;display:flex;align-items:center;gap:9px;box-shadow:0 1px 3px rgba(26,22,18,0.04);width:100%;opacity:0.35;}
 .nc-done .nn{text-decoration:line-through;text-decoration-color:rgba(26,22,18,0.2);}
 .nc-swipe{position:relative;border-radius:11px;overflow:hidden;width:100%;}
@@ -182,7 +182,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,0.94);backdrop
    ACTION SHEET STATES
 ═══════════════════════ */
 .ao{background:var(--surface);border-radius:14px;border:1px solid rgba(26,22,18,0.07);box-shadow:0 4px 16px rgba(26,22,18,0.10);padding:10px 12px;display:flex;align-items:center;gap:9px;width:100%;}
-.ao-pressed{background:rgba(245,240,232,0.7);border-radius:14px;border:1px solid rgba(26,22,18,0.07);box-shadow:0 1px 4px rgba(26,22,18,0.06);padding:10px 12px;display:flex;align-items:center;gap:9px;width:100%;transform:scale(0.97);}
+.ao-pressed{background:rgba(26,22,18,0.03);border-radius:14px;border:1px solid rgba(26,22,18,0.10);box-shadow:0 1px 4px rgba(26,22,18,0.06);padding:10px 12px;display:flex;align-items:center;gap:9px;width:100%;transform:scale(0.97);}
 .ao-icon{width:28px;height:28px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .ao-icon svg{fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
 .ao-title{font-size:11px;font-weight:500;color:var(--ink);}
@@ -405,7 +405,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,0.94);backdrop
           <div class="nb"><div class="nn">Vaatwasser zoutbak</div><div class="ns">it's starting to smell</div></div>
           <div class="nd" style="color:var(--terra);">5d</div>
         </div>
-        <div class="state-name pressed">Pressed · scale 0.985 · bg cream</div>
+        <div class="state-name pressed">Pressed · scale 0.985 · subtle darken</div>
       </div>
       <!-- Swipe to complete -->
       <div class="state-tile">
@@ -445,7 +445,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,0.94);backdrop
     </div>
 
     <div class="spec-strip">
-      <strong>Pressed:</strong> bg <code>rgba(245,240,232,0.6)</code> · shadow removed · scale <code>0.985</code> · <code>100ms</code><br>
+      <strong>Pressed:</strong> bg <code>rgba(26,22,18,0.03)</code> · border <code>rgba(26,22,18,0.10)</code> · shadow removed · scale <code>0.985</code> · <code>100ms</code><br>
       <strong>Swipe to complete:</strong> swipe right reveals garden-green check zone. Release past 40% threshold → fires done overlay. Release before → snaps back.<br>
       <strong>Done:</strong> opacity <code>0.35</code> · name text has <code>line-through</code> in <code>rgba(26,22,18,0.2)</code>. Stays visible for 1 session, then collapses.<br>
       <strong>Skeleton:</strong> shimmer gradient animation on placeholder shapes. Shown while initial data loads. Max 3 skeleton cards visible.
@@ -688,7 +688,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,0.94);backdrop
           </div>
           <div><div class="ao-title">Laat me zien</div><div class="ao-sub">blader per categorie</div></div>
         </div>
-        <div class="state-name pressed">Browse · pressed · cream bg</div>
+        <div class="state-name pressed">Browse · pressed · subtle darken</div>
       </div>
     </div>
 
@@ -916,8 +916,8 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,0.94);backdrop
           <tr><td>CTA button</td><td>Pressed</td><td>bg <code>#7D62B3</code> · scale 0.97</td><td>100ms ease-out</td><td>AnimatedScale + color</td></tr>
           <tr><td>CTA button</td><td>Loading</td><td>text hidden · spinner <code>cta-fg</code></td><td>—</td><td>AnimatedSwitcher</td></tr>
           <tr><td>CTA button</td><td>Disabled</td><td>bg 35% · text 50%</td><td>—</td><td>ButtonStyle resolve</td></tr>
-          <tr><td>Secondary btn</td><td>Pressed</td><td>bg cream tint · scale 0.97</td><td>100ms ease-out</td><td>GestureDetector</td></tr>
-          <tr><td>Nudge card</td><td>Pressed</td><td>bg cream · shadow off · scale 0.985</td><td>100ms ease-out</td><td>GestureDetector + AnimatedContainer</td></tr>
+          <tr><td>Secondary btn</td><td>Pressed</td><td>bg rgba(26,22,18,0.05) · scale 0.97</td><td>100ms ease-out</td><td>GestureDetector</td></tr>
+          <tr><td>Nudge card</td><td>Pressed</td><td>bg rgba(26,22,18,0.03) · shadow off · scale 0.985</td><td>100ms ease-out</td><td>GestureDetector + AnimatedContainer</td></tr>
           <tr><td>Nudge card</td><td>Swipe</td><td>translateX · green action reveals</td><td>spring</td><td>Dismissible</td></tr>
           <tr><td>Nudge card</td><td>Done</td><td>opacity 0.35 · line-through</td><td>250ms ease</td><td>AnimatedOpacity</td></tr>
           <tr><td>Filter chip</td><td>Active</td><td>bg <code>cta</code> · text <code>cta-fg</code></td><td>200ms ease</td><td>AnimatedContainer</td></tr>
@@ -925,7 +925,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,0.94);backdrop
           <tr><td>Tab bar item</td><td>Active</td><td>ink icon · pip appears · bold label</td><td>200ms ease</td><td>AnimatedOpacity + AnimatedDefaultTextStyle</td></tr>
           <tr><td>FAB</td><td>Open</td><td>rotate 45° (Plus → ×)</td><td>180ms spring</td><td>AnimatedRotation</td></tr>
           <tr><td>FAB</td><td>Pressed</td><td>bg <code>#7D62B3</code> · scale 0.93</td><td>120ms spring</td><td>AnimatedScale</td></tr>
-          <tr><td>Action option</td><td>Pressed</td><td>bg cream · scale 0.97</td><td>100ms</td><td>GestureDetector</td></tr>
+          <tr><td>Action option</td><td>Pressed</td><td>bg rgba(26,22,18,0.03) · scale 0.97</td><td>100ms</td><td>GestureDetector</td></tr>
           <tr><td>Action sheet</td><td>Enter</td><td>translateY + scale from 0.95</td><td>280ms spring · stagger 40ms</td><td>AnimatedPositioned + staggered</td></tr>
           <tr><td>Input</td><td>Focused</td><td>border <code>cta</code> · glow ring</td><td>150ms ease</td><td>FocusNode + AnimatedContainer</td></tr>
           <tr><td>Input</td><td>Error</td><td>border <code>terra</code> · error msg</td><td>150ms ease</td><td>InputDecoration.errorText</td></tr>
