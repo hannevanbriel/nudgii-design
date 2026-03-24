@@ -659,6 +659,11 @@ Update this section when open decisions are resolved.
 | Category name on item rows | Every item row shows category name (Home, Vehicle, Garden) in the subtitle line. Consistent across all screens. Matches S-07a AHA format. | ✅ Yes | 2026-03-24 |
 | Pressed state bg color | Pressed states use rgba(26,22,18,0.03) (subtle dark tint) instead of rgba(245,240,232,0.6) (cream). Cream on cream was invisible. Applies to nudge cards and action sheet options. | ✅ Yes | 2026-03-24 |
 | Interaction states on cream | State tiles in interaction-states.html now use cream background instead of white, showing pressed states in realistic context. | ✅ Yes | 2026-03-24 |
+| S-01 CTA mic icon removed | Path A covers voice, text, and scan. Mic icon was misleading (implied voice-only). Button is text-only now. | ✅ Yes | 2026-03-24 |
+| S-01 interactive item rows | Items are tappable with check circles. Task names ("Clean dishwasher filter") not item names ("Dishwasher"). Pre-selection carries to S-02 as confirmed chips. | ✅ Yes | 2026-03-24 |
+| S-01 Path C removed | Two paths only (A + B). "Something else" row covers discovery. Three paths + footnote was too many choices. | ✅ Yes | 2026-03-24 |
+| S-01 subtitle | "Add what you own. We handle the rest." replaces "nudgii knows when, for everything you own." Simpler, action-oriented. | ✅ Yes | 2026-03-24 |
+| S-01 hi-fi layout | Single English phone + annotation sidebar. Matches S-02 pattern. Locale variants removed from hi-fi (English only per design system rules). | ✅ Yes | 2026-03-24 |
 
 ---
 
