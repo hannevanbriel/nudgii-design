@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · S-03 Browse categories — hi-fi</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+
+:root{
+  --cream:#F5F0E8;--ink:#1A1612;--mid:#8A8070;--mid-lt:#B0A898;
+  --border:rgba(26,22,18,0.08);--border-md:rgba(26,22,18,0.12);
+  --ap:#E8A87C;--ap-dk:#C8784A;--terra:#C4503A;
+  --plum:#2D1F4A;--cta:#9B7FD4;--cta-fg:#FAF8FF;
+  --mid-a:#6B6358;
+  --sage:#3B6D11;--sage-lt:#EAF3DE;
+  --amber:#854F0B;--amber-lt:#FAEEDA;
+  --red:#A32D2D;--red-lt:#FCEBEB;
+  --surface:#FFFFFF;
+  --ink-06:rgba(26,22,18,0.06);--ink-08:rgba(26,22,18,0.08);
+  --ink-10:rgba(26,22,18,0.10);--ink-16:rgba(26,22,18,0.16);
+  --cat-home:#C87850;--cat-vehicle:#4A82A0;--cat-garden:#5A9060;--cat-sub:#8060A8;
+}
+
+body{
+  background:#CBC5BB;
+  font-family:'DM Sans',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  padding:0 0 80px;
+}
+
+/* ── NAV ── */
+nav{
+  background:var(--cream);border-bottom:1px solid var(--border-md);
+  padding:0 32px;display:flex;align-items:center;gap:16px;
+  height:48px;position:sticky;top:0;z-index:100;
+}
+.nav-back{
+  font-size:13px;color:var(--mid);text-decoration:none;
+  display:flex;align-items:center;gap:8px;
+}
+.nav-back:hover{color:var(--ink);}
+.nav-sep{color:var(--border-md);}
+.nav-title{font-size:13px;font-weight:500;}
+.nav-status{
+  margin-left:auto;font-size:10px;font-weight:500;
+  padding:3px 10px;border-radius:100px;
+  background:rgba(133,79,11,0.10);color:#854F0B;
+  border:1px solid rgba(133,79,11,0.20);
+}
+
+/* ── PAGE ── */
+.page{padding:40px 32px 60px;max-width:1700px;margin:0 auto;}
+
+/* ── PAGE HEADER ── */
+.page-eyebrow{
+  font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(26,22,18,0.28);margin-bottom:10px;
+}
+.page-h1{
+  font-family:'DM Serif Display',serif;font-size:28px;
+  color:var(--ink);letter-spacing:-0.3px;margin-bottom:6px;
+}
+.page-sub{
+  font-size:14px;color:var(--mid-a);line-height:1.65;
+  max-width:640px;margin-bottom:12px;
+}
+.meta{display:flex;gap:8px;margin-bottom:48px;flex-wrap:wrap;}
+.mp{
+  font-size:11px;font-weight:500;padding:3px 10px;border-radius:100px;
+  border:1px solid var(--ink-10);color:var(--mid);
+}
+.mp.hifi{background:rgba(155,127,212,0.08);color:#5C3E8A;border-color:rgba(155,127,212,0.20);}
+.mp.ob{background:rgba(200,120,80,0.08);color:#7A3A10;border-color:rgba(200,120,80,0.18);}
+
+/* ── LAYOUT WRAPPER ── */
+.content-row{display:flex;gap:40px;align-items:flex-start;}
+
+/* ── PHONE SHELL ── */
+.phone-col{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+.phone{
+  width:390px;height:844px;border-radius:50px;overflow:hidden;
+  background:var(--cream);
+  border:1.5px solid rgba(26,22,18,0.09);
+  box-shadow:0 28px 60px rgba(26,22,18,0.18),0 6px 16px rgba(26,22,18,0.07),inset 0 1px 0 rgba(255,255,255,0.65);
+  position:relative;flex-shrink:0;
+  display:flex;flex-direction:column;
+}
+
+/* notch + status bar */
+.notch{height:24px;background:var(--cream);display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px;}
+.np{width:102px;height:8px;border-radius:100px;background:rgba(26,22,18,0.10);}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:5px 18px 0;font-size:11px;font-weight:500;color:rgba(26,22,18,0.36);}
+.batt{width:14px;height:6px;border:1.5px solid rgba(26,22,18,0.28);border-radius:2px;position:relative;}
+.batt::after{content:'';position:absolute;left:1px;top:1px;right:2px;bottom:1px;background:rgba(26,22,18,0.32);border-radius:1px;}
+
+/* progress bar */
+.prog-bar{width:100%;height:3px;background:rgba(26,22,18,0.08);flex-shrink:0;}
+.prog-fill{height:3px;border-radius:0 100px 100px 0;background:var(--cta);}
+
+/* screen structure */
+.w-screen{flex:1;overflow:hidden;display:flex;flex-direction:column;padding:12px 16px 0;}
+.w-content{flex:1;overflow-y:auto;scrollbar-width:none;}
+.w-content::-webkit-scrollbar{display:none;}
+.w-bottom{padding:10px 0 24px;flex-shrink:0;}
+
+/* ── BACK BUTTON ── */
+.back-btn{width:44px;height:44px;display:flex;align-items:center;justify-content:center;margin-left:-10px;margin-bottom:2px;cursor:pointer;}
+.back-btn svg{width:12px;height:12px;fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+
+/* ── SEARCH BAR ── */
+.search-bar{
+  display:flex;align-items:center;gap:8px;
+  background:var(--surface);border:0.5px solid var(--border-md);
+  border-radius:10px;padding:10px 12px;margin-bottom:10px;
+}
+.search-bar svg{width:14px;height:14px;fill:none;stroke:var(--mid);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+.search-input{
+  flex:1;border:none;outline:none;background:transparent;
+  font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink);
+}
+.search-input::placeholder{font-style:italic;color:rgba(107,99,88,0.45);}
+
+/* ── CATEGORY STRIP ── */
+.cat-strip{display:flex;gap:5px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-bottom:12px;}
+.cat-strip::-webkit-scrollbar{display:none;}
+.cat-pill{
+  display:inline-flex;align-items:center;gap:4px;
+  background:var(--surface);border:0.5px solid var(--border-md);
+  border-radius:100px;padding:4px 10px;
+  font-size:10px;font-weight:500;color:var(--mid-a);
+  flex-shrink:0;cursor:pointer;transition:all 0.15s;user-select:none;
+}
+.cat-pill.on{background:var(--ink);color:#F5F0E8;border-color:var(--ink);}
+.cat-pill.on .cat-dot{opacity:0.7;}
+.cat-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+
+/* ── SECTION HEADERS ── */
+.sec-lbl{
+  font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--mid-a);padding:8px 0 6px;
+}
+
+/* ── ITEM ROWS ── */
+.item-rows{display:flex;flex-direction:column;gap:6px;margin-bottom:4px;}
+.irow{
+  background:var(--surface);border:0.5px solid rgba(26,22,18,0.08);
+  border-radius:10px;box-shadow:0 1px 3px rgba(26,22,18,0.04);
+  padding:10px 12px;display:flex;align-items:center;gap:10px;
+  cursor:pointer;transition:border-color 0.15s,background 0.15s;user-select:none;
+}
+.irow:active{background:rgba(26,22,18,0.03);}
+.irow.sel{border:1.5px solid rgba(155,127,212,0.35);background:rgba(155,127,212,0.04);}
+.irow.else{border:0.5px dashed rgba(26,22,18,0.14);background:transparent;box-shadow:none;}
+
+/* category sections (for filtering) */
+.cat-section{transition:opacity 0.2s,max-height 0.25s;}
+.cat-section.hidden{display:none;}
+
+/* category icon chip */
+.ci{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ci svg{width:13px;height:13px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.ci-h{background:rgba(200,120,80,0.10);}  .ci-h svg{stroke:var(--cat-home);}
+.ci-v{background:rgba(74,130,160,0.10);}  .ci-v svg{stroke:var(--cat-vehicle);}
+.ci-g{background:rgba(90,144,96,0.10);}   .ci-g svg{stroke:var(--cat-garden);}
+.ci-n{background:rgba(26,22,18,0.05);}    .ci-n svg{stroke:var(--mid);}
+
+/* item text */
+.iinfo{flex:1;min-width:0;}
+.iname{font-size:13px;font-weight:500;color:var(--ink);line-height:1.2;margin-bottom:2px;}
+.imeta{display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
+.itask-count{font-size:10px;color:var(--mid);background:rgba(26,22,18,0.05);border:0.5px solid rgba(26,22,18,0.07);border-radius:100px;padding:1px 7px;}
+.else-name{font-size:13px;font-weight:500;color:var(--mid-a);}
+.else-sub{font-size:11px;color:rgba(26,22,18,0.35);}
+
+/* check circle */
+.chk{width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(26,22,18,0.14);background:transparent;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.15s;}
+.chk svg{display:none;width:10px;height:10px;stroke:var(--cta-fg);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+.chk.on{background:var(--cta);border-color:var(--cta);}
+.chk.on svg{display:block;}
+
+/* ── BUTTONS ── */
+.btn-cta{
+  width:100%;height:50px;border-radius:100px;border:none;
+  background:#9B7FD4;color:#FAF8FF;
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  cursor:pointer;letter-spacing:-0.1px;
+  box-shadow:0 2px 12px rgba(155,127,212,0.32);
+  transition:background 0.1s,transform 0.1s;
+}
+.btn-cta:active{background:#7D62B3;transform:scale(0.97);}
+.btn-cta.disabled{background:rgba(155,127,212,0.35);color:rgba(250,248,255,0.5);pointer-events:none;box-shadow:none;}
+.cta-count{
+  background:rgba(250,248,255,0.20);border-radius:100px;
+  padding:2px 8px;font-size:11px;font-weight:500;
+}
+
+/* ── ANNOTATION COLUMN ── */
+.annot-col{
+  flex:0 0 340px;min-width:280px;
+  display:flex;flex-direction:column;gap:10px;
+  padding-top:0;
+}
+.annot-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:14px 16px;
+}
+.annot-card.decision{border-color:rgba(155,127,212,0.22);background:rgba(155,127,212,0.03);}
+.annot-head{
+  font-size:10px;font-weight:500;letter-spacing:0.3px;
+  margin-bottom:6px;display:flex;align-items:center;gap:6px;
+}
+.badge-rule{
+  font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;
+  background:rgba(59,109,17,0.10);color:var(--sage);
+}
+.badge-note{
+  font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;
+  background:rgba(26,22,18,0.07);color:var(--mid);
+}
+.badge-decision{
+  font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;
+  background:rgba(155,127,212,0.12);color:#5C3E8A;
+}
+.annot-body{font-size:11px;color:var(--mid-a);line-height:1.65;}
+.annot-body strong{color:var(--ink);font-weight:500;}
+.annot-body code{font-family:monospace;font-size:10px;background:var(--ink-06);padding:1px 4px;border-radius:3px;color:var(--ink);}
+.annot-section{
+  font-size:9px;font-weight:500;letter-spacing:1.6px;
+  text-transform:uppercase;color:rgba(26,22,18,0.28);
+  margin:20px 0 8px;
+}
+
+/* ── DIVIDER ── */
+.page-divider{height:1px;background:var(--border);margin:48px 0;}
+
+/* ── CHANGELOG ── */
+.changelog{
+  width:100%;max-width:1400px;
+  background:var(--surface);border-radius:12px;
+  border:1px solid var(--border);padding:24px 28px;
+}
+.cl-title{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:16px;}
+.cl-entry{margin-bottom:8px;}
+.cl-ver{font-size:10px;font-weight:500;letter-spacing:0.3px;color:var(--mid-a);margin-bottom:6px;}
+.cl-body{font-size:12px;color:var(--mid);line-height:1.6;margin-bottom:4px;}
+.cl-body strong{color:var(--ink);font-weight:500;}
+.cl-flutter{
+  background:rgba(26,22,18,0.02);border:1px solid var(--border);
+  border-radius:8px;padding:14px 16px;margin-top:12px;
+}
+.cl-flutter-head{font-size:10px;font-weight:500;margin-bottom:8px;color:var(--mid-a);}
+.cl-flutter-body{font-family:monospace;font-size:11px;line-height:1.9;color:var(--mid);}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-back" href="../index.html">
+    <svg width="16" height="18" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:2px;">
+      <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
+      <path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
+      <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
+    </svg>
+    Design hub
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">S-03 — Browse categories</span>
+  <span class="nav-status">In progress</span>
+</nav>
+
+<div class="page">
+
+  <!-- PAGE HEADER -->
+  <div class="page-eyebrow">S-03 · Browse categories · Hi-fi · 390x844px (iPhone 15) · March 2026</div>
+  <h1 class="page-h1">Browse categories</h1>
+  <p class="page-sub">Path B: the user browses a flat list of items grouped by category, ticking what they own. No typing, no speaking. Designed for Arne and users who already know what they have. Items selected on S-01 arrive pre-checked.</p>
+  <div class="meta">
+    <span class="mp hifi">Hi-fi</span>
+    <span class="mp ob">Onboarding flow</span>
+    <span class="mp">S-03</span>
+    <span class="mp">March 2026</span>
+  </div>
+
+  <!-- CONTENT ROW: phone + annotation sidebar -->
+  <div class="content-row">
+
+    <!-- PHONE -->
+    <div class="phone-col">
+      <div class="phone">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <!-- progress bar 40% -->
+        <div class="prog-bar"><div class="prog-fill" style="width:40%;"></div></div>
+
+        <div class="w-screen">
+          <div class="w-content">
+
+            <!-- back button -->
+            <div class="back-btn" title="Back to S-01">
+              <svg viewBox="0 0 12 12"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg>
+            </div>
+
+            <!-- search bar -->
+            <div class="search-bar">
+              <svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/></svg>
+              <input class="search-input" type="text" placeholder="Search items..." id="searchInput" oninput="filterSearch()">
+            </div>
+
+            <!-- category filter strip -->
+            <div class="cat-strip" id="catStrip">
+              <div class="cat-pill on" data-cat="all" onclick="toggleCategory('all')">All</div>
+              <div class="cat-pill" data-cat="home" onclick="toggleCategory('home')"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
+              <div class="cat-pill" data-cat="vehicle" onclick="toggleCategory('vehicle')"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
+              <div class="cat-pill" data-cat="garden" onclick="toggleCategory('garden')"><span class="cat-dot" style="background:#5A9060;"></span>Garden</div>
+              <div class="cat-pill" data-cat="subs" onclick="toggleCategory('subs')"><span class="cat-dot" style="background:#8060A8;"></span>Subscriptions</div>
+            </div>
+
+            <!-- HOME section -->
+            <div class="cat-section" data-category="home">
+              <div class="sec-lbl">Home</div>
+              <div class="item-rows">
+                <div class="irow sel" onclick="toggleItem(this)" data-name="Dishwasher">
+                  <div class="ci ci-h"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+                  <div class="iinfo">
+                    <div class="iname">Dishwasher</div>
+                    <div class="imeta"><span class="itask-count">3 reminders</span></div>
+                  </div>
+                  <div class="chk on"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
+                </div>
+
+                <div class="irow" onclick="toggleItem(this)" data-name="Boiler / CV ketel">
+                  <div class="ci ci-h"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="12" cy="15" r="3"/><line x1="12" y1="3" x2="12" y2="6"/></svg></div>
+                  <div class="iinfo">
+                    <div class="iname">Boiler / CV ketel</div>
+                    <div class="imeta"><span class="itask-count">2 reminders</span></div>
+                  </div>
+                  <div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
+                </div>
+
+                <div class="irow" onclick="toggleItem(this)" data-name="Airco / heat pump">
+                  <div class="ci ci-h"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 21v-6h6v6"/></svg></div>
+                  <div class="iinfo">
+                    <div class="iname">Airco / heat pump</div>
+                    <div class="imeta"><span class="itask-count">2 reminders</span></div>
+                  </div>
+                  <div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- VEHICLE section -->
+            <div class="cat-section" data-category="vehicle">
+              <div class="sec-lbl">Vehicle</div>
+              <div class="item-rows">
+                <div class="irow sel" onclick="toggleItem(this)" data-name="Car">
+                  <div class="ci ci-v"><svg viewBox="0 0 24 24"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/></svg></div>
+                  <div class="iinfo">
+                    <div class="iname">Car</div>
+                    <div class="imeta"><span class="itask-count">4 reminders</span></div>
+                  </div>
+                  <div class="chk on"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
+                </div>
+
+                <div class="irow" onclick="toggleItem(this)" data-name="Motorcycle">
+                  <div class="ci ci-v"><svg viewBox="0 0 24 24"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/></svg></div>
+                  <div class="iinfo">
+                    <div class="iname">Motorcycle</div>
+                    <div class="imeta"><span class="itask-count">3 reminders</span></div>
+                  </div>
+                  <div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- GARDEN section -->
+            <div class="cat-section" data-category="garden">
+              <div class="sec-lbl">Garden</div>
+              <div class="item-rows">
+                <div class="irow" onclick="toggleItem(this)" data-name="Hedge / haag">
+                  <div class="ci ci-g"><svg viewBox="0 0 24 24"><line x1="12" y1="22" x2="12" y2="15"/><path d="M9 18c0-4 3-7 3-7s3 3 3 7a3 3 0 01-6 0z"/></svg></div>
+                  <div class="iinfo">
+                    <div class="iname">Hedge / haag</div>
+                    <div class="imeta"><span class="itask-count">2 reminders</span></div>
+                  </div>
+                  <div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Something else row -->
+            <div style="margin-top:8px;" id="elseRow">
+              <div class="item-rows">
+                <div class="irow else">
+                  <div class="ci ci-n"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+                  <div class="iinfo">
+                    <div class="else-name">Something else</div>
+                    <div class="else-sub">browse all items</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /w-content -->
+
+          <!-- sticky bottom zone -->
+          <div class="w-bottom">
+            <button class="btn-cta" id="ctaBtn" onclick="void(0)">
+              Continue with <span id="ctaCount">2</span> items
+              <span class="cta-count" id="ctaBadge">2</span>
+            </button>
+          </div>
+        </div><!-- /w-screen -->
+      </div><!-- /phone -->
+    </div><!-- /phone-col -->
+
+    <!-- ANNOTATION SIDEBAR -->
+    <div class="annot-col">
+
+      <div class="annot-section">Shell + layout</div>
+
+      <div class="annot-card">
+        <div class="annot-head">
+          <span class="badge-rule">Rule</span>
+          Shell pattern
+        </div>
+        <div class="annot-body">
+          Progress bar at <strong>40%</strong> (S-03 = step 2 of 5). Full-width, edge-to-edge, <strong>outside SafeArea</strong>. Back button (ArrowLeft SVG, 44x44px tap target) returns to S-01. Scrollable content zone between back button and sticky CTA.
+        </div>
+      </div>
+
+      <div class="annot-card">
+        <div class="annot-head">
+          <span class="badge-rule">Rule</span>
+          Search bar
+        </div>
+        <div class="annot-body">
+          Magnifying glass icon + "Search items..." placeholder. White surface bg, 0.5px border, 10px radius. <strong>Live filter:</strong> filters visible items as user types. No separate search results screen. Search text clears when category filter changes.
+        </div>
+      </div>
+
+      <div class="annot-section">Content</div>
+
+      <div class="annot-card">
+        <div class="annot-head">
+          <span class="badge-rule">Rule</span>
+          Category filter strip
+        </div>
+        <div class="annot-body">
+          <strong>"All" pill always first</strong>, always the initial active state. Single scrollable row (<code>flex-wrap:nowrap; overflow-x:auto</code>). Active pill: <code>ink</code> bg, cream text. Inactive pill: surface bg, 0.5px border, <code>colorMidAccessible</code> text. Each category pill has a 6px colored dot. Tapping a category filters the list below.
+        </div>
+      </div>
+
+      <div class="annot-card decision">
+        <div class="annot-head">
+          <span class="badge-decision">Decision</span>
+          Item selection
+        </div>
+        <div class="annot-body">
+          Items are <strong>tappable with check circles</strong> (20px diameter). Selected: <code>colorCta</code> fill + checkmark. Deselected: 1.5px border, transparent bg. CTA count updates on every toggle. Selected row: 1.5px CTA border + subtle CTA tint.
+        </div>
+      </div>
+
+      <div class="annot-card decision">
+        <div class="annot-head">
+          <span class="badge-decision">Decision</span>
+          Context carry-over from S-01
+        </div>
+        <div class="annot-body">
+          Items the user tapped on S-01 arrive <strong>pre-checked</strong>. In this mockup: Dishwasher and Car are pre-selected (2 items). Never ask users for information they already gave. If no items were selected on S-01, all items start unchecked.
+        </div>
+      </div>
+
+      <div class="annot-card">
+        <div class="annot-head">
+          <span class="badge-note">Reminder count</span>
+        </div>
+        <div class="annot-body">
+          Each item row shows a <strong>reminder count pill</strong> ("3 reminders", "2 reminders"). Shows the number of pre-loaded tasks nudgii has for that item. Does not show task names here: that detail lives on S-05 (review) and S-13 (task detail).
+        </div>
+      </div>
+
+      <div class="annot-card">
+        <div class="annot-head">
+          <span class="badge-note">Section headers</span>
+        </div>
+        <div class="annot-body">
+          Category section headers: <strong>9px, 500 weight, 1.8px letter-spacing, uppercase</strong>, <code>colorMidAccessible #6B6358</code>. Items below each header are individual white cards with 6px gap. Cream between cards IS the visual separator.
+        </div>
+      </div>
+
+      <div class="annot-section">Discovery + CTA</div>
+
+      <div class="annot-card">
+        <div class="annot-head">
+          <span class="badge-note">"Something else" row</span>
+        </div>
+        <div class="annot-body">
+          Dashed border, plus icon. Discovery path for items not in the default browse list. Opens a deeper browse or search. Same pattern as S-01's "Something else" row. No check circle on this row.
+        </div>
+      </div>
+
+      <div class="annot-card">
+        <div class="annot-head">
+          <span class="badge-rule">Rule</span>
+          Sticky CTA
+        </div>
+        <div class="annot-body">
+          "Continue with X items" updates live. Count badge shows the total. Navigates to S-05 (review). <strong>Disabled state</strong> at 0 items: <code>rgba(155,127,212,0.35)</code> bg, <code>rgba(250,248,255,0.5)</code> text. Pressed: bg <code>#7D62B3</code>, scale 0.97, 100ms ease-out.
+        </div>
+      </div>
+
+    </div><!-- /annot-col -->
+
+  </div><!-- /content-row -->
+
+  <div class="page-divider"></div>
+
+  <!-- CHANGELOG -->
+  <div class="changelog">
+    <div class="cl-title">Changelog</div>
+
+    <div class="cl-entry">
+      <div class="cl-ver">v1.0 · 2026-03-24 · ADDITIVE</div>
+      <div class="cl-body"><strong>Initial hi-fi.</strong> Flat browsable item list with category filter strip, search bar, and pre-checked items from S-01. Replaces the earlier 2x2 category tile grid with a single scrollable list grouped by section headers.</div>
+      <div class="cl-body"><strong>Category filter strip.</strong> "All" pill first (active by default). Tapping a category pill filters visible items to that category only. Same filter pattern as S-09 dashboard.</div>
+      <div class="cl-body"><strong>Search bar.</strong> Live text filter above the category strip. Filters items by name as the user types. No separate search results screen.</div>
+      <div class="cl-body"><strong>Context carry-over.</strong> Items selected on S-01 (Dishwasher, Car) arrive pre-checked. CTA starts at "Continue with 2 items".</div>
+      <div class="cl-body"><strong>"Something else" row.</strong> Dashed border, plus icon, discovery path for items not in the default list.</div>
+      <div class="cl-body"><strong>Sticky CTA with live count.</strong> "Continue with X items" updates as user checks/unchecks. Disabled state at 0 selections.</div>
+    </div>
+
+    <div class="cl-flutter">
+      <div class="cl-flutter-head">Standard Flutter implementation block · S-03</div>
+      <div class="cl-flutter-body">
+        Mockup base:&nbsp;&nbsp;&nbsp;&nbsp;390px width (iPhone 15)<br>
+        SafeArea:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;top=false, progress bar outside SafeArea<br>
+        Scroll:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SingleChildScrollView for content zone only<br>
+        Bottom zone:&nbsp;&nbsp;&nbsp;&nbsp;Sticky: fixed Column at bottom, not Spacer<br>
+        Progress bar:&nbsp;&nbsp;&nbsp;Full width, height 3px, outside SafeArea, 40% fill<br>
+        Scaling:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All visual elements x (screenWidth/390).clamp(0.9, 1.15)<br>
+        Special:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Category filter: SingleChildScrollView(horizontal) wrapping Row of FilterChip. Item rows: GestureDetector with AnimatedSwitcher on check circles (150ms). Search: TextField with onChanged callback filtering item list. Pre-checked items passed from S-01 via state. CTA disabled state via AnimatedContainer.
+      </div>
+    </div>
+
+  </div><!-- /changelog -->
+
+</div><!-- /page -->
+
+<script>
+/* ── Category filter ── */
+function toggleCategory(cat) {
+  // Update pills
+  document.querySelectorAll('.cat-pill').forEach(function(pill) {
+    pill.classList.remove('on');
+  });
+  document.querySelector('[data-cat="' + cat + '"]').classList.add('on');
+
+  // Filter sections
+  var sections = document.querySelectorAll('.cat-section');
+  sections.forEach(function(sec) {
+    if (cat === 'all') {
+      sec.classList.remove('hidden');
+    } else if (sec.getAttribute('data-category') === cat) {
+      sec.classList.remove('hidden');
+    } else {
+      sec.classList.add('hidden');
+    }
+  });
+
+  // Show/hide "Something else" row
+  var elseRow = document.getElementById('elseRow');
+  if (elseRow) elseRow.classList.remove('hidden');
+
+  // Clear search when switching categories
+  var searchInput = document.getElementById('searchInput');
+  if (searchInput) {
+    searchInput.value = '';
+    filterSearch();
+  }
+}
+
+/* ── Item toggle ── */
+function toggleItem(row) {
+  if (row.classList.contains('else')) return;
+  row.classList.toggle('sel');
+  var chk = row.querySelector('.chk');
+  if (chk) chk.classList.toggle('on');
+  updateCount();
+}
+
+/* ── Update CTA count ── */
+function updateCount() {
+  var count = document.querySelectorAll('.irow.sel').length;
+  var ctaCount = document.getElementById('ctaCount');
+  var ctaBadge = document.getElementById('ctaBadge');
+  var ctaBtn = document.getElementById('ctaBtn');
+  if (ctaCount) ctaCount.textContent = count;
+  if (ctaBadge) ctaBadge.textContent = count;
+  if (ctaBtn) {
+    if (count === 0) {
+      ctaBtn.classList.add('disabled');
+    } else {
+      ctaBtn.classList.remove('disabled');
+    }
+  }
+}
+
+/* ── Search filter ── */
+function filterSearch() {
+  var query = document.getElementById('searchInput').value.toLowerCase().trim();
+  var rows = document.querySelectorAll('.irow:not(.else)');
+  var sections = document.querySelectorAll('.cat-section');
+
+  if (!query) {
+    // Reset: show all rows, respect category filter
+    rows.forEach(function(row) { row.style.display = ''; });
+    var activeCat = document.querySelector('.cat-pill.on');
+    if (activeCat) {
+      toggleCategory(activeCat.getAttribute('data-cat'));
+    }
+    return;
+  }
+
+  // Show all sections first, then filter rows
+  sections.forEach(function(sec) { sec.classList.remove('hidden'); });
+
+  rows.forEach(function(row) {
+    var name = (row.getAttribute('data-name') || '').toLowerCase();
+    if (name.indexOf(query) !== -1) {
+      row.style.display = '';
+    } else {
+      row.style.display = 'none';
+    }
+  });
+
+  // Hide sections that have no visible rows
+  sections.forEach(function(sec) {
+    var visibleRows = sec.querySelectorAll('.irow:not(.else):not([style*="display: none"])');
+    if (visibleRows.length === 0) {
+      sec.classList.add('hidden');
+    }
+  });
+}
+
+// Initial count on load
+updateCount();
+</script>
+
+</body>
+</html>
