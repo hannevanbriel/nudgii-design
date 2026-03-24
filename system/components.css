@@ -268,26 +268,34 @@ body{
 .ci-n{background:rgba(26,22,18,0.05);}    .ci-n svg{stroke:var(--mid);}
 
 
-/* ── 14. CATEGORY FILTER STRIP ── */
+/* ── 14. CATEGORY FILTER STRIP ──
+   Used on: S-01 (no "All" pill), S-03 (with "All"), S-09 (with "All")
+   "All" pill always first on S-03 and S-09. Removed from S-01.
+   Single scrollable row, never wraps to second line.
+   Active: ink bg, cream text. Inactive: surface bg, border, mid-accessible text.
+*/
 .cat-strip{
-  display:flex;gap:5px;flex-wrap:nowrap;
+  display:flex;gap:4px;flex-wrap:nowrap;
   overflow-x:auto;scrollbar-width:none;
   margin-bottom:10px;
+  -webkit-overflow-scrolling:touch;
 }
 .cat-strip::-webkit-scrollbar{display:none;}
 
 .cat-pill{
   display:inline-flex;align-items:center;gap:4px;
   background:var(--surface);
-  border:0.5px solid var(--ink-10);
+  border:0.5px solid rgba(26,22,18,0.12);
   border-radius:100px;
   padding:4px 10px;
-  font-size:10px;font-weight:500;color:var(--ink);
+  font-size:10px;font-weight:500;
+  color:var(--mid-a, #6B6358);
   flex-shrink:0;cursor:pointer;
-  transition:background 0.15s,border-color 0.15s,color 0.15s;
+  transition:background 0.15s ease-out,border-color 0.15s ease-out,color 0.15s ease-out;
 }
 .cat-pill.active{background:var(--ink);color:#F5F0E8;border-color:var(--ink);}
-.cat-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.cat-pill.active .cat-dot{opacity:0.7;}
+.cat-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
 
 
 /* ── 15. ITEM CARD / TASK ROW ── */
