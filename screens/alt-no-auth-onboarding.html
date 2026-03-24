@@ -137,7 +137,7 @@ body {
 .chip.garden { background: rgba(90,144,96,0.10); } .chip.garden svg { stroke: var(--cat-garden); }
 .chip.sub { background: rgba(128,96,168,0.10); } .chip.sub svg { stroke: var(--cat-sub); }
 
-/* ii mark chip for account nudge */
+/* ii mark chip for digest nudge */
 .chip.ii-nudge { background: rgba(155,127,212,0.08); }
 
 /* ── BUTTONS ── */
@@ -187,13 +187,13 @@ body {
 .soon { color: var(--apricot-dk); }
 .ok { color: var(--mid-ac); }
 
-/* ── ACCOUNT NUDGE CARD ── */
-.nudge-account { background: var(--surface); border: 0.5px solid rgba(155,127,212,0.18); border-radius: 10px; box-shadow: 0 1px 3px rgba(26,22,18,0.04); padding: 9px 10px; display: flex; align-items: center; gap: 8px; margin-bottom: 5px; cursor: pointer; }
-.nudge-account .ncontent { flex: 1; min-width: 0; }
-.nudge-account .nname { font-size: 9px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
-.nudge-account .nsub { font-size: 7px; color: var(--mid-ac); font-style: normal; line-height: 1.4; }
-.nudge-account .ndate-label { font-size: 7px; color: var(--mid); flex-shrink: 0; }
-.nudge-account .cta-link { font-size: 7.5px; color: var(--cta); font-weight: 500; flex-shrink: 0; }
+/* ── DIGEST NUDGE CARD ── */
+.nudge-digest { background: var(--surface); border: 0.5px solid rgba(155,127,212,0.18); border-radius: 10px; box-shadow: 0 1px 3px rgba(26,22,18,0.04); padding: 9px 10px; display: flex; align-items: flex-start; gap: 8px; margin-bottom: 5px; cursor: pointer; }
+.nudge-digest .ncontent { flex: 1; min-width: 0; }
+.nudge-digest .nname { font-size: 9px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+.nudge-digest .nsub { font-size: 7px; color: var(--mid-ac); font-style: normal; line-height: 1.4; }
+.nudge-digest .ndate-label { font-size: 7px; color: var(--mid); flex-shrink: 0; }
+.nudge-digest .cta-link { font-size: 7.5px; color: var(--cta); font-weight: 500; flex-shrink: 0; white-space: nowrap; margin-top: 1px; }
 
 /* Tab bar + FAB */
 .shell-btm { position: absolute; bottom: 12px; left: 12px; right: 12px; display: flex; align-items: flex-end; gap: 8px; z-index: 20; }
@@ -214,6 +214,14 @@ body {
 .push-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px 18px 0; text-align: center; }
 .push-icon { width: 56px; height: 56px; border-radius: 16px; background: rgba(155,127,212,0.08); border: 0.5px solid rgba(155,127,212,0.15); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
 .push-icon svg { width: 26px; height: 26px; stroke: var(--cta); fill: none; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── EMAIL CAPTURE ── */
+.email-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px 18px 0; text-align: center; }
+.email-icon { width: 48px; height: 48px; border-radius: 50%; background: rgba(155,127,212,0.08); display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+.email-icon svg { width: 22px; height: 22px; stroke: var(--cta); fill: none; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.email-input { width: 100%; height: 34px; background: var(--surface); border: 1px solid rgba(155,127,212,0.35); border-radius: 10px; display: flex; align-items: center; gap: 8px; padding: 0 12px; margin-bottom: 10px; }
+.email-input svg { width: 13px; height: 13px; stroke: var(--mid); fill: none; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+.email-input span { font-size: 8px; color: rgba(107,99,88,0.45); font-style: italic; }
 
 /* ── DAY LABELS ── */
 .day-label {
@@ -250,7 +258,7 @@ body {
 <!-- Exploration banner -->
 <div class="explore-banner">
   <div class="explore-icon"><svg viewBox="0 0 16 16"><path d="M8 2v12M2 8h12"/><circle cx="8" cy="8" r="6.5"/></svg></div>
-  <div class="explore-text"><strong>Alternative path, not committed, for discussion.</strong> This explores a no-signup onboarding flow. The current committed flow lives in <a href="onboarding-full-preview.html" style="color:var(--cta);">onboarding-full-preview.html</a>.</div>
+  <div class="explore-text"><strong>Alternative path, not committed, for discussion.</strong> This explores a no-signup onboarding flow with email capture through a value exchange. The current committed flow lives in <a href="onboarding-full-preview.html" style="color:var(--cta);">onboarding-full-preview.html</a>.</div>
 </div>
 
 <!-- Header -->
@@ -267,9 +275,9 @@ body {
   Back to committed flow
 </a>
 
-<div class="page-title">Alternative flow: no-auth onboarding</div>
+<div class="page-title">Alternative flow: email capture through weekly digest</div>
 <div class="page-sub">
-  <strong>What if users never see a signup wall?</strong> Instead of requiring auth during onboarding, users go straight from AHA to dashboard. nudgii then uses its own reminder system to nudge users to create an account. The signup nudge looks exactly like a maintenance reminder, because that is what nudgii does: it reminds you about things that matter.
+  <strong>What if users never see a signup wall?</strong> Instead of requiring auth during onboarding, users go straight from AHA to dashboard. Email is captured through a value exchange: the weekly digest. The user thinks they are signing up for a useful Monday email. Behind the scenes, the email creates a magic-link account. No "create an account" moment. No friction. The digest IS the retention engine, the upsell channel for Pro, and the #1 leading indicator (weekly digest open rate per product strategy).
 </div>
 
 <!-- Flow bar -->
@@ -282,22 +290,24 @@ body {
   <div class="fa">&rarr;</div>
   <div class="fp"><div class="fn">3</div>S-05 Review</div>
   <div class="fa">&rarr;</div>
-  <div class="fp"><div class="fn">4</div>S-06 AHA (modified)</div>
+  <div class="fp"><div class="fn">4</div>S-06 AHA</div>
   <div class="fa">&rarr;</div>
-  <div class="fp new-step"><div class="fn new-step">5</div>Push permission</div>
+  <div class="fp new-step"><div class="fn new-step">5</div>Weekly overview</div>
   <div class="fa">&rarr;</div>
-  <div class="fp"><div class="fn">6</div>S-09 Dashboard</div>
-  <span style="font-size:9px;color:rgba(26,22,18,0.28);padding:0 10px;">|</span>
-  <div class="fp removed"><div class="fn removed">X</div>S-07 Auth (removed)</div>
+  <div class="fp"><div class="fn">6</div>S-08 You're in</div>
+  <div class="fa">&rarr;</div>
+  <div class="fp"><div class="fn">7</div>Push permission</div>
+  <div class="fa">&rarr;</div>
+  <div class="fp"><div class="fn">8</div>S-09 Dashboard</div>
 </div>
 
 <!-- SCREENS -->
 <div class="screens-wrap">
 <div class="screens-row">
 
-<!-- ═══ 1. S-06 AHA (modified) ═══ -->
+<!-- ═══ 1. S-06 AHA ═══ -->
 <div class="screen-col">
-  <div class="screen-label">S-06 AHA (modified) · 80%</div>
+  <div class="screen-label">S-06 AHA · 80%</div>
   <div class="phone">
     <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
     <div class="prog"><div class="prog-fill" style="width:80%"></div></div>
@@ -332,18 +342,45 @@ body {
       </div>
       <div class="btm">
         <button class="btn primary">Open my schedule &rarr;</button>
-        <!-- No "Free, no credit card, 30 seconds" needed -->
       </div>
     </div>
   </div>
 </div>
 
-<!-- ═══ 2. PUSH PERMISSION ═══ -->
+<!-- ═══ 2. WEEKLY OVERVIEW (email capture) ═══ -->
 <div class="screen-col">
-  <div class="screen-label">Push permission · 90%</div>
+  <div class="screen-label">Weekly overview · 85%</div>
   <div class="phone">
     <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
-    <div class="prog"><div class="prog-fill" style="width:90%"></div></div>
+    <div class="prog"><div class="prog-fill" style="width:85%"></div></div>
+    <div class="scr">
+      <div class="email-wrap">
+        <!-- Envelope icon -->
+        <div class="email-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
+        </div>
+        <div class="h2" style="font-size:18px;margin-bottom:8px;">Want your weekly<br>overview?</div>
+        <div style="font-size:7.5px;font-style:italic;color:var(--mid-ac);line-height:1.5;margin-bottom:16px;max-width:200px;">Every Monday, a quick summary of what's done, what's next, and what nudgii spotted.</div>
+        <!-- Email input -->
+        <div class="email-input">
+          <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
+          <span>your@email.com</span>
+        </div>
+        <button class="btn primary" style="height:34px;font-size:8.5px;">Send me the overview</button>
+        <div style="font-size:7px;color:var(--mid);margin-top:2px;margin-bottom:12px;">Free forever. Unsubscribe anytime.</div>
+        <div style="font-size:8px;color:var(--mid-ac);cursor:pointer;">Skip for now</div>
+        <div style="font-size:6.5px;color:rgba(107,99,88,0.45);margin-top:4px;">You can always turn this on later in settings.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 3. PUSH PERMISSION ═══ -->
+<div class="screen-col">
+  <div class="screen-label">Push permission · 92%</div>
+  <div class="phone">
+    <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
+    <div class="prog"><div class="prog-fill" style="width:92%"></div></div>
     <div class="scr">
       <div class="push-wrap">
         <div class="push-icon">
@@ -360,7 +397,7 @@ body {
   </div>
 </div>
 
-<!-- ═══ 3. DASHBOARD DAY 1 ═══ -->
+<!-- ═══ 4. DASHBOARD DAY 1 ═══ -->
 <div class="screen-col">
   <div class="screen-label">S-09 Dashboard · Day 1</div>
   <div class="phone" style="position:relative;">
@@ -381,7 +418,7 @@ body {
       <div class="dash-scroll" style="padding-top:8px;">
         <div class="day-label">
           <svg width="8" height="8" viewBox="0 0 16 16" fill="none" stroke="var(--mid)" stroke-width="1.4" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/></svg>
-          Day 1, no signup nudge yet
+          Day 1, no digest nudge yet
         </div>
         <div class="sec-lbl" style="margin-top:0;">This week</div>
         <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div><div class="dcontent"><div class="dname">Annual boiler service</div><div class="dsub">CV ketel, yearly</div></div><div class="ddate soon">Oct 28</div></div>
@@ -407,7 +444,7 @@ body {
   </div>
 </div>
 
-<!-- ═══ 4. DASHBOARD DAY 3 ═══ -->
+<!-- ═══ 5. DASHBOARD DAY 3 ═══ -->
 <div class="screen-col">
   <div class="screen-label">S-09 Dashboard · Day 3</div>
   <div class="phone" style="position:relative;">
@@ -428,19 +465,19 @@ body {
       <div class="dash-scroll" style="padding-top:8px;">
         <div class="day-label">
           <svg width="8" height="8" viewBox="0 0 16 16" fill="none" stroke="var(--cta)" stroke-width="1.6" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/></svg>
-          Day 3: first signup nudge
+          Day 3: first digest nudge
         </div>
 
-        <!-- ACCOUNT NUDGE CARD -->
-        <div class="nudge-account">
+        <!-- DIGEST NUDGE CARD -->
+        <div class="nudge-digest">
           <div class="chip ii-nudge">
             <svg width="14" height="15" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/></svg>
           </div>
           <div class="ncontent">
-            <div class="nname">Your schedule lives on this phone only</div>
-            <div class="nsub">Save it so you never lose it. Takes 30 seconds.</div>
+            <div class="nname">Your first week is almost done.</div>
+            <div class="nsub">Want a summary in your inbox every Monday?</div>
           </div>
-          <div class="ndate-label">nudgii, day 3</div>
+          <div class="cta-link">Get my weekly overview</div>
         </div>
 
         <div class="sec-lbl" style="margin-top:8px;">This week</div>
@@ -461,7 +498,7 @@ body {
   </div>
 </div>
 
-<!-- ═══ 5. DASHBOARD DAY 5 ═══ -->
+<!-- ═══ 6. DASHBOARD DAY 5 ═══ -->
 <div class="screen-col">
   <div class="screen-label">S-09 Dashboard · Day 5</div>
   <div class="phone" style="position:relative;">
@@ -492,16 +529,16 @@ body {
           <div class="ddate ok" style="text-decoration:line-through;">Oct 28</div>
         </div>
 
-        <!-- ACCOUNT NUDGE CARD: post-completion -->
-        <div class="nudge-account">
+        <!-- DIGEST NUDGE CARD: post-completion -->
+        <div class="nudge-digest">
           <div class="chip ii-nudge">
             <svg width="14" height="15" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/></svg>
           </div>
           <div class="ncontent">
-            <div class="nname">1 done. Want to keep the streak?</div>
-            <div class="nsub">Create an account to sync across devices and never lose your schedule.</div>
+            <div class="nname">1 done. Want to see your progress every week?</div>
+            <div class="nsub">A quick Monday email with what's done and what's next.</div>
           </div>
-          <div class="cta-link">Save my schedule</div>
+          <div class="cta-link">Get the overview</div>
         </div>
 
         <div class="sec-lbl" style="margin-top:8px;">Coming up</div>
@@ -521,7 +558,7 @@ body {
   </div>
 </div>
 
-<!-- ═══ 6. DASHBOARD DAY 7 ═══ -->
+<!-- ═══ 7. DASHBOARD DAY 7 ═══ -->
 <div class="screen-col">
   <div class="screen-label">S-09 Dashboard · Day 7</div>
   <div class="phone" style="position:relative;">
@@ -545,26 +582,26 @@ body {
           Day 7: final gentle nudge
         </div>
 
-        <!-- ACCOUNT NUDGE CARD: witty/personality -->
-        <div class="nudge-account">
+        <!-- DIGEST NUDGE CARD: witty/personality -->
+        <div class="nudge-digest">
           <div class="chip ii-nudge">
             <svg width="14" height="15" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/></svg>
           </div>
           <div class="ncontent">
             <div class="nname">Your dishwasher is taking notes.</div>
-            <div class="nsub">3 tasks completed, 0 backed up. Save your schedule?</div>
+            <div class="nsub">3 tasks completed, 0 reports sent. Get the weekly overview?</div>
           </div>
-          <div class="cta-link">Save my schedule</div>
+          <div class="cta-link">Send me the report</div>
+        </div>
+
+        <!-- After day 7 note -->
+        <div style="text-align:center;padding:6px 8px 4px;">
+          <div style="font-size:6.5px;color:var(--mid);font-style:italic;line-height:1.4;">After this, no more nudges about this. nudgii doesn't nag.</div>
         </div>
 
         <div class="sec-lbl" style="margin-top:8px;">Coming up</div>
         <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div><div class="dcontent"><div class="dname">Clean dishwasher filter</div><div class="dsub">Dishwasher, every 6-8 wks</div></div><div class="ddate ok">Nov 8</div></div>
         <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div><div class="dcontent"><div class="dname">Check CO detector</div><div class="dsub">CV ketel, yearly</div></div><div class="ddate ok">Nov 15</div></div>
-
-        <!-- After day 7 note -->
-        <div style="text-align:center;padding:12px 8px 4px;">
-          <div style="font-size:7px;color:var(--mid);font-style:italic;line-height:1.5;">After day 7: no more nudges.<br>If they haven't signed up, respect that. nudgii doesn't nag.</div>
-        </div>
       </div>
     </div>
     <!-- Tab bar + FAB -->
@@ -588,53 +625,53 @@ body {
   <div class="ann-row">
 
     <div class="ann-card">
-      <div class="ann-t">1. Value before commitment</div>
-      <div class="ann-item"><div class="ann-i key">&#9733;</div><div class="ann-txt"><strong>The user never sees a signup wall.</strong> They experience the full product value first. Every nudge is a demonstration of what nudgii does: remind you about things that matter.</div></div>
-      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>The signup nudge IS the product.</strong> It looks like a maintenance reminder, behaves like a maintenance reminder, and lives in the task feed alongside real reminders.</div></div>
-      <div class="ann-item"><div class="ann-i lock">&#8595;</div><div class="ann-txt">Push permission moves earlier (critical). Without push, nudgii cannot deliver value OR signup nudges. This is the only gate in the flow.</div></div>
+      <div class="ann-t">1. Value exchange, not signup</div>
+      <div class="ann-item"><div class="ann-i key">&#9733;</div><div class="ann-txt"><strong>The user never sees "create an account."</strong> Email is captured through a value exchange: the weekly digest. The user gets something useful (Monday summary of what's done, what's next, what nudgii spotted). nudgii gets the email, which behind the scenes creates a magic-link account.</div></div>
+      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>The weekly overview screen sits between AHA and celebration.</strong> It feels like a feature opt-in, not an auth gate. "Want your weekly overview?" is a question about value, not commitment.</div></div>
+      <div class="ann-item"><div class="ann-i lock">&#8595;</div><div class="ann-txt">Skip is always visible. "Skip for now" + "You can always turn this on later in settings." No pressure, no dark patterns. If they skip, they still get the full app.</div></div>
     </div>
 
     <div class="ann-card">
-      <div class="ann-t">2. Account nudge card design</div>
+      <div class="ann-t">2. Why the digest matters</div>
+      <div class="ann-item"><div class="ann-i key">&#9733;</div><div class="ann-txt"><strong>Weekly digest open rate is the #1 leading indicator</strong> (per product strategy). It keeps nudgii top of mind. It is the upsell channel for Pro. It is the retention engine.</div></div>
+      <div class="ann-item"><div class="ann-i key">&#9733;</div><div class="ann-txt"><strong>The digest IS the retention engine.</strong> If the user forgets the app, the Monday email brings them back. "Your boiler service is due next week" in an email is more powerful than a push notification they will swipe away.</div></div>
+      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>Pro conversion path:</strong> Free tier = 10 items, permanent. Digest emails subtly show Pro features. Item 11 triggers the paywall. No trial needed, no "forgot to cancel" guilt.</div></div>
+    </div>
+
+    <div class="ann-card">
+      <div class="ann-t">3. Digest nudge card design</div>
       <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>Same visual as maintenance nudge cards.</strong> ii mark replaces category chip in a 22x22 circle with rgba(155,127,212,0.08) background. No left-border accent (per design rules).</div></div>
       <div class="ann-item"><div class="ann-i upd">&uarr;</div><div class="ann-txt"><strong>Border: rgba(155,127,212,0.18)</strong> instead of standard rgba(26,22,18,0.08). Subtle CTA-tinted border distinguishes it from task cards without breaking the card pattern.</div></div>
-      <div class="ann-item"><div class="ann-i lock">&#8595;</div><div class="ann-txt">Card is tappable. Opens auth flow inline (bottom sheet or full screen). Same Apple/Google/email flow as current S-07.</div></div>
+      <div class="ann-item"><div class="ann-i lock">&#8595;</div><div class="ann-txt">Card is tappable. Opens the email capture as a bottom sheet or inline expansion. Same envelope icon, same "Send me the overview" CTA.</div></div>
     </div>
 
     <div class="ann-card">
-      <div class="ann-t">3. Nudge timing</div>
+      <div class="ann-t">4. Nudge timing</div>
       <div class="ann-item"><div class="ann-i key">&#9733;</div><div class="ann-txt"><strong>Day 1:</strong> No nudge. Let the user enjoy the product. First impressions matter more than conversion speed.</div></div>
-      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>Day 3:</strong> Data protection framing. "Your schedule lives on this phone only." Practical, not pushy.</div></div>
-      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>Day 5:</strong> Post-completion framing. "1 done. Want to keep the streak?" Achievement-based, tied to action.</div></div>
-      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>Day 7:</strong> Personality framing. "Your dishwasher is taking notes." Witty nudgii voice. The earned joke.</div></div>
-      <div class="ann-item"><div class="ann-i lock">&#8595;</div><div class="ann-txt"><strong>After day 7:</strong> No more nudges. If they haven't signed up, respect that. nudgii doesn't nag. One nudge, clearly stated. That rule applies to signup too.</div></div>
+      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>Day 3:</strong> "Your first week is almost done." Frames the digest as a natural milestone, not a request. Gentle, curiosity-driven.</div></div>
+      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>Day 5:</strong> "1 done. Want to see your progress every week?" Achievement-based, tied to the completion they just made. Shows the digest as a progress tracker.</div></div>
+      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>Day 7:</strong> "Your dishwasher is taking notes." Witty nudgii voice. The earned joke. "3 tasks completed, 0 reports sent" creates gentle irony.</div></div>
+      <div class="ann-item"><div class="ann-i lock">&#8595;</div><div class="ann-txt"><strong>After day 7:</strong> No more nudges about this. If they haven't opted in, respect that. nudgii doesn't nag. One nudge, clearly stated. That rule applies to the digest too.</div></div>
     </div>
 
     <div class="ann-card">
-      <div class="ann-t">4. What changes vs current flow</div>
-      <div class="ann-item"><div class="ann-i upd">&uarr;</div><div class="ann-txt"><strong>S-07 Auth removed</strong> from onboarding entirely. No signup wall between AHA and dashboard.</div></div>
-      <div class="ann-item"><div class="ann-i upd">&uarr;</div><div class="ann-txt"><strong>S-06 AHA CTA:</strong> "Open my schedule" replaces "Save my schedule". No "Free, no credit card, 30 seconds" sub-note needed.</div></div>
-      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>Push permission screen</strong> added between AHA and dashboard. Critical for delivery of both task reminders and signup nudges.</div></div>
-      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>New card type: account nudge.</strong> ii mark icon chip, same card style, CTA-tinted border. Auth flow triggered by tap.</div></div>
+      <div class="ann-t">5. What changes vs current flow</div>
+      <div class="ann-item"><div class="ann-i upd">&uarr;</div><div class="ann-txt"><strong>S-07 Auth replaced</strong> with "Weekly overview" email capture screen. Lighter, value-first. The user opts into a useful feature, not an account.</div></div>
+      <div class="ann-item"><div class="ann-i upd">&uarr;</div><div class="ann-txt"><strong>Email input IS the account.</strong> Behind the scenes, submitting an email creates a magic-link account. The user never knows they "signed up." They just get a weekly email.</div></div>
+      <div class="ann-item"><div class="ann-i upd">&uarr;</div><div class="ann-txt"><strong>Digest nudges replace signup nudges</strong> on day 3/5/7. Same witty tone, same ii mark cards, same irony. Different framing: "get a useful email" instead of "save your schedule."</div></div>
+      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>Pro paywall at item 11</strong> (not during onboarding). Weekly digest becomes the design deliverable that needs its own screen spec.</div></div>
       <div class="ann-item"><div class="ann-i lock">&#8595;</div><div class="ann-txt"><strong>Greeting:</strong> "Good morning, there." instead of personalised name (no account = no name). Name personalisation becomes a post-signup reward.</div></div>
     </div>
 
     <div class="ann-card">
-      <div class="ann-t">5. The irony</div>
-      <div class="ann-item"><div class="ann-i key">&#9733;</div><div class="ann-txt"><strong>nudgii reminds you about your boiler, your dishwasher, your tyres... and itself.</strong> The signup reminder IS a product demo. It is the most on-brand conversion tactic possible.</div></div>
-      <div class="ann-item"><div class="ann-i key">&#9733;</div><div class="ann-txt">The card format proves nudgii works before the user commits. They see "Your schedule lives on this phone only" sitting right next to "Annual boiler service, Oct 28". Same format, same care, same system.</div></div>
-      <div class="ann-item"><div class="ann-i lock">&#8595;</div><div class="ann-txt">If a user dismisses all 3 nudges and never signs up, they still got value. nudgii still reminded them about their boiler. That is the product philosophy: helpful first, commercial second.</div></div>
-    </div>
-
-    <div class="ann-card">
       <div class="ann-t">6. Conversion hypothesis</div>
-      <div class="ann-item"><div class="ann-i key">&#9733;</div><div class="ann-txt"><strong>Hypothesis:</strong> removing the signup wall increases activation (items added, tasks completed) at the cost of delayed account creation. Net effect: higher LTV because users who create accounts later have already proven product-market fit for themselves.</div></div>
+      <div class="ann-item"><div class="ann-i key">&#9733;</div><div class="ann-txt"><strong>Hypothesis:</strong> Framing email capture as a weekly digest increases opt-in rate vs "create an account." Users who receive the digest stay engaged longer, hit the 10-item ceiling sooner, and convert to Pro at a higher rate. The digest email is the re-engagement hook that push notifications cannot be.</div></div>
       <table class="persona-table">
-        <tr><th>Persona</th><th>Expected signup</th><th>Trigger</th></tr>
-        <tr><td><strong>Arne</strong> (power user)</td><td>Day 1</td><td>Wants sync + export immediately</td></tr>
-        <tr><td><strong>Sara</strong> (organizer)</td><td>Day 1</td><td>Wants history + data ownership</td></tr>
-        <tr><td><strong>Martijn</strong> (busy homeowner)</td><td>Day 3</td><td>First reminder fires, sees the value</td></tr>
-        <tr><td><strong>Lena</strong> (first-timer)</td><td>Day 5</td><td>Completes first task, feels accomplished</td></tr>
+        <tr><th>Persona</th><th>Expected email capture</th><th>Trigger</th></tr>
+        <tr><td><strong>Arne</strong> (power user)</td><td>Onboarding screen</td><td>Wants the overview immediately, already uses email-driven tools</td></tr>
+        <tr><td><strong>Sara</strong> (organizer)</td><td>Onboarding screen</td><td>Wants data delivered to her, loves structured summaries</td></tr>
+        <tr><td><strong>Martijn</strong> (busy homeowner)</td><td>Day 3</td><td>"Your first week is almost done" feels natural, low effort</td></tr>
+        <tr><td><strong>Lena</strong> (first-timer)</td><td>Day 5</td><td>Completes first task, sees value in tracking progress</td></tr>
       </table>
     </div>
 
