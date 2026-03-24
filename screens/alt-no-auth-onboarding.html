@@ -361,17 +361,38 @@ body {
         <div class="email-icon">
           <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
         </div>
-        <div class="h2" style="font-size:18px;margin-bottom:8px;">Want your weekly<br>overview?</div>
-        <div style="font-size:7.5px;font-style:italic;color:var(--mid-ac);line-height:1.5;margin-bottom:16px;max-width:200px;">Every Monday, a quick summary of what's done, what's next, and what nudgii spotted.</div>
-        <!-- Email input -->
+        <div class="h2" style="font-size:18px;margin-bottom:6px;">Want your weekly<br>overview?</div>
+        <div style="font-size:7.5px;font-style:italic;color:var(--mid-ac);line-height:1.5;margin-bottom:14px;max-width:200px;">Every Monday, a quick summary of what's done, what's next, and what nudgii spotted.</div>
+        <!-- Apple SSO -->
+        <button style="width:100%;height:36px;border-radius:100px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:9px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:6px;border:none;background:#1A1612;color:white;">
+          <svg viewBox="0 0 14 17" fill="white" width="12" height="12"><path d="M11.5 8.8c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.6-1.9-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.8C1.4 3.4 0 4.8 0 7.3c0 3.5 3 7.2 4.3 9.2.9 1.4 2 2.9 3.4 2.8 1.4-.1 1.9-.9 3.6-.9 1.7 0 2.1.9 3.6.8 1.5-.1 2.4-1.4 3.3-2.8.7-1 1-1.9 1.3-2 0 0-2.4-1-2.4-3.6z"/><path d="M9.3 2.2C10 1.3 10.5.1 10.3-1c-1 .1-2.2.7-3 1.6-.7.8-1.3 2-1.1 3.1 1.1.1 2.2-.5 3.1-1.5z"/></svg>
+          Continue with Apple
+        </button>
+        <!-- Google SSO -->
+        <button style="width:100%;height:36px;border-radius:100px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:9px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:6px;border:1px solid rgba(26,22,18,0.16);background:var(--surface);color:var(--ink);">
+          <svg viewBox="0 0 18 18" width="12" height="12"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z"/></svg>
+          Continue with Google
+        </button>
+        <!-- Email toggle -->
+        <div style="text-align:center;font-size:7.5px;color:var(--mid);padding:4px 0 6px;cursor:pointer;">or <u style="text-decoration-color:rgba(138,128,112,0.4);">use email instead</u></div>
+        <!-- Email input (expands on tap) -->
         <div class="email-input">
           <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
           <span>your@email.com</span>
         </div>
         <button class="btn primary" style="height:34px;font-size:8.5px;">Send me the overview</button>
-        <div style="font-size:7px;color:var(--mid);margin-top:2px;margin-bottom:12px;">Free forever. Unsubscribe anytime.</div>
-        <div style="font-size:8px;color:var(--mid-ac);cursor:pointer;">Skip for now</div>
-        <div style="font-size:6.5px;color:rgba(107,99,88,0.45);margin-top:4px;">You can always turn this on later in settings.</div>
+        <div style="font-size:6px;color:var(--mid);margin-top:2px;margin-bottom:8px;">We'll email you a one-tap sign-in link. No password. Ever.</div>
+        <!-- Reassurance -->
+        <div style="font-size:6.5px;color:var(--mid);margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:6px;">
+          <span>Free forever</span>
+          <div style="width:2px;height:2px;border-radius:50%;background:var(--mid);"></div>
+          <span>Unsubscribe anytime</span>
+        </div>
+        <!-- Skip -->
+        <div style="text-align:center;padding-top:8px;border-top:0.5px solid rgba(26,22,18,0.07);">
+          <span style="font-size:8px;color:var(--mid-ac);cursor:pointer;border-bottom:1px solid rgba(107,99,88,0.22);padding-bottom:1px;">Skip for now</span>
+          <div style="font-size:6px;color:rgba(107,99,88,0.45);margin-top:3px;">You can always turn this on later in settings.</div>
+        </div>
       </div>
     </div>
   </div>
@@ -671,8 +692,9 @@ body {
 
     <div class="ann-card">
       <div class="ann-t">1. Value exchange, not signup</div>
-      <div class="ann-item"><div class="ann-i key">&#9733;</div><div class="ann-txt"><strong>The user never sees "create an account."</strong> Email is captured through a value exchange: the weekly digest. The user gets something useful (Monday summary of what's done, what's next, what nudgii spotted). nudgii gets the email, which behind the scenes creates a magic-link account.</div></div>
-      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>The weekly overview screen sits between AHA and celebration.</strong> It feels like a feature opt-in, not an auth gate. "Want your weekly overview?" is a question about value, not commitment.</div></div>
+      <div class="ann-item"><div class="ann-i key">&#9733;</div><div class="ann-txt"><strong>The user never sees "create an account."</strong> Three options, all framed as digest signup: Apple (one tap), Google (one tap), or email (magic link). Behind the scenes, all three create a full account. Same buttons as the current auth screen, completely different motivation.</div></div>
+      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>Apple/Google are convenience, not commitment.</strong> Users with iCloud or Gmail get one-tap access to the digest. No password, no form. The email address is captured automatically. Magic link is the fallback for users who prefer manual entry.</div></div>
+      <div class="ann-item"><div class="ann-i upd">&#8593;</div><div class="ann-txt"><strong>Same backend, different framing.</strong> The weekly overview screen sits between AHA and celebration. It looks like a feature opt-in, not an auth gate. "Want your weekly overview?" is a question about value, not commitment. Pro upgrade later pre-fills the same email.</div></div>
       <div class="ann-item"><div class="ann-i lock">&#8595;</div><div class="ann-txt">Skip is always visible. "Skip for now" + "You can always turn this on later in settings." No pressure, no dark patterns. If they skip, they still get the full app.</div></div>
     </div>
 
