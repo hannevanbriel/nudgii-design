@@ -430,7 +430,7 @@ nudgii speaks like a witty, competent friend — warm, direct, gently funny. Nev
 - Sentence case everywhere
 
 **Key copy examples:**
-- Welcome: *"Your stuff won't maintain itself."* / subline: *"But we can remind you."*
+- Welcome: *"Your stuff won't maintain itself."* / subline: *"Add what you own. We'll remind you when it matters."*
 - Empty dashboard: *"Nothing overdue. Suspicious."*
 - Done confirmation: *"Done. Your dishwasher approves."*
 - After 2nd snooze: *"Fine. But your dishwasher is taking notes."*
@@ -662,7 +662,7 @@ Update this section when open decisions are resolved.
 | S-01 CTA mic icon removed | Path A covers voice, text, and scan. Mic icon was misleading (implied voice-only). Button is text-only now. | ✅ Yes | 2026-03-24 |
 | S-01 interactive item rows | Items are tappable with check circles. Task names ("Clean dishwasher filter") not item names ("Dishwasher"). Pre-selection carries to S-02 as confirmed chips. | ✅ Yes | 2026-03-24 |
 | S-01 Path C removed | Two paths only (A + B). "Something else" row covers discovery. Three paths + footnote was too many choices. | ✅ Yes | 2026-03-24 |
-| S-01 subtitle | "Add what you own. We handle the rest." replaces "nudgii knows when, for everything you own." Simpler, action-oriented. | ✅ Yes | 2026-03-24 |
+| S-01 subtitle | "Add what you own. We'll remind you when it matters." replaces earlier subtitle. Action-oriented + names core value (timely reminders). | ✅ Yes | 2026-03-24 |
 | S-01 hi-fi layout | Single English phone + annotation sidebar. Matches S-02 pattern. Locale variants removed from hi-fi (English only per design system rules). | ✅ Yes | 2026-03-24 |
 
 ---
