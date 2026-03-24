@@ -252,7 +252,7 @@ body {
 .item-limit-note { background: rgba(155,127,212,0.06); border: 0.5px solid rgba(155,127,212,0.18); border-radius: 8px; padding: 7px 10px; margin-bottom: 8px; font-size: 7.5px; color: var(--mid-ac); line-height: 1.4; }
 .item-limit-note strong { color: var(--ink); font-weight: 500; }
 
-/* ── S-07a SPECIFIC ── */
+/* ── S-06 AHA SPECIFIC ── */
 .aha-eyebrow { font-size: 7.5px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: var(--cta); margin-bottom: 6px; }
 .aha-line { font-size: 8px; color: var(--mid-ac); line-height: 1.5; margin-bottom: 12px; font-style: italic; }
 .nudge-cards { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
@@ -269,7 +269,7 @@ body {
 .value-box strong { color: var(--ink); font-weight: 500; }
 .save-note { text-align: center; font-size: 7px; color: var(--mid); margin-top: 4px; }
 
-/* ── S-06 AUTH ── */
+/* ── S-07 AUTH ── */
 .auth-wrap { padding: 18px 14px 0; flex: 1; display: flex; flex-direction: column; }
 .auth-heading { font-family: 'DM Serif Display', Georgia, serif; font-size: 22px; font-weight: 400; line-height: 1.0; letter-spacing: -0.35px; color: var(--ink); margin-bottom: 6px; }
 .auth-sub { font-size: 8px; color: var(--mid-ac); line-height: 1.5; margin-bottom: 18px; }
@@ -404,13 +404,11 @@ body {
   <div class="fa">→</div>
   <div class="fp"><div class="fn">3</div>S-05 Review</div>
   <div class="fa">→</div>
-  <div class="fp"><div class="fn">4</div>S-07a AHA</div>
+  <div class="fp"><div class="fn">4</div>S-06 AHA</div>
   <div class="fa">→</div>
-  <div class="fp"><div class="fn">5</div>S-06 Auth</div>
+  <div class="fp"><div class="fn">5</div>S-07 Auth</div>
   <div class="fa">→</div>
-  <div class="fp or-path">S-06b email</div>
-  <div class="fa">→</div>
-  <div class="fp"><div class="fn">6</div>S-07 You're in</div>
+  <div class="fp"><div class="fn">6</div>S-08 You're in</div>
   <div class="fa">→</div>
   <div class="fp"><div class="fn">7</div>S-09 Dashboard</div>
 </div>
@@ -653,9 +651,9 @@ body {
   </div>
 </div>
 
-<!-- ═══ S-07a AHA ═══ -->
+<!-- ═══ S-06 AHA ═══ -->
 <div class="screen-col">
-  <div class="screen-label">S-07a · AHA · 75%</div>
+  <div class="screen-label">S-06 · AHA · 75%</div>
   <div class="phone">
     <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
     <div class="prog"><div class="prog-fill" style="width:75%"></div></div>
@@ -696,9 +694,9 @@ body {
   </div>
 </div>
 
-<!-- ═══ S-06 AUTH ═══ -->
+<!-- ═══ S-07 AUTH (combined: SSO + email expand + confirmation) ═══ -->
 <div class="screen-col">
-  <div class="screen-label">S-06 · Auth · 80%</div>
+  <div class="screen-label">S-07 · Auth · 80%</div>
   <div class="phone">
     <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
     <div class="prog"><div class="prog-fill" style="width:80%"></div></div>
@@ -707,6 +705,7 @@ body {
       <div class="auth-wrap">
         <div class="auth-heading">Save your<br>schedule.</div>
         <div class="auth-sub">Sign in to keep your tasks safe and synced across devices.</div>
+        <!-- SSO buttons -->
         <button class="sso-btn apple">
           <svg viewBox="0 0 14 17" fill="white" width="13" height="13"><path d="M11.5 8.8c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.6-1.9-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.8C1.4 3.4 0 4.8 0 7.3c0 3.5 3 7.2 4.3 9.2.9 1.4 2 2.9 3.4 2.8 1.4-.1 1.9-.9 3.6-.9 1.7 0 2.1.9 3.6.8 1.5-.1 2.4-1.4 3.3-2.8.7-1 1-1.9 1.3-2 0 0-2.4-1-2.4-3.6z"/><path d="M9.3 2.2C10 1.3 10.5.1 10.3-1c-1 .1-2.2.7-3 1.6-.7.8-1.3 2-1.1 3.1 1.1.1 2.2-.5 3.1-1.5z"/></svg>
           Continue with Apple
@@ -715,7 +714,21 @@ body {
           <svg viewBox="0 0 18 18" width="13" height="13"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z"/></svg>
           Continue with Google
         </button>
-        <div class="email-toggle" style="text-align:center;font-size:8px;color:var(--mid);padding:4px 0 0;cursor:pointer;">or <u style="text-decoration-color:rgba(138,128,112,0.4);">use email instead</u></div>
+        <!-- Email toggle + inline expand -->
+        <div class="email-toggle" style="text-align:center;font-size:8px;color:var(--mid);padding:4px 0 6px;cursor:pointer;">or <u style="text-decoration-color:rgba(138,128,112,0.4);">use email instead</u></div>
+        <!-- Email input (expands inline on tap) -->
+        <div style="background:var(--surface);border:1px solid rgba(155,127,212,0.35);border-radius:10px;padding:0 12px;height:40px;display:flex;align-items:center;margin-bottom:8px;">
+          <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="var(--mid-ac)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-right:7px;"><rect x="1" y="3.5" width="14" height="9" rx="1.5"/><path d="M1 3.5l7 5 7-5"/></svg>
+          <span style="font-size:8.5px;color:var(--mid);">your@email.com</span>
+        </div>
+        <button class="btn primary" style="margin-bottom:6px;">Send magic link</button>
+        <div style="text-align:center;font-size:7px;color:var(--mid);line-height:1.5;margin-bottom:10px;">We'll email you a one-tap sign-in link.<br>No password. Ever.</div>
+        <!-- Post-send confirmation -->
+        <div style="background:var(--sage-lt);border:0.5px solid rgba(59,109,17,0.14);border-radius:10px;padding:10px 12px;display:flex;align-items:flex-start;gap:8px;margin-bottom:10px;">
+          <div style="width:16px;height:16px;border-radius:50%;background:rgba(59,109,17,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;"><svg viewBox="0 0 10 10" width="8" height="8" fill="none" stroke="var(--sage)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
+          <div><div style="font-size:8px;font-weight:500;color:var(--ink);margin-bottom:2px;">Check your email</div><div style="font-size:7px;color:var(--mid-ac);line-height:1.4;">Link sent to your@email.com. Tap it to sign in, no password needed.</div></div>
+        </div>
+        <!-- Reassurance + skip -->
         <div class="auth-reassure">
           <span>Free up to 10 items</span><div class="auth-rdot"></div>
           <span>Cancel anytime</span><div class="auth-rdot"></div>
@@ -730,41 +743,9 @@ body {
   </div>
 </div>
 
-<!-- ═══ S-06b EMAIL STATE ═══ -->
-<div class="screen-col">
-  <div class="screen-label">S-06b · Email / magic link</div>
-  <div class="phone">
-    <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
-    <div class="prog"><div class="prog-fill" style="width:80%"></div></div>
-    <div class="scr">
-      <div class="brand-row"><svg class="ii-mark" width="18" height="20" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/></svg><div class="free-badge"><div class="free-dot"></div>Free · no credit card</div></div>
-      <div class="auth-wrap">
-        <div class="auth-heading">Save your<br>schedule.</div>
-        <div class="auth-sub" style="margin-bottom:14px;">Sign in to keep your tasks safe and synced across devices.</div>
-        <!-- Email input revealed -->
-        <div style="background:var(--surface);border:1px solid rgba(155,127,212,0.35);border-radius:10px;padding:0 12px;height:40px;display:flex;align-items:center;margin-bottom:8px;">
-          <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="var(--mid-ac)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-right:7px;"><rect x="1" y="3.5" width="14" height="9" rx="1.5"/><path d="M1 3.5l7 5 7-5"/></svg>
-          <span style="font-size:8.5px;color:var(--mid);">your@email.com</span>
-        </div>
-        <button class="btn primary" style="margin-bottom:6px;">Send magic link</button>
-        <div style="text-align:center;font-size:7px;color:var(--mid);line-height:1.5;margin-bottom:12px;">We'll email you a one-tap sign-in link.<br>No password. Ever.</div>
-        <!-- Post-send state (after tap) -->
-        <div style="background:var(--sage-lt);border:0.5px solid rgba(59,109,17,0.14);border-radius:10px;padding:10px 12px;display:flex;align-items:flex-start;gap:8px;margin-bottom:10px;">
-          <div style="width:16px;height:16px;border-radius:50%;background:rgba(59,109,17,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;"><svg viewBox="0 0 10 10" width="8" height="8" fill="none" stroke="var(--sage)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
-          <div><div style="font-size:8px;font-weight:500;color:var(--ink);margin-bottom:2px;">Check your email</div><div style="font-size:7px;color:var(--mid-ac);line-height:1.4;">Link sent to your@email.com. Tap it to sign in — no password needed.</div></div>
-        </div>
-        <div class="auth-reassure">
-          <span>Free up to 10 items</span><div class="auth-rdot"></div>
-          <span>No card needed</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- ═══ S-07 COMPLETION (PLUM) ═══ -->
 <div class="screen-col">
-  <div class="screen-label">S-07 · You're in · 100%</div>
+  <div class="screen-label">S-08 · You're in · 100%</div>
   <div class="phone" style="background:#2D1F4A;position:relative;">
     <div class="sbar"><span class="sbar-time" style="color:rgba(245,240,232,0.65);">9:41</span><div class="sbar-icons" style="opacity:0.35;"><svg viewBox="0 0 11 10" fill="rgba(245,240,232,0.9)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="rgba(245,240,232,0.9)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="rgba(245,240,232,0.9)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
     <!-- 100% progress bar on plum -->
@@ -911,7 +892,7 @@ body {
     </div>
 
     <div class="ann-card">
-      <div class="ann-t">S-07a · no status colours</div>
+      <div class="ann-t">S-06 · no status colours</div>
       <div class="ann-item"><div class="ann-i upd">↑</div><div class="ann-txt"><strong>Removed terra red "overdue" from AHA screen.</strong> We don't know overdue at this point — "last done" was just collected on S-05. All cards show upcoming dates only: apricot-dk for soon, mid for further out.</div></div>
       <div class="ann-item"><div class="ann-i upd">↑</div><div class="ann-txt"><strong>Changed "Your first week" → "Your first month"</strong> — with CV ketel service in Oct and dishwasher tasks in Nov, "first week" was misleading. "First month" is more accurate and still impactful.</div></div>
     </div>
