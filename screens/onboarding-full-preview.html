@@ -158,10 +158,6 @@ body {
 .btn.primary { background: var(--cta); color: var(--cta-fg); box-shadow: 0 2px 10px rgba(155,127,212,0.28); }
 .btn.secondary { background: transparent; border: 1px solid rgba(26,22,18,0.18); color: var(--ink); }
 .btn.ghost { background: transparent; color: var(--mid-ac); font-size: 8.5px; height: 28px; margin-bottom: 0; }
-.mic-bubble { width: 16px; height: 16px; border-radius: 50%; background: rgba(250,248,255,0.18); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.mic-bubble svg { width: 9px; height: 9px; stroke: var(--cta-fg); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.scan-link { display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 7.5px; color: var(--mid); padding-top: 5px; }
-.scan-link svg { width: 9px; height: 9px; stroke: var(--mid); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .divider { text-align: center; font-size: 7.5px; color: var(--mid); position: relative; margin-bottom: 9px; padding-top: 8px; }
 .divider::before, .divider::after { content: ''; position: absolute; top: calc(50% + 4px); height: 0.5px; background: rgba(26,22,18,0.10); width: 28%; }
 .divider::before { left: 0; } .divider::after { right: 0; }
@@ -865,7 +861,7 @@ body {
     <!-- Tab bar + FAB -->
     <div class="shell-btm">
       <div class="tab-bar">
-        <div class="tab active"><div class="tab-icon"><svg viewBox="0 0 20 20"><rect x="3" y="2" width="14" height="16" rx="2" stroke="var(--ink)" fill="none"/><line x1="7" y1="7" x2="13" y2="7" stroke="var(--ink)"/><line x1="7" y1="10.5" x2="13" y2="10.5" stroke="var(--ink)"/><line x1="7" y1="14" x2="11" y2="14" stroke="var(--ink)"/></svg></div><div class="tab-lbl">Tasks</div><div class="tab-pip"></div></div>
+        <div class="tab active"><div class="tab-icon"><svg viewBox="0 0 20 20"><rect x="3" y="2" width="14" height="16" rx="2" stroke="var(--cta)" fill="none"/><line x1="7" y1="7" x2="13" y2="7" stroke="var(--cta)"/><line x1="7" y1="10.5" x2="13" y2="10.5" stroke="var(--cta)"/><line x1="7" y1="14" x2="11" y2="14" stroke="var(--cta)"/></svg></div><div class="tab-lbl">Tasks</div></div>
         <div class="tab inactive"><div class="tab-icon"><svg viewBox="0 0 20 20"><path d="M10 2C5.6 2 2 5.1 2 9s3.6 7 8 7c.9 0 1.8-.1 2.6-.4L17 18l-.4-3.6C17.9 13.1 18 11.1 18 9c0-3.9-3.6-7-8-7z" stroke="rgba(26,22,18,0.20)" fill="none"/><path d="M7 9h.01M10 9h.01M13 9h.01" stroke="rgba(26,22,18,0.20)" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div><div class="tab-lbl">Ask</div></div>
         <div class="tab inactive"><div class="tab-icon"><svg viewBox="0 0 20 20"><circle cx="10" cy="7" r="3" stroke="rgba(26,22,18,0.20)" fill="none"/><path d="M3 18c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="rgba(26,22,18,0.20)" fill="none"/></svg></div><div class="tab-lbl">Profile</div></div>
       </div>
@@ -933,7 +929,7 @@ body {
       <div class="ann-t">S-09 · dashboard · free tier state</div>
       <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>Upgrade nudge at bottom</strong> — "2 of 10 items used. Add up to 8 more. Go Pro for unlimited." Visible but not intrusive. Appears below all tasks, never above.</div></div>
       <div class="ann-item"><div class="ann-i key">★</div><div class="ann-txt">No "overdue" section on first load — user just set up, all tasks are upcoming. Overdue section appears only when something is actually past due.</div></div>
-      <div class="ann-item"><div class="ann-i lock">↓</div><div class="ann-txt">Tab bar: Tasks (active, purple pip) · Ask · Profile. FAB: colorCta rounded square adjacent to pill. Custom widget — never BottomNavigationBar.</div></div>
+      <div class="ann-item"><div class="ann-i lock">↓</div><div class="ann-txt">Tab bar: Tasks (active, colorCta on icon + label, no pip) · Ask · Profile. FAB: colorCta rounded square adjacent to pill. Custom widget — never BottomNavigationBar.</div></div>
     </div>
 
   </div>

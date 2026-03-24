@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · S-07 Onboarding completion, lo-fi</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+
+:root{
+  --cream:#F5F0E8;--ink:#1A1612;--mid:#8A8070;--mid-lt:#B0A898;
+  --border:rgba(26,22,18,0.08);--border-md:rgba(26,22,18,0.12);
+  --cta:#9B7FD4;--cta-fg:#FAF8FF;
+  --mid-a:#6B6358;
+  --sage:#3B6D11;--sage-lt:#EAF3DE;
+  --surface:#FFFFFF;
+  --ink-06:rgba(26,22,18,0.06);--ink-08:rgba(26,22,18,0.08);
+  --ink-10:rgba(26,22,18,0.10);
+  --apricot:#E8A87C;--apricot-dk:#C8784A;
+  --plum:#2D1F4A;
+  --cat-home:#C87850;--cat-vehicle:#4A82A0;--cat-garden:#5A9060;
+  /* lo-fi grays */
+  --lo-bg:#F0EFED;
+  --lo-card:#FFFFFF;
+  --lo-border:#D4D2CE;
+  --lo-text:#3A3A3A;
+  --lo-text-mid:#7A7A7A;
+  --lo-text-lt:#A8A8A8;
+  --lo-zone:rgba(0,0,0,0.04);
+}
+
+body{
+  background:#CBC5BB;
+  font-family:'DM Sans',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  padding:0 0 80px;
+}
+
+/* NAV */
+nav{
+  background:var(--cream);border-bottom:1px solid var(--border-md);
+  padding:0 32px;display:flex;align-items:center;gap:16px;
+  height:48px;position:sticky;top:0;z-index:100;
+}
+.nav-back{
+  font-size:13px;color:var(--mid);text-decoration:none;
+  display:flex;align-items:center;gap:8px;
+}
+.nav-back:hover{color:var(--ink);}
+.nav-sep{color:var(--border-md);}
+.nav-title{font-size:13px;font-weight:500;}
+.nav-status{
+  margin-left:auto;font-size:10px;font-weight:500;
+  padding:3px 10px;border-radius:100px;
+  background:rgba(232,168,124,0.12);color:#9A5A2A;
+  border:1px solid rgba(232,168,124,0.25);
+}
+
+/* PAGE */
+.page{padding:40px 32px 60px;max-width:1700px;margin:0 auto;}
+
+/* PAGE HEADER */
+.page-eyebrow{
+  font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(26,22,18,0.28);margin-bottom:10px;
+}
+.page-h1{
+  font-size:28px;font-weight:500;
+  color:var(--ink);letter-spacing:-0.3px;margin-bottom:6px;
+}
+.page-sub{
+  font-size:14px;color:var(--mid-a);line-height:1.65;
+  max-width:640px;margin-bottom:12px;
+}
+.meta{display:flex;gap:8px;margin-bottom:48px;flex-wrap:wrap;}
+.mp{
+  font-size:11px;font-weight:500;padding:3px 10px;border-radius:100px;
+  border:1px solid var(--ink-10);color:var(--mid);
+}
+.mp.lofi{background:rgba(26,22,18,0.05);color:var(--mid);border-color:rgba(26,22,18,0.15);}
+.mp.ob{background:rgba(200,120,80,0.08);color:#7A3A10;border-color:rgba(200,120,80,0.18);}
+
+/* LAYOUT WRAPPER */
+.content-row{display:flex;gap:40px;align-items:flex-start;}
+
+/* PHONE SHELL */
+.phone-col{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+.phone-col-label{
+  font-size:11px;font-weight:500;color:var(--mid-a);
+  margin-bottom:10px;letter-spacing:0.3px;
+}
+.phone{
+  width:390px;height:844px;border-radius:50px;overflow:hidden;
+  background:var(--lo-bg);
+  border:1.5px solid rgba(26,22,18,0.09);
+  box-shadow:0 28px 60px rgba(26,22,18,0.18),0 6px 16px rgba(26,22,18,0.07),inset 0 1px 0 rgba(255,255,255,0.65);
+  position:relative;flex-shrink:0;
+  display:flex;flex-direction:column;
+}
+.phone.plum-phone{
+  background:var(--plum);
+  border-color:rgba(45,31,74,0.4);
+  box-shadow:0 28px 60px rgba(45,31,74,0.35),0 6px 16px rgba(26,22,18,0.12),inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+/* notch + status bar */
+.notch{height:24px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px;}
+.np{width:102px;height:8px;border-radius:100px;background:rgba(0,0,0,0.08);}
+.plum-phone .np{background:rgba(255,255,255,0.08);}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:5px 18px 0;font-size:11px;font-weight:500;color:rgba(0,0,0,0.28);}
+.plum-phone .sbar{color:rgba(255,255,255,0.25);}
+.batt{width:14px;height:6px;border:1.5px solid rgba(0,0,0,0.22);border-radius:2px;position:relative;}
+.plum-phone .batt{border-color:rgba(255,255,255,0.2);}
+.batt::after{content:'';position:absolute;left:1px;top:1px;right:2px;bottom:1px;background:rgba(0,0,0,0.25);border-radius:1px;}
+.plum-phone .batt::after{background:rgba(255,255,255,0.2);}
+
+/* progress bar */
+.prog-bar{width:100%;height:3px;background:rgba(0,0,0,0.06);flex-shrink:0;}
+.plum-phone .prog-bar{background:rgba(255,255,255,0.06);}
+.prog-fill{height:3px;border-radius:0 100px 100px 0;background:var(--cta);}
+
+/* screen structure */
+.w-screen{flex:1;overflow:hidden;display:flex;flex-direction:column;padding:14px 16px 0;}
+.w-content{flex:1;overflow-y:auto;scrollbar-width:none;}
+.w-content::-webkit-scrollbar{display:none;}
+.w-bottom{padding:12px 0 24px;flex-shrink:0;}
+
+/* EYEBROW */
+.w-eyebrow{
+  font-size:7.5px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--cta);margin-bottom:8px;
+}
+.w-eyebrow.plum-ey{
+  color:rgba(245,240,232,0.35);
+}
+
+/* HEADLINE */
+.w-h1{font-size:20px;font-weight:500;color:var(--lo-text);line-height:1.25;margin-bottom:4px;}
+.w-h1.serif{font-family:'DM Serif Display',serif;font-weight:400;font-size:21px;line-height:1.2;}
+.w-h1.plum-h1{
+  font-family:'DM Serif Display',serif;font-weight:400;font-style:italic;
+  color:var(--apricot);font-size:22px;line-height:1.2;
+}
+.w-sub{font-size:11px;font-style:italic;color:var(--lo-text-mid);line-height:1.5;margin-bottom:14px;}
+.w-sub.plum-sub{color:rgba(245,240,232,0.35);font-size:10px;}
+
+/* NUDGE CARDS */
+.nudge-cards{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;}
+.nudge-card{
+  background:var(--lo-card);
+  border:1px solid var(--lo-border);
+  border-radius:10px;
+  padding:10px;
+  display:flex;align-items:center;gap:8px;
+}
+.n-chip{
+  width:22px;height:22px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-size:7px;font-weight:600;color:white;
+}
+.n-chip.home{background:rgba(200,120,80,0.15);color:var(--cat-home);}
+.n-info{flex:1;min-width:0;}
+.n-task{font-size:11px;font-weight:500;color:var(--lo-text);line-height:1.3;}
+.n-meta{font-size:9px;color:var(--lo-text-lt);margin-top:1px;}
+.n-date{
+  font-size:9px;font-weight:500;padding:2px 7px;border-radius:100px;
+  flex-shrink:0;
+}
+.n-date.upcoming{background:rgba(200,120,80,0.1);color:var(--apricot-dk);}
+.n-date.neutral{background:rgba(0,0,0,0.04);color:var(--lo-text-mid);}
+
+/* VALUE BOX */
+.value-box{
+  background:rgba(155,127,212,0.08);
+  border:1px solid rgba(155,127,212,0.15);
+  border-radius:10px;
+  padding:12px 14px;
+  margin-bottom:14px;
+}
+.value-box p{
+  font-size:11px;color:var(--lo-text);line-height:1.55;
+}
+.value-box strong{font-weight:500;}
+
+/* CTA BUTTON (lo-fi) */
+.btn-primary{
+  width:100%;height:46px;border-radius:100px;border:none;
+  background:var(--lo-text);color:white;
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  cursor:pointer;
+}
+.btn-primary.plum-btn{
+  background:var(--cta);color:var(--cta-fg);
+}
+.btn-hint{
+  text-align:center;font-size:9px;color:var(--lo-text-lt);
+  margin-top:8px;font-style:italic;
+}
+.btn-hint.plum-hint{color:rgba(245,240,232,0.25);}
+
+/* CELEBRATION ELEMENTS */
+.celeb-center{
+  display:flex;flex-direction:column;align-items:center;
+  text-align:center;
+  padding-top:40px;
+}
+.ii-mark-large{
+  width:58px;height:66px;margin-bottom:20px;
+  position:relative;
+}
+.confetti-field{
+  position:absolute;top:-30px;left:-40px;right:-40px;bottom:-20px;
+  pointer-events:none;
+}
+.confetti-dot{
+  position:absolute;border-radius:50%;
+}
+
+/* first nudge pill */
+.first-nudge-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:100px;
+  padding:6px 14px;
+  margin-top:20px;
+  backdrop-filter:blur(4px);
+}
+.fnp-label{font-size:9px;font-weight:500;color:rgba(245,240,232,0.5);}
+.fnp-dot{width:3px;height:3px;border-radius:50%;background:rgba(245,240,232,0.2);}
+.fnp-date{font-size:9px;font-weight:500;color:rgba(245,240,232,0.6);}
+.first-nudge-task{
+  font-size:8px;color:rgba(245,240,232,0.2);
+  margin-top:6px;text-align:center;
+}
+
+/* ANNOTATION COLUMN */
+.annot-col{
+  flex:0 0 360px;min-width:280px;
+  display:flex;flex-direction:column;gap:10px;
+  padding-top:0;
+}
+.annot-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:14px 16px;
+}
+.annot-card.interaction{border-color:rgba(155,127,212,0.22);background:rgba(155,127,212,0.03);}
+.annot-card.pattern{border-color:rgba(200,120,80,0.18);background:rgba(200,120,80,0.03);}
+.annot-head{
+  font-size:10px;font-weight:500;letter-spacing:0.3px;
+  margin-bottom:6px;display:flex;align-items:center;gap:6px;
+}
+.badge-interaction{
+  font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;
+  background:rgba(155,127,212,0.12);color:#5C3E8A;
+}
+.badge-pattern{
+  font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;
+  background:rgba(200,120,80,0.12);color:#7A3A10;
+}
+.badge-rule{
+  font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;
+  background:rgba(59,109,17,0.10);color:var(--sage);
+}
+.badge-note{
+  font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;
+  background:rgba(26,22,18,0.07);color:var(--mid);
+}
+.annot-body{font-size:11px;color:var(--mid-a);line-height:1.65;}
+.annot-body strong{color:var(--ink);font-weight:500;}
+.annot-body code{font-family:monospace;font-size:10px;background:var(--ink-06);padding:1px 4px;border-radius:3px;color:var(--ink);}
+.annot-body ul{margin:4px 0 0 14px;}
+.annot-body li{margin-bottom:3px;}
+.annot-section{
+  font-size:9px;font-weight:500;letter-spacing:1.6px;
+  text-transform:uppercase;color:rgba(26,22,18,0.28);
+  margin:20px 0 8px;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-back" href="../index.html">
+    <svg width="16" height="18" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:2px;">
+      <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
+      <path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
+      <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
+    </svg>
+    Design hub
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">S-07 Onboarding completion</span>
+  <span class="nav-status">In progress</span>
+</nav>
+
+<div class="page">
+
+  <!-- PAGE HEADER -->
+  <div class="page-eyebrow">S-07 · Onboarding completion · Lo-fi · 390x844px (iPhone 15) · March 2026</div>
+  <h1 class="page-h1">Onboarding completion</h1>
+  <p class="page-sub">Two screens that close the onboarding loop. S-07a reveals the user's personalized schedule (the AHA moment: "I told nudgii what I own, and it figured out the rest"). S-07 celebrates completion on a plum background with the user's first scheduled reminder anchored visually.</p>
+  <div class="meta">
+    <span class="mp lofi">Lo-fi</span>
+    <span class="mp ob">Onboarding flow</span>
+    <span class="mp">S-07a + S-07</span>
+    <span class="mp">March 2026</span>
+  </div>
+
+  <!-- CONTENT ROW: two phones + annotation sidebar -->
+  <div class="content-row">
+
+    <!-- PHONE 1: S-07a AHA -->
+    <div class="phone-col">
+      <div class="phone-col-label">S-07a: AHA (schedule reveal)</div>
+      <div class="phone">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <!-- progress bar 75% -->
+        <div class="prog-bar"><div class="prog-fill" style="width:75%;"></div></div>
+
+        <div class="w-screen">
+          <div class="w-content">
+
+            <!-- eyebrow -->
+            <div class="w-eyebrow">Your schedule is ready</div>
+
+            <!-- headline -->
+            <div class="w-h1 serif">Your first month looks like this.</div>
+            <div class="w-sub">nudgii worked out the timing from what you told us. You didn't figure out a single date.</div>
+
+            <!-- nudge cards -->
+            <div class="nudge-cards">
+              <div class="nudge-card">
+                <div class="n-chip home">
+                  <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8l6-5.5L14 8"/><path d="M3.5 9v4.5h9V9"/></svg>
+                </div>
+                <div class="n-info">
+                  <div class="n-task">Annual boiler service</div>
+                  <div class="n-meta">CV ketel · Home</div>
+                </div>
+                <div class="n-date upcoming">Oct 28</div>
+              </div>
+              <div class="nudge-card">
+                <div class="n-chip home">
+                  <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8l6-5.5L14 8"/><path d="M3.5 9v4.5h9V9"/></svg>
+                </div>
+                <div class="n-info">
+                  <div class="n-task">Clean dishwasher filter</div>
+                  <div class="n-meta">Dishwasher · Home</div>
+                </div>
+                <div class="n-date neutral">Nov 8</div>
+              </div>
+              <div class="nudge-card">
+                <div class="n-chip home">
+                  <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8l6-5.5L14 8"/><path d="M3.5 9v4.5h9V9"/></svg>
+                </div>
+                <div class="n-info">
+                  <div class="n-task">Refill dishwasher salt</div>
+                  <div class="n-meta">Dishwasher · Home</div>
+                </div>
+                <div class="n-date neutral">Nov 8</div>
+              </div>
+              <div class="nudge-card">
+                <div class="n-chip home">
+                  <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8l6-5.5L14 8"/><path d="M3.5 9v4.5h9V9"/></svg>
+                </div>
+                <div class="n-info">
+                  <div class="n-task">Check CO detector</div>
+                  <div class="n-meta">CV ketel · Home</div>
+                </div>
+                <div class="n-date neutral">Nov 15</div>
+              </div>
+            </div>
+
+            <!-- value box -->
+            <div class="value-box">
+              <p>You told us <strong>what</strong>. nudgii figured out <strong>when</strong>, and why it matters. Every time.</p>
+            </div>
+
+          </div>
+
+          <!-- STICKY BOTTOM -->
+          <div class="w-bottom">
+            <button class="btn-primary">Save my schedule
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 6H10"/><path d="M7 3L10 6L7 9"/>
+              </svg>
+            </button>
+            <div class="btn-hint">Free, no credit card, 30 seconds</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHONE 2: S-07 Celebration -->
+    <div class="phone-col">
+      <div class="phone-col-label">S-07: Celebration (plum)</div>
+      <div class="phone plum-phone">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <!-- progress bar 100% -->
+        <div class="prog-bar"><div class="prog-fill" style="width:100%;"></div></div>
+
+        <div class="w-screen">
+          <div class="w-content">
+
+            <div class="celeb-center">
+              <!-- ii mark light-on-dark -->
+              <div class="ii-mark-large">
+                <!-- confetti dots -->
+                <div class="confetti-field">
+                  <div class="confetti-dot" style="width:5px;height:5px;background:rgba(200,120,80,0.4);top:0;left:10px;"></div>
+                  <div class="confetti-dot" style="width:4px;height:4px;background:rgba(74,130,160,0.35);top:8px;right:5px;"></div>
+                  <div class="confetti-dot" style="width:6px;height:6px;background:rgba(90,144,96,0.3);top:30px;left:-10px;"></div>
+                  <div class="confetti-dot" style="width:3px;height:3px;background:rgba(128,96,168,0.4);top:15px;right:20px;"></div>
+                  <div class="confetti-dot" style="width:5px;height:5px;background:rgba(200,120,80,0.3);bottom:5px;left:0;"></div>
+                  <div class="confetti-dot" style="width:4px;height:4px;background:rgba(90,144,96,0.35);bottom:0;right:10px;"></div>
+                  <div class="confetti-dot" style="width:3px;height:3px;background:rgba(74,130,160,0.3);top:45px;left:25px;"></div>
+                  <div class="confetti-dot" style="width:5px;height:5px;background:rgba(128,96,168,0.3);top:5px;left:40px;"></div>
+                  <div class="confetti-dot" style="width:4px;height:4px;background:rgba(200,120,80,0.25);bottom:10px;left:35px;"></div>
+                  <div class="confetti-dot" style="width:3px;height:3px;background:rgba(90,144,96,0.4);top:35px;right:0;"></div>
+                </div>
+                <svg width="58" height="66" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg">
+                  <path fill="#F5F0E8" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
+                  <path fill="#9B7FD4" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
+                  <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
+                </svg>
+              </div>
+
+              <!-- eyebrow -->
+              <div class="w-eyebrow plum-ey">you're in</div>
+
+              <!-- headline -->
+              <div class="w-h1 plum-h1">Your boiler is relieved.</div>
+              <div class="w-sub plum-sub">We'll remind you when it matters.</div>
+
+              <!-- first nudge pill -->
+              <div class="first-nudge-pill">
+                <span class="fnp-label">First reminder</span>
+                <span class="fnp-dot"></span>
+                <span class="fnp-date">Oct 28</span>
+              </div>
+              <div class="first-nudge-task">Annual boiler service</div>
+
+            </div>
+
+          </div>
+
+          <!-- STICKY BOTTOM -->
+          <div class="w-bottom">
+            <button class="btn-primary plum-btn">Open my schedule</button>
+            <div class="btn-hint plum-hint">Tap when you're ready. No rush.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANNOTATION COLUMN -->
+    <div class="annot-col">
+
+      <div class="annot-section">Screen structure</div>
+
+      <div class="annot-card">
+        <div class="annot-head"><span class="badge-rule">Rule</span> Shell pattern</div>
+        <div class="annot-body">
+          Both screens follow the standard shell:<br>
+          <strong>Fixed top:</strong> progress bar (75% on S-07a, 100% on S-07)<br>
+          <strong>Expanded:</strong> scrollable content zone<br>
+          <strong>Fixed bottom:</strong> sticky CTA<br><br>
+          No back button on S-07a. The schedule reveal is a one-way moment: the user cannot go back and un-see their schedule. Going forward triggers auth (S-06).
+        </div>
+      </div>
+
+      <div class="annot-card pattern">
+        <div class="annot-head"><span class="badge-pattern">Pattern</span> AHA moment psychology</div>
+        <div class="annot-body">
+          S-07a is the most critical screen in onboarding. It is where the user sees value for the first time: "I told nudgii what I own, and it built my entire maintenance schedule."<br><br>
+          <strong>Show value before asking for an account.</strong> The schedule is revealed before S-06 (auth). This reverses the typical pattern where apps ask you to sign up before showing what you get.<br><br>
+          The value box reinforces the core proposition: you said <strong>what</strong>, nudgii figured out <strong>when</strong>.
+        </div>
+      </div>
+
+      <div class="annot-card">
+        <div class="annot-head"><span class="badge-note">Note</span> No overdue colors</div>
+        <div class="annot-body">
+          All dates on S-07a use <strong>apricot-dk</strong> (the soonest task) or <strong>mid</strong> (neutral). No terra/overdue colors appear here because the user just created their schedule. Nothing is overdue yet.<br><br>
+          This is deliberate: showing overdue items immediately after onboarding would feel punishing instead of empowering.
+        </div>
+      </div>
+
+      <div class="annot-card">
+        <div class="annot-head"><span class="badge-note">Note</span> Value box messaging</div>
+        <div class="annot-body">
+          The value box uses a CTA-purple tinted background to stand out from the nudge cards above it. Copy structure: "You told us X. nudgii figured out Y." This frames the user as the contributor and nudgii as the engine.<br><br>
+          In hi-fi, this box gets <code>background: rgba(155,127,212,0.08)</code> with a <code>1px solid rgba(155,127,212,0.15)</code> border.
+        </div>
+      </div>
+
+      <div class="annot-section">Flow and transitions</div>
+
+      <div class="annot-card interaction">
+        <div class="annot-head"><span class="badge-interaction">Interaction</span> S-07a to S-06 transition</div>
+        <div class="annot-body">
+          "Save my schedule" does not save directly. It navigates to <strong>S-06 (auth)</strong>, where the user creates an account (Apple, Google, or magic link).<br><br>
+          The CTA copy ("Save my schedule") reframes sign-up as protecting something valuable the user already built. This converts better than "Create account" because the user has something to lose.
+          <ul>
+            <li>S-07a "Save my schedule" leads to S-06</li>
+            <li>S-06 auth completes, leads to S-07 celebration</li>
+            <li>S-07 "Open my schedule" leads to S-09 dashboard</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="annot-section">Celebration screen (S-07)</div>
+
+      <div class="annot-card">
+        <div class="annot-head"><span class="badge-rule">Rule</span> Plum background rules</div>
+        <div class="annot-body">
+          <code>colorPlum #2D1F4A</code> appears ONLY on the done overlay and this celebration screen. It is never used for chips, headers, badges, or any other surface.<br><br>
+          ii mark uses the <strong>light-on-dark variant</strong>: left pill cream (#F5F0E8), right pill CTA purple (#9B7FD4), dot apricot (#E8A87C).<br><br>
+          Confetti dots use <strong>category colors</strong> (home, vehicle, garden, subscriptions) at low opacity. No gradients, no particle effects. Just scattered dots.
+        </div>
+      </div>
+
+      <div class="annot-card pattern">
+        <div class="annot-head"><span class="badge-pattern">Pattern</span> Personalized humor</div>
+        <div class="annot-body">
+          "Your boiler is relieved" adapts to the user's <strong>first added item</strong>. Examples:
+          <ul>
+            <li>Boiler: "Your boiler is relieved."</li>
+            <li>Dishwasher: "Your dishwasher approves."</li>
+            <li>Car: "Your car just exhaled."</li>
+            <li>Olive tree: "Your olive tree sends its regards."</li>
+          </ul>
+          This makes the completion feel personal, not generic. Humor is earned because the user just accomplished something.
+        </div>
+      </div>
+
+      <div class="annot-card">
+        <div class="annot-head"><span class="badge-note">Note</span> First nudge pill</div>
+        <div class="annot-body">
+          The glass-morphic pill anchors the celebration in something concrete: "Your first reminder is already scheduled."<br><br>
+          Style: <code>background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(4px)</code>. Shows "First reminder" + separator dot + the date of the soonest task. Below it, the task name in very faint text.<br><br>
+          This prevents the celebration from feeling hollow. The user knows exactly when nudgii will first reach out.
+        </div>
+      </div>
+
+      <div class="annot-card interaction">
+        <div class="annot-head"><span class="badge-interaction">Interaction</span> CTA: never auto-advance</div>
+        <div class="annot-body">
+          "Open my schedule" navigates to the dashboard (S-09). The user must tap it.<br><br>
+          <strong>Never auto-advance from S-07.</strong> The celebration is a pause moment. Auto-advancing would undercut the feeling of accomplishment. "Tap when you're ready. No rush." reinforces that the user is in control.
+        </div>
+      </div>
+
+      <div class="annot-card interaction">
+        <div class="annot-head"><span class="badge-interaction">Interaction</span> Spring animation</div>
+        <div class="annot-body">
+          On S-07 load, the ii mark and headline animate in with a spring curve:<br>
+          <code>400-450ms cubic-bezier(0.34, 1.56, 0.64, 1)</code><br><br>
+          ii mark: scales from 0 to 1. Headline: translateY from 20px to 0. Confetti dots fade in with staggered delays (50ms apart).<br><br>
+          This is the <strong>only theatrical motion in the app</strong>. Every other animation is functional (250ms ease-in-out or faster).
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
