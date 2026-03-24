@@ -37,7 +37,7 @@ html{scroll-behavior:smooth;}
   /* Shadow hierarchy */
   --shadow-card:    none;
   --shadow-tab-bar: 0 4px 20px rgba(26,22,18,0.11);
-  --shadow-fab:     0 4px 16px rgba(155,127,212,0.35);
+  --shadow-fab:     0 6px 20px rgba(155,127,212,0.45);
   --shadow-sheet:   0 -2px 20px rgba(26,22,18,0.12);
 }
 body{background:var(--cream);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;color:var(--ink);line-height:1.55;}
@@ -162,18 +162,18 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,0.94);backdrop
 .ti{display:flex;flex-direction:column;align-items:center;gap:2px;}
 .ti svg{width:19px;height:19px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
 .ti-l{font-size:7px;}
-.ti-pip{width:3px;height:3px;border-radius:50%;background:var(--cta);}
+.ti-pip{width:3px;height:3px;border-radius:50%;background:var(--cta);display:none;}
 
 /* ═══════════════════════
    FAB STATES
 ═══════════════════════ */
 .fab{width:46px;height:46px;border-radius:15px;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;}
 .fab svg{fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;}
-.fab-default{background:var(--cta);box-shadow:0 4px 16px rgba(155,127,212,0.35);}
+.fab-default{background:var(--cta);box-shadow:0 6px 20px rgba(155,127,212,0.45);}
 .fab-default svg{stroke:var(--cta-fg);width:17px;height:17px;}
-.fab-pressed{background:#7D62B3;box-shadow:0 2px 8px rgba(155,127,212,0.2);transform:scale(0.93);}
+.fab-pressed{background:#7D62B3;box-shadow:0 3px 10px rgba(155,127,212,0.25);transform:scale(0.93);}
 .fab-pressed svg{stroke:var(--cta-fg);width:17px;height:17px;}
-.fab-open{background:var(--cta);box-shadow:0 4px 16px rgba(155,127,212,0.35);transform:rotate(45deg);}
+.fab-open{background:var(--cta);box-shadow:0 6px 20px rgba(155,127,212,0.45);transform:rotate(45deg);}
 .fab-open svg{stroke:var(--cta-fg);width:17px;height:17px;}
 .fab-disabled{background:rgba(155,127,212,0.25);box-shadow:none;cursor:not-allowed;}
 .fab-disabled svg{stroke:rgba(250,248,255,0.4);width:17px;height:17px;}
@@ -291,11 +291,11 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,0.94);backdrop
     <div style="font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--mid);margin-bottom:10px;">Primary CTA</div>
     <div class="state-grid">
       <div class="state-tile">
-        <button class="btn btn-cta" style="width:100%;"><div class="mic"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg></div>Vertel het me</button>
+        <button class="btn btn-cta" style="width:100%;">Tell me what you have</button>
         <div class="state-name active">Default</div>
       </div>
       <div class="state-tile">
-        <button class="btn btn-cta-pressed" style="width:100%;"><div class="mic-dim"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg></div>Vertel het me</button>
+        <button class="btn btn-cta-pressed" style="width:100%;">Tell me what you have</button>
         <div class="state-name pressed">Pressed · scale 0.97</div>
       </div>
       <div class="state-tile">
@@ -303,7 +303,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,0.94);backdrop
         <div class="state-name loading">Loading · spinner</div>
       </div>
       <div class="state-tile">
-        <button class="btn btn-cta-disabled" style="width:100%;"><div class="mic-dim"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg></div>Vertel het me</button>
+        <button class="btn btn-cta-disabled" style="width:100%;">Tell me what you have</button>
         <div class="state-name disabled">Disabled · 35% opacity</div>
       </div>
     </div>
@@ -520,7 +520,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,0.94);backdrop
       <div class="cs-meta">
         <div class="cs-eye">Component</div>
         <div class="cs-title">Floating tab bar</div>
-        <div class="cs-sub">Active · inactive · pressed · the pip</div>
+        <div class="cs-sub">Active · inactive · pressed</div>
       </div>
     </div>
 
@@ -529,9 +529,8 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,0.94);backdrop
       <div class="state-tile">
         <div class="tab-pill" style="max-width:240px;">
           <div class="ti" style="flex-direction:column;align-items:center;gap:3px;">
-            <svg width="19" height="19" viewBox="0 0 256 256" fill="none" style="stroke:var(--ink);stroke-width:16;stroke-linecap:round;stroke-linejoin:round;"><rect x="40" y="40" width="176" height="176" rx="16"/><line x1="176" y1="24" x2="176" y2="56"/><line x1="80" y1="24" x2="80" y2="56"/><line x1="40" y1="88" x2="216" y2="88"/></svg>
-            <div class="ti-pip"></div>
-            <div class="ti-l" style="color:var(--ink);font-weight:500;font-size:7px;">Today</div>
+            <svg width="19" height="19" viewBox="0 0 256 256" fill="none" style="stroke:var(--cta);stroke-width:16;stroke-linecap:round;stroke-linejoin:round;"><rect x="40" y="40" width="176" height="176" rx="16"/><line x1="176" y1="24" x2="176" y2="56"/><line x1="80" y1="24" x2="80" y2="56"/><line x1="40" y1="88" x2="216" y2="88"/></svg>
+            <div class="ti-l" style="color:var(--cta);font-weight:500;font-size:7px;">Today</div>
           </div>
           <div class="ti" style="flex-direction:column;align-items:center;gap:3px;opacity:0.2;">
             <svg width="19" height="19" viewBox="0 0 256 256" fill="none" style="stroke:var(--ink);stroke-width:16;stroke-linecap:round;stroke-linejoin:round;"><path d="M45.15 230.11a8 8 0 0 1-9.26-9.26l9.45-42.51A96 96 0 1 1 136 224a95.23 95.23 0 0 1-45.83-11.65Z"/></svg>
@@ -542,7 +541,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,0.94);backdrop
             <div class="ti-l" style="color:rgba(26,22,18,0.4);font-size:7px;">You</div>
           </div>
         </div>
-        <div class="state-name active">Today active · pip visible</div>
+        <div class="state-name active">Today active</div>
       </div>
       <!-- Ask active -->
       <div class="state-tile">
@@ -552,9 +551,8 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,0.94);backdrop
             <div class="ti-l" style="color:rgba(26,22,18,0.4);font-size:7px;">Today</div>
           </div>
           <div class="ti" style="flex-direction:column;align-items:center;gap:3px;">
-            <svg width="19" height="19" viewBox="0 0 256 256" fill="none" style="stroke:var(--ink);stroke-width:16;stroke-linecap:round;stroke-linejoin:round;"><path d="M45.15 230.11a8 8 0 0 1-9.26-9.26l9.45-42.51A96 96 0 1 1 136 224a95.23 95.23 0 0 1-45.83-11.65Z"/></svg>
-            <div class="ti-pip"></div>
-            <div class="ti-l" style="color:var(--ink);font-weight:500;font-size:7px;">Ask</div>
+            <svg width="19" height="19" viewBox="0 0 256 256" fill="none" style="stroke:var(--cta);stroke-width:16;stroke-linecap:round;stroke-linejoin:round;"><path d="M45.15 230.11a8 8 0 0 1-9.26-9.26l9.45-42.51A96 96 0 1 1 136 224a95.23 95.23 0 0 1-45.83-11.65Z"/></svg>
+            <div class="ti-l" style="color:var(--cta);font-weight:500;font-size:7px;">Ask</div>
           </div>
           <div class="ti" style="flex-direction:column;align-items:center;gap:3px;opacity:0.2;">
             <svg width="19" height="19" viewBox="0 0 256 256" fill="none" style="stroke:var(--ink);stroke-width:16;stroke-linecap:round;stroke-linejoin:round;"><circle cx="128" cy="96" r="64"/><path d="M32 216c19.37-33.47 54.55-56 96-56s76.63 22.53 96 56" stroke-linecap="round"/></svg>
@@ -574,14 +572,14 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,0.94);backdrop
     </div>
 
     <div class="spec-strip">
-      <strong>Active:</strong> icon at full <code>ink</code> · 3px <code>cta</code> pip below label · label <code>ink 500</code> weight<br>
+      <strong>Active:</strong> <code>colorCta #9B7FD4</code> on both icon stroke and label. No pip dot.<br>
       <strong>Inactive:</strong> icon + label at <code>ink 20% opacity</code><br>
       <strong>Pressed:</strong> brief <code>rgba(26,22,18,0.05)</code> bg flash behind the item · <code>100ms</code> · no scale on tab items (the pill absorbs the tap, not the item)<br>
-      <strong>Transition:</strong> icon color and pip appear/disappear over <code>200ms ease</code>. Never a hard swap.
+      <strong>Transition:</strong> icon color over <code>200ms ease</code>. Never a hard swap.
     </div>
 
     <div class="flutter-note">
-      <strong>Flutter:</strong> Build as custom widget, not <code>BottomNavigationBar</code>. The floating pill needs a <code>Container</code> with <code>BoxDecoration</code> shadow, positioned with <code>Positioned</code> in a <code>Stack</code>. Tab items use <code>AnimatedDefaultTextStyle</code> + <code>AnimatedOpacity</code> for the icon state change. Pip: <code>AnimatedOpacity</code> on a <code>Container(width:3,height:3,decoration:BoxDecoration(shape:circle,color:colorCta))</code>.
+      <strong>Flutter:</strong> Build as custom widget, not <code>BottomNavigationBar</code>. The floating pill needs a <code>Container</code> with <code>BoxDecoration</code> shadow, positioned with <code>Positioned</code> in a <code>Stack</code>. Active tab: both icon color and label TextStyle set to <code>colorCta</code>. Inactive: <code>rgba(26,22,18,0.20)</code>. No pip dot.
     </div>
   </div>
 
@@ -922,7 +920,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,0.94);backdrop
           <tr><td>Nudge card</td><td>Done</td><td>opacity 0.35 · line-through</td><td>250ms ease</td><td>AnimatedOpacity</td></tr>
           <tr><td>Filter chip</td><td>Active</td><td>bg <code>cta</code> · text <code>cta-fg</code></td><td>200ms ease</td><td>AnimatedContainer</td></tr>
           <tr><td>Filter chip</td><td>Pressed</td><td>scale 0.95 · bg tint</td><td>100ms</td><td>GestureDetector</td></tr>
-          <tr><td>Tab bar item</td><td>Active</td><td>ink icon · pip appears · bold label</td><td>200ms ease</td><td>AnimatedOpacity + AnimatedDefaultTextStyle</td></tr>
+          <tr><td>Tab bar item</td><td>Active</td><td>colorCta icon + label · no pip</td><td>200ms ease</td><td>AnimatedDefaultTextStyle</td></tr>
           <tr><td>FAB</td><td>Open</td><td>rotate 45° (Plus → ×)</td><td>180ms spring</td><td>AnimatedRotation</td></tr>
           <tr><td>FAB</td><td>Pressed</td><td>bg <code>#7D62B3</code> · scale 0.93</td><td>120ms spring</td><td>AnimatedScale</td></tr>
           <tr><td>Action option</td><td>Pressed</td><td>bg rgba(26,22,18,0.03) · scale 0.97</td><td>100ms</td><td>GestureDetector</td></tr>

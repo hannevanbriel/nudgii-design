@@ -450,7 +450,7 @@ section{padding-top:60px;}
     <div class="token-grid">
       <div class="ttile"><div class="tsw" style="background:#F5F0E8;"></div><div class="tbody"><div class="tname">Cream</div><div class="thex">#F5F0E8</div><div class="trole">App background</div></div></div>
       <div class="ttile"><div class="tsw" style="background:#1A1612;"></div><div class="tbody"><div class="tname">Ink</div><div class="thex">#1A1612</div><div class="trole">All body text. Warm charcoal — no blue hue.</div><div class="tnote">Changed from #1E2832 (too blue)</div></div></div>
-      <div class="ttile" style="outline:2px solid #9B7FD4;outline-offset:2px;border-radius:11px;"><div class="tsw" style="background:#9B7FD4;"></div><div class="tbody"><div class="tname">CTA · plum-lt <span style="font-size:9px;color:#7040C0;font-weight:500;"></span></div><div class="thex">#9B7FD4</div><div class="trole">Primary CTA button. Active filter chip. Tab pip. Also Pro badge.</div><div class="tnote">Replaces apricot-dk as CTA</div></div></div>
+      <div class="ttile" style="outline:2px solid #9B7FD4;outline-offset:2px;border-radius:11px;"><div class="tsw" style="background:#9B7FD4;"></div><div class="tbody"><div class="tname">CTA · plum-lt <span style="font-size:9px;color:#7040C0;font-weight:500;"></span></div><div class="thex">#9B7FD4</div><div class="trole">Primary CTA button. Active filter chip. Active tab icon + label. Also Pro badge.</div><div class="tnote">Replaces apricot-dk as CTA</div></div></div>
       <div class="ttile"><div class="tsw" style="background:#E8A87C;"></div><div class="tbody"><div class="tname">Apricot</div><div class="thex">#E8A87C</div><div class="trole">ii dot · greeting name em · streak number · done overlay dot.</div><div class="tnote">Warm accent only — never buttons</div></div></div>
       <div class="ttile"><div class="tsw" style="background:#C8784A;"></div><div class="tbody"><div class="tname">Apricot-dk</div><div class="thex">#C8784A</div><div class="trole">Due-soon date labels only. No longer CTA.</div><div class="tnote">Due-soon labels only — not buttons</div></div></div>
       <div class="ttile"><div class="tsw" style="background:#C4503A;"></div><div class="tbody"><div class="tname">Terra</div><div class="thex">#C4503A</div><div class="trole">Overdue status — date label + task name. Nothing else.</div></div></div>
@@ -1199,9 +1199,8 @@ final sidePad = MediaQuery.of(context).size.width &lt; 420 ? 16.0 : 20.0;</pre>
       <div style="background:var(--cream-2);border-radius:10px;padding:20px;margin-bottom:16px;display:flex;flex-direction:column;gap:12px;">
         <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-start;">
           <div>
-            <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Primary — with mic (Path A)</div>
+            <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Primary (Path A)</div>
             <button class="btn btn-cta">
-              <div class="mic-btn"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg></div>
               Tell me what you have
             </button>
           </div>
@@ -1215,7 +1214,7 @@ final sidePad = MediaQuery.of(context).size.width &lt; 420 ? 16.0 : 20.0;</pre>
           </div>
           <div>
             <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Ghost</div>
-            <button class="btn btn-ghost">I know what I need</button>
+            <button class="btn btn-ghost">Something else</button>
           </div>
         </div>
       </div>
@@ -1226,9 +1225,7 @@ final sidePad = MediaQuery.of(context).size.width &lt; 420 ? 16.0 : 20.0;</pre>
         Pressed — bg <code>#7D62B3</code>, scale 0.97, 100ms ease-out.<br>
         Loading — text hidden, centered spinner colorCtaFg, button stays full width. Never <code>Opacity</code> widget — change colors instead.<br>
         Disabled — bg <code>rgba(155,127,212,0.35)</code>, text <code>rgba(250,248,255,0.5)</code>.<br><br>
-        <strong>Mic button (inside CTA, Path A voice onboarding only):</strong><br>
-        22×22px circle · bg <code>rgba(250,248,255,0.15)</code> · Phosphor Microphone icon 11px · stroke <code>#FAF8FF</code> · stroke-width 1.8 · centered left of label<br>
-        Flutter: <code>Row([Container(width:22, height:22, decoration:BoxDecoration(shape:circle, color:rgba(250,248,255,0.15))), SizedBox(width:8), Text])</code><br><br>
+        <strong>Mic button inside CTA:</strong> removed (2026-03-24). Path A covers voice, text, and scan. Mic icon was misleading (implied voice-only). CTA is text-only now.<br><br>
         <strong>Secondary:</strong> transparent bg · border 1.5px <code>rgba(26,22,18,0.12)</code> · ink text · height 46px<br>
         <strong>Ghost:</strong> no border · mid color text · height 36px<br>
         <strong>All buttons:</strong> sentence case · never title case · never ALL CAPS · DM Sans 500
@@ -1804,7 +1801,7 @@ Overlay.of(context).insert(
       <div class="rcard-body">
         <code>12px</code> — inside category chip (task cards, welcome preview cards)<br>
         <code>14px</code> — action buttons (search, settings, camera, close)<br>
-        <code>16px</code> — mic icon inside CTA button<br>
+        <code>16px</code> — mic icon in voice input bar<br>
         <code>19–20px</code> — tab bar icons<br><br>
         Never mix sizes within the same zone. Never use an icon outside its defined zone size.
       </div>
@@ -1814,7 +1811,7 @@ Overlay.of(context).insert(
       <div class="rcard-title">Stroke width rules</div>
       <div class="rcard-body">
         <code>stroke-width: 1.5</code> — all outline icons at 14–20px<br>
-        <code>stroke-width: 1.8</code> — mic icon inside CTA button (needs slightly more presence)<br>
+        <code>stroke-width: 1.8</code> — mic icon in voice input bar<br>
         <code>stroke-width: 1.8</code> — icons at 12px in category chips (compensates for small size on cream)<br><br>
         Never use weight below 1.5 — disappears on cream at small sizes.
       </div>
@@ -1823,7 +1820,7 @@ Overlay.of(context).insert(
     <div class="rcard">
       <div class="rcard-title">Color rules by zone</div>
       <div class="rcard-body">
-        Tab bar active: <code>ink #1A1612</code><br>
+        Tab bar active: <code>colorCta #9B7FD4</code> on both icon stroke and label. No pip dot.<br>
         Tab bar inactive: <code>ink at 18% opacity</code><br>
         Action button on ghost bg: <code>mid #8A8070</code><br>
         Action button on CTA bg: <code>cta-fg #FAF8FF</code><br>
