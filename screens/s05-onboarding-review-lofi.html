@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · S-05 Onboarding review, lo-fi</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+
+:root{
+  --cream:#F5F0E8;--ink:#1A1612;--mid:#8A8070;--mid-lt:#B0A898;
+  --border:rgba(26,22,18,0.08);--border-md:rgba(26,22,18,0.12);
+  --cta:#9B7FD4;--cta-fg:#FAF8FF;
+  --mid-a:#6B6358;
+  --sage:#3B6D11;--sage-lt:#EAF3DE;
+  --surface:#FFFFFF;
+  --ink-06:rgba(26,22,18,0.06);--ink-08:rgba(26,22,18,0.08);
+  --ink-10:rgba(26,22,18,0.10);
+  /* lo-fi grays */
+  --lo-bg:#F0EFED;
+  --lo-card:#FFFFFF;
+  --lo-border:#D4D2CE;
+  --lo-text:#3A3A3A;
+  --lo-text-mid:#7A7A7A;
+  --lo-text-lt:#A8A8A8;
+  --lo-zone:rgba(0,0,0,0.04);
+}
+
+body{
+  background:#CBC5BB;
+  font-family:'DM Sans',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  padding:0 0 80px;
+}
+
+/* NAV */
+nav{
+  background:var(--cream);border-bottom:1px solid var(--border-md);
+  padding:0 32px;display:flex;align-items:center;gap:16px;
+  height:48px;position:sticky;top:0;z-index:100;
+}
+.nav-back{
+  font-size:13px;color:var(--mid);text-decoration:none;
+  display:flex;align-items:center;gap:8px;
+}
+.nav-back:hover{color:var(--ink);}
+.nav-sep{color:var(--border-md);}
+.nav-title{font-size:13px;font-weight:500;}
+.nav-status{
+  margin-left:auto;font-size:10px;font-weight:500;
+  padding:3px 10px;border-radius:100px;
+  background:rgba(232,168,124,0.12);color:#9A5A2A;
+  border:1px solid rgba(232,168,124,0.25);
+}
+
+/* PAGE */
+.page{padding:40px 32px 60px;max-width:1700px;margin:0 auto;}
+
+/* PAGE HEADER */
+.page-eyebrow{
+  font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(26,22,18,0.28);margin-bottom:10px;
+}
+.page-h1{
+  font-size:28px;font-weight:500;
+  color:var(--ink);letter-spacing:-0.3px;margin-bottom:6px;
+}
+.page-sub{
+  font-size:14px;color:var(--mid-a);line-height:1.65;
+  max-width:640px;margin-bottom:12px;
+}
+.meta{display:flex;gap:8px;margin-bottom:48px;flex-wrap:wrap;}
+.mp{
+  font-size:11px;font-weight:500;padding:3px 10px;border-radius:100px;
+  border:1px solid var(--ink-10);color:var(--mid);
+}
+.mp.lofi{background:rgba(26,22,18,0.05);color:var(--mid);border-color:rgba(26,22,18,0.15);}
+.mp.ob{background:rgba(200,120,80,0.08);color:#7A3A10;border-color:rgba(200,120,80,0.18);}
+
+/* LAYOUT WRAPPER */
+.content-row{display:flex;gap:40px;align-items:flex-start;}
+
+/* PHONE SHELL */
+.phone-col{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+.phone{
+  width:390px;height:844px;border-radius:50px;overflow:hidden;
+  background:var(--lo-bg);
+  border:1.5px solid rgba(26,22,18,0.09);
+  box-shadow:0 28px 60px rgba(26,22,18,0.18),0 6px 16px rgba(26,22,18,0.07),inset 0 1px 0 rgba(255,255,255,0.65);
+  position:relative;flex-shrink:0;
+  display:flex;flex-direction:column;
+}
+
+/* notch + status bar */
+.notch{height:24px;background:var(--lo-bg);display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px;}
+.np{width:102px;height:8px;border-radius:100px;background:rgba(0,0,0,0.08);}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:5px 18px 0;font-size:11px;font-weight:500;color:rgba(0,0,0,0.28);}
+.batt{width:14px;height:6px;border:1.5px solid rgba(0,0,0,0.22);border-radius:2px;position:relative;}
+.batt::after{content:'';position:absolute;left:1px;top:1px;right:2px;bottom:1px;background:rgba(0,0,0,0.25);border-radius:1px;}
+
+/* progress bar */
+.prog-bar{width:100%;height:3px;background:rgba(0,0,0,0.06);flex-shrink:0;}
+.prog-fill{height:3px;border-radius:0 100px 100px 0;background:var(--cta);}
+
+/* screen structure */
+.w-screen{flex:1;overflow:hidden;display:flex;flex-direction:column;padding:14px 16px 0;}
+.w-content{flex:1;overflow-y:auto;scrollbar-width:none;}
+.w-content::-webkit-scrollbar{display:none;}
+.w-bottom{padding:12px 0 24px;flex-shrink:0;}
+
+/* BACK BUTTON */
+.back-btn{
+  width:32px;height:32px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;margin-bottom:10px;
+}
+.back-btn svg{stroke:var(--lo-text);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+
+/* HEADLINE */
+.w-h1{font-size:20px;font-weight:500;color:var(--lo-text);line-height:1.25;margin-bottom:4px;}
+.w-sub{font-size:11px;font-style:italic;color:var(--lo-text-mid);line-height:1.5;margin-bottom:14px;}
+
+/* ZONE LABEL */
+.zone{
+  border:1.5px dashed var(--lo-border);
+  border-radius:8px;padding:8px;margin-bottom:8px;
+  position:relative;
+}
+.zone-label{
+  position:absolute;top:-8px;left:10px;
+  font-size:8px;font-weight:500;letter-spacing:0.8px;text-transform:uppercase;
+  background:var(--lo-bg);color:var(--lo-text-lt);padding:0 4px;
+}
+
+/* REVIEW CARDS */
+.review-cards{display:flex;flex-direction:column;gap:6px;margin-bottom:10px;}
+
+.r-card{
+  background:var(--lo-card);
+  border:1px solid var(--lo-border);
+  border-radius:10px;
+  overflow:hidden;
+}
+
+/* card header */
+.r-head{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 10px;
+}
+.r-chip{
+  width:26px;height:26px;border-radius:7px;
+  background:rgba(0,0,0,0.06);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.r-chip-icon{font-size:9px;color:var(--lo-text-mid);}
+.r-name{flex:1;font-size:12px;font-weight:500;color:var(--lo-text);}
+.r-cat{font-size:9px;color:var(--lo-text-lt);}
+.r-action{
+  width:26px;height:26px;border-radius:6px;
+  border:1px dashed var(--lo-border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;color:var(--lo-text-mid);flex-shrink:0;
+  cursor:pointer;
+}
+.r-action.scan{background:rgba(0,0,0,0.03);}
+
+/* expanded body */
+.r-body{
+  padding:0 10px 10px;
+  border-top:1px dashed var(--lo-border);
+  margin-top:0;
+}
+
+/* task list */
+.r-tasks{margin-top:8px;}
+.r-task{
+  display:flex;align-items:center;gap:7px;
+  padding:6px 0;
+  border-bottom:1px dotted rgba(0,0,0,0.06);
+}
+.r-task:last-child{border-bottom:none;}
+.r-task-dot{width:5px;height:5px;border-radius:50%;background:rgba(0,0,0,0.15);flex-shrink:0;}
+.r-task-name{font-size:10px;color:var(--lo-text);flex:1;}
+.r-task-cadence{font-size:8px;color:var(--lo-text-lt);background:rgba(0,0,0,0.04);padding:1px 6px;border-radius:100px;}
+.r-task.pro{opacity:0.4;}
+.r-task .pro-pill{
+  font-size:7px;font-weight:600;letter-spacing:0.3px;
+  background:rgba(155,127,212,0.12);color:#7A60B0;
+  padding:1px 5px;border-radius:100px;
+}
+
+/* last done picker */
+.last-done{
+  margin-top:10px;padding-top:8px;
+  border-top:1px dotted rgba(0,0,0,0.06);
+}
+.last-done-label{font-size:9px;font-weight:500;color:var(--lo-text-mid);margin-bottom:5px;}
+.last-done-options{display:flex;gap:4px;}
+.ld-opt{
+  font-size:9px;padding:4px 9px;border-radius:100px;
+  border:1px solid var(--lo-border);
+  color:var(--lo-text-mid);cursor:pointer;
+  background:transparent;
+}
+.ld-opt.active{
+  background:var(--lo-text);color:white;border-color:var(--lo-text);
+}
+
+/* collapsed hint */
+.r-collapsed-hint{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 10px 10px;
+}
+.r-hint-text{font-size:10px;color:var(--lo-text-lt);font-style:italic;}
+.r-chevron{font-size:10px;color:var(--lo-text-lt);}
+
+/* add another */
+.add-row{
+  text-align:center;padding:10px 0;
+  font-size:11px;font-weight:500;color:var(--cta);
+  cursor:pointer;
+}
+
+/* CTA BUTTON (lo-fi) */
+.btn-primary{
+  width:100%;height:46px;border-radius:100px;border:none;
+  background:var(--lo-text);color:white;
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  cursor:pointer;
+}
+
+/* ANNOTATION COLUMN */
+.annot-col{
+  flex:0 0 360px;min-width:280px;
+  display:flex;flex-direction:column;gap:10px;
+  padding-top:0;
+}
+.annot-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:14px 16px;
+}
+.annot-card.interaction{border-color:rgba(155,127,212,0.22);background:rgba(155,127,212,0.03);}
+.annot-card.pattern{border-color:rgba(200,120,80,0.18);background:rgba(200,120,80,0.03);}
+.annot-head{
+  font-size:10px;font-weight:500;letter-spacing:0.3px;
+  margin-bottom:6px;display:flex;align-items:center;gap:6px;
+}
+.badge-interaction{
+  font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;
+  background:rgba(155,127,212,0.12);color:#5C3E8A;
+}
+.badge-pattern{
+  font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;
+  background:rgba(200,120,80,0.12);color:#7A3A10;
+}
+.badge-rule{
+  font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;
+  background:rgba(59,109,17,0.10);color:var(--sage);
+}
+.badge-note{
+  font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;
+  background:rgba(26,22,18,0.07);color:var(--mid);
+}
+.annot-body{font-size:11px;color:var(--mid-a);line-height:1.65;}
+.annot-body strong{color:var(--ink);font-weight:500;}
+.annot-body code{font-family:monospace;font-size:10px;background:var(--ink-06);padding:1px 4px;border-radius:3px;color:var(--ink);}
+.annot-body ul{margin:4px 0 0 14px;}
+.annot-body li{margin-bottom:3px;}
+.annot-section{
+  font-size:9px;font-weight:500;letter-spacing:1.6px;
+  text-transform:uppercase;color:rgba(26,22,18,0.28);
+  margin:20px 0 8px;
+}
+
+/* item counter banner */
+.item-counter{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(0,0,0,0.04);
+  border:1px dashed var(--lo-border);
+  border-radius:8px;
+  padding:7px 10px;
+  margin-bottom:8px;
+  font-size:9px;color:var(--lo-text-mid);
+}
+.item-counter-bar{
+  flex:1;height:3px;background:rgba(0,0,0,0.08);border-radius:100px;
+  overflow:hidden;
+}
+.item-counter-fill{height:100%;background:var(--lo-text-mid);border-radius:100px;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-back" href="../index.html">
+    <svg width="16" height="18" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:2px;">
+      <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
+      <path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
+      <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
+    </svg>
+    Design hub
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">S-05 Onboarding review</span>
+  <span class="nav-status">In progress</span>
+</nav>
+
+<div class="page">
+
+  <!-- PAGE HEADER -->
+  <div class="page-eyebrow">S-05 · Onboarding review · Lo-fi · 390x844px (iPhone 15) · March 2026</div>
+  <h1 class="page-h1">Onboarding review</h1>
+  <p class="page-sub">The user reviews items collected during onboarding (from any path). Each item card expands to show tasks, a scan button for brand/model detection, and a "last done" picker that adjusts reminder timing. Cards collapse to save space. This screen carries context from S-01 through S-04.</p>
+  <div class="meta">
+    <span class="mp lofi">Lo-fi</span>
+    <span class="mp ob">Onboarding flow</span>
+    <span class="mp">S-05</span>
+    <span class="mp">March 2026</span>
+  </div>
+
+  <!-- CONTENT ROW: phone + annotation sidebar -->
+  <div class="content-row">
+
+    <!-- PHONE -->
+    <div class="phone-col">
+      <div class="phone">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <!-- progress bar 60% -->
+        <div class="prog-bar"><div class="prog-fill" style="width:60%;"></div></div>
+
+        <div class="w-screen">
+          <div class="w-content">
+
+            <!-- back button -->
+            <div class="back-btn">
+              <svg width="12" height="12" viewBox="0 0 12 12">
+                <path d="M10 6H2"/>
+                <path d="M5 3L2 6L5 9"/>
+              </svg>
+            </div>
+
+            <!-- headline -->
+            <div class="w-h1">Here's what nudgii found.</div>
+            <div class="w-sub">Scan to confirm brand or model. You can adjust anything later.</div>
+
+            <!-- item counter banner (shown when nearing limit) -->
+            <div class="item-counter">
+              <span>2 of 10 free items</span>
+              <div class="item-counter-bar"><div class="item-counter-fill" style="width:20%;"></div></div>
+            </div>
+
+            <!-- REVIEW CARDS -->
+            <div class="review-cards">
+
+              <!-- Card 1: Boiler (EXPANDED) -->
+              <div class="r-card">
+                <div class="r-head">
+                  <div class="r-chip"><span class="r-chip-icon">H</span></div>
+                  <div style="flex:1;">
+                    <div class="r-name">Boiler</div>
+                    <div class="r-cat">Home</div>
+                  </div>
+                  <div class="r-action scan" title="Scan">
+                    <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M1 5V2.5A1.5 1.5 0 012.5 1H5"/>
+                      <path d="M11 1h2.5A1.5 1.5 0 0115 2.5V5"/>
+                      <path d="M15 11v2.5a1.5 1.5 0 01-1.5 1.5H11"/>
+                      <path d="M5 15H2.5A1.5 1.5 0 011 13.5V11"/>
+                    </svg>
+                  </div>
+                  <div class="r-action" title="Remove">&times;</div>
+                </div>
+                <div class="r-body">
+                  <div class="r-tasks">
+                    <div class="r-task">
+                      <div class="r-task-dot"></div>
+                      <div class="r-task-name">Annual boiler service</div>
+                      <div class="r-task-cadence">yearly, autumn</div>
+                    </div>
+                    <div class="r-task">
+                      <div class="r-task-dot"></div>
+                      <div class="r-task-name">Check CO detector</div>
+                      <div class="r-task-cadence">yearly</div>
+                    </div>
+                    <div class="r-task">
+                      <div class="r-task-dot"></div>
+                      <div class="r-task-name">Bleed radiators</div>
+                      <div class="r-task-cadence">before winter</div>
+                    </div>
+                    <div class="r-task pro">
+                      <div class="r-task-dot"></div>
+                      <div class="r-task-name">Descale heat exchanger</div>
+                      <span class="pro-pill">Pro</span>
+                    </div>
+                  </div>
+
+                  <!-- last done picker -->
+                  <div class="last-done">
+                    <div class="last-done-label">Last done:</div>
+                    <div class="last-done-options">
+                      <div class="ld-opt">Recently</div>
+                      <div class="ld-opt">A while ago</div>
+                      <div class="ld-opt active">Not sure</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 2: Dishwasher (COLLAPSED) -->
+              <div class="r-card">
+                <div class="r-head">
+                  <div class="r-chip"><span class="r-chip-icon">H</span></div>
+                  <div style="flex:1;">
+                    <div class="r-name">Dishwasher</div>
+                    <div class="r-cat">Home</div>
+                  </div>
+                  <div class="r-action" title="Remove">&times;</div>
+                </div>
+                <div class="r-collapsed-hint">
+                  <span class="r-hint-text">3 tasks, tap to review</span>
+                  <span class="r-chevron">&#x203A;</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- add another -->
+            <div class="add-row">+ Add another item</div>
+
+          </div>
+
+          <!-- STICKY BOTTOM -->
+          <div class="w-bottom">
+            <button class="btn-primary">Looks good
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 6H10"/><path d="M7 3L10 6L7 9"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANNOTATION COLUMN -->
+    <div class="annot-col">
+
+      <div class="annot-section">Screen structure</div>
+
+      <div class="annot-card">
+        <div class="annot-head"><span class="badge-rule">Rule</span> Shell pattern</div>
+        <div class="annot-body">
+          <strong>Fixed top:</strong> progress bar at 60% (step 3 of 5)<br>
+          <strong>Expanded:</strong> scrollable review cards<br>
+          <strong>Fixed bottom:</strong> sticky CTA "Looks good"<br><br>
+          Back button: <code>ArrowLeft</code> (horizontal line + arrowhead), 44x44px tap target. Returns to previous onboarding step.
+        </div>
+      </div>
+
+      <div class="annot-card">
+        <div class="annot-head"><span class="badge-note">Note</span> Context carry-over</div>
+        <div class="annot-body">
+          Items shown here come from whichever path the user took: voice (S-02), browse (S-03), or search (S-04). This screen is path-agnostic. It shows whatever items were collected.
+        </div>
+      </div>
+
+      <div class="annot-section">Card interactions</div>
+
+      <div class="annot-card interaction">
+        <div class="annot-head"><span class="badge-interaction">Interaction</span> Expand / collapse</div>
+        <div class="annot-body">
+          <strong>Tap card header</strong> to expand or collapse.<br>
+          <ul>
+            <li>Expanded: shows all tasks, "last done" picker, scan button</li>
+            <li>Collapsed: shows task count + "tap to review" hint + chevron</li>
+          </ul>
+          <strong>First card auto-expands</strong> on screen load so the user sees what a review card contains. Subsequent cards start collapsed.<br><br>
+          Animation: <code>250ms ease-in-out</code> height transition.
+        </div>
+      </div>
+
+      <div class="annot-card interaction">
+        <div class="annot-head"><span class="badge-interaction">Interaction</span> Scan button</div>
+        <div class="annot-body">
+          <strong>Scan icon</strong> (PhosphorIcons.scan) triggers the AI camera.<br>
+          The user photographs a label or device to detect brand and model. Result updates the item name and may add brand-specific tasks.<br><br>
+          Scan is per-item, not global. Only appears on expanded cards.<br>
+          Free tier: 3 AI scans/month. Pro: unlimited.
+        </div>
+      </div>
+
+      <div class="annot-card interaction">
+        <div class="annot-head"><span class="badge-interaction">Interaction</span> Remove button</div>
+        <div class="annot-body">
+          <strong>&times; button</strong> removes the item from the review list.<br>
+          Triggers a confirmation toast: "Boiler removed" with undo link (2.5s visible, 250ms fade-out).<br>
+          Undo toast style: cream bg, ink text, plum-lt dot.
+        </div>
+      </div>
+
+      <div class="annot-section">"Last done" picker</div>
+
+      <div class="annot-card pattern">
+        <div class="annot-head"><span class="badge-pattern">Pattern</span> Reminder timing</div>
+        <div class="annot-body">
+          Three-option picker controls when the first reminder fires:
+          <ul>
+            <li><strong>Recently:</strong> delays first reminder 6 to 8 weeks (user just did it)</li>
+            <li><strong>A while ago:</strong> schedules sooner (overdue or close to due)</li>
+            <li><strong>Not sure (default):</strong> schedules first reminder soon, conservative approach</li>
+          </ul>
+          "Not sure" is pre-selected. Single-select, tap to switch. No multi-select.<br><br>
+          This replaces a date picker. Most users cannot remember exact dates, and precision does not matter at this stage.
+        </div>
+      </div>
+
+      <div class="annot-section">Upsell and limits</div>
+
+      <div class="annot-card">
+        <div class="annot-head"><span class="badge-note">Note</span> Pro task lock</div>
+        <div class="annot-body">
+          Free tier: 3 tasks per item. The 4th task (if present) is shown <strong>greyed out with a "Pro" pill</strong>.<br>
+          Not blocking, just a visibility nudge. User can still proceed. Tapping the locked task opens the Pro upgrade sheet (S-22).
+        </div>
+      </div>
+
+      <div class="annot-card">
+        <div class="annot-head"><span class="badge-note">Note</span> Item counter banner</div>
+        <div class="annot-body">
+          Shows "X of 10 free items" with a fill bar when the user has 5+ items. Not shown below 5.<br>
+          At 10 items, the "+ Add another item" link becomes "Upgrade to add more" (colorCta text).<br>
+          Conversion trigger: free tier caps at 10 items.
+        </div>
+      </div>
+
+      <div class="annot-section">Other elements</div>
+
+      <div class="annot-card">
+        <div class="annot-head"><span class="badge-interaction">Interaction</span> + Add another item</div>
+        <div class="annot-body">
+          Tapping opens an add-item flow (inline voice/text input or quick-browse sheet). New item appears at the bottom of the review list, auto-expanded.<br><br>
+          This ensures users who want to add items beyond the initial path can do so without going back.
+        </div>
+      </div>
+
+      <div class="annot-card">
+        <div class="annot-head"><span class="badge-rule">Rule</span> Card spacing</div>
+        <div class="annot-body">
+          Individual white cards on cream background. <strong>6px gap</strong> between cards. Cream gap IS the visual separator.<br>
+          No border-bottom separators. No single container wrapping all cards.
+        </div>
+      </div>
+
+      <div class="annot-card">
+        <div class="annot-head"><span class="badge-note">Note</span> CTA behaviour</div>
+        <div class="annot-body">
+          "Looks good" navigates to S-06 (auth). Enabled as long as at least 1 item exists. If all items are removed, CTA changes to disabled state with text "Add at least one item".<br><br>
+          Pressing: bg darkens, scale 0.97, 100ms ease-out.
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
