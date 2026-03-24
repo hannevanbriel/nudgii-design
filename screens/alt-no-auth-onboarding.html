@@ -171,10 +171,12 @@ body {
 .settings-btn { width: 28px; height: 28px; border-radius: 8px; background: rgba(26,22,18,0.05); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
 .settings-btn svg { width: 13px; height: 13px; stroke: var(--mid-ac); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 
-.cat-filters { display: flex; gap: 4px; padding: 8px 14px 0; overflow-x: auto; scrollbar-width: none; flex-shrink: 0; }
+.cat-filters { display: flex; gap: 4px; padding: 8px 14px 0; overflow-x: auto; scrollbar-width: none; flex-shrink: 0; -webkit-overflow-scrolling: touch; }
 .cat-filters::-webkit-scrollbar { display: none; }
-.cat-f { font-size: 7.5px; font-weight: 500; padding: 3px 9px; border-radius: 100px; flex-shrink: 0; border: 0.5px solid rgba(26,22,18,0.12); background: var(--surface); color: var(--mid-ac); }
+.cat-f { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 500; padding: 4px 10px; border-radius: 100px; flex-shrink: 0; border: 0.5px solid rgba(26,22,18,0.12); background: var(--surface); color: var(--mid-ac, #6B6358); transition: background 0.15s ease-out, border-color 0.15s ease-out, color 0.15s ease-out; }
 .cat-f.on { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+.cat-f.on .cat-dot { opacity: 0.7; }
+.cat-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 
 .dash-scroll { flex: 1; overflow-y: auto; padding: 10px 14px 80px; scrollbar-width: none; }
 .dash-scroll::-webkit-scrollbar { display: none; }
@@ -397,6 +399,53 @@ body {
   </div>
 </div>
 
+<!-- ═══ S-08 YOU'RE IN (celebration) ═══ -->
+<div class="screen-col">
+  <div class="screen-label">S-08 · You're in · 100%</div>
+  <div class="phone" style="background:#2D1F4A;position:relative;">
+    <div class="sbar"><span class="sbar-time" style="color:rgba(245,240,232,0.65);">9:41</span><div class="sbar-icons" style="opacity:0.35;"><svg viewBox="0 0 11 10" fill="rgba(245,240,232,0.9)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="rgba(245,240,232,0.9)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="rgba(245,240,232,0.9)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
+    <div class="prog" style="background:rgba(255,255,255,0.06);"><div class="prog-fill" style="width:100%;border-radius:100px;"></div></div>
+    <div class="scr" style="position:relative;overflow:hidden;">
+      <!-- confetti dots -->
+      <div style="position:absolute;width:5px;height:5px;border-radius:50%;background:rgba(200,120,80,0.45);top:12%;left:8%;"></div>
+      <div style="position:absolute;width:6px;height:6px;border-radius:50%;background:rgba(155,127,212,0.50);top:8%;left:74%;"></div>
+      <div style="position:absolute;width:4px;height:4px;border-radius:50%;background:rgba(90,144,96,0.40);top:24%;left:90%;"></div>
+      <div style="position:absolute;width:5px;height:5px;border-radius:50%;background:rgba(74,130,160,0.40);top:35%;left:5%;"></div>
+      <div style="position:absolute;width:4px;height:4px;border-radius:50%;background:rgba(232,168,124,0.50);top:7%;left:48%;"></div>
+      <div style="position:absolute;width:6px;height:6px;border-radius:50%;background:rgba(128,96,168,0.35);top:62%;left:93%;"></div>
+      <div style="position:absolute;width:3px;height:3px;border-radius:50%;background:rgba(200,120,80,0.35);top:70%;left:4%;"></div>
+      <div style="position:absolute;width:4px;height:4px;border-radius:50%;background:rgba(90,144,96,0.30);top:80%;left:84%;"></div>
+      <div style="position:absolute;width:3px;height:3px;border-radius:50%;background:rgba(245,240,232,0.18);top:46%;left:9%;"></div>
+      <div style="position:absolute;width:4px;height:4px;border-radius:50%;background:rgba(245,240,232,0.14);top:16%;left:28%;"></div>
+
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 18px 0;text-align:center;position:relative;">
+        <!-- ii mark light-on-dark -->
+        <div style="margin-bottom:24px;">
+          <svg width="42" height="48" viewBox="199 162 626 700" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#F2EDE4" d="M324.2,161.93h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87v-442.39c0-71.17,56.05-128.87,125.18-128.87Z"/>
+            <path fill="#9B7FD4" d="M649.98,161.93h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87v-442.39c0-71.17,56.05-128.87,125.18-128.87Z"/>
+            <circle fill="#E8A87C" cx="735" cy="281.22" r="90"/>
+          </svg>
+        </div>
+        <div style="font-size:7px;font-weight:500;letter-spacing:1.3px;text-transform:uppercase;color:rgba(245,240,232,0.40);margin-bottom:10px;">you're in</div>
+        <div style="font-family:'DM Serif Display',serif;font-size:20px;font-style:italic;font-weight:400;line-height:1.05;letter-spacing:-0.3px;color:#E8A87C;margin-bottom:8px;">Your boiler<br>is relieved.</div>
+        <div style="font-size:7.5px;color:rgba(245,240,232,0.50);line-height:1.55;font-style:italic;margin-bottom:24px;">We'll remind you when it matters.</div>
+        <!-- first nudge pill -->
+        <div style="background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.10);border-radius:100px;padding:4px 12px;display:inline-flex;align-items:center;gap:6px;margin-bottom:6px;">
+          <span style="font-size:6.5px;color:rgba(245,240,232,0.70);">First reminder</span>
+          <div style="width:3px;height:3px;border-radius:50%;background:rgba(232,168,124,0.50);"></div>
+          <span style="font-size:6.5px;font-weight:500;color:#E8A87C;">Oct 28</span>
+        </div>
+        <div style="font-size:6px;color:rgba(245,240,232,0.28);font-style:italic;">Annual boiler service</div>
+      </div>
+      <div class="btm" style="padding-top:10px;">
+        <button class="btn primary" style="background:#9B7FD4;color:#FAF8FF;">Open my schedule</button>
+        <div style="text-align:center;font-size:6px;color:rgba(245,240,232,0.28);margin-top:2px;">Tap when you're ready. No rush.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ═══ 4. DASHBOARD DAY 1 ═══ -->
 <div class="screen-col">
   <div class="screen-label">S-09 Dashboard · Day 1</div>
@@ -411,9 +460,8 @@ body {
         <div class="greeting-sub">3 tasks this week</div>
       </div>
       <div class="cat-filters">
-        <div class="cat-f on">All</div>
-        <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#C87850;margin-right:4px;vertical-align:middle;"></span>Home</div>
-        <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#4A82A0;margin-right:4px;vertical-align:middle;"></span>Vehicle</div>
+        <div class="cat-f"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
+        <div class="cat-f"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
       </div>
       <div class="dash-scroll" style="padding-top:8px;">
         <div class="day-label">
@@ -458,9 +506,8 @@ body {
         <div class="greeting-sub">3 tasks this week</div>
       </div>
       <div class="cat-filters">
-        <div class="cat-f on">All</div>
-        <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#C87850;margin-right:4px;vertical-align:middle;"></span>Home</div>
-        <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#4A82A0;margin-right:4px;vertical-align:middle;"></span>Vehicle</div>
+        <div class="cat-f"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
+        <div class="cat-f"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
       </div>
       <div class="dash-scroll" style="padding-top:8px;">
         <div class="day-label">
@@ -512,9 +559,8 @@ body {
         <div class="greeting-sub">2 tasks remaining</div>
       </div>
       <div class="cat-filters">
-        <div class="cat-f on">All</div>
-        <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#C87850;margin-right:4px;vertical-align:middle;"></span>Home</div>
-        <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#4A82A0;margin-right:4px;vertical-align:middle;"></span>Vehicle</div>
+        <div class="cat-f"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
+        <div class="cat-f"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
       </div>
       <div class="dash-scroll" style="padding-top:8px;">
         <div class="day-label">
@@ -572,9 +618,8 @@ body {
         <div class="greeting-sub">2 tasks coming up</div>
       </div>
       <div class="cat-filters">
-        <div class="cat-f on">All</div>
-        <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#C87850;margin-right:4px;vertical-align:middle;"></span>Home</div>
-        <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#4A82A0;margin-right:4px;vertical-align:middle;"></span>Vehicle</div>
+        <div class="cat-f"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
+        <div class="cat-f"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
       </div>
       <div class="dash-scroll" style="padding-top:8px;">
         <div class="day-label">

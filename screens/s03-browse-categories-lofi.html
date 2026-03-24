@@ -79,10 +79,11 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 .search-text{font-size:11px;font-style:italic;color:rgba(107,99,88,0.45);}
 
 /* Category filter strip */
-.cat-strip{display:flex;gap:5px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-bottom:12px;}
+.cat-strip{display:flex;gap:4px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-bottom:10px;-webkit-overflow-scrolling:touch;}
 .cat-strip::-webkit-scrollbar{display:none;}
-.cat-pill{display:inline-flex;align-items:center;gap:4px;background:var(--surface);border:0.5px solid var(--border-md);border-radius:100px;padding:4px 10px;font-size:10px;font-weight:500;color:var(--mid-a);flex-shrink:0;cursor:default;}
-.cat-pill.on{background:var(--ink);color:#F5F0E8;border-color:var(--ink);}
+.cat-pill{display:inline-flex;align-items:center;gap:4px;background:var(--surface);border:0.5px solid rgba(26,22,18,0.12);border-radius:100px;padding:4px 10px;font-size:10px;font-weight:500;color:var(--mid-a, #6B6358);flex-shrink:0;cursor:default;transition:background 0.15s ease-out,border-color 0.15s ease-out,color 0.15s ease-out;}
+.cat-pill.active{background:var(--ink);color:#F5F0E8;border-color:var(--ink);}
+.cat-pill.active .cat-dot{opacity:0.7;}
 .cat-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
 
 /* Section headers */
@@ -230,7 +231,6 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
               <div class="zone" style="position:relative;">
                 <div class="zone-tag">E</div>
                 <div class="cat-strip">
-                  <div class="cat-pill on">All</div>
                   <div class="cat-pill"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
                   <div class="cat-pill"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
                   <div class="cat-pill"><span class="cat-dot" style="background:#5A9060;"></span>Garden</div>
@@ -365,7 +365,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
         <div class="zone-card highlight">
           <div class="zc-head"><span class="zc-badge purple">E</span><span class="zc-name">Category filter strip</span></div>
           <div class="zc-body">
-            "All" pill always first, always active initially. Single scrollable row (<code>flex-wrap:nowrap; overflow-x:auto</code>). Category pills include a 6px colored dot + label.
+            No "All" pill. Category pills only, matching S-01 spec. Single scrollable row (<code>flex-wrap:nowrap; overflow-x:auto</code>). Each pill includes a 6px colored dot + label.
             <div class="zc-rule"></div>
             Active pill: <code>background:var(--ink); color:#F5F0E8; border-color:var(--ink)</code><br>
             Inactive pill: surface bg, 0.5px border, <code>colorMidAccessible</code> text.<br>
@@ -417,8 +417,8 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
             <div class="ri-desc">Items are always individual cards with gap between them. Never border-bottom separators. Cream gap IS the separator.</div>
           </div>
           <div class="rule-item">
-            <div class="ri-label">"All" pill present</div>
-            <div class="ri-desc">"All" pill on S-03 is a functional filter (unlike S-01 where it was removed as decorative). Always first, always active initially.</div>
+            <div class="ri-label">No "All" pill</div>
+            <div class="ri-desc">"All" pill removed from all screens to match S-01 spec. Category pills with colored dots only.</div>
           </div>
         </div>
       </div>

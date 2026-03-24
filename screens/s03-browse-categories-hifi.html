@@ -128,10 +128,10 @@ nav{
 .cat-strip::-webkit-scrollbar{display:none;}
 .cat-pill{
   display:inline-flex;align-items:center;gap:4px;
-  background:var(--surface);border:0.5px solid var(--border-md);
+  background:var(--surface);border:0.5px solid rgba(26,22,18,0.12);
   border-radius:100px;padding:4px 10px;
-  font-size:10px;font-weight:500;color:var(--mid-a);
-  flex-shrink:0;cursor:pointer;transition:all 0.15s;user-select:none;
+  font-size:10px;font-weight:500;color:var(--mid-a, #6B6358);
+  flex-shrink:0;cursor:pointer;transition:background 0.15s ease-out,border-color 0.15s ease-out,color 0.15s ease-out;user-select:none;
 }
 .cat-pill.on{background:var(--ink);color:#F5F0E8;border-color:var(--ink);}
 .cat-pill.on .cat-dot{opacity:0.7;}
@@ -313,7 +313,6 @@ nav{
 
             <!-- category filter strip -->
             <div class="cat-strip" id="catStrip">
-              <div class="cat-pill on" data-cat="all" onclick="toggleCategory('all')">All</div>
               <div class="cat-pill" data-cat="home" onclick="toggleCategory('home')"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
               <div class="cat-pill" data-cat="vehicle" onclick="toggleCategory('vehicle')"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
               <div class="cat-pill" data-cat="garden" onclick="toggleCategory('garden')"><span class="cat-dot" style="background:#5A9060;"></span>Garden</div>
@@ -451,7 +450,7 @@ nav{
           Category filter strip
         </div>
         <div class="annot-body">
-          <strong>"All" pill always first</strong>, always the initial active state. Single scrollable row (<code>flex-wrap:nowrap; overflow-x:auto</code>). Active pill: <code>ink</code> bg, cream text. Inactive pill: surface bg, 0.5px border, <code>colorMidAccessible</code> text. Each category pill has a 6px colored dot. Tapping a category filters the list below.
+          <strong>No "All" pill</strong>, matching S-01 spec. Category pills with colored dots only. Single scrollable row (<code>flex-wrap:nowrap; overflow-x:auto</code>). Active pill: <code>ink</code> bg, cream text. Inactive pill: surface bg, 0.5px border, <code>colorMidAccessible</code> text. Each category pill has a 6px colored dot. Tapping a category filters the list below. Tapping the active pill again deactivates it (shows all).
         </div>
       </div>
 
@@ -527,7 +526,7 @@ nav{
     <div class="cl-entry">
       <div class="cl-ver">v1.0 · 2026-03-24 · ADDITIVE</div>
       <div class="cl-body"><strong>Initial hi-fi.</strong> Flat browsable item list with category filter strip, search bar, and pre-checked items from S-01. Replaces the earlier 2x2 category tile grid with a single scrollable list grouped by section headers.</div>
-      <div class="cl-body"><strong>Category filter strip.</strong> "All" pill first (active by default). Tapping a category pill filters visible items to that category only. Same filter pattern as S-09 dashboard.</div>
+      <div class="cl-body"><strong>Category filter strip.</strong> No "All" pill, matching S-01 spec. Tapping a category pill filters visible items to that category only. Tapping the active pill again shows all items. Same filter pattern as S-09 dashboard.</div>
       <div class="cl-body"><strong>Search bar.</strong> Live text filter above the category strip. Filters items by name as the user types. No separate search results screen.</div>
       <div class="cl-body"><strong>Context carry-over.</strong> Items selected on S-01 (Dishwasher, Car) arrive pre-checked. CTA starts at "Continue with 2 items".</div>
       <div class="cl-body"><strong>"Something else" row.</strong> Dashed border, plus icon, discovery path for items not in the default list.</div>
@@ -554,16 +553,24 @@ nav{
 <script>
 /* ── Category filter ── */
 function toggleCategory(cat) {
-  // Update pills
+  var clickedPill = document.querySelector('[data-cat="' + cat + '"]');
+  var wasActive = clickedPill && clickedPill.classList.contains('on');
+
+  // Update pills: deactivate all, then toggle clicked
   document.querySelectorAll('.cat-pill').forEach(function(pill) {
     pill.classList.remove('on');
   });
-  document.querySelector('[data-cat="' + cat + '"]').classList.add('on');
+
+  // If pill was already active, deactivate it (show all). Otherwise activate it.
+  var showAll = wasActive;
+  if (!wasActive && clickedPill) {
+    clickedPill.classList.add('on');
+  }
 
   // Filter sections
   var sections = document.querySelectorAll('.cat-section');
   sections.forEach(function(sec) {
-    if (cat === 'all') {
+    if (showAll) {
       sec.classList.remove('hidden');
     } else if (sec.getAttribute('data-category') === cat) {
       sec.classList.remove('hidden');
@@ -622,6 +629,9 @@ function filterSearch() {
     var activeCat = document.querySelector('.cat-pill.on');
     if (activeCat) {
       toggleCategory(activeCat.getAttribute('data-cat'));
+    } else {
+      // No active pill means show all
+      document.querySelectorAll('.cat-section').forEach(function(sec) { sec.classList.remove('hidden'); });
     }
     return;
   }

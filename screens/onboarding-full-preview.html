@@ -135,10 +135,12 @@ body {
 .chk.on svg { display: block; }
 
 /* ── CAT STRIP (S-01) ── */
-.cat-strip { display: flex; gap: 4px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-bottom: 10px; }
+.cat-strip { display: flex; gap: 4px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-bottom: 10px; -webkit-overflow-scrolling: touch; }
 .cat-strip::-webkit-scrollbar { display: none; }
-.cat-pill { display: inline-flex; align-items: center; gap: 4px; background: var(--surface); border: 0.5px solid rgba(26,22,18,0.10); border-radius: 100px; padding: 3px 7px 3px 5px; font-size: 7.5px; font-weight: 500; color: var(--ink); }
-.cat-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.cat-pill { display: inline-flex; align-items: center; gap: 4px; background: var(--surface); border: 0.5px solid rgba(26,22,18,0.12); border-radius: 100px; padding: 4px 10px; font-size: 10px; font-weight: 500; color: var(--mid-a, #6B6358); flex-shrink: 0; transition: background 0.15s ease-out, border-color 0.15s ease-out, color 0.15s ease-out; }
+.cat-pill.active { background: var(--ink); color: #F5F0E8; border-color: var(--ink); }
+.cat-pill.active .cat-dot { opacity: 0.7; }
+.cat-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 
 /* ── TASK ROWS (S-01 selectable) ── */
 .task-rows { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
@@ -204,10 +206,11 @@ body {
 .search-bar { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.12); border-radius: 10px; padding: 0 10px; height: 32px; display: flex; align-items: center; gap: 6px; margin: 8px 14px 0; flex-shrink: 0; }
 .search-bar svg { width: 11px; height: 11px; stroke: var(--mid); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .search-text { font-size: 8px; color: var(--mid); flex: 1; }
-.cat-filters { display: flex; gap: 4px; padding: 8px 14px 0; overflow-x: auto; scrollbar-width: none; flex-shrink: 0; }
+.cat-filters { display: flex; gap: 4px; padding: 8px 14px 0; overflow-x: auto; scrollbar-width: none; flex-shrink: 0; -webkit-overflow-scrolling: touch; }
 .cat-filters::-webkit-scrollbar { display: none; }
-.cat-f { font-size: 7.5px; font-weight: 500; padding: 3px 9px; border-radius: 100px; flex-shrink: 0; border: 0.5px solid rgba(26,22,18,0.12); background: var(--surface); color: var(--mid-ac); cursor: pointer; }
+.cat-f { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 500; padding: 4px 10px; border-radius: 100px; flex-shrink: 0; border: 0.5px solid rgba(26,22,18,0.12); background: var(--surface); color: var(--mid-ac, #6B6358); cursor: pointer; transition: background 0.15s ease-out, border-color 0.15s ease-out, color 0.15s ease-out; }
 .cat-f.on { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+.cat-f.on .cat-dot { opacity: 0.7; }
 .browse-rows { display: flex; flex-direction: column; gap: 4px; }
 .brow { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.08); border-radius: 8px; padding: 7px 8px; display: flex; align-items: center; gap: 7px; cursor: pointer; }
 .brow.sel { border: 1px solid rgba(155,127,212,0.35); background: rgba(155,127,212,0.04); }
@@ -438,10 +441,10 @@ body {
           <span style="font-size:7px;color:#6B6358;font-weight:500;">Ready in 2 minutes</span>
         </div>
         <div class="cat-strip">
-          <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#C87850;margin-right:4px;vertical-align:middle;"></span>Home</div>
-          <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#4A82A0;margin-right:4px;vertical-align:middle;"></span>Vehicle</div>
-          <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#5A9060;margin-right:4px;vertical-align:middle;"></span>Garden</div>
-          <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#8060A8;margin-right:4px;vertical-align:middle;"></span>Subscriptions</div>
+          <div class="cat-pill"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
+          <div class="cat-pill"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
+          <div class="cat-pill"><span class="cat-dot" style="background:#5A9060;"></span>Garden</div>
+          <div class="cat-pill"><span class="cat-dot" style="background:#8060A8;"></span>Subscriptions</div>
         </div>
         <div class="micro">For example, tap what applies to you:</div>
         <div class="task-rows">
@@ -565,11 +568,10 @@ body {
       <div class="top-bar" style="padding-bottom:0;"><div class="back-btn"><svg viewBox="0 0 12 12"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg></div></div>
       <div class="search-bar"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/></svg><div class="search-text">Search items…</div></div>
       <div class="cat-filters">
-        <div class="cat-f on">All</div>
-        <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#C87850;margin-right:4px;vertical-align:middle;"></span>Home</div>
-        <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#4A82A0;margin-right:4px;vertical-align:middle;"></span>Vehicle</div>
-        <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#5A9060;margin-right:4px;vertical-align:middle;"></span>Garden</div>
-        <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#8060A8;margin-right:4px;vertical-align:middle;"></span>Subscriptions</div>
+        <div class="cat-f"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
+        <div class="cat-f"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
+        <div class="cat-f"><span class="cat-dot" style="background:#5A9060;"></span>Garden</div>
+        <div class="cat-f"><span class="cat-dot" style="background:#8060A8;"></span>Subscriptions</div>
       </div>
       <div class="scroll" style="padding-top:8px;">
         <div class="sec-lbl" style="margin-top:0;">Home</div>
@@ -810,11 +812,10 @@ body {
       </div>
       <!-- Category filters -->
       <div class="cat-filters">
-        <div class="cat-f on">All</div>
-        <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#C87850;margin-right:4px;vertical-align:middle;"></span>Home</div>
-        <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#4A82A0;margin-right:4px;vertical-align:middle;"></span>Vehicle</div>
-        <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#5A9060;margin-right:4px;vertical-align:middle;"></span>Garden</div>
-        <div class="cat-f"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#8060A8;margin-right:4px;vertical-align:middle;"></span>Subscriptions</div>
+        <div class="cat-f"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
+        <div class="cat-f"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
+        <div class="cat-f"><span class="cat-dot" style="background:#5A9060;"></span>Garden</div>
+        <div class="cat-f"><span class="cat-dot" style="background:#8060A8;"></span>Subscriptions</div>
       </div>
       <div class="dash-scroll" style="padding-top:8px;">
         <!-- Overdue -->
