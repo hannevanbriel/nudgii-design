@@ -192,7 +192,7 @@ body {
 /* ── DIGEST NUDGE CARD ── */
 .nudge-digest { background: var(--surface); border: 0.5px solid rgba(155,127,212,0.18); border-radius: 10px; box-shadow: 0 1px 3px rgba(26,22,18,0.04); padding: 9px 10px; display: flex; align-items: center; gap: 8px; margin-bottom: 5px; cursor: pointer; }
 .nudge-digest .ncontent { flex: 1; min-width: 0; }
-.nudge-digest .nname { font-size: 9px; font-weight: 500; color: var(--ink); margin-bottom: 2px; line-height: 1.35; white-space: normal; }
+.nudge-digest .nname { font-size: 9px; font-weight: 500; color: var(--ink); margin-bottom: 2px; line-height: 1.35; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .nudge-digest .nsub { font-size: 7px; color: var(--mid-ac); font-style: normal; line-height: 1.4; }
 .nudge-digest .cta-link { font-size: 7.5px; color: var(--cta); font-weight: 500; flex-shrink: 0; white-space: nowrap; align-self: center; }
 
@@ -426,9 +426,9 @@ body {
     <div class="scr">
       <!-- centered content area (matches push screen layout) -->
       <div class="push-wrap">
-        <!-- ii mark as trust icon -->
-        <div style="margin-bottom:16px;">
-          <svg width="32" height="36" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg">
+        <!-- ii mark in same container as push icon (56x56, matches height) -->
+        <div class="push-icon" style="background:rgba(155,127,212,0.06);border-color:rgba(155,127,212,0.12);">
+          <svg width="26" height="29" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg">
             <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
             <path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
             <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
@@ -524,14 +524,14 @@ body {
           Day 3: first digest nudge
         </div>
 
-        <!-- DIGEST NUDGE CARD (signed in: one-tap toggle) -->
+        <!-- DIGEST NUDGE CARD (compact: same height as task cards) -->
         <div class="nudge-digest">
           <div class="chip ii-nudge">
             <svg width="14" height="15" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/></svg>
           </div>
           <div class="ncontent">
-            <div class="nname">Your first week is almost done.<br>Want a summary in your inbox?</div>
-            <div class="nsub">Every Monday, what's done and what's next.</div>
+            <div class="nname">Your first week is almost done.</div>
+            <div class="nsub">Want a Monday summary in your inbox?</div>
           </div>
           <div class="cta-link">Get my weekly overview</div>
         </div>
@@ -590,7 +590,7 @@ body {
             <svg width="14" height="15" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/></svg>
           </div>
           <div class="ncontent">
-            <div class="nname">1 done. Want to see your<br>progress every week?</div>
+            <div class="nname">1 done. Want to see your progress?</div>
             <div class="nsub">A quick Monday email with what's done and what's next.</div>
           </div>
           <div class="cta-link">Get the overview</div>
@@ -642,8 +642,8 @@ body {
             <svg width="14" height="15" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/></svg>
           </div>
           <div class="ncontent">
-            <div class="nname">Your dishwasher is taking notes.<br>3 tasks completed, 0 reports sent.</div>
-            <div class="nsub">Get the weekly overview?</div>
+            <div class="nname">Your dishwasher is taking notes.</div>
+            <div class="nsub">3 tasks completed, 0 reports sent.</div>
           </div>
           <div class="cta-link">Send me the report</div>
         </div>
