@@ -108,9 +108,6 @@ body {
 .free-badge { display: inline-flex; align-items: center; gap: 4px; background: var(--sage-lt); border: 0.5px solid rgba(59,109,17,0.15); border-radius: 100px; padding: 2px 7px; font-size: 7.5px; font-weight: 500; color: var(--sage); }
 .free-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--sage); flex-shrink: 0; }
 
-.back-btn { width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; border-radius: 7px; background: rgba(26,22,18,0.05); flex-shrink: 0; }
-.back-btn svg { width: 11px; height: 11px; stroke: var(--ink); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-
 /* ── TYPOGRAPHY ── */
 .h1 { font-family: 'DM Serif Display', Georgia, serif; font-size: 23px; font-weight: 400; line-height: 0.97; letter-spacing: -0.4px; color: var(--ink); margin-bottom: 7px; }
 .h1 em { color: var(--apricot); font-style: italic; }
@@ -531,8 +528,6 @@ body {
     <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
     <div class="prog"><div class="prog-fill" style="width:40%"></div></div>
     <div class="scr">
-      <!-- back button only, no title, no step label -->
-      <div class="top-bar"><div class="back-btn"><svg viewBox="0 0 12 12"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg></div></div>
       <!-- scrollable conversation thread -->
       <div class="scroll" style="padding:6px 10px 4px;gap:0;">
         <!-- nudgii opening — with S-01 context pre-loaded -->
@@ -600,7 +595,6 @@ body {
     <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
     <div class="prog"><div class="prog-fill" style="width:40%"></div></div>
     <div class="scr">
-      <div class="top-bar" style="padding-bottom:0;"><div class="back-btn"><svg viewBox="0 0 12 12"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg></div></div>
       <div style="padding:6px 14px 0;">
         <div style="font-family:'DM Serif Display',Georgia,serif;font-size:16px;font-weight:400;line-height:1.1;letter-spacing:-0.25px;color:var(--ink);margin-bottom:2px;">What do you have?</div>
         <div style="font-size:8px;font-style:italic;color:var(--mid-ac);margin-bottom:8px;line-height:1.5;">Tick what applies. We'll figure out the rest.</div>
@@ -642,7 +636,6 @@ body {
     <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
     <div class="prog"><div class="prog-fill" style="width:60%"></div></div>
     <div class="scr">
-      <div class="top-bar"><div class="back-btn"><svg viewBox="0 0 12 12"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg></div></div>
       <div class="scroll" style="padding-top:10px;">
         <div class="h3">Here's what nudgii found.</div>
         <div class="sub" style="margin-bottom:10px;">Scan to confirm brand or model. You can adjust anything later.</div>
