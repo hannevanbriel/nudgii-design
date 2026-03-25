@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>First-week engagement: digest nudge sequence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream: #F5F0E8;
+  --ink: #1A1612;
+  --cta: #9B7FD4;
+  --cta-fg: #FAF8FF;
+  --apricot: #E8A87C;
+  --apricot-dk: #C8784A;
+  --terra: #C4503A;
+  --mid: #8A8070;
+  --mid-ac: #6B6358;
+  --sage: #3B6D11;
+  --sage-lt: #EAF3DE;
+  --plum: #2D1F4A;
+  --red: #A32D2D;
+  --red-lt: #FCEBEB;
+  --surface: #FFFFFF;
+  --border: rgba(26,22,18,0.08);
+  --cat-home: #C87850;
+  --cat-vehicle: #4A82A0;
+  --cat-garden: #5A9060;
+  --cat-sub: #8060A8;
+}
+
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: #D8D3C9;
+  color: var(--ink);
+  padding: 36px 32px 48px;
+}
+
+/* ── PAGE HEADER ── */
+.page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.page-logo { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 500; color: rgba(26,22,18,0.50); text-decoration: none; }
+.page-badge { font-size: 10px; font-weight: 500; padding: 4px 10px; border-radius: 100px; background: rgba(155,127,212,0.12); color: var(--cta); border: 0.5px solid rgba(155,127,212,0.25); }
+.page-title { font-size: 10px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid); margin-bottom: 8px; }
+.page-desc { font-size: 12px; color: var(--mid-ac); line-height: 1.6; max-width: 720px; margin-bottom: 20px; }
+
+/* ── FLOW BAR ── */
+.flow-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; margin-bottom: 24px; }
+.fp { display: flex; align-items: center; gap: 5px; background: var(--surface); border: 0.5px solid var(--border); border-radius: 100px; padding: 4px 10px 4px 5px; font-size: 9.5px; font-weight: 500; color: var(--ink); white-space: nowrap; }
+.fn { width: 15px; height: 15px; border-radius: 50%; background: var(--cta); color: var(--cta-fg); font-size: 7.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.fa { font-size: 10px; color: rgba(26,22,18,0.25); padding: 0 3px; }
+
+/* ── BACK LINK ── */
+.back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 500; color: var(--cta); text-decoration: none; margin-bottom: 20px; }
+.back-link:hover { text-decoration: underline; }
+
+/* ── SCREENS AREA ── */
+.screens-wrap { overflow-x: auto; padding-bottom: 12px; }
+.screens-row { display: flex; gap: 16px; align-items: flex-start; width: max-content; }
+.screen-col { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+.screen-label { font-size: 8.5px; font-weight: 500; letter-spacing: 1.3px; text-transform: uppercase; color: var(--mid); text-align: center; }
+
+/* ── PHONE ── */
+.phone {
+  width: 280px; height: 606px;
+  background: var(--cream);
+  border-radius: 36px; overflow: hidden; position: relative;
+  box-shadow: 0 18px 48px rgba(26,22,18,0.18), 0 3px 12px rgba(26,22,18,0.09);
+  border: 1px solid rgba(26,22,18,0.07);
+  display: flex; flex-direction: column;
+}
+.phone::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 72px; height: 6px; background: var(--ink); border-radius: 0 0 4px 4px; z-index: 10; }
+
+/* ── STATUS BAR ── */
+.sbar { height: 26px; padding: 8px 16px 0; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.sbar-time { font-size: 9px; font-weight: 600; color: var(--ink); }
+.sbar-icons { display: flex; align-items: center; gap: 4px; }
+.sbar-icons svg { width: 11px; height: 11px; }
+
+/* ── SCREEN STRUCTURE ── */
+.scr { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+
+/* ── TYPOGRAPHY ── */
+.sec-lbl { font-size: 7px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid); margin: 10px 0 6px; }
+.sec-lbl:first-child { margin-top: 0; }
+
+/* ── CATEGORY CHIPS ── */
+.chip { width: 22px; height: 22px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.chip svg { width: 11px; height: 11px; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.chip.home { background: rgba(200,120,80,0.10); } .chip.home svg { stroke: var(--cat-home); }
+.chip.vehicle { background: rgba(74,130,160,0.10); } .chip.vehicle svg { stroke: var(--cat-vehicle); }
+
+/* ── CAT FILTERS ── */
+.cat-filters { display: flex; gap: 4px; padding: 8px 14px 0; overflow-x: auto; scrollbar-width: none; flex-shrink: 0; -webkit-overflow-scrolling: touch; }
+.cat-filters::-webkit-scrollbar { display: none; }
+.cat-f { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 500; padding: 4px 10px; border-radius: 100px; flex-shrink: 0; border: 0.5px solid rgba(26,22,18,0.12); background: var(--surface); color: var(--mid-ac, #6B6358); }
+.cat-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── S-09 DASHBOARD ── */
+.greeting-row { padding: 12px 16px 10px; flex-shrink: 0; border-bottom: 0.5px solid rgba(26,22,18,0.06); }
+.greeting-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 2px; }
+.greeting-name { font-family: 'DM Serif Display', Georgia, serif; font-size: 19px; font-weight: 400; line-height: 0.95; letter-spacing: -0.3px; color: var(--ink); }
+.greeting-name em { color: var(--apricot); font-style: normal; }
+.greeting-sub { font-size: 8px; color: var(--mid-ac); }
+.settings-btn { width: 28px; height: 28px; border-radius: 8px; background: rgba(26,22,18,0.05); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+.settings-btn svg { width: 13px; height: 13px; stroke: var(--mid-ac); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+.dash-scroll { flex: 1; overflow-y: auto; padding: 10px 14px 80px; scrollbar-width: none; }
+.dash-scroll::-webkit-scrollbar { display: none; }
+.dcard { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.08); border-radius: 10px; box-shadow: 0 1px 3px rgba(26,22,18,0.04); padding: 9px 10px; display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+.dcontent { flex: 1; min-width: 0; }
+.dname { font-size: 9px; font-weight: 500; color: var(--ink); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dsub { font-size: 7px; color: var(--mid); font-style: italic; }
+.ddate { font-size: 8px; font-weight: 500; flex-shrink: 0; }
+.overdue { color: var(--terra); }
+.soon { color: var(--apricot-dk); }
+.ok { color: var(--mid-ac); }
+
+/* Tab bar + FAB */
+.shell-btm { position: absolute; bottom: 12px; left: 12px; right: 12px; display: flex; align-items: flex-end; gap: 8px; z-index: 20; }
+.tab-bar { flex: 1; background: var(--surface); border-radius: 18px; padding: 7px 6px 9px; display: flex; justify-content: space-around; align-items: center; box-shadow: 0 4px 20px rgba(26,22,18,0.11); border: 1px solid rgba(26,22,18,0.07); }
+.tab { display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; min-width: 44px; }
+.tab-icon svg { width: 16px; height: 16px; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.tab.active .tab-icon svg,
+.tab.active .tab-icon svg * { stroke: var(--cta); }
+.tab.inactive .tab-icon svg,
+.tab.inactive .tab-icon svg * { stroke: rgba(26,22,18,0.20); }
+.tab-lbl { font-size: 7px; font-weight: 500; }
+.tab.active .tab-lbl { color: var(--cta); }
+.tab.inactive .tab-lbl { color: rgba(26,22,18,0.20); }
+.fab { width: 46px; height: 46px; background: var(--cta); border-radius: 15px; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(155,127,212,0.45); flex-shrink: 0; margin-bottom: 4px; }
+.fab svg { width: 17px; height: 17px; stroke: var(--cta-fg); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── DAY LABELS ── */
+.day-label {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(26,22,18,0.04); border: 0.5px solid rgba(26,22,18,0.08);
+  border-radius: 100px; padding: 3px 9px;
+  font-size: 7px; font-weight: 500; color: var(--mid); margin-bottom: 8px;
+}
+
+/* ii mark chip for digest nudge */
+.chip.ii-nudge { background: rgba(155,127,212,0.08); }
+
+/* ── DIGEST NUDGE CARD ── */
+.nudge-digest { background: var(--surface); border: 0.5px solid rgba(155,127,212,0.18); border-radius: 10px; box-shadow: 0 1px 3px rgba(26,22,18,0.04); padding: 9px 10px; display: flex; align-items: center; gap: 8px; margin-bottom: 5px; cursor: pointer; }
+.nudge-digest .ncontent { flex: 1; min-width: 0; }
+.nudge-digest .nname { font-size: 9px; font-weight: 500; color: var(--ink); margin-bottom: 2px; line-height: 1.35; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nudge-digest .nsub { font-size: 7px; color: var(--mid-ac); font-style: normal; line-height: 1.4; }
+.nudge-digest .cta-link { font-size: 7.5px; color: var(--cta); font-weight: 500; flex-shrink: 0; white-space: nowrap; align-self: center; }
+
+/* ── PERSONA TABLE ── */
+.persona-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+.persona-table th { font-size: 7px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--mid); text-align: left; padding: 4px 8px 6px; border-bottom: 0.5px solid rgba(26,22,18,0.10); }
+.persona-table td { font-size: 7.5px; color: var(--mid-ac); padding: 5px 8px; border-bottom: 0.5px solid rgba(26,22,18,0.05); line-height: 1.4; }
+.persona-table td strong { color: var(--ink); font-weight: 500; }
+
+/* ── ANNOTATIONS ── */
+.ann-section { margin-top: 24px; }
+.ann-title-row { font-size: 9px; font-weight: 500; letter-spacing: 1.3px; text-transform: uppercase; color: var(--mid); margin-bottom: 12px; }
+.ann-row { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 4px; }
+.ann-card { flex-shrink: 0; width: 280px; background: var(--surface); border: 0.5px solid var(--border); border-radius: 12px; padding: 12px 14px; }
+.ann-t { font-size: 8px; font-weight: 500; letter-spacing: 1.1px; text-transform: uppercase; color: var(--mid); margin-bottom: 8px; }
+.ann-item { display: flex; gap: 7px; margin-bottom: 6px; align-items: flex-start; }
+.ann-i { width: 14px; height: 14px; border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; font-size: 8px; }
+.ann-i.new { background: rgba(155,127,212,0.12); color: var(--cta); }
+.ann-i.upd { background: rgba(232,168,124,0.15); color: var(--apricot-dk); }
+.ann-i.key { background: rgba(59,109,17,0.10); color: var(--sage); }
+.ann-i.lock { background: rgba(26,22,18,0.06); color: var(--mid-ac); }
+.ann-txt { font-size: 7.5px; color: var(--mid-ac); line-height: 1.5; }
+.ann-txt strong { color: var(--ink); font-weight: 500; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="page-header">
+  <a class="page-logo" href="../index.html">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect width="18" height="18" rx="5" fill="#1A1612"/><text x="3.5" y="13" fill="#F5F0E8" font-size="11" font-family="Georgia, serif">ii</text></svg>
+    Design hub
+  </a>
+  <span class="page-badge">Committed flow</span>
+</div>
+<div class="page-title">First-week engagement: digest nudge sequence</div>
+<p class="page-desc">Shows how digest nudge cards appear on the dashboard on Day 3, escalate on Day 5 after the user's first task completion, use humor on Day 7, then stop. Three chances, then silence. Two paths: signed-in users get a one-tap digest toggle, users who skipped SSO get an Apple/Google sign-in bottom sheet.</p>
+
+<!-- Back link -->
+<a class="back-link" href="onboarding-full-preview.html">
+  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg>
+  Back to full onboarding flow
+</a>
+
+<!-- Flow bar -->
+<div class="flow-bar">
+  <div class="fp"><div class="fn">1</div>Dashboard Day 1 (no nudge)</div>
+  <div class="fa">&rarr;</div>
+  <div class="fp"><div class="fn">2</div>Day 3 (first nudge)</div>
+  <div class="fa">&rarr;</div>
+  <div class="fp"><div class="fn">3</div>Day 5 (completion-based)</div>
+  <div class="fa">&rarr;</div>
+  <div class="fp"><div class="fn">4</div>Day 7 (final gentle nudge)</div>
+</div>
+
+<!-- SCREENS -->
+<div class="screens-wrap">
+<div class="screens-row">
+
+<!-- ═══ DASHBOARD DAY 1 ═══ -->
+<div class="screen-col">
+  <div class="screen-label">S-09 Dashboard · Day 1</div>
+  <div class="phone" style="position:relative;">
+    <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
+    <div class="scr">
+      <div class="greeting-row">
+        <div class="greeting-top">
+          <div class="greeting-name">Good morning,<br><em>Martijn.</em></div>
+          <div class="settings-btn"><svg viewBox="0 0 16 16"><line x1="2" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="14" y2="12"/><circle cx="5" cy="4" r="1.5" fill="white" stroke="var(--mid-ac)"/><circle cx="10" cy="8" r="1.5" fill="white" stroke="var(--mid-ac)"/><circle cx="7" cy="12" r="1.5" fill="white" stroke="var(--mid-ac)"/></svg></div>
+        </div>
+        <div class="greeting-sub">3 tasks this week</div>
+      </div>
+      <div class="cat-filters">
+        <div class="cat-f"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
+        <div class="cat-f"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
+      </div>
+      <div class="dash-scroll" style="padding-top:8px;">
+        <div class="day-label">
+          <svg width="8" height="8" viewBox="0 0 16 16" fill="none" stroke="var(--mid)" stroke-width="1.4" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/></svg>
+          Day 1: signed in, no digest nudge yet
+        </div>
+        <div class="sec-lbl" style="margin-top:0;">This week</div>
+        <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div><div class="dcontent"><div class="dname">Annual boiler service</div><div class="dsub">CV ketel, yearly</div></div><div class="ddate soon">Oct 28</div></div>
+        <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div><div class="dcontent"><div class="dname">Clean dishwasher filter</div><div class="dsub">Dishwasher, every 6-8 wks</div></div><div class="ddate ok">Nov 8</div></div>
+        <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div><div class="dcontent"><div class="dname">Check CO detector</div><div class="dsub">CV ketel, yearly</div></div><div class="ddate ok">Nov 15</div></div>
+
+        <!-- Gesture hint -->
+        <div style="display:flex;align-items:center;justify-content:flex-end;gap:3px;padding:2px 14px 6px;">
+          <svg width="10" height="7" viewBox="0 0 10 7" fill="none"><path d="M1 3.5h8M6 1l2.5 2.5L6 6" stroke="#6B6358" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span style="font-size:6px;color:var(--mid-ac);font-style:italic;">swipe right to complete</span>
+        </div>
+      </div>
+    </div>
+    <!-- Tab bar + FAB -->
+    <div class="shell-btm">
+      <div class="tab-bar">
+        <div class="tab active"><div class="tab-icon"><svg viewBox="0 0 20 20"><rect x="3" y="2" width="14" height="16" rx="2" stroke="var(--cta)" fill="none"/><line x1="7" y1="7" x2="13" y2="7" stroke="var(--cta)"/><line x1="7" y1="10.5" x2="13" y2="10.5" stroke="var(--cta)"/><line x1="7" y1="14" x2="11" y2="14" stroke="var(--cta)"/></svg></div><div class="tab-lbl">Tasks</div></div>
+        <div class="tab inactive"><div class="tab-icon"><svg viewBox="0 0 20 20"><path d="M10 2C5.6 2 2 5.1 2 9s3.6 7 8 7c.9 0 1.8-.1 2.6-.4L17 18l-.4-3.6C17.9 13.1 18 11.1 18 9c0-3.9-3.6-7-8-7z" stroke="rgba(26,22,18,0.20)" fill="none"/><path d="M7 9h.01M10 9h.01M13 9h.01" stroke="rgba(26,22,18,0.20)" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div><div class="tab-lbl">Ask</div></div>
+        <div class="tab inactive"><div class="tab-icon"><svg viewBox="0 0 20 20"><circle cx="10" cy="7" r="3" stroke="rgba(26,22,18,0.20)" fill="none"/><path d="M3 18c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="rgba(26,22,18,0.20)" fill="none"/></svg></div><div class="tab-lbl">Profile</div></div>
+      </div>
+      <div class="fab"><svg viewBox="0 0 16 16"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DASHBOARD DAY 3 ═══ -->
+<div class="screen-col">
+  <div class="screen-label">S-09 Dashboard · Day 3</div>
+  <div class="phone" style="position:relative;">
+    <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
+    <div class="scr">
+      <div class="greeting-row">
+        <div class="greeting-top">
+          <div class="greeting-name">Good morning,<br><em>Martijn.</em></div>
+          <div class="settings-btn"><svg viewBox="0 0 16 16"><line x1="2" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="14" y2="12"/><circle cx="5" cy="4" r="1.5" fill="white" stroke="var(--mid-ac)"/><circle cx="10" cy="8" r="1.5" fill="white" stroke="var(--mid-ac)"/><circle cx="7" cy="12" r="1.5" fill="white" stroke="var(--mid-ac)"/></svg></div>
+        </div>
+        <div class="greeting-sub">3 tasks this week</div>
+      </div>
+      <div class="cat-filters">
+        <div class="cat-f"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
+        <div class="cat-f"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
+      </div>
+      <div class="dash-scroll" style="padding-top:8px;">
+        <div class="day-label">
+          <svg width="8" height="8" viewBox="0 0 16 16" fill="none" stroke="var(--cta)" stroke-width="1.6" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/></svg>
+          Day 3: first digest nudge
+        </div>
+
+        <!-- DIGEST NUDGE CARD (compact: same height as task cards) -->
+        <div class="nudge-digest">
+          <div class="chip ii-nudge">
+            <svg width="14" height="15" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/></svg>
+          </div>
+          <div class="ncontent">
+            <div class="nname">Your first week is almost done.</div>
+            <div class="nsub">Want a Monday summary in your inbox?</div>
+          </div>
+          <div class="cta-link">Get my weekly overview</div>
+        </div>
+
+        <div class="sec-lbl" style="margin-top:8px;">This week</div>
+        <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div><div class="dcontent"><div class="dname">Annual boiler service</div><div class="dsub">CV ketel, yearly</div></div><div class="ddate soon">Oct 28</div></div>
+        <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div><div class="dcontent"><div class="dname">Clean dishwasher filter</div><div class="dsub">Dishwasher, every 6-8 wks</div></div><div class="ddate ok">Nov 8</div></div>
+        <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div><div class="dcontent"><div class="dname">Check CO detector</div><div class="dsub">CV ketel, yearly</div></div><div class="ddate ok">Nov 15</div></div>
+      </div>
+    </div>
+    <!-- Tab bar + FAB -->
+    <div class="shell-btm">
+      <div class="tab-bar">
+        <div class="tab active"><div class="tab-icon"><svg viewBox="0 0 20 20"><rect x="3" y="2" width="14" height="16" rx="2" stroke="var(--cta)" fill="none"/><line x1="7" y1="7" x2="13" y2="7" stroke="var(--cta)"/><line x1="7" y1="10.5" x2="13" y2="10.5" stroke="var(--cta)"/><line x1="7" y1="14" x2="11" y2="14" stroke="var(--cta)"/></svg></div><div class="tab-lbl">Tasks</div></div>
+        <div class="tab inactive"><div class="tab-icon"><svg viewBox="0 0 20 20"><path d="M10 2C5.6 2 2 5.1 2 9s3.6 7 8 7c.9 0 1.8-.1 2.6-.4L17 18l-.4-3.6C17.9 13.1 18 11.1 18 9c0-3.9-3.6-7-8-7z" stroke="rgba(26,22,18,0.20)" fill="none"/><path d="M7 9h.01M10 9h.01M13 9h.01" stroke="rgba(26,22,18,0.20)" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div><div class="tab-lbl">Ask</div></div>
+        <div class="tab inactive"><div class="tab-icon"><svg viewBox="0 0 20 20"><circle cx="10" cy="7" r="3" stroke="rgba(26,22,18,0.20)" fill="none"/><path d="M3 18c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="rgba(26,22,18,0.20)" fill="none"/></svg></div><div class="tab-lbl">Profile</div></div>
+      </div>
+      <div class="fab"><svg viewBox="0 0 16 16"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DASHBOARD DAY 5 ═══ -->
+<div class="screen-col">
+  <div class="screen-label">S-09 Dashboard · Day 5</div>
+  <div class="phone" style="position:relative;">
+    <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
+    <div class="scr">
+      <div class="greeting-row">
+        <div class="greeting-top">
+          <div class="greeting-name">Good morning,<br><em>Martijn.</em></div>
+          <div class="settings-btn"><svg viewBox="0 0 16 16"><line x1="2" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="14" y2="12"/><circle cx="5" cy="4" r="1.5" fill="white" stroke="var(--mid-ac)"/><circle cx="10" cy="8" r="1.5" fill="white" stroke="var(--mid-ac)"/><circle cx="7" cy="12" r="1.5" fill="white" stroke="var(--mid-ac)"/></svg></div>
+        </div>
+        <div class="greeting-sub">2 tasks remaining</div>
+      </div>
+      <div class="cat-filters">
+        <div class="cat-f"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
+        <div class="cat-f"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
+      </div>
+      <div class="dash-scroll" style="padding-top:8px;">
+        <div class="day-label">
+          <svg width="8" height="8" viewBox="0 0 16 16" fill="none" stroke="var(--sage)" stroke-width="1.6" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/><polyline points="5,8 7,10 11,6"/></svg>
+          Day 5: after first completion
+        </div>
+
+        <!-- Done task (faded) -->
+        <div class="dcard" style="opacity:0.35;">
+          <div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div>
+          <div class="dcontent"><div class="dname" style="text-decoration:line-through;">Annual boiler service</div><div class="dsub">CV ketel, yearly</div></div>
+          <div class="ddate ok" style="text-decoration:line-through;">Oct 28</div>
+        </div>
+
+        <!-- DIGEST NUDGE CARD: post-completion -->
+        <div class="nudge-digest">
+          <div class="chip ii-nudge">
+            <svg width="14" height="15" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/></svg>
+          </div>
+          <div class="ncontent">
+            <div class="nname">1 done. Want to see your progress?</div>
+            <div class="nsub">A quick Monday email with what's done and what's next.</div>
+          </div>
+          <div class="cta-link">Get the overview</div>
+        </div>
+
+        <div class="sec-lbl" style="margin-top:8px;">Coming up</div>
+        <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div><div class="dcontent"><div class="dname">Clean dishwasher filter</div><div class="dsub">Dishwasher, every 6-8 wks</div></div><div class="ddate ok">Nov 8</div></div>
+        <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div><div class="dcontent"><div class="dname">Check CO detector</div><div class="dsub">CV ketel, yearly</div></div><div class="ddate ok">Nov 15</div></div>
+      </div>
+    </div>
+    <!-- Tab bar + FAB -->
+    <div class="shell-btm">
+      <div class="tab-bar">
+        <div class="tab active"><div class="tab-icon"><svg viewBox="0 0 20 20"><rect x="3" y="2" width="14" height="16" rx="2" stroke="var(--cta)" fill="none"/><line x1="7" y1="7" x2="13" y2="7" stroke="var(--cta)"/><line x1="7" y1="10.5" x2="13" y2="10.5" stroke="var(--cta)"/><line x1="7" y1="14" x2="11" y2="14" stroke="var(--cta)"/></svg></div><div class="tab-lbl">Tasks</div></div>
+        <div class="tab inactive"><div class="tab-icon"><svg viewBox="0 0 20 20"><path d="M10 2C5.6 2 2 5.1 2 9s3.6 7 8 7c.9 0 1.8-.1 2.6-.4L17 18l-.4-3.6C17.9 13.1 18 11.1 18 9c0-3.9-3.6-7-8-7z" stroke="rgba(26,22,18,0.20)" fill="none"/><path d="M7 9h.01M10 9h.01M13 9h.01" stroke="rgba(26,22,18,0.20)" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div><div class="tab-lbl">Ask</div></div>
+        <div class="tab inactive"><div class="tab-icon"><svg viewBox="0 0 20 20"><circle cx="10" cy="7" r="3" stroke="rgba(26,22,18,0.20)" fill="none"/><path d="M3 18c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="rgba(26,22,18,0.20)" fill="none"/></svg></div><div class="tab-lbl">Profile</div></div>
+      </div>
+      <div class="fab"><svg viewBox="0 0 16 16"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DASHBOARD DAY 7 ═══ -->
+<div class="screen-col">
+  <div class="screen-label">S-09 Dashboard · Day 7</div>
+  <div class="phone" style="position:relative;">
+    <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
+    <div class="scr">
+      <div class="greeting-row">
+        <div class="greeting-top">
+          <div class="greeting-name">Good morning,<br><em>Martijn.</em></div>
+          <div class="settings-btn"><svg viewBox="0 0 16 16"><line x1="2" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="14" y2="12"/><circle cx="5" cy="4" r="1.5" fill="white" stroke="var(--mid-ac)"/><circle cx="10" cy="8" r="1.5" fill="white" stroke="var(--mid-ac)"/><circle cx="7" cy="12" r="1.5" fill="white" stroke="var(--mid-ac)"/></svg></div>
+        </div>
+        <div class="greeting-sub">2 tasks coming up</div>
+      </div>
+      <div class="cat-filters">
+        <div class="cat-f"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
+        <div class="cat-f"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
+      </div>
+      <div class="dash-scroll" style="padding-top:8px;">
+        <div class="day-label">
+          <svg width="8" height="8" viewBox="0 0 16 16" fill="none" stroke="var(--apricot-dk)" stroke-width="1.6" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v3l2 1.5"/></svg>
+          Day 7: final gentle nudge
+        </div>
+
+        <!-- DIGEST NUDGE CARD: witty/personality -->
+        <div class="nudge-digest">
+          <div class="chip ii-nudge">
+            <svg width="14" height="15" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/></svg>
+          </div>
+          <div class="ncontent">
+            <div class="nname">Your dishwasher is taking notes.</div>
+            <div class="nsub">3 tasks completed, 0 reports sent.</div>
+          </div>
+          <div class="cta-link">Send me the report</div>
+        </div>
+
+        <!-- After day 7 note -->
+        <div style="text-align:center;padding:6px 8px 4px;">
+          <div style="font-size:6.5px;color:var(--mid);font-style:italic;line-height:1.4;">After this, no more nudges about this. nudgii doesn't nag.</div>
+        </div>
+
+        <div class="sec-lbl" style="margin-top:8px;">Coming up</div>
+        <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div><div class="dcontent"><div class="dname">Clean dishwasher filter</div><div class="dsub">Dishwasher, every 6-8 wks</div></div><div class="ddate ok">Nov 8</div></div>
+        <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div><div class="dcontent"><div class="dname">Check CO detector</div><div class="dsub">CV ketel, yearly</div></div><div class="ddate ok">Nov 15</div></div>
+      </div>
+    </div>
+    <!-- Tab bar + FAB -->
+    <div class="shell-btm">
+      <div class="tab-bar">
+        <div class="tab active"><div class="tab-icon"><svg viewBox="0 0 20 20"><rect x="3" y="2" width="14" height="16" rx="2" stroke="var(--cta)" fill="none"/><line x1="7" y1="7" x2="13" y2="7" stroke="var(--cta)"/><line x1="7" y1="10.5" x2="13" y2="10.5" stroke="var(--cta)"/><line x1="7" y1="14" x2="11" y2="14" stroke="var(--cta)"/></svg></div><div class="tab-lbl">Tasks</div></div>
+        <div class="tab inactive"><div class="tab-icon"><svg viewBox="0 0 20 20"><path d="M10 2C5.6 2 2 5.1 2 9s3.6 7 8 7c.9 0 1.8-.1 2.6-.4L17 18l-.4-3.6C17.9 13.1 18 11.1 18 9c0-3.9-3.6-7-8-7z" stroke="rgba(26,22,18,0.20)" fill="none"/><path d="M7 9h.01M10 9h.01M13 9h.01" stroke="rgba(26,22,18,0.20)" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div><div class="tab-lbl">Ask</div></div>
+        <div class="tab inactive"><div class="tab-icon"><svg viewBox="0 0 20 20"><circle cx="10" cy="7" r="3" stroke="rgba(26,22,18,0.20)" fill="none"/><path d="M3 18c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="rgba(26,22,18,0.20)" fill="none"/></svg></div><div class="tab-lbl">Profile</div></div>
+      </div>
+      <div class="fab"><svg viewBox="0 0 16 16"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /screens-row -->
+</div><!-- /screens-wrap -->
+
+<!-- ANNOTATIONS -->
+<div class="ann-section">
+  <div class="ann-title-row">Digest nudge strategy, conversion data</div>
+  <div class="ann-row">
+
+    <div class="ann-card">
+      <div class="ann-t">1. Digest nudge cards (Day 3-7)</div>
+      <div class="ann-item"><div class="ann-i key">&#9733;</div><div class="ann-txt"><strong>Day 1: no nudge.</strong> Let the user enjoy the product. First impressions matter more than conversion speed. Bombarding new users on day 1 increases churn by 20% (Leanplum retention study).</div></div>
+      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>Day 3: milestone framing.</strong> "Your first week is almost done." Curiosity-driven, not demanding. The user has had time to complete at least one task. Digest nudge appears as a card in the task list, not a modal or banner.</div></div>
+      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>Day 5: achievement-based.</strong> "1 done. Want to see your progress?" Tied to actual completions. Users who complete at least one task in week 1 have 3x better D30 retention (industry benchmark for task/habit apps).</div></div>
+      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>Day 7: earned humor.</strong> "Your dishwasher is taking notes." The nudgii voice at its best: warm, witty, never naggy. After day 7, no more digest nudges. nudgii doesn't nag. Three chances, then respect the answer.</div></div>
+      <div class="ann-item"><div class="ann-i lock">&#8595;</div><div class="ann-txt"><strong>Two paths on tap:</strong> If signed in (happy path, 70-80% of users), tapping enables the digest instantly. Success toast: "Done. First overview lands Monday." If not signed in, tapping opens Apple/Google SSO bottom sheet. They sign in, digest enables automatically. One flow, no email form ever.</div></div>
+      <div class="ann-item"><div class="ann-i upd">&uarr;</div><div class="ann-txt"><strong>Greeting reflects auth state.</strong> Signed in: "Good morning, Martijn." (name from Apple/Google profile). Skipped SSO: "Good morning, there." Name personalization becomes a subtle reward for signing in.</div></div>
+    </div>
+
+    <div class="ann-card">
+      <div class="ann-t">2. Expected conversion by persona</div>
+      <div class="ann-item"><div class="ann-i key">&#9733;</div><div class="ann-txt"><strong>Hypothesis:</strong> SSO after value demonstration converts higher than email-before-value. Digest opt-in from dashboard nudges has higher engagement than onboarding capture (conscious opt-in vs passive). Combined: more accounts AND better digest open rates.</div></div>
+      <table class="persona-table">
+        <tr><th>Persona</th><th>SSO conversion</th><th>Push opt-in</th><th>Digest opt-in</th></tr>
+        <tr><td><strong>Arne</strong> (power user)</td><td>SSO screen, Apple (instant)</td><td>Yes (wants reminders)</td><td>Day 1 settings (proactive)</td></tr>
+        <tr><td><strong>Sara</strong> (organizer)</td><td>SSO screen, Google</td><td>Yes (needs structure)</td><td>Day 3 nudge card</td></tr>
+        <tr><td><strong>Martijn</strong> (busy homeowner)</td><td>SSO screen, Apple</td><td>Yes (forgets otherwise)</td><td>Day 3 nudge card</td></tr>
+        <tr><td><strong>Lena</strong> (first-timer)</td><td>60% SSO, 40% skip</td><td>Maybe later (cautious)</td><td>Day 5 (after first completion)</td></tr>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

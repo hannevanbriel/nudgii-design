@@ -450,6 +450,7 @@ body {
   <div class="fp"><div class="fn">8</div>S-09 Dashboard</div>
 </div>
 
+
 <!-- SCREENS -->
 <div class="screens-wrap">
 <div class="screens-row">
@@ -600,8 +601,13 @@ body {
     <div class="prog"><div class="prog-fill" style="width:40%"></div></div>
     <div class="scr">
       <div class="top-bar" style="padding-bottom:0;"><div class="back-btn"><svg viewBox="0 0 12 12"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg></div></div>
+      <div style="padding:6px 14px 0;">
+        <div style="font-family:'DM Serif Display',Georgia,serif;font-size:16px;font-weight:400;line-height:1.1;letter-spacing:-0.25px;color:var(--ink);margin-bottom:2px;">What do you have?</div>
+        <div style="font-size:8px;font-style:italic;color:var(--mid-ac);margin-bottom:8px;line-height:1.5;">Tick what applies. We'll figure out the rest.</div>
+      </div>
       <div class="search-bar"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/></svg><div class="search-text">Search items…</div></div>
       <div class="cat-filters">
+        <div class="cat-f on">All</div>
         <div class="cat-f"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
         <div class="cat-f"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
         <div class="cat-f"><span class="cat-dot" style="background:#5A9060;"></span>Garden</div>
@@ -837,9 +843,9 @@ body {
   </div>
 </div>
 
-<!-- ═══ 5. DASHBOARD DAY 1 ═══ -->
+<!-- ═══ 5. S-09 DASHBOARD ═══ -->
 <div class="screen-col">
-  <div class="screen-label">S-09 Dashboard · Day 1</div>
+  <div class="screen-label">S-09 Dashboard</div>
   <div class="phone" style="position:relative;">
     <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
     <div class="scr">
@@ -855,10 +861,6 @@ body {
         <div class="cat-f"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
       </div>
       <div class="dash-scroll" style="padding-top:8px;">
-        <div class="day-label">
-          <svg width="8" height="8" viewBox="0 0 16 16" fill="none" stroke="var(--mid)" stroke-width="1.4" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/></svg>
-          Day 1: signed in, no digest nudge yet
-        </div>
         <div class="sec-lbl" style="margin-top:0;">This week</div>
         <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div><div class="dcontent"><div class="dname">Annual boiler service</div><div class="dsub">CV ketel, yearly</div></div><div class="ddate soon">Oct 28</div></div>
         <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div><div class="dcontent"><div class="dname">Clean dishwasher filter</div><div class="dsub">Dishwasher, every 6-8 wks</div></div><div class="ddate ok">Nov 8</div></div>
@@ -869,175 +871,6 @@ body {
           <svg width="10" height="7" viewBox="0 0 10 7" fill="none"><path d="M1 3.5h8M6 1l2.5 2.5L6 6" stroke="#6B6358" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <span style="font-size:6px;color:var(--mid-ac);font-style:italic;">swipe right to complete</span>
         </div>
-      </div>
-    </div>
-    <!-- Tab bar + FAB -->
-    <div class="shell-btm">
-      <div class="tab-bar">
-        <div class="tab active"><div class="tab-icon"><svg viewBox="0 0 20 20"><rect x="3" y="2" width="14" height="16" rx="2" stroke="var(--cta)" fill="none"/><line x1="7" y1="7" x2="13" y2="7" stroke="var(--cta)"/><line x1="7" y1="10.5" x2="13" y2="10.5" stroke="var(--cta)"/><line x1="7" y1="14" x2="11" y2="14" stroke="var(--cta)"/></svg></div><div class="tab-lbl">Tasks</div></div>
-        <div class="tab inactive"><div class="tab-icon"><svg viewBox="0 0 20 20"><path d="M10 2C5.6 2 2 5.1 2 9s3.6 7 8 7c.9 0 1.8-.1 2.6-.4L17 18l-.4-3.6C17.9 13.1 18 11.1 18 9c0-3.9-3.6-7-8-7z" stroke="rgba(26,22,18,0.20)" fill="none"/><path d="M7 9h.01M10 9h.01M13 9h.01" stroke="rgba(26,22,18,0.20)" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div><div class="tab-lbl">Ask</div></div>
-        <div class="tab inactive"><div class="tab-icon"><svg viewBox="0 0 20 20"><circle cx="10" cy="7" r="3" stroke="rgba(26,22,18,0.20)" fill="none"/><path d="M3 18c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="rgba(26,22,18,0.20)" fill="none"/></svg></div><div class="tab-lbl">Profile</div></div>
-      </div>
-      <div class="fab"><svg viewBox="0 0 16 16"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg></div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ 6. DASHBOARD DAY 3 ═══ -->
-<div class="screen-col">
-  <div class="screen-label">S-09 Dashboard · Day 3</div>
-  <div class="phone" style="position:relative;">
-    <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
-    <div class="scr">
-      <div class="greeting-row">
-        <div class="greeting-top">
-          <div class="greeting-name">Good morning,<br><em>Martijn.</em></div>
-          <div class="settings-btn"><svg viewBox="0 0 16 16"><line x1="2" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="14" y2="12"/><circle cx="5" cy="4" r="1.5" fill="white" stroke="var(--mid-ac)"/><circle cx="10" cy="8" r="1.5" fill="white" stroke="var(--mid-ac)"/><circle cx="7" cy="12" r="1.5" fill="white" stroke="var(--mid-ac)"/></svg></div>
-        </div>
-        <div class="greeting-sub">3 tasks this week</div>
-      </div>
-      <div class="cat-filters">
-        <div class="cat-f"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
-        <div class="cat-f"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
-      </div>
-      <div class="dash-scroll" style="padding-top:8px;">
-        <div class="day-label">
-          <svg width="8" height="8" viewBox="0 0 16 16" fill="none" stroke="var(--cta)" stroke-width="1.6" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/></svg>
-          Day 3: first digest nudge
-        </div>
-
-        <!-- DIGEST NUDGE CARD (compact: same height as task cards) -->
-        <div class="nudge-digest">
-          <div class="chip ii-nudge">
-            <svg width="14" height="15" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/></svg>
-          </div>
-          <div class="ncontent">
-            <div class="nname">Your first week is almost done.</div>
-            <div class="nsub">Want a Monday summary in your inbox?</div>
-          </div>
-          <div class="cta-link">Get my weekly overview</div>
-        </div>
-
-        <div class="sec-lbl" style="margin-top:8px;">This week</div>
-        <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div><div class="dcontent"><div class="dname">Annual boiler service</div><div class="dsub">CV ketel, yearly</div></div><div class="ddate soon">Oct 28</div></div>
-        <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div><div class="dcontent"><div class="dname">Clean dishwasher filter</div><div class="dsub">Dishwasher, every 6-8 wks</div></div><div class="ddate ok">Nov 8</div></div>
-        <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div><div class="dcontent"><div class="dname">Check CO detector</div><div class="dsub">CV ketel, yearly</div></div><div class="ddate ok">Nov 15</div></div>
-      </div>
-    </div>
-    <!-- Tab bar + FAB -->
-    <div class="shell-btm">
-      <div class="tab-bar">
-        <div class="tab active"><div class="tab-icon"><svg viewBox="0 0 20 20"><rect x="3" y="2" width="14" height="16" rx="2" stroke="var(--cta)" fill="none"/><line x1="7" y1="7" x2="13" y2="7" stroke="var(--cta)"/><line x1="7" y1="10.5" x2="13" y2="10.5" stroke="var(--cta)"/><line x1="7" y1="14" x2="11" y2="14" stroke="var(--cta)"/></svg></div><div class="tab-lbl">Tasks</div></div>
-        <div class="tab inactive"><div class="tab-icon"><svg viewBox="0 0 20 20"><path d="M10 2C5.6 2 2 5.1 2 9s3.6 7 8 7c.9 0 1.8-.1 2.6-.4L17 18l-.4-3.6C17.9 13.1 18 11.1 18 9c0-3.9-3.6-7-8-7z" stroke="rgba(26,22,18,0.20)" fill="none"/><path d="M7 9h.01M10 9h.01M13 9h.01" stroke="rgba(26,22,18,0.20)" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div><div class="tab-lbl">Ask</div></div>
-        <div class="tab inactive"><div class="tab-icon"><svg viewBox="0 0 20 20"><circle cx="10" cy="7" r="3" stroke="rgba(26,22,18,0.20)" fill="none"/><path d="M3 18c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="rgba(26,22,18,0.20)" fill="none"/></svg></div><div class="tab-lbl">Profile</div></div>
-      </div>
-      <div class="fab"><svg viewBox="0 0 16 16"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg></div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ 7. DASHBOARD DAY 5 ═══ -->
-<div class="screen-col">
-  <div class="screen-label">S-09 Dashboard · Day 5</div>
-  <div class="phone" style="position:relative;">
-    <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
-    <div class="scr">
-      <div class="greeting-row">
-        <div class="greeting-top">
-          <div class="greeting-name">Good morning,<br><em>Martijn.</em></div>
-          <div class="settings-btn"><svg viewBox="0 0 16 16"><line x1="2" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="14" y2="12"/><circle cx="5" cy="4" r="1.5" fill="white" stroke="var(--mid-ac)"/><circle cx="10" cy="8" r="1.5" fill="white" stroke="var(--mid-ac)"/><circle cx="7" cy="12" r="1.5" fill="white" stroke="var(--mid-ac)"/></svg></div>
-        </div>
-        <div class="greeting-sub">2 tasks remaining</div>
-      </div>
-      <div class="cat-filters">
-        <div class="cat-f"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
-        <div class="cat-f"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
-      </div>
-      <div class="dash-scroll" style="padding-top:8px;">
-        <div class="day-label">
-          <svg width="8" height="8" viewBox="0 0 16 16" fill="none" stroke="var(--sage)" stroke-width="1.6" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/><polyline points="5,8 7,10 11,6"/></svg>
-          Day 5: after first completion
-        </div>
-
-        <!-- Done task (faded) -->
-        <div class="dcard" style="opacity:0.35;">
-          <div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div>
-          <div class="dcontent"><div class="dname" style="text-decoration:line-through;">Annual boiler service</div><div class="dsub">CV ketel, yearly</div></div>
-          <div class="ddate ok" style="text-decoration:line-through;">Oct 28</div>
-        </div>
-
-        <!-- DIGEST NUDGE CARD: post-completion -->
-        <div class="nudge-digest">
-          <div class="chip ii-nudge">
-            <svg width="14" height="15" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/></svg>
-          </div>
-          <div class="ncontent">
-            <div class="nname">1 done. Want to see your progress?</div>
-            <div class="nsub">A quick Monday email with what's done and what's next.</div>
-          </div>
-          <div class="cta-link">Get the overview</div>
-        </div>
-
-        <div class="sec-lbl" style="margin-top:8px;">Coming up</div>
-        <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div><div class="dcontent"><div class="dname">Clean dishwasher filter</div><div class="dsub">Dishwasher, every 6-8 wks</div></div><div class="ddate ok">Nov 8</div></div>
-        <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div><div class="dcontent"><div class="dname">Check CO detector</div><div class="dsub">CV ketel, yearly</div></div><div class="ddate ok">Nov 15</div></div>
-      </div>
-    </div>
-    <!-- Tab bar + FAB -->
-    <div class="shell-btm">
-      <div class="tab-bar">
-        <div class="tab active"><div class="tab-icon"><svg viewBox="0 0 20 20"><rect x="3" y="2" width="14" height="16" rx="2" stroke="var(--cta)" fill="none"/><line x1="7" y1="7" x2="13" y2="7" stroke="var(--cta)"/><line x1="7" y1="10.5" x2="13" y2="10.5" stroke="var(--cta)"/><line x1="7" y1="14" x2="11" y2="14" stroke="var(--cta)"/></svg></div><div class="tab-lbl">Tasks</div></div>
-        <div class="tab inactive"><div class="tab-icon"><svg viewBox="0 0 20 20"><path d="M10 2C5.6 2 2 5.1 2 9s3.6 7 8 7c.9 0 1.8-.1 2.6-.4L17 18l-.4-3.6C17.9 13.1 18 11.1 18 9c0-3.9-3.6-7-8-7z" stroke="rgba(26,22,18,0.20)" fill="none"/><path d="M7 9h.01M10 9h.01M13 9h.01" stroke="rgba(26,22,18,0.20)" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div><div class="tab-lbl">Ask</div></div>
-        <div class="tab inactive"><div class="tab-icon"><svg viewBox="0 0 20 20"><circle cx="10" cy="7" r="3" stroke="rgba(26,22,18,0.20)" fill="none"/><path d="M3 18c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="rgba(26,22,18,0.20)" fill="none"/></svg></div><div class="tab-lbl">Profile</div></div>
-      </div>
-      <div class="fab"><svg viewBox="0 0 16 16"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg></div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ 8. DASHBOARD DAY 7 ═══ -->
-<div class="screen-col">
-  <div class="screen-label">S-09 Dashboard · Day 7</div>
-  <div class="phone" style="position:relative;">
-    <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
-    <div class="scr">
-      <div class="greeting-row">
-        <div class="greeting-top">
-          <div class="greeting-name">Good morning,<br><em>Martijn.</em></div>
-          <div class="settings-btn"><svg viewBox="0 0 16 16"><line x1="2" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="14" y2="12"/><circle cx="5" cy="4" r="1.5" fill="white" stroke="var(--mid-ac)"/><circle cx="10" cy="8" r="1.5" fill="white" stroke="var(--mid-ac)"/><circle cx="7" cy="12" r="1.5" fill="white" stroke="var(--mid-ac)"/></svg></div>
-        </div>
-        <div class="greeting-sub">2 tasks coming up</div>
-      </div>
-      <div class="cat-filters">
-        <div class="cat-f"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
-        <div class="cat-f"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
-      </div>
-      <div class="dash-scroll" style="padding-top:8px;">
-        <div class="day-label">
-          <svg width="8" height="8" viewBox="0 0 16 16" fill="none" stroke="var(--apricot-dk)" stroke-width="1.6" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v3l2 1.5"/></svg>
-          Day 7: final gentle nudge
-        </div>
-
-        <!-- DIGEST NUDGE CARD: witty/personality -->
-        <div class="nudge-digest">
-          <div class="chip ii-nudge">
-            <svg width="14" height="15" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/></svg>
-          </div>
-          <div class="ncontent">
-            <div class="nname">Your dishwasher is taking notes.</div>
-            <div class="nsub">3 tasks completed, 0 reports sent.</div>
-          </div>
-          <div class="cta-link">Send me the report</div>
-        </div>
-
-        <!-- After day 7 note -->
-        <div style="text-align:center;padding:6px 8px 4px;">
-          <div style="font-size:6.5px;color:var(--mid);font-style:italic;line-height:1.4;">After this, no more nudges about this. nudgii doesn't nag.</div>
-        </div>
-
-        <div class="sec-lbl" style="margin-top:8px;">Coming up</div>
-        <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div><div class="dcontent"><div class="dname">Clean dishwasher filter</div><div class="dsub">Dishwasher, every 6-8 wks</div></div><div class="ddate ok">Nov 8</div></div>
-        <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div><div class="dcontent"><div class="dname">Check CO detector</div><div class="dsub">CV ketel, yearly</div></div><div class="ddate ok">Nov 15</div></div>
       </div>
     </div>
     <!-- Tab bar + FAB -->
@@ -1084,16 +917,6 @@ body {
     </div>
 
     <div class="ann-card">
-      <div class="ann-t">4. Digest nudge cards (Day 3-7)</div>
-      <div class="ann-item"><div class="ann-i key">&#9733;</div><div class="ann-txt"><strong>Day 1: no nudge.</strong> Let the user enjoy the product. First impressions matter more than conversion speed. Bombarding new users on day 1 increases churn by 20% (Leanplum retention study).</div></div>
-      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>Day 3: milestone framing.</strong> "Your first week is almost done." Curiosity-driven, not demanding. The user has had time to complete at least one task. Digest nudge appears as a card in the task list, not a modal or banner.</div></div>
-      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>Day 5: achievement-based.</strong> "1 done. Want to see your progress?" Tied to actual completions. Users who complete at least one task in week 1 have 3x better D30 retention (industry benchmark for task/habit apps).</div></div>
-      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>Day 7: earned humor.</strong> "Your dishwasher is taking notes." The nudgii voice at its best: warm, witty, never naggy. After day 7, no more digest nudges. nudgii doesn't nag. Three chances, then respect the answer.</div></div>
-      <div class="ann-item"><div class="ann-i lock">&#8595;</div><div class="ann-txt"><strong>Two paths on tap:</strong> If signed in (happy path, 70-80% of users), tapping enables the digest instantly. Success toast: "Done. First overview lands Monday." If not signed in, tapping opens Apple/Google SSO bottom sheet. They sign in, digest enables automatically. One flow, no email form ever.</div></div>
-      <div class="ann-item"><div class="ann-i upd">&uarr;</div><div class="ann-txt"><strong>Greeting reflects auth state.</strong> Signed in: "Good morning, Martijn." (name from Apple/Google profile). Skipped SSO: "Good morning, there." Name personalization becomes a subtle reward for signing in.</div></div>
-    </div>
-
-    <div class="ann-card">
       <div class="ann-t">5. Peer benchmarks</div>
       <div class="ann-item"><div class="ann-i key">&#9733;</div><div class="ann-txt"><strong>Duolingo:</strong> Value first (lesson) > celebration > account creation. 500M+ downloads. Onboarding completion rate ~65%. Push opt-in 65%. They moved signup AFTER the first lesson and saw a 20% increase in D1 retention.</div></div>
       <div class="ann-item"><div class="ann-i key">&#9733;</div><div class="ann-txt"><strong>Headspace:</strong> Free meditation > "how do you feel?" > sign-up. 70M+ downloads. Their "experience before commitment" model increased trial-to-paid conversion by 14% when they delayed the paywall by one screen.</div></div>
@@ -1101,19 +924,13 @@ body {
       <div class="ann-item"><div class="ann-i upd">&uarr;</div><div class="ann-txt"><strong>Noom:</strong> 10-minute quiz (investment) > personalized results (AHA) > paywall. Shows that longer onboarding works IF every step builds perceived value. nudgii's 2-minute onboarding is faster, but follows the same value-first principle.</div></div>
     </div>
 
-    <div class="ann-card">
-      <div class="ann-t">6. Expected conversion by persona</div>
-      <div class="ann-item"><div class="ann-i key">&#9733;</div><div class="ann-txt"><strong>Hypothesis:</strong> SSO after value demonstration converts higher than email-before-value. Digest opt-in from dashboard nudges has higher engagement than onboarding capture (conscious opt-in vs passive). Combined: more accounts AND better digest open rates.</div></div>
-      <table class="persona-table">
-        <tr><th>Persona</th><th>SSO conversion</th><th>Push opt-in</th><th>Digest opt-in</th></tr>
-        <tr><td><strong>Arne</strong> (power user)</td><td>SSO screen, Apple (instant)</td><td>Yes (wants reminders)</td><td>Day 1 settings (proactive)</td></tr>
-        <tr><td><strong>Sara</strong> (organizer)</td><td>SSO screen, Google</td><td>Yes (needs structure)</td><td>Day 3 nudge card</td></tr>
-        <tr><td><strong>Martijn</strong> (busy homeowner)</td><td>SSO screen, Apple</td><td>Yes (forgets otherwise)</td><td>Day 3 nudge card</td></tr>
-        <tr><td><strong>Lena</strong> (first-timer)</td><td>60% SSO, 40% skip</td><td>Maybe later (cautious)</td><td>Day 5 (after first completion)</td></tr>
-      </table>
-    </div>
-
   </div>
+</div>
+
+<!-- FIRST-WEEK ENGAGEMENT LINK -->
+<div style="margin-top:20px;padding:14px 16px;background:var(--surface);border:0.5px solid var(--border);border-radius:12px;display:inline-flex;align-items:center;gap:8px;">
+  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="var(--cta)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4v4"/><path d="M14 2L8 8"/><path d="M12 9v4.5a1.5 1.5 0 01-1.5 1.5h-8A1.5 1.5 0 011 13.5v-8A1.5 1.5 0 012.5 4H7"/></svg>
+  <a href="first-week-engagement.html" style="font-size:11px;font-weight:500;color:var(--cta);text-decoration:none;">First-week engagement sequence (Day 3-7 digest nudges) &rarr;</a>
 </div>
 
 <script>
