@@ -664,6 +664,15 @@ Update this section when open decisions are resolved.
 | S-01 Path C removed | Two paths only (A + B). "Something else" row covers discovery. Three paths + footnote was too many choices. | ✅ Yes | 2026-03-24 |
 | S-01 subtitle | "Add what you own. We'll remind you when it matters." replaces earlier subtitle. Action-oriented + names core value (timely reminders). | ✅ Yes | 2026-03-24 |
 | S-01 hi-fi layout | Single English phone + annotation sidebar. Matches S-02 pattern. Locale variants removed from hi-fi (English only per design system rules). | ✅ Yes | 2026-03-24 |
+| Shared components.css | All 5 hi-fi screens (S-01, S-02, S-03, S-05, S-07) now link to system/components.css. ~985 lines of duplicated inline CSS removed. Screen files keep only screen-specific styles. | ✅ Yes | 2026-03-25 |
+| Category filter active state | Active pill uses purple outline (colorCta border + text, subtle lavender bg) instead of dark ink fill. Applies across S-01, S-03, S-09. | ✅ Yes | 2026-03-25 |
+| S-03 "All" pill added | "All" pill first, active by default. JS updated from .on to .active class. S-01 still has no "All" pill (decorative). | ✅ Yes | 2026-03-25 |
+| S-03 headline added | "What do you have?" + "Tick what applies. We'll figure out the rest." above search bar. Screen lacked context without it. | ✅ Yes | 2026-03-25 |
+| Alt flow reorder | AHA > Celebration > Push > Apple/Google SSO > Dashboard. Celebration protects emotional peak. Push after value demo = 3x opt-in. SSO replaces email capture. One fewer onboarding screen. | ✅ Yes | 2026-03-25 |
+| SSO screen copy | "One tap to keep it all." + ii mark icon. Replaces "Save your schedule" + shield (fear-based). Layout aligned with push screen (centered content + sticky bottom). "Not now" replaces "Continue without account". | ✅ Yes | 2026-03-25 |
+| Dashboard personalization | Signed-in users see "Good morning, Martijn." (name from SSO). Skipped users see "Good morning, there." Digest nudge: signed-in = one-tap toggle, skipped = SSO bottom sheet. | ✅ Yes | 2026-03-25 |
+| btn-a legacy fix | .btn-a now uses var(--cta) + scale(0.97) pressed state instead of hardcoded hex + opacity. Matches .btn-cta canonical pattern. | ✅ Yes | 2026-03-25 |
+| Nav status classes | .nav-status.ready/.progress/.todo color variants in components.css. Screens use class instead of inline color overrides. | ✅ Yes | 2026-03-25 |
 
 ---
 
