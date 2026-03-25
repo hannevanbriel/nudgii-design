@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>nudgii · S-02 Voice onboarding — hi-fi</title>
+<title>nudgii · S-02 Voice onboarding, hi-fi</title>
 <link rel="stylesheet" href="../system/components.css">
 <style>
 /* ── S-02 screen-specific ── */
@@ -41,7 +41,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
 }
 .back-btn svg{width:9px;height:9px;stroke:var(--ink);stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
 
-/* conversation area — flex:1 scrollable */
+/* conversation area: flex:1 scrollable */
 .conv-area{
   flex:1;overflow-y:auto;padding:8px 16px 10px;
   display:flex;flex-direction:column;gap:10px;
@@ -66,7 +66,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
 .nb-text{font-size:12px;line-height:1.6;color:var(--ink);}
 .nb-text em{font-style:italic;color:var(--cta);font-weight:500;}
 
-/* confirmed item chips — inside nudgii bubble */
+/* confirmed item chips, inside nudgii bubble */
 .confirmed-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px;}
 .cc-chip{
   display:inline-flex;align-items:center;gap:3px;
@@ -122,7 +122,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
 /* faded user bubble (in-progress transcription) */
 .user-msg-faded{display:flex;justify-content:flex-end;opacity:0.65;}
 
-/* input bar wrap — fixed, outside scroll */
+/* input bar wrap: fixed, outside scroll */
 .input-zone{
   flex-shrink:0;
   padding:7px 16px 10px;
@@ -168,7 +168,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
   letter-spacing:0.1px;
 }
 
-/* s02 uses .divider (not .page-divider) — alias */
+/* s02 uses .divider (not .page-divider), alias */
 .divider{height:1px;background:var(--border);margin:48px 0;}
 </style>
 </head>
@@ -186,7 +186,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
     Design hub
   </a>
   <span class="nav-sep">/</span>
-  <span class="nav-title">S-02 — Voice onboarding · Path A</span>
+  <span class="nav-title">S-02 · Voice onboarding · Path A</span>
   <span class="nav-status progress">In progress</span>
 </nav>
 
@@ -194,7 +194,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
 
   <!-- PAGE HEADER -->
   <div class="page-eyebrow">S-02 · Voice onboarding · Hi-fi · 390×844px (iPhone 15) · March 2026</div>
-  <h1 class="page-h1">Voice onboarding — Path A</h1>
+  <h1 class="page-h1">Voice onboarding, Path A</h1>
   <p class="page-sub">Conversation pattern Option A: persistent chat thread with fixed input bar. nudgii leads with a single question, user replies by voice, type, or scan. 4 states shown: S-01 context pre-loaded, fresh start, listening, and after first turn.</p>
   <div class="meta">
     <span class="mp hifi">Hi-fi</span>
@@ -216,7 +216,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
         <div class="phone">
           <div class="notch"><div class="np"></div></div>
           <div class="sbar"><span>9:41</span><div class="batt"></div></div>
-          <!-- progress bar 40% — S-02, outside SafeArea -->
+          <!-- progress bar 40%, S-02, outside SafeArea -->
           <div class="prog-bar"><div class="prog-fill" style="width:40%;"></div></div>
 
           <!-- back button -->
@@ -226,7 +226,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
             </div>
           </div>
 
-          <!-- conversation thread — flex:1, scrollable -->
+          <!-- conversation thread: flex:1, scrollable -->
           <div class="conv-area">
 
             <!-- nudgii opening: S-01 context carry-over -->
@@ -278,7 +278,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
       </div><!-- /state 1a -->
 
 
-      <!-- STATE 1b: No prior context — fresh start -->
+      <!-- STATE 1b: No prior context, fresh start -->
       <div class="phone-col">
         <div class="phone-lbl">State 1b</div>
         <div class="phone">
@@ -357,7 +357,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
               </div>
             </div>
 
-            <!-- waveform — live listening -->
+            <!-- waveform, live listening -->
             <div class="listen-block">
               <div class="wave">
                 <div class="wbar"></div>
@@ -485,7 +485,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
           </div>
 
         </div><!-- /phone -->
-        <div class="phone-sub">After first turn: nudgii confirms all parsed items as sage chips, asks one clarifying follow-up question. Suggestion chips update contextually — only showing items not yet added.</div>
+        <div class="phone-sub">After first turn: nudgii confirms all parsed items as sage chips, asks one clarifying follow-up question. Suggestion chips update contextually, only showing items not yet added.</div>
       </div><!-- /state 3 -->
 
     </div><!-- /phones-row -->
@@ -498,7 +498,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
       <div class="annot-card">
         <div class="annot-head">
           <span class="badge-rule">Rule</span>
-          Progress bar — 40%
+          Progress bar: 40%
         </div>
         <div class="annot-body">
           S-02 is step 2 of 5 = <strong>40% fill</strong>. Full-width edge-to-edge, 3px height, outside SafeArea. <code>colorCta #9B7FD4</code> fill. Track <code>rgba(26,22,18,0.08)</code>. Flutter: <code>LinearProgressIndicator</code> inside <code>ClipRRect(borderRadius:100px)</code>.
@@ -511,14 +511,14 @@ body{background:#CBC5BB;padding:0 0 80px;}
           No screen title
         </div>
         <div class="annot-body">
-          There is no heading above the conversation. nudgii's first bubble IS the opening. No "Step 2 of 5" label anywhere — the progress bar handles that. Back button only.
+          There is no heading above the conversation. nudgii's first bubble IS the opening. No "Step 2 of 5" label anywhere, the progress bar handles that. Back button only.
         </div>
       </div>
 
       <div class="annot-card">
         <div class="annot-head">
           <span class="badge-rule">Rule</span>
-          Back button — arrowLeft SVG
+          Back button: arrowLeft SVG
         </div>
         <div class="annot-body">
           32×32px container, surface bg, 9px border-radius, 0.5px border. SVG: <code>viewBox="0 0 12 12"</code>, paths <code>d="M10 6H2"</code> and <code>d="M5 3L2 6L5 9"</code>. Minimum tap target wrapped to 44×44px in Flutter with <code>SizedBox</code>.
@@ -533,7 +533,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
           Sender label
         </div>
         <div class="annot-body">
-          Always lowercase <strong>"nudgii"</strong> — never "NUDGII". No <code>text-transform</code>. 8px DM Sans 500, letter-spacing 0.4px, <code>colorMidAccessible #6B6358</code>. nudgii is always lowercase everywhere: in copy, labels, code, and documentation.
+          Always lowercase <strong>"nudgii"</strong>, never "NUDGII". No <code>text-transform</code>. 8px DM Sans 500, letter-spacing 0.4px, <code>colorMidAccessible #6B6358</code>. nudgii is always lowercase everywhere: in copy, labels, code, and documentation.
         </div>
       </div>
 
@@ -560,7 +560,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
           <span class="badge-note">Confirmed chips</span>
         </div>
         <div class="annot-body">
-          Inside nudgii's confirmation bubble. <code>sage-lt #EAF3DE</code> bg, <code>sage #3B6D11</code> text, checkmark SVG icon 9px. flex-wrap row with 4px gap. Appear immediately after nudgii confirms the item — not in a separate message.
+          Inside nudgii's confirmation bubble. <code>sage-lt #EAF3DE</code> bg, <code>sage #3B6D11</code> text, checkmark SVG icon 9px. flex-wrap row with 4px gap. Appear immediately after nudgii confirms the item, not in a separate message.
         </div>
       </div>
 
@@ -621,7 +621,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
       <div class="annot-card">
         <div class="annot-head">
           <span class="badge-rule">Rule</span>
-          Privacy note — always visible
+          Privacy note, always visible
         </div>
         <div class="annot-body">
           7px italic DM Sans, <code>rgba(107,99,88,0.45)</code>. Always present below the input bar. Copy: "audio sent for transcription only · deleted after · responds in text". Centers reassurance at the exact moment the user decides to tap the mic.
@@ -656,7 +656,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
         Mockup base:&nbsp;&nbsp;&nbsp;&nbsp;390px width (iPhone 15)<br>
         SafeArea:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;top=false, progress bar outside SafeArea<br>
         Scroll:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SingleChildScrollView for conversation thread only<br>
-        Bottom zone:&nbsp;&nbsp;&nbsp;&nbsp;Fixed input bar — NOT inside scroll area<br>
+        Bottom zone:&nbsp;&nbsp;&nbsp;&nbsp;Fixed input bar, NOT inside scroll area<br>
         Progress bar:&nbsp;&nbsp;&nbsp;Full width, height 3px, outside SafeArea, 40% fill<br>
         Scaling:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All visual elements × (screenWidth/390).clamp(0.9, 1.15)<br>
         Special:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Input bar always visible and fixed. Conversation thread scrolls independently. Waveform in conversation area (not overlaid on input bar). State driven by voice recognition lifecycle.
