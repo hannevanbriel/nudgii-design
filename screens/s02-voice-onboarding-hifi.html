@@ -186,7 +186,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
   <!-- PAGE HEADER -->
   <div class="page-eyebrow">S-02 · Voice onboarding · Hi-fi · 390x844px (iPhone 15) · March 2026</div>
   <h1 class="page-h1">Tell me what you have</h1>
-  <p class="page-sub">Conversation pattern: persistent chat thread with fixed input bar. nudgii always opens fresh with a discovery question, guiding users through voice, text, or scan. 3 states shown: fresh start, listening, and after first turn.</p>
+  <p class="page-sub">Conversation pattern: persistent chat thread with fixed input bar. nudgii always opens fresh with a discovery question, guiding users through voice, text, or scan. 4 states shown: fresh start, listening, after first turn, and continue suggestion.</p>
   <div class="meta">
     <span class="mp hifi">Hi-fi</span>
     <span class="mp ob">Onboarding flow</span>
@@ -395,6 +395,101 @@ body{background:#CBC5BB;padding:0 0 80px;}
         <div class="phone-sub">After first turn: nudgii confirms all parsed items as sage chips, then guides with category prompts: "Anything else? A car, garden, subscriptions?" Suggestion chips update contextually, only showing items not yet added.</div>
       </div><!-- /state 3 -->
 
+
+      <!-- STATE 4: Continue suggestion -->
+      <div class="phone-col">
+        <div class="phone-lbl">State 4</div>
+        <div class="phone">
+          <div class="notch"><div class="np"></div></div>
+          <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+          <div class="prog-bar"><div class="prog-fill" style="width:40%;"></div></div>
+
+          <div class="conv-area">
+
+            <!-- scrolled up: previous turns compressed -->
+            <div class="nudgii-msg">
+              <div class="nudgii-from">nudgii</div>
+              <div class="nudgii-bubble" style="opacity:0.5;">
+                <div class="nb-text" style="font-size:10px;color:rgba(26,22,18,0.45);">What do you have at home?</div>
+              </div>
+            </div>
+
+            <div class="user-msg">
+              <div class="user-bubble" style="opacity:0.5;">
+                <div class="ub-text" style="font-size:10px;">A dishwasher and a cv boiler.</div>
+              </div>
+            </div>
+
+            <div class="nudgii-msg">
+              <div class="nudgii-bubble" style="opacity:0.5;">
+                <div class="confirmed-chips" style="gap:3px;">
+                  <div class="cc-chip" style="font-size:7px;padding:1px 5px;">
+                    <svg viewBox="0 0 12 12" style="width:7px;height:7px;"><polyline points="2,6 5,9 10,3"/></svg>
+                    Dishwasher
+                  </div>
+                  <div class="cc-chip" style="font-size:7px;padding:1px 5px;">
+                    <svg viewBox="0 0 12 12" style="width:7px;height:7px;"><polyline points="2,6 5,9 10,3"/></svg>
+                    CV boiler
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- user 2nd turn -->
+            <div class="user-msg">
+              <div class="user-bubble">
+                <div class="ub-text">Two cars and an olive tree.</div>
+              </div>
+            </div>
+
+            <!-- nudgii: continue suggestion (highlighted bubble) -->
+            <div class="nudgii-msg">
+              <div class="nudgii-from">nudgii</div>
+              <div class="nudgii-bubble" style="background:rgba(155,127,212,0.06);border-color:rgba(155,127,212,0.15);">
+                <div class="nb-text">Got it. That's 5 items, good start.</div>
+                <div class="confirmed-chips">
+                  <div class="cc-chip">
+                    <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+                    2x Car
+                  </div>
+                  <div class="cc-chip">
+                    <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+                    Olive tree
+                  </div>
+                </div>
+                <div class="nb-text" style="margin-top:8px;"><em style="color:var(--cta);">Ready to see your schedule?</em></div>
+                <div class="suggest-row" style="margin-top:6px;">
+                  <div class="sug-chip" style="background:var(--cta);color:#FAF8FF;border-color:var(--cta);font-weight:500;">Show my schedule</div>
+                  <div class="sug-chip">Add more first</div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /conv-area -->
+
+          <!-- input bar + browse link -->
+          <div class="input-zone">
+            <div class="input-bar">
+              <div class="ib-icon">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--mid-a)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 8V6a2 2 0 0 1 2-2h2M4 16v2a2 2 0 0 0 2 2h2M16 4h2a2 2 0 0 1 2 2v2M16 20h2a2 2 0 0 0 2-2v-2"/>
+                </svg>
+              </div>
+              <span class="ib-placeholder">Reply or add more...</span>
+              <div class="mic-btn">
+                <svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div class="privacy-note" style="margin:0;">audio sent for transcription only · responds in text</div>
+              <a style="font-size:8px;color:var(--mid-a);text-decoration:none;white-space:nowrap;">or browse instead →</a>
+            </div>
+          </div>
+
+        </div><!-- /phone -->
+        <div class="phone-sub">After 2+ items: nudgii gently suggests continuing. Purple-tinted bubble signals a transition moment. "Show my schedule" (filled CTA chip) navigates to S-04 Review. "Add more first" keeps the conversation open. "or browse instead" link below input bar lets users switch to S-03 without swiping back.</div>
+      </div><!-- /state 4 -->
+
     </div><!-- /phones-row -->
 
     <!-- ANNOTATION COLUMN -->
@@ -513,6 +608,26 @@ body{background:#CBC5BB;padding:0 0 80px;}
         </div>
       </div>
 
+      <div class="annot-card decision">
+        <div class="annot-head">
+          <span class="badge-state">State 4</span>
+          Continue suggestion
+        </div>
+        <div class="annot-body">
+          After 2+ turns with items, nudgii gently suggests proceeding. Purple-tinted bubble (<code>rgba(155,127,212,0.06)</code> bg, <code>rgba(155,127,212,0.15)</code> border) visually signals a transition moment. "Ready to see your schedule?" in italic <code>colorCta</code>. Two chips: "Show my schedule" (filled CTA, navigates to S-04 Review) and "Add more first" (default chip, keeps conversation open). Never auto-advance. User always chooses.
+        </div>
+      </div>
+
+      <div class="annot-card decision">
+        <div class="annot-head">
+          <span class="badge-state">State 4</span>
+          Browse fallback link
+        </div>
+        <div class="annot-body">
+          "or browse instead →" link below the input bar (8px, <code>colorMidAccessible</code>). Lets users switch to S-03 Browse without swiping back. Always visible from State 1 onwards. One tap to change paths, not two gestures. Paths aren't prisons.
+        </div>
+      </div>
+
       <div class="annot-section">Input bar</div>
 
       <div class="annot-card">
@@ -544,6 +659,13 @@ body{background:#CBC5BB;padding:0 0 80px;}
   <!-- CHANGELOG -->
   <div class="changelog">
     <div class="cl-title">Changelog</div>
+
+    <div class="cl-entry">
+      <div class="cl-ver">v1.2 · 2026-03-26 · ADDITIVE</div>
+      <div class="cl-body"><strong>State 4 added: continue suggestion.</strong> After 2+ items added, nudgii suggests proceeding with purple-tinted bubble. "Ready to see your schedule?" with CTA chip "Show my schedule" and fallback "Add more first".</div>
+      <div class="cl-body"><strong>"or browse instead" link added.</strong> 8px text link below input bar, always visible. Lets users switch to S-03 Browse without swiping back. Flutter: TextButton with onTap navigating to S-03.</div>
+      <div class="cl-body"><strong>States increased to 4.</strong> Fresh start (1), listening (2), after first turn (3), continue suggestion (4). Page sub updated.</div>
+    </div>
 
     <div class="cl-entry">
       <div class="cl-ver">v1.1 · 2026-03-26 · BREAKING</div>
