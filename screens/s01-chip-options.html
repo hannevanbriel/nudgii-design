@@ -78,17 +78,17 @@ body { font-family: 'DM Sans', -apple-system, sans-serif; background: #D8D3C9; c
 .np-more { display: flex; align-items: center; justify-content: center; padding: 6px 10px; border-top: 0.5px solid rgba(26,22,18,0.05); font-size: 7.5px; font-style: italic; color: rgba(26,22,18,0.28); }
 
 /* ── OPTION D: mini nudge bubbles ── */
-.nudge-bubbles { display: flex; flex-direction: column; gap: 6px; margin: 22px 0 10px; padding: 0 2px; }
-.nb { background: var(--surface); border-radius: 10px; padding: 8px 10px; box-shadow: 0 1px 4px rgba(26,22,18,0.05); border: 0.5px solid rgba(26,22,18,0.06); display: flex; align-items: center; gap: 8px; }
-.nb:nth-child(1) { transform: rotate(-0.8deg); margin-left: 4px; }
-.nb:nth-child(2) { transform: rotate(0.5deg); margin-left: 16px; }
-.nb:nth-child(3) { transform: rotate(-0.3deg); margin-left: 8px; }
+.nudge-bubbles { display: flex; flex-direction: column; gap: 8px; margin: 24px 0 10px; padding: 0 6px; align-items: flex-start; }
+.nb { border-radius: 12px; padding: 8px 12px 8px 8px; display: inline-flex; align-items: center; gap: 8px; border: none; box-shadow: none; max-width: 85%; }
+.nb.nb-home { background: rgba(200,120,80,0.07); transform: rotate(-1.2deg); margin-left: 8px; }
+.nb.nb-garden { background: rgba(90,144,96,0.07); transform: rotate(0.8deg); margin-left: 32px; }
+.nb.nb-vehicle { background: rgba(74,130,160,0.07); transform: rotate(-0.5deg); margin-left: 18px; }
 .nb-icon { width: 22px; height: 22px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .nb-icon svg { width: 11px; height: 11px; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .nb-content { flex: 1; }
 .nb-title { font-size: 8px; font-weight: 500; color: var(--ink); margin-bottom: 1px; }
 .nb-sub { font-size: 6.5px; color: var(--mid); font-style: italic; }
-.nb-fade { text-align: center; font-size: 7px; color: rgba(26,22,18,0.22); font-style: italic; margin-top: 4px; }
+.nb-fade { text-align: center; font-size: 7px; color: rgba(26,22,18,0.22); font-style: italic; margin-top: 6px; }
 
 /* ── OPTION E: single personality quote ── */
 .quote-area { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; padding: 20px 24px; gap: 16px; }
@@ -223,17 +223,17 @@ body { font-family: 'DM Sans', -apple-system, sans-serif; background: #D8D3C9; c
         <div class="h1">Your stuff won't<br><em>maintain itself.</em></div>
 
         <div class="nudge-bubbles">
-          <div class="nb">
-            <div class="nb-icon" style="background:rgba(200,120,80,0.10);"><svg viewBox="0 0 16 16" style="stroke:var(--cat-home);"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div>
-            <div class="nb-content"><div class="nb-title">Your boiler could use some love</div><div class="nb-sub">Annual service keeps it happy</div></div>
+          <div class="nb nb-home">
+            <div class="nb-icon" style="background:rgba(200,120,80,0.14);"><svg viewBox="0 0 16 16" style="stroke:var(--cat-home);"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div>
+            <div class="nb-content"><div class="nb-title">Your boiler could use some love</div><div class="nb-sub">we'll remind you before winter</div></div>
           </div>
-          <div class="nb">
-            <div class="nb-icon" style="background:rgba(90,144,96,0.10);"><svg viewBox="0 0 16 16" style="stroke:var(--cat-garden);"><path d="M8 14V8"/><path d="M5 11c-2-1-2-4 1-5 0-2 4-3 5 0 3 0 3 4 0 5"/></svg></div>
-            <div class="nb-content"><div class="nb-title">Lawn's waking up soon</div><div class="nb-sub">Spring prep before it gets ahead of you</div></div>
+          <div class="nb nb-garden">
+            <div class="nb-icon" style="background:rgba(90,144,96,0.14);"><svg viewBox="0 0 16 16" style="stroke:var(--cat-garden);"><path d="M8 14V8"/><path d="M5 11c-2-1-2-4 1-5 0-2 4-3 5 0 3 0 3 4 0 5"/></svg></div>
+            <div class="nb-content"><div class="nb-title">Lawn's waking up soon</div><div class="nb-sub">spring prep before it gets ahead of you</div></div>
           </div>
-          <div class="nb">
-            <div class="nb-icon" style="background:rgba(74,130,160,0.10);"><svg viewBox="0 0 16 16" style="stroke:var(--cat-vehicle);"><rect x="1" y="6" width="14" height="6" rx="2"/><circle cx="4.5" cy="12" r="1.5"/><circle cx="11.5" cy="12" r="1.5"/><path d="M3 6L5 2h6l2 4"/></svg></div>
-            <div class="nb-content"><div class="nb-title">Car check-up is coming</div><div class="nb-sub">One less thing to remember</div></div>
+          <div class="nb nb-vehicle">
+            <div class="nb-icon" style="background:rgba(74,130,160,0.14);"><svg viewBox="0 0 16 16" style="stroke:var(--cat-vehicle);"><rect x="1" y="6" width="14" height="6" rx="2"/><circle cx="4.5" cy="12" r="1.5"/><circle cx="11.5" cy="12" r="1.5"/><path d="M3 6L5 2h6l2 4"/></svg></div>
+            <div class="nb-content"><div class="nb-title">Car check-up is coming</div><div class="nb-sub">one less thing to remember</div></div>
           </div>
           <div class="nb-fade">we'll handle the rest</div>
         </div>
