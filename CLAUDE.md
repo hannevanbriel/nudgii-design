@@ -407,6 +407,28 @@ Structure: icon-chip (28×28px, red-lt bg, terra icon) + title + body + action l
 Background: red-lt #FCEBEB · Border: 1px solid rgba(163,45,45,0.18) · all sides
 Action link: colorCta, underline, with right-arrow icon
 
+### Icon container (S-07 Push, S-08 SSO)
+Reusable centered-icon component for permission and trust screens.
+```
+Size: 56×56px | Border-radius: 16px
+Background: rgba(155,127,212,0.08) — CTA purple tint
+Border: 0.5px solid rgba(155,127,212,0.15) — CTA purple
+Icon: 26px Phosphor outline, stroke colorCta (#9B7FD4), stroke-width 1.6
+```
+S-07 uses bell icon (functional: notifications). S-08 uses ii mark SVG (brand: trust).
+Both containers are visually identical. The icon communicates function or identity depending on context.
+
+### Centered content screen (S-07 Push, S-08 SSO)
+Shared layout pattern for the final onboarding screens.
+```
+Content zone: flex:1, centered vertically + horizontally, padding 0 28px, text-align center
+Bottom zone: sticky, fixed Column (CTA + ghost button)
+No scroll needed — content is short
+Progress bar: outside SafeArea, screen-specific % fill
+No back button — forward-only flow, iOS swipe-back gesture handles navigation
+```
+Flutter: `Column(children: [progressBar, Expanded(Center(child: content)), bottomZone])`
+
 ---
 
 ## 11. Motion tokens
@@ -675,6 +697,7 @@ Update this section when open decisions are resolved.
 | btn-a legacy fix | .btn-a now uses var(--cta) + scale(0.97) pressed state instead of hardcoded hex + opacity. Matches .btn-cta canonical pattern. | ✅ Yes | 2026-03-25 |
 | Nav status classes | .nav-status.ready/.progress/.todo color variants in components.css. Screens use class instead of inline color overrides. | ✅ Yes | 2026-03-25 |
 | Screen renumbering | S-04 removed (Path C). Old S-06 Auth renamed S-08 Sign-in (SSO). Old S-07 Completion merged into S-06 AHA (+ celebration state). Old S-08 Push renumbered to S-07. S-09 Dashboard unchanged. All references updated in CLAUDE.md, index.html, and onboarding flow. | ✅ Yes | 2026-03-26 |
+| Icon container pattern | S-07 and S-08 share identical icon container (56x56, 16px radius, CTA purple tint bg + border). S-07 uses bell (functional), S-08 uses ii mark (brand). Documented as reusable component in Section 10. | ✅ Yes | 2026-03-26 |
 
 ---
 
