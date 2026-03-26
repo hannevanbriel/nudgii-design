@@ -73,7 +73,7 @@ Layout: single horizontal scrollable row, flex-wrap:nowrap; overflow-x:auto; scr
 Gap: 4-5px between pills | Margin-bottom: 10-14px
 ```
 **"All" pill always first, always the initial active state.**
-Active pill: `background: var(--ink); color: #F5F0E8; border-color: var(--ink)`
+Active pill: `background: rgba(155,127,212,0.06); color: var(--cta); border-color: var(--cta)`
 Inactive pill: `background: var(--surface); border: 0.5px solid rgba(26,22,18,0.12); color: var(--mid-a)`
 Pill shape: `border-radius: 100px; padding: 4px 10px; font-size: 10px; font-weight: 500; flex-shrink: 0`
 Category pills include a colored dot (`width: 6px; height: 6px; border-radius: 50%`) in category color, then label.

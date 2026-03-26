@@ -20,11 +20,11 @@ body{background:#CBC5BB;padding:0 0 80px;}
 .d-greeting-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:3px;}
 .d-greeting-name{font-family:'DM Serif Display',Georgia,serif;font-size:25px;font-weight:400;line-height:0.95;letter-spacing:-0.4px;color:var(--ink);}
 .d-greeting-name em{color:var(--ap);font-style:italic;}
-.d-greeting-sub{font-size:11px;color:var(--mid);margin-top:4px;}
+.d-greeting-sub{font-size:11px;color:var(--mid-a);margin-top:4px;}
 .d-greeting-sub .check-inline{display:inline-flex;width:11px;height:11px;vertical-align:-1px;margin-right:2px;}
 
 /* Settings icon */
-.d-settings{width:34px;height:34px;border-radius:10px;background:rgba(26,22,18,0.05);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;transition:background 0.15s;}
+.d-settings{width:44px;height:44px;border-radius:10px;background:rgba(26,22,18,0.05);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;transition:background 0.15s;}
 .d-settings:active{background:rgba(26,22,18,0.09);}
 .d-settings svg{width:16px;height:16px;stroke:var(--mid-a);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
 
@@ -33,7 +33,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
 .d-content{flex:1;overflow-y:auto;padding:0 16px 90px;scrollbar-width:none;}
 .d-content::-webkit-scrollbar{display:none;}
 
-/* Section labels */
+/* Section labels: rgba(26,22,18,0.28) is the section label color, decorative only */
 .d-sec{font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:rgba(26,22,18,0.28);margin:14px 0 8px;}
 
 /* Task cards (dashboard = 8px gap) */
@@ -51,11 +51,12 @@ body{background:#CBC5BB;padding:0 0 80px;}
 .d-task:active{background:rgba(26,22,18,0.03);}
 .d-task-info{flex:1;min-width:0;}
 .d-task-name{font-size:13px;font-weight:500;color:var(--ink);line-height:1.2;letter-spacing:-0.2px;margin-bottom:2px;}
-.d-task-sub{font-size:11px;color:var(--mid);font-style:italic;}
+.d-task-name.overdue{color:var(--terra);}
+.d-task-sub{font-size:11px;color:var(--mid-a);font-style:italic;}
 .d-task-date{font-size:11px;font-weight:500;flex-shrink:0;white-space:nowrap;}
 .d-task-date.overdue{color:var(--terra);}
 .d-task-date.due-soon{color:var(--ap-dk);}
-.d-task-date.neutral{color:var(--mid);}
+.d-task-date.neutral{color:var(--mid-a);}
 
 /* Paused task cards */
 .d-task.paused{opacity:0.45;}
@@ -96,7 +97,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
   padding:0 28px;text-align:center;
 }
 .d-empty-h{font-family:'DM Serif Display',Georgia,serif;font-size:22px;line-height:1.2;color:var(--ink);margin-bottom:8px;}
-.d-empty-sub{font-size:13px;font-style:italic;color:var(--mid);line-height:1.5;}
+.d-empty-sub{font-size:13px;font-style:italic;color:var(--mid-a);line-height:1.5;}
 
 /* All done state */
 .d-done{
@@ -105,7 +106,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
   padding:0 28px;text-align:center;
 }
 .d-done-h{font-family:'DM Serif Display',Georgia,serif;font-size:22px;font-style:italic;line-height:1.2;color:var(--ink);margin-bottom:8px;}
-.d-done-sub{font-size:12px;color:var(--mid);line-height:1.5;}
+.d-done-sub{font-size:12px;color:var(--mid-a);line-height:1.5;}
 
 /* Digest nudge card */
 .d-digest{
@@ -118,7 +119,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
   position:relative;
 }
 .d-digest-title{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:4px;}
-.d-digest-sub{font-size:11px;color:var(--mid);line-height:1.4;margin-bottom:10px;}
+.d-digest-sub{font-size:11px;color:var(--mid-a);line-height:1.4;margin-bottom:10px;}
 .d-digest-cta{
   display:inline-flex;align-items:center;gap:4px;
   font-size:11px;font-weight:500;color:var(--cta);
@@ -154,7 +155,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
     Design hub
   </a>
   <span class="nav-sep">/</span>
-  <span class="nav-title">S-09 — Dashboard</span>
+  <span class="nav-title">S-09 · Dashboard</span>
   <span class="nav-status ready">Ready for dev</span>
 </nav>
 
@@ -215,21 +216,30 @@ body{background:#CBC5BB;padding:0 0 80px;}
 
           <!-- Scrollable content -->
           <div class="d-content">
-            <div class="d-sec">This week</div>
+            <div class="d-sec">Overdue</div>
             <div class="d-tasks">
-              <!-- Task 1: Boiler service (due soon) -->
+              <!-- Task 0: Overdue boiler service -->
               <div class="d-task">
                 <div class="ci ci-h">
                   <svg viewBox="0 0 256 256"><rect x="48" y="32" width="160" height="192" rx="16" fill="none"/><circle cx="128" cy="160" r="24" fill="none"/><line x1="128" y1="80" x2="128" y2="96"/></svg>
                 </div>
                 <div class="d-task-info">
-                  <div class="d-task-name">Annual boiler service</div>
+                  <div class="d-task-name overdue">Annual boiler service</div>
                   <div class="d-task-sub">CV ketel, yearly</div>
                 </div>
-                <div class="d-task-date due-soon">Oct 28</div>
+                <div class="d-task-date overdue">Oct 28</div>
               </div>
+            </div>
 
-              <!-- Task 2: Dishwasher filter -->
+            <!-- Gesture hint (below first overdue task) -->
+            <div class="d-gesture">
+              <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 4h9M7 1.5L10 4L7 6.5" stroke="#6B6358" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>swipe right to complete</span>
+            </div>
+
+            <div class="d-sec">This week</div>
+            <div class="d-tasks">
+              <!-- Task 1: Dishwasher filter (due soon) -->
               <div class="d-task">
                 <div class="ci ci-h">
                   <svg viewBox="0 0 256 256"><path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8,8,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8,8,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z" fill="none"/></svg>
@@ -238,10 +248,10 @@ body{background:#CBC5BB;padding:0 0 80px;}
                   <div class="d-task-name">Clean dishwasher filter</div>
                   <div class="d-task-sub">Dishwasher, every 6-8 wks</div>
                 </div>
-                <div class="d-task-date neutral">Nov 8</div>
+                <div class="d-task-date due-soon">Nov 4</div>
               </div>
 
-              <!-- Task 3: CO detector -->
+              <!-- Task 2: CO detector -->
               <div class="d-task">
                 <div class="ci ci-h">
                   <svg viewBox="0 0 256 256"><rect x="48" y="32" width="160" height="192" rx="16" fill="none"/><circle cx="128" cy="160" r="24" fill="none"/><line x1="128" y1="80" x2="128" y2="96"/></svg>
@@ -253,12 +263,6 @@ body{background:#CBC5BB;padding:0 0 80px;}
                 <div class="d-task-date neutral">Nov 15</div>
               </div>
             </div>
-
-            <!-- Gesture hint -->
-            <div class="d-gesture">
-              <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 4h9M7 1.5L10 4L7 6.5" stroke="#6B6358" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <span>swipe right to complete</span>
-            </div>
           </div>
         </div>
 
@@ -267,12 +271,12 @@ body{background:#CBC5BB;padding:0 0 80px;}
           <div class="tab-bar" style="flex:1;">
             <!-- Tasks (active) -->
             <div class="tab-item active">
-              <svg viewBox="0 0 256 256"><rect x="40" y="24" width="176" height="208" rx="16" fill="none"/><line x1="88" y1="88" x2="168" y2="88"/><line x1="88" y1="128" x2="168" y2="128"/><line x1="88" y1="168" x2="144" y2="168"/></svg>
+              <svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2" fill="none"/><line x1="16" y1="3" x2="16" y2="7"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="4" y1="11" x2="20" y2="11"/></svg>
               <span class="tab-label">Tasks</span>
             </div>
             <!-- Ask (inactive) -->
             <div class="tab-item">
-              <svg viewBox="0 0 256 256"><path d="M128,24A104,104,0,0,0,36.8,178.4L24.3,222.2a8,8,0,0,0,9.5,9.5l43.8-12.5A104,104,0,1,0,128,24Z" fill="none"/></svg>
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" fill="none"/><circle cx="12" cy="17" r="0.5"/></svg>
               <span class="tab-label">Ask</span>
             </div>
             <!-- Profile (inactive) -->
@@ -329,11 +333,11 @@ body{background:#CBC5BB;padding:0 0 80px;}
         <div class="d-bottom">
           <div class="tab-bar" style="flex:1;">
             <div class="tab-item active">
-              <svg viewBox="0 0 256 256"><rect x="40" y="24" width="176" height="208" rx="16" fill="none"/><line x1="88" y1="88" x2="168" y2="88"/><line x1="88" y1="128" x2="168" y2="128"/><line x1="88" y1="168" x2="144" y2="168"/></svg>
+              <svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2" fill="none"/><line x1="16" y1="3" x2="16" y2="7"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="4" y1="11" x2="20" y2="11"/></svg>
               <span class="tab-label">Tasks</span>
             </div>
             <div class="tab-item">
-              <svg viewBox="0 0 256 256"><path d="M128,24A104,104,0,0,0,36.8,178.4L24.3,222.2a8,8,0,0,0,9.5,9.5l43.8-12.5A104,104,0,1,0,128,24Z" fill="none"/></svg>
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" fill="none"/><circle cx="12" cy="17" r="0.5"/></svg>
               <span class="tab-label">Ask</span>
             </div>
             <div class="tab-item">
@@ -464,11 +468,11 @@ body{background:#CBC5BB;padding:0 0 80px;}
         <div class="d-bottom">
           <div class="tab-bar" style="flex:1;">
             <div class="tab-item active">
-              <svg viewBox="0 0 256 256"><rect x="40" y="24" width="176" height="208" rx="16" fill="none"/><line x1="88" y1="88" x2="168" y2="88"/><line x1="88" y1="128" x2="168" y2="128"/><line x1="88" y1="168" x2="144" y2="168"/></svg>
+              <svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2" fill="none"/><line x1="16" y1="3" x2="16" y2="7"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="4" y1="11" x2="20" y2="11"/></svg>
               <span class="tab-label">Tasks</span>
             </div>
             <div class="tab-item">
-              <svg viewBox="0 0 256 256"><path d="M128,24A104,104,0,0,0,36.8,178.4L24.3,222.2a8,8,0,0,0,9.5,9.5l43.8-12.5A104,104,0,1,0,128,24Z" fill="none"/></svg>
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" fill="none"/><circle cx="12" cy="17" r="0.5"/></svg>
               <span class="tab-label">Ask</span>
             </div>
             <div class="tab-item">
@@ -540,11 +544,11 @@ body{background:#CBC5BB;padding:0 0 80px;}
         <div class="d-bottom">
           <div class="tab-bar" style="flex:1;">
             <div class="tab-item active">
-              <svg viewBox="0 0 256 256"><rect x="40" y="24" width="176" height="208" rx="16" fill="none"/><line x1="88" y1="88" x2="168" y2="88"/><line x1="88" y1="128" x2="168" y2="128"/><line x1="88" y1="168" x2="144" y2="168"/></svg>
+              <svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2" fill="none"/><line x1="16" y1="3" x2="16" y2="7"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="4" y1="11" x2="20" y2="11"/></svg>
               <span class="tab-label">Tasks</span>
             </div>
             <div class="tab-item">
-              <svg viewBox="0 0 256 256"><path d="M128,24A104,104,0,0,0,36.8,178.4L24.3,222.2a8,8,0,0,0,9.5,9.5l43.8-12.5A104,104,0,1,0,128,24Z" fill="none"/></svg>
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" fill="none"/><circle cx="12" cy="17" r="0.5"/></svg>
               <span class="tab-label">Ask</span>
             </div>
             <div class="tab-item">
@@ -654,11 +658,11 @@ body{background:#CBC5BB;padding:0 0 80px;}
         <div class="d-bottom">
           <div class="tab-bar" style="flex:1;">
             <div class="tab-item active">
-              <svg viewBox="0 0 256 256"><rect x="40" y="24" width="176" height="208" rx="16" fill="none"/><line x1="88" y1="88" x2="168" y2="88"/><line x1="88" y1="128" x2="168" y2="128"/><line x1="88" y1="168" x2="144" y2="168"/></svg>
+              <svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2" fill="none"/><line x1="16" y1="3" x2="16" y2="7"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="4" y1="11" x2="20" y2="11"/></svg>
               <span class="tab-label">Tasks</span>
             </div>
             <div class="tab-item">
-              <svg viewBox="0 0 256 256"><path d="M128,24A104,104,0,0,0,36.8,178.4L24.3,222.2a8,8,0,0,0,9.5,9.5l43.8-12.5A104,104,0,1,0,128,24Z" fill="none"/></svg>
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" fill="none"/><circle cx="12" cy="17" r="0.5"/></svg>
               <span class="tab-label">Ask</span>
             </div>
             <div class="tab-item">
@@ -694,7 +698,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
           Settings icon
         </div>
         <div class="annot-body">
-          <code>PhosphorIcons.faders</code>, never GearSix. 16px icon in a 34x34px tappable container (meets 44px minimum when including padding). <code>colorMidAccessible #6B6358</code> stroke. Top-right of greeting row.
+          <code>PhosphorIcons.faders</code>, never GearSix. 16px icon in a 44x44px tappable container (meets 44px minimum tap target). <code>colorMidAccessible #6B6358</code> stroke. Top-right of greeting row.
         </div>
       </div>
 
@@ -716,7 +720,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
           Card anatomy
         </div>
         <div class="annot-body">
-          White card on cream, <strong>8px gap</strong> (dashboard uses 8px, onboarding uses 6px). Each card: category icon chip (28x28, category-colored bg, Phosphor outline) + task name (13px DM Sans 500) + item/cadence subtitle (11px italic colorMid) + date label right-aligned. No left border accent lines, ever. Status lives in date label color only.
+          White card on cream, <strong>8px gap</strong> (dashboard uses 8px, onboarding uses 6px). Each card: category icon chip (28x28, category-colored bg, Phosphor outline) + task name (13px DM Sans 500) + item/cadence subtitle (11px italic colorMidAccessible) + date label right-aligned. No left border accent lines, ever. Status lives in date label color only.
         </div>
       </div>
 
@@ -729,7 +733,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
           <ul>
             <li><strong>Overdue:</strong> <code>colorTerra #C4503A</code></li>
             <li><strong>Due soon</strong> (within 7 days): <code>colorApricotDk #C8784A</code></li>
-            <li><strong>Normal:</strong> <code>colorMid #8A8070</code></li>
+            <li><strong>Normal:</strong> <code>colorMidAccessible #6B6358</code></li>
           </ul>
         </div>
       </div>
@@ -817,6 +821,16 @@ body{background:#CBC5BB;padding:0 0 80px;}
   <!-- CHANGELOG -->
   <div class="changelog">
     <div class="cl-title">Changelog</div>
+
+    <div class="cl-entry">
+      <div class="cl-ver">v2.1 · 2026-03-26 · BREAKING</div>
+      <div class="cl-body"><strong>colorMid replaced with colorMidAccessible on all functional text</strong> (greeting sub, task sub, date neutral, empty sub, done sub, digest sub). Flutter: change Color references from colorMid to colorMidAccessible.</div>
+      <div class="cl-body"><strong>Tab icons: CalendarBlank replaces notepad, ChatCircleQuestion replaces plain bubble.</strong> Flutter: update PhosphorIcons references.</div>
+      <div class="cl-body"><strong>Settings tap target: 34px to 44px.</strong> Flutter: wrap in SizedBox(width:44, height:44).</div>
+      <div class="cl-body"><strong>Added overdue task example to default state.</strong> "Annual boiler service" in colorTerra above due-soon tasks, with separate "Overdue" section label.</div>
+      <div class="cl-body"><strong>Gesture hint repositioned below first overdue task</strong> instead of below all task cards.</div>
+      <div class="cl-body"><strong>Nav title em dash replaced with middle dot.</strong></div>
+    </div>
 
     <div class="cl-entry">
       <div class="cl-ver">v1.0 · 2026-03-26 · NEW</div>
