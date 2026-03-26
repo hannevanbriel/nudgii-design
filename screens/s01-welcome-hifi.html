@@ -266,6 +266,13 @@ body{background:#CBC5BB;padding:0 0 80px;}
       <div class="cl-body"><strong>"Something else" row added.</strong> Dashed border, plus icon, "browse all items" link. Gentle path to discovery without a third button.</div>
     </div>
 
+    <div class="cl-entry">
+      <div class="cl-ver">v3.1 · 2026-03-26 · BREAKING</div>
+      <div class="cl-body"><strong>Category strip removed.</strong> The row of category pills (Home, Vehicle, Garden, Subscriptions) is gone. Screen was too busy. Category context is already visible in each task row's subtitle line. Flutter: remove the <code>cat-strip</code> widget entirely from S-01. Component stays in S-03 and S-09.</div>
+      <div class="cl-body"><strong>Subtitle changed.</strong> "We remind you before things break, expire, or get too late." replaces "Add what you own. We'll remind you when it matters." Explains the why (prevent problems) not the how (add items). Flutter: update the <code>promise-line</code> text string.</div>
+      <div class="cl-body"><strong>Badge text changed.</strong> "Set up in 2 minutes" replaces "Ready in 2 minutes". Action-oriented framing (user takes action) vs passive. Flutter: update the <code>ready-badge</code> text string.</div>
+    </div>
+
     <div class="cl-flutter">
       <div class="cl-flutter-head">Standard Flutter implementation block · S-01</div>
       <div class="cl-flutter-body">
