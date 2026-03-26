@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · S-05 Celebration · Flutter spec</title>
+<link rel="stylesheet" href="../system/components.css">
+<style>
+body{background:#CBC5BB;padding:0 0 80px;}
+
+/* Spec sections */
+.spec{max-width:860px;margin:0 auto;padding:0 28px;}
+.spec h2{font-family:'DM Serif Display',Georgia,serif;font-size:22px;color:var(--ink);margin:40px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border-md);}
+.spec h3{font-size:13px;font-weight:600;color:var(--ink);margin:24px 0 8px;letter-spacing:-0.2px;}
+.spec p,.spec li{font-size:12px;color:var(--ink);line-height:1.65;}
+.spec ul{margin:0 0 12px 18px;}
+.spec li{margin-bottom:4px;}
+.spec strong{font-weight:600;}
+.spec em{font-style:italic;color:var(--mid-a);}
+
+/* Code blocks */
+.spec pre{background:var(--ink);color:#E8E0D6;font-size:11px;line-height:1.55;padding:14px 16px;border-radius:8px;overflow-x:auto;margin:8px 0 16px;font-family:'SF Mono','Fira Code',monospace;}
+.spec code{font-family:'SF Mono','Fira Code',monospace;font-size:11px;}
+.spec p code,.spec li code{background:rgba(26,22,18,0.06);padding:1px 5px;border-radius:3px;color:var(--terra);}
+
+/* Color swatch rows */
+.swatch-row{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 16px;}
+.swatch{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--ink);font-family:'SF Mono',monospace;}
+.swatch-dot{width:16px;height:16px;border-radius:4px;border:0.5px solid rgba(26,22,18,0.12);flex-shrink:0;}
+
+/* Timeline table */
+.timeline-table{width:100%;border-collapse:collapse;margin:8px 0 20px;font-size:11px;}
+.timeline-table th{text-align:left;font-weight:600;font-size:10px;letter-spacing:0.5px;text-transform:uppercase;color:var(--mid-a);padding:6px 10px;border-bottom:1px solid var(--border-md);}
+.timeline-table td{padding:6px 10px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--ink);}
+.timeline-table td:first-child{font-family:'SF Mono',monospace;white-space:nowrap;color:var(--cta);font-weight:500;}
+
+/* Mapping table */
+.map-table{width:100%;border-collapse:collapse;margin:8px 0 20px;font-size:11px;}
+.map-table th{text-align:left;font-weight:600;font-size:10px;letter-spacing:0.5px;text-transform:uppercase;color:var(--mid-a);padding:6px 10px;border-bottom:1px solid var(--border-md);}
+.map-table td{padding:6px 10px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--ink);}
+.map-table code{font-size:10px;}
+
+/* Edge case cards */
+.edge-case{background:var(--surface);border:0.5px solid var(--border-md);border-radius:8px;padding:12px 14px;margin:6px 0;}
+.edge-case-title{font-size:11px;font-weight:600;color:var(--ink);margin-bottom:4px;}
+.edge-case-body{font-size:11px;color:var(--mid-a);line-height:1.5;}
+
+/* Summary card */
+.summary-card{background:var(--surface);border:0.5px solid var(--border-md);border-radius:10px;padding:16px 18px;margin:12px 0 20px;}
+.summary-card h4{font-size:11px;font-weight:600;margin-bottom:8px;color:var(--cta);}
+.summary-card p{font-size:11px;line-height:1.6;color:var(--ink);}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-back" href="../index.html">
+    <svg width="16" height="18" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:2px;">
+      <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
+      <path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
+      <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
+    </svg>
+    Design hub
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">S-05 Celebration, Flutter spec</span>
+  <span class="nav-status progress">Dev handoff</span>
+</nav>
+
+<div class="spec">
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>1. Screen overview</h2>
+
+<div class="summary-card">
+  <h4>What this screen does</h4>
+  <p>S-05 is a two-state screen. <strong>State 1</strong> shows the user's generated maintenance schedule (the AHA moment). When the user taps "That's it. I'm done.", the screen transitions to <strong>State 2</strong>: a full-screen celebration on a plum background with confetti, the ii mark, a headline, and a reminder pill. After 3.5 seconds, a sign-in bottom sheet slides up from below.</p>
+</div>
+
+<ul>
+  <li><strong>Source prototype:</strong> <a href="s05-celebration-prototype.html">s05-celebration-prototype.html</a></li>
+  <li><strong>Progress bar fill:</strong> 80% in State 1, animates to 85% when celebration starts</li>
+  <li><strong>No back button.</strong> Forward-only flow. iOS swipe-back gesture handles navigation.</li>
+  <li><strong>No tab bar.</strong> This is an onboarding screen.</li>
+</ul>
+
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>2. Animation timeline</h2>
+
+<p>All timings are measured from the moment the user taps the CTA button. The orchestration uses a single <code>AnimationController</code> for the celebration sequence (0-900ms), then a delayed <code>Future</code> for the bottom sheet at 3500ms.</p>
+
+<table class="timeline-table">
+  <thead>
+    <tr><th>Delay</th><th>Duration</th><th>Element</th><th>Animation</th><th>Curve</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0ms</td>
+      <td>100ms</td>
+      <td>CTA button</td>
+      <td>Press: scale(0.97), bg to #7D62B3</td>
+      <td>ease-out</td>
+    </tr>
+    <tr>
+      <td>150ms</td>
+      <td>400ms</td>
+      <td>Background</td>
+      <td>Cream (#F5F0E8) to plum (#2D1F4A)</td>
+      <td>ease-in-out</td>
+    </tr>
+    <tr>
+      <td>150ms</td>
+      <td>300ms</td>
+      <td>State 1 content</td>
+      <td>Opacity 1 to 0, pointer-events: none</td>
+      <td>ease-out</td>
+    </tr>
+    <tr>
+      <td>150ms</td>
+      <td>500ms</td>
+      <td>Progress bar</td>
+      <td>Fill width 80% to 85%, track color lightens</td>
+      <td>ease-in-out</td>
+    </tr>
+    <tr>
+      <td>150ms</td>
+      <td>400ms</td>
+      <td>Status bar text</td>
+      <td>Ink to rgba(245,240,232,0.7)</td>
+      <td>ease-in-out</td>
+    </tr>
+    <tr>
+      <td>250ms</td>
+      <td>staggered</td>
+      <td>Confetti (40 pcs)</td>
+      <td>Each piece delayed +30ms from previous</td>
+      <td>ease-in (fall), ease-in-out (sway)</td>
+    </tr>
+    <tr>
+      <td>400ms</td>
+      <td>500ms</td>
+      <td>ii mark</td>
+      <td>Scale 0.3 to 1 with overshoot (0 to 1.12 to 0.95 to 1), opacity 0 to 1</td>
+      <td>cubic-bezier(0.34, 1.56, 0.64, 1)</td>
+    </tr>
+    <tr>
+      <td>550ms</td>
+      <td>300ms</td>
+      <td>Eyebrow text</td>
+      <td>Opacity 0 to 1</td>
+      <td>ease-out</td>
+    </tr>
+    <tr>
+      <td>650ms</td>
+      <td>350ms</td>
+      <td>Headline</td>
+      <td>Opacity 0 to 1 + translateY 16px to 0</td>
+      <td>ease-out</td>
+    </tr>
+    <tr>
+      <td>800ms</td>
+      <td>250ms</td>
+      <td>Subtitle</td>
+      <td>Opacity 0 to 1</td>
+      <td>ease-out</td>
+    </tr>
+    <tr>
+      <td>900ms</td>
+      <td>300ms</td>
+      <td>Reminder pill</td>
+      <td>Opacity 0 to 1</td>
+      <td>ease-out</td>
+    </tr>
+    <tr>
+      <td>3500ms</td>
+      <td>250ms</td>
+      <td>Scrim</td>
+      <td>Background rgba(0,0,0,0) to rgba(0,0,0,0.25)</td>
+      <td>ease-out</td>
+    </tr>
+    <tr>
+      <td>3500ms</td>
+      <td>350ms</td>
+      <td>Bottom sheet</td>
+      <td>translateY(100%) to translateY(0)</td>
+      <td>ease-out</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>3. CSS to Flutter mapping</h2>
+
+<table class="map-table">
+  <thead>
+    <tr><th>CSS (prototype)</th><th>Flutter equivalent</th><th>Notes</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>transition: background-color 400ms ease-in-out</code></td>
+      <td><code>AnimatedContainer</code> with <code>duration: Duration(milliseconds: 400)</code>, <code>curve: Curves.easeInOut</code></td>
+      <td>Background color change from cream to plum</td>
+    </tr>
+    <tr>
+      <td><code>transition: opacity 300ms ease-out</code></td>
+      <td><code>AnimatedOpacity</code> or <code>FadeTransition</code> with controller</td>
+      <td>Used for State 1 fade-out and all celebration element fade-ins</td>
+    </tr>
+    <tr>
+      <td><code>cubic-bezier(0.34, 1.56, 0.64, 1)</code></td>
+      <td><code>Cubic(0.34, 1.56, 0.64, 1)</code></td>
+      <td>Spring curve for ii mark. Do NOT use <code>Curves.elasticOut</code>, it overshoots too much. Use the exact cubic.</td>
+    </tr>
+    <tr>
+      <td><code>@keyframes spring-in { scale 0.3 to 1.12 to 0.95 to 1 }</code></td>
+      <td><code>ScaleTransition</code> with <code>AnimationController</code> + <code>CurvedAnimation(curve: Cubic(0.34, 1.56, 0.64, 1))</code></td>
+      <td>The cubic-bezier naturally produces the overshoot; no need for manual keyframe stops</td>
+    </tr>
+    <tr>
+      <td><code>transform: translateY(16px)</code> + opacity</td>
+      <td><code>SlideTransition</code> + <code>FadeTransition</code> or <code>AnimatedSlide</code> + <code>AnimatedOpacity</code></td>
+      <td>Headline entrance: slides up 16px while fading in</td>
+    </tr>
+    <tr>
+      <td><code>@keyframes confetti-fall</code></td>
+      <td><code>CustomPainter</code> or positioned <code>Container</code> widgets with individual <code>AnimationController</code>s</td>
+      <td>40 pieces, each with random parameters. See confetti section below.</td>
+    </tr>
+    <tr>
+      <td><code>@keyframes sheet-up { translateY(100%) to translateY(0) }</code></td>
+      <td><code>showModalBottomSheet</code> or manual <code>SlideTransition</code> with <code>Offset(0, 1) to Offset(0, 0)</code></td>
+      <td>Bottom sheet slide-up animation</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>4. Flutter implementation</h2>
+
+<h3>4.1 Screen shell</h3>
+
+<pre>
+// S-05 uses the standard onboarding shell but with TWO states
+// stacked in a Stack widget instead of a single content zone.
+
+class CelebrationScreen extends StatefulWidget {
+  final List&lt;TaskItem&gt; scheduledTasks; // from S-04 review
+  const CelebrationScreen({super.key, required this.scheduledTasks});
+
+  @override
+  State&lt;CelebrationScreen&gt; createState() =&gt; _CelebrationScreenState();
+}
+
+class _CelebrationScreenState extends State&lt;CelebrationScreen&gt;
+    with TickerProviderStateMixin {
+
+  bool _isCelebrating = false;
+  bool _showSheet = false;
+
+  // Master celebration controller (0ms to 900ms mapped to 0.0-1.0)
+  late final AnimationController _celebrationController;
+  // Confetti controllers (one per piece, or use CustomPainter)
+  // Sheet controller
+  late final AnimationController _sheetController;
+
+  @override
+  void initState() {
+    super.initState();
+    _celebrationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 900),
+    );
+    _sheetController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 350),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: _isCelebrating ? colorPlum : colorCream,
+      body: SafeArea(
+        top: false,
+        child: Column(
+          children: [
+            // Progress bar (outside SafeArea, full-width)
+            _buildProgressBar(),
+            Expanded(
+              child: Stack(
+                children: [
+                  // State 1: schedule reveal
+                  _buildState1(),
+                  // State 2: celebration (always mounted, hidden until triggered)
+                  _buildState2(),
+                  // Confetti layer
+                  _buildConfettiLayer(),
+                  // Scrim
+                  _buildScrim(),
+                  // Bottom sheet
+                  _buildBottomSheet(),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _celebrationController.dispose();
+    _sheetController.dispose();
+    super.dispose();
+  }
+}
+</pre>
+
+
+<h3>4.2 Background color transition</h3>
+
+<pre>
+// Use AnimatedContainer on the Scaffold body, or wrap in TweenAnimationBuilder.
+// The transition is 400ms ease-in-out, triggered when _isCelebrating flips.
+
+AnimatedContainer(
+  duration: const Duration(milliseconds: 400),
+  curve: Curves.easeInOut,
+  color: _isCelebrating ? colorPlum : colorCream,
+  child: /* ... */,
+)
+
+// Color tokens
+const colorCream = Color(0xFFF5F0E8);
+const colorPlum  = Color(0xFF2D1F4A);
+</pre>
+
+
+<h3>4.3 State 1 fade-out</h3>
+
+<pre>
+// State 1 fades out over 300ms ease-out, starting at 150ms delay.
+// Use AnimatedOpacity + IgnorePointer when invisible.
+
+AnimatedOpacity(
+  opacity: _isCelebrating ? 0.0 : 1.0,
+  duration: const Duration(milliseconds: 300),
+  curve: Curves.easeOut,
+  child: IgnorePointer(
+    ignoring: _isCelebrating,
+    child: _buildScheduleContent(),
+  ),
+)
+</pre>
+
+
+<h3>4.4 ii mark spring scale</h3>
+
+<pre>
+// The ii mark scales from 0.3 to 1.0 with a spring overshoot.
+// Curve: Cubic(0.34, 1.56, 0.64, 1) -- this IS the spring.
+// Duration: 500ms. Delay: 400ms from trigger.
+
+// Define the curve
+const iiMarkSpringCurve = Cubic(0.34, 1.56, 0.64, 1);
+
+// In the celebration controller, the ii mark starts at interval 400/900 = 0.44
+// and ends at 900/900 = 1.0 (500ms of the 900ms total).
+
+late final Animation&lt;double&gt; _iiScale = Tween&lt;double&gt;(
+  begin: 0.3,
+  end: 1.0,
+).animate(CurvedAnimation(
+  parent: _celebrationController,
+  curve: const Interval(
+    0.44,  // 400ms / 900ms
+    1.0,   // 900ms / 900ms
+    curve: Cubic(0.34, 1.56, 0.64, 1),
+  ),
+));
+
+late final Animation&lt;double&gt; _iiOpacity = Tween&lt;double&gt;(
+  begin: 0.0,
+  end: 1.0,
+).animate(CurvedAnimation(
+  parent: _celebrationController,
+  curve: const Interval(0.44, 0.72, curve: Curves.easeOut),
+));
+
+// In the build method:
+FadeTransition(
+  opacity: _iiOpacity,
+  child: ScaleTransition(
+    scale: _iiScale,
+    child: SvgPicture.asset(
+      'assets/ii_logo_light_on_dark_bg.svg',
+      width: 48,
+      height: 54,
+    ),
+  ),
+)
+</pre>
+
+
+<h3>4.5 Headline entrance (fade + slide)</h3>
+
+<pre>
+// Headline: opacity 0 to 1 + translateY 16px to 0.
+// Duration: 350ms ease-out. Delay: 650ms from trigger.
+
+// Using Interval within the 900ms controller:
+// Start: 650/900 = 0.72, End: (650+350)/900 = 1.0
+
+late final Animation&lt;double&gt; _headlineOpacity = Tween&lt;double&gt;(
+  begin: 0.0,
+  end: 1.0,
+).animate(CurvedAnimation(
+  parent: _celebrationController,
+  curve: const Interval(0.72, 1.0, curve: Curves.easeOut),
+));
+
+late final Animation&lt;Offset&gt; _headlineSlide = Tween&lt;Offset&gt;(
+  begin: const Offset(0, 0.15),  // ~16px downward
+  end: Offset.zero,
+).animate(CurvedAnimation(
+  parent: _celebrationController,
+  curve: const Interval(0.72, 1.0, curve: Curves.easeOut),
+));
+
+// Build:
+SlideTransition(
+  position: _headlineSlide,
+  child: FadeTransition(
+    opacity: _headlineOpacity,
+    child: Text(
+      'Your boiler is relieved.',
+      style: GoogleFonts.dmSerifDisplay(
+        fontSize: 26,
+        fontStyle: FontStyle.italic,
+        height: 1.05,
+        color: colorApricot,
+      ),
+      textAlign: TextAlign.center,
+    ),
+  ),
+)
+</pre>
+
+
+<h3>4.6 Confetti system</h3>
+
+<pre>
+// 40 confetti pieces. Each has:
+// - Random horizontal position (5%-95% of width)
+// - Random size (3-9px width, 6-18px height for rects, square for circles)
+// - Random color from category palette
+// - Random fall distance (500-800px)
+// - Random fall duration (2.5-5.0s)
+// - Random spin (180-720 deg)
+// - Random horizontal sway
+// - Staggered start: piece[i] starts at 250ms + i*30ms
+
+// Recommended approach: CustomPainter with a list of ConfettiParticle objects.
+
+class ConfettiParticle {
+  final double x;         // 0.05 to 0.95 (fraction of width)
+  final double width;
+  final double height;
+  final Color color;
+  final bool isCircle;
+  final double fallDistance;
+  final double fallDuration; // seconds
+  final double spin;         // radians
+  final double swayAmount;
+  final double swayDuration;
+  final double opacity;      // 0.6 to 0.95
+  final double delay;        // seconds from confetti start
+}
+
+// Colors (all 13 from prototype):
+const confettiColors = [
+  Color(0xFFC87850),  // home warm
+  Color(0xFFD4956A),  // home warm light
+  Color(0xFF9B7FD4),  // cta purple
+  Color(0xFFB49EE0),  // cta purple light
+  Color(0xFF5A9060),  // garden green
+  Color(0xFF7AAC7E),  // garden green light
+  Color(0xFF4A82A0),  // vehicle blue
+  Color(0xFF6BA0B8),  // vehicle blue light
+  Color(0xFFE8A87C),  // apricot
+  Color(0xFFF0C4A0),  // apricot light
+  Color(0xFF8060A8),  // subscription purple
+  Color(0xFFA080C0),  // subscription purple light
+  Color(0xFFF5F0E8),  // cream
+];
+
+// Shape distribution: 60% rectangles, 40% circles (matching prototype ratio)
+
+// Each particle animation:
+// - Fall: translateY from -20px to fallDistance, ease-in, duration = fallDuration
+// - Appear: opacity 0 to target at 8% of fall duration, then 0 at 100%
+// - Sway: margin-left oscillation, ease-in-out, looping
+// - Spin: continuous rotation, var degrees
+
+// CustomPainter approach:
+class ConfettiPainter extends CustomPainter {
+  final List&lt;ConfettiParticle&gt; particles;
+  final double progress; // 0.0 to 1.0 from AnimationController
+
+  ConfettiPainter({required this.particles, required this.progress});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    for (final p in particles) {
+      // Calculate individual progress based on stagger delay
+      final particleProgress = ((progress * 5.0) - p.delay).clamp(0.0, 1.0);
+      if (particleProgress &lt;= 0) continue;
+
+      // Fade: appear quickly, then fade out
+      double opacity;
+      if (particleProgress &lt; 0.08) {
+        opacity = (particleProgress / 0.08) * p.opacity;
+      } else {
+        opacity = p.opacity * (1.0 - particleProgress);
+      }
+      if (opacity &lt;= 0) continue;
+
+      // Position
+      final x = p.x * size.width + sin(particleProgress * pi * 2 / p.swayDuration) * p.swayAmount;
+      final y = -20 + particleProgress * p.fallDistance;
+
+      canvas.save();
+      canvas.translate(x, y);
+      canvas.rotate(particleProgress * p.spin);
+
+      final paint = Paint()
+        ..color = p.color.withOpacity(opacity)
+        ..style = PaintingStyle.fill;
+
+      if (p.isCircle) {
+        canvas.drawCircle(Offset.zero, p.width / 2, paint);
+      } else {
+        canvas.drawRRect(
+          RRect.fromRectAndRadius(
+            Rect.fromCenter(center: Offset.zero, width: p.width, height: p.height),
+            const Radius.circular(1),
+          ),
+          paint,
+        );
+      }
+      canvas.restore();
+    }
+  }
+
+  @override
+  bool shouldRepaint(ConfettiPainter oldDelegate) =&gt; oldDelegate.progress != progress;
+}
+</pre>
+
+<p>Use a separate <code>AnimationController</code> for confetti with a 5-second duration (longest piece fall = 5s). Start it at the 250ms mark.</p>
+
+
+<h3>4.7 Bottom sheet (sign-in)</h3>
+
+<pre>
+// The bottom sheet appears 3500ms after the celebration starts.
+// It slides up from translateY(100%) to translateY(0) over 350ms ease-out.
+// A scrim (rgba(0,0,0,0.25)) fades in simultaneously over 250ms.
+
+// Trigger with Future.delayed:
+void _startCelebration() {
+  setState(() =&gt; _isCelebrating = true);
+
+  // Start celebration animations after 150ms
+  Future.delayed(const Duration(milliseconds: 150), () {
+    _celebrationController.forward();
+    _confettiController.forward();
+  });
+
+  // Show bottom sheet after 3500ms
+  Future.delayed(const Duration(milliseconds: 3500), () {
+    if (!mounted) return;
+    setState(() =&gt; _showSheet = true);
+    _sheetController.forward();
+  });
+}
+
+// Scrim:
+AnimatedContainer(
+  duration: const Duration(milliseconds: 250),
+  curve: Curves.easeOut,
+  color: _showSheet ? Colors.black.withOpacity(0.25) : Colors.transparent,
+)
+
+// Sheet slide:
+SlideTransition(
+  position: Tween&lt;Offset&gt;(
+    begin: const Offset(0, 1),  // off-screen below
+    end: Offset.zero,
+  ).animate(CurvedAnimation(
+    parent: _sheetController,
+    curve: Curves.easeOut,
+  )),
+  child: _buildSheetContent(),
+)
+</pre>
+
+
+<h3>4.8 Full orchestration</h3>
+
+<pre>
+// Complete timing map using Intervals on the 900ms controller.
+// Note: confetti and bottom sheet use separate controllers.
+
+// All Intervals (within 900ms controller):
+// State 1 fade:    0.17 - 0.50  (150ms start, 300ms dur)
+// ii mark scale:   0.44 - 1.00  (400ms start, 500ms dur)
+// ii mark opacity: 0.44 - 0.72
+// Eyebrow fade:    0.61 - 0.94  (550ms start, 300ms dur)
+// Headline fade:   0.72 - 1.00  (650ms start, 350ms dur)
+// Headline slide:  0.72 - 1.00
+// Subtitle fade:   0.89 - 1.00  (800ms start, but only ~100ms of range left)
+// Reminder fade:   1.00 - 1.00  (needs separate handling, see below)
+
+// IMPORTANT: Subtitle and Reminder extend beyond the 900ms controller.
+// Option A: Extend controller to 1200ms and recalculate intervals.
+// Option B: Use separate delayed AnimatedOpacity widgets for these two elements.
+
+// Recommended: Option B. Keep the controller at 900ms for the core animations,
+// and use simple delayed setState + AnimatedOpacity for subtitle and reminder:
+
+Future.delayed(const Duration(milliseconds: 950), () {
+  if (mounted) setState(() =&gt; _showSubtitle = true);
+});
+
+Future.delayed(const Duration(milliseconds: 1050), () {
+  if (mounted) setState(() =&gt; _showReminder = true);
+});
+
+// These use AnimatedOpacity with 250ms/300ms durations respectively.
+</pre>
+
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>5. Sign-in bottom sheet spec</h2>
+
+<h3>5.1 Layout</h3>
+
+<ul>
+  <li><strong>Trigger:</strong> Timer fires 3500ms after celebration starts (2600ms after celebration content is fully visible, giving the user time to read)</li>
+  <li><strong>Background:</strong> White (<code>#FFFFFF</code>)</li>
+  <li><strong>Border-radius:</strong> 20px 20px 0 0 (top corners only)</li>
+  <li><strong>Shadow:</strong> <code>0 -8px 30px rgba(0,0,0,0.20)</code></li>
+  <li><strong>Padding:</strong> 12px 24px 34px (34px bottom for safe area)</li>
+  <li><strong>Content alignment:</strong> Center-aligned, flex column</li>
+</ul>
+
+<h3>5.2 Content stack (top to bottom)</h3>
+
+<ul>
+  <li><strong>Handle bar:</strong> 32px wide, 3px tall, border-radius 100px, <code>rgba(26,22,18,0.12)</code>. Margin-bottom 20px.</li>
+  <li><strong>ii mark:</strong> Dark-on-light variant (CTA purple + plum + apricot dot). 20x22px. Margin-bottom 14px.</li>
+  <li><strong>Headline:</strong> "Save your schedule" in DM Serif Display, 22px, line-height 1.1, colorInk. Margin-bottom 5px.</li>
+  <li><strong>Subtitle:</strong> "Your data stays yours. We never share it." in 12px DM Sans italic, colorMid. Margin-bottom 24px.</li>
+  <li><strong>Apple button:</strong> 50px tall, pill radius, ink background, white text. "Continue with Apple" + Apple logo (16x19px, white).</li>
+  <li><strong>Google button:</strong> 48px tall, pill radius, white bg, 1px solid <code>rgba(26,22,18,0.16)</code> border, ink text. "Continue with Google" + Google logo (16x16px, 4-color). Margin: 10px below Apple.</li>
+  <li><strong>"Not now" link:</strong> 13px DM Sans, colorMid, no underline. 6px 12px padding for tap target. Margin: 16px below Google. Hover color: colorMidAccessible.</li>
+</ul>
+
+<h3>5.3 Scrim</h3>
+
+<ul>
+  <li>Covers the full screen behind the sheet</li>
+  <li>Color: <code>rgba(0,0,0,0.25)</code></li>
+  <li>Fades in over 250ms ease-out, simultaneous with sheet slide-up</li>
+  <li>Tapping scrim = same as tapping "Not now" (dismiss sheet, continue without account)</li>
+</ul>
+
+<h3>5.4 Dismiss behavior</h3>
+
+<pre>
+// "Not now" or scrim tap:
+// 1. Sheet slides down (reverse animation, 250ms)
+// 2. Scrim fades out (250ms)
+// 3. Navigate to S-06 (push permission screen)
+// User is NOT signed in. Dashboard greeting will say "Good morning, there."
+
+// Apple/Google SSO tap:
+// 1. Trigger native SSO flow (Sign in with Apple / Google Sign-In)
+// 2. On success: navigate to S-06 (push permission screen)
+// User IS signed in. Dashboard greeting will say "Good morning, [name]."
+// 3. On cancel/failure: sheet stays visible, no navigation
+</pre>
+
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>6. Color reference</h2>
+
+<h3>6.1 Celebration background</h3>
+<div class="swatch-row">
+  <div class="swatch"><div class="swatch-dot" style="background:#F5F0E8;"></div> #F5F0E8 colorCream (State 1)</div>
+  <div class="swatch"><div class="swatch-dot" style="background:#2D1F4A;"></div> #2D1F4A colorPlum (State 2)</div>
+</div>
+
+<h3>6.2 Celebration text</h3>
+<div class="swatch-row">
+  <div class="swatch"><div class="swatch-dot" style="background:rgba(245,240,232,0.40);border-color:rgba(245,240,232,0.5);"></div> rgba(245,240,232,0.40) Eyebrow text on plum</div>
+  <div class="swatch"><div class="swatch-dot" style="background:#E8A87C;"></div> #E8A87C colorApricot, headline on plum</div>
+  <div class="swatch"><div class="swatch-dot" style="background:rgba(245,240,232,0.50);border-color:rgba(245,240,232,0.6);"></div> rgba(245,240,232,0.50) Subtitle on plum</div>
+  <div class="swatch"><div class="swatch-dot" style="background:rgba(245,240,232,0.55);border-color:rgba(245,240,232,0.6);"></div> rgba(245,240,232,0.55) Reminder pill text on plum</div>
+  <div class="swatch"><div class="swatch-dot" style="background:rgba(245,240,232,0.28);border-color:rgba(245,240,232,0.4);"></div> rgba(245,240,232,0.28) Reminder sub-text on plum</div>
+</div>
+
+<h3>6.3 Confetti palette (13 colors)</h3>
+<div class="swatch-row">
+  <div class="swatch"><div class="swatch-dot" style="background:#C87850;"></div> #C87850</div>
+  <div class="swatch"><div class="swatch-dot" style="background:#D4956A;"></div> #D4956A</div>
+  <div class="swatch"><div class="swatch-dot" style="background:#9B7FD4;"></div> #9B7FD4</div>
+  <div class="swatch"><div class="swatch-dot" style="background:#B49EE0;"></div> #B49EE0</div>
+  <div class="swatch"><div class="swatch-dot" style="background:#5A9060;"></div> #5A9060</div>
+  <div class="swatch"><div class="swatch-dot" style="background:#7AAC7E;"></div> #7AAC7E</div>
+  <div class="swatch"><div class="swatch-dot" style="background:#4A82A0;"></div> #4A82A0</div>
+  <div class="swatch"><div class="swatch-dot" style="background:#6BA0B8;"></div> #6BA0B8</div>
+  <div class="swatch"><div class="swatch-dot" style="background:#E8A87C;"></div> #E8A87C</div>
+  <div class="swatch"><div class="swatch-dot" style="background:#F0C4A0;"></div> #F0C4A0</div>
+  <div class="swatch"><div class="swatch-dot" style="background:#8060A8;"></div> #8060A8</div>
+  <div class="swatch"><div class="swatch-dot" style="background:#A080C0;"></div> #A080C0</div>
+  <div class="swatch"><div class="swatch-dot" style="background:#F5F0E8;"></div> #F5F0E8</div>
+</div>
+
+<h3>6.4 Reminder pill</h3>
+<div class="swatch-row">
+  <div class="swatch"><div class="swatch-dot" style="background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.15);"></div> rgba(255,255,255,0.06) Pill background</div>
+  <div class="swatch"><div class="swatch-dot" style="background:rgba(255,255,255,0.10);border-color:rgba(255,255,255,0.2);"></div> rgba(255,255,255,0.10) Pill border</div>
+</div>
+
+<h3>6.5 Bottom sheet buttons</h3>
+<div class="swatch-row">
+  <div class="swatch"><div class="swatch-dot" style="background:#1A1612;"></div> #1A1612 Apple button bg (ink)</div>
+  <div class="swatch"><div class="swatch-dot" style="background:#FFFFFF;"></div> #FFFFFF Google button bg</div>
+  <div class="swatch"><div class="swatch-dot" style="background:rgba(26,22,18,0.16);"></div> rgba(26,22,18,0.16) Google button border</div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>7. State 1: schedule reveal layout</h2>
+
+<h3>7.1 Content</h3>
+
+<ul>
+  <li><strong>Eyebrow:</strong> "YOUR SCHEDULE IS READY" in 7px DM Sans 600, uppercase, letter-spacing 1.5px, colorCta. Margin-bottom 8px.</li>
+  <li><strong>Headline:</strong> "Here's what we figured out for you." in DM Serif Display 24px, line-height 1.05, letter-spacing -0.3px, colorInk. Margin-bottom 6px.</li>
+  <li><strong>Subline:</strong> "You told us what. We worked out when. Every time." in 12px DM Sans italic, colorMid, line-height 1.4. Margin-bottom 22px.</li>
+  <li><strong>Task cards:</strong> Individual white cards (standard item list spacing, 6px gap). Each card has: category chip (28x28px) + task name (13px/500) + task sub (10px, colorMidAccessible) + date label (10px/500, colorApricotDk).</li>
+  <li><strong>Sticky CTA:</strong> "That's it. I'm done." in standard CTA button (50px tall, pill, colorCta bg, colorCtaFg text). Padding: 16px 0 34px (34px includes safe area).</li>
+</ul>
+
+<h3>7.2 Task card structure</h3>
+
+<pre>
+// Each task card follows the standard item card pattern from the design system.
+Container(
+  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+  decoration: BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(10),
+    border: Border.all(color: const Color(0x141A1612), width: 0.5),
+    boxShadow: const [
+      BoxShadow(
+        color: Color(0x0A1A1612),
+        offset: Offset(0, 1),
+        blurRadius: 3,
+      ),
+    ],
+  ),
+  child: Row(
+    children: [
+      CategoryChip(category: task.category, size: 28),
+      const SizedBox(width: 11),
+      Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(task.name, style: /* 13px/500 ink */),
+            Text(task.subtitle, style: /* 10px colorMidAccessible */),
+          ],
+        ),
+      ),
+      Text(task.dueDate, style: /* 10px/500 colorApricotDk */),
+    ],
+  ),
+)
+</pre>
+
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>8. State 2: celebration layout</h2>
+
+<h3>8.1 Content stack (top to bottom, all center-aligned)</h3>
+
+<ul>
+  <li><strong>ii mark:</strong> Light-on-dark variant (cream + CTA purple + apricot dot). 48x54px. Margin-top 100px from content area top. Margin-bottom 20px.</li>
+  <li><strong>Eyebrow:</strong> "you're in" in 8px DM Sans 600, uppercase, letter-spacing 1.3px, <code>rgba(245,240,232,0.40)</code>. Margin-bottom 10px.</li>
+  <li><strong>Headline:</strong> "Your boiler is relieved." in DM Serif Display italic 26px, line-height 1.05, colorApricot (#E8A87C). Margin-bottom 8px.</li>
+  <li><strong>Subtitle:</strong> "We'll remind you when it matters." in 8.5px DM Sans italic, <code>rgba(245,240,232,0.50)</code>. Margin-bottom 28px.</li>
+  <li><strong>Reminder pill:</strong> Column: pill + sub-label.
+    <ul>
+      <li>Pill: <code>rgba(255,255,255,0.06)</code> bg, <code>rgba(255,255,255,0.10)</code> border, 100px radius, 7px 14px padding. "First reminder [dot] <strong>Oct 28</strong>" in 11px. Date portion in colorApricot, 500 weight.</li>
+      <li>Sub-label: "Annual boiler service" in 7px italic, <code>rgba(245,240,232,0.28)</code>.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3>8.2 Copy notes</h3>
+
+<ul>
+  <li>The headline is dynamic based on the user's first item. The prototype shows "Your boiler is relieved." because the first task is a boiler service. Substitute the item name contextually.</li>
+  <li>The reminder pill shows the first upcoming task date and name, pulled from the schedule data.</li>
+  <li>The eyebrow "you're in" confirms the user's commitment moment. Always lowercase.</li>
+</ul>
+
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>9. Edge cases</h2>
+
+<div class="edge-case">
+  <div class="edge-case-title">User taps during celebration (before sheet appears)</div>
+  <div class="edge-case-body">No action. The celebration is non-interactive. Taps on the plum area do nothing. The confetti layer has <code>pointer-events: none</code>. The user waits for the sheet to appear at 3500ms.</div>
+</div>
+
+<div class="edge-case">
+  <div class="edge-case-title">User taps "Not now" on sign-in sheet</div>
+  <div class="edge-case-body">Sheet slides down (reverse of slide-up, 250ms ease-in), scrim fades out. Navigate to S-06 (push permission). User is treated as anonymous. Dashboard greeting: "Good morning, there." Weekly digest prompt on dashboard will offer SSO sign-in bottom sheet (not email capture).</div>
+</div>
+
+<div class="edge-case">
+  <div class="edge-case-title">User taps scrim behind sheet</div>
+  <div class="edge-case-body">Same behavior as "Not now". Dismiss sheet, navigate forward.</div>
+</div>
+
+<div class="edge-case">
+  <div class="edge-case-title">Successful Apple/Google sign-in</div>
+  <div class="edge-case-body">SSO flow completes natively. On success callback: dismiss sheet, navigate to S-06 (push permission). User's name is now available. Dashboard greeting: "Good morning, Martijn." Set up Supabase Auth session.</div>
+</div>
+
+<div class="edge-case">
+  <div class="edge-case-title">SSO flow cancelled or failed</div>
+  <div class="edge-case-body">Sheet stays visible. If native SSO was cancelled by user, no error shown. If network error, show a toast (error style: red-lt background, red text, "Something went wrong. Try again.") positioned center-bottom, 14px above sheet bottom edge. Toast auto-dismisses after 2.5s.</div>
+</div>
+
+<div class="edge-case">
+  <div class="edge-case-title">iOS swipe-back gesture</div>
+  <div class="edge-case-body">If user swipes back during State 1 (before tapping CTA), navigate back to S-04 (review screen). If user swipes back during celebration or with sheet visible, block the gesture. The celebration is a forward-only moment.</div>
+</div>
+
+<div class="edge-case">
+  <div class="edge-case-title">Screen rotation or multitasking</div>
+  <div class="edge-case-body">Lock to portrait. nudgii does not support landscape on any screen.</div>
+</div>
+
+<div class="edge-case">
+  <div class="edge-case-title">App backgrounded during celebration</div>
+  <div class="edge-case-body">If the app is backgrounded and resumed: if the celebration had not completed, skip directly to the end state (all elements visible, sheet showing). Do not replay the animation. If the sheet was already visible, restore to that state.</div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>10. Standard Flutter implementation block</h2>
+
+<pre>
+Mockup base:    390px width (iPhone 15)
+SafeArea:       top=false for content, progress bar outside SafeArea
+Scroll:         SingleChildScrollView for State 1 task list only
+Bottom zone:    State 1: sticky CTA at bottom. State 2: no bottom zone (sheet is overlay)
+Progress bar:   Full width, 3px, outside SafeArea. 80% fill (State 1), 85% (celebrating)
+Scaling:        All visual elements x (screenWidth/390).clamp(0.9, 1.15)
+Special:        Two-state screen using Stack. Background color animated on Scaffold.
+                Confetti uses CustomPainter with separate AnimationController (5s).
+                Bottom sheet delayed by Future.delayed(3500ms), NOT part of main controller.
+                Block iOS swipe-back during celebration state.
+                Portrait lock required.
+</pre>
+
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>11. Confetti parameter reference</h2>
+
+<p>These values are extracted from the prototype's JavaScript <code>createConfetti()</code> function. Use them as the random ranges when generating particles.</p>
+
+<table class="map-table">
+  <thead>
+    <tr><th>Parameter</th><th>Range</th><th>Notes</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Count</td><td>40 pieces</td><td>Fixed</td></tr>
+    <tr><td>Horizontal position</td><td>5% to 95% of screen width</td><td><code>Random().nextDouble() * 0.9 + 0.05</code></td></tr>
+    <tr><td>Width (rect)</td><td>3px to 7px</td><td><code>3 + random * 4</code></td></tr>
+    <tr><td>Height (rect)</td><td>width * 2 to width * 3.5</td><td><code>width * (2 + random * 1.5)</code></td></tr>
+    <tr><td>Width (circle)</td><td>4px to 9px</td><td><code>4 + random * 5</code>, height = width</td></tr>
+    <tr><td>Shape ratio</td><td>60% rect, 40% circle</td><td>From shape array [rect, circle, rect, rect, circle]</td></tr>
+    <tr><td>Opacity</td><td>0.60 to 0.95</td><td><code>0.6 + random * 0.35</code></td></tr>
+    <tr><td>Fall distance</td><td>500px to 800px</td><td><code>500 + random * 300</code></td></tr>
+    <tr><td>Fall duration</td><td>2.5s to 5.0s</td><td><code>2.5 + random * 2.5</code></td></tr>
+    <tr><td>Spin</td><td>180 to 720 degrees</td><td><code>180 + random * 540</code></td></tr>
+    <tr><td>Sway left</td><td>-8px to -24px</td><td><code>-(8 + random * 16)</code></td></tr>
+    <tr><td>Sway right</td><td>+8px to +24px</td><td><code>8 + random * 16</code></td></tr>
+    <tr><td>Sway period</td><td>1.5s to 3.0s</td><td><code>1.5 + random * 1.5</code></td></tr>
+    <tr><td>Stagger delay</td><td>30ms between pieces</td><td>Piece 0 = 0ms, piece 39 = 1170ms from confetti start</td></tr>
+    <tr><td>Start position</td><td>-10px (above visible area)</td><td>All pieces start just above the top edge</td></tr>
+  </tbody>
+</table>
+
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>12. ii mark SVG data</h2>
+
+<h3>Light-on-dark (celebration, 48x54px)</h3>
+<pre>
+SvgPicture.string(
+  '''&lt;svg viewBox="0 0 625.96 700.13" fill="none"&gt;
+    &lt;path fill="#F5F0E8" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39
+      c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87
+      V128.87C0,57.7,56.05,0,125.18,0Z"/&gt;
+    &lt;path fill="#9B7FD4" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39
+      c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87
+      V128.87C325.78,57.7,381.83,0,450.96,0Z"/&gt;
+    &lt;circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/&gt;
+  &lt;/svg&gt;''',
+  width: 48,
+  height: 54,
+)
+</pre>
+
+<h3>Dark-on-light (bottom sheet, 20x22px)</h3>
+<pre>
+SvgPicture.string(
+  '''&lt;svg viewBox="0 0 625.96 700.13" fill="none"&gt;
+    &lt;path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39
+      c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87
+      V128.87C0,57.7,56.05,0,125.18,0Z"/&gt;
+    &lt;path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39
+      c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87
+      V128.87C325.78,57.7,381.83,0,450.96,0Z"/&gt;
+    &lt;circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/&gt;
+  &lt;/svg&gt;''',
+  width: 20,
+  height: 22,
+)
+</pre>
+<p><em>Prefer <code>SvgPicture.asset()</code> with actual .svg files over inline strings in production. The inline versions above are for quick reference.</em></p>
+
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>13. Typography reference for this screen</h2>
+
+<table class="map-table">
+  <thead>
+    <tr><th>Element</th><th>Font</th><th>Size</th><th>Weight</th><th>Style</th><th>Color</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>S1 eyebrow</td><td>DM Sans</td><td>7px</td><td>600</td><td>uppercase, ls 1.5px</td><td>colorCta #9B7FD4</td></tr>
+    <tr><td>S1 headline</td><td>DM Serif Display</td><td>24px</td><td>400</td><td>lh 1.05, ls -0.3px</td><td>colorInk #1A1612</td></tr>
+    <tr><td>S1 subline</td><td>DM Sans</td><td>12px</td><td>400</td><td>italic, lh 1.4</td><td>colorMid #8A8070</td></tr>
+    <tr><td>Task name</td><td>DM Sans</td><td>13px</td><td>500</td><td>ls -0.2px</td><td>colorInk #1A1612</td></tr>
+    <tr><td>Task sub</td><td>DM Sans</td><td>10px</td><td>400</td><td>ls -0.1px</td><td>colorMidAccessible #6B6358</td></tr>
+    <tr><td>Task date</td><td>DM Sans</td><td>10px</td><td>500</td><td>normal</td><td>colorApricotDk #C8784A</td></tr>
+    <tr><td>CTA label</td><td>DM Sans</td><td>14px</td><td>500</td><td>normal</td><td>colorCtaFg #FAF8FF</td></tr>
+    <tr><td>Cele eyebrow</td><td>DM Sans</td><td>8px</td><td>600</td><td>uppercase, ls 1.3px</td><td>rgba(245,240,232,0.40)</td></tr>
+    <tr><td>Cele headline</td><td>DM Serif Display</td><td>26px</td><td>400</td><td>italic, lh 1.05</td><td>colorApricot #E8A87C</td></tr>
+    <tr><td>Cele subtitle</td><td>DM Sans</td><td>8.5px</td><td>400</td><td>italic</td><td>rgba(245,240,232,0.50)</td></tr>
+    <tr><td>Reminder text</td><td>DM Sans</td><td>11px</td><td>400</td><td>normal</td><td>rgba(245,240,232,0.55)</td></tr>
+    <tr><td>Reminder date</td><td>DM Sans</td><td>11px</td><td>500</td><td>normal</td><td>colorApricot #E8A87C</td></tr>
+    <tr><td>Reminder sub</td><td>DM Sans</td><td>7px</td><td>400</td><td>italic</td><td>rgba(245,240,232,0.28)</td></tr>
+    <tr><td>Sheet headline</td><td>DM Serif Display</td><td>22px</td><td>400</td><td>lh 1.1</td><td>colorInk #1A1612</td></tr>
+    <tr><td>Sheet subtitle</td><td>DM Sans</td><td>12px</td><td>400</td><td>italic</td><td>colorMid #8A8070</td></tr>
+    <tr><td>Auth button</td><td>DM Sans</td><td>14px</td><td>500</td><td>normal</td><td>white (Apple) / ink (Google)</td></tr>
+    <tr><td>"Not now"</td><td>DM Sans</td><td>13px</td><td>400</td><td>normal</td><td>colorMid #8A8070</td></tr>
+  </tbody>
+</table>
+
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>14. Dependencies and imports</h2>
+
+<pre>
+// pubspec.yaml
+dependencies:
+  google_fonts: ^6.0.0
+  flutter_svg: ^2.0.0+1    # for ii mark SVGs
+  sign_in_with_apple: ^6.0.0
+  google_sign_in: ^6.0.0
+
+// Dart imports
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'dart:math' show Random, pi, sin;
+</pre>
+
+</div><!-- /.spec -->
+
+</body>
+</html>
