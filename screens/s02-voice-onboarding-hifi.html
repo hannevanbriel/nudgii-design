@@ -288,7 +288,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
             <!-- faded in-progress transcript -->
             <div class="user-msg-faded">
               <div class="user-bubble">
-                <div class="ub-text">A house with a garden, two cars...</div>
+                <div class="ub-text">A dishwasher and a cv...</div>
               </div>
             </div>
 
@@ -337,7 +337,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
             <!-- user turn -->
             <div class="user-msg">
               <div class="user-bubble">
-                <div class="ub-text">A house with a garden, two cars, a dishwasher and airco.</div>
+                <div class="ub-text">A dishwasher and a cv boiler.</div>
               </div>
             </div>
 
@@ -345,30 +345,23 @@ body{background:#CBC5BB;padding:0 0 80px;}
             <div class="nudgii-msg">
               <div class="nudgii-from">nudgii</div>
               <div class="nudgii-bubble">
-                <div class="nb-text">Got it. Added to your schedule:</div>
+                <div class="nb-text">Nice. Added:</div>
                 <div class="confirmed-chips">
-                  <div class="cc-chip">
-                    <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
-                    House &amp; garden
-                  </div>
-                  <div class="cc-chip">
-                    <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
-                    2x Car
-                  </div>
                   <div class="cc-chip">
                     <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
                     Dishwasher
                   </div>
                   <div class="cc-chip">
                     <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
-                    Airco
+                    CV boiler
                   </div>
                 </div>
-                <div class="nb-text" style="margin-top:8px;"><em>Anything else? A car, garden, subscriptions?</em></div>
+                <div class="nb-text" style="margin-top:8px;"><em>What else do you have? A car, something in the garden?</em></div>
                 <div class="suggest-row">
-                  <div class="sug-chip">smoke detector</div>
-                  <div class="sug-chip">gutter cleaning</div>
-                  <div class="sug-chip">winter tyres</div>
+                  <div class="sug-chip">car</div>
+                  <div class="sug-chip">olive tree</div>
+                  <div class="sug-chip">hedge</div>
+                  <div class="sug-chip">lawn</div>
                 </div>
               </div>
             </div>
@@ -392,7 +385,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
           </div>
 
         </div><!-- /phone -->
-        <div class="phone-sub">After first turn: nudgii confirms all parsed items as sage chips, then guides with category prompts: "Anything else? A car, garden, subscriptions?" Suggestion chips update contextually, only showing items not yet added.</div>
+        <div class="phone-sub">After first turn: nudgii confirms parsed items as sage chips (Dishwasher, CV boiler), then guides with category prompts: "What else do you have? A car, something in the garden?" Suggestion chips update contextually (car, olive tree, hedge, lawn).</div>
       </div><!-- /state 3 -->
 
 
@@ -438,7 +431,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
             <!-- user 2nd turn -->
             <div class="user-msg">
               <div class="user-bubble">
-                <div class="ub-text">Two cars and an olive tree.</div>
+                <div class="ub-text">Two cars, an olive tree and a hedge.</div>
               </div>
             </div>
 
@@ -446,7 +439,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
             <div class="nudgii-msg">
               <div class="nudgii-from">nudgii</div>
               <div class="nudgii-bubble" style="background:rgba(155,127,212,0.06);border-color:rgba(155,127,212,0.15);">
-                <div class="nb-text">Got it. That's 5 items, good start.</div>
+                <div class="nb-text">Got it. That's 6 items, nice start.</div>
                 <div class="confirmed-chips">
                   <div class="cc-chip">
                     <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
@@ -456,11 +449,15 @@ body{background:#CBC5BB;padding:0 0 80px;}
                     <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
                     Olive tree
                   </div>
+                  <div class="cc-chip">
+                    <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+                    Hedge
+                  </div>
                 </div>
-                <div class="nb-text" style="margin-top:8px;"><em style="color:var(--cta);">Ready to review what I found?</em></div>
+                <div class="nb-text" style="margin-top:8px;"><em style="color:var(--cta);">Ready to see what I found?</em></div>
                 <div class="suggest-row" style="margin-top:6px;">
-                  <div class="sug-chip" style="background:var(--cta);color:#FAF8FF;border-color:var(--cta);font-weight:500;">Continue</div>
-                  <div class="sug-chip">Add more first</div>
+                  <div class="sug-chip" style="background:var(--cta);color:#FAF8FF;border-color:var(--cta);font-weight:500;">Show me</div>
+                  <div class="sug-chip">Add more</div>
                 </div>
               </div>
             </div>
@@ -487,7 +484,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
           </div>
 
         </div><!-- /phone -->
-        <div class="phone-sub">After 2+ items: nudgii gently suggests continuing. Purple-tinted bubble signals a transition moment. "Continue" (filled CTA chip) navigates to S-04 Review. "Add more first" keeps the conversation open. "or browse instead" link below input bar lets users switch to S-03 without swiping back.</div>
+        <div class="phone-sub">After 2+ turns (6 items): nudgii gently suggests continuing. Purple-tinted bubble signals a transition moment. "Show me" (filled CTA chip) navigates to S-04 Review. "Add more" keeps the conversation open. "or browse instead" link below input bar lets users switch to S-03.</div>
       </div><!-- /state 4 -->
 
     </div><!-- /phones-row -->
