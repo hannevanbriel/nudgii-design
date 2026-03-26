@@ -743,6 +743,63 @@ body {
   </div>
 </div>
 
+<!-- ═══ S-09 DASHBOARD: PAUSED ITEMS VARIANT (>10 items) ═══ -->
+<div class="screen-col">
+  <div class="screen-label">S-09 Dashboard (13 items, 3 paused)</div>
+  <div class="phone" style="position:relative;">
+    <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
+    <div class="scr">
+      <div class="greeting-row">
+        <div class="greeting-top">
+          <div class="greeting-name">Good morning,<br><em>Martijn.</em></div>
+          <div class="settings-btn"><svg viewBox="0 0 16 16"><line x1="2" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="14" y2="12"/><circle cx="5" cy="4" r="1.5" fill="white" stroke="var(--mid-ac)"/><circle cx="10" cy="8" r="1.5" fill="white" stroke="var(--mid-ac)"/><circle cx="7" cy="12" r="1.5" fill="white" stroke="var(--mid-ac)"/></svg></div>
+        </div>
+        <div class="greeting-sub">5 tasks this week</div>
+      </div>
+
+      <!-- Paused items banner -->
+      <div style="margin:0 10px 6px;background:rgba(155,127,212,0.06);border:1px solid rgba(155,127,212,0.15);border-radius:10px;padding:8px 10px;display:flex;align-items:center;gap:8px;">
+        <div style="width:6px;height:6px;border-radius:50%;background:var(--cta);flex-shrink:0;"></div>
+        <div style="flex:1;font-size:7px;line-height:1.4;color:var(--ink);">You added 13 items. Free plan tracks 10. <span style="color:var(--mid-ac);">3 items are paused.</span></div>
+        <div style="font-size:6.5px;font-weight:500;color:var(--cta);white-space:nowrap;">Manage →</div>
+      </div>
+
+      <div class="cat-filters">
+        <div class="cat-f"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
+        <div class="cat-f"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
+        <div class="cat-f"><span class="cat-dot" style="background:#5A9060;"></span>Garden</div>
+      </div>
+      <div class="dash-scroll" style="padding-top:8px;">
+        <div class="sec-lbl" style="margin-top:0;">This week</div>
+        <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div><div class="dcontent"><div class="dname">Annual boiler service</div><div class="dsub">CV ketel, yearly</div></div><div class="ddate soon">Oct 28</div></div>
+        <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div><div class="dcontent"><div class="dname">Clean dishwasher filter</div><div class="dsub">Dishwasher, every 6-8 wks</div></div><div class="ddate ok">Nov 8</div></div>
+
+        <!-- Paused item: visible but greyed -->
+        <div class="sec-lbl" style="margin-top:10px;color:var(--mid);font-size:6px;">Paused (upgrade to activate)</div>
+        <div class="dcard" style="opacity:0.45;">
+          <div class="chip" style="background:rgba(90,144,96,0.12);"><svg viewBox="0 0 16 16" stroke="#5A9060" fill="none" stroke-width="1.5"><path d="M8 2v5l3 3"/><circle cx="8" cy="8" r="6"/></svg></div>
+          <div class="dcontent"><div class="dname">Autumn pruning</div><div class="dsub">Olive tree, yearly</div></div>
+          <div style="font-size:7px;font-weight:500;color:var(--cta);padding:2px 6px;border:1px solid rgba(155,127,212,0.25);border-radius:100px;">Pro</div>
+        </div>
+        <div class="dcard" style="opacity:0.45;">
+          <div class="chip" style="background:rgba(74,130,160,0.12);"><svg viewBox="0 0 16 16" stroke="#4A82A0" fill="none" stroke-width="1.5"><circle cx="8" cy="8" r="5"/><path d="M5 8h6"/></svg></div>
+          <div class="dcontent"><div class="dname">Winter tyres</div><div class="dsub">Car, before Nov</div></div>
+          <div style="font-size:7px;font-weight:500;color:var(--cta);padding:2px 6px;border:1px solid rgba(155,127,212,0.25);border-radius:100px;">Pro</div>
+        </div>
+      </div>
+    </div>
+    <!-- Tab bar + FAB -->
+    <div class="shell-btm">
+      <div class="tab-bar">
+        <div class="tab active"><div class="tab-icon"><svg viewBox="0 0 20 20"><rect x="3" y="2" width="14" height="16" rx="2" stroke="var(--cta)" fill="none"/><line x1="7" y1="7" x2="13" y2="7" stroke="var(--cta)"/><line x1="7" y1="10.5" x2="13" y2="10.5" stroke="var(--cta)"/><line x1="7" y1="14" x2="11" y2="14" stroke="var(--cta)"/></svg></div><div class="tab-lbl">Tasks</div></div>
+        <div class="tab inactive"><div class="tab-icon"><svg viewBox="0 0 20 20"><path d="M10 2C5.6 2 2 5.1 2 9s3.6 7 8 7c.9 0 1.8-.1 2.6-.4L17 18l-.4-3.6C17.9 13.1 18 11.1 18 9c0-3.9-3.6-7-8-7z" stroke="rgba(26,22,18,0.20)" fill="none"/><path d="M7 9h.01M10 9h.01M13 9h.01" stroke="rgba(26,22,18,0.20)" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div><div class="tab-lbl">Ask</div></div>
+        <div class="tab inactive"><div class="tab-icon"><svg viewBox="0 0 20 20"><circle cx="10" cy="7" r="3" stroke="rgba(26,22,18,0.20)" fill="none"/><path d="M3 18c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="rgba(26,22,18,0.20)" fill="none"/></svg></div><div class="tab-lbl">Profile</div></div>
+      </div>
+      <div class="fab"><svg viewBox="0 0 16 16"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg></div>
+    </div>
+  </div>
+</div>
+
 </div><!-- /screens-row -->
 </div><!-- /screens-wrap -->
 
@@ -774,6 +831,11 @@ body {
       <div class="note-icon">&#9634;</div>
       <div class="note-heading">One fewer screen in the flow</div>
       <div class="note-body">v1 had 3 screens between schedule and dashboard (celebration, auth, push). v2 combines reveal + celebration + auth into one two-state screen. User reaches dashboard faster with no bait-and-switch.</div>
+    </div>
+    <div class="note-card">
+      <div class="note-icon">&#128176;</div>
+      <div class="note-heading">No limits during onboarding</div>
+      <div class="note-body">Users can add unlimited items during onboarding. The 10-item free tier limit is enforced on the dashboard only. Items 11+ are visible but paused (no reminders). Users choose which 10 stay active, or upgrade. Conversion trigger: when a paused item's task comes due.</div>
     </div>
   </div>
 </div>

@@ -47,6 +47,14 @@
 
 **Pro tier (€4.99–€6.99/month or €35–€45/year):** Unlimited items + tasks, unlimited AI scans, AI task suggestions, seasonal smart nudges by location, full history + export, household sharing (up to 3 users), custom categories, priority support.
 
+**Free tier limit behaviour:**
+- Onboarding: no limits. Let users add as many items as they want. Never block, never mention limits.
+- Dashboard: items 11+ show a subtle "Pro" pill badge. They're visible but paused (no reminders sent).
+- First-time banner (once): "You added [X] items. Your free plan tracks 10. [X-10] items are paused."
+- User can choose which 10 stay active, or upgrade to keep all active.
+- Conversion trigger: when a paused item's task comes due, nudgii sends a notification: "[Task] is coming up. Upgrade to activate this reminder."
+- Voice turns capped at 1 min per turn (API cost control), not a UX restriction.
+
 **Affiliate links:** Shown only at task-due moment, always labeled "we may earn a small fee," never more prominent than the task itself, one link per task view, no follow-up.
 
 **Single most important leading indicator:** Weekly digest open rate.
@@ -435,6 +443,9 @@ Update this section when open decisions are resolved.
 | S-02 no carry-over | S-02 opens fresh ("What do you have at home?"). No selection carry-over from S-01 since S-01 no longer has interactive items. | ✅ Yes | 2026-03-26 |
 | Gamification micro-moments | Celebration prototype pattern (confetti + spring animation) to be reused for: first task completed, streak milestones, weekly all-done. Design as reusable component. | ✅ Yes | 2026-03-26 |
 | Nudge bubble localization | S-01 nudge bubble content needs locale variants (nl-BE, nl-NL, fr) and seasonal rotation (adjust by current month). Store in database, not hardcoded. | ✅ Yes | 2026-03-26 |
+| Free tier: no onboarding limits | Never block during onboarding. Let users add unlimited items. 10-item limit enforced on dashboard only. Items 11+ show "Pro" badge and don't send reminders. User chooses which 10 stay active, or upgrades. Conversion trigger: when a paused item's task comes due. | ✅ Yes | 2026-03-26 |
+| S-02 edge cases | 7 conversation scenarios documented in hi-fi: nonsense input, duplicate, ambiguous, unknown item, silence, brand mentioned, many items at once. Bubble tints: red for errors, amber for duplicates, standard for clarifications. | ✅ Yes | 2026-03-26 |
+| Continue chip copy | "Show my schedule" renamed to "Continue" in S-02. Next screen is S-04 Review, not the schedule. "Ready to review what I found?" replaces "Ready to see your schedule?" | ✅ Yes | 2026-03-26 |
 
 ---
 
