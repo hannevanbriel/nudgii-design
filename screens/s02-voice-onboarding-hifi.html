@@ -186,7 +186,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
   <!-- PAGE HEADER -->
   <div class="page-eyebrow">S-02 · Voice onboarding · Hi-fi · 390x844px (iPhone 15) · March 2026</div>
   <h1 class="page-h1">Tell me what you have</h1>
-  <p class="page-sub">Conversation pattern: persistent chat thread with fixed input bar. nudgii always opens fresh with a discovery question, guiding users through voice, text, or scan. 4 states shown: fresh start, listening, after first turn, and continue suggestion.</p>
+  <p class="page-sub">Conversation pattern: persistent chat thread with fixed input bar. nudgii always opens fresh with a discovery question, guiding users through voice, text, or scan. 4 main states + 7 edge case scenarios shown.</p>
   <div class="meta">
     <span class="mp hifi">Hi-fi</span>
     <span class="mp ob">Onboarding flow</span>
@@ -656,9 +656,256 @@ body{background:#CBC5BB;padding:0 0 80px;}
 
   <div class="divider"></div>
 
+  <!-- EDGE CASES + ERROR STATES -->
+  <div class="page-eyebrow" style="margin-top:40px;">Edge cases + error states</div>
+  <h2 style="font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:6px;">Conversation scenarios</h2>
+  <p class="page-sub" style="margin-bottom:32px;">How nudgii handles non-happy-path inputs. Each scenario shows the nudgii bubble response. All use the same conversation thread layout as the main states above.</p>
+
+  <div style="display:flex;flex-wrap:wrap;gap:20px;">
+
+    <!-- SCENARIO A: Nonsense input -->
+    <div class="phone-col" style="width:auto;">
+      <div class="phone-lbl">A · Nonsense input</div>
+      <div class="phone" style="height:420px;">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <div class="prog-bar"><div class="prog-fill" style="width:40%;"></div></div>
+        <div class="conv-area" style="padding:12px 14px;">
+          <div class="user-msg">
+            <div class="user-bubble">
+              <div class="ub-text">The weather is nice today.</div>
+            </div>
+          </div>
+          <div class="nudgii-msg">
+            <div class="nudgii-from">nudgii</div>
+            <div class="nudgii-bubble" style="background:rgba(163,45,45,0.04);border-color:rgba(163,45,45,0.12);">
+              <div class="nb-text">I didn't catch anything I can track there. Try something like <em>"a dishwasher"</em> or <em>"two cars"</em>.</div>
+              <div class="suggest-row" style="margin-top:6px;">
+                <div class="sug-chip">dishwasher</div>
+                <div class="sug-chip">boiler</div>
+                <div class="sug-chip">car</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-sub" style="max-width:320px;">Red-tinted bubble (not error card). Friendly redirect with concrete examples. Suggestion chips re-appear to help. Never shaming, never "invalid input".</div>
+    </div>
+
+    <!-- SCENARIO B: Duplicate item -->
+    <div class="phone-col" style="width:auto;">
+      <div class="phone-lbl">B · Duplicate item</div>
+      <div class="phone" style="height:420px;">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <div class="prog-bar"><div class="prog-fill" style="width:40%;"></div></div>
+        <div class="conv-area" style="padding:12px 14px;">
+          <div class="nudgii-msg" style="opacity:0.5;">
+            <div class="nudgii-bubble">
+              <div class="confirmed-chips" style="gap:3px;">
+                <div class="cc-chip" style="font-size:8px;padding:2px 6px;">
+                  <svg viewBox="0 0 12 12" style="width:8px;height:8px;"><polyline points="2,6 5,9 10,3"/></svg>
+                  Dishwasher
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="user-msg">
+            <div class="user-bubble">
+              <div class="ub-text">A dishwasher.</div>
+            </div>
+          </div>
+          <div class="nudgii-msg">
+            <div class="nudgii-from">nudgii</div>
+            <div class="nudgii-bubble" style="background:rgba(133,79,11,0.04);border-color:rgba(133,79,11,0.12);">
+              <div class="nb-text">You already added a dishwasher. Want to add a <em>second one</em>, or something else?</div>
+              <div class="suggest-row" style="margin-top:6px;">
+                <div class="sug-chip">Add a second</div>
+                <div class="sug-chip">Something else</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-sub" style="max-width:320px;">Amber-tinted bubble. Acknowledges the duplicate without rejecting it. Some users genuinely have 2 dishwashers. Chips offer both paths.</div>
+    </div>
+
+    <!-- SCENARIO C: Ambiguous input -->
+    <div class="phone-col" style="width:auto;">
+      <div class="phone-lbl">C · Ambiguous input</div>
+      <div class="phone" style="height:420px;">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <div class="prog-bar"><div class="prog-fill" style="width:40%;"></div></div>
+        <div class="conv-area" style="padding:12px 14px;">
+          <div class="user-msg">
+            <div class="user-bubble">
+              <div class="ub-text">A boiler.</div>
+            </div>
+          </div>
+          <div class="nudgii-msg">
+            <div class="nudgii-from">nudgii</div>
+            <div class="nudgii-bubble">
+              <div class="nb-text">Is that a <em>gas boiler (cv ketel)</em> or an <em>electric boiler</em>? Or say "not sure" and I'll figure it out.</div>
+              <div class="suggest-row" style="margin-top:6px;">
+                <div class="sug-chip">Gas (cv ketel)</div>
+                <div class="sug-chip">Electric</div>
+                <div class="sug-chip">Not sure</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-sub" style="max-width:320px;">Standard bubble. Max 1 clarifying question per turn. "Not sure" always available as escape hatch. nudgii picks the most common option if skipped.</div>
+    </div>
+
+    <!-- SCENARIO D: Unknown item -->
+    <div class="phone-col" style="width:auto;">
+      <div class="phone-lbl">D · Unknown item</div>
+      <div class="phone" style="height:420px;">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <div class="prog-bar"><div class="prog-fill" style="width:40%;"></div></div>
+        <div class="conv-area" style="padding:12px 14px;">
+          <div class="user-msg">
+            <div class="user-bubble">
+              <div class="ub-text">A trampoline and a pizza oven.</div>
+            </div>
+          </div>
+          <div class="nudgii-msg">
+            <div class="nudgii-from">nudgii</div>
+            <div class="nudgii-bubble">
+              <div class="nb-text">I don't have maintenance info for those yet, but I've added them. I'll figure out what they need.</div>
+              <div class="confirmed-chips">
+                <div class="cc-chip">
+                  <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+                  Trampoline
+                </div>
+                <div class="cc-chip">
+                  <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+                  Pizza oven
+                </div>
+              </div>
+              <div class="nb-text" style="margin-top:6px;font-size:10px;font-style:italic;color:var(--mid-a);">You can always add tasks manually later.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-sub" style="max-width:320px;">Never rejects. Adds the item, promises to figure it out. Graceful fallback. If nudgii has no template, item is added with empty task list. User can add tasks manually.</div>
+    </div>
+
+    <!-- SCENARIO E: Empty voice turn -->
+    <div class="phone-col" style="width:auto;">
+      <div class="phone-lbl">E · Empty voice / silence</div>
+      <div class="phone" style="height:420px;">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <div class="prog-bar"><div class="prog-fill" style="width:40%;"></div></div>
+        <div class="conv-area" style="padding:12px 14px;">
+          <div style="text-align:center;padding:8px 0;">
+            <div style="font-size:8px;color:var(--mid);font-style:italic;">voice turn ended (silence detected)</div>
+          </div>
+          <div class="nudgii-msg">
+            <div class="nudgii-from">nudgii</div>
+            <div class="nudgii-bubble" style="background:rgba(163,45,45,0.04);border-color:rgba(163,45,45,0.12);">
+              <div class="nb-text">I didn't catch that. Try again, or type instead.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-sub" style="max-width:320px;">Red-tinted bubble. Short and calm. Points to typing as alternative. No retry counter, no "attempt 2 of 3". The user can try as many times as they want.</div>
+    </div>
+
+    <!-- SCENARIO F: Brand mentioned -->
+    <div class="phone-col" style="width:auto;">
+      <div class="phone-lbl">F · Brand mentioned</div>
+      <div class="phone" style="height:420px;">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <div class="prog-bar"><div class="prog-fill" style="width:40%;"></div></div>
+        <div class="conv-area" style="padding:12px 14px;">
+          <div class="user-msg">
+            <div class="user-bubble">
+              <div class="ub-text">A Bosch dishwasher and a Vaillant cv boiler.</div>
+            </div>
+          </div>
+          <div class="nudgii-msg">
+            <div class="nudgii-from">nudgii</div>
+            <div class="nudgii-bubble">
+              <div class="nb-text">Nice, a Bosch and a Vaillant. That helps me find the right schedule.</div>
+              <div class="confirmed-chips">
+                <div class="cc-chip">
+                  <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+                  Bosch dishwasher
+                </div>
+                <div class="cc-chip">
+                  <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+                  Vaillant CV boiler
+                </div>
+              </div>
+              <div class="nb-text" style="margin-top:6px;"><em>Anything else?</em></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-sub" style="max-width:320px;">Standard bubble. Brand is echoed back in the confirmation chips and stored. Enables brand-specific maintenance schedules. Never asks for brand proactively during onboarding (that's for S-04 Review via AI scan).</div>
+    </div>
+
+    <!-- SCENARIO G: Too many items at once -->
+    <div class="phone-col" style="width:auto;">
+      <div class="phone-lbl">G · Many items at once</div>
+      <div class="phone" style="height:420px;">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <div class="prog-bar"><div class="prog-fill" style="width:40%;"></div></div>
+        <div class="conv-area" style="padding:12px 14px;">
+          <div class="user-msg">
+            <div class="user-bubble">
+              <div class="ub-text" style="font-size:10px;">A house, 2 cars, dishwasher, washing machine, dryer, boiler, 3 aircos, garden with olive trees, a hedge, lawn, pool, and Netflix subscription.</div>
+            </div>
+          </div>
+          <div class="nudgii-msg">
+            <div class="nudgii-from">nudgii</div>
+            <div class="nudgii-bubble">
+              <div class="nb-text">Wow, you've got a lot going on. Added 13 items:</div>
+              <div class="confirmed-chips">
+                <div class="cc-chip">
+                  <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+                  Dishwasher
+                </div>
+                <div class="cc-chip">
+                  <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+                  Washing machine
+                </div>
+                <div class="cc-chip">
+                  <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+                  Dryer
+                </div>
+                <div class="cc-chip" style="font-size:8px;padding:2px 6px;">+10 more</div>
+              </div>
+              <div class="nb-text" style="margin-top:6px;"><em>That's plenty. Ready to review what I found?</em></div>
+              <div class="suggest-row" style="margin-top:6px;">
+                <div class="sug-chip" style="background:var(--cta);color:#FAF8FF;border-color:var(--cta);font-weight:500;">Continue</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-sub" style="max-width:320px;">Handles power users (Arne persona). All items confirmed, chips show first 3 + "+X more". nudgii suggests continuing immediately since enough items were added. Only "Continue" chip, no "Add more".</div>
+    </div>
+
+  </div><!-- /edge cases flex -->
+
+  <div class="divider"></div>
+
   <!-- CHANGELOG -->
   <div class="changelog">
     <div class="cl-title">Changelog</div>
+
+    <div class="cl-entry">
+      <div class="cl-ver">v1.3 · 2026-03-26 · ADDITIVE</div>
+      <div class="cl-body"><strong>7 edge case scenarios added.</strong> Nonsense input (A), duplicate item (B), ambiguous input (C), unknown item (D), empty voice/silence (E), brand mentioned (F), many items at once (G). Each shown as a mini phone mockup with nudgii's response and annotation below. Bubble tints: red for errors, amber for duplicates, standard for clarifications.</div>
+    </div>
 
     <div class="cl-entry">
       <div class="cl-ver">v1.2 · 2026-03-26 · ADDITIVE</div>
