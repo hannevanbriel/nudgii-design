@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Full onboarding flow: S-01 to S-09 Dashboard</title>
+<title>Onboarding flow: S-01 to S-09 Dashboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
@@ -44,12 +44,17 @@ body {
 .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
 .page-logo { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 500; color: rgba(26,22,18,0.50); text-decoration: none; }
 .page-badge { font-size: 10px; font-weight: 500; padding: 4px 10px; border-radius: 100px; background: rgba(155,127,212,0.12); color: var(--cta); border: 0.5px solid rgba(155,127,212,0.25); }
-.page-title { font-size: 10px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid); margin-bottom: 24px; }
+.page-title { font-size: 10px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid); margin-bottom: 6px; }
+.page-links { display: flex; gap: 12px; margin-bottom: 24px; }
+.page-links a { font-size: 10px; color: var(--cta); text-decoration: none; font-weight: 500; }
+.page-links a:hover { text-decoration: underline; }
 
 /* ── FLOW BAR ── */
 .flow-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; margin-bottom: 24px; }
 .fp { display: flex; align-items: center; gap: 5px; background: var(--surface); border: 0.5px solid var(--border); border-radius: 100px; padding: 4px 10px 4px 5px; font-size: 9.5px; font-weight: 500; color: var(--ink); white-space: nowrap; }
 .fp.or-path { background: rgba(155,127,212,0.06); border-color: rgba(155,127,212,0.20); color: var(--mid-ac); font-style: italic; }
+.fp.changed { background: rgba(155,127,212,0.06); border-color: rgba(155,127,212,0.25); }
+.fp.new-screen { background: var(--sage-lt); border-color: rgba(59,109,17,0.20); }
 .fn { width: 15px; height: 15px; border-radius: 50%; background: var(--cta); color: var(--cta-fg); font-size: 7.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .fa { font-size: 10px; color: rgba(26,22,18,0.25); padding: 0 3px; }
 
@@ -134,65 +139,26 @@ body {
 .chk.on { background: var(--cta); border-color: var(--cta); }
 .chk.on svg { display: block; }
 
-/* ── CAT STRIP (S-01) ── */
-.cat-strip { display: flex; gap: 4px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-bottom: 10px; -webkit-overflow-scrolling: touch; }
-.cat-strip::-webkit-scrollbar { display: none; }
-.cat-pill { display: inline-flex; align-items: center; gap: 4px; background: var(--surface); border: 0.5px solid rgba(26,22,18,0.12); border-radius: 100px; padding: 4px 10px; font-size: 10px; font-weight: 500; color: var(--mid-a, #6B6358); flex-shrink: 0; transition: background 0.15s ease-out, border-color 0.15s ease-out, color 0.15s ease-out; }
-.cat-pill.active { background: var(--ink); color: #F5F0E8; border-color: var(--ink); }
-.cat-pill.active .cat-dot { opacity: 0.7; }
-.cat-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-
-/* ── TASK ROWS (S-01 selectable) ── */
-.task-rows { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
-.trow { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.08); border-radius: 8px; box-shadow: 0 1px 3px rgba(26,22,18,0.04); padding: 7px 8px; display: flex; align-items: center; gap: 7px; cursor: pointer; transition: border-color 0.15s, background 0.15s; user-select: none; }
-.trow.sel { border: 1px solid rgba(155,127,212,0.35); background: rgba(155,127,212,0.04); }
-.trow.else { border: 0.5px dashed rgba(26,22,18,0.14); background: transparent; box-shadow: none; }
-.tinfo { flex: 1; min-width: 0; }
-.tname { font-size: 9px; font-weight: 500; color: var(--ink); line-height: 1.3; margin-bottom: 2px; }
-.tmeta { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
-.cadence { font-size: 7px; color: var(--mid-ac); background: rgba(26,22,18,0.05); border: 0.5px solid rgba(26,22,18,0.07); border-radius: 100px; padding: 1px 5px; }
-.tctx { font-size: 7px; color: var(--mid); }
-.else-name { font-size: 9px; font-weight: 500; color: var(--mid-ac); }
-.else-sub { font-size: 7px; color: rgba(26,22,18,0.28); }
-
 /* ── BUTTONS ── */
 .btn { width: 100%; height: 36px; border-radius: 100px; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 7px; }
 .btn.primary { background: var(--cta); color: var(--cta-fg); box-shadow: 0 2px 10px rgba(155,127,212,0.28); }
 .btn.secondary { background: transparent; border: 1px solid rgba(26,22,18,0.18); color: var(--ink); }
 .btn.ghost { background: transparent; color: var(--mid-ac); font-size: 8.5px; height: 28px; margin-bottom: 0; }
-.divider { text-align: center; font-size: 7.5px; color: var(--mid); position: relative; margin-bottom: 9px; padding-top: 8px; }
-.divider::before, .divider::after { content: ''; position: absolute; top: calc(50% + 4px); height: 0.5px; background: rgba(26,22,18,0.10); width: 28%; }
-.divider::before { left: 0; } .divider::after { right: 0; }
 
-/* ── ITEM COUNTER (S-02 / S-03 / S-05) ── */
-.item-counter { display: flex; align-items: center; justify-content: space-between; padding: 8px 14px 0; flex-shrink: 0; }
-.counter-pill { display: inline-flex; align-items: center; gap: 5px; background: rgba(155,127,212,0.08); border: 0.5px solid rgba(155,127,212,0.20); border-radius: 100px; padding: 3px 8px; font-size: 7.5px; font-weight: 500; color: var(--mid-ac); }
-.counter-fill { display: flex; gap: 3px; align-items: center; }
-.counter-dot { width: 6px; height: 6px; border-radius: 50%; }
-.counter-dot.filled { background: var(--cta); }
-.counter-dot.empty { background: rgba(155,127,212,0.20); }
-
-/* ── S-02 SPECIFIC — chat thread pattern ── */
-/* nudgii bubble */
+/* ── S-02 SPECIFIC ── */
 .nudgii-msg { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; margin-bottom: 6px; }
 .nudgii-from { font-size: 6.5px; font-weight: 500; letter-spacing: 0.4px; color: var(--mid-ac); margin-bottom: 1px; padding-left: 1px; }
 .nudgii-bubble { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.08); border-radius: 9px 9px 9px 3px; padding: 6px 8px; box-shadow: 0 1px 3px rgba(26,22,18,0.04); max-width: 90%; }
 .nb-text { font-size: 7.5px; line-height: 1.55; color: var(--ink); }
 .nb-text em { font-style: italic; color: var(--cta); font-weight: 500; }
-/* Confirmed chips inside nudgii bubble */
 .conf-chips { display: flex; flex-wrap: wrap; gap: 3px; margin: 4px 0; }
 .conf-chip { display: inline-flex; align-items: center; gap: 2px; background: #EAF3DE; border-radius: 100px; padding: 1.5px 6px; font-size: 6.5px; font-weight: 500; color: #3B6D11; }
 .conf-chip svg { width: 7px; height: 7px; stroke: #3B6D11; stroke-width: 2; fill: none; flex-shrink: 0; }
-/* User bubble */
 .user-msg { display: flex; justify-content: flex-end; margin-bottom: 6px; }
 .user-bubble { background: var(--cta); border-radius: 9px 9px 3px 9px; padding: 6px 8px; max-width: 84%; }
 .ub-text { font-size: 7.5px; line-height: 1.55; color: var(--cta-fg); }
-/* Suggestion chips */
 .sug-chips { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 2px; }
 .sug-chip { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.12); border-radius: 100px; padding: 2px 7px; font-size: 6.5px; color: var(--mid-ac); }
-
-.chips { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; margin-bottom: 4px; }
-.chip-ex { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.12); border-radius: 100px; padding: 2px 8px; font-size: 7px; color: var(--mid-ac); cursor: pointer; }
 
 .input-bar { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.12); border-radius: 100px; padding: 0 8px; height: 36px; display: flex; align-items: center; gap: 7px; box-shadow: 0 1px 6px rgba(26,22,18,0.06); margin-bottom: 5px; }
 .ibar-icon { width: 22px; height: 22px; border-radius: 50%; background: rgba(26,22,18,0.05); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -208,9 +174,10 @@ body {
 .search-text { font-size: 8px; color: var(--mid); flex: 1; }
 .cat-filters { display: flex; gap: 4px; padding: 8px 14px 0; overflow-x: auto; scrollbar-width: none; flex-shrink: 0; -webkit-overflow-scrolling: touch; }
 .cat-filters::-webkit-scrollbar { display: none; }
-.cat-f { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 500; padding: 4px 10px; border-radius: 100px; flex-shrink: 0; border: 0.5px solid rgba(26,22,18,0.12); background: var(--surface); color: var(--mid-ac, #6B6358); cursor: pointer; transition: background 0.15s ease-out, border-color 0.15s ease-out, color 0.15s ease-out; }
+.cat-f { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 500; padding: 4px 10px; border-radius: 100px; flex-shrink: 0; border: 0.5px solid rgba(26,22,18,0.12); background: var(--surface); color: var(--mid-ac, #6B6358); cursor: pointer; }
 .cat-f.on { background: var(--ink); color: var(--cream); border-color: var(--ink); }
 .cat-f.on .cat-dot { opacity: 0.7; }
+.cat-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 .browse-rows { display: flex; flex-direction: column; gap: 4px; }
 .brow { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.08); border-radius: 8px; padding: 7px 8px; display: flex; align-items: center; gap: 7px; cursor: pointer; }
 .brow.sel { border: 1px solid rgba(155,127,212,0.35); background: rgba(155,127,212,0.04); }
@@ -226,34 +193,22 @@ body {
 .scan-btn svg { width: 10px; height: 10px; stroke: var(--mid); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .remove-btn { width: 20px; height: 20px; border-radius: 5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer; }
 .remove-btn svg { width: 10px; height: 10px; stroke: rgba(26,22,18,0.30); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-
 .rev-tasks { padding: 7px 10px 6px; display: flex; flex-direction: column; gap: 5px; }
 .rtask { display: flex; align-items: center; gap: 6px; }
 .rtask-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(26,22,18,0.14); flex-shrink: 0; }
 .rtask-name { flex: 1; font-size: 8px; color: var(--mid-ac); }
 .rtask-cad { font-size: 6.5px; color: var(--mid); background: rgba(26,22,18,0.04); border-radius: 100px; padding: 1px 5px; }
-.rtask.locked .rtask-name { color: rgba(26,22,18,0.20); }
-.rtask.locked .rtask-dot { background: rgba(26,22,18,0.06); }
-.pro-lock { font-size: 6.5px; color: var(--cta); background: rgba(155,127,212,0.10); border-radius: 100px; padding: 1px 5px; border: 0.5px solid rgba(155,127,212,0.18); }
-
-/* Collapsed review card */
 .rev-card.collapsed .rev-tasks { display: none; }
 .rev-card.collapsed .last-done-row { display: none; }
 .rev-collapsed-hint { padding: 7px 10px 8px; display: flex; align-items: center; gap: 5px; }
 .rch-count { font-size: 7px; color: var(--mid); flex: 1; }
 .rch-chevron { width: 14px; height: 14px; display: flex; align-items: center; justify-content: center; }
 .rch-chevron svg { width: 10px; height: 10px; stroke: rgba(26,22,18,0.25); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-
-/* "When last done?" row */
 .last-done-row { padding: 6px 10px 8px; border-top: 0.5px solid rgba(26,22,18,0.05); display: flex; align-items: center; gap: 6px; }
 .last-done-label { font-size: 7px; color: var(--mid); flex-shrink: 0; }
 .last-done-opts { display: flex; gap: 4px; }
 .ldo { font-size: 7px; font-weight: 500; padding: 2px 7px; border-radius: 100px; border: 0.5px solid rgba(26,22,18,0.12); background: var(--surface); color: var(--mid-ac); cursor: pointer; }
 .ldo.active { background: rgba(26,22,18,0.07); border-color: rgba(26,22,18,0.20); color: var(--ink); }
-
-/* Item counter banner */
-.item-limit-note { background: rgba(155,127,212,0.06); border: 0.5px solid rgba(155,127,212,0.18); border-radius: 8px; padding: 7px 10px; margin-bottom: 8px; font-size: 7.5px; color: var(--mid-ac); line-height: 1.4; }
-.item-limit-note strong { color: var(--ink); font-weight: 500; }
 
 /* ── S-06 AHA SPECIFIC ── */
 .aha-eyebrow { font-size: 7.5px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: var(--cta); margin-bottom: 6px; }
@@ -266,41 +221,14 @@ body {
 .ndate { font-size: 8px; font-weight: 500; flex-shrink: 0; }
 .date-soon { color: var(--apricot-dk); }
 .date-ok { color: var(--mid-ac); }
-
 .value-box { background: rgba(155,127,212,0.06); border: 0.5px solid rgba(155,127,212,0.18); border-radius: 8px; padding: 8px 10px; margin-bottom: 10px; text-align: center; }
 .value-box p { font-size: 7.5px; color: var(--mid-ac); line-height: 1.55; }
 .value-box strong { color: var(--ink); font-weight: 500; }
-.save-note { text-align: center; font-size: 7px; color: var(--mid); margin-top: 4px; }
 
-/* ── S-07 AUTH ── */
-.auth-wrap { padding: 18px 14px 0; flex: 1; display: flex; flex-direction: column; }
-.auth-heading { font-family: 'DM Serif Display', Georgia, serif; font-size: 22px; font-weight: 400; line-height: 1.0; letter-spacing: -0.35px; color: var(--ink); margin-bottom: 6px; }
-.auth-sub { font-size: 8px; color: var(--mid-ac); line-height: 1.5; margin-bottom: 18px; }
-.sso-btn { width: 100%; height: 38px; border-radius: 100px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px; border: none; }
-.sso-btn.apple { background: var(--ink); color: var(--cream); }
-.sso-btn.google { background: var(--surface); color: var(--ink); border: 1px solid rgba(26,22,18,0.16); }
-.email-toggle { text-align: center; font-size: 8px; color: var(--mid); padding: 4px 0 0; cursor: pointer; }
-.auth-reassure { display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 6.5px; color: var(--mid); margin-top: auto; padding-bottom: 4px; flex-wrap: wrap; }
-.auth-rdot { width: 3px; height: 3px; border-radius: 50%; background: var(--mid); opacity: 0.4; flex-shrink: 0; }
-
-/* ── S-07 COMPLETION (dark) ── */
-.completion-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px 20px 0; text-align: center; }
-.comp-ii { font-size: 52px; font-weight: 900; letter-spacing: -7px; line-height: 1; margin-bottom: 18px; color: var(--cream); display: block; }
-.comp-ii span { color: var(--apricot); }
-.comp-h { font-family: 'DM Serif Display', Georgia, serif; font-size: 28px; font-weight: 400; line-height: 1.0; letter-spacing: -0.4px; color: var(--cream); margin-bottom: 8px; }
-.comp-sub { font-size: 9px; color: rgba(245,240,232,0.55); line-height: 1.5; margin-bottom: 22px; font-style: italic; }
-.summary-pill { background: rgba(255,255,255,0.07); border: 0.5px solid rgba(255,255,255,0.12); border-radius: 100px; padding: 6px 14px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px; }
-.sum-item { font-size: 8px; font-weight: 500; color: rgba(245,240,232,0.80); }
-.sum-sep { width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,0.20); }
-.first-nudge-label { font-size: 7px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: rgba(245,240,232,0.35); margin-bottom: 8px; }
-.fncard { background: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.10); border-radius: 10px; padding: 8px 10px; display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; }
-.fncard-content { flex: 1; }
-.fncard-name { font-size: 9px; font-weight: 500; color: rgba(245,240,232,0.85); margin-bottom: 2px; }
-.fncard-sub { font-size: 7px; color: rgba(245,240,232,0.40); font-style: italic; }
-.fncard-date { font-size: 8px; font-weight: 500; color: var(--apricot-dk); flex-shrink: 0; }
-.comp-promise { font-size: 7px; color: rgba(245,240,232,0.30); margin-top: 8px; font-style: italic; }
-.btn.primary.dark-screen { background: var(--cta); color: var(--cta-fg); }
-.open-note { text-align: center; font-size: 7px; color: rgba(245,240,232,0.30); margin-top: 4px; }
+/* ── PUSH PERMISSION ── */
+.push-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 100px 18px 0; text-align: center; }
+.push-icon { width: 56px; height: 56px; border-radius: 16px; background: rgba(155,127,212,0.08); border: 0.5px solid rgba(155,127,212,0.15); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+.push-icon svg { width: 26px; height: 26px; stroke: var(--cta); fill: none; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
 
 /* ── S-09 DASHBOARD ── */
 .greeting-row { padding: 12px 16px 10px; flex-shrink: 0; border-bottom: 0.5px solid rgba(26,22,18,0.06); }
@@ -310,7 +238,6 @@ body {
 .greeting-sub { font-size: 8px; color: var(--mid-ac); }
 .settings-btn { width: 28px; height: 28px; border-radius: 8px; background: rgba(26,22,18,0.05); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
 .settings-btn svg { width: 13px; height: 13px; stroke: var(--mid-ac); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-
 .dash-scroll { flex: 1; overflow-y: auto; padding: 10px 14px 80px; scrollbar-width: none; }
 .dash-scroll::-webkit-scrollbar { display: none; }
 .dcard { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.08); border-radius: 10px; box-shadow: 0 1px 3px rgba(26,22,18,0.04); padding: 9px 10px; display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
@@ -334,84 +261,37 @@ body {
 .tab-lbl { font-size: 7px; font-weight: 500; }
 .tab.active .tab-lbl { color: var(--cta); }
 .tab.inactive .tab-lbl { color: rgba(26,22,18,0.20); }
-.tab-pip { display: none; }
 .fab { width: 46px; height: 46px; background: var(--cta); border-radius: 15px; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(155,127,212,0.45); flex-shrink: 0; margin-bottom: 4px; }
 .fab svg { width: 17px; height: 17px; stroke: var(--cta-fg); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
-/* ── ANNOTATIONS ── */
-.ann-section { margin-top: 24px; }
-.ann-title-row { font-size: 9px; font-weight: 500; letter-spacing: 1.3px; text-transform: uppercase; color: var(--mid); margin-bottom: 12px; }
-.ann-row { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 4px; }
-.ann-card { flex-shrink: 0; width: 280px; background: var(--surface); border: 0.5px solid var(--border); border-radius: 12px; padding: 12px 14px; }
-.ann-t { font-size: 8px; font-weight: 500; letter-spacing: 1.1px; text-transform: uppercase; color: var(--mid); margin-bottom: 8px; }
-.ann-item { display: flex; gap: 7px; margin-bottom: 6px; align-items: flex-start; }
-.ann-i { width: 14px; height: 14px; border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; font-size: 8px; }
-.ann-i.new { background: rgba(155,127,212,0.12); color: var(--cta); }
-.ann-i.upd { background: rgba(232,168,124,0.15); color: var(--apricot-dk); }
-.ann-i.key { background: rgba(59,109,17,0.10); color: var(--sage); }
-.ann-i.lock { background: rgba(26,22,18,0.06); color: var(--mid-ac); }
-.ann-i.q { background: rgba(200,120,80,0.12); color: var(--cat-home); }
-.ann-txt { font-size: 7.5px; color: var(--mid-ac); line-height: 1.5; }
-.ann-txt strong { color: var(--ink); font-weight: 500; }
+/* ── BOTTOM SHEET OVERLAY ── */
+.bs-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: var(--surface); border-radius: 16px 16px 0 0; padding: 10px 16px 14px; box-shadow: 0 -8px 30px rgba(0,0,0,0.20); z-index: 20; }
+.bs-handle { width: 32px; height: 4px; border-radius: 100px; background: rgba(26,22,18,0.12); margin: 0 auto 12px; }
 
-/* Subtitle options display */
-.subtitle-opts { background: rgba(26,22,18,0.03); border: 0.5px solid var(--border); border-radius: 8px; padding: 8px 10px; margin-top: 6px; }
-.sopt { display: flex; align-items: flex-start; gap: 6px; margin-bottom: 5px; }
-.sopt:last-child { margin-bottom: 0; }
-.sopt-tag { font-size: 6px; font-weight: 500; padding: 1px 5px; border-radius: 100px; flex-shrink: 0; margin-top: 2px; }
-.sopt-tag.pick { background: rgba(59,109,17,0.12); color: var(--sage); }
-.sopt-tag.alt { background: rgba(26,22,18,0.07); color: var(--mid-ac); }
-.sopt-text { font-size: 7.5px; color: var(--mid-ac); line-height: 1.4; font-style: italic; }
-.sopt-text strong { color: var(--ink); font-style: normal; }
+/* ── NUDGE BUBBLES (S-01 v2) ── */
+.nudge-bubbles { display: flex; flex-direction: column; gap: 12px; margin: 24px 0 0; padding: 0 6px; align-items: flex-start; }
+.nb { border-radius: 12px; padding: 8px 12px 8px 8px; display: inline-flex; align-items: center; gap: 8px; border: none; box-shadow: none; max-width: 85%; }
+.nb.nb-home { background: rgba(200,120,80,0.07); transform: rotate(-1.2deg); margin-left: 8px; }
+.nb.nb-garden { background: rgba(90,144,96,0.07); transform: rotate(0.8deg); margin-left: 32px; }
+.nb.nb-vehicle { background: rgba(74,130,160,0.07); transform: rotate(-0.5deg); margin-left: 18px; }
+.nb-icon { width: 22px; height: 22px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.nb-icon svg { width: 11px; height: 11px; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.nb-content { flex: 1; }
+.nb-title { font-size: 8px; font-weight: 500; color: var(--ink); margin-bottom: 1px; }
+.nb-sub { font-size: 6.5px; color: var(--mid); font-style: italic; }
 
-/* ── S-07 CELEBRATION ── */
-.cel-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px 18px 0; text-align: center; position: relative; }
-.ii-ring-wrap { position: relative; width: 78px; height: 78px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; flex-shrink: 0; }
-.ii-ring { position: absolute; inset: 0; border-radius: 50%; border: 2px dashed rgba(155,127,212,0.40); }
-.ii-ring::after { content: ''; position: absolute; inset: -7px; border-radius: 50%; border: 1px dashed rgba(155,127,212,0.15); }
-.comp-ii-cel { font-size: 42px; font-weight: 900; letter-spacing: -5px; line-height: 1; color: var(--ink); }
-.comp-ii-cel span { color: var(--apricot); }
-.comp-h-cel { font-family: 'DM Serif Display', Georgia, serif; font-size: 24px; font-weight: 400; line-height: 1.05; letter-spacing: -0.35px; color: var(--ink); margin-bottom: 6px; }
-.comp-sub-cel { font-size: 8.5px; color: var(--mid-ac); line-height: 1.55; margin-bottom: 18px; font-style: italic; }
-.sum-pill-lt { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.10); border-radius: 100px; padding: 5px 12px; display: inline-flex; align-items: center; gap: 7px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(26,22,18,0.06); }
-.sum-item-lt { font-size: 7.5px; font-weight: 500; color: var(--ink); }
-.sum-sep-lt { width: 3px; height: 3px; border-radius: 50%; background: rgba(26,22,18,0.15); }
-.nudge-lbl-lt { font-size: 7px; font-weight: 500; letter-spacing: 1.1px; text-transform: uppercase; color: var(--mid); margin-bottom: 7px; }
-.fn-card-lt { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.08); border-radius: 10px; box-shadow: 0 1px 3px rgba(26,22,18,0.04); padding: 8px 10px; display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; }
-.fn-card-lt .fncard-name { color: var(--ink); }
-.fn-card-lt .fncard-sub { color: var(--mid); }
-.cel-promise { font-size: 7px; color: var(--mid); margin-top: 8px; font-style: italic; }
-/* Confetti dots */
-.confetti { position: absolute; border-radius: 50%; pointer-events: none; }
+/* ── DECISION NOTES ── */
+.notes-section { margin-top: 32px; max-width: 900px; }
+.notes-title { font-size: 9px; font-weight: 500; letter-spacing: 1.3px; text-transform: uppercase; color: var(--mid); margin-bottom: 12px; }
+.notes-grid { display: flex; gap: 12px; flex-wrap: wrap; }
+.note-card { flex: 1; min-width: 240px; max-width: 320px; background: var(--surface); border: 0.5px solid var(--border); border-radius: 12px; padding: 12px 14px; }
+.note-icon { font-size: 10px; margin-bottom: 6px; }
+.note-heading { font-size: 9px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+.note-body { font-size: 7.5px; color: var(--mid-ac); line-height: 1.5; }
 
-/* ── PUSH PERMISSION ── */
-.push-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 140px 18px 0; text-align: center; }
-.push-icon { width: 56px; height: 56px; border-radius: 16px; background: rgba(155,127,212,0.08); border: 0.5px solid rgba(155,127,212,0.15); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
-.push-icon svg { width: 26px; height: 26px; stroke: var(--cta); fill: none; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
-
-/* ii mark chip for digest nudge */
-.chip.ii-nudge { background: rgba(155,127,212,0.08); }
-
-/* ── DIGEST NUDGE CARD ── */
-.nudge-digest { background: var(--surface); border: 0.5px solid rgba(155,127,212,0.18); border-radius: 10px; box-shadow: 0 1px 3px rgba(26,22,18,0.04); padding: 9px 10px; display: flex; align-items: center; gap: 8px; margin-bottom: 5px; cursor: pointer; }
-.nudge-digest .ncontent { flex: 1; min-width: 0; }
-.nudge-digest .nname { font-size: 9px; font-weight: 500; color: var(--ink); margin-bottom: 2px; line-height: 1.35; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.nudge-digest .nsub { font-size: 7px; color: var(--mid-ac); font-style: normal; line-height: 1.4; }
-.nudge-digest .cta-link { font-size: 7.5px; color: var(--cta); font-weight: 500; flex-shrink: 0; white-space: nowrap; align-self: center; }
-
-/* ── DAY LABELS ── */
-.day-label {
-  display: inline-flex; align-items: center; gap: 5px;
-  background: rgba(26,22,18,0.04); border: 0.5px solid rgba(26,22,18,0.08);
-  border-radius: 100px; padding: 3px 9px;
-  font-size: 7px; font-weight: 500; color: var(--mid); margin-bottom: 8px;
-}
-
-/* ── PERSONA TABLE ── */
-.persona-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
-.persona-table th { font-size: 7px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--mid); text-align: left; padding: 4px 8px 6px; border-bottom: 0.5px solid rgba(26,22,18,0.10); }
-.persona-table td { font-size: 7.5px; color: var(--mid-ac); padding: 5px 8px; border-bottom: 0.5px solid rgba(26,22,18,0.05); line-height: 1.4; }
-.persona-table td strong { color: var(--ink); font-weight: 500; }
+/* ── ITEM COUNTER ── */
+.item-counter { display: flex; align-items: center; justify-content: space-between; padding: 8px 14px 0; flex-shrink: 0; }
+.counter-pill { display: inline-flex; align-items: center; gap: 5px; background: rgba(155,127,212,0.08); border: 0.5px solid rgba(155,127,212,0.20); border-radius: 100px; padding: 3px 8px; font-size: 7.5px; font-weight: 500; color: var(--mid-ac); }
 </style>
 </head>
 <body>
@@ -422,29 +302,29 @@ body {
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect width="18" height="18" rx="5" fill="#1A1612"/><text x="3.5" y="13" fill="#F5F0E8" font-size="11" font-family="Georgia, serif">ii</text></svg>
     Design hub
   </a>
-  <span class="page-badge">Committed flow</span>
+  <span class="page-badge">v2 · exploration</span>
 </div>
-<div class="page-title">Full onboarding flow: S-01 to S-09 Dashboard</div>
+<div class="page-title">Onboarding v2 flow: S-01 to S-09 Dashboard</div>
+<div class="page-links">
+  <a href="../index.html">&larr; Back to hub</a>
+  <a href="onboarding-full-preview.html">v1 flow (current)</a>
+</div>
 
 <!-- Flow bar -->
 <div class="flow-bar">
-  <div class="fp"><div class="fn">1</div>S-01 Welcome</div>
-  <div class="fa">→</div>
+  <div class="fp changed"><div class="fn">1</div>S-01 Welcome (simplified)</div>
+  <div class="fa">&rarr;</div>
   <div class="fp"><div class="fn">2</div>S-02 Tell me what you have</div>
   <span style="font-size:9px;color:rgba(26,22,18,0.28);padding:0 2px;">or</span>
   <div class="fp or-path">S-03 Show me what I can track</div>
-  <div class="fa">→</div>
+  <div class="fa">&rarr;</div>
   <div class="fp"><div class="fn">3</div>S-05 Review</div>
-  <div class="fa">→</div>
-  <div class="fp"><div class="fn">4</div>S-06 AHA</div>
-  <div class="fa">→</div>
-  <div class="fp"><div class="fn">5</div>S-06 Celebration</div>
-  <div class="fa">→</div>
-  <div class="fp"><div class="fn">6</div>S-07 Push permission</div>
-  <div class="fa">→</div>
-  <div class="fp"><div class="fn">7</div>S-08 Sign-in (SSO)</div>
-  <div class="fa">→</div>
-  <div class="fp"><div class="fn">8</div>S-09 Dashboard</div>
+  <div class="fa">&rarr;</div>
+  <div class="fp changed"><div class="fn">4</div>S-06 Reveal + celebration + sign-in (two-state)</div>
+  <div class="fa">&rarr;</div>
+  <div class="fp new-screen"><div class="fn">5</div>S-07 Push permission (new)</div>
+  <div class="fa">&rarr;</div>
+  <div class="fp"><div class="fn">6</div>S-09 Dashboard</div>
 </div>
 
 
@@ -452,57 +332,43 @@ body {
 <div class="screens-wrap">
 <div class="screens-row">
 
-<!-- ═══ S-01 WELCOME ═══ -->
+<!-- ═══ S-01 WELCOME (v2 simplified) ═══ -->
 <div class="screen-col">
-  <div class="screen-label">S-01 · Welcome · 20%</div>
+  <div class="screen-label">S-01 · Welcome (v2) · 20%</div>
   <div class="phone">
     <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
     <div class="prog"><div class="prog-fill" style="width:20%"></div></div>
     <div class="scr">
-      <div class="brand-row">
+      <div style="padding:14px 14px 0;">
+        <!-- ii mark only, no free badge -->
         <svg class="ii-mark" width="18" height="20" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/></svg>
-        <div class="free-badge"><div class="free-dot"></div>Free · no credit card</div>
       </div>
-      <div class="scroll">
-        <div class="h1" style="margin-top:8px;">Your stuff won't<br><em>maintain itself.</em></div>
-        <!-- UPDATED SUBTITLE -->
-        <div class="promise">We remind you before things break, expire, or get too late.</div>
-        <!-- READY IN 2 MIN BADGE -->
-        <div style="display:inline-flex;align-items:center;gap:4px;background:rgba(26,22,18,0.05);border:0.5px solid rgba(26,22,18,0.10);border-radius:100px;padding:2px 8px 2px 5px;margin:5px 0 9px;">
-          <svg width="9" height="9" viewBox="0 0 16 16" fill="none" stroke="#6B6358" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><polyline points="8,4.5 8,8 10.5,9.5"/></svg>
-          <span style="font-size:7px;color:#6B6358;font-weight:500;">Set up in 2 minutes</span>
-        </div>
-        <div class="micro">For example, tap what applies to you:</div>
-        <div class="task-rows">
-          <!-- Row 1: Dishwasher -->
-          <div class="trow" onclick="toggle(this)">
-            <div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div>
-            <div class="tinfo"><div class="tname">Clean dishwasher filter</div><div class="tmeta"><span class="tctx">Home</span><span class="cadence">every 6–8 wks</span></div></div>
-            <div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
+      <div class="scroll" style="padding-top:16px;display:flex;flex-direction:column;align-items:center;">
+        <div class="h1" style="margin-top:16px;text-align:left;align-self:stretch;">Your stuff won't<br><em>maintain itself.</em></div>
+
+        <!-- Nudge bubbles: nudgii's voice, display only -->
+        <div class="nudge-bubbles">
+          <div class="nb nb-home">
+            <div class="nb-icon" style="background:rgba(200,120,80,0.14);"><svg viewBox="0 0 16 16" style="stroke:var(--cat-home);"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div>
+            <div class="nb-content"><div class="nb-title">Your boiler could use some love</div><div class="nb-sub">we'll remind you before winter</div></div>
           </div>
-          <!-- Row 2: CV ketel -->
-          <div class="trow" onclick="toggle(this)">
-            <div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/><line x1="8" y1="2" x2="8" y2="4"/></svg></div>
-            <div class="tinfo"><div class="tname">Boiler / CV ketel service</div><div class="tmeta"><span class="tctx">Home</span><span class="cadence">annual · autumn</span></div></div>
-            <div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
+          <div class="nb nb-garden">
+            <div class="nb-icon" style="background:rgba(90,144,96,0.14);"><svg viewBox="0 0 16 16" style="stroke:var(--cat-garden);"><path d="M8 14V8"/><path d="M5 11c-2-1-2-4 1-5 0-2 4-3 5 0 3 0 3 4 0 5"/></svg></div>
+            <div class="nb-content"><div class="nb-title">Lawn's waking up soon</div><div class="nb-sub">spring prep before it gets ahead of you</div></div>
           </div>
-          <!-- Row 3: Winter tyres -->
-          <div class="trow" onclick="toggle(this)">
-            <div class="chip vehicle"><svg viewBox="0 0 16 16"><path d="M2 9.5L4 5h8l2 4.5"/><path d="M1 9.5h14"/><circle cx="4.5" cy="12" r="2"/><circle cx="11.5" cy="12" r="2"/></svg></div>
-            <div class="tinfo"><div class="tname">Switch to winter tyres</div><div class="tmeta"><span class="tctx">Vehicle</span><span class="cadence">before Nov</span></div></div>
-            <div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
-          </div>
-          <!-- Row 4: Something else -->
-          <div class="trow else">
-            <div class="chip neutral"><svg viewBox="0 0 16 16"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg></div>
-            <div class="tinfo"><div class="else-name">Something else</div><div class="else-sub">browse all items →</div></div>
+          <div class="nb nb-vehicle">
+            <div class="nb-icon" style="background:rgba(74,130,160,0.14);"><svg viewBox="0 0 16 16" style="stroke:var(--cat-vehicle);"><rect x="1" y="6" width="14" height="6" rx="2"/><circle cx="4.5" cy="12" r="1.5"/><circle cx="11.5" cy="12" r="1.5"/><path d="M3 6L5 2h6l2 4"/></svg></div>
+            <div class="nb-content"><div class="nb-title">Car check-up is coming</div><div class="nb-sub">one less thing to remember</div></div>
           </div>
         </div>
+
+        <!-- Supporting line -->
+        <div style="font-size:8.5px;font-style:italic;color:var(--mid);text-align:center;margin:16px 0 16px;line-height:1.5;">Nudges when it matters. Silent otherwise.</div>
       </div>
-      <div class="btm">
-        <div class="divider">How do you want to start?</div>
-        <button class="btn primary">Tell me what you have</button>
-        <button class="btn secondary">Show me what I can track</button>
+      <div class="btm" style="padding:0 14px 12px;">
+        <button class="btn primary" style="height:38px;margin-bottom:8px;">Tell me what you have</button>
+        <button class="btn secondary" style="height:38px;margin-bottom:0;">Show me what I can track</button>
+        <div style="text-align:center;font-size:7.5px;color:var(--mid);margin-top:10px;">Free · no credit card · 2 min setup</div>
       </div>
     </div>
   </div>
@@ -515,34 +381,25 @@ body {
   <div class="path-sep-line"></div>
 </div>
 
-<!-- ═══ S-02 TELL NUDGII ═══ -->
+<!-- ═══ S-02 TELL (unchanged) ═══ -->
 <div class="screen-col">
   <div class="screen-label">S-02 · Tell me what you have · 40%</div>
   <div class="phone">
     <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
     <div class="prog"><div class="prog-fill" style="width:40%"></div></div>
     <div class="scr">
-      <!-- scrollable conversation thread -->
-      <div class="scroll" style="padding:6px 10px 4px;gap:0;">
-        <!-- nudgii opening — with S-01 context pre-loaded -->
+      <div class="scroll" style="padding:14px 10px 4px;gap:0;">
         <div class="nudgii-msg">
           <div class="nudgii-from">nudgii</div>
           <div class="nudgii-bubble">
-            <div class="nb-text">Good start. Already added from your selection:</div>
-            <div class="conf-chips">
-              <div class="conf-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Dishwasher</div>
-              <div class="conf-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>cv boiler</div>
-            </div>
-            <div class="nb-text" style="margin-top:4px;">What else do you have at home?</div>
+            <div class="nb-text"><em>What do you have at home?</em> I'll figure out what needs maintenance.</div>
           </div>
         </div>
-        <!-- user turn -->
         <div class="user-msg">
           <div class="user-bubble">
             <div class="ub-text">Two cars and an olive tree in the garden.</div>
           </div>
         </div>
-        <!-- nudgii confirmation -->
         <div class="nudgii-msg">
           <div class="nudgii-from">nudgii</div>
           <div class="nudgii-bubble">
@@ -554,22 +411,27 @@ body {
             <div class="nb-text" style="margin-top:4px;"><em>What brand are the cars?</em> Or say "not sure".</div>
           </div>
         </div>
-        <!-- contextual suggestions -->
-        <div style="font-size:6px;color:var(--mid-ac);margin:4px 0 2px;">Anything else?</div>
-        <div class="sug-chips">
-          <div class="sug-chip">smoke detector</div>
-          <div class="sug-chip">gutter cleaning</div>
-          <div class="sug-chip">airco filter</div>
+        <!-- Continue suggestion after enough items -->
+        <div class="nudgii-msg" style="margin-top:8px;">
+          <div class="nudgii-bubble" style="background:rgba(155,127,212,0.06);border-color:rgba(155,127,212,0.15);">
+            <div class="nb-text">That's 5 items, nice start. <em>Ready to see your schedule?</em></div>
+            <div class="sug-chips" style="margin-top:4px;">
+              <div class="sug-chip" style="background:var(--cta);color:var(--cta-fg);border-color:var(--cta);font-weight:500;">Show my schedule</div>
+              <div class="sug-chip">Add more first</div>
+            </div>
+          </div>
         </div>
       </div>
-      <!-- fixed input bar -->
       <div class="btm">
         <div class="input-bar">
           <div class="ibar-icon"><svg viewBox="0 0 16 16"><path d="M2 6V3.5A1.5 1.5 0 013.5 2H6"/><path d="M10 2h2.5A1.5 1.5 0 0114 3.5V6"/><path d="M14 10v2.5a1.5 1.5 0 01-1.5 1.5H10"/><path d="M6 14H3.5A1.5 1.5 0 012 12.5V10"/></svg></div>
-          <div class="ibar-text" style="font-style:italic;color:rgba(107,99,88,0.45);">Say it, type it, or snap a photo…</div>
+          <div class="ibar-text" style="font-style:italic;color:rgba(107,99,88,0.45);">Say it, type it, or snap a photo...</div>
           <div class="ibar-mic"><svg viewBox="0 0 16 16"><rect x="5" y="1" width="6" height="9" rx="3"/><path d="M3 8a5 5 0 0010 0"/><line x1="8" y1="13" x2="8" y2="15"/></svg></div>
         </div>
-        <div class="input-note">audio sent for transcription only · deleted after · responds in text</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:0 2px;">
+          <div class="input-note" style="margin:0;">audio sent for transcription · responds in text</div>
+          <a style="font-size:6px;color:var(--mid-ac);text-decoration:none;white-space:nowrap;">or browse →</a>
+        </div>
       </div>
     </div>
   </div>
@@ -582,7 +444,7 @@ body {
   <div class="path-sep-line"></div>
 </div>
 
-<!-- ═══ S-03 DISCOVER ═══ -->
+<!-- ═══ S-03 DISCOVER (unchanged) ═══ -->
 <div class="screen-col">
   <div class="screen-label">S-03 · Show me what I can track · 40%</div>
   <div class="phone">
@@ -593,7 +455,7 @@ body {
         <div style="font-family:'DM Serif Display',Georgia,serif;font-size:16px;font-weight:400;line-height:1.1;letter-spacing:-0.25px;color:var(--ink);margin-bottom:2px;">What do you have?</div>
         <div style="font-size:8px;font-style:italic;color:var(--mid-ac);margin-bottom:8px;line-height:1.5;">Tick what applies. We'll figure out the rest.</div>
       </div>
-      <div class="search-bar"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/></svg><div class="search-text">Search items…</div></div>
+      <div class="search-bar"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/></svg><div class="search-text">Search items...</div></div>
       <div class="cat-filters">
         <div class="cat-f on">All</div>
         <div class="cat-f"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
@@ -623,7 +485,7 @@ body {
   </div>
 </div>
 
-<!-- ═══ S-05 REVIEW ═══ -->
+<!-- ═══ S-05 REVIEW (unchanged) ═══ -->
 <div class="screen-col">
   <div class="screen-label">S-05 · Review · 60%</div>
   <div class="phone">
@@ -633,8 +495,6 @@ body {
       <div class="scroll" style="padding-top:10px;">
         <div class="h3">Here's what nudgii found.</div>
         <div class="sub" style="margin-bottom:10px;">Scan to confirm brand or model. You can adjust anything later.</div>
-
-        <!-- Card: CV ketel -->
         <div class="rev-card">
           <div class="rev-head">
             <div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div>
@@ -656,8 +516,6 @@ body {
             </div>
           </div>
         </div>
-
-        <!-- Card: Dishwasher — collapsed, tap to expand -->
         <div class="rev-card collapsed" style="cursor:pointer;">
           <div class="rev-head">
             <div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div>
@@ -669,29 +527,28 @@ body {
             <div class="rch-chevron"><svg viewBox="0 0 10 10"><polyline points="2,4 5,7 8,4"/></svg></div>
           </div>
         </div>
-
-        <!-- Add another link -->
         <div style="text-align:center; padding:6px 0 2px;">
           <span style="font-size:7.5px; color:var(--cta); font-weight:500; cursor:pointer;">+ Add another item</span>
         </div>
       </div>
-      <div class="btm"><button class="btn primary">Looks good →</button></div>
+      <div class="btm"><button class="btn primary">Looks good &rarr;</button></div>
     </div>
   </div>
 </div>
 
 
-<!-- ═══ 1. S-06 AHA ═══ -->
+<!-- ═══ S-06 AHA + CELEBRATION (two-state screen) ═══ -->
+<!-- State 1: cream, schedule reveal -->
 <div class="screen-col">
-  <div class="screen-label">S-06 AHA · 80%</div>
+  <div class="screen-label">S-06 · State 1: schedule reveal · 80%</div>
   <div class="phone">
     <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
     <div class="prog"><div class="prog-fill" style="width:80%"></div></div>
     <div class="scr">
       <div class="scroll" style="padding-top:18px;">
         <div class="aha-eyebrow">Your schedule is ready</div>
-        <div class="h2">Your first month<br>looks like this.</div>
-        <div class="aha-line">nudgii worked out the timing from what you told us. You didn't figure out a single date.</div>
+        <div class="h2">Here's what we figured<br>out for you.</div>
+        <div class="aha-line">You told us what. We worked out when. Every time.</div>
         <div class="nudge-cards">
           <div class="ncard">
             <div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div>
@@ -714,18 +571,22 @@ body {
             <div class="ndate date-ok">Nov 15</div>
           </div>
         </div>
-        <div class="value-box"><p><strong>You told us what.</strong> nudgii figured out when, and why it matters. Every time.</p></div>
       </div>
       <div class="btm">
-        <button class="btn primary">Open my schedule &rarr;</button>
+        <button class="btn primary">That's it. I'm done.</button>
       </div>
     </div>
   </div>
+  <!-- State transition arrow -->
+  <div style="display:flex;align-items:center;justify-content:center;gap:4px;margin-top:6px;">
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="var(--cta)" stroke-width="1.2" stroke-linecap="round"><path d="M5 2v6"/><path d="M2.5 5.5L5 8l2.5-2.5"/></svg>
+    <span style="font-size:7px;font-weight:500;color:var(--cta);letter-spacing:0.3px;">spring transition</span>
+  </div>
 </div>
 
-<!-- ═══ 2. S-06 CELEBRATION STATE (immediately after AHA: protect emotional peak) ═══ -->
+<!-- State 2: plum celebration + sign-in sheet -->
 <div class="screen-col">
-  <div class="screen-label">S-06 Celebration state · 85%</div>
+  <div class="screen-label">S-06 · State 2: celebration + sign-in · 85%</div>
   <div class="phone" style="background:#2D1F4A;position:relative;">
     <div class="sbar"><span class="sbar-time" style="color:rgba(245,240,232,0.65);">9:41</span><div class="sbar-icons" style="opacity:0.35;"><svg viewBox="0 0 11 10" fill="rgba(245,240,232,0.9)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="rgba(245,240,232,0.9)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="rgba(245,240,232,0.9)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
     <div class="prog" style="background:rgba(255,255,255,0.06);"><div class="prog-fill" style="width:85%"></div></div>
@@ -736,101 +597,77 @@ body {
       <div style="position:absolute;width:4px;height:4px;border-radius:50%;background:rgba(90,144,96,0.40);top:24%;left:90%;"></div>
       <div style="position:absolute;width:5px;height:5px;border-radius:50%;background:rgba(74,130,160,0.40);top:35%;left:5%;"></div>
       <div style="position:absolute;width:4px;height:4px;border-radius:50%;background:rgba(232,168,124,0.50);top:7%;left:48%;"></div>
-      <div style="position:absolute;width:6px;height:6px;border-radius:50%;background:rgba(128,96,168,0.35);top:62%;left:93%;"></div>
-      <div style="position:absolute;width:3px;height:3px;border-radius:50%;background:rgba(200,120,80,0.35);top:70%;left:4%;"></div>
-      <div style="position:absolute;width:4px;height:4px;border-radius:50%;background:rgba(90,144,96,0.30);top:80%;left:84%;"></div>
-      <div style="position:absolute;width:3px;height:3px;border-radius:50%;background:rgba(245,240,232,0.18);top:46%;left:9%;"></div>
-      <div style="position:absolute;width:4px;height:4px;border-radius:50%;background:rgba(245,240,232,0.14);top:16%;left:28%;"></div>
 
-      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 18px 0;text-align:center;position:relative;">
+      <!-- Celebration content (top half) -->
+      <div style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center;padding:20px 18px 14px;text-align:center;position:relative;">
         <!-- ii mark light-on-dark -->
-        <div style="margin-bottom:24px;">
-          <svg width="42" height="48" viewBox="199 162 626 700" xmlns="http://www.w3.org/2000/svg">
+        <div style="margin-bottom:12px;">
+          <svg width="32" height="36" viewBox="199 162 626 700" xmlns="http://www.w3.org/2000/svg">
             <path fill="#F2EDE4" d="M324.2,161.93h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87v-442.39c0-71.17,56.05-128.87,125.18-128.87Z"/>
             <path fill="#9B7FD4" d="M649.98,161.93h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87v-442.39c0-71.17,56.05-128.87,125.18-128.87Z"/>
             <circle fill="#E8A87C" cx="735" cy="281.22" r="90"/>
           </svg>
         </div>
-        <div style="font-size:7px;font-weight:500;letter-spacing:1.3px;text-transform:uppercase;color:rgba(245,240,232,0.40);margin-bottom:10px;">you're in</div>
-        <div style="font-family:'DM Serif Display',serif;font-size:20px;font-style:italic;font-weight:400;line-height:1.05;letter-spacing:-0.3px;color:#E8A87C;margin-bottom:8px;">Your boiler<br>is relieved.</div>
-        <div style="font-size:7.5px;color:rgba(245,240,232,0.50);line-height:1.55;font-style:italic;margin-bottom:24px;">We'll remind you when it matters.</div>
-        <!-- first nudge pill -->
-        <div style="background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.10);border-radius:100px;padding:4px 12px;display:inline-flex;align-items:center;gap:6px;margin-bottom:6px;">
-          <span style="font-size:6.5px;color:rgba(245,240,232,0.70);">First reminder</span>
-          <div style="width:3px;height:3px;border-radius:50%;background:rgba(232,168,124,0.50);"></div>
-          <span style="font-size:6.5px;font-weight:500;color:#E8A87C;">Oct 28</span>
-        </div>
-        <div style="font-size:6px;color:rgba(245,240,232,0.28);font-style:italic;">Annual boiler service</div>
+        <div style="font-family:'DM Serif Display',serif;font-size:17px;font-style:italic;font-weight:400;line-height:1.05;letter-spacing:-0.3px;color:#E8A87C;margin-bottom:6px;">Your boiler<br>is relieved.</div>
+        <div style="font-size:7px;color:rgba(245,240,232,0.45);line-height:1.55;font-style:italic;">We'll remind you when it matters.</div>
       </div>
-      <div class="btm" style="padding-top:10px;">
-        <button class="btn primary" style="background:#9B7FD4;color:#FAF8FF;">Open my schedule</button>
-        <div style="text-align:center;font-size:6px;color:rgba(245,240,232,0.28);margin-top:2px;">Tap when you're ready. No rush.</div>
+
+      <!-- Sign-in bottom sheet (slides up over plum) -->
+      <div style="flex:1;background:white;border-radius:16px 16px 0 0;padding:10px 14px 14px;display:flex;flex-direction:column;box-shadow:0 -4px 24px rgba(0,0,0,0.20);position:relative;z-index:10;">
+        <!-- handle -->
+        <div style="width:28px;height:3px;border-radius:100px;background:rgba(26,22,18,0.12);margin:0 auto 12px;"></div>
+        <!-- ii mark small -->
+        <div style="display:flex;justify-content:center;margin-bottom:8px;">
+          <svg width="14" height="16" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/></svg>
+        </div>
+        <div style="text-align:center;margin-bottom:3px;">
+          <div style="font-family:'DM Serif Display',Georgia,serif;font-size:15px;font-weight:400;line-height:1.1;letter-spacing:-0.25px;color:var(--ink);">Save your schedule</div>
+        </div>
+        <div style="text-align:center;font-size:7.5px;font-style:italic;color:var(--mid);margin-bottom:14px;line-height:1.5;">Your data stays yours. We never share it.</div>
+        <!-- Apple SSO -->
+        <button style="width:100%;height:34px;border-radius:100px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:8.5px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:6px;border:none;background:#1A1612;color:white;">
+          <svg viewBox="0 0 14 17" fill="white" width="11" height="11"><path d="M11.5 8.8c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.6-1.9-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.8C1.4 3.4 0 4.8 0 7.3c0 3.5 3 7.2 4.3 9.2.9 1.4 2 2.9 3.4 2.8 1.4-.1 1.9-.9 3.6-.9 1.7 0 2.1.9 3.6.8 1.5-.1 2.4-1.4 3.3-2.8.7-1 1-1.9 1.3-2 0 0-2.4-1-2.4-3.6z"/><path d="M9.3 2.2C10 1.3 10.5.1 10.3-1c-1 .1-2.2.7-3 1.6-.7.8-1.3 2-1.1 3.1 1.1.1 2.2-.5 3.1-1.5z"/></svg>
+          Continue with Apple
+        </button>
+        <!-- Google SSO -->
+        <button style="width:100%;height:34px;border-radius:100px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:8.5px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:6px;border:1px solid rgba(26,22,18,0.16);background:var(--surface);color:var(--ink);">
+          <svg viewBox="0 0 18 18" width="11" height="11"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z"/></svg>
+          Continue with Google
+        </button>
+        <div style="text-align:center;font-size:7.5px;color:var(--mid);padding:4px 0 0;cursor:pointer;">Not now</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ═══ 3. S-07 PUSH PERMISSION (after celebration: user understands WHY) ═══ -->
+<!-- ═══ S-07 PUSH PERMISSION (new) ═══ -->
 <div class="screen-col">
-  <div class="screen-label">S-07 Push permission · 90%</div>
+  <div class="screen-label">S-07 Push permission (new) · 100%</div>
   <div class="phone">
     <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
-    <div class="prog"><div class="prog-fill" style="width:90%"></div></div>
+    <div class="prog"><div class="prog-fill full" style="width:100%"></div></div>
     <div class="scr">
-      <div class="push-wrap">
-        <div class="push-icon">
-          <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
-        </div>
-        <div class="h3" style="margin-bottom:8px;">Stay on top of things.</div>
-        <div class="sub" style="text-align:center;margin-bottom:0;max-width:200px;">nudgii sends reminders when tasks are due. Turn on notifications so nothing slips.</div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:100px 18px 0;text-align:center;">
+        <!-- Bell icon, bare, 48px scaled, purple at 60% opacity -->
+        <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="rgba(155,127,212,0.60)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:20px;">
+          <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 01-3.46 0"/>
+        </svg>
+        <!-- Headline with dynamic date -->
+        <div style="font-family:'DM Serif Display',Georgia,serif;font-size:20px;font-weight:400;line-height:1.1;letter-spacing:-0.3px;color:var(--ink);margin-bottom:10px;">We'll remind you on<br><em style="color:var(--apricot-dk);font-style:italic;">Oct 28.</em></div>
+        <!-- Subline -->
+        <div style="font-size:9px;font-style:italic;color:var(--mid);line-height:1.55;max-width:200px;margin-bottom:0;">We only reach out when something actually needs your attention.</div>
       </div>
       <div class="btm">
         <button class="btn primary">Turn on notifications</button>
         <button class="btn ghost">Maybe later</button>
+        <div style="text-align:center;font-size:7px;color:var(--mid);margin-top:4px;">You can always turn this on later in settings.</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ═══ 4. S-08 SIGN-IN / SSO (one-tap account, email captured automatically) ═══ -->
-<div class="screen-col">
-  <div class="screen-label">S-08 Sign-in (SSO) · 95%</div>
-  <div class="phone">
-    <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
-    <div class="prog"><div class="prog-fill" style="width:95%"></div></div>
-    <div class="scr">
-      <!-- centered content area (matches push screen layout) -->
-      <div class="push-wrap">
-        <!-- ii mark in same container as push icon (56x56, matches height) -->
-        <div class="push-icon">
-          <svg width="26" height="29" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg">
-            <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
-            <path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
-            <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
-          </svg>
-        </div>
-        <div class="h3" style="margin-bottom:4px;">One tap to keep it all.</div>
-        <div class="sub" style="text-align:center;margin-bottom:0;max-width:200px;">Your schedule, your reminders, always backed up.</div>
-      </div>
-      <!-- sticky bottom zone (matches push screen) -->
-      <div class="btm">
-        <!-- Apple SSO (first per Apple guideline) -->
-        <button style="width:100%;height:36px;border-radius:100px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:9px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:6px;border:none;background:#1A1612;color:white;">
-          <svg viewBox="0 0 14 17" fill="white" width="12" height="12"><path d="M11.5 8.8c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.6-1.9-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.8C1.4 3.4 0 4.8 0 7.3c0 3.5 3 7.2 4.3 9.2.9 1.4 2 2.9 3.4 2.8 1.4-.1 1.9-.9 3.6-.9 1.7 0 2.1.9 3.6.8 1.5-.1 2.4-1.4 3.3-2.8.7-1 1-1.9 1.3-2 0 0-2.4-1-2.4-3.6z"/><path d="M9.3 2.2C10 1.3 10.5.1 10.3-1c-1 .1-2.2.7-3 1.6-.7.8-1.3 2-1.1 3.1 1.1.1 2.2-.5 3.1-1.5z"/></svg>
-          Continue with Apple
-        </button>
-        <!-- Google SSO -->
-        <button style="width:100%;height:36px;border-radius:100px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:9px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:6px;border:1px solid rgba(26,22,18,0.16);background:var(--surface);color:var(--ink);">
-          <svg viewBox="0 0 18 18" width="12" height="12"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z"/></svg>
-          Continue with Google
-        </button>
-        <button class="btn ghost">Not now</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ 5. S-09 DASHBOARD (first session) ═══ -->
+<!-- ═══ S-09 DASHBOARD (unchanged) ═══ -->
 <div class="screen-col">
   <div class="screen-label">S-09 Dashboard</div>
   <div class="phone" style="position:relative;">
@@ -852,7 +689,6 @@ body {
         <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div><div class="dcontent"><div class="dname">Annual boiler service</div><div class="dsub">CV ketel, yearly</div></div><div class="ddate soon">Oct 28</div></div>
         <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div><div class="dcontent"><div class="dname">Clean dishwasher filter</div><div class="dsub">Dishwasher, every 6-8 wks</div></div><div class="ddate ok">Nov 8</div></div>
         <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div><div class="dcontent"><div class="dname">Check CO detector</div><div class="dsub">CV ketel, yearly</div></div><div class="ddate ok">Nov 15</div></div>
-
         <!-- Gesture hint -->
         <div style="display:flex;align-items:center;justify-content:flex-end;gap:3px;padding:2px 14px 6px;">
           <svg width="10" height="7" viewBox="0 0 10 7" fill="none"><path d="M1 3.5h8M6 1l2.5 2.5L6 6" stroke="#6B6358" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -875,58 +711,37 @@ body {
 </div><!-- /screens-row -->
 </div><!-- /screens-wrap -->
 
-<!-- ANNOTATIONS -->
-<div class="ann-section">
-  <div class="ann-title-row">Research-backed strategy, conversion data, design decisions</div>
-  <div class="ann-row">
-
-    <div class="ann-card">
-      <div class="ann-t">1. Flow order: why this sequence</div>
-      <div class="ann-item"><div class="ann-i key">&#9733;</div><div class="ann-txt"><strong>AHA > Celebration protects the emotional peak.</strong> Duolingo, Headspace, and Calm all follow this pattern: show value > reward > then ask. Interrupting the peak with a form or permission request loses 15-30% of users who were about to convert anyway (Reforge cohort analysis).</div></div>
-      <div class="ann-item"><div class="ann-i key">&#9733;</div><div class="ann-txt"><strong>Push after celebration: 3x higher opt-in.</strong> Contextual push requests (after value demonstration) achieve 60-70% opt-in vs 20-25% for pre-value requests (Localytics, Airship 2024 benchmarks). The user just saw their schedule with dates. "Turn on notifications" now makes intuitive sense.</div></div>
-      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>SSO as final gate: one tap, real account.</strong> Apple/Google SSO converts at 70-80% when placed after value demonstration (Branch.io onboarding data). Email forms convert at 40-55%. One fewer screen than the previous version: each screen removed from onboarding saves 10-20% drop-off (Appsflyer mobile benchmark 2024).</div></div>
-      <div class="ann-item"><div class="ann-i upd">&uarr;</div><div class="ann-txt"><strong>Weekly digest moved to dashboard nudge cards.</strong> Not an onboarding gate. Users who consciously opt in to emails have 2-3x higher open rates than passive captures (Mailchimp benchmark). The digest becomes a reward, not a requirement.</div></div>
+<!-- DECISION NOTES -->
+<div class="notes-section">
+  <div class="notes-title">Design decisions: why this flow order</div>
+  <div class="notes-grid">
+    <div class="note-card">
+      <div class="note-icon">&#9733;</div>
+      <div class="note-heading">Two-state screen (AHA + celebration)</div>
+      <div class="note-body">Reveal and celebration are one screen with a spring transition. "That's it. I'm done." triggers the plum takeover. No misleading CTAs, no extra navigation step. The emotional peak and the action happen together.</div>
     </div>
-
-    <div class="ann-card">
-      <div class="ann-t">2. SSO over email: the dev was right</div>
-      <div class="ann-item"><div class="ann-i key">&#9733;</div><div class="ann-txt"><strong>Email-then-SSO creates identity confusion.</strong> Users who give email for digest then see Apple/Google sign-in think "I already gave my email." Some skip (thinking they're signed up), others use a different email (creating duplicate accounts). One auth moment solves both.</div></div>
-      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>Apple Sign In provides email automatically</strong> (relay or real, user's choice). Google Sign In provides Gmail. No form needed. The weekly digest can be enabled with a toggle, not a form. User's email is already known.</div></div>
-      <div class="ann-item"><div class="ann-i key">&#9733;</div><div class="ann-txt"><strong>Apple first (required by App Review).</strong> Apps offering any third-party sign-in must also offer Sign in with Apple. Apple's guideline requires their button to be at least as prominent as alternatives. Our layout: Apple (dark, full width) > Google (bordered) > skip link.</div></div>
-      <div class="ann-item"><div class="ann-i upd">&uarr;</div><div class="ann-txt"><strong>"One tap to keep it all" framing.</strong> Not "create an account" or "save your schedule." The user just built something valuable. "Keep it all" is about what they get. "Create account" is about our database. ii mark replaces shield icon: nudgii is the one keeping things safe, not a generic security concept.</div></div>
+    <div class="note-card">
+      <div class="note-icon">&#128274;</div>
+      <div class="note-heading">Sign-in slides up over celebration</div>
+      <div class="note-body">Bottom sheet on plum background. The celebration is still visible behind. "Save your schedule" frames sign-in as protecting something you just built, not passing through a gate.</div>
     </div>
-
-    <div class="ann-card">
-      <div class="ann-t">3. Push permission placement</div>
-      <div class="ann-item"><div class="ann-i key">&#9733;</div><div class="ann-txt"><strong>Best-in-class push opt-in: 60-70%.</strong> Duolingo asks after first lesson completion (65% opt-in). Calm asks after first meditation (62%). Both follow the same pattern: show value > emotional reward > ask for permission. This flow mirrors that exactly.</div></div>
-      <div class="ann-item"><div class="ann-i new">N</div><div class="ann-txt"><strong>iOS only gets one shot.</strong> If the user taps "Don't Allow" on the native iOS prompt, the app cannot ask again. The pre-permission screen ("Stay on top of things") is the primer. Only show the native prompt when the user taps "Turn on notifications." "Maybe later" skips without burning the native prompt.</div></div>
-      <div class="ann-item"><div class="ann-i upd">&uarr;</div><div class="ann-txt"><strong>Copy ties to what they just saw.</strong> "nudgii sends reminders when tasks are due." The user just saw tasks with dates on the AHA screen and the celebration confirmed them. The connection is immediate and obvious.</div></div>
+    <div class="note-card">
+      <div class="note-icon">&#128276;</div>
+      <div class="note-heading">Push shows actual first date</div>
+      <div class="note-body">"We'll remind you on Oct 28" makes the permission ask concrete. Abstract asks ("stay on top of things") convert at 20-25%. Concrete asks convert at 60-70%.</div>
     </div>
-
-    <div class="ann-card">
-      <div class="ann-t">5. Peer benchmarks</div>
-      <div class="ann-item"><div class="ann-i key">&#9733;</div><div class="ann-txt"><strong>Duolingo:</strong> Value first (lesson) > celebration > account creation. 500M+ downloads. Onboarding completion rate ~65%. Push opt-in 65%. They moved signup AFTER the first lesson and saw a 20% increase in D1 retention.</div></div>
-      <div class="ann-item"><div class="ann-i key">&#9733;</div><div class="ann-txt"><strong>Headspace:</strong> Free meditation > "how do you feel?" > sign-up. 70M+ downloads. Their "experience before commitment" model increased trial-to-paid conversion by 14% when they delayed the paywall by one screen.</div></div>
-      <div class="ann-item"><div class="ann-i key">&#9733;</div><div class="ann-txt"><strong>Todoist:</strong> Apple/Google SSO prominently above email. Quick task creation before sign-up. 40M+ users. SSO accounts have 25% better D7 retention than email-only accounts (easier to log back in).</div></div>
-      <div class="ann-item"><div class="ann-i upd">&uarr;</div><div class="ann-txt"><strong>Noom:</strong> 10-minute quiz (investment) > personalized results (AHA) > paywall. Shows that longer onboarding works IF every step builds perceived value. nudgii's 2-minute onboarding is faster, but follows the same value-first principle.</div></div>
+    <div class="note-card">
+      <div class="note-icon">&#10003;</div>
+      <div class="note-heading">"Maybe later" never blocks</div>
+      <div class="note-body">Both push choices lead to the dashboard. Denying push permission never blocks progression. Re-trigger fires contextually when first reminder is within 3 days.</div>
     </div>
-
+    <div class="note-card">
+      <div class="note-icon">&#9634;</div>
+      <div class="note-heading">One fewer screen in the flow</div>
+      <div class="note-body">v1 had 3 screens between schedule and dashboard (celebration, auth, push). v2 combines reveal + celebration + auth into one two-state screen. User reaches dashboard faster with no bait-and-switch.</div>
+    </div>
   </div>
 </div>
 
-<!-- FIRST-WEEK ENGAGEMENT LINK -->
-<div style="margin-top:20px;padding:14px 16px;background:var(--surface);border:0.5px solid var(--border);border-radius:12px;display:inline-flex;align-items:center;gap:8px;">
-  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="var(--cta)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4v4"/><path d="M14 2L8 8"/><path d="M12 9v4.5a1.5 1.5 0 01-1.5 1.5h-8A1.5 1.5 0 011 13.5v-8A1.5 1.5 0 012.5 4H7"/></svg>
-  <a href="first-week-engagement.html" style="font-size:11px;font-weight:500;color:var(--cta);text-decoration:none;">First-week engagement sequence (Day 3-7 digest nudges) &rarr;</a>
-</div>
-
-<script>
-function toggle(row) {
-  if (row.classList.contains('else')) return;
-  row.classList.toggle('sel');
-  const chk = row.querySelector('.chk');
-  if (chk) chk.classList.toggle('on');
-}
-</script>
 </body>
 </html>

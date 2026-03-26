@@ -101,14 +101,14 @@ Status as of March 2026. Always check `nudgii-design/index.html` for current sta
 
 | Screen | Name | Status |
 |---|---|---|
-| S-01 | Welcome | ✅ Ready for dev |
+| S-01 | Welcome | 🔶 In progress |
 | S-02 | Tell me what you have (Path A) | 🔶 In progress |
 | S-03 | Show me what I can track (Path B) | 🔶 In progress |
-| S-04 | *(removed, was Direct search / Path C)* | — |
-| S-05 | Review | 🔶 In progress |
-| S-06 | AHA + celebration state | 🔶 In progress |
-| S-07 | Push permission | 🔶 In progress (lo-fi done) |
-| S-08 | Sign-in (SSO) | 🔶 In progress |
+| S-04 | Review | 🔶 In progress |
+| S-05 | AHA + celebration + sign-in | 🔶 In progress |
+| S-06 | Push permission | 🔶 In progress |
+| S-07 | *(removed, was onboarding completion)* | — |
+| S-08 | *(removed, was push permission standalone)* | — |
 | S-09 | Dashboard — default | ✅ Ready for dev |
 | S-10 | Dashboard — empty | ✅ Ready for dev |
 | S-11 | Done overlay | 🔶 In progress (OD-01 resolved 2026-03-18) |
@@ -346,9 +346,9 @@ These are locked decisions. Do not question them in design or code reviews.
 - ❌ Never use a dark ink background on toasts — use semantic light backgrounds (sage-lt / red-lt / cream) only
 - ❌ Never use border-left accent on error cards — use full-border + red-lt background + icon-chip
 - ❌ Never show "recent" as a last-maintenance chip default — always "6 mnd geleden"
-- ❌ Never auto-advance from S-06 celebration — always require user tap ("Open my schedule")
+- ❌ Never auto-advance from S-05 celebration — always require user tap ("Open my schedule")
 - ❌ Never put CTA buttons side by side on onboarding screens — always vertically stacked
-- ❌ Never show mini-tile columns for preview items on S-01 — use item row style (same as dashboard)
+- ❌ Never show mini-tile columns for preview items — use item row style (same as dashboard) on any screen that shows items
 - ❌ Never use border-bottom to separate items in a list — each item is its own card with gap between
 - ❌ Never wrap multiple items in a single container card — gap + individual cards only
 - ❌ Never hardcode bottom padding for safe area — always use SafeArea widget in Flutter
@@ -357,12 +357,12 @@ These are locked decisions. Do not question them in design or code reviews.
 - ❌ Never wrap the entire screen in SingleChildScrollView — only the content zone scrolls
 - ❌ Never use a fixed-count dot or step indicator for onboarding — continuous bar only
 - ❌ Never flatten the shell pattern into a single scrollable column — fixed top + Expanded + fixed bottom, always
-- ❌ Never show more than 3 preview items on S-01 — never a 4th, never a carousel
+- ❌ Never show interactive items on S-01 — nudge bubbles are display only, no onTap, no hover, no selection state
 - ❌ Never use Dutch copy in design files (lo-fi, hi-fi, prototype) — English only in all design artefacts
 - ❌ Never write locale-specific copy as the primary copy in design files — label it explicitly (e.g., "nl-BE example")
 - ❌ Never add "Step X of Y" text labels anywhere on screen — the progress bar is the only progress indicator, ever
 - ❌ Never write "NUDGII" as a sender label in conversation UI — always lowercase "nudgii", same rule as everywhere else
-- ❌ Never design S-02 (or any onboarding step) as if prior steps didn't happen — carry context forward. If items were selected on S-01, they appear as pre-confirmed in S-02. Never ask the user for information they've already given.
+- ❌ Never design S-02 (or any onboarding step) as if prior steps didn't happen — carry context forward. S-01 no longer has interactive selection, so S-02 always opens fresh.
 - ❌ Never modify a hi-fi screen without adding a changelog entry — every change gets a version + date, BREAKING/ADDITIVE tag, description, and Flutter notes. The developer reads these to know what to build. No exceptions.
 - ❌ Never consider a design change complete without updating ALL of: CLAUDE.md, ClickUp tasks, index.html, flow files, lo-fi files, hi-fi changelogs, and design system files (design-system.html, icon-inventory.html, interaction-states.html). Partial updates cause confusion downstream.
 
@@ -429,6 +429,12 @@ Update this section when open decisions are resolved.
 | S-01 category strip removed | Category filter chips (Home, Vehicle, Garden, Subscriptions) removed from S-01. Screen was too busy. Category strip stays on S-03 and S-09 where it's a functional filter. | ✅ Yes | 2026-03-26 |
 | S-01 subtitle v2 | "We remind you before things break, expire, or get too late." replaces "Add what you own. We'll remind you when it matters." Explains the why (prevent problems) not the how (add items). | ✅ Yes | 2026-03-26 |
 | S-01 badge copy | "Set up in 2 minutes" replaces "Ready in 2 minutes". Action-oriented (user takes action) vs passive. | ✅ Yes | 2026-03-26 |
+| V2 flow promoted | v2 onboarding flow promoted to main. v1 archived. Celebration before auth, two-state AHA+celebration screen, sign-in as bottom sheet, nudge bubbles on S-01. | ✅ Yes | 2026-03-26 |
+| Screen renumbering | S-05 Review → S-04. S-06 AHA → S-05 (combined with celebration + sign-in). S-07 Push → S-06. Old S-07 completion + S-08 SSO merged into S-05 two-state. S-09 Dashboard unchanged. | ✅ Yes | 2026-03-26 |
+| Nudge bubbles component | S-01 welcome shows 3 staggered nudge bubbles in nudgii voice. Category-tinted bg (7%), rotation angles, display only. Replaces item cards and category chips. | ✅ Yes | 2026-03-26 |
+| S-02 no carry-over | S-02 opens fresh ("What do you have at home?"). No selection carry-over from S-01 since S-01 no longer has interactive items. | ✅ Yes | 2026-03-26 |
+| Gamification micro-moments | Celebration prototype pattern (confetti + spring animation) to be reused for: first task completed, streak milestones, weekly all-done. Design as reusable component. | ✅ Yes | 2026-03-26 |
+| Nudge bubble localization | S-01 nudge bubble content needs locale variants (nl-BE, nl-NL, fr) and seasonal rotation (adjust by current month). Store in database, not hardcoded. | ✅ Yes | 2026-03-26 |
 
 ---
 

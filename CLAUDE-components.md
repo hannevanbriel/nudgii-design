@@ -66,7 +66,7 @@ Container: display:flex · flex-direction:column · gap:6px (or 8px) · NO backg
 
 ### Category filter strip
 
-Used on S-03 (browse), S-09 (dashboard). Same pattern everywhere.
+Used on S-03 (browse), S-09 (dashboard). S-01 no longer has a filter strip.
 
 ```
 Layout: single horizontal scrollable row, flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none
@@ -95,26 +95,21 @@ Flutter: `SingleChildScrollView(scrollDirection: Axis.horizontal)` wrapping a `R
 ### S-01 Welcome screen — layout spec
 ```
 [Notch + status bar]
-[Segmented progress bar, full-width, edge-to-edge, 2.5px]
+[Progress bar, full-width, edge-to-edge, 3px]
 [Content area, flex:1, scrollable]
-   ii mark (left) + free badge "Free · no credit card" (right)
+   ii mark (centered or left)
    Headline DM Serif Display 33px + subtitle italic DM Sans
-   3 preview item rows (dashboard visual language)
+   "Set up in 2 minutes" badge
+   3 nudge bubbles (display only, category-tinted, staggered rotation)
 [Sticky bottom zone, margin-top:auto]
-   Divider "How do you want to start?" (center)
-   Path A: plum-lt fill 50px, "Tell me what you have"
-   Path B: border 46px, "Show me what I can track"
+   Path A: CTA fill, "Tell me what you have"
+   Path B: border, "Show me what I can track"
    24px safe area padding
 ```
 
-**Free badge:** sage-lt background `#EAF3DE` · sage text `#3B6D11` · sage dot · copy: "Free · no credit card"
+**"Set up in 2 minutes" badge:** Sits between the promise subtitle and the nudge bubbles. Clock icon (`PhosphorIcons.clock`, 9-11px, stroke `#6B6358`) + text "Set up in 2 minutes". Style: `background: rgba(26,22,18,0.05); border: 0.5px solid rgba(26,22,18,0.10); border-radius: 100px; padding: 3px 10px 3px 7px`. Font: 10px DM Sans 500, color `#6B6358`. Action-oriented framing (user takes action) vs passive ("ready").
 
-**"Set up in 2 minutes" badge:** Sits between the promise subtitle and the task preview rows. Clock icon (`PhosphorIcons.clock`, 9-11px, stroke `#6B6358`) + text "Set up in 2 minutes". Style: `background: rgba(26,22,18,0.05); border: 0.5px solid rgba(26,22,18,0.10); border-radius: 100px; padding: 3px 10px 3px 7px`. Font: 10px DM Sans 500, color `#6B6358`. Action-oriented framing (user takes action) vs passive ("ready").
-
-**Preview items:** 3 item rows in a white card (same visual language as dashboard item cards).
-Each row: category icon chip 28x28px (category-colored bg, Phosphor outline icon) + item name 13px/500 + status label 11px.
-Status colors: overdue = terra, upcoming = apricot-dk, neutral = mid.
-Never mini-tile columns, items look like items everywhere in the app.
+**Nudge bubbles:** 3 display-only bubbles in nudgii's warm voice, category-tinted backgrounds (7% opacity), staggered rotation angles. See Nudge bubbles component spec above. No interactive items, no category filter strip, no free badge.
 
 **Sticky bottom:** Flutter: Column with Expanded(child: scrollable content) + SizedBox bottom zone.
 HTML mockups: flex column on screen, flex:1 on content, margin-top:auto on button zone.
@@ -123,13 +118,12 @@ HTML mockups: flex column on screen, flex:1 on content, margin-top:auto on butto
 Single continuous progress bar, fills left to right.
 Height: 3px · Border-radius: 100px · Full-width, edge-to-edge below status bar (own dedicated row)
 Background: rgba(26,22,18,0.08) · Fill: colorCta #9B7FD4
-Step fills (S-01 to S-08):
+Step fills (S-01 to S-06):
 - S-01: 20% (app opened, path not yet chosen)
 - S-02 / S-03: 40% (path chosen, entering items)
-- S-05: 60% (reviewing items)
-- S-06: 80% (AHA schedule preview), 85% (celebration state)
-- S-07: 90% (push permission)
-- S-08: 95% (sign-in / SSO)
+- S-04: 60% (reviewing items)
+- S-05: 80% (AHA schedule preview), 85% (celebration state)
+- S-06: 100% (push permission)
 Flutter: LinearProgressIndicator with custom colors + ClipRRect(borderRadius) + AnimatedContainer (300ms ease-in-out).
 - Never segmented bars, any fixed visual count implies a fixed step count.
 - Never dots, same problem.
@@ -159,19 +153,36 @@ Structure: icon-chip (28x28px, red-lt bg, terra icon) + title + body + action li
 Background: red-lt #FCEBEB · Border: 1px solid rgba(163,45,45,0.18) · all sides
 Action link: colorCta, underline, with right-arrow icon
 
-### Icon container (S-07 Push, S-08 SSO)
-Reusable centered-icon component for permission and trust screens.
+### Icon container (S-06 Push)
+Reusable centered-icon component for permission screens. SSO is now a bottom sheet in S-05, not a standalone screen.
 ```
 Size: 56x56px | Border-radius: 16px
 Background: rgba(155,127,212,0.08), CTA purple tint
 Border: 0.5px solid rgba(155,127,212,0.15), CTA purple
 Icon: 26px Phosphor outline, stroke colorCta (#9B7FD4), stroke-width 1.6
 ```
-S-07 uses bell icon (functional: notifications). S-08 uses ii mark SVG (brand: trust).
-Both containers are visually identical. The icon communicates function or identity depending on context.
+S-06 uses bell icon (functional: notifications).
+The icon communicates function depending on context.
 
-### Centered content screen (S-07 Push, S-08 SSO)
-Shared layout pattern for the final onboarding screens.
+### Nudge bubbles (S-01 welcome)
+Display-only preview bubbles showing nudgii's voice. Not interactive, no onTap, no hover, no selection state.
+```
+Size: content-width, max-width 85% of screen
+Background: category color at 7% opacity (home rgba(200,120,80,0.07), garden rgba(90,144,96,0.07), vehicle rgba(74,130,160,0.07))
+Border: none
+Border-radius: 12px
+Padding: 8px 12px 8px 8px
+Rotation: staggered angles (-1.2deg, 0.8deg, -0.5deg)
+Left margins: varied (8px, 32px, 18px) for organic feel
+Gap: 12px between bubbles
+```
+Each bubble contains: category icon chip (22x22, same as elsewhere) + title (8px DM Sans 500) + subtitle (6.5px italic colorMid).
+Content is in nudgii's warm voice: "Your boiler could use some love" not "Service the boiler."
+Content is locale-dependent and seasonally rotated, stored in database.
+Flutter: `Column` of non-interactive `Container` widgets with `Transform.rotate`. No `GestureDetector`, no `InkWell`.
+
+### Centered content screen (S-06 Push)
+Shared layout pattern for permission screens. S-05 has its own two-state pattern (AHA + celebration + sign-in sheet).
 ```
 Content zone: flex:1, centered vertically + horizontally, padding 0 28px, text-align center
 Bottom zone: sticky, fixed Column (CTA + ghost button)

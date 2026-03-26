@@ -22,11 +22,11 @@ These 5 tweaks were applied across the onboarding flow (2026-03-23) to reduce dr
 
 | Screen | Tweak | Rationale |
 |---|---|---|
-| S-01 | "Set up in 2 minutes" badge between subtitle and task rows (was "Ready in 2 minutes") | Action-oriented framing, sets time expectation before path-choice |
+| S-01 | "Set up in 2 minutes" badge between subtitle and nudge bubbles (was "Ready in 2 minutes") | Action-oriented framing, sets time expectation before path-choice |
 | S-02 | Sub includes "2-3 items is plenty to start." hint (italic, `colorMidAccessible`) | Cold-start users freeze when they think they need to add everything at once |
-| S-05 | Sub: "Scan to confirm brand or model. You can adjust anything later." | Reduces review-screen friction; reminds user the AI scan is available; "adjust later" lowers perfectionism |
-| S-08 | "Not now" is a visible ghost button (was "Continue without account" as 60%-opacity whisper) | Lower-commitment path must be findable. Renamed after SSO replaced email auth |
-| S-06 | Sub: "We'll remind you when it matters." on celebration state | User-centric framing (what they get) vs brand-centric (what we do) |
+| S-04 | Sub: "Scan to confirm brand or model. You can adjust anything later." | Reduces review-screen friction; reminds user the AI scan is available; "adjust later" lowers perfectionism |
+| S-05 | "Not now" is a visible ghost button on sign-in sheet | Lower-commitment path must be findable |
+| S-05 | Sub: "We'll remind you when it matters." on celebration state | User-centric framing (what they get) vs brand-centric (what we do) |
 | S-09 | "swipe right to complete" gesture hint below first overdue task | First-time users don't discover swipe on their own; hint disappears after first completion |
 
 ---
@@ -51,7 +51,7 @@ Resolved 2026-03-23. Applies to any screen that uses a chat-thread conversation 
 - Hint sub-text (cold start): 8px italic DM Sans, colorMidAccessible, below nudgii's first bubble
 
 ### Context carry-over from S-01
-If the user tapped or selected items on S-01 before choosing Path A: those items are pre-loaded into the conversation. nudgii opens with "I see you added [X, Y]. What else do you have?" and shows the pre-loaded items as confirmed chips. Never ask users for information they already gave. If no items were selected on S-01, nudgii opens fresh.
+S-01 no longer has interactive items. nudgii always opens fresh: "What do you have at home? I'll figure out what needs maintenance." No confirmed chips pre-loaded.
 
 ### Input bar (fixed, bottom of screen)
 - Background: surface white, border 0.5px solid rgba(26,22,18,0.12), border-radius 100px
