@@ -771,9 +771,25 @@ This file (CLAUDE.md) is the single source of truth for all design and product d
 - This file is the handoff document — if a rule is not here, it does not exist for the next person
 
 **What this means in practice:**
-- Claude never needs to be reminded of a rule that is written here. If it is written here, it applies automatically to every screen, lo-fi, hi-fi, prototype, and code file — without being asked.
+- Claude never needs to be reminded of a rule that is written here. If it is written here, it applies automatically to every screen, lo-fi, hi-fi, prototype, and code file, without being asked.
 - If Claude builds something that contradicts a rule in this file, the rule wins and the work is corrected.
-- If Hanne notices a rule being applied inconsistently, the fix is to add or clarify it in this file — not to repeat it in chat.
+- If Hanne notices a rule being applied inconsistently, the fix is to add or clarify it in this file, not to repeat it in chat.
+
+### Post-change checklist — mandatory after every design change
+
+Every design or screen change is incomplete until ALL of these are verified. Do not wait to be asked. Do not skip any step.
+
+| # | What to update | When |
+|---|---|---|
+| 1 | **CLAUDE.md** — component specs, screen inventory (Section 5), decisions log (Section 19), copy rules (Section 12), progress bar steps, any section referencing the changed element | Every change |
+| 2 | **Hi-fi changelogs** — version + date, BREAKING/ADDITIVE, what changed visually, Flutter implementation notes. The developer reads these to know what to build. | Every hi-fi modification |
+| 3 | **ClickUp tasks** — update task names, descriptions, statuses. Create dev tasks for implementation changes. | Every change |
+| 4 | **index.html** — screen cards, links, status badges, flow preview descriptions | Screen changes |
+| 5 | **Flow files** — `onboarding-full-preview.html`, `first-week-engagement.html` | Onboarding/flow changes |
+| 6 | **Design system files** — `system/design-system.html` (component library, screen refs), `system/icon-inventory.html` (icon assignments), `system/interaction-states.html` (component states) | Component/icon/state changes |
+| 7 | **Lo-fi files** — numbering, references, copy in affected lo-fi screens | Screen renumbering or copy changes |
+
+**Grep check:** After updating, grep across all `system/` and `screens/` files for old values (screen numbers, component names, copy strings) to catch stale references.
 
 ---
 
