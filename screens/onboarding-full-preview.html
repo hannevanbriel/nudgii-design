@@ -389,32 +389,59 @@ body {
     <div class="prog"><div class="prog-fill" style="width:40%"></div></div>
     <div class="scr">
       <div class="scroll" style="padding:14px 10px 4px;gap:0;">
+        <!-- Turn 1: nudgii opens fresh, warm and guiding -->
         <div class="nudgii-msg">
           <div class="nudgii-from">nudgii</div>
           <div class="nudgii-bubble">
             <div class="nb-text"><em>What do you have at home?</em> I'll figure out what needs maintenance.</div>
           </div>
+          <div style="font-size:6px;font-style:italic;color:var(--mid);margin-top:2px;padding-left:2px;">2-3 items is plenty to start.</div>
         </div>
+        <!-- Suggestion chips to help cold-start users -->
+        <div class="sug-chips" style="margin:4px 0 6px;">
+          <div class="sug-chip">dishwasher</div>
+          <div class="sug-chip">boiler</div>
+          <div class="sug-chip">car</div>
+          <div class="sug-chip">lawn</div>
+        </div>
+
+        <!-- Turn 2: user responds -->
         <div class="user-msg">
           <div class="user-bubble">
-            <div class="ub-text">Two cars and an olive tree in the garden.</div>
+            <div class="ub-text">A dishwasher and a cv boiler.</div>
           </div>
         </div>
+
+        <!-- Turn 3: nudgii confirms + prompts for more categories -->
         <div class="nudgii-msg">
           <div class="nudgii-from">nudgii</div>
           <div class="nudgii-bubble">
-            <div class="nb-text">Got it. Added:</div>
+            <div class="nb-text">Nice. Added:</div>
+            <div class="conf-chips">
+              <div class="conf-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Dishwasher</div>
+              <div class="conf-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>CV boiler</div>
+            </div>
+            <div class="nb-text" style="margin-top:4px;"><em>Anything else?</em> A car, garden, subscriptions?</div>
+          </div>
+        </div>
+
+        <!-- Turn 4: user adds more -->
+        <div class="user-msg">
+          <div class="user-bubble">
+            <div class="ub-text">Two cars and an olive tree.</div>
+          </div>
+        </div>
+
+        <!-- Turn 5: nudgii confirms + offers to continue -->
+        <div class="nudgii-msg">
+          <div class="nudgii-from">nudgii</div>
+          <div class="nudgii-bubble" style="background:rgba(155,127,212,0.06);border-color:rgba(155,127,212,0.15);">
+            <div class="nb-text">Got it. That's 5 items, good start.</div>
             <div class="conf-chips">
               <div class="conf-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>2x Car</div>
               <div class="conf-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Olive tree</div>
             </div>
-            <div class="nb-text" style="margin-top:4px;"><em>What brand are the cars?</em> Or say "not sure".</div>
-          </div>
-        </div>
-        <!-- Continue suggestion after enough items -->
-        <div class="nudgii-msg" style="margin-top:8px;">
-          <div class="nudgii-bubble" style="background:rgba(155,127,212,0.06);border-color:rgba(155,127,212,0.15);">
-            <div class="nb-text">That's 5 items, nice start. <em>Ready to see your schedule?</em></div>
+            <div class="nb-text" style="margin-top:4px;"><em>Ready to see your schedule?</em></div>
             <div class="sug-chips" style="margin-top:4px;">
               <div class="sug-chip" style="background:var(--cta);color:var(--cta-fg);border-color:var(--cta);font-weight:500;">Show my schedule</div>
               <div class="sug-chip">Add more first</div>
