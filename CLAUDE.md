@@ -357,7 +357,7 @@ Flutter: `SingleChildScrollView(scrollDirection: Axis.horizontal)` wrapping a `R
 
 **Free badge:** sage-lt background `#EAF3DE` · sage text `#3B6D11` · sage dot · copy: "Free · no credit card"
 
-**"Ready in 2 minutes" badge:** Sits between the promise subtitle and the category filter strip. Clock icon (`PhosphorIcons.clock`, 9–11px, stroke `#6B6358`) + text "Ready in 2 minutes". Style: `background: rgba(26,22,18,0.05); border: 0.5px solid rgba(26,22,18,0.10); border-radius: 100px; padding: 3px 10px 3px 7px`. Font: 10px DM Sans 500, color `#6B6358`. Reduces drop-off by setting time expectation before the path-choice moment.
+**"Set up in 2 minutes" badge:** Sits between the promise subtitle and the task preview rows. Clock icon (`PhosphorIcons.clock`, 9–11px, stroke `#6B6358`) + text "Set up in 2 minutes". Style: `background: rgba(26,22,18,0.05); border: 0.5px solid rgba(26,22,18,0.10); border-radius: 100px; padding: 3px 10px 3px 7px`. Font: 10px DM Sans 500, color `#6B6358`. Action-oriented framing (user takes action) vs passive ("ready").
 
 **Preview items:** 3 item rows in a white card (same visual language as dashboard item cards).
 Each row: category icon chip 28×28px (category-colored bg, Phosphor outline icon) + item name 13px/500 + status label 11px.
@@ -453,7 +453,7 @@ nudgii speaks like a witty, competent friend — warm, direct, gently funny. Nev
 - Sentence case everywhere
 
 **Key copy examples:**
-- Welcome: *"Your stuff won't maintain itself."* / subline: *"Add what you own. We'll remind you when it matters."*
+- Welcome: *"Your stuff won't maintain itself."* / subline: *"We remind you before things break, expire, or get too late."*
 - Empty dashboard: *"Nothing overdue. Suspicious."*
 - Done confirmation: *"Done. Your dishwasher approves."*
 - After 2nd snooze: *"Fine. But your dishwasher is taking notes."*
@@ -592,7 +592,7 @@ These 5 tweaks were applied across the onboarding flow (2026-03-23) to reduce dr
 
 | Screen | Tweak | Rationale |
 |---|---|---|
-| S-01 | "Ready in 2 minutes" time badge added between subtitle and category strip | Sets expectation early, removes the biggest unknown before path-choice |
+| S-01 | "Set up in 2 minutes" badge between subtitle and task rows (was "Ready in 2 minutes") | Action-oriented framing, sets time expectation before path-choice |
 | S-02 | Sub includes "2–3 items is plenty to start." hint (italic, `colorMidAccessible`) | Cold-start users freeze when they think they need to add everything at once |
 | S-05 | Sub: "Scan to confirm brand or model. You can adjust anything later." | Reduces review-screen friction; reminds user the AI scan is available; "adjust later" lowers perfectionism |
 | S-08 | "Not now" is a visible ghost button (was "Continue without account" as 60%-opacity whisper) | Lower-commitment path must be findable. Renamed after SSO replaced email auth |
@@ -674,7 +674,7 @@ Update this section when open decisions are resolved.
 | ii mark SVG | CSS text-based ii mark replaced with inline SVG everywhere. Two variants: dark-on-light (CTA purple + plum + apricot) for light surfaces; light-on-dark (cream + CTA purple + apricot) for plum/dark surfaces. See Section 10 component card. | ✅ Yes | 2026-03-23 |
 | Back button | Phosphor ArrowLeft: horizontal line + arrowhead. SVG paths d="M10 6H2" + d="M5 3L2 6L5 9" in viewBox 0 0 12 12. Replaces bare chevron. | ✅ Yes | 2026-03-23 |
 | Category filter strip | "All" pill always first (active), followed by category pills. Single scrollable row (nowrap + overflow-x:auto). No second line ever. Consistent across S-01, S-03, S-09. | ✅ Yes | 2026-03-23 |
-| "Ready in 2 minutes" badge | Added to S-01 between subtitle and category strip. Clock icon + label in subtle pill. Sets time expectation before path choice. | ✅ Yes | 2026-03-23 |
+| "Set up in 2 minutes" badge | Renamed from "Ready in 2 minutes". Action-oriented framing. Sits between subtitle and task rows (category strip removed). | ✅ Yes | 2026-03-26 |
 | Onboarding UX micro-improvements | 5 targeted tweaks applied (S-02 hint, S-05 sub, S-08 skip visibility, S-06 celebration sub, S-09 gesture hint). Documented in Section 17. | ✅ Yes | 2026-03-23 |
 | Em dash | Never use — anywhere in copy, labels, microcopy, code, or documentation. Use commas, colons, or line breaks instead. | ✅ Yes | 2026-03-23 |
 | S-01 "All" pill removed | "All" pill removed from S-01 category strip (decorative, takes focus). Kept on S-03 and S-09 where it's a functional filter. | ✅ Yes | 2026-03-24 |
@@ -685,7 +685,7 @@ Update this section when open decisions are resolved.
 | S-01 CTA mic icon removed | Path A covers voice, text, and scan. Mic icon was misleading (implied voice-only). Button is text-only now. | ✅ Yes | 2026-03-24 |
 | S-01 interactive item rows | Items are tappable with check circles. Task names ("Clean dishwasher filter") not item names ("Dishwasher"). Pre-selection carries to S-02 as confirmed chips. | ✅ Yes | 2026-03-24 |
 | S-01 Path C removed | Two paths only (A + B). "Something else" row covers discovery. Three paths + footnote was too many choices. | ✅ Yes | 2026-03-24 |
-| S-01 subtitle | "Add what you own. We'll remind you when it matters." replaces earlier subtitle. Action-oriented + names core value (timely reminders). | ✅ Yes | 2026-03-24 |
+| S-01 subtitle | "We remind you before things break, expire, or get too late." Explains what the app does (prevent problems) vs what the user does (add items). | ✅ Yes | 2026-03-26 |
 | S-01 hi-fi layout | Single English phone + annotation sidebar. Matches S-02 pattern. Locale variants removed from hi-fi (English only per design system rules). | ✅ Yes | 2026-03-24 |
 | Shared components.css | All 5 hi-fi screens (S-01, S-02, S-03, S-05, S-06) now link to system/components.css. ~985 lines of duplicated inline CSS removed. Screen files keep only screen-specific styles. (S-06 was S-07 pre-renumber) | ✅ Yes | 2026-03-25 |
 | Category filter active state | Active pill uses purple outline (colorCta border + text, subtle lavender bg) instead of dark ink fill. Applies across S-01, S-03, S-09. | ✅ Yes | 2026-03-25 |
@@ -698,6 +698,9 @@ Update this section when open decisions are resolved.
 | Nav status classes | .nav-status.ready/.progress/.todo color variants in components.css. Screens use class instead of inline color overrides. | ✅ Yes | 2026-03-25 |
 | Screen renumbering | S-04 removed (Path C). Old S-06 Auth renamed S-08 Sign-in (SSO). Old S-07 Completion merged into S-06 AHA (+ celebration state). Old S-08 Push renumbered to S-07. S-09 Dashboard unchanged. All references updated in CLAUDE.md, index.html, and onboarding flow. | ✅ Yes | 2026-03-26 |
 | Icon container pattern | S-07 and S-08 share identical icon container (56x56, 16px radius, CTA purple tint bg + border). S-07 uses bell (functional), S-08 uses ii mark (brand). Documented as reusable component in Section 10. | ✅ Yes | 2026-03-26 |
+| S-01 category strip removed | Category filter chips (Home, Vehicle, Garden, Subscriptions) removed from S-01. Screen was too busy. Category strip stays on S-03 and S-09 where it's a functional filter. | ✅ Yes | 2026-03-26 |
+| S-01 subtitle v2 | "We remind you before things break, expire, or get too late." replaces "Add what you own. We'll remind you when it matters." Explains the why (prevent problems) not the how (add items). | ✅ Yes | 2026-03-26 |
+| S-01 badge copy | "Set up in 2 minutes" replaces "Ready in 2 minutes". Action-oriented (user takes action) vs passive. | ✅ Yes | 2026-03-26 |
 
 ---
 
