@@ -41,21 +41,24 @@
 
 ## 3. Monetization model
 
-**Freemium.** Free tier limited to 10 items (the conversion trigger). Pro tier at ~€5.50 effective ARPU.
+> **Full plan in `docs/monetization-plan.md`.** 3-year forecast, referral system, affiliate model, paid acquisition strategy, cost structure.
 
-**Free tier:** Up to 10 items, 3 tasks/item, time + season reminders, weekly digest email, pre-loaded templates, last 3 completions history, 3 AI scans/month.
+**Freemium. No trial. No tricks.** Free tier is genuinely useful. Pro is for power users and families.
 
-**Pro tier (€4.99–€6.99/month or €35–€45/year):** Unlimited items + tasks, unlimited AI scans, AI task suggestions, seasonal smart nudges by location, full history + export, household sharing (up to 3 users), custom categories, priority support.
+**Free tier:** 10 items, unlimited tasks per item, basic time reminders (unlimited), 3 AI scans/month, 3 voice sessions/month, last 3 completions history, weekly digest (basic), single user.
 
-**Free tier limit behaviour:**
-- Onboarding: no limits. Let users add as many items as they want. Never block, never mention limits.
-- Dashboard: items 11+ show a subtle "Pro" pill badge. They're visible but paused (no reminders sent).
-- First-time banner (once): "You added [X] items. Your free plan tracks 10. [X-10] items are paused."
-- User can choose which 10 stay active, or upgrade to keep all active.
-- Conversion trigger: when a paused item's task comes due, nudgii sends a notification: "[Task] is coming up. Upgrade to activate this reminder."
-- Voice turns capped at 1 min per turn (API cost control), not a UX restriction.
+**Pro tier (€4.99/mo or €44.99/yr):** Unlimited items, unlimited AI scans + voice, smart nudges (seasonal, weather, location), AI task suggestions, full history + export, rich weekly digest, household sharing (up to 3 users), custom categories, priority support.
+
+**Item limit behaviour:**
+- At item 11 (during onboarding or later), nudgii says: "That's 11 items, nice collection. Free plan covers 10, but don't stop now. Add everything, you'll choose your favourites later. Or keep them all with Pro."
+- Items 11+ visible on dashboard, slightly muted, purple "Pro" pill. Paused: no reminders sent, no push notifications.
+- User chooses which 10 stay active, or upgrades to keep all.
+- Paused items with overdue tasks show in terra red on dashboard (passive, user sees when they open the app). No notification for paused items.
+- Never auto-delete, never block, never hide data.
 
 **Affiliate links:** Shown only at task-due moment, always labeled "we may earn a small fee," never more prominent than the task itself, one link per task view, no follow-up.
+
+**Referral system:** +2 extra items per accepted invite (max 20 on free tier). Invitee starts with 12 items instead of 10.
 
 **Single most important leading indicator:** Weekly digest open rate.
 
