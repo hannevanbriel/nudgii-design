@@ -637,6 +637,8 @@ These are locked decisions. Do not question them in design or code reviews.
 - ❌ Never add "Step X of Y" text labels anywhere on screen — the progress bar is the only progress indicator, ever
 - ❌ Never write "NUDGII" as a sender label in conversation UI — always lowercase "nudgii", same rule as everywhere else
 - ❌ Never design S-02 (or any onboarding step) as if prior steps didn't happen — carry context forward. If items were selected on S-01, they appear as pre-confirmed in S-02. Never ask the user for information they've already given.
+- ❌ Never modify a hi-fi screen without adding a changelog entry — every change gets a version + date, BREAKING/ADDITIVE tag, description, and Flutter notes. The developer reads these to know what to build. No exceptions.
+- ❌ Never consider a design change complete without updating ALL of: CLAUDE.md, ClickUp tasks, index.html, flow files, lo-fi files, hi-fi changelogs, and design system files (design-system.html, icon-inventory.html, interaction-states.html). Partial updates cause confusion downstream.
 
 ---
 
