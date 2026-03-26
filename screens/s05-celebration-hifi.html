@@ -1,120 +1,73 @@
-<!-- Previously: s07-onboarding-completion-hifi.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>nudgii · S-06 AHA + celebration — hi-fi</title>
+<title>nudgii · S-05 Celebration — hi-fi</title>
 <link rel="stylesheet" href="../system/components.css">
 <style>
-/* ── S-06 screen-specific ── */
+/* ── S-05 screen-specific ── */
 body{background:#CBC5BB;padding:0 0 80px;}
 
-/* phones row (multi-phone layout) */
-.phones-row{display:flex;gap:32px;align-items:flex-start;flex-shrink:0;}
-.phone-label{
-  font-size:10px;font-weight:500;color:var(--mid-a);
-  margin-top:14px;letter-spacing:0.3px;text-align:center;
-}
-.phone.plum-bg{background:var(--plum);}
+/* STATE 1 styles */
+.s1-eyebrow{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--cta);margin-bottom:8px;}
+.s1-headline{font-family:'DM Serif Display',Georgia,serif;font-size:24px;font-weight:400;line-height:1.05;letter-spacing:-0.3px;color:var(--ink);margin-bottom:6px;}
+.s1-subline{font-size:13px;font-style:italic;color:var(--mid);line-height:1.4;margin-bottom:22px;}
 
-/* dark status bar for plum */
-.plum-bg .notch{background:var(--plum);}
-.plum-bg .np{background:rgba(245,240,232,0.12);}
-.plum-bg .sbar{color:rgba(245,240,232,0.40);}
-.plum-bg .batt{border-color:rgba(245,240,232,0.30);}
-.plum-bg .batt::after{background:rgba(245,240,232,0.35);}
-.plum-bg .prog-bar{background:rgba(255,255,255,0.06);}
+/* Task cards */
+.s5-tasks{display:flex;flex-direction:column;gap:6px;flex:1;}
+.s5-task{background:var(--surface);border:0.5px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:11px;box-shadow:0 1px 3px rgba(26,22,18,0.04);}
+.s5-task-info{flex:1;min-width:0;}
+.s5-task-name{font-size:13px;font-weight:500;color:var(--ink);letter-spacing:-0.2px;margin-bottom:2px;}
+.s5-task-sub{font-size:10px;color:var(--mid-a);letter-spacing:-0.1px;}
+.s5-task-date{font-size:10px;font-weight:500;color:var(--ap-dk);white-space:nowrap;flex-shrink:0;}
+.s5-cta-zone{padding:16px 20px 34px;margin-top:auto;}
 
-/* ── S-06 AHA SCREEN ── */
-.aha-eyebrow{
-  font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;
-  color:var(--cta);margin-bottom:10px;margin-top:8px;
-}
-.aha-headline{
-  font-family:'DM Serif Display',Georgia,serif;font-size:20px;font-weight:400;
-  line-height:1.15;letter-spacing:-0.3px;color:var(--ink);margin-bottom:6px;
-}
-.aha-italic{
-  font-size:10px;font-style:italic;color:var(--mid);line-height:1.55;margin-bottom:16px;
-}
+/* STATE 2: celebration (plum bg phone) */
+.phone-plum .sbar span{color:rgba(245,240,232,0.7);}
+.phone-plum .batt{background:rgba(245,240,232,0.35);}
 
-/* nudge cards */
-.ncard{
-  background:var(--surface);border:0.5px solid rgba(26,22,18,0.08);
-  border-radius:10px;box-shadow:0 1px 3px rgba(26,22,18,0.04);
-  padding:8px 10px;display:flex;align-items:center;gap:8px;
-}
-.ncards{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
-.ci{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.ci svg{width:11px;height:11px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
-.ci-h{background:rgba(200,120,80,0.10);} .ci-h svg{stroke:var(--cat-home);}
-.ci-v{background:rgba(74,130,160,0.10);} .ci-v svg{stroke:var(--cat-vehicle);}
-.ci-g{background:rgba(90,144,96,0.10);}  .ci-g svg{stroke:var(--cat-garden);}
-.ninfo{flex:1;min-width:0;}
-.nname{font-size:9px;font-weight:500;color:var(--ink);line-height:1.2;margin-bottom:1px;}
-.nsub{font-size:7px;font-style:italic;color:var(--mid);line-height:1.3;}
-.ndate{font-size:8px;font-weight:500;flex-shrink:0;white-space:nowrap;}
+.cele-content{display:flex;flex-direction:column;align-items:center;padding:0 20px;text-align:center;flex:1;}
 
-/* value box */
-.value-box{
-  background:rgba(155,127,212,0.06);border:0.5px solid rgba(155,127,212,0.14);
-  border-radius:10px;padding:12px 14px;margin-bottom:16px;
-}
-.value-text{font-size:9px;color:var(--ink);line-height:1.6;font-weight:400;}
+/* Confetti dots (static for hi-fi) */
+.confetti-static{position:absolute;inset:0;top:57px;pointer-events:none;overflow:hidden;}
+.cdot{position:absolute;border-radius:50%;opacity:0.55;}
+.cdot.rect{border-radius:1px;}
 
-/* CTA button */
-.btn-a{
-  width:100%;height:50px;border-radius:100px;border:none;
-  background:#9B7FD4;color:#FAF8FF;font-family:'DM Sans',sans-serif;
-  font-size:14px;font-weight:500;display:flex;align-items:center;justify-content:center;
-  cursor:pointer;letter-spacing:-0.1px;
-  box-shadow:0 2px 12px rgba(155,127,212,0.32);transition:opacity 0.12s;
-}
-.btn-a:active{opacity:0.82;}
-.btn-sub{font-size:8px;color:var(--mid-a);text-align:center;margin-top:6px;}
+/* ii mark celebration */
+.cele-ii{margin-top:100px;margin-bottom:20px;}
 
-/* ── S-06 CELEBRATION STATE ── */
-.celeb-screen{
-  flex:1;overflow:hidden;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  padding:0 32px;position:relative;
-}
-.confetti{position:absolute;border-radius:50%;pointer-events:none;}
-.celeb-ii{margin-bottom:18px;}
-.celeb-eyebrow{
-  font-size:9px;font-weight:400;letter-spacing:0.3px;
-  color:rgba(245,240,232,0.40);margin-bottom:8px;text-align:center;
-}
-.celeb-headline{
-  font-family:'DM Serif Display',Georgia,serif;font-size:26px;font-weight:400;
-  font-style:italic;line-height:1.15;letter-spacing:-0.3px;
-  color:var(--ap);text-align:center;margin-bottom:8px;
-}
-.celeb-sub{
-  font-size:8.5px;font-style:italic;color:rgba(245,240,232,0.50);
-  text-align:center;margin-bottom:24px;line-height:1.5;
-}
-.celeb-pill{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.10);
-  border-radius:100px;padding:6px 14px;margin-bottom:6px;
-}
-.celeb-pill-label{font-size:8px;font-weight:500;color:rgba(245,240,232,0.50);}
-.celeb-pill-dot{width:4px;height:4px;border-radius:50%;background:var(--ap);}
-.celeb-pill-date{font-size:8px;font-weight:500;color:var(--ap);}
-.celeb-task{font-size:7.5px;color:rgba(245,240,232,0.28);text-align:center;margin-bottom:32px;}
-.celeb-bottom{width:100%;padding:0 0 28px;flex-shrink:0;}
-.celeb-cta{
-  width:100%;height:50px;border-radius:100px;border:none;
-  background:var(--cta);color:var(--cta-fg);font-family:'DM Sans',sans-serif;
-  font-size:14px;font-weight:500;display:flex;align-items:center;justify-content:center;
-  cursor:pointer;letter-spacing:-0.1px;
-  box-shadow:0 2px 12px rgba(155,127,212,0.32);transition:opacity 0.12s;
-}
-.celeb-cta:active{opacity:0.82;}
-.celeb-hint{font-size:7.5px;color:rgba(245,240,232,0.28);text-align:center;margin-top:8px;}
+.cele-eyebrow{font-size:8px;font-weight:600;text-transform:uppercase;letter-spacing:1.3px;color:rgba(245,240,232,0.40);margin-bottom:10px;}
+.cele-headline{font-family:'DM Serif Display',Georgia,serif;font-style:italic;font-size:26px;line-height:1.05;color:var(--ap);text-align:center;margin-bottom:8px;}
+.cele-sub{font-size:12px;font-style:italic;color:rgba(245,240,232,0.50);text-align:center;margin-bottom:28px;}
 
+.reminder-pill{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.10);border-radius:100px;padding:7px 14px;font-size:11px;color:rgba(245,240,232,0.55);}
+.reminder-pill .date{color:var(--ap);font-weight:500;}
+.reminder-sub{font-size:7px;font-style:italic;color:rgba(245,240,232,0.28);margin-top:5px;}
+
+/* STATE 3: sign-in bottom sheet overlay */
+.phone-sheet{position:relative;}
+.sheet-scrim{position:absolute;inset:0;background:rgba(0,0,0,0.25);border-radius:50px;z-index:5;}
+.bottom-sheet{position:absolute;bottom:0;left:0;right:0;z-index:10;background:var(--surface);border-radius:20px 20px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,0.20);padding:12px 24px 34px;display:flex;flex-direction:column;align-items:center;}
+.sheet-handle{width:32px;height:3px;border-radius:100px;background:rgba(26,22,18,0.12);margin-bottom:20px;flex-shrink:0;}
+.sheet-ii{margin-bottom:14px;}
+.sheet-headline{font-family:'DM Serif Display',Georgia,serif;font-size:22px;line-height:1.1;color:var(--ink);text-align:center;margin-bottom:5px;}
+.sheet-sub{font-size:12px;font-style:italic;color:var(--mid);text-align:center;margin-bottom:24px;}
+
+.auth-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border-radius:100px;font-family:'DM Sans',-apple-system,sans-serif;font-size:14px;font-weight:500;cursor:default;border:none;-webkit-tap-highlight-color:transparent;}
+.auth-apple{height:50px;background:var(--ink);color:#FFFFFF;margin-bottom:10px;}
+.auth-google{height:48px;background:var(--surface);color:var(--ink);border:1px solid rgba(26,22,18,0.16);margin-bottom:16px;}
+.sheet-skip{font-size:13px;color:var(--mid);background:none;border:none;font-family:'DM Sans',-apple-system,sans-serif;padding:6px 12px;}
+
+/* Spring motion note indicator */
+.motion-note{display:flex;align-items:center;gap:4px;font-size:7px;font-weight:500;color:var(--cta);letter-spacing:0.3px;background:rgba(155,127,212,0.08);border:0.5px solid rgba(155,127,212,0.15);border-radius:100px;padding:2px 8px;white-space:nowrap;pointer-events:none;width:fit-content;margin:4px auto 0;}
+
+/* Multi-state layout */
+.states-row{display:flex;gap:40px;flex-wrap:wrap;justify-content:center;align-items:flex-start;}
+.state-col{display:flex;flex-direction:column;align-items:center;gap:12px;}
+.state-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:var(--mid-a);}
+.state-arrow{display:flex;align-items:center;gap:6px;color:var(--mid);font-size:9px;font-style:italic;align-self:center;margin-top:380px;}
+.state-arrow svg{flex-shrink:0;}
 </style>
 </head>
 <body>
@@ -130,282 +83,406 @@ body{background:#CBC5BB;padding:0 0 80px;}
     Design hub
   </a>
   <span class="nav-sep">/</span>
-  <span class="nav-title">S-06 — AHA + celebration</span>
+  <span class="nav-title">S-05 — Celebration</span>
   <span class="nav-status progress">In progress</span>
+  <a href="archived/s05-celebration-hifi-v1.html" style="margin-left:auto;font-size:10px;color:#8A8070;text-decoration:none;">v1 (archived) →</a>
 </nav>
 
 <div class="page">
 
   <!-- PAGE HEADER -->
-  <div class="page-eyebrow">S-06 · AHA + celebration · Hi-fi · 390x844px (iPhone 15) · March 2026</div>
-  <h1 class="page-h1">AHA + celebration</h1>
-  <p class="page-sub">Two-state screen that closes onboarding. The AHA state shows the generated schedule (value reveal). The celebration state (plum overlay) protects the emotional peak. The user always taps to proceed, never auto-advances.</p>
+  <div class="page-eyebrow">S-05 · Celebration · Hi-fi · 390x844px (iPhone 15) · March 2026</div>
+  <h1 class="page-h1">Celebration screen</h1>
+  <p class="page-sub">Two-state screen combining AHA schedule reveal + plum celebration + sign-in bottom sheet. Replaces separate S-06 AHA, S-07 Celebration, and S-08 SSO screens. The user taps "That's it. I'm done." and the screen transitions from cream to plum with a spring-animated celebration sequence. After 1.5s the sign-in bottom sheet slides up.</p>
   <div class="meta">
     <span class="mp hifi">Hi-fi</span>
     <span class="mp ob">Onboarding flow</span>
-    <span class="mp">S-06</span>
+    <span class="mp">S-05</span>
     <span class="mp">March 2026</span>
   </div>
 
-  <!-- CONTENT ROW: phones + annotation sidebar -->
-  <div class="content-row">
+  <!-- CONTENT: three states side by side -->
+  <div class="states-row">
 
-    <!-- PHONES ROW (3 variations) -->
-    <div class="phones-row">
+    <!-- ════════════════════════════════════════════════════════════ -->
+    <!-- STATE 1: Schedule reveal (cream)                            -->
+    <!-- ════════════════════════════════════════════════════════════ -->
+    <div class="state-col">
+      <div class="state-label">State 1: Schedule reveal</div>
+      <div class="phone">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <!-- progress bar 80% -->
+        <div class="prog-bar"><div class="prog-fill" style="width:80%;"></div></div>
 
-      <!-- ═══════════════════════════════════════════════ -->
-      <!-- VARIATION 1: S-06 AHA (cream background)         -->
-      <!-- ═══════════════════════════════════════════════ -->
-      <div class="phone-col">
-        <div class="phone">
-          <div class="notch"><div class="np"></div></div>
-          <div class="sbar"><span>9:41</span><div class="batt"></div></div>
-          <!-- progress bar 80% -->
-          <div class="prog-bar"><div class="prog-fill" style="width:80%;"></div></div>
+        <div class="scr" style="background:var(--cream);display:flex;flex-direction:column;">
+          <div style="flex:1;overflow-y:auto;padding:20px 20px 0;">
+            <div class="s1-eyebrow">Your schedule is ready</div>
+            <div class="s1-headline">Here's what we figured out for you.</div>
+            <div class="s1-subline">You told us what. We worked out when. Every time.</div>
 
-          <div class="w-screen">
-            <div class="w-content">
-
-              <!-- eyebrow -->
-              <div class="aha-eyebrow">Your schedule is ready</div>
-
-              <!-- headline (single DM Serif moment) -->
-              <div class="aha-headline">Your first month looks like this.</div>
-
-              <!-- italic personality line -->
-              <div class="aha-italic">nudgii worked out the timing from what you told us. You didn't figure out a single date.</div>
-
-              <!-- nudge cards -->
-              <div class="ncards">
-
-                <!-- Card 1: Annual boiler service -->
-                <div class="ncard">
-                  <div class="ci ci-h">
-                    <svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="12" cy="15" r="3"/><line x1="12" y1="3" x2="12" y2="6"/></svg>
-                  </div>
-                  <div class="ninfo">
-                    <div class="nname">Annual boiler service</div>
-                    <div class="nsub">Boiler · Home · yearly</div>
-                  </div>
-                  <div class="ndate" style="color:var(--ap-dk);">Oct 28</div>
+            <div class="s5-tasks">
+              <!-- Task 1 -->
+              <div class="s5-task">
+                <div class="ci ci-h">
+                  <svg width="13" height="13" viewBox="0 0 256 256" fill="none" stroke="#C87850" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8,8,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8,8,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"/></svg>
                 </div>
-
-                <!-- Card 2: Clean dishwasher filter -->
-                <div class="ncard">
-                  <div class="ci ci-h">
-                    <svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="4" y1="8" x2="20" y2="8"/><circle cx="8" cy="5" r="1"/><circle cx="12" cy="5" r="1"/></svg>
-                  </div>
-                  <div class="ninfo">
-                    <div class="nname">Clean dishwasher filter</div>
-                    <div class="nsub">Dishwasher · Home · every 6-8 wks</div>
-                  </div>
-                  <div class="ndate" style="color:var(--mid-a);">Nov 8</div>
+                <div class="s5-task-info">
+                  <div class="s5-task-name">Annual boiler service</div>
+                  <div class="s5-task-sub">CV ketel, yearly</div>
                 </div>
-
-                <!-- Card 3: Refill dishwasher salt -->
-                <div class="ncard">
-                  <div class="ci ci-h">
-                    <svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="4" y1="8" x2="20" y2="8"/><circle cx="8" cy="5" r="1"/><circle cx="12" cy="5" r="1"/></svg>
-                  </div>
-                  <div class="ninfo">
-                    <div class="nname">Refill dishwasher salt</div>
-                    <div class="nsub">Dishwasher · Home · every 6-8 wks</div>
-                  </div>
-                  <div class="ndate" style="color:var(--mid-a);">Nov 8</div>
-                </div>
-
-                <!-- Card 4: Check CO detector -->
-                <div class="ncard">
-                  <div class="ci ci-h">
-                    <svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="12" cy="15" r="3"/><line x1="12" y1="3" x2="12" y2="6"/></svg>
-                  </div>
-                  <div class="ninfo">
-                    <div class="nname">Check CO detector</div>
-                    <div class="nsub">Boiler · Home · yearly</div>
-                  </div>
-                  <div class="ndate" style="color:var(--mid-a);">Nov 15</div>
-                </div>
-
+                <div class="s5-task-date">Oct 28</div>
               </div>
 
-              <!-- value box -->
-              <div class="value-box">
-                <div class="value-text">You told us what. nudgii figured out when, and why it matters. Every time.</div>
+              <!-- Task 2 -->
+              <div class="s5-task">
+                <div class="ci ci-h">
+                  <svg width="13" height="13" viewBox="0 0 256 256" fill="none" stroke="#C87850" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8,8,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8,8,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"/></svg>
+                </div>
+                <div class="s5-task-info">
+                  <div class="s5-task-name">Clean dishwasher filter</div>
+                  <div class="s5-task-sub">Dishwasher, every 6-8 wks</div>
+                </div>
+                <div class="s5-task-date">Nov 8</div>
               </div>
 
+              <!-- Task 3 -->
+              <div class="s5-task">
+                <div class="ci ci-h">
+                  <svg width="13" height="13" viewBox="0 0 256 256" fill="none" stroke="#C87850" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8,8,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8,8,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"/></svg>
+                </div>
+                <div class="s5-task-info">
+                  <div class="s5-task-name">Refill dishwasher salt</div>
+                  <div class="s5-task-sub">Dishwasher, every 6-8 wks</div>
+                </div>
+                <div class="s5-task-date">Nov 8</div>
+              </div>
+
+              <!-- Task 4 -->
+              <div class="s5-task">
+                <div class="ci ci-h">
+                  <svg width="13" height="13" viewBox="0 0 256 256" fill="none" stroke="#C87850" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8,8,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8,8,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"/></svg>
+                </div>
+                <div class="s5-task-info">
+                  <div class="s5-task-name">Check CO detector</div>
+                  <div class="s5-task-sub">CV ketel, yearly</div>
+                </div>
+                <div class="s5-task-date">Nov 15</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sticky CTA -->
+          <div class="s5-cta-zone">
+            <div style="display:flex;align-items:center;justify-content:center;width:100%;height:50px;background:var(--cta);color:var(--cta-fg);border:none;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;box-shadow:0 2px 12px rgba(155,127,212,0.28);">That's it. I'm done.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Arrow between state 1 and state 2 -->
+    <div class="state-arrow">
+      <svg width="24" height="12" viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><line x1="0" y1="6" x2="20" y2="6"/><polyline points="17,3 20,6 17,9"/></svg>
+      tap CTA
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════ -->
+    <!-- STATE 2: Celebration (plum)                                 -->
+    <!-- ════════════════════════════════════════════════════════════ -->
+    <div class="state-col">
+      <div class="state-label">State 2: Celebration</div>
+      <div class="phone phone-plum">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <!-- progress bar 85% on dark track -->
+        <div class="prog-bar" style="background:rgba(255,255,255,0.08);"><div class="prog-fill" style="width:85%;"></div></div>
+
+        <div class="scr" style="background:var(--plum);display:flex;flex-direction:column;position:relative;">
+
+          <!-- Static confetti dots -->
+          <div class="confetti-static">
+            <div class="cdot" style="width:5px;height:5px;background:#C87850;left:12%;top:8%;"></div>
+            <div class="cdot" style="width:4px;height:4px;background:#9B7FD4;left:28%;top:5%;"></div>
+            <div class="cdot rect" style="width:3px;height:7px;background:#5A9060;left:45%;top:12%;transform:rotate(25deg);"></div>
+            <div class="cdot" style="width:6px;height:6px;background:#E8A87C;left:65%;top:4%;"></div>
+            <div class="cdot rect" style="width:3px;height:6px;background:#4A82A0;left:80%;top:9%;transform:rotate(-15deg);"></div>
+            <div class="cdot" style="width:4px;height:4px;background:#8060A8;left:90%;top:6%;"></div>
+            <div class="cdot rect" style="width:3px;height:8px;background:#F5F0E8;left:7%;top:18%;transform:rotate(40deg);"></div>
+            <div class="cdot" style="width:5px;height:5px;background:#D4956A;left:35%;top:20%;"></div>
+            <div class="cdot rect" style="width:3px;height:6px;background:#B49EE0;left:55%;top:16%;transform:rotate(-30deg);"></div>
+            <div class="cdot" style="width:4px;height:4px;background:#7AAC7E;left:72%;top:22%;"></div>
+            <div class="cdot rect" style="width:3px;height:7px;background:#C87850;left:18%;top:28%;transform:rotate(10deg);"></div>
+            <div class="cdot" style="width:5px;height:5px;background:#6BA0B8;left:85%;top:18%;"></div>
+            <div class="cdot" style="width:3px;height:3px;background:#F0C4A0;left:50%;top:26%;"></div>
+            <div class="cdot rect" style="width:3px;height:6px;background:#A080C0;left:40%;top:32%;transform:rotate(-20deg);"></div>
+            <div class="cdot" style="width:4px;height:4px;background:#E8A87C;left:22%;top:36%;"></div>
+            <div class="cdot rect" style="width:3px;height:5px;background:#9B7FD4;left:62%;top:30%;transform:rotate(35deg);"></div>
+            <div class="cdot" style="width:3px;height:3px;background:#5A9060;left:78%;top:34%;"></div>
+            <div class="cdot rect" style="width:3px;height:7px;background:#C87850;left:92%;top:28%;transform:rotate(-45deg);"></div>
+          </div>
+
+          <div class="cele-content">
+            <!-- ii mark (light-on-dark) -->
+            <div class="cele-ii">
+              <svg width="48" height="54" viewBox="0 0 625.96 700.13" fill="none">
+                <path fill="#F5F0E8" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
+                <path fill="#9B7FD4" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
+                <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
+              </svg>
+              <!-- spring motion note -->
+              <div class="motion-note">spring 400ms</div>
             </div>
 
-            <!-- sticky bottom zone -->
-            <div class="w-bottom">
-              <button class="btn-a">Save my schedule</button>
-              <div class="btn-sub">Free, no credit card, 30 seconds</div>
+            <div class="cele-eyebrow">you're in</div>
+            <div class="cele-headline">Your boiler is relieved.</div>
+            <div class="cele-sub">We'll remind you when it matters.</div>
+
+            <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+              <div class="reminder-pill">
+                First reminder <span style="margin:0 2px">·</span> <span class="date">Oct 28</span>
+              </div>
+              <div class="reminder-sub">Annual boiler service</div>
             </div>
           </div>
         </div>
-        <div class="phone-label">S-06 · AHA moment (cream)</div>
       </div>
+    </div>
 
-      <!-- ═══════════════════════════════════════════════ -->
-      <!-- VARIATION 2: S-06 Celebration state (plum bg)    -->
-      <!-- ═══════════════════════════════════════════════ -->
-      <div class="phone-col">
-        <div class="phone plum-bg">
-          <div class="notch"><div class="np"></div></div>
-          <div class="sbar"><span>9:41</span><div class="batt"></div></div>
-          <!-- progress bar 100% -->
-          <div class="prog-bar"><div class="prog-fill" style="width:100%;border-radius:0;"></div></div>
+    <!-- Arrow between state 2 and state 3 -->
+    <div class="state-arrow">
+      <svg width="24" height="12" viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><line x1="0" y1="6" x2="20" y2="6"/><polyline points="17,3 20,6 17,9"/></svg>
+      1.5s delay
+    </div>
 
-          <div class="celeb-screen">
-            <!-- confetti dots -->
-            <div class="confetti" style="width:5px;height:5px;background:rgba(200,120,80,0.45);top:12%;left:8%;"></div>
-            <div class="confetti" style="width:6px;height:6px;background:rgba(155,127,212,0.50);top:8%;left:74%;"></div>
-            <div class="confetti" style="width:4px;height:4px;background:rgba(90,144,96,0.40);top:24%;left:90%;"></div>
-            <div class="confetti" style="width:5px;height:5px;background:rgba(74,130,160,0.40);top:35%;left:5%;"></div>
-            <div class="confetti" style="width:4px;height:4px;background:rgba(232,168,124,0.50);top:7%;left:48%;"></div>
-            <div class="confetti" style="width:6px;height:6px;background:rgba(128,96,168,0.35);top:62%;left:93%;"></div>
-            <div class="confetti" style="width:3px;height:3px;background:rgba(200,120,80,0.35);top:70%;left:4%;"></div>
-            <div class="confetti" style="width:4px;height:4px;background:rgba(90,144,96,0.30);top:80%;left:84%;"></div>
-            <div class="confetti" style="width:3px;height:3px;background:rgba(245,240,232,0.18);top:46%;left:9%;"></div>
-            <div class="confetti" style="width:4px;height:4px;background:rgba(245,240,232,0.14);top:16%;left:28%;"></div>
+    <!-- ════════════════════════════════════════════════════════════ -->
+    <!-- STATE 3: Sign-in bottom sheet (over plum)                   -->
+    <!-- ════════════════════════════════════════════════════════════ -->
+    <div class="state-col">
+      <div class="state-label">State 3: Sign-in sheet</div>
+      <div class="phone phone-plum phone-sheet">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <!-- progress bar 85% on dark track -->
+        <div class="prog-bar" style="background:rgba(255,255,255,0.08);"><div class="prog-fill" style="width:85%;"></div></div>
 
-            <!-- ii mark: light-on-dark variant -->
-            <div class="celeb-ii">
-              <svg width="58" height="66" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg">
+        <div class="scr" style="background:var(--plum);display:flex;flex-direction:column;position:relative;">
+
+          <!-- Dimmed confetti (same dots, lower opacity) -->
+          <div class="confetti-static" style="opacity:0.4;">
+            <div class="cdot" style="width:5px;height:5px;background:#C87850;left:12%;top:8%;"></div>
+            <div class="cdot" style="width:4px;height:4px;background:#9B7FD4;left:28%;top:5%;"></div>
+            <div class="cdot rect" style="width:3px;height:7px;background:#5A9060;left:45%;top:12%;transform:rotate(25deg);"></div>
+            <div class="cdot" style="width:6px;height:6px;background:#E8A87C;left:65%;top:4%;"></div>
+            <div class="cdot rect" style="width:3px;height:6px;background:#4A82A0;left:80%;top:9%;transform:rotate(-15deg);"></div>
+            <div class="cdot" style="width:4px;height:4px;background:#8060A8;left:90%;top:6%;"></div>
+          </div>
+
+          <!-- Dimmed celebration content behind scrim -->
+          <div class="cele-content" style="opacity:0.5;">
+            <div class="cele-ii">
+              <svg width="48" height="54" viewBox="0 0 625.96 700.13" fill="none">
                 <path fill="#F5F0E8" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
                 <path fill="#9B7FD4" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
                 <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
               </svg>
             </div>
-
-            <!-- eyebrow -->
-            <div class="celeb-eyebrow">you're in</div>
-
-            <!-- headline (single DM Serif moment) -->
-            <div class="celeb-headline">Your boiler is relieved.</div>
-
-            <!-- subtitle -->
-            <div class="celeb-sub">We'll remind you when it matters.</div>
-
-            <!-- first nudge pill -->
-            <div class="celeb-pill">
-              <span class="celeb-pill-label">First reminder</span>
-              <span class="celeb-pill-dot"></span>
-              <span class="celeb-pill-date">Oct 28</span>
-            </div>
-
-            <!-- task name -->
-            <div class="celeb-task">Annual boiler service</div>
-
-            <!-- bottom zone -->
-            <div class="celeb-bottom">
-              <button class="celeb-cta">Open my schedule</button>
-              <div class="celeb-hint">Tap when you're ready. No rush.</div>
+            <div class="cele-eyebrow">you're in</div>
+            <div class="cele-headline">Your boiler is relieved.</div>
+            <div class="cele-sub">We'll remind you when it matters.</div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+              <div class="reminder-pill">
+                First reminder <span style="margin:0 2px">·</span> <span class="date">Oct 28</span>
+              </div>
+              <div class="reminder-sub">Annual boiler service</div>
             </div>
           </div>
-        </div>
-        <div class="phone-label">S-06 · Celebration state (plum)</div>
-      </div>
 
-    </div><!-- /phones-row -->
+          <!-- Scrim -->
+          <div class="sheet-scrim"></div>
 
-    <!-- ANNOTATION SIDEBAR -->
-    <div class="annot-col">
+          <!-- Bottom sheet -->
+          <div class="bottom-sheet">
+            <div class="sheet-handle"></div>
 
-      <div class="annot-section">Shell + layout</div>
+            <!-- ii mark (dark-on-light) -->
+            <div class="sheet-ii">
+              <svg width="20" height="22" viewBox="0 0 625.96 700.13" fill="none">
+                <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
+                <path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
+                <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
+              </svg>
+            </div>
 
-      <div class="annot-card">
-        <div class="annot-head">
-          <span class="badge-rule">Rule</span>
-          Two-screen sequence
-        </div>
-        <div class="annot-body">
-          S-06 has two states: AHA (cream, 80% progress) shows the generated schedule. Celebration (plum, 85% progress) protects the emotional peak after the user taps "Open my schedule". Sequence: S-05 review, S-06 AHA, S-06 celebration, S-07 push, S-08 SSO, S-09 dashboard.
-        </div>
-      </div>
+            <div class="sheet-headline">Save your schedule</div>
+            <div class="sheet-sub">Your data stays yours. We never share it.</div>
 
-      <div class="annot-card decision">
-        <div class="annot-head">
-          <span class="badge-decision">Decision</span>
-          AHA before auth
-        </div>
-        <div class="annot-body">
-          The schedule is shown <strong>before the user creates an account</strong>. This anchors value before asking for commitment. The user sees exactly what nudgii built for them, then saves it. "Save my schedule" is the CTA, not "Create account."
-        </div>
-      </div>
+            <!-- Apple -->
+            <div class="auth-btn auth-apple">
+              <svg width="16" height="19" viewBox="0 0 16 19" fill="white">
+                <path d="M13.3 10.1c0-2 1.6-3 1.7-3.1-0.9-1.4-2.4-1.5-2.9-1.6-1.2-0.1-2.4 0.7-3 0.7s-1.6-0.7-2.6-0.7C4.8 5.5 3.2 6.6 2.3 8.3 0.5 11.6 1.8 16.5 3.6 19.2c0.9 1.3 1.9 2.8 3.3 2.7 1.3-0.1 1.8-0.9 3.4-0.9s2 0.9 3.4 0.8c1.4-0.1 2.3-1.3 3.2-2.6 1-1.5 1.4-2.9 1.4-3-0.1 0-2.7-1-2.7-4.1h0.7zM11 4.3c0.7-0.9 1.2-2.2 1.1-3.4-1 0-2.3 0.7-3 1.6-0.7 0.8-1.2 2-1.1 3.2 1.2 0.1 2.3-0.6 3-1.4z" transform="translate(-1, -1)"/>
+              </svg>
+              Continue with Apple
+            </div>
 
-      <div class="annot-section">S-06 AHA content</div>
+            <!-- Google -->
+            <div class="auth-btn auth-google">
+              <svg width="16" height="16" viewBox="0 0 48 48">
+                <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+              </svg>
+              Continue with Google
+            </div>
 
-      <div class="annot-card">
-        <div class="annot-head">
-          <span class="badge-note">No overdue colors</span>
-        </div>
-        <div class="annot-body">
-          At onboarding, nothing is overdue. All dates use <code>colorApricotDk</code> (soonest task) or <code>colorMidAccessible</code> (further out). <strong>Never terra/overdue at this point.</strong> Overdue appears only after a due date passes on the dashboard.
-        </div>
-      </div>
-
-      <div class="annot-card">
-        <div class="annot-head">
-          <span class="badge-note">Value box</span>
-        </div>
-        <div class="annot-body">
-          CTA purple tinted background, <code>rgba(155,127,212,0.06)</code>. Reinforces the core promise: "You told us what. nudgii figured out when, and why it matters." One sentence, no bullet points, no icons.
+            <div class="sheet-skip">Not now</div>
+          </div>
         </div>
       </div>
+    </div>
 
-      <div class="annot-section">S-06 celebration state</div>
+  </div><!-- /states-row -->
 
-      <div class="annot-card decision">
-        <div class="annot-head">
-          <span class="badge-decision">Decision</span>
-          Personalized humor
-        </div>
-        <div class="annot-body">
-          Headline adapts to the user's <strong>primary item</strong> (first or most relevant). "Your boiler is relieved." / "Your dishwasher just exhaled." / "Your car is quietly grateful." Flutter: string interpolation from user's item list, with a lookup table of witty lines per item type.
-        </div>
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- ANNOTATION SECTION (below phones for multi-state layout)    -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+
+  <div style="max-width:920px;margin:48px auto 0;display:flex;flex-direction:column;gap:12px;">
+
+    <div class="annot-section">Transition + motion</div>
+
+    <div class="annot-card decision">
+      <div class="annot-head">
+        <span class="badge-decision">Decision</span>
+        Two-state transition
       </div>
-
-      <div class="annot-card">
-        <div class="annot-head">
-          <span class="badge-note">First nudge pill</span>
-        </div>
-        <div class="annot-body">
-          Glass-morphic pill: <code>rgba(255,255,255,0.06)</code> bg, <code>0.5px</code> white border. Shows "First reminder" label + apricot dot + concrete date. Anchors the value with a specific, near-future date the user can visualize.
-        </div>
+      <div class="annot-body">
+        Tapping "That's it. I'm done." triggers a <strong>spring transition from cream to plum</strong>. Background crossfades via <code>AnimatedContainer</code> (400ms ease-in-out). State 1 content fades out (300ms). State 2 celebration content animates in with staggered timing. This is the <strong>emotional peak</strong> of onboarding: the user sees their schedule is real.
       </div>
+    </div>
 
-      <div class="annot-card">
-        <div class="annot-head">
-          <span class="badge-note">Confetti dots</span>
-        </div>
-        <div class="annot-body">
-          10 CSS-positioned dots using <strong>category colors at low opacity</strong> (0.14 to 0.50). No gradients, no images. Sizes 3-6px. Flutter: <code>Positioned</code> widgets in a <code>Stack</code>. Dots are static, not animated.
-        </div>
+    <div class="annot-card">
+      <div class="annot-head">
+        <span class="badge-rule">Rule</span>
+        Celebration sequence timing
       </div>
-
-      <div class="annot-card">
-        <div class="annot-head">
-          <span class="badge-rule">Rule</span>
-          Never auto-advance
-        </div>
-        <div class="annot-body">
-          S-06 always requires a <strong>user tap</strong> to proceed. "Open my schedule" CTA, never auto-navigate. "Tap when you're ready. No rush." reassures without pressuring. Flutter: no <code>Future.delayed</code> navigation.
-        </div>
+      <div class="annot-body">
+        <strong>150ms:</strong> Background transitions cream to plum, State 1 fades out.<br>
+        <strong>250ms:</strong> Confetti burst begins, pieces staggered at 30ms intervals.<br>
+        <strong>400ms:</strong> ii mark springs in (light-on-dark variant, <code>cubic-bezier(0.34,1.56,0.64,1)</code> 500ms).<br>
+        <strong>550ms:</strong> "you're in" eyebrow fades in.<br>
+        <strong>650ms:</strong> Headline slides up + fades in (350ms ease-out).<br>
+        <strong>800ms:</strong> Subtitle fades in.<br>
+        <strong>900ms:</strong> First reminder pill fades in.<br>
+        <strong>1500ms:</strong> Sign-in bottom sheet slides up with scrim.<br>
+        Flutter: use <code>Future.delayed</code> chain or <code>AnimationController</code> with staggered intervals.
       </div>
+    </div>
 
-      <div class="annot-card">
-        <div class="annot-head">
-          <span class="badge-rule">Rule</span>
-          Spring animation
-        </div>
-        <div class="annot-body">
-          On celebration state load: ii mark scales from 0.6 to 1.0, headline translates from +20px to 0. Duration: <strong>400-450ms</strong>, <code>cubic-bezier(0.34,1.56,0.64,1)</code>. This is the only theatrical motion in the app. Confetti dots are static.
-        </div>
+    <div class="annot-card">
+      <div class="annot-head">
+        <span class="badge-rule">Rule</span>
+        Progress bar
       </div>
+      <div class="annot-body">
+        Full-width, edge-to-edge, <strong>outside SafeArea</strong>. State 1: <strong>80%</strong> fill on light track (<code>rgba(26,22,18,0.08)</code>). State 2: animates to <strong>85%</strong>, track switches to <code>rgba(255,255,255,0.08)</code> for dark background. Fill color remains <code>colorCta #9B7FD4</code> in both states. Flutter: <code>AnimatedContainer</code> for track color transition.
+      </div>
+    </div>
 
-    </div><!-- /annot-col -->
+    <div class="annot-section">State 1: Schedule reveal</div>
 
-  </div><!-- /content-row -->
+    <div class="annot-card">
+      <div class="annot-head">
+        <span class="badge-note">Eyebrow + headline</span>
+      </div>
+      <div class="annot-body">
+        Eyebrow: "Your schedule is ready" in <code>colorCta #9B7FD4</code>, 10px, uppercase, 1.5px letter-spacing. Headline: DM Serif Display 24px, <code>colorInk</code>. Subline: 13px italic DM Sans, <code>colorMid</code>. The copy reinforces the AHA moment: nudgii figured it out, the user just confirmed what they have.
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head">
+        <span class="badge-rule">Rule</span>
+        Task cards
+      </div>
+      <div class="annot-body">
+        White cards on cream, 6px gap. Each card: 10px border-radius, 0.5px border <code>rgba(26,22,18,0.08)</code>, box-shadow <code>0 1px 3px rgba(26,22,18,0.04)</code>. Category icon chip 28x28px (home orange at 12% opacity). Task name 13px/500, subtitle 10px <code>colorMidAccessible</code>. Date label in <code>colorApricotDk #C8784A</code>. Tasks shown are personalized based on what the user added in S-02/S-03.
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head">
+        <span class="badge-rule">Rule</span>
+        CTA button
+      </div>
+      <div class="annot-body">
+        "That's it. I'm done." in <code>colorCta</code> fill, <code>colorCtaFg</code> text, pill radius, 50px height. Shadow: <code>0 2px 12px rgba(155,127,212,0.28)</code>. Pressed: <code>#7D62B3</code> bg, scale 0.97, 100ms. Copy is deliberately casual and final: the user is done with input, nudgii takes over.
+      </div>
+    </div>
+
+    <div class="annot-section">State 2: Celebration</div>
+
+    <div class="annot-card decision">
+      <div class="annot-head">
+        <span class="badge-decision">Decision</span>
+        Confetti
+      </div>
+      <div class="annot-body">
+        40 pieces in category colors (<code>#C87850</code>, <code>#9B7FD4</code>, <code>#5A9060</code>, <code>#4A82A0</code>, <code>#E8A87C</code>, <code>#8060A8</code>, <code>#F5F0E8</code>) at 55-95% opacity. Mix of circles and rectangles. Fall from top with staggered start (30ms per piece), sway animation, 2.5-5s fall duration. Flutter: consider <code>confetti_widget</code> package or custom painter with <code>AnimationController</code>.
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head">
+        <span class="badge-rule">Rule</span>
+        ii mark (light-on-dark)
+      </div>
+      <div class="annot-body">
+        Light-on-dark variant: left pill <code>#F5F0E8</code> (cream), right pill <code>#9B7FD4</code> (CTA), dot <code>#E8A87C</code> (apricot). 48x54px centered. Spring animation: <code>cubic-bezier(0.34,1.56,0.64,1)</code> 500ms, scales from 0.3 to 1.0 with overshoot. This is the <strong>only theatrical motion</strong> in the app.
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head">
+        <span class="badge-note">Celebration copy</span>
+      </div>
+      <div class="annot-body">
+        Eyebrow: "you're in" (lowercase, <code>rgba(245,240,232,0.40)</code>). Headline: "Your boiler is relieved." in DM Serif Display <strong>italic</strong> 26px, <code>colorApricot #E8A87C</code>. Personalized to the user's first item. Subtitle: "We'll remind you when it matters." in italic 12px, <code>rgba(245,240,232,0.50)</code>. First reminder pill shows the nearest upcoming date with apricot accent.
+      </div>
+    </div>
+
+    <div class="annot-section">State 3: Sign-in sheet</div>
+
+    <div class="annot-card">
+      <div class="annot-head">
+        <span class="badge-rule">Rule</span>
+        Bottom sheet
+      </div>
+      <div class="annot-body">
+        White surface, <code>border-radius: 20px 20px 0 0</code>, shadow <code>0 -8px 30px rgba(0,0,0,0.20)</code>. Handle bar: 32x3px, <code>rgba(26,22,18,0.12)</code>. Slides up with 350ms ease-out animation. Scrim behind: <code>rgba(0,0,0,0.25)</code>. Celebration content remains visible but dimmed (opacity 0.5). Flutter: <code>showModalBottomSheet</code> with custom shape and barrier color.
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head">
+        <span class="badge-note">Sign-in content</span>
+      </div>
+      <div class="annot-body">
+        ii mark (dark-on-light, 20x22px) above "Save your schedule" (DM Serif Display 22px). Subtitle: "Your data stays yours. We never share it." (italic, <code>colorMid</code>). Privacy-first framing. Apple button: <code>colorInk</code> bg, white text, 50px. Google button: bordered, 48px. "Not now" text link below (13px, <code>colorMid</code>).
+      </div>
+    </div>
+
+    <div class="annot-card decision">
+      <div class="annot-head">
+        <span class="badge-decision">Decision</span>
+        Navigation from sign-in
+      </div>
+      <div class="annot-body">
+        All three paths (Apple, Google, "Not now") navigate to <strong>S-06 Push permission</strong>. Signing in saves the schedule to their account. "Not now" stores the schedule locally on device. The push permission screen follows regardless because push notifications are the core delivery mechanism. Signed-in users see personalized greeting on dashboard, skipped users see "Good morning, there."
+      </div>
+    </div>
+
+  </div>
 
   <div class="page-divider"></div>
 
@@ -414,31 +491,24 @@ body{background:#CBC5BB;padding:0 0 80px;}
     <div class="cl-title">Changelog</div>
 
     <div class="cl-entry">
-      <div class="cl-ver">v1.1 · 2026-03-26 · BREAKING</div>
-      <div class="cl-body"><strong>Renumbered from S-07 to S-06.</strong> Celebration merged into S-06 as a state (was a separate screen). Old S-07a AHA is now S-06 AHA. Old S-07 celebration is now S-06 celebration state. Progress bar: AHA at 80%, celebration at 85% (was 100%). Flutter: update all route references from S-07 to S-06.</div>
-      <div class="cl-body"><strong>Flow position changed.</strong> New sequence: S-05 review, S-06 AHA, S-06 celebration, S-07 push, S-08 SSO, S-09 dashboard. Auth/SSO moved to after push permission (was before celebration).</div>
-    </div>
-
-    <div class="cl-entry">
-      <div class="cl-ver">v1.0 · 2026-03-24 · ADDITIVE</div>
-      <div class="cl-body"><strong>S-06 AHA screen.</strong> Schedule reveal before auth: 4 nudge cards, value box, "Save my schedule" CTA. Progress bar at 80%. Anchors value before asking for account creation.</div>
-      <div class="cl-body"><strong>S-06 celebration state.</strong> Plum background (#2D1F4A), confetti dots, personalized headline adapting to the user's primary item.</div>
-      <div class="cl-body"><strong>No overdue colors.</strong> All dates use apricot-dk (soonest) or mid-accessible (further). Never terra at onboarding, because nothing can be overdue yet.</div>
-      <div class="cl-body"><strong>Copy personalization.</strong> Headline uses the first item name: "Your boiler is relieved." / "Your dishwasher just exhaled." Flutter: string interpolation from user's item list with a witty-line lookup table.</div>
-      <div class="cl-body"><strong>First nudge pill.</strong> Glass-morphic pill on plum surface showing "First reminder" + apricot date. Anchors the experience with a concrete near-future date.</div>
-      <div class="cl-body"><strong>Spring animation on ii mark.</strong> Scale 0.6 to 1.0 + headline translateY +20 to 0, 400-450ms cubic-bezier(0.34,1.56,0.64,1). Only theatrical motion in the app.</div>
+      <div class="cl-ver">v1.0 · 2026-03-26 · NEW</div>
+      <div class="cl-body"><strong>Two-state screen combining AHA reveal + celebration + sign-in.</strong> Replaces separate S-06 AHA, S-07 Celebration, and S-08 SSO screens. Reduces onboarding from 8 screens to 6 by merging three related moments into one continuous transition.</div>
+      <div class="cl-body"><strong>State 1 (cream):</strong> Schedule reveal with personalized task list based on user input from S-02/S-03. Eyebrow "Your schedule is ready" + headline + 4 task cards. CTA "That's it. I'm done." triggers transition.</div>
+      <div class="cl-body"><strong>State 2 (plum):</strong> Spring transition to plum background. Confetti burst (40 pieces, category colors, staggered 30ms). ii mark springs in with <code>cubic-bezier(0.34,1.56,0.64,1)</code>. Celebration copy personalized to first item. First reminder pill with nearest date.</div>
+      <div class="cl-body"><strong>Sign-in bottom sheet:</strong> Slides up over plum after 1.5s delay. White sheet with handle bar, ii mark, "Save your schedule" headline. Apple + Google SSO buttons + "Not now" link. All paths navigate to S-06 Push.</div>
+      <div class="cl-body"><strong>Progress bar:</strong> 80% in State 1 (cream), animates to 85% in State 2 (plum). Track color transitions from light to dark.</div>
     </div>
 
     <div class="cl-flutter">
-      <div class="cl-flutter-head">Standard Flutter implementation block · S-06</div>
+      <div class="cl-flutter-head">Standard Flutter implementation block · S-05</div>
       <div class="cl-flutter-body">
         Mockup base:&nbsp;&nbsp;&nbsp;&nbsp;390px width (iPhone 15)<br>
-        SafeArea:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;top=false for content, progress bar outside SafeArea<br>
-        Scroll:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SingleChildScrollView for content zone (AHA only, celebration is centered)<br>
-        Bottom zone:&nbsp;&nbsp;&nbsp;&nbsp;Sticky: fixed Column at bottom, not Spacer<br>
-        Progress bar:&nbsp;&nbsp;&nbsp;Full width, height 3px, outside SafeArea<br>
+        SafeArea:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;top=false, progress bar outside SafeArea<br>
+        Scroll:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SingleChildScrollView for State 1 content zone only<br>
+        Bottom zone:&nbsp;&nbsp;&nbsp;&nbsp;State 1: sticky CTA, fixed Column at bottom. State 2: none (centered content). State 3: showModalBottomSheet<br>
+        Progress bar:&nbsp;&nbsp;&nbsp;Full width, height 3px, outside SafeArea, 80% fill (State 1), 85% (State 2)<br>
         Scaling:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All visual elements x (screenWidth/390).clamp(0.9, 1.15)<br>
-        Special:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Celebration state: plum bg, dark status bar text. Spring animation on ii mark (400ms cubic-bezier). Confetti dots use Positioned widgets in Stack. Never auto-advance. Was S-07, now S-06.
+        Special:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AnimatedContainer for cream-to-plum bg transition (400ms). Transform.scale with spring curve for ii mark. showModalBottomSheet for sign-in (350ms slide-up, isDismissible: true). Confetti: custom painter or confetti_widget package. Staggered Future.delayed chain for celebration sequence.
       </div>
     </div>
 
