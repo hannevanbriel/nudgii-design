@@ -268,22 +268,14 @@ body {
 .bs-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: var(--surface); border-radius: 16px 16px 0 0; padding: 10px 16px 14px; box-shadow: 0 -8px 30px rgba(0,0,0,0.20); z-index: 20; }
 .bs-handle { width: 32px; height: 4px; border-radius: 100px; background: rgba(26,22,18,0.12); margin: 0 auto 12px; }
 
-/* ── AMBIENT CHIPS (S-01 v2) ── */
-.ambient-chips { display: flex; flex-direction: column; gap: 6px; margin-top: 20px; margin-bottom: 6px; align-self: stretch; }
-.ambient-row { display: flex; gap: 6px; }
-.ambient-row.center { justify-content: center; }
-.ambient-chip { display: inline-flex; align-items: center; gap: 6px; border-radius: 100px; padding: 5px 10px 5px 5px; font-size: 9px; font-weight: 500; letter-spacing: 0.1px; flex: 1; }
-.ambient-chip.home { background: rgba(200,120,80,0.08); color: rgba(200,120,80,0.80); }
-.ambient-chip.garden { background: rgba(90,144,96,0.08); color: rgba(90,144,96,0.80); }
-.ambient-chip.vehicle { background: rgba(74,130,160,0.08); color: rgba(74,130,160,0.80); }
-.ambient-chip.sub { background: rgba(128,96,168,0.08); color: rgba(128,96,168,0.70); }
-.ambient-chip.more { background: rgba(26,22,18,0.04); color: rgba(26,22,18,0.30); font-style: italic; font-weight: 400; flex: 0; padding: 5px 10px; }
-.ac-icon { width: 20px; height: 20px; border-radius: 5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.ac-icon svg { width: 10px; height: 10px; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-.ac-icon.home { background: rgba(200,120,80,0.15); } .ac-icon.home svg { stroke: #C87850; }
-.ac-icon.garden { background: rgba(90,144,96,0.15); } .ac-icon.garden svg { stroke: #5A9060; }
-.ac-icon.vehicle { background: rgba(74,130,160,0.15); } .ac-icon.vehicle svg { stroke: #4A82A0; }
-.ac-icon.sub { background: rgba(128,96,168,0.15); } .ac-icon.sub svg { stroke: #8060A8; }
+/* ── NUDGE PREVIEW (S-01 v2) ── */
+.nudge-preview { display: flex; flex-direction: column; gap: 0; margin-top: 24px; margin-bottom: 4px; align-self: stretch; background: var(--surface); border-radius: 12px; border: 0.5px solid rgba(26,22,18,0.07); box-shadow: 0 1px 4px rgba(26,22,18,0.04); overflow: hidden; }
+.np-row { display: flex; align-items: center; padding: 8px 10px; gap: 8px; }
+.np-row + .np-row { border-top: 0.5px solid rgba(26,22,18,0.05); }
+.np-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.np-task { flex: 1; font-size: 8.5px; font-weight: 500; color: var(--ink); letter-spacing: -0.1px; }
+.np-month { font-size: 7.5px; font-weight: 500; color: var(--mid); flex-shrink: 0; }
+.np-more { display: flex; align-items: center; justify-content: center; padding: 6px 10px; border-top: 0.5px solid rgba(26,22,18,0.05); font-size: 7.5px; font-style: italic; color: rgba(26,22,18,0.28); }
 
 /* ── DECISION NOTES ── */
 .notes-section { margin-top: 32px; max-width: 900px; }
@@ -351,23 +343,18 @@ body {
       <div class="scroll" style="padding-top:16px;display:flex;flex-direction:column;align-items:center;">
         <div class="h1" style="margin-top:16px;text-align:left;align-self:stretch;">Your stuff won't<br><em>maintain itself.</em></div>
 
-        <!-- Ambient chips: category icon + label, display only, 2 rows of 2 -->
-        <div class="ambient-chips">
-          <div class="ambient-row">
-            <div class="ambient-chip home"><div class="ac-icon home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div>Boiler · Oct</div>
-            <div class="ambient-chip garden"><div class="ac-icon garden"><svg viewBox="0 0 16 16"><path d="M8 14V8"/><path d="M5 11c-2-1-2-4 1-5 0-2 4-3 5 0 3 0 3 4 0 5"/></svg></div>Lawn · Mar</div>
-          </div>
-          <div class="ambient-row">
-            <div class="ambient-chip vehicle"><div class="ac-icon vehicle"><svg viewBox="0 0 16 16"><rect x="1" y="6" width="14" height="6" rx="2"/><circle cx="4.5" cy="12" r="1.5"/><circle cx="11.5" cy="12" r="1.5"/><path d="M3 6L5 2h6l2 4"/></svg></div>Car · Nov</div>
-            <div class="ambient-chip sub"><div class="ac-icon sub"><svg viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="10" rx="2"/><path d="M2 6h12"/><path d="M6 6v7"/></svg></div>Insurance · Dec</div>
-          </div>
-          <div class="ambient-row center">
-            <div class="ambient-chip more">and more</div>
-          </div>
+        <!-- Nudge preview: task-oriented labels, display only -->
+        <div class="nudge-preview">
+          <div class="np-row"><div class="np-dot" style="background:var(--cat-home);"></div><div class="np-task">Service the boiler</div><div class="np-month">Oct</div></div>
+          <div class="np-row"><div class="np-dot" style="background:var(--cat-garden);"></div><div class="np-task">Prep the lawn</div><div class="np-month">Mar</div></div>
+          <div class="np-row"><div class="np-dot" style="background:var(--cat-vehicle);"></div><div class="np-task">Annual car check-up</div><div class="np-month">Nov</div></div>
+          <div class="np-row"><div class="np-dot" style="background:var(--cat-sub);"></div><div class="np-task">Renew home insurance</div><div class="np-month">Dec</div></div>
+          <div class="np-row"><div class="np-dot" style="background:var(--cat-home);"></div><div class="np-task">Clean the gutters</div><div class="np-month">Sep</div></div>
+          <div class="np-more">and more</div>
         </div>
 
         <!-- Supporting line -->
-        <div style="font-size:8.5px;font-style:italic;color:var(--mid);text-align:center;margin:4px 0 16px;line-height:1.5;">Nudges when it matters. Silent otherwise.</div>
+        <div style="font-size:8.5px;font-style:italic;color:var(--mid);text-align:center;margin:8px 0 16px;line-height:1.5;">Nudges when it matters. Silent otherwise.</div>
       </div>
       <div class="btm" style="padding:0 14px 12px;">
         <button class="btn primary" style="height:38px;margin-bottom:8px;">Tell me what you have</button>
