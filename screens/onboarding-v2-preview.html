@@ -269,10 +269,14 @@ body {
 .bs-handle { width: 32px; height: 4px; border-radius: 100px; background: rgba(26,22,18,0.12); margin: 0 auto 12px; }
 
 /* ── AMBIENT CHIPS (S-01 v2) ── */
-.ambient-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; margin-bottom: 8px; justify-content: center; }
-.ambient-chip { display: inline-flex; align-items: center; gap: 6px; background: rgba(26,22,18,0.08); border-radius: 100px; padding: 7px 12px 7px 9px; font-size: 10px; font-weight: 500; color: var(--mid); }
-.ambient-chip.muted { opacity: 0.5; }
-.ambient-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.ambient-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 20px; margin-bottom: 6px; justify-content: center; padding: 0 4px; }
+.ambient-chip { display: inline-flex; align-items: center; gap: 5px; border-radius: 100px; padding: 6px 11px 6px 8px; font-size: 9px; font-weight: 500; letter-spacing: 0.1px; }
+.ambient-chip.home { background: rgba(200,120,80,0.09); color: rgba(200,120,80,0.75); }
+.ambient-chip.garden { background: rgba(90,144,96,0.09); color: rgba(90,144,96,0.75); }
+.ambient-chip.vehicle { background: rgba(74,130,160,0.09); color: rgba(74,130,160,0.75); }
+.ambient-chip.sub { background: rgba(128,96,168,0.09); color: rgba(128,96,168,0.65); }
+.ambient-chip.more { background: rgba(26,22,18,0.05); color: rgba(26,22,18,0.30); font-style: italic; font-weight: 400; }
+.ambient-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; opacity: 0.8; }
 
 /* ── DECISION NOTES ── */
 .notes-section { margin-top: 32px; max-width: 900px; }
@@ -341,19 +345,21 @@ body {
         <!-- ii mark only, no free badge -->
         <svg class="ii-mark" width="18" height="20" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/></svg>
       </div>
-      <div class="scroll" style="padding-top:8px;display:flex;flex-direction:column;align-items:center;">
-        <div class="h1" style="margin-top:12px;text-align:left;align-self:stretch;">Your stuff won't<br><em>maintain itself.</em></div>
+      <div class="scroll" style="padding-top:16px;display:flex;flex-direction:column;align-items:center;">
+        <div class="h1" style="margin-top:16px;text-align:left;align-self:stretch;">Your stuff won't<br><em>maintain itself.</em></div>
 
-        <!-- Ambient chips -->
+        <!-- Ambient chips: one per category, display only -->
         <div class="ambient-chips">
-          <div class="ambient-chip"><div class="ambient-dot" style="background:#C8784A;"></div>Boiler service · Oct</div>
-          <div class="ambient-chip"><div class="ambient-dot" style="background:#5A9060;"></div>Lawn prep · Mar</div>
-          <div class="ambient-chip"><div class="ambient-dot" style="background:#4A82A0;"></div>Car check · Nov</div>
-          <div class="ambient-chip muted"><div class="ambient-dot" style="background:rgba(26,22,18,0.25);"></div>+12 more</div>
+          <div class="ambient-chip home"><div class="ambient-dot" style="background:#C87850;"></div>Boiler service · Oct</div>
+          <div class="ambient-chip garden"><div class="ambient-dot" style="background:#5A9060;"></div>Lawn prep · Mar</div>
+          <div class="ambient-chip vehicle"><div class="ambient-dot" style="background:#4A82A0;"></div>Car check · Nov</div>
+          <div class="ambient-chip sub"><div class="ambient-dot" style="background:#8060A8;"></div>Insurance · Dec</div>
+          <div class="ambient-chip home"><div class="ambient-dot" style="background:#C87850;"></div>Gutters · Sep</div>
+          <div class="ambient-chip more">and more</div>
         </div>
 
         <!-- Supporting line -->
-        <div style="font-size:9px;font-style:italic;color:var(--mid);text-align:center;margin:0 0 16px;">Nudges when it matters. Silent otherwise.</div>
+        <div style="font-size:8.5px;font-style:italic;color:var(--mid);text-align:center;margin:4px 0 20px;line-height:1.5;">Nudges when it matters.<br>Silent otherwise.</div>
       </div>
       <div class="btm">
         <button class="btn primary">Tell me what you have</button>
@@ -378,7 +384,7 @@ body {
     <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
     <div class="prog"><div class="prog-fill" style="width:40%"></div></div>
     <div class="scr">
-      <div class="scroll" style="padding:6px 10px 4px;gap:0;">
+      <div class="scroll" style="padding:14px 10px 4px;gap:0;">
         <div class="nudgii-msg">
           <div class="nudgii-from">nudgii</div>
           <div class="nudgii-bubble">
@@ -406,11 +412,15 @@ body {
             <div class="nb-text" style="margin-top:4px;"><em>What brand are the cars?</em> Or say "not sure".</div>
           </div>
         </div>
-        <div style="font-size:6px;color:var(--mid-ac);margin:4px 0 2px;">Anything else?</div>
-        <div class="sug-chips">
-          <div class="sug-chip">smoke detector</div>
-          <div class="sug-chip">gutter cleaning</div>
-          <div class="sug-chip">airco filter</div>
+        <!-- Continue suggestion after enough items -->
+        <div class="nudgii-msg" style="margin-top:8px;">
+          <div class="nudgii-bubble" style="background:rgba(155,127,212,0.06);border-color:rgba(155,127,212,0.15);">
+            <div class="nb-text">That's 5 items, nice start. <em>Ready to see your schedule?</em></div>
+            <div class="sug-chips" style="margin-top:4px;">
+              <div class="sug-chip" style="background:var(--cta);color:var(--cta-fg);border-color:var(--cta);font-weight:500;">Show my schedule</div>
+              <div class="sug-chip">Add more first</div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="btm">
@@ -419,7 +429,10 @@ body {
           <div class="ibar-text" style="font-style:italic;color:rgba(107,99,88,0.45);">Say it, type it, or snap a photo...</div>
           <div class="ibar-mic"><svg viewBox="0 0 16 16"><rect x="5" y="1" width="6" height="9" rx="3"/><path d="M3 8a5 5 0 0010 0"/><line x1="8" y1="13" x2="8" y2="15"/></svg></div>
         </div>
-        <div class="input-note">audio sent for transcription only · deleted after · responds in text</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:0 2px;">
+          <div class="input-note" style="margin:0;">audio sent for transcription · responds in text</div>
+          <a style="font-size:6px;color:var(--mid-ac);text-decoration:none;white-space:nowrap;">or browse →</a>
+        </div>
       </div>
     </div>
   </div>
