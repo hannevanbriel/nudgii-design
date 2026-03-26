@@ -353,26 +353,28 @@ body {
   overflow: hidden;
 }
 
-.confetti-dot {
+.confetti-piece {
   position: absolute;
-  border-radius: 50%;
   opacity: 0;
+  top: -10px;
 }
 
-@keyframes confetti-in {
-  0% { opacity: 0; transform: translateY(8px) scale(0.5); }
-  100% { opacity: var(--dot-opacity); transform: translateY(0) scale(1); }
+@keyframes confetti-fall {
+  0% { opacity: 0; transform: translateY(-20px) rotate(0deg) scale(0.5); }
+  8% { opacity: var(--piece-opacity); transform: translateY(0) rotate(15deg) scale(1); }
+  100% { opacity: 0; transform: translateY(calc(var(--fall-distance, 650px))) rotate(var(--spin, 360deg)) scale(0.6); }
 }
 
-@keyframes confetti-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
+@keyframes confetti-sway {
+  0%, 100% { margin-left: 0; }
+  25% { margin-left: var(--sway-left, -12px); }
+  75% { margin-left: var(--sway-right, 12px); }
 }
 
-.confetti-dot.visible {
+.confetti-piece.falling {
   animation:
-    confetti-in 400ms ease-out forwards,
-    confetti-float var(--float-dur) ease-in-out var(--float-delay) infinite;
+    confetti-fall var(--fall-dur, 3.5s) ease-in forwards,
+    confetti-sway var(--sway-dur, 2s) ease-in-out infinite;
 }
 
 /* ii mark */
@@ -788,40 +790,45 @@ body {
   let isPlaying = false;
   let timeouts = [];
 
-  // Confetti dot positions (relative to the phone content area)
-  const confettiDots = [
-    { x: 12, y: 8, size: 5, color: 'rgba(200,120,80,0.45)', opacity: 0.45, floatDur: '3.2s', floatDelay: '0s' },
-    { x: 78, y: 5, size: 4, color: 'rgba(155,127,212,0.50)', opacity: 0.50, floatDur: '3.8s', floatDelay: '0.4s' },
-    { x: 55, y: 12, size: 3, color: 'rgba(90,144,96,0.40)', opacity: 0.40, floatDur: '3.5s', floatDelay: '0.8s' },
-    { x: 88, y: 18, size: 5, color: 'rgba(74,130,160,0.40)', opacity: 0.40, floatDur: '4.0s', floatDelay: '0.2s' },
-    { x: 22, y: 22, size: 4, color: 'rgba(232,168,124,0.50)', opacity: 0.50, floatDur: '3.3s', floatDelay: '0.6s' },
-    { x: 68, y: 28, size: 6, color: 'rgba(128,96,168,0.35)', opacity: 0.35, floatDur: '3.7s', floatDelay: '1.0s' },
-    { x: 8, y: 42, size: 3, color: 'rgba(245,240,232,0.18)', opacity: 0.18, floatDur: '4.2s', floatDelay: '0.3s' },
-    { x: 92, y: 38, size: 4, color: 'rgba(200,120,80,0.40)', opacity: 0.40, floatDur: '3.4s', floatDelay: '0.7s' },
-    { x: 35, y: 48, size: 5, color: 'rgba(155,127,212,0.45)', opacity: 0.45, floatDur: '3.9s', floatDelay: '0.1s' },
-    { x: 75, y: 52, size: 3, color: 'rgba(90,144,96,0.35)', opacity: 0.35, floatDur: '3.6s', floatDelay: '0.9s' },
-    { x: 15, y: 60, size: 4, color: 'rgba(232,168,124,0.45)', opacity: 0.45, floatDur: '3.1s', floatDelay: '0.5s' },
-    { x: 50, y: 65, size: 5, color: 'rgba(74,130,160,0.35)', opacity: 0.35, floatDur: '4.1s', floatDelay: '0.2s' },
-    { x: 85, y: 70, size: 3, color: 'rgba(128,96,168,0.30)', opacity: 0.30, floatDur: '3.5s', floatDelay: '0.8s' },
-    { x: 28, y: 75, size: 4, color: 'rgba(245,240,232,0.15)', opacity: 0.15, floatDur: '3.8s', floatDelay: '0.4s' },
-    { x: 62, y: 80, size: 3, color: 'rgba(155,127,212,0.35)', opacity: 0.35, floatDur: '3.3s', floatDelay: '1.1s' },
+  // Confetti colors from nudgii category palette
+  var confettiColors = [
+    '#C87850', '#D4956A',  // home warm
+    '#9B7FD4', '#B49EE0',  // cta purple
+    '#5A9060', '#7AAC7E',  // garden green
+    '#4A82A0', '#6BA0B8',  // vehicle blue
+    '#E8A87C', '#F0C4A0',  // apricot
+    '#8060A8', '#A080C0',  // subscription purple
+    '#F5F0E8',             // cream
   ];
+  var confettiShapes = ['rect', 'circle', 'rect', 'rect', 'circle']; // more rectangles
 
   function createConfetti() {
     confettiLayer.innerHTML = '';
-    confettiDots.forEach(function(dot) {
+    // 40 pieces for a real confetti burst
+    for (var i = 0; i < 40; i++) {
       var el = document.createElement('div');
-      el.className = 'confetti-dot';
-      el.style.left = dot.x + '%';
-      el.style.top = dot.y + '%';
-      el.style.width = dot.size + 'px';
-      el.style.height = dot.size + 'px';
-      el.style.background = dot.color;
-      el.style.setProperty('--dot-opacity', dot.opacity);
-      el.style.setProperty('--float-dur', dot.floatDur);
-      el.style.setProperty('--float-delay', dot.floatDelay);
+      el.className = 'confetti-piece';
+
+      var color = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+      var shape = confettiShapes[Math.floor(Math.random() * confettiShapes.length)];
+      var w = shape === 'circle' ? (4 + Math.random() * 5) : (3 + Math.random() * 4);
+      var h = shape === 'circle' ? w : (w * (2 + Math.random() * 1.5));
+
+      el.style.left = (5 + Math.random() * 90) + '%';
+      el.style.width = w + 'px';
+      el.style.height = h + 'px';
+      el.style.background = color;
+      el.style.borderRadius = shape === 'circle' ? '50%' : '1px';
+      el.style.setProperty('--piece-opacity', (0.6 + Math.random() * 0.35).toFixed(2));
+      el.style.setProperty('--fall-distance', (500 + Math.random() * 300) + 'px');
+      el.style.setProperty('--fall-dur', (2.5 + Math.random() * 2.5) + 's');
+      el.style.setProperty('--spin', (180 + Math.random() * 540) + 'deg');
+      el.style.setProperty('--sway-left', (-8 - Math.random() * 16) + 'px');
+      el.style.setProperty('--sway-right', (8 + Math.random() * 16) + 'px');
+      el.style.setProperty('--sway-dur', (1.5 + Math.random() * 1.5) + 's');
+
       confettiLayer.appendChild(el);
-    });
+    }
   }
 
   function schedule(fn, ms) {
@@ -848,8 +855,8 @@ body {
     bottomSheet.classList.remove('visible');
 
     // Reset confetti
-    confettiLayer.querySelectorAll('.confetti-dot').forEach(function(d) {
-      d.classList.remove('visible');
+    confettiLayer.querySelectorAll('.confetti-piece').forEach(function(d) {
+      d.classList.remove('falling');
     });
 
     // Reset progress bar
@@ -879,11 +886,11 @@ body {
       phone.classList.add('celebrating');
     }, 150);
 
-    // 350ms: Confetti dots start appearing (staggered)
-    confettiLayer.querySelectorAll('.confetti-dot').forEach(function(dot, i) {
+    // 250ms: Confetti burst, pieces fall from top (staggered)
+    confettiLayer.querySelectorAll('.confetti-piece').forEach(function(piece, i) {
       schedule(function() {
-        dot.classList.add('visible');
-      }, 350 + i * 60);
+        piece.classList.add('falling');
+      }, 250 + i * 30);
     });
 
     // 400ms: ii mark springs in
@@ -911,25 +918,24 @@ body {
       celeReminder.classList.add('visible');
     }, 900);
 
-    // 2000ms: bottom sheet + scrim
+    // 3500ms: bottom sheet + scrim (let celebration breathe)
     schedule(function() {
       scrim.classList.add('visible');
       bottomSheet.classList.add('visible');
-    }, 2000);
+    }, 3500);
 
-    // 2500ms: show replay hint
+    // 4200ms: show replay hint
     schedule(function() {
       hint.textContent = 'tap to replay';
       hint.classList.add('clickable');
       hint.onclick = function() {
         reset();
-        // Small delay so user sees the reset
         setTimeout(function() {
           isPlaying = false;
         }, 100);
       };
       isPlaying = false;
-    }, 2500);
+    }, 4200);
   }
 
   // Initialize confetti (hidden)
