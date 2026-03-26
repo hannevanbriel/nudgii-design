@@ -394,7 +394,7 @@ section{padding-top:60px;}
             <div style="font-size:11px;font-weight:500;color:var(--ink);margin-bottom:3px;">On plum surface</div>
             <div style="font-size:10px;color:var(--mid);line-height:1.55;margin-bottom:8px;">No bg square. Left pill: off-white cream (#F2EDE4). Right pill: CTA purple — pops against plum. Apricot dot. Used inside the done overlay — the mark floats in the celebration moment.</div>
             <div style="display:flex;flex-wrap:wrap;gap:4px;">
-              <span style="font-size:8px;background:var(--bg);border:0.5px solid var(--border);border-radius:100px;padding:2px 6px;color:var(--mid);">S-07 completion screen</span>
+              <span style="font-size:8px;background:var(--bg);border:0.5px solid var(--border);border-radius:100px;padding:2px 6px;color:var(--mid);">S-06 celebration state</span>
               <span style="font-size:8px;background:var(--bg);border:0.5px solid var(--border);border-radius:100px;padding:2px 6px;color:var(--mid);">S-11 done overlay card</span>
             </div>
           </div>
@@ -431,7 +431,7 @@ section{padding-top:60px;}
         <div style="font-size:9px;color:var(--mid);line-height:1.8;">
           <strong style="color:var(--ink);font-weight:500;">A</strong> — App icon, splash, App Store, any marketing asset with a white/neutral bg<br>
           <strong style="color:var(--ink);font-weight:500;">B</strong> — Inline on cream (light mode UI) — S-01 top-left, email header<br>
-          <strong style="color:var(--ink);font-weight:500;">C</strong> — On plum surface only — S-07 completion, S-11 done overlay<br>
+          <strong style="color:var(--ink);font-weight:500;">C</strong> — On plum surface only — S-06 celebration state, S-11 done overlay<br>
           <strong style="color:var(--ink);font-weight:500;">D</strong> — Dark mode inline — same positions as B, but on dark sage background
         </div>
       </div>
@@ -796,10 +796,10 @@ section{padding-top:60px;}
           <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">Full category list with item count</div>
           <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">Tap category → expands items in that category</div>
         </div>
-        <div style="display:grid;grid-template-columns:110px 170px 1fr;border-bottom:1px solid var(--border);">
-          <div style="font-size:11px;font-weight:500;color:var(--ink);padding:8px 12px;">S-04 Search</div>
-          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">Search results across all items</div>
-          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">Results show item row with category chip</div>
+        <div style="display:grid;grid-template-columns:110px 170px 1fr;border-bottom:1px solid var(--border);opacity:0.4;">
+          <div style="font-size:11px;font-weight:500;color:var(--ink);padding:8px 12px;"><s>S-04 Search</s></div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);font-style:italic;">Removed (Path C removed 2026-03-24)</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);"></div>
         </div>
         <div style="display:grid;grid-template-columns:110px 170px 1fr;border-bottom:1px solid var(--border);">
           <div style="font-size:11px;font-weight:500;color:var(--ink);padding:8px 12px;">S-05 Review</div>
@@ -1000,7 +1000,7 @@ section{padding-top:60px;}
         <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:18px;">
           <!-- Onboarding variant -->
           <div style="flex:1;min-width:140px;">
-            <div style="font-size:9px;font-weight:600;color:rgba(26,22,18,0.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Onboarding S-01→S-07</div>
+            <div style="font-size:9px;font-weight:600;color:rgba(26,22,18,0.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Onboarding S-01→S-08</div>
             <div style="background:#EDE8DF;border:1.5px solid rgba(26,22,18,0.10);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:6px;">
               <div style="height:30px;background:#9B7FD4;border-radius:100px;display:flex;align-items:center;justify-content:center;"><span style="font-size:9px;color:white;font-weight:500;">Primary CTA</span></div>
               <div style="height:24px;background:white;border:1px solid rgba(26,22,18,0.15);border-radius:100px;display:flex;align-items:center;justify-content:center;"><span style="font-size:9px;color:rgba(26,22,18,0.6);">Secondary CTA</span></div>
@@ -1242,7 +1242,7 @@ final sidePad = MediaQuery.of(context).size.width &lt; 420 ? 16.0 : 20.0;</pre>
       <div class="comp-body">
         <!-- Visual demo -->
         <div style="margin-bottom:18px;">
-          <div style="font-size:9px;font-weight:600;color:rgba(26,22,18,0.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">Steps S-01 → S-07</div>
+          <div style="font-size:9px;font-weight:600;color:rgba(26,22,18,0.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">Steps S-01 → S-08</div>
           <div style="display:flex;flex-direction:column;gap:10px;">
             <div style="display:flex;align-items:center;gap:12px;">
               <div style="font-size:9px;color:rgba(26,22,18,0.45);width:60px;flex-shrink:0;">S-01</div>
@@ -1270,7 +1270,7 @@ final sidePad = MediaQuery.of(context).size.width &lt; 420 ? 16.0 : 20.0;</pre>
               <div style="font-size:9px;color:#9B7FD4;width:28px;text-align:right;flex-shrink:0;">100%</div>
             </div>
           </div>
-          <div style="font-size:9px;color:rgba(26,22,18,0.4);margin-top:8px;line-height:1.5;">S-02, S-03, S-04 all sit at 40% — path chosen, entering items. S-07 gets a brief <code style="font-size:9px;">colorCta</code> pulse animation on reach.</div>
+          <div style="font-size:9px;color:rgba(26,22,18,0.4);margin-top:8px;line-height:1.5;">S-02, S-03 sit at 40% (path chosen, entering items). S-06 at 80%/85% (AHA + celebration). S-07 at 90% (push). S-08 at 95% (SSO).</div>
         </div>
 
         <div class="spec-grid" style="margin-bottom:16px;">
@@ -1280,7 +1280,7 @@ final sidePad = MediaQuery.of(context).size.width &lt; 420 ? 16.0 : 20.0;</pre>
           <div class="spec-row"><div class="spec-l">Position</div><div class="spec-r">Outside SafeArea (<code>top: false</code>). Full-bleed between status bar and safe content area — no horizontal inset</div></div>
           <div class="spec-row"><div class="spec-l">Track</div><div class="spec-r"><code>rgba(26,22,18,0.08)</code> — subtle warm grey</div></div>
           <div class="spec-row"><div class="spec-l">Fill</div><div class="spec-r"><code>colorCta #9B7FD4</code></div></div>
-          <div class="spec-row" style="border-bottom:none;"><div class="spec-l">Animation</div><div class="spec-r">300ms ease-in-out on every step change. S-07 completion: brief <code>colorCta</code> opacity pulse 1→0.4→1</div></div>
+          <div class="spec-row" style="border-bottom:none;"><div class="spec-l">Animation</div><div class="spec-r">300ms ease-in-out on every step change. S-06 celebration: brief <code>colorCta</code> opacity pulse 1→0.4→1</div></div>
         </div>
 
         <div class="dark-panel" style="margin-bottom:14px;">
@@ -1501,7 +1501,7 @@ Overlay.of(context).insert(
 
     <!-- ── COMPONENT: ERROR CARD ── -->
     <div class="rcard" style="margin-bottom:20px;">
-      <div class="rcard-title" style="margin-bottom:12px;">Error card <a href="../screens/s06-auth-lofi.html" style="font-size:10px;color:var(--cta);text-decoration:none;margin-left:8px;">↗ S-06</a></div>
+      <div class="rcard-title" style="margin-bottom:12px;">Error card <a href="../screens/s06-auth-lofi.html" style="font-size:10px;color:var(--cta);text-decoration:none;margin-left:8px;">↗ S-08 Sign-in</a></div>
       <!-- VISUAL DEMO -->
       <div style="background:var(--cream-2);border-radius:10px;padding:20px;margin-bottom:16px;">
         <div style="background:#FCEBEB;border:1px solid rgba(163,45,45,0.18);border-radius:12px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;max-width:380px;">
@@ -1546,7 +1546,7 @@ Overlay.of(context).insert(
         <strong>Copy (EN):</strong> "Free · no credit card"<br>
         <strong>Copy (NL):</strong> "Gratis · geen creditcard"<br>
         <strong>Padding:</strong> 4px 10px 4px 7px · border-radius 100px<br>
-        <strong>Placement:</strong> S-01 top-right inline with ii mark · S-06 below magic link CTA
+        <strong>Placement:</strong> S-01 top-right inline with ii mark · S-08 Sign-in screen
       </div>
     </div>
 
@@ -1712,7 +1712,7 @@ Overlay.of(context).insert(
         <table style="width:100%;border-collapse:collapse;font-size:12px;margin-top:12px;line-height:1.8;">
           <tr style="border-bottom:1px solid var(--border);">
             <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Element</td>
-            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Onboarding (S-01→S-07)</td>
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Onboarding (S-01→S-08)</td>
             <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Daily (S-09+)</td>
           </tr>
           <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Headline</td><td style="padding:4px 8px;">DM Serif Display · 22–33px · lh 0.97 · ls -0.5px</td><td style="padding:4px 8px;">DM Serif Display · 25–27px · greeting only</td></tr>
