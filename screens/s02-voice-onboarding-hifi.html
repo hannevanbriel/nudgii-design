@@ -186,7 +186,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
   <!-- PAGE HEADER -->
   <div class="page-eyebrow">S-02 · Voice onboarding · Hi-fi · 390x844px (iPhone 15) · March 2026</div>
   <h1 class="page-h1">Tell me what you have</h1>
-  <p class="page-sub">Conversation pattern: persistent chat thread with fixed input bar. nudgii always opens fresh with a discovery question, guiding users through voice, text, or scan. 4 main states + 7 edge case scenarios shown.</p>
+  <p class="page-sub">Conversation pattern: persistent chat thread with fixed input bar. nudgii always opens fresh with a discovery question, guiding users through voice, text, or scan. 4 main states + 8 edge case scenarios shown.</p>
   <div class="meta">
     <span class="mp hifi">Hi-fi</span>
     <span class="mp ob">Onboarding flow</span>
@@ -888,7 +888,58 @@ body{background:#CBC5BB;padding:0 0 80px;}
           </div>
         </div>
       </div>
-      <div class="phone-sub" style="max-width:320px;">Handles power users (Arne persona). All items confirmed, chips show first 3 + "+X more". nudgii suggests continuing immediately since enough items were added. Only "Continue" chip, no "Add more".</div>
+      <div class="phone-sub" style="max-width:320px;">Handles power users (Arne persona). All items confirmed, chips show first 3 + "+X more". nudgii suggests continuing immediately since enough items were added. Only "Show me" chip, no "Add more".</div>
+    </div>
+
+    <!-- SCENARIO H: Item 11 (free tier limit) -->
+    <div class="phone-col" style="width:auto;">
+      <div class="phone-lbl">H · Item 11 (free limit)</div>
+      <div class="phone" style="height:420px;">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <div class="prog-bar"><div class="prog-fill" style="width:40%;"></div></div>
+        <div class="conv-area" style="padding:12px 14px;">
+          <div class="nudgii-msg" style="opacity:0.5;">
+            <div class="nudgii-bubble">
+              <div class="confirmed-chips" style="gap:3px;">
+                <div class="cc-chip" style="font-size:7px;padding:1px 5px;">
+                  <svg viewBox="0 0 12 12" style="width:7px;height:7px;"><polyline points="2,6 5,9 10,3"/></svg>
+                  Dishwasher
+                </div>
+                <div class="cc-chip" style="font-size:7px;padding:1px 5px;">
+                  <svg viewBox="0 0 12 12" style="width:7px;height:7px;"><polyline points="2,6 5,9 10,3"/></svg>
+                  CV boiler
+                </div>
+                <div class="cc-chip" style="font-size:7px;padding:1px 5px;">+8 more</div>
+              </div>
+            </div>
+          </div>
+          <div class="user-msg">
+            <div class="user-bubble">
+              <div class="ub-text">Also a pool pump.</div>
+            </div>
+          </div>
+          <div class="nudgii-msg">
+            <div class="nudgii-from">nudgii</div>
+            <div class="nudgii-bubble">
+              <div class="nb-text">Added: Pool pump. That's 11 items, nice collection.</div>
+              <div class="confirmed-chips">
+                <div class="cc-chip">
+                  <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+                  Pool pump
+                </div>
+              </div>
+              <div class="nb-text" style="margin-top:8px;">Free plan covers 10, but don't stop now. Add everything, you'll choose your favourites later.</div>
+              <div class="nb-text" style="margin-top:4px;"><a style="color:var(--cta);text-decoration:none;font-size:11px;">Or keep them all with Pro →</a></div>
+              <div class="suggest-row" style="margin-top:6px;">
+                <div class="sug-chip">Add more</div>
+                <div class="sug-chip" style="background:var(--cta);color:#FAF8FF;border-color:var(--cta);font-weight:500;">Show me</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-sub" style="max-width:320px;">At item 11: transparent, honest, encouraging. No blocking, no paywall. "Don't stop now" keeps momentum. Pro link is inline text, not a button. User can keep adding or proceed to review. Items 11+ will be paused on dashboard (visible, not deleted).</div>
     </div>
 
   </div><!-- /edge cases flex -->
@@ -901,7 +952,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
 
     <div class="cl-entry">
       <div class="cl-ver">v1.3 · 2026-03-26 · ADDITIVE</div>
-      <div class="cl-body"><strong>7 edge case scenarios added.</strong> Nonsense input (A), duplicate item (B), ambiguous input (C), unknown item (D), empty voice/silence (E), brand mentioned (F), many items at once (G). Each shown as a mini phone mockup with nudgii's response and annotation below. Bubble tints: red for errors, amber for duplicates, standard for clarifications.</div>
+      <div class="cl-body"><strong>8 edge case scenarios.</strong> Nonsense input (A), duplicate item (B), ambiguous input (C), unknown item (D), empty voice/silence (E), brand mentioned (F), many items at once (G), item 11 free limit (H). Each shown as a mini phone mockup with nudgii's response and annotation below. Bubble tints: red for errors, amber for duplicates, standard for clarifications.</div>
     </div>
 
     <div class="cl-entry">
