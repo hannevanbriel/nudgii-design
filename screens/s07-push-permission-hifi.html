@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · S-07 Push permission — hi-fi</title>
+<link rel="stylesheet" href="../system/components.css">
+<style>
+/* ── S-07 screen-specific ── */
+body{background:#CBC5BB;padding:0 0 80px;}
+
+/* phones row (multi-phone layout) */
+.phones-row{display:flex;gap:32px;align-items:flex-start;flex-shrink:0;}
+.phone-label{
+  font-size:10px;font-weight:500;color:var(--mid-a);
+  margin-top:14px;letter-spacing:0.3px;text-align:center;
+}
+
+/* push centered content */
+.push-content{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:0 28px;text-align:center;
+}
+
+/* icon container */
+.push-icon{
+  width:56px;height:56px;border-radius:16px;
+  background:rgba(26,22,18,0.04);border:0.5px solid rgba(26,22,18,0.08);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:20px;
+}
+.push-icon svg{width:26px;height:26px;fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+
+/* headline */
+.push-h{
+  font-family:'DM Serif Display',Georgia,serif;font-size:22px;font-weight:400;
+  line-height:1.15;letter-spacing:-0.3px;color:var(--ink);margin-bottom:10px;
+}
+
+/* body text */
+.push-body{
+  font-size:11px;color:var(--mid-a);line-height:1.55;
+  max-width:220px;margin-bottom:24px;
+}
+
+/* benefit rows */
+.push-benefits{
+  width:100%;max-width:260px;margin-bottom:24px;
+  display:flex;flex-direction:column;gap:0;
+}
+.push-ben{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 0;border-bottom:0.5px solid rgba(26,22,18,0.06);
+}
+.push-ben:last-child{border-bottom:none;}
+.ben-icon{
+  width:28px;height:28px;border-radius:8px;
+  background:rgba(155,127,212,0.06);border:0.5px solid rgba(155,127,212,0.10);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.ben-icon svg{width:13px;height:13px;fill:none;stroke:var(--cta);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+.ben-text{flex:1;text-align:left;}
+.ben-title{font-size:9px;font-weight:500;color:var(--ink);line-height:1.2;margin-bottom:1px;}
+.ben-sub{font-size:7.5px;color:var(--mid);line-height:1.3;}
+
+/* CTAs */
+.push-cta{
+  width:100%;height:50px;border-radius:100px;border:none;
+  background:var(--cta);color:var(--cta-fg);font-family:'DM Sans',sans-serif;
+  font-size:14px;font-weight:500;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;letter-spacing:-0.1px;
+  box-shadow:0 2px 12px rgba(155,127,212,0.28);transition:transform 0.1s ease-out;
+}
+.push-cta:active{transform:scale(0.97);background:#7D62B3;}
+.push-ghost{
+  width:100%;height:40px;border-radius:100px;border:none;
+  background:transparent;color:var(--mid-a);font-family:'DM Sans',sans-serif;
+  font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;margin-top:4px;
+}
+
+/* iOS dialog overlay */
+.ios-overlay{
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  background:rgba(0,0,0,0.32);display:flex;align-items:center;justify-content:center;
+  padding:0 24px;z-index:10;
+}
+.ios-dialog{
+  background:rgba(255,255,255,0.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-radius:14px;width:100%;max-width:280px;overflow:hidden;
+}
+.ios-dialog-content{padding:20px 16px 16px;text-align:center;}
+.ios-dialog-title{
+  font-size:12px;font-weight:600;color:#1C1C1E;margin-bottom:4px;
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+}
+.ios-dialog-body{
+  font-size:10px;color:#3C3C43;line-height:1.45;
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+}
+.ios-dialog-btns{display:flex;border-top:0.5px solid rgba(60,60,67,0.18);}
+.ios-dialog-btn{
+  flex:1;padding:12px 0;font-size:12px;text-align:center;
+  border:none;background:transparent;cursor:pointer;
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+}
+.ios-dialog-btn.secondary{color:#007AFF;border-right:0.5px solid rgba(60,60,67,0.18);}
+.ios-dialog-btn.primary{color:#007AFF;font-weight:600;}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-back" href="../index.html">
+    <svg width="16" height="18" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:2px;">
+      <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
+      <path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
+      <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
+    </svg>
+    Design hub
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">S-07 — Push permission</span>
+  <span class="nav-status progress">In progress</span>
+</nav>
+
+<div class="page">
+
+  <!-- PAGE HEADER -->
+  <div class="page-eyebrow">S-07 · Push permission · Hi-fi · 390x844px (iPhone 15) · March 2026</div>
+  <h1 class="page-h1">Push permission</h1>
+  <p class="page-sub">Pre-prompt screen shown after the celebration (S-06). Explains why notifications matter before triggering the iOS native dialog. iOS only shows the native dialog once, so this screen dramatically increases opt-in rate. Two states: default (pre-prompt) and iOS dialog overlay.</p>
+  <div class="meta">
+    <span class="mp hifi">Hi-fi</span>
+    <span class="mp ob">Onboarding flow</span>
+    <span class="mp">S-07</span>
+    <span class="mp">March 2026</span>
+  </div>
+
+  <!-- CONTENT ROW: phones + annotation sidebar -->
+  <div class="content-row">
+
+    <!-- PHONES ROW (2 states) -->
+    <div class="phones-row">
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- STATE 1: Default (pre-prompt)                   -->
+      <!-- ═══════════════════════════════════════════════ -->
+      <div class="phone-col">
+        <div class="phone">
+          <div class="notch"><div class="np"></div></div>
+          <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+          <!-- progress bar 90% -->
+          <div class="prog-bar"><div class="prog-fill" style="width:90%;"></div></div>
+
+          <div class="w-screen">
+
+            <!-- centered content -->
+            <div class="push-content">
+              <!-- bell icon -->
+              <div class="push-icon">
+                <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              </div>
+
+              <!-- headline (single DM Serif moment) -->
+              <div class="push-h">Stay on top of things.</div>
+
+              <!-- body -->
+              <div class="push-body">nudgii sends reminders when tasks are due. Turn on notifications so nothing slips.</div>
+
+              <!-- 3 benefit rows -->
+              <div class="push-benefits">
+                <div class="push-ben">
+                  <div class="ben-icon">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  </div>
+                  <div class="ben-text">
+                    <div class="ben-title">Weekly overview every Monday</div>
+                    <div class="ben-sub">What's coming up this week, at a glance</div>
+                  </div>
+                </div>
+                <div class="push-ben">
+                  <div class="ben-icon">
+                    <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                  </div>
+                  <div class="ben-text">
+                    <div class="ben-title">One nudge on the day itself</div>
+                    <div class="ben-sub">A single reminder when a task is due</div>
+                  </div>
+                </div>
+                <div class="push-ben">
+                  <div class="ben-icon">
+                    <svg viewBox="0 0 24 24"><path d="M17 14V2"/><path d="M9 18.12L4.66 12.41a1 1 0 0 1 .76-1.65h4.85l-.46-6.88a1 1 0 0 1 1.92-.35l5.63 9.18a1 1 0 0 1-.85 1.53h-4.58Z" fill="none"/><line x1="2" y1="2" x2="22" y2="22"/></svg>
+                  </div>
+                  <div class="ben-text">
+                    <div class="ben-title">Silent on other days</div>
+                    <div class="ben-sub">No spam, no marketing, ever</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- sticky bottom zone -->
+            <div class="w-bottom">
+              <button class="push-cta">Turn on notifications</button>
+              <button class="push-ghost">Maybe later</button>
+            </div>
+          </div>
+        </div>
+        <div class="phone-label">S-07 · Default (pre-prompt)</div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- STATE 2: iOS native dialog overlay              -->
+      <!-- ═══════════════════════════════════════════════ -->
+      <div class="phone-col">
+        <div class="phone">
+          <div class="notch"><div class="np"></div></div>
+          <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+          <!-- progress bar 90% -->
+          <div class="prog-bar"><div class="prog-fill" style="width:90%;"></div></div>
+
+          <div class="w-screen" style="position:relative;">
+
+            <!-- same content dimmed behind dialog -->
+            <div class="push-content" style="opacity:0.3;pointer-events:none;">
+              <div class="push-icon">
+                <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              </div>
+              <div class="push-h">Stay on top of things.</div>
+              <div class="push-body">nudgii sends reminders when tasks are due. Turn on notifications so nothing slips.</div>
+              <div class="push-benefits">
+                <div class="push-ben"><div class="ben-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div class="ben-text"><div class="ben-title">Weekly overview every Monday</div><div class="ben-sub">What's coming up this week, at a glance</div></div></div>
+                <div class="push-ben"><div class="ben-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div><div class="ben-text"><div class="ben-title">One nudge on the day itself</div><div class="ben-sub">A single reminder when a task is due</div></div></div>
+                <div class="push-ben"><div class="ben-icon"><svg viewBox="0 0 24 24"><path d="M17 14V2"/><line x1="2" y1="2" x2="22" y2="22"/></svg></div><div class="ben-text"><div class="ben-title">Silent on other days</div><div class="ben-sub">No spam, no marketing, ever</div></div></div>
+              </div>
+            </div>
+
+            <div class="w-bottom" style="opacity:0.3;pointer-events:none;">
+              <button class="push-cta">Turn on notifications</button>
+              <button class="push-ghost">Maybe later</button>
+            </div>
+
+            <!-- iOS native dialog overlay -->
+            <div class="ios-overlay">
+              <div class="ios-dialog">
+                <div class="ios-dialog-content">
+                  <div class="ios-dialog-title">"nudgii" Would Like to Send You Notifications</div>
+                  <div class="ios-dialog-body">Notifications may include alerts, sounds, and icon badges. These can be configured in Settings.</div>
+                </div>
+                <div class="ios-dialog-btns">
+                  <div class="ios-dialog-btn secondary">Don't Allow</div>
+                  <div class="ios-dialog-btn primary">Allow</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="phone-label">S-07 · iOS native dialog (after tap)</div>
+      </div>
+
+    </div><!-- /phones-row -->
+
+    <!-- ANNOTATION SIDEBAR -->
+    <div class="annot-col">
+
+      <div class="annot-section">Shell + layout</div>
+
+      <div class="annot-card">
+        <div class="annot-head">
+          <span class="badge-rule">Rule</span>
+          Centered content pattern
+        </div>
+        <div class="annot-body">
+          Same layout as S-08 Sign-in: vertically centered content zone + sticky bottom CTAs. No scroll needed, content is short. Progress bar at <strong>90%</strong>. No back button (forward-only flow, iOS swipe-back gesture handles navigation).
+        </div>
+      </div>
+
+      <div class="annot-card decision">
+        <div class="annot-head">
+          <span class="badge-decision">Decision</span>
+          Pre-prompt before iOS dialog
+        </div>
+        <div class="annot-body">
+          iOS only shows the native permission dialog <strong>once</strong>. If the user taps "Don't Allow", push is permanently disabled until they manually go to Settings. The pre-prompt gives context and dramatically increases opt-in: <strong>~40% without vs ~70% with a good pre-prompt</strong>.
+        </div>
+      </div>
+
+      <div class="annot-section">Content</div>
+
+      <div class="annot-card">
+        <div class="annot-head">
+          <span class="badge-note">Icon container</span>
+        </div>
+        <div class="annot-body">
+          56x56px, border-radius 16px, subtle cream bg <code>rgba(26,22,18,0.04)</code>, thin border. Bell icon (Phosphor BellSimple, 26px, ink stroke). Matches the SSO screen's icon container pattern for visual consistency across the final onboarding screens.
+        </div>
+      </div>
+
+      <div class="annot-card">
+        <div class="annot-head">
+          <span class="badge-note">Headline</span>
+        </div>
+        <div class="annot-body">
+          DM Serif Display 22px: "Stay on top of things." Single serif moment for this screen. Positioned, not anxious. Doesn't say "allow" or "enable", because nudgii doesn't beg.
+        </div>
+      </div>
+
+      <div class="annot-card">
+        <div class="annot-head">
+          <span class="badge-rule">Rule</span>
+          3 benefit rows
+        </div>
+        <div class="annot-body">
+          Three concrete promises that reduce permission anxiety:
+          <br><br>
+          1. <strong>Weekly overview every Monday</strong> (calendar icon, CTA purple)
+          <br>
+          2. <strong>One nudge on the day itself</strong> (bell icon, CTA purple)
+          <br>
+          3. <strong>Silent on other days</strong> (mute icon, CTA purple)
+          <br><br>
+          "Silent on other days" is the most persuasive line. It answers the user's unspoken fear: "Will this spam me?" Icon containers: 28x28px, CTA purple tinted bg <code>rgba(155,127,212,0.06)</code>.
+        </div>
+      </div>
+
+      <div class="annot-section">CTAs + states</div>
+
+      <div class="annot-card">
+        <div class="annot-head">
+          <span class="badge-note">Primary CTA</span>
+        </div>
+        <div class="annot-body">
+          "Turn on notifications" (colorCta bg, pill shape, 50px height). Tapping triggers the iOS native permission dialog immediately. Pressed state: bg <code>#7D62B3</code>, scale 0.97, 100ms ease-out.
+        </div>
+      </div>
+
+      <div class="annot-card">
+        <div class="annot-head">
+          <span class="badge-note">Ghost CTA</span>
+        </div>
+        <div class="annot-body">
+          "Maybe later" (transparent bg, colorMidAccessible text, 40px height). Skips to S-08 Sign-in without requesting permission. User can enable later from profile settings. <strong>Not hidden or whispered</strong>: a visible, guilt-free exit.
+        </div>
+      </div>
+
+      <div class="annot-card decision">
+        <div class="annot-head">
+          <span class="badge-decision">Decision</span>
+          iOS native dialog
+        </div>
+        <div class="annot-body">
+          After "Turn on notifications" tap, iOS shows its native dialog: <em>"nudgii Would Like to Send You Notifications"</em>. This text is set in the app's <code>Info.plist</code> (NSUserNotificationUsageDescription). Cannot be customized beyond the app name. Two system buttons: "Don't Allow" / "Allow".
+          <br><br>
+          <strong>If allowed:</strong> brief success (checkmark animation on bell icon, 400ms), then auto-advance to S-08.
+          <br>
+          <strong>If denied:</strong> screen dismisses, proceeds to S-08. No error, no retry, no guilt. The user made their choice.
+          <br>
+          <strong>If "Maybe later":</strong> skips iOS dialog entirely, proceeds to S-08.
+        </div>
+      </div>
+
+    </div><!-- /annot-col -->
+
+  </div><!-- /content-row -->
+
+  <div class="page-divider"></div>
+
+  <!-- CHANGELOG -->
+  <div class="changelog">
+    <div class="cl-title">Changelog</div>
+
+    <div class="cl-entry">
+      <div class="cl-ver">v1.0 · 2026-03-26 · ADDITIVE</div>
+      <div class="cl-body"><strong>Initial hi-fi.</strong> Two-state screen: default pre-prompt and iOS native dialog overlay. Centered content layout matching S-08 Sign-in pattern.</div>
+      <div class="cl-body"><strong>3 benefit rows.</strong> Weekly overview, day-of nudge, silent on other days. CTA purple icon containers (28x28px). "Silent on other days" is the key anxiety reducer.</div>
+      <div class="cl-body"><strong>iOS dialog.</strong> System-native alert with backdrop blur. Fires after primary CTA tap. Allow advances to S-08, deny also advances (no retry).</div>
+      <div class="cl-body"><strong>Screen renumbered.</strong> Was S-08 (old numbering), now S-07. Push permission moved to after celebration in the committed onboarding flow.</div>
+    </div>
+
+    <div class="cl-flutter">
+      <div class="cl-flutter-head">Standard Flutter implementation block · S-07</div>
+      <div class="cl-flutter-body">
+        Mockup base:&nbsp;&nbsp;&nbsp;&nbsp;390px width (iPhone 15)<br>
+        SafeArea:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;top=false for content, progress bar outside SafeArea<br>
+        Scroll:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No scroll needed (content is short, centered vertically)<br>
+        Bottom zone:&nbsp;&nbsp;&nbsp;&nbsp;Sticky: fixed Column at bottom, not Spacer<br>
+        Progress bar:&nbsp;&nbsp;&nbsp;Full width, height 3px, outside SafeArea, 90% fill<br>
+        Scaling:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All visual elements x (screenWidth/390).clamp(0.9, 1.15)<br>
+        Special:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iOS permission request via UNUserNotificationCenter.current().requestAuthorization(). Brief checkmark animation on allow (400ms). No retry on deny. No back button.
+      </div>
+    </div>
+
+  </div><!-- /changelog -->
+
+</div><!-- /page -->
+
+</body>
+</html>

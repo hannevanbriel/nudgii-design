@@ -96,14 +96,14 @@ Status as of March 2026. Always check `nudgii-design/index.html` for current sta
 
 | Screen | Name | Status |
 |---|---|---|
-| S-01 | Welcome screen | ✅ Ready for dev |
-| S-02 | Voice onboarding — Path A | 🔶 In progress (OD-03 resolved 2026-03-21) |
-| S-03 | Browse categories — Path B | 🔲 To do |
-| S-04 | Direct search — Path C | 🔲 To do |
-| S-05 | Onboarding review | 🔶 In progress |
-| S-06 | Auth screen | 🔶 In progress |
-| S-07 | Onboarding completion | 🔶 In progress |
-| S-08 | Push permission screen | 🔶 In progress (lo-fi done) |
+| S-01 | Welcome | ✅ Ready for dev |
+| S-02 | Tell me what you have (Path A) | 🔶 In progress |
+| S-03 | Show me what I can track (Path B) | 🔶 In progress |
+| S-04 | *(removed, was Direct search / Path C)* | — |
+| S-05 | Review | 🔶 In progress |
+| S-06 | AHA + celebration state | 🔶 In progress |
+| S-07 | Push permission | 🔶 In progress (lo-fi done) |
+| S-08 | Sign-in (SSO) | 🔶 In progress |
 | S-09 | Dashboard — default | ✅ Ready for dev |
 | S-10 | Dashboard — empty | ✅ Ready for dev |
 | S-11 | Done overlay | 🔶 In progress (OD-01 resolved 2026-03-18) |
@@ -371,12 +371,13 @@ HTML mockups — flex column on screen, flex:1 on content, margin-top:auto on bu
 Single continuous progress bar — fills left to right, 5 equal steps.
 Height: 3px · Border-radius: 100px · Full-width, edge-to-edge below status bar (own dedicated row)
 Background: rgba(26,22,18,0.08) · Fill: colorCta #9B7FD4
-Step fills (S-01 to S-07): 20% → 40% → 60% → 80% → 100%
+Step fills (S-01 to S-08):
 - S-01: 20% (app opened, path not yet chosen)
-- S-02 / S-03 / S-04: 40% (path chosen, entering items)
+- S-02 / S-03: 40% (path chosen, entering items)
 - S-05: 60% (reviewing items)
-- S-06: 80% (creating account)
-- S-07: 100% (complete — brief colorCta pulse animation)
+- S-06: 80% (AHA schedule preview), 85% (celebration state)
+- S-07: 90% (push permission)
+- S-08: 95% (sign-in / SSO)
 Flutter: LinearProgressIndicator with custom colors + ClipRRect(borderRadius) + AnimatedContainer (300ms ease-in-out).
 ❌ Never segmented bars — any fixed visual count implies a fixed step count.
 ❌ Never dots — same problem.
@@ -386,7 +387,7 @@ Shown above the mic button to help cold-start users. Flex-wrap row.
 Content (nl-BE): cv-ketel · vaatwasser · auto · olijfboom
 Background: white/surface · Border: 0.5px solid rgba(26,22,18,0.13) · Border-radius: 100px · Padding: 2px 7px · Font: 8px DM Sans
 
-### Last maintenance chip (S-03 browse + S-04 search)
+### Last maintenance chip (S-03 browse)
 Every item row shows a last-maintenance chip.
 Default = "6 mnd geleden" (amber-lt background, amber text) — NEVER "recent", NEVER empty.
 User can change this on S-05. If user says they just maintained it, chip becomes "recent" (ink-06 bg, mid text).
@@ -493,7 +494,7 @@ All HTML mockups: **390×844px** (iPhone 15 logical pixels). Phone frame: `borde
 ```
 SafeArea (handles notch, home indicator, status bar automatically)
 └── Column
-    ├── Fixed: progress bar (onboarding S-01→S-07) OR status/greeting row (app S-09+)
+    ├── Fixed: progress bar (onboarding S-01→S-08) OR status/greeting row (app S-09+)
     ├── Expanded: SingleChildScrollView — scrollable content zone
     └── Fixed: bottom zone (sticky CTAs onboarding OR floating tab bar app) — never both
 ```
@@ -513,7 +514,7 @@ SafeArea (handles notch, home indicator, status bar automatically)
 
 ### Sticky bottom zone
 
-- **Onboarding (S-01→S-07):** Fixed Column at the bottom of the screen. CTAs stack vertically. 24px padding-bottom + SafeArea inset.
+- **Onboarding (S-01→S-08):** Fixed Column at the bottom of the screen. CTAs stack vertically. 24px padding-bottom + SafeArea inset.
 - **App (S-09+):** Floating pill tab bar, 52px height, 14px from screen edge + SafeArea.
 - **Never use `Spacer` to push the bottom zone** — use a fixed Column that sits outside the Expanded content zone.
 - **Never put both a sticky CTA zone and a tab bar on the same screen.**
@@ -525,7 +526,7 @@ SafeArea (handles notch, home indicator, status bar automatically)
 
 - Full-width, edge-to-edge, **outside SafeArea** — no side padding, no indent.
 - Height: 3px · border-radius: 100px · track: `rgba(26,22,18,0.08)` · fill: `colorCta #9B7FD4`
-- Steps: S-01 = 20% · S-02/03/04 = 40% · S-05 = 60% · S-06 = 80% · S-07 = 100%
+- Steps: S-01 = 20% · S-02/S-03 = 40% · S-05 = 60% · S-06 = 80%/85% · S-07 = 90% · S-08 = 95%
 - Flutter: `LinearProgressIndicator` inside `ClipRRect(borderRadius: 100px)` + `AnimatedContainer` 300ms ease-in-out.
 - **Never use dots, steps, or any fixed-count indicator** — a fixed count implies a fixed number of screens.
 
@@ -572,8 +573,8 @@ These 5 tweaks were applied across the onboarding flow (2026-03-23) to reduce dr
 | S-01 | "Ready in 2 minutes" time badge added between subtitle and category strip | Sets expectation early, removes the biggest unknown before path-choice |
 | S-02 | Sub includes "2–3 items is plenty to start." hint (italic, `colorMidAccessible`) | Cold-start users freeze when they think they need to add everything at once |
 | S-05 | Sub: "Scan to confirm brand or model. You can adjust anything later." | Reduces review-screen friction; reminds user the AI scan is available; "adjust later" lowers perfectionism |
-| S-06 | "Continue without account" is a visible 8px link with separator + device note, not a 60%-opacity whisper | Lower-commitment path must be findable — hiding it increases abandonment, not sign-ups |
-| S-07 | Sub: "We'll remind you when it matters." (was "We've got it from here.") | User-centric framing (what they get) vs brand-centric (what we do) |
+| S-08 | "Not now" is a visible ghost button (was "Continue without account" as 60%-opacity whisper) | Lower-commitment path must be findable. Renamed after SSO replaced email auth |
+| S-06 | Sub: "We'll remind you when it matters." on celebration state | User-centric framing (what they get) vs brand-centric (what we do) |
 | S-09 | "swipe right to complete" gesture hint below first overdue task | First-time users don't discover swipe on their own; hint disappears after first completion |
 
 ---
@@ -597,7 +598,7 @@ These are locked decisions. Do not question them in design or code reviews.
 - ❌ Never use a dark ink background on toasts — use semantic light backgrounds (sage-lt / red-lt / cream) only
 - ❌ Never use border-left accent on error cards — use full-border + red-lt background + icon-chip
 - ❌ Never show "recent" as a last-maintenance chip default — always "6 mnd geleden"
-- ❌ Never auto-advance from S-07 completion — always require user tap ("Open mijn schema")
+- ❌ Never auto-advance from S-06 celebration — always require user tap ("Open my schedule")
 - ❌ Never put CTA buttons side by side on onboarding screens — always vertically stacked
 - ❌ Never show mini-tile columns for preview items on S-01 — use item row style (same as dashboard)
 - ❌ Never use border-bottom to separate items in a list — each item is its own card with gap between
@@ -630,7 +631,7 @@ Update this section when open decisions are resolved.
 | Toast design | Light semantic backgrounds (sage-lt/red-lt/cream). Dark ink toast removed. | ✅ Yes | 2026-03-21 |
 | Error card | No border-left stripe. Full-border + icon-chip. | ✅ Yes | 2026-03-21 |
 | Last maint. chip default | Always "6 mnd geleden" — never "recent" | ✅ Yes | 2026-03-21 |
-| S-07 auto-advance | Never auto-advance from completion. CTA "Open mijn schema" required | ✅ Yes | 2026-03-21 |
+| S-06 auto-advance | Never auto-advance from AHA/celebration. CTA "Open my schedule" required (was S-07 pre-renumber) | ✅ Yes | 2026-03-21 |
 | Scan placement v1.0 | S-05 camera icon (all paths) + FAB scan accent. S-02b full scan is v1.1 | ✅ Yes | 2026-03-21 |
 | Progress indicator | Segmented bar (3 phases, 2.5px, full-width) replaces 3 dots. Dots were misleading for 4–7 screen flows. | ✅ Yes | 2026-03-22 |
 | Preview items S-01 | Item row style (same as dashboard) replaces 3-column mini-tiles. Items look like items everywhere. | ✅ Yes | 2026-03-22 |
@@ -640,9 +641,9 @@ Update this section when open decisions are resolved.
 | Progress bar | Single continuous bar (3px, 5 steps, 20%→100%) replaces segmented bar. Any fixed visual count implies fixed step count. | ✅ Yes | 2026-03-22 |
 | Item spacing | Gap-based individual cards (6–8px gap) replaces border-bottom separators. Cream between cards = separator. | ✅ Yes | 2026-03-22 |
 | Responsive layout | SafeArea + Expanded shell pattern. Two headline breakpoints (380px). Text scale capped at 1.3×. | ✅ Yes | 2026-03-22 |
-| Auth reassurance | "Free · no credit card" shown on S-06 auth screen below magic link. | ✅ Yes | 2026-03-22 |
-| S-06 button layout | Sticky bottom zone: Apple first, Google second, "or use email instead" as text toggle. Email input + magic link CTA reveal inline on tap. No "or" divider. No always-visible email input. | ✅ Yes | 2026-03-22 |
-| S-06 progress indicator | Continuous bar at 80% fill — old 3-dot system removed. Matches spec from progress bar decision. | ✅ Yes | 2026-03-22 |
+| Auth reassurance | "Free · no credit card" shown on S-08 sign-in screen (was S-06 pre-renumber). | ✅ Yes | 2026-03-22 |
+| S-08 button layout | Sticky bottom zone: Apple first, Google second. "Not now" ghost button. (was S-06 pre-renumber, SSO replaced email auth) | ✅ Yes | 2026-03-22 |
+| S-08 progress indicator | Continuous bar at 95% fill (was S-06 at 80% pre-renumber). | ✅ Yes | 2026-03-22 |
 | Design system versioning | No version numbers in design system title, nav, or component cards. Components are standalone definitions — they just ARE what they are. Sections 07 + 13 merged into single "Component library". Copy library is Section 13. | ✅ Yes | 2026-03-22 |
 | CTA button mic spec | Mic button inside Path A CTA: 22×22px circle, rgba(250,248,255,0.15) bg, Phosphor Microphone 11px, stroke #FAF8FF stroke-width 1.8. Now documented in design system Section 07 component card. | ✅ Yes | 2026-03-22 |
 | Hi-fi Flutter changelog | Every hi-fi screen must include a changelog section with: version+date, BREAKING/ADDITIVE, visual description, Flutter implementation notes, and standard Flutter block (mockup base, SafeArea, scroll, bottom zone, progress bar, scaling, special). See Section 20. | ✅ Yes | 2026-03-22 |
@@ -652,11 +653,11 @@ Update this section when open decisions are resolved.
 | Back button | Phosphor ArrowLeft: horizontal line + arrowhead. SVG paths d="M10 6H2" + d="M5 3L2 6L5 9" in viewBox 0 0 12 12. Replaces bare chevron. | ✅ Yes | 2026-03-23 |
 | Category filter strip | "All" pill always first (active), followed by category pills. Single scrollable row (nowrap + overflow-x:auto). No second line ever. Consistent across S-01, S-03, S-09. | ✅ Yes | 2026-03-23 |
 | "Ready in 2 minutes" badge | Added to S-01 between subtitle and category strip. Clock icon + label in subtle pill. Sets time expectation before path choice. | ✅ Yes | 2026-03-23 |
-| Onboarding UX micro-improvements | 5 targeted tweaks applied (S-02 hint, S-05 sub, S-06 skip visibility, S-07 sub, S-09 gesture hint). Documented in Section 17. | ✅ Yes | 2026-03-23 |
+| Onboarding UX micro-improvements | 5 targeted tweaks applied (S-02 hint, S-05 sub, S-08 skip visibility, S-06 celebration sub, S-09 gesture hint). Documented in Section 17. | ✅ Yes | 2026-03-23 |
 | Em dash | Never use — anywhere in copy, labels, microcopy, code, or documentation. Use commas, colons, or line breaks instead. | ✅ Yes | 2026-03-23 |
 | S-01 "All" pill removed | "All" pill removed from S-01 category strip (decorative, takes focus). Kept on S-03 and S-09 where it's a functional filter. | ✅ Yes | 2026-03-24 |
 | S-01 scan ghost link removed | "or start by scanning an item" removed from S-01 bottom zone. Redundant: scanning is available in S-02 input bar. Three clear paths is better than three + a footnote. | ✅ Yes | 2026-03-24 |
-| Category name on item rows | Every item row shows category name (Home, Vehicle, Garden) in the subtitle line. Consistent across all screens. Matches S-07a AHA format. | ✅ Yes | 2026-03-24 |
+| Category name on item rows | Every item row shows category name (Home, Vehicle, Garden) in the subtitle line. Consistent across all screens. Matches S-06 AHA format. | ✅ Yes | 2026-03-24 |
 | Pressed state bg color | Pressed states use rgba(26,22,18,0.03) (subtle dark tint) instead of rgba(245,240,232,0.6) (cream). Cream on cream was invisible. Applies to nudge cards and action sheet options. | ✅ Yes | 2026-03-24 |
 | Interaction states on cream | State tiles in interaction-states.html now use cream background instead of white, showing pressed states in realistic context. | ✅ Yes | 2026-03-24 |
 | S-01 CTA mic icon removed | Path A covers voice, text, and scan. Mic icon was misleading (implied voice-only). Button is text-only now. | ✅ Yes | 2026-03-24 |
@@ -664,7 +665,7 @@ Update this section when open decisions are resolved.
 | S-01 Path C removed | Two paths only (A + B). "Something else" row covers discovery. Three paths + footnote was too many choices. | ✅ Yes | 2026-03-24 |
 | S-01 subtitle | "Add what you own. We'll remind you when it matters." replaces earlier subtitle. Action-oriented + names core value (timely reminders). | ✅ Yes | 2026-03-24 |
 | S-01 hi-fi layout | Single English phone + annotation sidebar. Matches S-02 pattern. Locale variants removed from hi-fi (English only per design system rules). | ✅ Yes | 2026-03-24 |
-| Shared components.css | All 5 hi-fi screens (S-01, S-02, S-03, S-05, S-07) now link to system/components.css. ~985 lines of duplicated inline CSS removed. Screen files keep only screen-specific styles. | ✅ Yes | 2026-03-25 |
+| Shared components.css | All 5 hi-fi screens (S-01, S-02, S-03, S-05, S-06) now link to system/components.css. ~985 lines of duplicated inline CSS removed. Screen files keep only screen-specific styles. (S-06 was S-07 pre-renumber) | ✅ Yes | 2026-03-25 |
 | Category filter active state | Active pill uses purple outline (colorCta border + text, subtle lavender bg) instead of dark ink fill. Applies across S-01, S-03, S-09. | ✅ Yes | 2026-03-25 |
 | S-03 "All" pill added | "All" pill first, active by default. JS updated from .on to .active class. S-01 still has no "All" pill (decorative). | ✅ Yes | 2026-03-25 |
 | S-03 headline added | "What do you have?" + "Tick what applies. We'll figure out the rest." above search bar. Screen lacked context without it. | ✅ Yes | 2026-03-25 |
@@ -673,6 +674,7 @@ Update this section when open decisions are resolved.
 | Dashboard personalization | Signed-in users see "Good morning, Martijn." (name from SSO). Skipped users see "Good morning, there." Digest nudge: signed-in = one-tap toggle, skipped = SSO bottom sheet. | ✅ Yes | 2026-03-25 |
 | btn-a legacy fix | .btn-a now uses var(--cta) + scale(0.97) pressed state instead of hardcoded hex + opacity. Matches .btn-cta canonical pattern. | ✅ Yes | 2026-03-25 |
 | Nav status classes | .nav-status.ready/.progress/.todo color variants in components.css. Screens use class instead of inline color overrides. | ✅ Yes | 2026-03-25 |
+| Screen renumbering | S-04 removed (Path C). Old S-06 Auth renamed S-08 Sign-in (SSO). Old S-07 Completion merged into S-06 AHA (+ celebration state). Old S-08 Push renumbered to S-07. S-09 Dashboard unchanged. All references updated in CLAUDE.md, index.html, and onboarding flow. | ✅ Yes | 2026-03-26 |
 
 ---
 
