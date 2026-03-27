@@ -172,17 +172,32 @@ body {
 .search-bar { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.12); border-radius: 10px; padding: 0 10px; height: 32px; display: flex; align-items: center; gap: 6px; margin: 8px 14px 0; flex-shrink: 0; }
 .search-bar svg { width: 11px; height: 11px; stroke: var(--mid); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .search-text { font-size: 8px; color: var(--mid); flex: 1; }
-.cat-filters { display: flex; gap: 4px; padding: 8px 14px 0; overflow-x: auto; scrollbar-width: none; flex-shrink: 0; -webkit-overflow-scrolling: touch; }
-.cat-filters::-webkit-scrollbar { display: none; }
-.cat-f { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 500; padding: 4px 10px; border-radius: 100px; flex-shrink: 0; border: 0.5px solid rgba(26,22,18,0.12); background: var(--surface); color: var(--mid-ac, #6B6358); cursor: pointer; }
-.cat-f.on { background: var(--ink); color: var(--cream); border-color: var(--ink); }
-.cat-f.on .cat-dot { opacity: 0.7; }
-.cat-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-.browse-rows { display: flex; flex-direction: column; gap: 4px; }
-.brow { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.08); border-radius: 8px; padding: 7px 8px; display: flex; align-items: center; gap: 7px; cursor: pointer; }
-.brow.sel { border: 1px solid rgba(155,127,212,0.35); background: rgba(155,127,212,0.04); }
-.bname { flex: 1; font-size: 9px; font-weight: 500; color: var(--ink); }
-.task-badge { font-size: 6.5px; color: var(--mid-ac); background: rgba(26,22,18,0.05); border: 0.5px solid rgba(26,22,18,0.06); border-radius: 100px; padding: 1px 5px; }
+/* New chip row: tinted bg + category color text, no dots */
+.s3-chips { display: flex; gap: 4px; padding: 6px 14px 0; overflow-x: auto; scrollbar-width: none; flex-shrink: 0; }
+.s3-chips::-webkit-scrollbar { display: none; }
+.s3-chip { display: inline-flex; align-items: center; padding: 3px 9px; border-radius: 100px; flex-shrink: 0; font-size: 8px; font-weight: 500; }
+.s3-chip.all { background: rgba(155,127,212,0.12); color: var(--cta); outline: 0.5px solid var(--cta); }
+.s3-chip.home { background: rgba(200,120,80,0.13); color: var(--cat-home); }
+.s3-chip.vehicle { background: rgba(74,130,160,0.13); color: var(--cat-vehicle); }
+.s3-chip.garden { background: rgba(90,144,96,0.13); color: var(--cat-garden); }
+.s3-chip.subs { background: rgba(128,96,168,0.13); color: var(--cat-sub); }
+/* Selected pill */
+.s3-sel-pill { display: inline-flex; align-items: center; gap: 4px; background: var(--cta); border-radius: 100px; padding: 2px 8px; font-size: 7.5px; font-weight: 600; color: var(--cta-fg); margin: 5px 14px 0; }
+/* Tile grid */
+.tile-sec { margin: 8px 14px 0; }
+.tile-sec-lbl { display: flex; align-items: center; gap: 4px; font-size: 7px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: var(--mid); margin-bottom: 5px; }
+.tile-sec-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.tile-row3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.tile3 { border-radius: 10px; padding: 8px 4px 7px; display: flex; flex-direction: column; align-items: center; gap: 4px; border: 1.5px solid transparent; }
+.tile3-icon { width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; }
+.tile3-icon svg { width: 13px; height: 13px; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.tile3-name { font-size: 7.5px; font-weight: 500; color: var(--ink); text-align: center; line-height: 1.3; }
+.tile3.th { background: rgba(200,120,80,0.10); } .tile3.th .tile3-icon svg { stroke: var(--cat-home); }
+.tile3.th.sel { border-color: var(--cat-home); }
+.tile3.tv { background: rgba(74,130,160,0.10); } .tile3.tv .tile3-icon svg { stroke: var(--cat-vehicle); }
+.tile3.tv.sel { border-color: var(--cat-vehicle); }
+.tile3.tg { background: rgba(90,144,96,0.10); } .tile3.tg .tile3-icon svg { stroke: var(--cat-garden); }
+.tile3.ts { background: rgba(128,96,168,0.10); } .tile3.ts .tile3-icon svg { stroke: var(--cat-sub); }
 .cta-count { background: rgba(250,248,255,0.22); border-radius: 100px; padding: 1px 7px; font-size: 8px; font-weight: 600; }
 
 /* ── S-05 SPECIFIC ── */
@@ -472,43 +487,58 @@ body {
   <div class="path-sep-line"></div>
 </div>
 
-<!-- ═══ S-03 DISCOVER (unchanged) ═══ -->
+<!-- ═══ S-03 BROWSE CATEGORIES (tile grid v2) ═══ -->
 <div class="screen-col">
-  <div class="screen-label">S-03 · Show me what I can track · 40%</div>
+  <div class="screen-label">S-03 · Browse categories · 48%</div>
   <div class="phone">
     <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
-    <div class="prog"><div class="prog-fill" style="width:40%"></div></div>
+    <div class="prog"><div class="prog-fill" style="width:48%"></div></div>
     <div class="scr">
-      <div style="padding:6px 14px 0;">
-        <div style="font-family:'DM Serif Display',Georgia,serif;font-size:16px;font-weight:400;line-height:1.1;letter-spacing:-0.25px;color:var(--ink);margin-bottom:2px;">What do you have?</div>
-        <div style="font-size:8px;font-style:italic;color:var(--mid-ac);margin-bottom:8px;line-height:1.5;">Tick what applies. We'll figure out the rest.</div>
+      <div style="padding:8px 14px 0;">
+        <div style="font-family:'DM Serif Display',Georgia,serif;font-size:16px;font-weight:400;line-height:1.1;letter-spacing:-0.25px;color:var(--ink);margin-bottom:2px;">What's <em style="color:var(--cta);font-style:italic;">yours?</em></div>
+        <div style="font-size:7.5px;font-style:italic;color:var(--mid-ac);margin-bottom:0;line-height:1.5;">Tap what applies, we'll take it from there.</div>
       </div>
       <div class="search-bar"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/></svg><div class="search-text">Search items...</div></div>
-      <div class="cat-filters">
-        <div class="cat-f on">All</div>
-        <div class="cat-f"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
-        <div class="cat-f"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
-        <div class="cat-f"><span class="cat-dot" style="background:#5A9060;"></span>Garden</div>
-        <div class="cat-f"><span class="cat-dot" style="background:#8060A8;"></span>Subscriptions</div>
+      <!-- New chip style: tinted bg, category color text, no dots -->
+      <div class="s3-chips">
+        <div class="s3-chip all">All</div>
+        <div class="s3-chip home">Home</div>
+        <div class="s3-chip vehicle">Vehicle</div>
+        <div class="s3-chip garden">Garden</div>
+        <div class="s3-chip subs">Subscriptions</div>
       </div>
-      <div class="scroll" style="padding-top:8px;">
-        <div class="sec-lbl" style="margin-top:0;">Home</div>
-        <div class="browse-rows">
-          <div class="brow sel"><div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div><div class="bname">Dishwasher</div><div class="task-badge">3 reminders</div><div class="chk on"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div></div>
-          <div class="brow"><div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div><div class="bname">Boiler / CV ketel</div><div class="task-badge">2 reminders</div><div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div></div>
-          <div class="brow"><div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div><div class="bname">Airco / heat pump</div><div class="task-badge">2 reminders</div><div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div></div>
+      <!-- Selected pill (2 items) -->
+      <div class="s3-sel-pill"><svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg>2 selected</div>
+      <div class="scroll" style="padding-top:4px;padding-left:0;padding-right:0;">
+        <!-- Home row -->
+        <div class="tile-sec">
+          <div class="tile-sec-lbl"><div class="tile-sec-dot" style="background:var(--cat-home);"></div>Home</div>
+          <div class="tile-row3">
+            <div class="tile3 th sel"><div class="tile3-icon"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div><div class="tile3-name">Dishwasher</div></div>
+            <div class="tile3 th"><div class="tile3-icon"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div><div class="tile3-name">Boiler</div></div>
+            <div class="tile3 th"><div class="tile3-icon"><svg viewBox="0 0 16 16"><path d="M3 3h10v8H3z"/><path d="M7 11v2M5 13h6"/></svg></div><div class="tile3-name">Airco</div></div>
+          </div>
         </div>
-        <div class="sec-lbl">Vehicle</div>
-        <div class="browse-rows">
-          <div class="brow sel"><div class="chip vehicle"><svg viewBox="0 0 16 16"><path d="M2 9.5L4 5h8l2 4.5"/><path d="M1 9.5h14"/><circle cx="4.5" cy="12" r="2"/><circle cx="11.5" cy="12" r="2"/></svg></div><div class="bname">Car</div><div class="task-badge">4 reminders</div><div class="chk on"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div></div>
-          <div class="brow"><div class="chip vehicle"><svg viewBox="0 0 16 16"><path d="M2 9.5L4 5h8l2 4.5"/><path d="M1 9.5h14"/><circle cx="4.5" cy="12" r="2"/><circle cx="11.5" cy="12" r="2"/></svg></div><div class="bname">Motorcycle</div><div class="task-badge">3 reminders</div><div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div></div>
+        <!-- Vehicle row -->
+        <div class="tile-sec">
+          <div class="tile-sec-lbl"><div class="tile-sec-dot" style="background:var(--cat-vehicle);"></div>Vehicle</div>
+          <div class="tile-row3">
+            <div class="tile3 tv sel"><div class="tile3-icon"><svg viewBox="0 0 16 16"><rect x="1" y="6" width="14" height="6" rx="2"/><circle cx="4.5" cy="12" r="1.5"/><circle cx="11.5" cy="12" r="1.5"/><path d="M3 6L5 2h6l2 4"/></svg></div><div class="tile3-name">Car</div></div>
+            <div class="tile3 tv"><div class="tile3-icon"><svg viewBox="0 0 16 16"><circle cx="4.5" cy="11.5" r="2"/><circle cx="11.5" cy="11.5" r="2"/><path d="M6.5 11.5H9.5M7 4L4 8h7l-1-4H7z"/></svg></div><div class="tile3-name">Bicycle</div></div>
+            <div class="tile3 tv"><div class="tile3-icon"><svg viewBox="0 0 16 16"><rect x="1" y="6" width="14" height="6" rx="2"/><circle cx="4.5" cy="12" r="1.5"/><circle cx="11.5" cy="12" r="1.5"/><path d="M4 6L5.5 2h5l1.5 4"/></svg></div><div class="tile3-name">Motorcycle</div></div>
+          </div>
         </div>
-        <div class="sec-lbl">Garden</div>
-        <div class="browse-rows">
-          <div class="brow"><div class="chip garden"><svg viewBox="0 0 16 16"><line x1="8" y1="14" x2="8" y2="7"/><path d="M5 11c0-2.5 3-7 3-7s3 4.5 3 7a3 3 0 01-6 0z"/></svg></div><div class="bname">Hedge / haag</div><div class="task-badge">2 reminders</div><div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div></div>
+        <!-- Garden row -->
+        <div class="tile-sec">
+          <div class="tile-sec-lbl"><div class="tile-sec-dot" style="background:var(--cat-garden);"></div>Garden</div>
+          <div class="tile-row3">
+            <div class="tile3 tg"><div class="tile3-icon"><svg viewBox="0 0 16 16"><path d="M8 14V8"/><path d="M5 11c-2-1-2-4 1-5 0-2 4-3 5 0 3 0 3 4 0 5"/></svg></div><div class="tile3-name">Lawn</div></div>
+            <div class="tile3 tg"><div class="tile3-icon"><svg viewBox="0 0 16 16"><path d="M2 8c0-3 2-5 6-5s6 2 6 5v4H2V8z"/></svg></div><div class="tile3-name">Hedge</div></div>
+            <div class="tile3 tg"><div class="tile3-icon"><svg viewBox="0 0 16 16"><line x1="8" y1="14" x2="8" y2="7"/><path d="M5 11c0-2.5 3-7 3-7s3 4.5 3 7a3 3 0 01-6 0z"/></svg></div><div class="tile3-name">Houseplant</div></div>
+          </div>
         </div>
       </div>
-      <div class="btm"><button class="btn primary">Continue with 2 items <span class="cta-count">2</span></button></div>
+      <div class="btm"><button class="btn primary">Good start, continue <span class="cta-count">2</span></button></div>
     </div>
   </div>
 </div>
