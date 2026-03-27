@@ -3,63 +3,113 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>nudgii · S-03 Show me what I can track · hi-fi</title>
+<title>nudgii · S-03 Browse categories · hi-fi</title>
 <link rel="stylesheet" href="../system/components.css">
 <style>
 /* ── S-03 screen-specific ── */
 body{background:#CBC5BB;padding:0 0 80px;}
 
-/* screen structure overrides */
-.w-screen{padding:12px 16px 0;}
-.w-bottom{padding:10px 0 24px;}
+/* Two-phone layout */
+.content-row{display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap;}
+.phone-col{display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap;flex-shrink:0;}
+.phone-stack{display:flex;flex-direction:column;align-items:center;gap:10px;}
+.phone-lbl{font-size:9px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:rgba(26,22,18,0.40);text-align:center;}
 
-/* search bar */
+/* Screen padding overrides */
+.w-screen{padding:10px 16px 0;}
+.w-bottom{padding:8px 0 20px;}
+
+/* Header */
+.s03-hed{font-family:'DM Serif Display',Georgia,serif;font-size:20px;font-weight:400;line-height:1.1;letter-spacing:-0.3px;color:var(--ink);margin-bottom:2px;}
+.s03-hed em{font-style:italic;color:var(--cta);}
+.s03-sub{font-size:11px;font-style:italic;color:var(--mid);margin-bottom:10px;}
+
+/* Search bar */
 .search-bar{
-  display:flex;align-items:center;gap:8px;
+  display:flex;align-items:center;gap:7px;
   background:var(--surface);border:0.5px solid var(--border-md);
-  border-radius:10px;padding:10px 12px;margin-bottom:10px;
+  border-radius:10px;padding:8px 11px;margin-bottom:8px;
 }
-.search-bar svg{width:14px;height:14px;fill:none;stroke:var(--mid);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
-.search-input{
-  flex:1;border:none;outline:none;background:transparent;
-  font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink);
+.search-bar svg{width:13px;height:13px;fill:none;stroke:var(--mid);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+.search-input-mock{font-size:11.5px;font-style:italic;color:rgba(107,99,88,0.40);}
+
+/* Category chips — new style: tinted bg + category color, NO dots */
+.chip-row{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;margin-bottom:6px;}
+.chip-row::-webkit-scrollbar{display:none;}
+.cat-chip{flex-shrink:0;padding:5px 12px;border-radius:100px;font-size:11px;font-weight:500;cursor:pointer;user-select:none;outline:none;}
+.cat-chip-all{background:rgba(155,127,212,0.12);color:var(--cta);outline:1px solid var(--cta);}
+.cat-chip-home{background:rgba(200,120,80,0.13);color:var(--cat-home);}
+.cat-chip-vehicle{background:rgba(74,130,160,0.13);color:var(--cat-vehicle);}
+.cat-chip-garden{background:rgba(90,144,96,0.13);color:var(--cat-garden);}
+.cat-chip-subs{background:rgba(128,96,168,0.13);color:var(--cat-sub);}
+/* active category chip: add outline */
+.cat-chip-home.active{outline:1px solid var(--cat-home);}
+.cat-chip-vehicle.active{outline:1px solid var(--cat-vehicle);}
+.cat-chip-garden.active{outline:1px solid var(--cat-garden);}
+.cat-chip-subs.active{outline:1px solid var(--cat-sub);}
+
+/* Selected pill */
+.sel-pill{display:inline-flex;align-items:center;gap:5px;background:var(--cta);color:var(--cta-fg);font-size:10px;font-weight:600;padding:3px 10px 3px 5px;border-radius:100px;margin-bottom:6px;}
+.sel-num{background:rgba(255,255,255,0.25);width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:700;}
+
+/* Category section headers */
+.cat-sec{padding:8px 0 3px;}
+.cat-lbl{display:flex;align-items:center;gap:5px;font-size:9px;font-weight:600;letter-spacing:1.3px;text-transform:uppercase;color:var(--mid-a);margin-bottom:5px;}
+.cat-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+
+/* Horizontal tile row */
+.hrow{
+  display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;
+  padding:3px 0 5px;
 }
-.search-input::placeholder{font-style:italic;color:rgba(107,99,88,0.45);}
+.hrow::-webkit-scrollbar{display:none;}
 
-/* section headers */
-.sec-lbl{
-  font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;
-  color:var(--mid-a);padding:8px 0 6px;
+/* Tiles */
+.tile{
+  flex-shrink:0;width:84px;border-radius:14px;padding:13px 6px 9px;
+  text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px;
+  border:1.5px solid transparent;cursor:pointer;
+  transition:border-color 0.15s,background 0.15s,transform 0.12s;
 }
+.tile:hover{transform:scale(1.03);}
+.tile:active{transform:scale(0.93);}
+.tile-lbl{font-size:9.5px;font-weight:500;color:var(--ink);line-height:1.2;text-align:center;}
+.peek{flex-shrink:0;width:16px;display:flex;align-items:center;justify-content:center;font-size:13px;color:rgba(26,22,18,0.20);}
 
-/* item rows (s03 uses .irow, aliased to match .trow from shared) */
-.item-rows{display:flex;flex-direction:column;gap:6px;margin-bottom:4px;}
-.irow{
-  background:var(--surface);border:0.5px solid var(--border);
-  border-radius:10px;box-shadow:var(--shadow-card);
-  padding:10px 12px;display:flex;align-items:center;gap:10px;
-  cursor:pointer;transition:border-color 0.15s,background 0.15s;user-select:none;
+/* 3-col grid for single category view */
+.tile-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;padding:4px 0;}
+.tile-grid .tile{width:auto;}
+
+/* Row divider */
+.row-div{height:0.5px;background:rgba(26,22,18,0.08);margin:2px 0;}
+
+/* CTA states */
+.cta-off{
+  width:100%;padding:13px;border-radius:100px;border:none;
+  background:rgba(26,22,18,0.08);color:var(--mid);
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
+  display:flex;align-items:center;justify-content:center;
 }
-.irow:active{background:rgba(26,22,18,0.03);}
-.irow.sel{border:1.5px solid rgba(155,127,212,0.35);background:rgba(155,127,212,0.04);}
-.irow.else{border:0.5px dashed rgba(26,22,18,0.14);background:transparent;box-shadow:none;}
-
-/* category sections (for filtering) */
-.cat-section{transition:opacity 0.2s,max-height 0.25s;}
-.cat-section.hidden{display:none;}
-
-/* s03 item text */
-.iinfo{flex:1;min-width:0;}
-.iname{font-size:13px;font-weight:500;color:var(--ink);line-height:1.2;margin-bottom:2px;}
-.imeta{display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
-.itask-count{font-size:10px;color:var(--mid);background:rgba(26,22,18,0.05);border:0.5px solid rgba(26,22,18,0.07);border-radius:100px;padding:1px 7px;}
-
-/* CTA count badge */
-.btn-cta.disabled{background:rgba(155,127,212,0.35);color:rgba(250,248,255,0.5);pointer-events:none;box-shadow:none;}
-.cta-count{
-  background:rgba(250,248,255,0.20);border-radius:100px;
-  padding:2px 8px;font-size:11px;font-weight:500;
+.cta-on{
+  width:100%;padding:13px;border-radius:100px;border:none;
+  background:var(--cta);color:var(--cta-fg);
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
+  box-shadow:0 4px 18px rgba(155,127,212,0.35);
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  cursor:pointer;
 }
+.cta-badge{background:rgba(255,255,255,0.22);border-radius:100px;padding:2px 9px;font-size:11px;font-weight:500;}
+
+/* Back button (in phone) */
+.back-btn{
+  display:flex;align-items:center;gap:5px;padding:6px 0;
+  background:none;border:none;cursor:pointer;color:var(--ink);
+  font-family:'DM Sans',sans-serif;font-size:12px;
+}
+.back-btn svg{flex-shrink:0;}
+
+/* Annotation overrides */
+.annot-col{flex:1;min-width:280px;}
 </style>
 </head>
 <body>
@@ -75,247 +125,342 @@ body{background:#CBC5BB;padding:0 0 80px;}
     Design hub
   </a>
   <span class="nav-sep">/</span>
-  <span class="nav-title">S-03 — Show me what I can track</span>
-  <span class="nav-status progress">In progress</span>
+  <span class="nav-title">S-03 — Browse categories</span>
+  <span class="nav-status ready">Ready for dev</span>
 </nav>
 
 <div class="page">
 
   <!-- PAGE HEADER -->
-  <div class="page-eyebrow">S-03 · Show me what I can track · Hi-fi · 390x844px (iPhone 15) · March 2026</div>
-  <h1 class="page-h1">Show me what I can track</h1>
-  <p class="page-sub">Path B: the user browses a flat list of items grouped by category, ticking what they own. No typing, no speaking. Designed for Arne and users who already know what they have. Items selected on S-01 arrive pre-checked.</p>
+  <div class="page-eyebrow">S-03 · Browse categories · Hi-fi · 390x844px (iPhone 15) · March 2026</div>
+  <h1 class="page-h1">Browse categories</h1>
+  <p class="page-sub">Path B: the user selects items from a visual tile grid grouped by category. Horizontal scroll rows in overview mode, 3-column grid when a category is active. Two states shown below: overview (All) and single-category (Home).</p>
   <div class="meta">
     <span class="mp hifi">Hi-fi</span>
     <span class="mp ob">Onboarding flow</span>
     <span class="mp">S-03</span>
-    <span class="mp">March 2026</span>
+    <span class="mp">v2.0 · March 2026</span>
   </div>
 
-  <!-- CONTENT ROW: phone + annotation sidebar -->
+  <!-- CONTENT ROW -->
   <div class="content-row">
 
-    <!-- PHONE -->
+    <!-- TWO PHONES -->
     <div class="phone-col">
-      <div class="phone">
-        <div class="notch"><div class="np"></div></div>
-        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
-        <!-- progress bar 40% -->
-        <div class="prog-bar"><div class="prog-fill" style="width:40%;"></div></div>
 
-        <div class="w-screen">
-          <div class="w-content">
+      <!-- Phone 1: Overview / All view -->
+      <div class="phone-stack">
+        <div class="phone-lbl">Overview — "All" active</div>
+        <div class="phone">
+          <div class="notch"><div class="np"></div></div>
+          <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+          <!-- progress bar: 40% base + 2 items = 56% -->
+          <div class="prog-bar"><div class="prog-fill" style="width:56%;"></div></div>
 
-            <!-- headline + subtitle -->
-            <div style="font-family:'DM Serif Display',Georgia,serif;font-size:16px;font-weight:400;line-height:1.1;letter-spacing:-0.25px;color:var(--ink);margin-bottom:2px;">What do you have?</div>
-            <div style="font-size:11px;font-style:italic;color:var(--mid-a);margin-bottom:10px;line-height:1.5;">Tick what applies. We'll figure out the rest.</div>
+          <div class="w-screen">
+            <div class="w-content">
 
-            <!-- search bar -->
-            <div class="search-bar">
-              <svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/></svg>
-              <input class="search-input" type="text" placeholder="Search items..." id="searchInput" oninput="filterSearch()">
-            </div>
+              <!-- Back button -->
+              <button class="back-btn">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M10 6H2" stroke="#1A1612" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M5 3L2 6L5 9" stroke="#1A1612" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
 
-            <!-- category filter strip -->
-            <div class="cat-strip" id="catStrip">
-              <div class="cat-pill active" data-cat="all" onclick="toggleCategory('all')">All</div>
-              <div class="cat-pill" data-cat="home" onclick="toggleCategory('home')"><span class="cat-dot" style="background:var(--cat-home);"></span>Home</div>
-              <div class="cat-pill" data-cat="vehicle" onclick="toggleCategory('vehicle')"><span class="cat-dot" style="background:var(--cat-vehicle);"></span>Vehicle</div>
-              <div class="cat-pill" data-cat="garden" onclick="toggleCategory('garden')"><span class="cat-dot" style="background:var(--cat-garden);"></span>Garden</div>
-              <div class="cat-pill" data-cat="subs" onclick="toggleCategory('subs')"><span class="cat-dot" style="background:var(--cat-sub);"></span>Subscriptions</div>
-            </div>
+              <!-- Header -->
+              <div class="s03-hed">What's <em>yours?</em></div>
+              <div class="s03-sub">Tap what applies, we'll take it from there.</div>
 
-            <!-- HOME section -->
-            <div class="cat-section" data-category="home">
-              <div class="sec-lbl">Home</div>
-              <div class="item-rows">
-                <div class="irow sel" onclick="toggleItem(this)" data-name="Dishwasher">
-                  <div class="ci ci-h"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
-                  <div class="iinfo">
-                    <div class="iname">Dishwasher</div>
-                    <div class="imeta"><span class="itask-count">3 reminders</span></div>
+              <!-- Search bar -->
+              <div class="search-bar">
+                <svg viewBox="0 0 256 256"><circle cx="112" cy="112" r="80" stroke="#8A8070" stroke-width="22" fill="none"/><line x1="170" y1="170" x2="224" y2="224" stroke="#8A8070" stroke-width="22" stroke-linecap="round"/></svg>
+                <div class="search-input-mock">Search items...</div>
+              </div>
+
+              <!-- Category chips: All active -->
+              <div class="chip-row">
+                <div class="cat-chip cat-chip-all">All</div>
+                <div class="cat-chip cat-chip-home">Home</div>
+                <div class="cat-chip cat-chip-vehicle">Vehicle</div>
+                <div class="cat-chip cat-chip-garden">Garden</div>
+                <div class="cat-chip cat-chip-subs">Subscriptions</div>
+              </div>
+
+              <!-- Selected pill: 2 items -->
+              <div class="sel-pill"><div class="sel-num">2</div> selected</div>
+
+              <!-- HOME row -->
+              <div class="cat-sec">
+                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-home);"></span>Home</div>
+                <div class="hrow">
+                  <!-- Dishwasher: selected -->
+                  <div class="tile" style="background:rgba(200,120,80,0.12);border-color:var(--cat-home);">
+                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="32" y="48" width="192" height="160" rx="16" stroke="#C87850" stroke-width="14" fill="none"/><line x1="32" y1="100" x2="224" y2="100" stroke="#C87850" stroke-width="14" stroke-linecap="round"/><circle cx="128" cy="164" r="34" stroke="#C87850" stroke-width="12" fill="none"/><circle cx="128" cy="164" r="10" fill="#C87850"/></svg>
+                    <div class="tile-lbl">Dishwasher</div>
                   </div>
-                  <div class="chk on"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
-                </div>
-
-                <div class="irow" onclick="toggleItem(this)" data-name="Boiler / central heating">
-                  <div class="ci ci-h"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="12" cy="15" r="3"/><line x1="12" y1="3" x2="12" y2="6"/></svg></div>
-                  <div class="iinfo">
-                    <div class="iname">Boiler / central heating</div>
-                    <div class="imeta"><span class="itask-count">2 reminders</span></div>
+                  <!-- Washing machine: unselected -->
+                  <div class="tile" style="background:rgba(200,120,80,0.12);">
+                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="32" y="32" width="192" height="192" rx="16" stroke="#C87850" stroke-width="14" fill="none"/><circle cx="128" cy="150" r="48" stroke="#C87850" stroke-width="12" fill="none"/><circle cx="82" cy="74" r="11" fill="#C87850"/></svg>
+                    <div class="tile-lbl">Washing machine</div>
                   </div>
-                  <div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
-                </div>
-
-                <div class="irow" onclick="toggleItem(this)" data-name="Airco / heat pump">
-                  <div class="ci ci-h"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 21v-6h6v6"/></svg></div>
-                  <div class="iinfo">
-                    <div class="iname">Airco / heat pump</div>
-                    <div class="imeta"><span class="itask-count">2 reminders</span></div>
+                  <!-- Boiler: unselected -->
+                  <div class="tile" style="background:rgba(200,120,80,0.12);">
+                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="72" y="24" width="112" height="208" rx="20" stroke="#C87850" stroke-width="14" fill="none"/><circle cx="128" cy="124" r="34" stroke="#C87850" stroke-width="12" fill="none"/><line x1="128" y1="58" x2="128" y2="76" stroke="#C87850" stroke-width="12" stroke-linecap="round"/></svg>
+                    <div class="tile-lbl">Boiler</div>
                   </div>
-                  <div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
+                  <div class="peek">›</div>
                 </div>
               </div>
-            </div>
 
-            <!-- VEHICLE section -->
-            <div class="cat-section" data-category="vehicle">
-              <div class="sec-lbl">Vehicle</div>
-              <div class="item-rows">
-                <div class="irow sel" onclick="toggleItem(this)" data-name="Car">
-                  <div class="ci ci-v"><svg viewBox="0 0 24 24"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/></svg></div>
-                  <div class="iinfo">
-                    <div class="iname">Car</div>
-                    <div class="imeta"><span class="itask-count">4 reminders</span></div>
-                  </div>
-                  <div class="chk on"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
-                </div>
+              <div class="row-div"></div>
 
-                <div class="irow" onclick="toggleItem(this)" data-name="Motorcycle">
-                  <div class="ci ci-v"><svg viewBox="0 0 24 24"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/></svg></div>
-                  <div class="iinfo">
-                    <div class="iname">Motorcycle</div>
-                    <div class="imeta"><span class="itask-count">3 reminders</span></div>
+              <!-- VEHICLE row -->
+              <div class="cat-sec">
+                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-vehicle);"></span>Vehicle</div>
+                <div class="hrow">
+                  <!-- Car: selected -->
+                  <div class="tile" style="background:rgba(74,130,160,0.12);border-color:var(--cat-vehicle);">
+                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><path d="M8 144a8 8 0 0 1 8-8h16L60 80h136l28 56h16a8 8 0 0 1 8 8v32a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8v-32z" stroke="#4A82A0" stroke-width="14" fill="none" stroke-linejoin="round"/><circle cx="76" cy="192" r="24" stroke="#4A82A0" stroke-width="14" fill="none"/><circle cx="180" cy="192" r="24" stroke="#4A82A0" stroke-width="14" fill="none"/></svg>
+                    <div class="tile-lbl">Car</div>
                   </div>
-                  <div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- GARDEN section -->
-            <div class="cat-section" data-category="garden">
-              <div class="sec-lbl">Garden</div>
-              <div class="item-rows">
-                <div class="irow" onclick="toggleItem(this)" data-name="Hedge / haag">
-                  <div class="ci ci-g"><svg viewBox="0 0 24 24"><line x1="12" y1="22" x2="12" y2="15"/><path d="M9 18c0-4 3-7 3-7s3 3 3 7a3 3 0 01-6 0z"/></svg></div>
-                  <div class="iinfo">
-                    <div class="iname">Hedge / haag</div>
-                    <div class="imeta"><span class="itask-count">2 reminders</span></div>
+                  <div class="tile" style="background:rgba(74,130,160,0.12);">
+                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><circle cx="60" cy="168" r="44" stroke="#4A82A0" stroke-width="14" fill="none"/><circle cx="196" cy="168" r="44" stroke="#4A82A0" stroke-width="14" fill="none"/><path d="M60 168l56-96h48" stroke="#4A82A0" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M128 72l68 96" stroke="#4A82A0" stroke-width="14" stroke-linecap="round"/></svg>
+                    <div class="tile-lbl">Bicycle</div>
                   </div>
-                  <div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
+                  <div class="tile" style="background:rgba(74,130,160,0.12);">
+                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><circle cx="56" cy="180" r="44" stroke="#4A82A0" stroke-width="14" fill="none"/><circle cx="200" cy="180" r="44" stroke="#4A82A0" stroke-width="14" fill="none"/><path d="M56 180l60-84h52l28 36H128" stroke="#4A82A0" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <div class="tile-lbl">Motorcycle</div>
+                  </div>
+                  <div class="peek">›</div>
                 </div>
               </div>
-            </div>
 
-            <!-- Something else row -->
-            <div style="margin-top:8px;" id="elseRow">
-              <div class="item-rows">
-                <div class="irow else">
-                  <div class="ci ci-n"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-                  <div class="iinfo">
-                    <div class="else-name">Something else</div>
-                    <div class="else-sub">browse all items</div>
+              <div class="row-div"></div>
+
+              <!-- GARDEN row -->
+              <div class="cat-sec">
+                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-garden);"></span>Garden</div>
+                <div class="hrow">
+                  <div class="tile" style="background:rgba(90,144,96,0.12);">
+                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><path d="M24 200c0 0 20-88 56-88s28 56 48 56 36-120 56-120 48 152 48 152" stroke="#5A9060" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="200" x2="244" y2="200" stroke="#5A9060" stroke-width="14" stroke-linecap="round"/></svg>
+                    <div class="tile-lbl">Lawn</div>
                   </div>
+                  <div class="tile" style="background:rgba(90,144,96,0.12);">
+                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><line x1="128" y1="224" x2="128" y2="140" stroke="#5A9060" stroke-width="14" stroke-linecap="round"/><circle cx="128" cy="96" r="52" stroke="#5A9060" stroke-width="14" fill="none"/><circle cx="82" cy="140" r="34" stroke="#5A9060" stroke-width="12" fill="none"/><circle cx="174" cy="140" r="34" stroke="#5A9060" stroke-width="12" fill="none"/><line x1="68" y1="224" x2="188" y2="224" stroke="#5A9060" stroke-width="14" stroke-linecap="round"/></svg>
+                    <div class="tile-lbl">Hedge</div>
+                  </div>
+                  <div class="tile" style="background:rgba(90,144,96,0.12);">
+                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><line x1="128" y1="224" x2="128" y2="128" stroke="#5A9060" stroke-width="14" stroke-linecap="round"/><path d="M128 172c0 0-36-16-52-56s20-80 52-72c32-8 68 32 52 72s-52 56-52 56z" stroke="#5A9060" stroke-width="12" fill="none" stroke-linejoin="round"/></svg>
+                    <div class="tile-lbl">Houseplant</div>
+                  </div>
+                  <div class="peek">›</div>
                 </div>
               </div>
+
+              <div class="row-div"></div>
+
+              <!-- SUBSCRIPTIONS row -->
+              <div class="cat-sec">
+                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-sub);"></span>Subscriptions</div>
+                <div class="hrow">
+                  <div class="tile" style="background:rgba(128,96,168,0.12);">
+                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><path d="M128 24L32 64v72c0 56 40 96 96 112 56-16 96-56 96-112V64L128 24z" stroke="#8060A8" stroke-width="14" fill="none" stroke-linejoin="round"/><path d="M92 128l28 28 44-52" stroke="#8060A8" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <div class="tile-lbl">Insurance</div>
+                  </div>
+                  <div class="tile" style="background:rgba(128,96,168,0.12);">
+                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="32" y="64" width="192" height="128" rx="16" stroke="#8060A8" stroke-width="14" fill="none"/><path d="M100 100l72 28-72 28V100z" stroke="#8060A8" stroke-width="12" fill="none" stroke-linejoin="round"/></svg>
+                    <div class="tile-lbl">Streaming</div>
+                  </div>
+                  <div class="tile" style="background:rgba(128,96,168,0.12);">
+                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><path d="M80 192H64a64 64 0 1 1 14-126A80 80 0 1 1 80 192z" stroke="#8060A8" stroke-width="14" fill="none" stroke-linejoin="round"/></svg>
+                    <div class="tile-lbl">Cloud storage</div>
+                  </div>
+                  <div class="peek">›</div>
+                </div>
+              </div>
+
+            </div><!-- /w-content -->
+
+            <div class="w-bottom">
+              <div style="height:0.5px;background:rgba(26,22,18,0.10);margin-bottom:8px;"></div>
+              <button class="cta-on">Looking good, continue <span class="cta-badge">2</span></button>
             </div>
+          </div><!-- /w-screen -->
+        </div><!-- /phone -->
+      </div><!-- /phone-stack -->
 
-          </div><!-- /w-content -->
+      <!-- Phone 2: Single category (Home) with 3-col grid -->
+      <div class="phone-stack">
+        <div class="phone-lbl">Category view — "Home" active</div>
+        <div class="phone">
+          <div class="notch"><div class="np"></div></div>
+          <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+          <!-- progress bar: 40% base + 1 item selected = 48% -->
+          <div class="prog-bar"><div class="prog-fill" style="width:48%;"></div></div>
 
-          <!-- sticky bottom zone -->
-          <div class="w-bottom">
-            <button class="btn-cta" id="ctaBtn" onclick="void(0)">
-              Continue with <span id="ctaCount">2</span> items
-              <span class="cta-count" id="ctaBadge">2</span>
-            </button>
-          </div>
-        </div><!-- /w-screen -->
-      </div><!-- /phone -->
+          <div class="w-screen">
+            <div class="w-content">
+
+              <button class="back-btn">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M10 6H2" stroke="#1A1612" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M5 3L2 6L5 9" stroke="#1A1612" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+
+              <div class="s03-hed">What's <em>yours?</em></div>
+              <div class="s03-sub">Tap what applies, we'll take it from there.</div>
+
+              <div class="search-bar">
+                <svg viewBox="0 0 256 256"><circle cx="112" cy="112" r="80" stroke="#8A8070" stroke-width="22" fill="none"/><line x1="170" y1="170" x2="224" y2="224" stroke="#8A8070" stroke-width="22" stroke-linecap="round"/></svg>
+                <div class="search-input-mock">Search items...</div>
+              </div>
+
+              <!-- Chips: Home active -->
+              <div class="chip-row">
+                <div class="cat-chip cat-chip-all" style="background:rgba(26,22,18,0.07);color:var(--mid-a);outline:none;">All</div>
+                <div class="cat-chip cat-chip-home active">Home</div>
+                <div class="cat-chip cat-chip-vehicle">Vehicle</div>
+                <div class="cat-chip cat-chip-garden">Garden</div>
+                <div class="cat-chip cat-chip-subs">Subscriptions</div>
+              </div>
+
+              <!-- Selected pill: 1 item -->
+              <div class="sel-pill"><div class="sel-num">1</div> selected</div>
+
+              <!-- Home 3-col grid, sorted: selected first -->
+              <div class="tile-grid">
+                <!-- Dishwasher: selected, sorted to top -->
+                <div class="tile" style="background:rgba(200,120,80,0.12);border-color:var(--cat-home);">
+                  <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="32" y="48" width="192" height="160" rx="16" stroke="#C87850" stroke-width="14" fill="none"/><line x1="32" y1="100" x2="224" y2="100" stroke="#C87850" stroke-width="14" stroke-linecap="round"/><circle cx="128" cy="164" r="34" stroke="#C87850" stroke-width="12" fill="none"/><circle cx="128" cy="164" r="10" fill="#C87850"/></svg>
+                  <div class="tile-lbl">Dishwasher</div>
+                </div>
+                <!-- Unselected tiles -->
+                <div class="tile" style="background:rgba(200,120,80,0.12);">
+                  <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="32" y="32" width="192" height="192" rx="16" stroke="#C87850" stroke-width="14" fill="none"/><circle cx="128" cy="150" r="48" stroke="#C87850" stroke-width="12" fill="none"/><circle cx="82" cy="74" r="11" fill="#C87850"/></svg>
+                  <div class="tile-lbl">Washing machine</div>
+                </div>
+                <div class="tile" style="background:rgba(200,120,80,0.12);">
+                  <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="72" y="24" width="112" height="208" rx="20" stroke="#C87850" stroke-width="14" fill="none"/><circle cx="128" cy="124" r="34" stroke="#C87850" stroke-width="12" fill="none"/></svg>
+                  <div class="tile-lbl">Boiler</div>
+                </div>
+                <div class="tile" style="background:rgba(200,120,80,0.12);">
+                  <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="48" y="24" width="160" height="208" rx="16" stroke="#C87850" stroke-width="14" fill="none"/><line x1="48" y1="112" x2="208" y2="112" stroke="#C87850" stroke-width="14" stroke-linecap="round"/><line x1="128" y1="64" x2="128" y2="88" stroke="#C87850" stroke-width="10" stroke-linecap="round"/><line x1="128" y1="148" x2="128" y2="184" stroke="#C87850" stroke-width="10" stroke-linecap="round"/></svg>
+                  <div class="tile-lbl">Fridge</div>
+                </div>
+                <div class="tile" style="background:rgba(200,120,80,0.12);">
+                  <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="16" y="60" width="224" height="88" rx="16" stroke="#C87850" stroke-width="14" fill="none"/><line x1="64" y1="185" x2="80" y2="148" stroke="#C87850" stroke-width="12" stroke-linecap="round"/><line x1="128" y1="185" x2="128" y2="148" stroke="#C87850" stroke-width="12" stroke-linecap="round"/><line x1="192" y1="185" x2="176" y2="148" stroke="#C87850" stroke-width="12" stroke-linecap="round"/></svg>
+                  <div class="tile-lbl">Airco</div>
+                </div>
+                <div class="tile" style="background:rgba(200,120,80,0.12);">
+                  <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="100" r="68" stroke="#C87850" stroke-width="14" fill="none"/><line x1="128" y1="184" x2="128" y2="232" stroke="#C87850" stroke-width="12" stroke-linecap="round"/><line x1="96" y1="208" x2="160" y2="208" stroke="#C87850" stroke-width="10" stroke-linecap="round"/><circle cx="128" cy="100" r="18" fill="#C87850"/></svg>
+                  <div class="tile-lbl">Smoke detector</div>
+                </div>
+              </div>
+
+            </div><!-- /w-content -->
+
+            <div class="w-bottom">
+              <div style="height:0.5px;background:rgba(26,22,18,0.10);margin-bottom:8px;"></div>
+              <button class="cta-on">Good start, continue <span class="cta-badge">1</span></button>
+            </div>
+          </div><!-- /w-screen -->
+        </div><!-- /phone -->
+      </div><!-- /phone-stack -->
+
     </div><!-- /phone-col -->
 
     <!-- ANNOTATION SIDEBAR -->
     <div class="annot-col">
 
-      <div class="annot-section">Shell + layout</div>
+      <div class="annot-section">Structure + shell</div>
 
       <div class="annot-card">
-        <div class="annot-head">
-          <span class="badge-rule">Rule</span>
-          Shell pattern
-        </div>
+        <div class="annot-head"><span class="badge-rule">Rule</span> Progress bar</div>
         <div class="annot-body">
-          Progress bar at <strong>40%</strong> (S-03 = step 2 of 5). Full-width, edge-to-edge, <strong>outside SafeArea</strong>. Back button (ArrowLeft SVG, 44x44px tap target) returns to S-01. Scrollable content zone between back button and sticky CTA.
+          Starts at <strong>40%</strong> (step 2 of 5). Grows by <strong>8% per selected item</strong>, clamped at 80%. Animates on every toggle via <code>AnimatedContainer</code>. Outside SafeArea, full-width edge-to-edge.
         </div>
       </div>
 
       <div class="annot-card">
-        <div class="annot-head">
-          <span class="badge-rule">Rule</span>
-          Search bar
-        </div>
+        <div class="annot-head"><span class="badge-rule">Rule</span> Back button</div>
         <div class="annot-body">
-          Magnifying glass icon + "Search items..." placeholder. White surface bg, 0.5px border, 10px radius. <strong>Live filter:</strong> filters visible items as user types. No separate search results screen. Search text clears when category filter changes.
+          PhosphorIcons ArrowLeft. SVG paths <code>d="M10 6H2"</code> + <code>d="M5 3L2 6L5 9"</code> in viewBox 0 0 12 12. 44x44px tap target. Returns to S-01.
         </div>
       </div>
 
-      <div class="annot-section">Content</div>
+      <div class="annot-section">Category chips</div>
 
       <div class="annot-card">
-        <div class="annot-head">
-          <span class="badge-rule">Rule</span>
-          Category filter strip
-        </div>
+        <div class="annot-head"><span class="badge-rule">Rule</span> New chip style — no dots</div>
         <div class="annot-body">
-          <strong>"All" pill always first</strong>, active by default. Category pills with colored dots. Single scrollable row (<code>flex-wrap:nowrap; overflow-x:auto</code>). Active pill: purple outline (<code>colorCta</code> border + text, subtle lavender bg). Inactive pill: surface bg, 0.5px border, <code>colorMidAccessible</code> text. Each category pill has a 6px colored dot. Tapping a category filters the list below. Tapping "All" shows everything.
+          Category chips use <strong>tinted background + category color text</strong>. No dot indicators. Each chip background = <code>categoryColor at 13% opacity</code>. Text = full category color.<br><br>
+          <strong>Active category:</strong> adds <code>1px solid categoryColor</code> outline.<br>
+          <strong>"All" inactive:</strong> <code>rgba(26,22,18,0.07)</code> bg, <code>colorMid</code> text, no outline.<br>
+          <strong>"All" active:</strong> <code>rgba(155,127,212,0.12)</code> bg, <code>1px solid colorCta</code>, <code>colorCta</code> text.<br><br>
+          Flutter: <code>GestureDetector + AnimatedContainer</code>. No <code>FilterChip</code> widget (insufficient animation control).
         </div>
       </div>
 
-      <div class="annot-card decision">
-        <div class="annot-head">
-          <span class="badge-decision">Decision</span>
-          Item selection
-        </div>
-        <div class="annot-body">
-          Items are <strong>tappable with check circles</strong> (20px diameter). Selected: <code>colorCta</code> fill + checkmark. Deselected: 1.5px border, transparent bg. CTA count updates on every toggle. Selected row: 1.5px CTA border + subtle CTA tint.
-        </div>
-      </div>
+      <div class="annot-section">Tile grid</div>
 
-      <div class="annot-card decision">
-        <div class="annot-head">
-          <span class="badge-decision">Decision</span>
-          Context carry-over from S-01
-        </div>
+      <div class="annot-card">
+        <div class="annot-head"><span class="badge-rule">Rule</span> Overview mode — horizontal rows</div>
         <div class="annot-body">
-          Items the user tapped on S-01 arrive <strong>pre-checked</strong>. In this mockup: Dishwasher and Car are pre-selected (2 items). Never ask users for information they already gave. If no items were selected on S-01, all items start unchecked.
+          One section per category. Each section: category label + horizontal <code>SingleChildScrollView</code> row. <code>EdgeInsets.symmetric(vertical:4, horizontal:16)</code> — vertical padding prevents selected border clip.<br><br>
+          Row ends with a faint <code>›</code> peek indicator (<code>rgba(26,22,18,0.20)</code>).<br><br>
+          <strong>Swipe hint (first load only):</strong> Home row scrolls 52px right, pauses 520ms, snaps back. <code>hintDone</code> flag prevents repeat.
         </div>
       </div>
 
       <div class="annot-card">
-        <div class="annot-head">
-          <span class="badge-note">Reminder count</span>
-        </div>
+        <div class="annot-head"><span class="badge-rule">Rule</span> Category mode — 3-column grid</div>
         <div class="annot-body">
-          Each item row shows a <strong>reminder count pill</strong> ("3 reminders", "2 reminders"). Shows the number of pre-loaded tasks nudgii has for that item. Does not show task names here: that detail lives on S-05 (review) and S-13 (task detail).
+          Tapping a category chip switches to <code>GridView</code>, 3 columns, <code>gap:7px</code>. Selected items sort to the top. No overflow tile or "something else" row in this view.
         </div>
       </div>
 
       <div class="annot-card">
-        <div class="annot-head">
-          <span class="badge-note">Section headers</span>
-        </div>
+        <div class="annot-head"><span class="badge-rule">Rule</span> Tile widget</div>
         <div class="annot-body">
-          Category section headers: <strong>9px, 500 weight, 1.8px letter-spacing, uppercase</strong>, <code>colorMidAccessible #6B6358</code>. Items below each header are individual white cards with 6px gap. Cream between cards IS the visual separator.
-        </div>
-      </div>
-
-      <div class="annot-section">Discovery + CTA</div>
-
-      <div class="annot-card">
-        <div class="annot-head">
-          <span class="badge-note">"Something else" row</span>
-        </div>
-        <div class="annot-body">
-          Dashed border, plus icon. Discovery path for items not in the default browse list. Opens a deeper browse or search. Same pattern as S-01's "Something else" row. No check circle on this row.
+          88px wide, 14px radius. Background: <code>categoryColor at 12% opacity</code>. Icon: Phosphor outline, 26px, stroke weight equivalent to 14px, category color, no inner wrapper.<br><br>
+          Label: DM Sans 9.5px, 500 weight, <code>colorInk</code>, centered, max 2 lines.<br><br>
+          <strong>Unselected border:</strong> <code>1.5px solid transparent</code>.<br>
+          <strong>Selected border:</strong> <code>1.5px solid categoryColor</code> (NOT purple — purple is reserved for CTA).<br><br>
+          Hover: bg lifts to category color at 20%, scale 1.03.<br>
+          Press: scale 0.93. Haptic: <code>HapticFeedback.selectionClick()</code>.
         </div>
       </div>
 
       <div class="annot-card">
-        <div class="annot-head">
-          <span class="badge-rule">Rule</span>
-          Sticky CTA
-        </div>
+        <div class="annot-head"><span class="badge-note">Selected pill</span></div>
         <div class="annot-body">
-          "Continue with X items" updates live. Count badge shows the total. Navigates to S-05 (review). <strong>Disabled state</strong> at 0 items: <code>rgba(155,127,212,0.35)</code> bg, <code>rgba(250,248,255,0.5)</code> text. Pressed: bg <code>#7D62B3</code>, scale 0.97, 100ms ease-out.
+          Appears when <code>selectedIds.isNotEmpty</code>. <code>colorCta</code> filled pill, white-tinted count circle on left. Tapping shows only selected items in a 3-col grid (temporary filter view).
+        </div>
+      </div>
+
+      <div class="annot-section">CTA progression</div>
+
+      <div class="annot-card">
+        <div class="annot-head"><span class="badge-rule">Rule</span> Copy states</div>
+        <div class="annot-body">
+          <strong>0 items:</strong> <code>rgba(26,22,18,0.08)</code> bg, <code>colorMid</code> text, "Tick something first", not tappable.<br>
+          <strong>1 item:</strong> Active CTA purple, "Good start, continue" + count badge.<br>
+          <strong>2 items:</strong> "Nice, keep going or continue".<br>
+          <strong>3+ items:</strong> "Looking good, continue".<br><br>
+          Copy transition: fade out 180ms, swap copy, fade in. Count badge updates alongside. All via <code>AnimatedContainer 200ms</code>.
+        </div>
+      </div>
+
+      <div class="annot-section">State model</div>
+
+      <div class="annot-card">
+        <div class="annot-head"><span class="badge-note">Riverpod state</span></div>
+        <div class="annot-body">
+          <code>CatFilter</code> enum: <code>all, home, vehicle, garden, subs</code>.<br>
+          <code>S03State</code> holds: <code>activeFilter</code>, <code>searchQuery</code> (lowercase), <code>Set&lt;String&gt; selectedIds</code>.<br>
+          All rendering derives from state. Pre-selected IDs passed from S-01 as <code>initialSelectedIds</code> (empty in v2 — S-01 no longer has interactive selection).
         </div>
       </div>
 
@@ -330,146 +475,46 @@ body{background:#CBC5BB;padding:0 0 80px;}
     <div class="cl-title">Changelog</div>
 
     <div class="cl-entry">
-      <div class="cl-ver">v1.0 · 2026-03-24 · ADDITIVE</div>
-      <div class="cl-body"><strong>Initial hi-fi.</strong> Flat browsable item list with category filter strip, search bar, and pre-checked items from S-01. Replaces the earlier 2x2 category tile grid with a single scrollable list grouped by section headers.</div>
-      <div class="cl-body"><strong>Category filter strip.</strong> "All" pill added as first pill, active by default. Matches CLAUDE.md spec: S-03 and S-09 include "All" (S-01 does not). Tapping a category pill filters visible items. Tapping "All" shows everything.</div>
-      <div class="cl-body"><strong>Search bar.</strong> Live text filter above the category strip. Filters items by name as the user types. No separate search results screen.</div>
-      <div class="cl-body"><strong>Context carry-over.</strong> Items selected on S-01 (Dishwasher, Car) arrive pre-checked. CTA starts at "Continue with 2 items".</div>
-      <div class="cl-body"><strong>"Something else" row.</strong> Dashed border, plus icon, discovery path for items not in the default list.</div>
-      <div class="cl-body"><strong>Sticky CTA with live count.</strong> "Continue with X items" updates as user checks/unchecks. Disabled state at 0 selections.</div>
+      <div class="cl-ver">v2.0 · 2026-03-27 · BREAKING</div>
+      <div class="cl-body"><strong>Full redesign: tile grid replaces flat list.</strong> S-03 now uses a visual tile grid (the "bingo" pattern). Overview mode shows horizontal scroll rows per category. Single category mode shows a 3-column grid. More items visible above the fold, faster for Arne.</div>
+      <div class="cl-body"><strong>New category chip style.</strong> Chips now use category-tinted background + category color text, with no dot indicator. Home chip: rgba(200,120,80,0.13) bg + #C87850 text. Active chip adds 1px solid categoryColor outline. "All" active: rgba(155,127,212,0.12) bg + colorCta text + colorCta outline.</div>
+      <div class="cl-body"><strong>Selected pill.</strong> Appears above tile area when items are selected. Shows count, tapping shows only selected items in a 3-col grid.</div>
+      <div class="cl-body"><strong>Tile widget spec.</strong> 88px wide, 14px radius, categoryColor at 12% opacity bg. Icon: Phosphor outline 26px. Selected: 1.5px categoryColor border (not purple). Press: scale 0.93. Hover: scale 1.03 + 20% bg lift.</div>
+      <div class="cl-body"><strong>CTA copy progression.</strong> "Tick something first" (0) → "Good start, continue" (1) → "Nice, keep going or continue" (2) → "Looking good, continue" (3+). 180ms fade transition on copy swap.</div>
+      <div class="cl-body"><strong>Progress bar grows with selections.</strong> Base 40% + 8% per item, clamped at 80%. Animates on every toggle.</div>
+      <div class="cl-body"><strong>Swipe hint.</strong> Home row scrolls 52px right on first load, pauses 520ms, snaps back. One-time only (hintDone flag).</div>
+      <div class="cl-body"><strong>No context carry-over from S-01.</strong> S-01 v2 no longer has interactive item selection, so S-03 always opens fresh with 0 selected.</div>
+    </div>
+
+    <div class="cl-entry" style="opacity:0.6;">
+      <div class="cl-ver">v1.0 · 2026-03-24 · archived</div>
+      <div class="cl-body">Flat browsable item list with category filter strip, search bar, and pre-checked items from S-01. Replaced by v2.0 tile grid design. Archived at <a href="s03-browse-categories-hifi-v1-archived.html" style="color:var(--cta);">s03-browse-categories-hifi-v1-archived.html</a>.</div>
     </div>
 
     <div class="cl-flutter">
-      <div class="cl-flutter-head">Standard Flutter implementation block · S-03</div>
+      <div class="cl-flutter-head">Flutter implementation block · S-03 v2.0</div>
       <div class="cl-flutter-body">
-        Mockup base:&nbsp;&nbsp;&nbsp;&nbsp;390px width (iPhone 15)<br>
-        SafeArea:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;top=false, progress bar outside SafeArea<br>
-        Scroll:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SingleChildScrollView for content zone only<br>
-        Bottom zone:&nbsp;&nbsp;&nbsp;&nbsp;Sticky: fixed Column at bottom, not Spacer<br>
-        Progress bar:&nbsp;&nbsp;&nbsp;Full width, height 3px, outside SafeArea, 40% fill<br>
-        Scaling:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All visual elements x (screenWidth/390).clamp(0.9, 1.15)<br>
-        Special:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Category filter: SingleChildScrollView(horizontal) wrapping Row of FilterChip. Item rows: GestureDetector with AnimatedSwitcher on check circles (150ms). Search: TextField with onChanged callback filtering item list. Pre-checked items passed from S-01 via state. CTA disabled state via AnimatedContainer.
+        Mockup base:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;390px width (iPhone 15)<br>
+        SafeArea:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;top=false — progress bar bleeds full width above SafeArea<br>
+        Scroll:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Expanded + SingleChildScrollView for content zone only<br>
+        Bottom zone:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fixed Column at bottom (not Spacer). Hairline + CTA button.<br>
+        Progress bar:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Full width, height 3px. Width = (0.40 + selectedCount * 0.08).clamp(0.40, 0.80) * screenWidth. AnimatedContainer 500ms ease.<br>
+        Scaling:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All visual elements x (screenWidth/390).clamp(0.9, 1.15)<br>
+        State:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Riverpod. S03State(activeFilter: CatFilter, searchQuery: String, selectedIds: Set&lt;String&gt;)<br>
+        Category chips:&nbsp;&nbsp;&nbsp;GestureDetector + AnimatedContainer. No FilterChip widget. Smooth 150ms transition.<br>
+        Tile rows:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SingleChildScrollView(scrollDirection: Axis.horizontal). EdgeInsets.symmetric(vertical:4, horizontal:16).<br>
+        Tile grid:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SliverGrid with 3-column delegate when activeFilter != all.<br>
+        Tile widget:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GestureDetector + AnimatedContainer. On tap: HapticFeedback.selectionClick().<br>
+        Swipe hint:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ScrollController on Home row. Post-frame callback: scrollTo(52, duration:400ms), then scrollTo(0, duration:300ms) after 520ms delay. hintDone flag in state.<br>
+        CTA copy:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AnimatedSwitcher 180ms on Text widget. Fade transition.<br>
+        Data:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Query item_types joined with categories. Group by categories.slug. Sort by sort_order. icon_key via ItemIcons.fromString().<br>
+        Navigation:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CTA onTap (selectedIds.isNotEmpty): push to S-04 Review passing selectedIds.
       </div>
     </div>
 
   </div><!-- /changelog -->
 
 </div><!-- /page -->
-
-<script>
-/* ── Category filter ── */
-function toggleCategory(cat) {
-  var allPill = document.querySelector('[data-cat="all"]');
-
-  // Deactivate all pills
-  document.querySelectorAll('.cat-pill').forEach(function(pill) {
-    pill.classList.remove('active');
-  });
-
-  // If "All" tapped or same pill re-tapped, activate "All" and show everything
-  var showAll = (cat === 'all');
-  if (showAll) {
-    allPill.classList.add('active');
-  } else {
-    var clickedPill = document.querySelector('[data-cat="' + cat + '"]');
-    if (clickedPill) clickedPill.classList.add('active');
-  }
-
-  // Filter sections
-  document.querySelectorAll('.cat-section').forEach(function(sec) {
-    if (showAll) {
-      sec.classList.remove('hidden');
-    } else if (sec.getAttribute('data-category') === cat) {
-      sec.classList.remove('hidden');
-    } else {
-      sec.classList.add('hidden');
-    }
-  });
-
-  // "Something else" row always visible
-  var elseRow = document.getElementById('elseRow');
-  if (elseRow) elseRow.classList.remove('hidden');
-
-  // Clear search when switching categories
-  var searchInput = document.getElementById('searchInput');
-  if (searchInput) {
-    searchInput.value = '';
-    filterSearch();
-  }
-}
-
-/* ── Item toggle ── */
-function toggleItem(row) {
-  if (row.classList.contains('else')) return;
-  row.classList.toggle('sel');
-  var chk = row.querySelector('.chk');
-  if (chk) chk.classList.toggle('on');
-  updateCount();
-}
-
-/* ── Update CTA count ── */
-function updateCount() {
-  var count = document.querySelectorAll('.irow.sel').length;
-  var ctaCount = document.getElementById('ctaCount');
-  var ctaBadge = document.getElementById('ctaBadge');
-  var ctaBtn = document.getElementById('ctaBtn');
-  if (ctaCount) ctaCount.textContent = count;
-  if (ctaBadge) ctaBadge.textContent = count;
-  if (ctaBtn) {
-    if (count === 0) {
-      ctaBtn.classList.add('disabled');
-    } else {
-      ctaBtn.classList.remove('disabled');
-    }
-  }
-}
-
-/* ── Search filter ── */
-function filterSearch() {
-  var query = document.getElementById('searchInput').value.toLowerCase().trim();
-  var rows = document.querySelectorAll('.irow:not(.else)');
-  var sections = document.querySelectorAll('.cat-section');
-
-  if (!query) {
-    // Reset: show all rows, respect current category filter (no recursion)
-    rows.forEach(function(row) { row.style.display = ''; });
-    var activeCat = document.querySelector('.cat-pill.active:not([data-cat="all"])');
-    sections.forEach(function(sec) {
-      if (!activeCat) {
-        sec.classList.remove('hidden');
-      } else if (sec.getAttribute('data-category') === activeCat.getAttribute('data-cat')) {
-        sec.classList.remove('hidden');
-      } else {
-        sec.classList.add('hidden');
-      }
-    });
-    return;
-  }
-
-  // Show all sections first, then filter rows
-  sections.forEach(function(sec) { sec.classList.remove('hidden'); });
-
-  rows.forEach(function(row) {
-    var name = (row.getAttribute('data-name') || '').toLowerCase();
-    if (name.indexOf(query) !== -1) {
-      row.style.display = '';
-    } else {
-      row.style.display = 'none';
-    }
-  });
-
-  // Hide sections that have no visible rows
-  sections.forEach(function(sec) {
-    var visibleRows = sec.querySelectorAll('.irow:not(.else):not([style*="display: none"])');
-    if (visibleRows.length === 0) {
-      sec.classList.add('hidden');
-    }
-  });
-}
-
-// Initial count on load
-updateCount();
-</script>
 
 </body>
 </html>
