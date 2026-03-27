@@ -1,289 +1,176 @@
-<!-- Previously: s05-onboarding-review-lofi.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>nudgii · S-05 Onboarding review, lo-fi</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<title>nudgii · S-04 Review — lo-fi</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-
 :root{
-  --cream:#F5F0E8;--ink:#1A1612;--mid:#8A8070;--mid-lt:#B0A898;
-  --border:rgba(26,22,18,0.08);--border-md:rgba(26,22,18,0.12);
-  --cta:#9B7FD4;--cta-fg:#FAF8FF;
+  --cream:#F5F0E8;--ink:#1A1612;--cta:#9B7FD4;--cta-fg:#FAF8FF;
+  --ap:#E8A87C;--ap-dk:#C8784A;--terra:#C4503A;
+  --mid:#8A8070;--mid-lt:#B0A898;--plum:#2D1F4A;
   --mid-a:#6B6358;
   --sage:#3B6D11;--sage-lt:#EAF3DE;
-  --surface:#FFFFFF;
+  --amber:#854F0B;--amber-lt:#FAEEDA;
+  --cat-home:#C87850;--cat-vehicle:#4A82A0;--cat-garden:#5A9060;--cat-sub:#8060A8;
   --ink-06:rgba(26,22,18,0.06);--ink-08:rgba(26,22,18,0.08);
-  --ink-10:rgba(26,22,18,0.10);
-  /* lo-fi grays */
-  --lo-bg:#F0EFED;
-  --lo-card:#FFFFFF;
-  --lo-border:#D4D2CE;
-  --lo-text:#3A3A3A;
-  --lo-text-mid:#7A7A7A;
-  --lo-text-lt:#A8A8A8;
-  --lo-zone:rgba(0,0,0,0.04);
+  --ink-10:rgba(26,22,18,0.10);--ink-16:rgba(26,22,18,0.16);
+  --surface:#FFFFFF;
+  --border:rgba(26,22,18,0.08);--border-md:rgba(26,22,18,0.12);
 }
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px;}
 
-body{
-  background:#CBC5BB;
-  font-family:'DM Sans',sans-serif;
-  -webkit-font-smoothing:antialiased;
-  padding:0 0 80px;
-}
-
-/* NAV */
-nav{
-  background:var(--cream);border-bottom:1px solid var(--border-md);
-  padding:0 32px;display:flex;align-items:center;gap:16px;
-  height:48px;position:sticky;top:0;z-index:100;
-}
-.nav-back{
-  font-size:13px;color:var(--mid);text-decoration:none;
-  display:flex;align-items:center;gap:8px;
-}
+/* -- NAV -- */
+nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 32px;display:flex;align-items:center;gap:16px;height:48px;position:sticky;top:0;z-index:100;}
+.nav-back{font-size:13px;color:var(--mid);text-decoration:none;display:flex;align-items:center;gap:8px;}
 .nav-back:hover{color:var(--ink);}
 .nav-sep{color:var(--border-md);}
 .nav-title{font-size:13px;font-weight:500;}
-.nav-status{
-  margin-left:auto;font-size:10px;font-weight:500;
-  padding:3px 10px;border-radius:100px;
-  background:rgba(232,168,124,0.12);color:#9A5A2A;
-  border:1px solid rgba(232,168,124,0.25);
-}
+.nav-id{margin-left:auto;font-size:10px;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;color:var(--mid-lt);font-family:monospace;}
 
-/* PAGE */
-.page{padding:40px 32px 60px;max-width:1700px;margin:0 auto;}
+/* -- PAGE -- */
+.page{padding:36px 32px 100px;max-width:1200px;margin:0 auto;}
+h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
+.sub{font-size:14px;color:var(--mid);margin-bottom:10px;max-width:580px;line-height:1.6;}
+.meta{display:flex;gap:8px;margin-bottom:40px;flex-wrap:wrap;}
+.mp{font-size:11px;font-weight:500;padding:3px 10px;border-radius:100px;border:1px solid var(--ink-10);color:var(--mid);}
+.mp.lo{background:rgba(90,144,96,0.08);color:#2A5A30;border-color:rgba(90,144,96,0.2);}
+.mp.ob{background:rgba(155,127,212,0.08);color:#5C3E8A;border-color:rgba(155,127,212,0.2);}
 
-/* PAGE HEADER */
-.page-eyebrow{
-  font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;
-  color:rgba(26,22,18,0.28);margin-bottom:10px;
-}
-.page-h1{
-  font-size:28px;font-weight:500;
-  color:var(--ink);letter-spacing:-0.3px;margin-bottom:6px;
-}
-.page-sub{
-  font-size:14px;color:var(--mid-a);line-height:1.65;
-  max-width:640px;margin-bottom:12px;
-}
-.meta{display:flex;gap:8px;margin-bottom:48px;flex-wrap:wrap;}
-.mp{
-  font-size:11px;font-weight:500;padding:3px 10px;border-radius:100px;
-  border:1px solid var(--ink-10);color:var(--mid);
-}
-.mp.lofi{background:rgba(26,22,18,0.05);color:var(--mid);border-color:rgba(26,22,18,0.15);}
-.mp.ob{background:rgba(200,120,80,0.08);color:#7A3A10;border-color:rgba(200,120,80,0.18);}
+/* -- MAIN LAYOUT -- */
+.layout{display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap;}
 
-/* LAYOUT WRAPPER */
-.content-row{display:flex;gap:40px;align-items:flex-start;}
+/* -- PHONE -- */
+.phone-wrap{flex-shrink:0;}
+.phone{width:390px;height:844px;background:#d8d4cb;border-radius:50px;padding:10px;border:2px solid rgba(26,22,18,0.20);box-shadow:0 12px 40px rgba(26,22,18,0.14);position:relative;overflow:hidden;}
+.screen{background:#F5F0E8;border-radius:26px;overflow:hidden;height:100%;display:flex;flex-direction:column;}
 
-/* PHONE SHELL */
-.phone-col{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
-.phone{
-  width:390px;height:844px;border-radius:50px;overflow:hidden;
-  background:var(--lo-bg);
-  border:1.5px solid rgba(26,22,18,0.09);
-  box-shadow:0 28px 60px rgba(26,22,18,0.18),0 6px 16px rgba(26,22,18,0.07),inset 0 1px 0 rgba(255,255,255,0.65);
-  position:relative;flex-shrink:0;
-  display:flex;flex-direction:column;
-}
+/* Zone blocks */
+.zone{position:relative;}
+.zone-tag{position:absolute;top:6px;right:8px;font-size:8px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;background:rgba(26,22,18,0.07);color:var(--mid);padding:2px 6px;border-radius:3px;pointer-events:none;z-index:2;}
 
-/* notch + status bar */
-.notch{height:24px;background:var(--lo-bg);display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px;}
-.np{width:102px;height:8px;border-radius:100px;background:rgba(0,0,0,0.08);}
-.sbar{display:flex;justify-content:space-between;align-items:center;padding:5px 18px 0;font-size:11px;font-weight:500;color:rgba(0,0,0,0.28);}
-.batt{width:14px;height:6px;border:1.5px solid rgba(0,0,0,0.22);border-radius:2px;position:relative;}
-.batt::after{content:'';position:absolute;left:1px;top:1px;right:2px;bottom:1px;background:rgba(0,0,0,0.25);border-radius:1px;}
+/* Zone A: status bar */
+.z-sbar{height:24px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px;}
+.z-sbar-pill{width:102px;height:8px;border-radius:100px;background:rgba(26,22,18,0.10);}
+.z-sbar-row{display:flex;justify-content:space-between;align-items:center;padding:5px 18px 0;font-size:11px;font-weight:500;color:rgba(26,22,18,0.36);}
+.batt{width:14px;height:6px;border:1.5px solid rgba(26,22,18,0.28);border-radius:2px;position:relative;}
+.batt::after{content:'';position:absolute;left:1px;top:1px;right:2px;bottom:1px;background:rgba(26,22,18,0.32);border-radius:1px;}
 
-/* progress bar */
-.prog-bar{width:100%;height:3px;background:rgba(0,0,0,0.06);flex-shrink:0;}
+/* Zone B: progress bar */
+.prog-bar{width:100%;height:3px;background:rgba(26,22,18,0.08);flex-shrink:0;}
 .prog-fill{height:3px;border-radius:0 100px 100px 0;background:var(--cta);}
 
-/* screen structure */
-.w-screen{flex:1;overflow:hidden;display:flex;flex-direction:column;padding:14px 16px 0;}
+/* Screen structure */
+.w-screen{flex:1;overflow:hidden;display:flex;flex-direction:column;padding:10px 16px 0;}
 .w-content{flex:1;overflow-y:auto;scrollbar-width:none;}
 .w-content::-webkit-scrollbar{display:none;}
-.w-bottom{padding:12px 0 24px;flex-shrink:0;}
+.w-bottom{padding:8px 0 14px;flex-shrink:0;}
 
-/* HEADLINE */
-.w-h1{font-size:20px;font-weight:500;color:var(--lo-text);line-height:1.25;margin-bottom:4px;}
-.w-sub{font-size:11px;font-style:italic;color:var(--lo-text-mid);line-height:1.5;margin-bottom:14px;}
+/* Header */
+.hed{font-family:'DM Serif Display',Georgia,serif;font-size:16px;font-weight:400;line-height:1.1;color:var(--ink);margin-bottom:2px;}
+.hed-sub{font-size:10px;font-style:italic;color:var(--mid-a);margin-bottom:10px;}
 
-/* ZONE LABEL */
-.zone{
-  border:1.5px dashed var(--lo-border);
-  border-radius:8px;padding:8px;margin-bottom:8px;
-  position:relative;
-}
-.zone-label{
-  position:absolute;top:-8px;left:10px;
-  font-size:8px;font-weight:500;letter-spacing:0.8px;text-transform:uppercase;
-  background:var(--lo-bg);color:var(--lo-text-lt);padding:0 4px;
-}
+/* Category chips */
+.chip-row{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;padding:4px 0;margin-bottom:2px;}
+.chip-row::-webkit-scrollbar{display:none;}
+.chip{flex-shrink:0;padding:5px 11px;border-radius:100px;font-size:10px;font-weight:500;cursor:default;}
+.chip-all{background:rgba(26,22,18,0.07);color:var(--mid-a);outline:none;}
+.chip-all.active{background:rgba(155,127,212,0.12);color:var(--cta);outline:1px solid var(--cta);}
+.chip-home{background:rgba(200,120,80,0.13);color:var(--cat-home);}
+.chip-vehicle{background:rgba(74,130,160,0.13);color:var(--cat-vehicle);}
+.chip-garden{background:rgba(90,144,96,0.13);color:var(--cat-garden);}
+.chip-subs{background:rgba(128,96,168,0.13);color:var(--cat-sub);}
 
-/* REVIEW CARDS */
-.review-cards{display:flex;flex-direction:column;gap:6px;margin-bottom:10px;}
+/* Category section headers */
+.cat-sec{padding:8px 0 4px;}
+.cat-lbl{display:flex;align-items:center;gap:5px;font-size:9px;font-weight:600;letter-spacing:1.3px;text-transform:uppercase;color:var(--mid-a);margin-bottom:6px;}
+.cat-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.cat-count{font-weight:400;color:var(--mid);text-transform:none;letter-spacing:0;font-size:9px;}
 
-.r-card{
-  background:var(--lo-card);
-  border:1px solid var(--lo-border);
-  border-radius:10px;
-  overflow:hidden;
-}
+/* 2-column tile grid */
+.tile-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:2px 0 4px;}
 
-/* card header */
-.r-head{
-  display:flex;align-items:center;gap:8px;
-  padding:10px 10px;
+/* Tile */
+.tile{
+  border-radius:12px;padding:10px 8px 8px;
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  border:1.5px solid transparent;position:relative;
 }
-.r-chip{
-  width:26px;height:26px;border-radius:7px;
-  background:rgba(0,0,0,0.06);
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;
-}
-.r-chip-icon{font-size:9px;color:var(--lo-text-mid);}
-.r-name{flex:1;font-size:12px;font-weight:500;color:var(--lo-text);}
-.r-cat{font-size:9px;color:var(--lo-text-lt);}
-.r-action{
-  width:26px;height:26px;border-radius:6px;
-  border:1px dashed var(--lo-border);
-  display:flex;align-items:center;justify-content:center;
-  font-size:9px;color:var(--lo-text-mid);flex-shrink:0;
-  cursor:pointer;
-}
-.r-action.scan{background:rgba(0,0,0,0.03);}
+.tile-icon{width:26px;height:26px;display:flex;align-items:center;justify-content:center;}
+.tile-icon svg{width:22px;height:22px;}
+.tile-lbl{font-size:9px;font-weight:500;color:var(--ink);line-height:1.2;text-align:center;}
+.tile-meta{font-size:8px;color:var(--mid);text-align:center;}
+.tile-chev{position:absolute;top:8px;right:8px;font-size:10px;color:rgba(26,22,18,0.22);}
 
-/* expanded body */
-.r-body{
-  padding:0 10px 10px;
-  border-top:1px dashed var(--lo-border);
-  margin-top:0;
-}
+/* Inline drawer (expanded tile) */
+.drawer{background:var(--surface);border:1px solid var(--border-md);border-radius:10px;padding:8px 10px;grid-column:1 / -1;}
+.drawer-title{font-size:10px;font-weight:500;color:var(--ink);margin-bottom:6px;}
+.task-row{display:flex;align-items:center;gap:6px;padding:4px 0;font-size:9px;color:var(--ink);}
+.task-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+.task-freq{color:var(--mid);font-size:8px;margin-left:auto;}
+.task-del{width:14px;height:14px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--mid);cursor:default;}
+.pro-badge{font-size:7px;font-weight:600;background:rgba(155,127,212,0.12);color:var(--cta);padding:1px 5px;border-radius:100px;margin-left:auto;}
 
-/* task list */
-.r-tasks{margin-top:8px;}
-.r-task{
-  display:flex;align-items:center;gap:7px;
-  padding:6px 0;
-  border-bottom:1px dotted rgba(0,0,0,0.06);
-}
-.r-task:last-child{border-bottom:none;}
-.r-task-dot{width:5px;height:5px;border-radius:50%;background:rgba(0,0,0,0.15);flex-shrink:0;}
-.r-task-name{font-size:10px;color:var(--lo-text);flex:1;}
-.r-task-cadence{font-size:8px;color:var(--lo-text-lt);background:rgba(0,0,0,0.04);padding:1px 6px;border-radius:100px;}
-.r-task.pro{opacity:0.4;}
-.r-task .pro-pill{
-  font-size:7px;font-weight:600;letter-spacing:0.3px;
-  background:rgba(155,127,212,0.12);color:#7A60B0;
-  padding:1px 5px;border-radius:100px;
-}
+/* Add item row */
+.add-row{display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border:1.5px dashed rgba(26,22,18,0.16);border-radius:12px;margin-top:4px;font-size:10px;color:var(--mid);cursor:default;}
+.add-icon{width:16px;height:16px;border-radius:50%;background:rgba(26,22,18,0.06);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--mid);}
 
-/* last done picker */
-.last-done{
-  margin-top:10px;padding-top:8px;
-  border-top:1px dotted rgba(0,0,0,0.06);
-}
-.last-done-label{font-size:9px;font-weight:500;color:var(--lo-text-mid);margin-bottom:5px;}
-.last-done-options{display:flex;gap:4px;}
-.ld-opt{
-  font-size:9px;padding:4px 9px;border-radius:100px;
-  border:1px solid var(--lo-border);
-  color:var(--lo-text-mid);cursor:pointer;
-  background:transparent;
-}
-.ld-opt.active{
-  background:var(--lo-text);color:white;border-color:var(--lo-text);
-}
+/* Free tier banner */
+.tier-banner{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--surface);border:1px solid var(--border-md);border-radius:10px;margin-bottom:8px;}
+.pip-row{display:flex;gap:3px;}
+.pip{width:6px;height:6px;border-radius:50%;background:rgba(26,22,18,0.10);}
+.pip.on{background:var(--cta);}
+.pip.warn{background:var(--ap);}
+.tier-text{font-size:9px;color:var(--mid);flex:1;}
+.tier-pro{font-size:9px;font-weight:600;color:var(--cta);cursor:default;white-space:nowrap;}
 
-/* collapsed hint */
-.r-collapsed-hint{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 10px 10px;
-}
-.r-hint-text{font-size:10px;color:var(--lo-text-lt);font-style:italic;}
-.r-chevron{font-size:10px;color:var(--lo-text-lt);}
+/* Row divider */
+.row-div{height:0.5px;background:rgba(26,22,18,0.08);margin:0;}
 
-/* add another */
-.add-row{
-  text-align:center;padding:10px 0;
-  font-size:11px;font-weight:500;color:var(--cta);
-  cursor:pointer;
-}
+/* CTA */
+.cta-btn{width:100%;height:44px;border-radius:100px;border:none;background:var(--cta);color:var(--cta-fg);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:default;box-shadow:0 4px 16px rgba(155,127,212,0.30);display:flex;align-items:center;justify-content:center;gap:7px;}
 
-/* CTA BUTTON (lo-fi) */
-.btn-primary{
-  width:100%;height:46px;border-radius:100px;border:none;
-  background:var(--lo-text);color:white;
-  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
-  display:flex;align-items:center;justify-content:center;gap:6px;
-  cursor:pointer;
-}
+/* -- RIGHT COLUMN -- */
+.right{flex:1;min-width:280px;}
+.sec{margin-bottom:36px;}
+.sec-eye{font-size:9px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:4px;}
+.sec-title{font-family:'DM Serif Display',serif;font-size:18px;color:var(--ink);margin-bottom:14px;}
+.sec-rule{height:1px;background:var(--ink-08);margin-bottom:20px;}
 
-/* ANNOTATION COLUMN */
-.annot-col{
-  flex:0 0 360px;min-width:280px;
-  display:flex;flex-direction:column;gap:10px;
-  padding-top:0;
-}
-.annot-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:10px;padding:14px 16px;
-}
-.annot-card.interaction{border-color:rgba(155,127,212,0.22);background:rgba(155,127,212,0.03);}
-.annot-card.pattern{border-color:rgba(200,120,80,0.18);background:rgba(200,120,80,0.03);}
-.annot-head{
-  font-size:10px;font-weight:500;letter-spacing:0.3px;
-  margin-bottom:6px;display:flex;align-items:center;gap:6px;
-}
-.badge-interaction{
-  font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;
-  background:rgba(155,127,212,0.12);color:#5C3E8A;
-}
-.badge-pattern{
-  font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;
-  background:rgba(200,120,80,0.12);color:#7A3A10;
-}
-.badge-rule{
-  font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;
-  background:rgba(59,109,17,0.10);color:var(--sage);
-}
-.badge-note{
-  font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;
-  background:rgba(26,22,18,0.07);color:var(--mid);
-}
-.annot-body{font-size:11px;color:var(--mid-a);line-height:1.65;}
-.annot-body strong{color:var(--ink);font-weight:500;}
-.annot-body code{font-family:monospace;font-size:10px;background:var(--ink-06);padding:1px 4px;border-radius:3px;color:var(--ink);}
-.annot-body ul{margin:4px 0 0 14px;}
-.annot-body li{margin-bottom:3px;}
-.annot-section{
-  font-size:9px;font-weight:500;letter-spacing:1.6px;
-  text-transform:uppercase;color:rgba(26,22,18,0.28);
-  margin:20px 0 8px;
-}
+/* Zone cards */
+.zone-card{background:var(--surface);border:1px solid var(--ink-08);border-radius:10px;padding:13px 15px;margin-bottom:8px;}
+.zone-card.highlight{border-color:rgba(155,127,212,0.25);background:rgba(155,127,212,0.03);}
+.zone-card.cta-card{border-color:rgba(155,127,212,0.30);background:rgba(155,127,212,0.04);}
+.zc-head{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
+.zc-badge{font-size:9px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;padding:2px 7px;border-radius:3px;background:rgba(26,22,18,0.07);color:var(--mid);flex-shrink:0;}
+.zc-badge.purple{background:rgba(155,127,212,0.12);color:#5C3E8A;}
+.zc-badge.green{background:rgba(90,144,96,0.10);color:#2A5A30;}
+.zc-badge.orange{background:rgba(200,120,80,0.12);color:#7A3A10;}
+.zc-name{font-size:12px;font-weight:500;color:var(--ink);}
+.zc-body{font-size:11px;color:var(--mid);line-height:1.65;}
+.zc-body strong{color:var(--ink);font-weight:500;}
+.zc-body code{font-family:monospace;font-size:10px;background:rgba(26,22,18,0.06);padding:1px 4px;border-radius:3px;color:var(--ink);}
+.zc-rule{height:1px;background:var(--ink-08);margin:8px 0;}
 
-/* item counter banner */
-.item-counter{
-  display:flex;align-items:center;gap:6px;
-  background:rgba(0,0,0,0.04);
-  border:1px dashed var(--lo-border);
-  border-radius:8px;
-  padding:7px 10px;
-  margin-bottom:8px;
-  font-size:9px;color:var(--lo-text-mid);
-}
-.item-counter-bar{
-  flex:1;height:3px;background:rgba(0,0,0,0.08);border-radius:100px;
-  overflow:hidden;
-}
-.item-counter-fill{height:100%;background:var(--lo-text-mid);border-radius:100px;}
+/* Rules grid */
+.rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.rule-item{background:var(--surface);border:1px solid var(--ink-08);border-radius:8px;padding:10px 12px;}
+.ri-label{font-size:10px;font-weight:500;color:var(--ink);margin-bottom:2px;}
+.ri-desc{font-size:10px;color:var(--mid);line-height:1.5;}
+
+/* Summary grid */
+.summary-grid{display:grid;grid-template-columns:100px 1fr;gap:4px 12px;font-size:11px;}
+.sg-label{font-weight:500;color:var(--ink);}
+.sg-value{color:var(--mid);}
+
+/* Bottom links */
+.links{display:flex;gap:10px;flex-wrap:wrap;padding-top:24px;border-top:1px solid var(--ink-08);}
+.link-btn{font-size:12px;font-weight:500;text-decoration:none;padding:6px 14px;border-radius:100px;}
+.link-btn.hi{color:var(--cta);background:rgba(155,127,212,0.08);border:1px solid rgba(155,127,212,0.2);}
+.link-btn.sys{color:var(--mid);background:var(--ink-06);border:1px solid var(--ink-10);}
 </style>
 </head>
 <body>
@@ -299,260 +186,364 @@ nav{
     Design hub
   </a>
   <span class="nav-sep">/</span>
-  <span class="nav-title">S-05 Onboarding review</span>
-  <span class="nav-status">In progress</span>
+  <span class="nav-title">S-04 · Review</span>
+  <span class="nav-id">Lo-fi · March 2026</span>
 </nav>
 
 <div class="page">
 
-  <!-- PAGE HEADER -->
-  <div class="page-eyebrow">S-05 · Onboarding review · Lo-fi · 390x844px (iPhone 15) · March 2026</div>
-  <h1 class="page-h1">Onboarding review</h1>
-  <p class="page-sub">The user reviews items collected during onboarding (from any path). Each item card expands to show tasks, a scan button for brand/model detection, and a "last done" picker that adjusts reminder timing. Cards collapse to save space. This screen carries context from S-01 through S-04.</p>
+  <!-- HEADER -->
+  <h1>Review</h1>
+  <p class="sub">The user reviews items nudgii identified from their input. Tile grid layout matches S-03. Inline drawers expand per item to show tasks. Free tier limit visible.</p>
   <div class="meta">
-    <span class="mp lofi">Lo-fi</span>
+    <span class="mp lo">Lo-fi</span>
     <span class="mp ob">Onboarding flow</span>
-    <span class="mp">S-05</span>
-    <span class="mp">March 2026</span>
+    <span class="mp">S-04</span>
+    <span class="mp">Path A+B leads here</span>
   </div>
 
-  <!-- CONTENT ROW: phone + annotation sidebar -->
-  <div class="content-row">
+  <!-- MAIN LAYOUT -->
+  <div class="layout">
 
     <!-- PHONE -->
-    <div class="phone-col">
+    <div class="phone-wrap">
       <div class="phone">
-        <div class="notch"><div class="np"></div></div>
-        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
-        <!-- progress bar 60% -->
-        <div class="prog-bar"><div class="prog-fill" style="width:60%;"></div></div>
+        <div class="screen">
 
-        <div class="w-screen">
-          <div class="w-content">
+          <!-- Zone A: status bar -->
+          <div class="zone">
+            <div class="zone-tag">A</div>
+            <div class="z-sbar"><div class="z-sbar-pill"></div></div>
+            <div class="z-sbar-row"><span>9:41</span><div class="batt"></div></div>
+          </div>
 
-            <!-- headline -->
-            <div class="w-h1">Here's what nudgii found.</div>
-            <div class="w-sub">Scan to confirm brand or model. You can adjust anything later.</div>
+          <!-- Zone B: progress bar 60% -->
+          <div class="zone">
+            <div class="zone-tag">B</div>
+            <div class="prog-bar"><div class="prog-fill" style="width:60%;"></div></div>
+          </div>
 
-            <!-- item counter banner (shown when nearing limit) -->
-            <div class="item-counter">
-              <span>2 of 10 free items</span>
-              <div class="item-counter-bar"><div class="item-counter-fill" style="width:20%;"></div></div>
-            </div>
+          <!-- Scrollable content + sticky bottom -->
+          <div class="w-screen">
+            <div class="w-content">
 
-            <!-- REVIEW CARDS -->
-            <div class="review-cards">
+              <!-- Zone C: header -->
+              <div class="zone" style="position:relative;">
+                <div class="zone-tag">C</div>
+                <div class="hed">Here's what nudgii found.</div>
+                <div class="hed-sub">Tap a card to review its tasks. Adjust anything later.</div>
+              </div>
 
-              <!-- Card 1: Boiler (EXPANDED) -->
-              <div class="r-card">
-                <div class="r-head">
-                  <div class="r-chip"><span class="r-chip-icon">H</span></div>
-                  <div style="flex:1;">
-                    <div class="r-name">Boiler</div>
-                    <div class="r-cat">Home</div>
-                  </div>
-                  <div class="r-action scan" title="Scan">
-                    <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M1 5V2.5A1.5 1.5 0 012.5 1H5"/>
-                      <path d="M11 1h2.5A1.5 1.5 0 0115 2.5V5"/>
-                      <path d="M15 11v2.5a1.5 1.5 0 01-1.5 1.5H11"/>
-                      <path d="M5 15H2.5A1.5 1.5 0 011 13.5V11"/>
-                    </svg>
-                  </div>
-                  <div class="r-action" title="Remove">&times;</div>
-                </div>
-                <div class="r-body">
-                  <div class="r-tasks">
-                    <div class="r-task">
-                      <div class="r-task-dot"></div>
-                      <div class="r-task-name">Annual boiler service</div>
-                      <div class="r-task-cadence">yearly, autumn</div>
-                    </div>
-                    <div class="r-task">
-                      <div class="r-task-dot"></div>
-                      <div class="r-task-name">Check CO detector</div>
-                      <div class="r-task-cadence">yearly</div>
-                    </div>
-                    <div class="r-task">
-                      <div class="r-task-dot"></div>
-                      <div class="r-task-name">Bleed radiators</div>
-                      <div class="r-task-cadence">before winter</div>
-                    </div>
-                    <div class="r-task pro">
-                      <div class="r-task-dot"></div>
-                      <div class="r-task-name">Descale heat exchanger</div>
-                      <span class="pro-pill">Pro</span>
-                    </div>
-                  </div>
-
-                  <!-- last done picker -->
-                  <div class="last-done">
-                    <div class="last-done-label">Last done:</div>
-                    <div class="last-done-options">
-                      <div class="ld-opt">Recently</div>
-                      <div class="ld-opt">A while ago</div>
-                      <div class="ld-opt active">Not sure</div>
-                    </div>
-                  </div>
+              <!-- Zone D: category chips -->
+              <div class="zone" style="position:relative;">
+                <div class="zone-tag">D</div>
+                <div class="chip-row">
+                  <div class="chip chip-all active">All</div>
+                  <div class="chip chip-home">Home</div>
+                  <div class="chip chip-vehicle">Vehicle</div>
+                  <div class="chip chip-garden">Garden</div>
+                  <div class="chip chip-subs">Subscriptions</div>
                 </div>
               </div>
 
-              <!-- Card 2: Dishwasher (COLLAPSED) -->
-              <div class="r-card">
-                <div class="r-head">
-                  <div class="r-chip"><span class="r-chip-icon">H</span></div>
-                  <div style="flex:1;">
-                    <div class="r-name">Dishwasher</div>
-                    <div class="r-cat">Home</div>
+              <!-- Zone E: tile grid -->
+              <div class="zone" style="position:relative;">
+                <div class="zone-tag">E</div>
+
+                <!-- Home section -->
+                <div class="cat-sec">
+                  <div class="cat-lbl">
+                    <span class="cat-dot" style="background:var(--cat-home);"></span>
+                    Home
+                    <span class="cat-count">&middot; 2 items</span>
                   </div>
-                  <div class="r-action" title="Remove">&times;</div>
+                  <div class="tile-grid">
+                    <!-- Boiler (expanded) -->
+                    <div class="tile" style="background:rgba(200,120,80,0.12);border-color:var(--cat-home);">
+                      <div class="tile-icon">
+                        <svg viewBox="0 0 256 256" fill="none"><rect x="72" y="24" width="112" height="208" rx="20" stroke="#C87850" stroke-width="14" fill="none"/><circle cx="128" cy="124" r="34" stroke="#C87850" stroke-width="12" fill="none"/></svg>
+                      </div>
+                      <div class="tile-lbl">Boiler</div>
+                      <div class="tile-meta">3 tasks</div>
+                      <div class="tile-chev">v</div>
+                    </div>
+                    <!-- Dishwasher -->
+                    <div class="tile" style="background:rgba(200,120,80,0.12);">
+                      <div class="tile-icon">
+                        <svg viewBox="0 0 256 256" fill="none"><rect x="32" y="48" width="192" height="160" rx="16" stroke="#C87850" stroke-width="14" fill="none"/><line x1="32" y1="100" x2="224" y2="100" stroke="#C87850" stroke-width="14" stroke-linecap="round"/><circle cx="128" cy="164" r="34" stroke="#C87850" stroke-width="12" fill="none"/><circle cx="128" cy="164" r="10" fill="#C87850"/></svg>
+                      </div>
+                      <div class="tile-lbl">Dishwasher</div>
+                      <div class="tile-meta">2 tasks</div>
+                      <div class="tile-chev">&rsaquo;</div>
+                    </div>
+                    <!-- Drawer: Boiler tasks -->
+                    <div class="drawer">
+                      <div class="drawer-title">Boiler tasks</div>
+                      <div class="task-row">
+                        <div class="task-dot" style="background:var(--cat-home);"></div>
+                        Annual service
+                        <div class="task-freq">yearly</div>
+                        <div class="task-del">&times;</div>
+                      </div>
+                      <div class="task-row">
+                        <div class="task-dot" style="background:var(--cat-home);"></div>
+                        Check pressure gauge
+                        <div class="task-freq">monthly</div>
+                        <div class="task-del">&times;</div>
+                      </div>
+                      <div class="task-row">
+                        <div class="task-dot" style="background:var(--cat-home);"></div>
+                        Bleed radiators
+                        <div class="task-freq">yearly</div>
+                        <div class="task-del">&times;</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="r-collapsed-hint">
-                  <span class="r-hint-text">3 tasks, tap to review</span>
-                  <span class="r-chevron">&#x203A;</span>
+
+                <div class="row-div"></div>
+
+                <!-- Vehicle section -->
+                <div class="cat-sec">
+                  <div class="cat-lbl">
+                    <span class="cat-dot" style="background:var(--cat-vehicle);"></span>
+                    Vehicle
+                    <span class="cat-count">&middot; 1 item</span>
+                  </div>
+                  <div class="tile-grid">
+                    <div class="tile" style="background:rgba(74,130,160,0.12);">
+                      <div class="tile-icon">
+                        <svg viewBox="0 0 256 256" fill="none"><path d="M8 144a8 8 0 0 1 8-8h16L60 80h136l28 56h16a8 8 0 0 1 8 8v32a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8v-32z" stroke="#4A82A0" stroke-width="14" fill="none" stroke-linejoin="round"/><circle cx="76" cy="192" r="24" stroke="#4A82A0" stroke-width="14" fill="none"/><circle cx="180" cy="192" r="24" stroke="#4A82A0" stroke-width="14" fill="none"/></svg>
+                      </div>
+                      <div class="tile-lbl">Car</div>
+                      <div class="tile-meta">4 tasks</div>
+                      <div class="tile-chev">&rsaquo;</div>
+                    </div>
+                  </div>
+                </div>
+
+              </div><!-- /zone E -->
+
+              <!-- Zone F: add item row -->
+              <div class="zone" style="position:relative;margin-top:6px;">
+                <div class="zone-tag">F</div>
+                <div class="add-row">
+                  <div class="add-icon">+</div>
+                  Add another item
                 </div>
               </div>
 
+            </div><!-- /w-content -->
+
+            <!-- Sticky bottom: tier banner + CTA -->
+            <div class="w-bottom">
+              <!-- Zone G: free tier banner -->
+              <div class="zone" style="position:relative;">
+                <div class="zone-tag">G</div>
+                <div class="tier-banner">
+                  <div class="pip-row">
+                    <div class="pip on"></div>
+                    <div class="pip on"></div>
+                    <div class="pip on"></div>
+                    <div class="pip on"></div>
+                    <div class="pip on"></div>
+                    <div class="pip on"></div>
+                    <div class="pip on"></div>
+                    <div class="pip"></div>
+                    <div class="pip"></div>
+                    <div class="pip"></div>
+                  </div>
+                  <div class="tier-text">7 of 10 free items</div>
+                  <div class="tier-pro">Go Pro</div>
+                </div>
+              </div>
+              <!-- Zone H: CTA -->
+              <div class="zone" style="position:relative;">
+                <div class="zone-tag">H</div>
+                <div class="cta-btn">Looks good &#8594;</div>
+              </div>
             </div>
+          </div><!-- /w-screen -->
 
-            <!-- add another -->
-            <div class="add-row">+ Add another item</div>
+        </div><!-- /screen -->
+      </div><!-- /phone -->
+    </div><!-- /phone-wrap -->
 
+    <!-- RIGHT COLUMN -->
+    <div class="right">
+
+      <!-- ZONES -->
+      <div class="sec">
+        <div class="sec-eye">Zones</div>
+        <div class="sec-title">Review screen</div>
+        <div class="sec-rule"></div>
+
+        <div class="zone-card">
+          <div class="zc-head"><span class="zc-badge">A+B</span><span class="zc-name">Status bar + progress bar</span></div>
+          <div class="zc-body">
+            Standard iOS notch + status bar. Progress bar: full-width, edge-to-edge, 3px, <code>colorCta #9B7FD4</code> at <strong>60%</strong> (S-04 = step 3 of 5). Outside SafeArea. Grows by 8% per selected item. Animates via <code>AnimatedContainer</code>.
           </div>
+        </div>
 
-          <!-- STICKY BOTTOM -->
-          <div class="w-bottom">
-            <button class="btn-primary">Looks good
-              <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M2 6H10"/><path d="M7 3L10 6L7 9"/>
-              </svg>
-            </button>
+        <div class="zone-card">
+          <div class="zc-head"><span class="zc-badge">C</span><span class="zc-name">Header</span></div>
+          <div class="zc-body">
+            DM Serif Display 20px. "Here's what nudgii found." Action-oriented: nudgii tells the user what it discovered. Subtitle: DM Sans 11px italic <code>colorMidAccessible</code>. "Tap a card to review its tasks. Adjust anything later." One serif moment per screen.
+          </div>
+        </div>
+
+        <div class="zone-card highlight">
+          <div class="zc-head"><span class="zc-badge purple">D</span><span class="zc-name">Category chips</span></div>
+          <div class="zc-body">
+            Same chips as S-03. Tinted bg + category color text. "All" active by default with <code>colorCta</code> outline. Single scrollable row (nowrap + overflow-x:auto).
+            <div class="zc-rule"></div>
+            Home: <code>rgba(200,120,80,0.13)</code> bg, <code>#C87850</code> text.<br>
+            Vehicle: <code>rgba(74,130,160,0.13)</code> bg, <code>#4A82A0</code> text.<br>
+            Garden: <code>rgba(90,144,96,0.13)</code> bg, <code>#5A9060</code> text.<br>
+            Subscriptions: <code>rgba(128,96,168,0.13)</code> bg, <code>#8060A8</code> text.
+            <div class="zc-rule"></div>
+            Active category: adds <code>1px solid categoryColor</code> outline. Filters tile grid to show only that category.
+          </div>
+        </div>
+
+        <div class="zone-card highlight">
+          <div class="zc-head"><span class="zc-badge purple">E</span><span class="zc-name">Tile grid, 2-column layout</span></div>
+          <div class="zc-body">
+            <strong>2-column grid per category section.</strong> Category header: 9px, 600 weight, uppercase, <code>colorMidAccessible</code> + 6px colored dot + item count.
+            <div class="zc-rule"></div>
+            Category-tinted backgrounds at 12% opacity. Bare colored SVG icons (no container). Tile shows: icon, item name, task count, chevron.
+            <div class="zc-rule"></div>
+            <strong>Chevron tap:</strong> expands inline drawer below the tile. Only one drawer open at a time. Closing animation: 250ms ease-in-out.
+          </div>
+        </div>
+
+        <div class="zone-card highlight">
+          <div class="zc-head"><span class="zc-badge purple">E</span><span class="zc-name">Inline drawer</span></div>
+          <div class="zc-body">
+            White panel expands below the tapped tile, spanning full grid width. Shows task list for that item.
+            <div class="zc-rule"></div>
+            Each task row: colored first-task dot (category color), task name, frequency label (right-aligned, <code>colorMid</code>), delete button (x icon).
+            <div class="zc-rule"></div>
+            Pro badge: <code>rgba(155,127,212,0.12)</code> bg, <code>colorCta</code> text. Shown on tasks locked behind Pro tier. Delete button hidden on Pro-locked tasks.
+          </div>
+        </div>
+
+        <div class="zone-card">
+          <div class="zc-head"><span class="zc-badge">F</span><span class="zc-name">Add item row</span></div>
+          <div class="zc-body">
+            Dashed border (1.5px, <code>rgba(26,22,18,0.16)</code>), 12px radius. Plus icon in subtle circle + "Add another item" text.
+            <div class="zc-rule"></div>
+            <strong>At free tier limit (10 items):</strong> text changes to "Free plan limit reached". Plus icon becomes lock icon. "Go Pro" link replaces tap action.
+          </div>
+        </div>
+
+        <div class="zone-card highlight">
+          <div class="zc-head"><span class="zc-badge orange">G</span><span class="zc-name">Free tier banner</span></div>
+          <div class="zc-body">
+            Always visible in sticky bottom zone. 10-pip indicator showing item count. White surface, 1px border, 10px radius.
+            <div class="zc-rule"></div>
+            <strong>Pip colors:</strong> items 1-7 = <code>colorCta</code> purple. Items 8-9 = <code>colorApricot</code> warning. Item 10 = all pips filled. "Go Pro" link always visible, right-aligned.
+            <div class="zc-rule"></div>
+            Text: "X of 10 free items". Updates live as items are added or removed.
+          </div>
+        </div>
+
+        <div class="zone-card cta-card">
+          <div class="zc-head"><span class="zc-badge purple">H</span><span class="zc-name">CTA button</span></div>
+          <div class="zc-body">
+            Full width, 44px, radius 100px. "Looks good &#8594;". <code>colorCta</code> bg, <code>colorCtaFg</code> text. Always enabled (user can proceed at any point).
+            <div class="zc-rule"></div>
+            Pressed: scale(0.97), 150ms ease-out. Shadow: <code>0 4px 16px rgba(155,127,212,0.30)</code>.
+          </div>
+        </div>
+
+        <div class="zone-card">
+          <div class="zc-head"><span class="zc-badge">-</span><span class="zc-name">Navigation</span></div>
+          <div class="zc-body">
+            <strong>iOS swipe gesture only.</strong> No visible back button. Swipe right to return to S-02 (Path A) or S-03 (Path B).
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- ANNOTATION COLUMN -->
-    <div class="annot-col">
-
-      <div class="annot-section">Screen structure</div>
-
-      <div class="annot-card">
-        <div class="annot-head"><span class="badge-rule">Rule</span> Shell pattern</div>
-        <div class="annot-body">
-          <strong>Fixed top:</strong> progress bar at 60% (step 3 of 5)<br>
-          <strong>Expanded:</strong> scrollable review cards<br>
-          <strong>Fixed bottom:</strong> sticky CTA "Looks good"<br><br>
-          Back button: <code>ArrowLeft</code> (horizontal line + arrowhead), 44x44px tap target. Returns to previous onboarding step.
+      <!-- SUMMARY -->
+      <div class="sec">
+        <div class="sec-eye">Summary</div>
+        <div class="sec-title">Implementation notes</div>
+        <div class="sec-rule"></div>
+        <div class="summary-grid">
+          <div class="sg-label">Shell</div>
+          <div class="sg-value">SafeArea + Column + Expanded</div>
+          <div class="sg-label">Scroll</div>
+          <div class="sg-value">Content zone only (w-content)</div>
+          <div class="sg-label">Back</div>
+          <div class="sg-value">iOS swipe gesture</div>
+          <div class="sg-label">Progress</div>
+          <div class="sg-value">60% base (step 3 of 5)</div>
+          <div class="sg-label">Bottom</div>
+          <div class="sg-value">Tier banner + CTA sticky</div>
         </div>
       </div>
 
-      <div class="annot-card">
-        <div class="annot-head"><span class="badge-note">Note</span> Context carry-over</div>
-        <div class="annot-body">
-          Items shown here come from whichever path the user took: voice (S-02), browse (S-03), or search (S-04). This screen is path-agnostic. It shows whatever items were collected.
+      <!-- LOCKED RULES -->
+      <div class="sec">
+        <div class="sec-eye">Rules</div>
+        <div class="sec-title">Locked decisions</div>
+        <div class="sec-rule"></div>
+        <div class="rules-grid">
+          <div class="rule-item">
+            <div class="ri-label">Back: iOS swipe gesture</div>
+            <div class="ri-desc">No visible back button. Swipe right returns to S-02 or S-03 depending on which path the user took.</div>
+          </div>
+          <div class="rule-item">
+            <div class="ri-label">Progress: 60% continuous bar</div>
+            <div class="ri-desc">Step 3 of 5. Grows 8% per item selected. Clamped at 80%. Animates on every toggle.</div>
+          </div>
+          <div class="rule-item">
+            <div class="ri-label">Category chips: tinted bg + color text</div>
+            <div class="ri-desc">Same style as S-03. Active = colored border. "All" active by default. Single scrollable row.</div>
+          </div>
+          <div class="rule-item">
+            <div class="ri-label">Tiles: 2-col grid, category tint bg</div>
+            <div class="ri-desc">2-column grid per category. Category-tinted backgrounds at 12%. Bare colored SVG icons. Chevron expands drawer.</div>
+          </div>
+          <div class="rule-item">
+            <div class="ri-label">Drawer: one at a time</div>
+            <div class="ri-desc">White panel expands below tile, full grid width. Shows task list. Only one drawer open. 250ms ease-in-out animation.</div>
+          </div>
+          <div class="rule-item">
+            <div class="ri-label">Tier banner: always visible</div>
+            <div class="ri-desc">10-pip indicator in sticky bottom. Purple for items 1-7, apricot warning at 8+, all filled at 10. "Go Pro" always shown.</div>
+          </div>
         </div>
       </div>
 
-      <div class="annot-section">Card interactions</div>
-
-      <div class="annot-card interaction">
-        <div class="annot-head"><span class="badge-interaction">Interaction</span> Expand / collapse</div>
-        <div class="annot-body">
-          <strong>Tap card header</strong> to expand or collapse.<br>
-          <ul>
-            <li>Expanded: shows all tasks, "last done" picker, scan button</li>
-            <li>Collapsed: shows task count + "tap to review" hint + chevron</li>
-          </ul>
-          <strong>First card auto-expands</strong> on screen load so the user sees what a review card contains. Subsequent cards start collapsed.<br><br>
-          Animation: <code>250ms ease-in-out</code> height transition.
+      <!-- NAVIGATION -->
+      <div class="sec">
+        <div class="sec-eye">Navigation</div>
+        <div class="sec-title">Adjacent screens</div>
+        <div class="sec-rule"></div>
+        <div class="zone-card">
+          <div class="zc-body">
+            <strong>Comes from:</strong> S-02 Tell me what you have (Path A) or S-03 Browse categories (Path B).<br>
+            <strong>Context carry-over:</strong> nudgii has processed user input and identified items + tasks. All found items shown in tile grid.<br>
+            <strong>Goes to:</strong> S-05 AHA + celebration, via CTA "Looks good". Back: iOS swipe gesture.
+          </div>
         </div>
       </div>
 
-      <div class="annot-card interaction">
-        <div class="annot-head"><span class="badge-interaction">Interaction</span> Scan button</div>
-        <div class="annot-body">
-          <strong>Scan icon</strong> (PhosphorIcons.scan) triggers the AI camera.<br>
-          The user photographs a label or device to detect brand and model. Result updates the item name and may add brand-specific tasks.<br><br>
-          Scan is per-item, not global. Only appears on expanded cards.<br>
-          Free tier: 3 AI scans/month. Pro: unlimited.
-        </div>
+      <!-- LINKS -->
+      <div class="links">
+        <a class="link-btn hi" href="s04-review-hifi.html">Hi-fi version</a>
+        <a class="link-btn hi" href="s04-review-prototype.html">Prototype</a>
+        <a class="link-btn sys" href="../system/design-system.html">Design system</a>
+        <a class="link-btn sys" href="../index.html">Design hub</a>
+        <a class="link-btn sys" href="s03-browse-categories-lofi.html">S-03 Browse</a>
+        <a class="link-btn sys" href="s05-aha-celebration-hifi.html">S-05 AHA</a>
       </div>
 
-      <div class="annot-card interaction">
-        <div class="annot-head"><span class="badge-interaction">Interaction</span> Remove button</div>
-        <div class="annot-body">
-          <strong>&times; button</strong> removes the item from the review list.<br>
-          Triggers a confirmation toast: "Boiler removed" with undo link (2.5s visible, 250ms fade-out).<br>
-          Undo toast style: cream bg, ink text, plum-lt dot.
-        </div>
-      </div>
-
-      <div class="annot-section">"Last done" picker</div>
-
-      <div class="annot-card pattern">
-        <div class="annot-head"><span class="badge-pattern">Pattern</span> Reminder timing</div>
-        <div class="annot-body">
-          Three-option picker controls when the first reminder fires:
-          <ul>
-            <li><strong>Recently:</strong> delays first reminder 6 to 8 weeks (user just did it)</li>
-            <li><strong>A while ago:</strong> schedules sooner (overdue or close to due)</li>
-            <li><strong>Not sure (default):</strong> schedules first reminder soon, conservative approach</li>
-          </ul>
-          "Not sure" is pre-selected. Single-select, tap to switch. No multi-select.<br><br>
-          This replaces a date picker. Most users cannot remember exact dates, and precision does not matter at this stage.
-        </div>
-      </div>
-
-      <div class="annot-section">Upsell and limits</div>
-
-      <div class="annot-card">
-        <div class="annot-head"><span class="badge-note">Note</span> Pro task lock</div>
-        <div class="annot-body">
-          Free tier: 3 tasks per item. The 4th task (if present) is shown <strong>greyed out with a "Pro" pill</strong>.<br>
-          Not blocking, just a visibility nudge. User can still proceed. Tapping the locked task opens the Pro upgrade sheet (S-22).
-        </div>
-      </div>
-
-      <div class="annot-card">
-        <div class="annot-head"><span class="badge-note">Note</span> Item counter banner</div>
-        <div class="annot-body">
-          Shows "X of 10 free items" with a fill bar when the user has 5+ items. Not shown below 5.<br>
-          At 10 items, the "+ Add another item" link becomes "Upgrade to add more" (colorCta text).<br>
-          Conversion trigger: free tier caps at 10 items.
-        </div>
-      </div>
-
-      <div class="annot-section">Other elements</div>
-
-      <div class="annot-card">
-        <div class="annot-head"><span class="badge-interaction">Interaction</span> + Add another item</div>
-        <div class="annot-body">
-          Tapping opens an add-item flow (inline voice/text input or quick-browse sheet). New item appears at the bottom of the review list, auto-expanded.<br><br>
-          This ensures users who want to add items beyond the initial path can do so without going back.
-        </div>
-      </div>
-
-      <div class="annot-card">
-        <div class="annot-head"><span class="badge-rule">Rule</span> Card spacing</div>
-        <div class="annot-body">
-          Individual white cards on cream background. <strong>6px gap</strong> between cards. Cream gap IS the visual separator.<br>
-          No border-bottom separators. No single container wrapping all cards.
-        </div>
-      </div>
-
-      <div class="annot-card">
-        <div class="annot-head"><span class="badge-note">Note</span> CTA behaviour</div>
-        <div class="annot-body">
-          "Looks good" navigates to S-06 (auth). Enabled as long as at least 1 item exists. If all items are removed, CTA changes to disabled state with text "Add at least one item".<br><br>
-          Pressing: bg darkens, scale 0.97, 100ms ease-out.
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-</div>
+    </div><!-- /right -->
+  </div><!-- /layout -->
+</div><!-- /page -->
 
 </body>
 </html>

@@ -11,8 +11,8 @@
 :root{
   --cream:#F5F0E8;--ink:#1A1612;--cta:#9B7FD4;--cta-fg:#FAF8FF;
   --mid:#8A8070;--mid-a:#6B6358;--surface:#FFFFFF;--border:rgba(26,22,18,0.08);
-  --plum:#2D1F4A;--sage:#3B6D11;--sage-lt:#EAF3DE;
   --cat-home:#C87850;--cat-vehicle:#4A82A0;--cat-garden:#5A9060;--cat-sub:#8060A8;
+  --sage:#3B6D11;--sage-lt:#EAF3DE;--apricot:#E8A87C;--apricot-dk:#C8784A;
 }
 
 body{
@@ -37,9 +37,18 @@ body{
   display:flex;flex-direction:column;align-items:center;
   padding:24px 32px 80px;gap:20px;
 }
-.page-eyebrow{font-size:10px;font-weight:500;letter-spacing:1.6px;text-transform:uppercase;color:rgba(245,240,232,0.30);text-align:center;}
-.page-title{font-family:'DM Serif Display',serif;font-size:22px;color:rgba(245,240,232,0.85);text-align:center;line-height:1.2;margin-top:-4px;}
-.page-desc{font-size:12px;color:rgba(245,240,232,0.35);text-align:center;max-width:480px;line-height:1.6;}
+.page-eyebrow{
+  font-size:10px;font-weight:500;letter-spacing:1.6px;text-transform:uppercase;
+  color:rgba(245,240,232,0.30);text-align:center;
+}
+.page-title{
+  font-family:'DM Serif Display',serif;font-size:22px;color:rgba(245,240,232,0.85);
+  text-align:center;line-height:1.2;margin-top:-4px;
+}
+.page-desc{
+  font-size:12px;color:rgba(245,240,232,0.35);text-align:center;
+  max-width:480px;line-height:1.6;
+}
 
 /* ── DEVICE ── */
 .device{
@@ -49,37 +58,23 @@ body{
   display:flex;flex-direction:column;
 }
 
-/* Status bar */
-.sbar{height:26px;padding:8px 16px 0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
-.sbar-time{font-size:9px;font-weight:600;color:var(--ink);}
-.sbar-icons{display:flex;align-items:center;gap:4px;}
-.sbar-icons svg{width:11px;height:11px;}
-
 /* Progress bar */
 .pbar{height:3px;background:rgba(26,22,18,0.10);flex-shrink:0;}
-.pfill{height:100%;background:var(--cta);border-radius:0 100px 100px 0;transition:width 0.5s ease;}
+.pfill{height:100%;background:var(--cta);transition:width 0.5s ease;}
 
 /* Screen header */
-.scr-head{padding:10px 14px 0;flex-shrink:0;}
-.hed{font-family:'DM Serif Display',serif;font-size:19px;color:var(--ink);line-height:1.1;margin-bottom:2px;}
+.scr-head{padding:14px 14px 0;flex-shrink:0;}
+.hed{font-family:'DM Serif Display',serif;font-size:19px;color:var(--ink);line-height:1.1;margin-bottom:3px;}
 .sub{font-size:10.5px;font-style:italic;color:var(--mid);margin-bottom:8px;line-height:1.4;}
 
-/* Item count pill */
-.count-pill{
-  display:inline-flex;align-items:center;gap:5px;
-  background:rgba(26,22,18,0.07);border-radius:100px;
-  padding:3px 9px;font-size:9px;font-weight:500;color:var(--mid-a);
-  margin-bottom:8px;
-}
-
 /* Category chips */
-.chips{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;padding:4px 0;margin-bottom:6px;}
+.chips{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;padding:4px 0;margin-bottom:4px;}
 .chips::-webkit-scrollbar{display:none;}
 .chip{
-  flex-shrink:0;padding:4px 11px;border-radius:100px;
-  font-size:10px;font-weight:500;cursor:pointer;user-select:none;
+  flex-shrink:0;padding:5px 12px;border-radius:100px;
+  font-size:10.5px;font-weight:500;cursor:pointer;user-select:none;
   transition:outline 0.12s,background 0.12s,color 0.12s;
-  outline:1px solid transparent;outline-offset:0;
+  outline:1.5px solid transparent;outline-offset:0;
 }
 .chip-all{background:rgba(26,22,18,0.07);color:var(--mid-a);}
 .chip-all.on{background:rgba(155,127,212,0.12);color:var(--cta);outline:1px solid var(--cta);}
@@ -89,141 +84,184 @@ body{
 .chip-vehicle.on{outline:1px solid var(--cat-vehicle);}
 .chip-garden{background:rgba(90,144,96,0.13);color:var(--cat-garden);}
 .chip-garden.on{outline:1px solid var(--cat-garden);}
+.chip-subs{background:rgba(128,96,168,0.13);color:var(--cat-sub);}
+.chip-subs.on{outline:1px solid var(--cat-sub);}
 
-/* Scroll content */
-.content{flex:1;overflow-y:auto;max-height:390px;scrollbar-width:none;padding:0 14px 4px;}
+/* Scrollable content */
+.content{flex:1;overflow-y:auto;max-height:410px;scrollbar-width:none;padding:0 10px 4px;}
 .content::-webkit-scrollbar{display:none;}
 
-/* ── REVIEW CARD ── */
-.card{
-  border-radius:12px;margin-bottom:7px;overflow:hidden;
-  border:none;
-  transition:opacity 0.2s;
+/* Category section */
+.cat-section{padding:6px 0 2px;}
+.cat-section.hidden{display:none;}
+.cat-lbl{display:flex;align-items:center;gap:5px;font-size:9px;font-weight:600;letter-spacing:1.3px;text-transform:uppercase;color:var(--mid-a);margin-bottom:6px;padding:0 4px;}
+.cat-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.cat-count{font-weight:400;letter-spacing:0.5px;text-transform:none;font-size:8.5px;}
+
+/* 2-column tile grid */
+.tile-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:4px;}
+
+/* Tile card */
+.tile{
+  border-radius:14px;padding:10px 8px 8px;cursor:pointer;user-select:none;
+  display:flex;flex-direction:column;position:relative;
+  transition:transform 0.12s,box-shadow 0.15s;
 }
-/* Category-tinted background — same identity as S-03 tiles */
-.card-home{background:rgba(200,120,80,0.09);}
-.card-vehicle{background:rgba(74,130,160,0.09);}
-.card-garden{background:rgba(90,144,96,0.09);}
-
-/* Card header */
-.card-head{
-  display:flex;align-items:center;gap:8px;
-  padding:10px 10px 10px 12px;cursor:pointer;
-  user-select:none;transition:background 0.12s;
+.tile:hover{transform:scale(1.02);}
+.tile:active{transform:scale(0.97);}
+.tile.expanded{border-radius:14px 14px 0 0;}
+.tile-top{display:flex;align-items:flex-start;justify-content:space-between;}
+.tile-icon{width:36px;height:36px;display:flex;align-items:center;justify-content:center;}
+.tile-icon svg{width:36px;height:36px;}
+.tile-remove{
+  width:20px;height:20px;border-radius:50%;border:none;cursor:pointer;
+  background:rgba(26,22,18,0.06);display:flex;align-items:center;justify-content:center;
+  transition:background 0.12s;flex-shrink:0;
 }
-.card-head:active{background:rgba(26,22,18,0.03);}
-.card-name{flex:1;font-size:12px;font-weight:500;color:var(--ink);min-width:0;}
+.tile-remove:hover{background:rgba(26,22,18,0.12);}
+.tile-remove svg{pointer-events:none;}
+.tile-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:6px;}
+.tile-name{font-size:10.5px;font-weight:500;color:var(--ink);line-height:1.2;}
+.tile-meta{font-size:8.5px;color:var(--mid-a);display:flex;align-items:center;gap:3px;}
+.tile-chevron{opacity:0.4;transition:transform 0.2s;}
+.tile.expanded .tile-chevron{transform:rotate(90deg);opacity:0.7;}
 
-/* Icon — no container, just the colored SVG */
-.ci{width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.ci svg{width:16px;height:16px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
-.ci-home svg{stroke:var(--cat-home);}
-.ci-vehicle svg{stroke:var(--cat-vehicle);}
-.ci-garden svg{stroke:var(--cat-garden);}
-
-/* Scan button */
-.card-scan{
-  width:22px;height:22px;border-radius:6px;
-  background:rgba(26,22,18,0.05);border:0.5px solid rgba(26,22,18,0.09);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;
-  transition:background 0.12s;
+/* Inline drawer below tile */
+.drawer{
+  background:#fff;border-radius:0 0 14px 14px;
+  overflow:hidden;max-height:0;opacity:0;
+  transition:max-height 0.3s ease,opacity 0.2s ease,padding 0.2s ease;
+  padding:0 8px;
 }
-.card-scan:active{background:rgba(26,22,18,0.12);}
-.card-scan svg{width:10px;height:10px;fill:none;stroke:var(--mid);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
-
-/* Remove button */
-.card-remove{
-  width:22px;height:22px;border-radius:6px;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;
-  transition:background 0.12s;
+.drawer.open{max-height:500px;opacity:1;padding:6px 8px 8px;}
+.drawer-collapse{
+  display:flex;align-items:center;justify-content:center;gap:4px;
+  font-size:9px;color:var(--mid-a);cursor:pointer;padding:4px 0 6px;
+  user-select:none;
 }
-.card-remove:active{background:rgba(26,22,18,0.06);}
-.card-remove svg{width:9px;height:9px;fill:none;stroke:rgba(26,22,18,0.28);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.drawer-collapse:hover{color:var(--ink);}
 
-/* Chevron */
-.card-chev{
-  width:12px;height:12px;fill:none;
-  stroke:rgba(26,22,18,0.28);stroke-width:1.8;
-  stroke-linecap:round;stroke-linejoin:round;
-  flex-shrink:0;transition:transform 0.22s ease;
+/* Task rows inside drawer */
+.task-row{
+  display:flex;align-items:center;gap:7px;padding:5px 4px;
+  border-radius:8px;transition:background 0.12s,opacity 0.3s,max-height 0.3s,transform 0.3s;
+  overflow:hidden;
 }
-.card.open .card-chev{transform:rotate(180deg);}
-
-/* Collapsed hint */
-.card-hint{padding:1px 12px 9px 48px;font-size:9px;color:var(--mid);}
-.card.open .card-hint{display:none;}
-
-/* Card body (expanded) — white inset for task readability */
-.card-body{display:none;margin:0 8px 8px;padding:10px 10px 10px;background:var(--surface);border-radius:8px;}
-.card.open .card-body{display:block;}
-.card-sep{display:none;}
-
-/* Task list */
-.task-list{display:flex;flex-direction:column;gap:5px;margin-bottom:10px;}
-.task-row{display:flex;align-items:center;gap:7px;}
-.task-dot{width:4px;height:4px;border-radius:50%;flex-shrink:0;}
-.task-dot-home{background:var(--cat-home);}
-.task-dot-vehicle{background:var(--cat-vehicle);}
-.task-dot-garden{background:var(--cat-garden);}
-.task-name{flex:1;font-size:10.5px;color:var(--mid-a);line-height:1.3;}
-.task-name.locked{opacity:0.4;}
-.task-cad{font-size:8px;color:var(--mid);background:rgba(26,22,18,0.05);border:0.5px solid rgba(26,22,18,0.07);border-radius:100px;padding:2px 7px;white-space:nowrap;flex-shrink:0;}
-.pro-pill{font-size:7.5px;font-weight:500;color:var(--cta);background:rgba(155,127,212,0.10);border:0.5px solid rgba(155,127,212,0.22);border-radius:100px;padding:1px 6px;margin-left:4px;flex-shrink:0;}
-
-/* Last done */
-.ld-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
-.ld-label{font-size:9px;color:var(--mid);flex-shrink:0;}
-.ld-pills{display:flex;gap:3px;flex-wrap:wrap;}
-.ld-pill{
-  font-size:9px;font-weight:500;color:var(--mid-a);
-  background:rgba(26,22,18,0.04);border:0.5px solid rgba(26,22,18,0.10);
-  border-radius:100px;padding:3px 9px;cursor:pointer;
-  transition:all 0.12s;user-select:none;
+.task-row:hover{background:rgba(26,22,18,0.03);}
+.task-row+.task-row{border-top:0.5px solid rgba(26,22,18,0.06);}
+.task-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.task-info{flex:1;min-width:0;}
+.task-name{font-size:10px;font-weight:500;color:var(--ink);line-height:1.3;}
+.task-freq{font-size:8px;color:var(--mid);margin-top:1px;}
+.task-del{
+  width:18px;height:18px;border-radius:50%;border:none;cursor:pointer;
+  background:rgba(26,22,18,0.05);display:flex;align-items:center;justify-content:center;
+  transition:background 0.12s;flex-shrink:0;
 }
-.ld-pill:active{background:rgba(26,22,18,0.08);}
-.ld-pill.on{background:rgba(26,22,18,0.09);border-color:rgba(26,22,18,0.20);color:var(--ink);}
+.task-del:hover{background:rgba(196,80,58,0.12);}
+.task-del svg{pointer-events:none;}
 
-/* Answered checkmark on card header */
-.card-done-dot{
-  width:7px;height:7px;border-radius:50%;background:var(--sage);
-  flex-shrink:0;display:none;margin-left:-4px;
+/* Pro task styling */
+.task-row.pro{opacity:0.38;}
+.task-row.pro.unlocking{animation:unlockTask 0.4s ease forwards;}
+@keyframes unlockTask{
+  0%{opacity:0.38;transform:translateX(8px);}
+  100%{opacity:1;transform:translateX(0);}
 }
-.card.answered .card-done-dot{display:block;}
-
-/* Add another */
-.add-more{
-  text-align:center;padding:8px 0 6px;
-  font-size:10px;font-weight:500;color:var(--cta);cursor:pointer;
+.pro-badge{
+  font-size:7.5px;font-weight:600;color:var(--cta);
+  background:rgba(155,127,212,0.12);border-radius:4px;
+  padding:1.5px 5px;flex-shrink:0;letter-spacing:0.3px;
 }
-.add-more:active{opacity:0.6;}
 
-/* Empty state */
-.empty-state{padding:28px 0;text-align:center;font-size:11px;color:var(--mid);font-style:italic;line-height:1.6;}
+/* Add item row */
+.add-row{
+  display:flex;align-items:center;gap:8px;padding:10px 12px;
+  border:1.5px dashed rgba(26,22,18,0.15);border-radius:12px;
+  margin:8px 4px;cursor:pointer;transition:background 0.12s,border-color 0.12s;
+}
+.add-row:hover{background:rgba(26,22,18,0.03);border-color:rgba(26,22,18,0.25);}
+.add-row.locked{cursor:default;opacity:0.7;}
+.add-row.locked:hover{background:transparent;border-color:rgba(26,22,18,0.15);}
+.add-icon{
+  width:24px;height:24px;border-radius:50%;
+  background:rgba(155,127,212,0.10);display:flex;align-items:center;justify-content:center;
+}
+.add-label{font-size:10.5px;font-weight:500;color:var(--mid-a);}
+.add-pro-link{font-size:9px;color:var(--cta);font-weight:500;margin-left:auto;cursor:pointer;}
 
-/* CTA zone */
-.cta-wrap{padding:8px 14px 18px;background:var(--cream);flex-shrink:0;}
-.hairline{height:0.5px;background:rgba(26,22,18,0.10);margin-bottom:8px;}
+/* Section divider */
+.sec-div{height:0.5px;background:rgba(26,22,18,0.08);margin:2px 4px;}
+
+/* Bottom zone */
+.bottom-zone{flex-shrink:0;background:var(--cream);padding:0 14px 18px;}
+.hairline{height:0.5px;background:rgba(26,22,18,0.10);margin-bottom:6px;}
+
+/* Tier banner */
+.tier-banner{
+  display:flex;align-items:center;gap:8px;padding:7px 10px;
+  border-radius:10px;margin-bottom:8px;
+  transition:background 0.3s,border-color 0.3s;
+}
+.tier-banner.normal{background:rgba(155,127,212,0.08);border:1px solid rgba(155,127,212,0.15);}
+.tier-banner.warn{background:rgba(232,168,124,0.10);border:1px solid rgba(232,168,124,0.20);}
+.tier-banner.full{background:rgba(200,120,80,0.12);border:1px solid rgba(200,120,80,0.25);}
+.tier-pips{display:flex;gap:3px;flex-shrink:0;}
+.tier-pip{width:5px;height:5px;border-radius:50%;transition:background 0.2s;}
+.tier-pip.filled{background:var(--cta);}
+.tier-pip.empty{background:rgba(26,22,18,0.12);}
+.tier-pip.warn-filled{background:var(--apricot-dk);}
+.tier-text{font-size:9px;color:var(--mid-a);flex:1;line-height:1.3;}
+.tier-text strong{font-weight:600;}
+.tier-pro{
+  font-size:8.5px;font-weight:600;color:var(--cta);cursor:pointer;
+  background:rgba(155,127,212,0.12);padding:3px 8px;border-radius:100px;
+  white-space:nowrap;transition:background 0.12s;flex-shrink:0;
+}
+.tier-pro:hover{background:rgba(155,127,212,0.20);}
+
+/* CTA button */
 .cta{
   width:100%;padding:12px;border-radius:100px;border:none;
   font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:600;cursor:pointer;
   display:flex;align-items:center;justify-content:center;gap:8px;
-  transition:all 0.22s ease;
+  background:var(--cta);color:var(--cta-fg);box-shadow:0 4px 18px rgba(155,127,212,0.35);
+  transition:transform 0.12s,box-shadow 0.15s;
 }
 .cta:active{transform:scale(0.97);}
-.cta.go{background:var(--cta);color:var(--cta-fg);box-shadow:0 4px 18px rgba(155,127,212,0.35);}
-.cta-inner{display:flex;align-items:center;gap:8px;transition:opacity 0.18s;}
+
+/* Toast */
+.toast{
+  position:fixed;bottom:40px;left:50%;transform:translateX(-50%) translateY(60px);
+  background:var(--sage-lt);color:var(--sage);
+  font-family:'DM Sans',sans-serif;font-size:10.5px;font-weight:500;
+  padding:8px 16px;border-radius:100px;
+  opacity:0;transition:all 0.3s ease;pointer-events:none;z-index:100;
+  white-space:nowrap;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast.warn{background:rgba(232,168,124,0.15);color:var(--apricot-dk);}
+.toast.error{background:rgba(196,80,58,0.10);color:#C4503A;}
 
 /* ── LEGEND ── */
 .legend{
   display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
-  max-width:380px;
+  max-width:400px;
 }
-.leg{
+.legend-item{
   font-size:10px;color:rgba(245,240,232,0.35);
-  background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.07);
-  border-radius:8px;padding:5px 10px;
+  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);
+  border-radius:6px;padding:5px 10px;
 }
-.leg strong{color:rgba(245,240,232,0.60);}
+.legend-item strong{font-weight:500;color:rgba(245,240,232,0.55);}
+
+/* Tile animations */
+.tile-wrap{animation:fadeSlideIn 0.2s ease;}
+.tile-wrap.removing{animation:fadeOut 0.25s ease forwards;}
+@keyframes fadeSlideIn{0%{opacity:0;transform:translateY(-6px);}100%{opacity:1;transform:translateY(0);}}
+@keyframes fadeOut{0%{opacity:1;transform:scale(1);}100%{opacity:0;transform:scale(0.9);}}
+.task-row.removing{animation:slideOut 0.25s ease forwards;}
+@keyframes slideOut{0%{opacity:1;max-height:40px;transform:translateX(0);}100%{opacity:0;max-height:0;transform:translateX(20px);padding:0 4px;}}
 </style>
 </head>
 <body>
@@ -231,292 +269,405 @@ body{
 <!-- PAGE HEADER -->
 <div class="page-header">
   <a class="page-logo" href="../index.html">
-    <svg width="16" height="18" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg">
+    <svg width="14" height="16" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg">
       <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
       <path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
       <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
     </svg>
     nudgii design system
   </a>
-  <nav class="page-nav">
+  <div class="page-nav">
     <a href="s04-review-lofi.html">Lo-fi</a>
     <a href="s04-review-hifi.html">Hi-fi</a>
     <a href="../index.html">Design hub</a>
-  </nav>
+  </div>
 </div>
 
 <div class="page-content">
-  <div class="page-eyebrow">S-04 · REVIEW · INTERACTIVE PROTOTYPE</div>
-  <div class="page-title">Onboarding review</div>
-  <div class="page-desc">Tap cards to expand. Choose when you last did each task. Filter by category. Remove items you don't need.</div>
+
+  <div class="page-eyebrow">S-04 · Review · Interactive prototype</div>
+  <div class="page-title">Review your items</div>
+  <div class="page-desc">Tap tiles to expand task drawers. Remove tasks or items. Watch the free tier banner update live. Pro tasks unlock when free tasks are deleted.</div>
 
   <!-- DEVICE -->
   <div class="device">
+    <div class="pbar"><div class="pfill" id="pf" style="width:60%;"></div></div>
 
-    <!-- Status bar -->
-    <div class="sbar">
-      <span class="sbar-time">9:41</span>
-      <div class="sbar-icons">
-        <svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg>
-        <svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg>
-      </div>
-    </div>
-
-    <!-- Progress bar -->
-    <div class="pbar"><div class="pfill" id="pf" style="width:64%;"></div></div>
-
-    <!-- Screen header -->
     <div class="scr-head">
       <div class="hed">Here's what nudgii found.</div>
-      <div class="sub">Tap to expand. Set when last done so we get the timing right.</div>
-      <div class="count-pill" id="count-pill">4 items · 11 tasks</div>
-      <div class="chips" id="chips-wrap">
-        <div class="chip chip-all on" onclick="setFilter('all')">All</div>
-        <div class="chip chip-home" onclick="setFilter('home')">Home</div>
-        <div class="chip chip-vehicle" onclick="setFilter('vehicle')">Vehicle</div>
-        <div class="chip chip-garden" onclick="setFilter('garden')">Garden</div>
-      </div>
+      <div class="sub">Tap a card to review its tasks. Adjust anything later.</div>
+
+      <!-- Category chips -->
+      <div class="chips" id="chiprow"></div>
     </div>
 
-    <!-- Scrollable cards -->
-    <div class="content" id="cards-wrap"></div>
+    <!-- Scrollable content -->
+    <div class="content" id="ct"></div>
 
-    <!-- CTA -->
-    <div class="cta-wrap">
+    <!-- Bottom zone -->
+    <div class="bottom-zone">
       <div class="hairline"></div>
-      <button class="cta go" id="cta-btn">
-        <span class="cta-inner" id="cta-label">Looks good, continue</span>
+      <div id="tier-banner"></div>
+      <button class="cta" id="cta-btn" onclick="showToastMsg('Navigating to S-05 AHA...','')">
+        <span>Looks good</span>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M7 3l3 3-3 3" stroke="#FAF8FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
     </div>
-
   </div><!-- /device -->
 
   <!-- LEGEND -->
   <div class="legend">
-    <div class="leg"><strong>Tap card</strong> to expand or collapse</div>
-    <div class="leg"><strong>Category chips</strong> filter by type</div>
-    <div class="leg"><strong>Last done</strong> helps nudgii time your first reminder</div>
-    <div class="leg"><strong>×</strong> removes an item</div>
-    <div class="leg"><strong>⊡</strong> scan to confirm brand or model</div>
+    <div class="legend-item"><strong>Category filter</strong> hides/shows sections</div>
+    <div class="legend-item"><strong>Tap tile</strong> to expand task drawer</div>
+    <div class="legend-item"><strong>Task delete</strong> + Pro unlock animation</div>
+    <div class="legend-item"><strong>Free tier limit</strong> tracks 10 items</div>
   </div>
 
 </div><!-- /page-content -->
 
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
 <script>
-// ── DATA ──
-const CAT_COLORS = {
-  home: '#C87850',
-  vehicle: '#4A82A0',
-  garden: '#5A9060'
+// ── COLOR MAP ──
+const CC={home:'#C87850',vehicle:'#4A82A0',garden:'#5A9060',subs:'#8060A8'};
+const CL={home:'Home',vehicle:'Vehicle',garden:'Garden',subs:'Subscriptions'};
+const CATS=['home','vehicle','garden','subs'];
+
+// ── ICONS (bare colored SVG, 36px, stroke only) ──
+const ICONS={
+  boiler:`<svg viewBox="0 0 24 24" fill="none" stroke="§" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="18" rx="3"/><circle cx="12" cy="13" r="3"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="8" y1="20" x2="16" y2="20"/></svg>`,
+  dishwasher:`<svg viewBox="0 0 24 24" fill="none" stroke="§" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="2" width="18" height="20" rx="3"/><circle cx="12" cy="13" r="4"/><line x1="12" y1="2" x2="12" y2="5"/></svg>`,
+  car:`<svg viewBox="0 0 24 24" fill="none" stroke="§" stroke-width="1.5" stroke-linecap="round"><path d="M3 14L6 8h12l3 6v4H3v-4z"/><circle cx="7.5" cy="17" r="2"/><circle cx="16.5" cy="17" r="2"/><path d="M3 14h18"/></svg>`,
+  olive:`<svg viewBox="0 0 24 24" fill="none" stroke="§" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="22" x2="12" y2="11"/><path d="M12 11C12 7 8 4 8 4C8 4 8 9 12 11Z"/><path d="M12 11C12 7 16 4 16 4C16 4 16 9 12 11Z"/><path d="M12 11C12 16 10 20 10 20"/></svg>`,
+  streaming:`<svg viewBox="0 0 24 24" fill="none" stroke="§" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="5" x2="8" y2="19"/></svg>`
 };
 
-const ITEMS = [
-  {
-    id: 'dishwasher', name: 'Dishwasher', cat: 'home',
-    icon: '<rect x="4" y="2" width="16" height="20" rx="2"/><line x1="4" y1="8" x2="20" y2="8"/><circle cx="8" cy="5" r="1.2"/><circle cx="13" cy="5" r="1.2"/>',
-    tasks: [
-      { name: 'Clean dishwasher filter',   cadence: 'every 6-8 wks',  pro: false },
-      { name: 'Refill dishwasher salt',    cadence: 'every 6-8 wks',  pro: false },
-      { name: 'Deep clean spray arms',     cadence: 'every 3 months', pro: true  },
-    ]
-  },
-  {
-    id: 'boiler', name: 'Boiler', cat: 'home',
-    icon: '<rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="15" r="3"/><line x1="12" y1="2" x2="12" y2="6"/>',
-    tasks: [
-      { name: 'Annual boiler service',  cadence: 'yearly · autumn',  pro: false },
-      { name: 'Check CO detector',      cadence: 'yearly',           pro: false },
-      { name: 'Bleed radiators',        cadence: 'before winter',    pro: true  },
-    ]
-  },
-  {
-    id: 'car', name: 'Car', cat: 'vehicle',
-    icon: '<rect x="1" y="9" width="22" height="8" rx="2"/><circle cx="6" cy="17" r="2"/><circle cx="18" cy="17" r="2"/><path d="M4 9L6.5 3h11L20 9"/>',
-    tasks: [
-      { name: 'Change winter tyres',  cadence: 'before Nov',      pro: false },
-      { name: 'Oil and filter check', cadence: 'every 15,000 km', pro: false },
-      { name: 'APK / MOT check',      cadence: 'yearly',          pro: true  },
-    ]
-  },
-  {
-    id: 'hedge', name: 'Hedge', cat: 'garden',
-    icon: '<path d="M3 13c0-5 3-9 9-9s9 4 9 9v5H3v-5z"/><line x1="12" y1="22" x2="12" y2="18"/>',
-    tasks: [
-      { name: 'Trim hedge',            cadence: 'twice a year',    pro: false },
-      { name: 'Feed with fertiliser',  cadence: 'spring + summer', pro: false },
-    ]
-  },
+// ── ITEM + TASK DATA ──
+// Deep clone helper
+function cloneData(src){return JSON.parse(JSON.stringify(src));}
+
+const SEED_ITEMS=[
+  {id:'boiler',name:'Boiler',cat:'home',icon:'boiler',tasks:[
+    {id:'t1',name:'Annual boiler service',freq:'Yearly, autumn',first:true,pro:false},
+    {id:'t2',name:'Check CO detector',freq:'Yearly',first:false,pro:false},
+    {id:'t3',name:'Bleed radiators',freq:'Before winter',first:false,pro:false},
+    {id:'t4',name:'Check flue emissions',freq:'Every 2 years',first:false,pro:true}
+  ]},
+  {id:'dishwasher',name:'Dishwasher',cat:'home',icon:'dishwasher',tasks:[
+    {id:'t5',name:'Clean filter',freq:'Every 6-8 weeks',first:true,pro:false},
+    {id:'t6',name:'Refill salt',freq:'Monthly',first:false,pro:false},
+    {id:'t7',name:'Run hot wash cycle',freq:'Monthly',first:false,pro:false}
+  ]},
+  {id:'car',name:'Car',cat:'vehicle',icon:'car',tasks:[
+    {id:'t8',name:'Switch to winter tyres',freq:'Before November',first:true,pro:false},
+    {id:'t9',name:'Annual APK/MOT check',freq:'Yearly',first:false,pro:false},
+    {id:'t10',name:'Check tyre pressure',freq:'Monthly',first:false,pro:false},
+    {id:'t11',name:'Top up windscreen fluid',freq:'Seasonal',first:false,pro:false},
+    {id:'t12',name:'OBD diagnostic scan',freq:'Yearly',first:false,pro:true}
+  ]},
+  {id:'olive',name:'Olive tree',cat:'garden',icon:'olive',tasks:[
+    {id:'t13',name:'Autumn pruning',freq:'Yearly, october-november',first:true,pro:false},
+    {id:'t14',name:'Fertilise in spring',freq:'Yearly, march',first:false,pro:false}
+  ]},
+  {id:'streaming',name:'Streaming',cat:'subs',icon:'streaming',tasks:[
+    {id:'t15',name:'Review active subscriptions',freq:'Every 6 months',first:true,pro:false},
+    {id:'t16',name:'Check for price increases',freq:'Yearly',first:false,pro:false}
+  ]}
+];
+
+// Demo items for "add" functionality
+const DEMO_ITEMS=[
+  {id:'washing',name:'Washing machine',cat:'home',icon:'dishwasher',tasks:[
+    {id:'td1',name:'Clean rubber seal',freq:'Monthly',first:true,pro:false},
+    {id:'td2',name:'Run drum clean cycle',freq:'Every 2 months',first:false,pro:false}
+  ]},
+  {id:'fridge',name:'Fridge',cat:'home',icon:'boiler',tasks:[
+    {id:'td3',name:'Clean condenser coils',freq:'Every 6 months',first:true,pro:false},
+    {id:'td4',name:'Check door seals',freq:'Yearly',first:false,pro:false}
+  ]},
+  {id:'bicycle',name:'Bicycle',cat:'vehicle',icon:'car',tasks:[
+    {id:'td5',name:'Check tyre pressure',freq:'Monthly',first:true,pro:false},
+    {id:'td6',name:'Oil chain',freq:'Every 2 months',first:false,pro:false}
+  ]},
+  {id:'hedge',name:'Hedge',cat:'garden',icon:'olive',tasks:[
+    {id:'td7',name:'Trim hedge',freq:'Twice yearly',first:true,pro:false},
+    {id:'td8',name:'Feed roots',freq:'Spring',first:false,pro:false}
+  ]},
+  {id:'insurance',name:'Insurance',cat:'subs',icon:'streaming',tasks:[
+    {id:'td9',name:'Review coverage',freq:'Yearly',first:true,pro:false},
+    {id:'td10',name:'Compare rates',freq:'Yearly',first:false,pro:false}
+  ]}
 ];
 
 // ── STATE ──
-let state = {
-  filter: 'all',
-  expanded: new Set(['dishwasher']),
-  lastDone: {},   // id → 'this-month' | '6-months' | 'not-sure'
-  removed: new Set()
-};
+let items=cloneData(SEED_ITEMS);
+let activeCat='all';
+let expandedTile=null;
+let toastTimer=null;
+let demoIdx=0;
+const FREE_LIMIT=10;
+
+// ── HELPERS ──
+function hexToRgb(hex){
+  const h=hex.replace('#','');
+  return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)].join(',');
+}
+function getItemCount(){return items.length;}
+function getCatItems(cat){return items.filter(i=>i.cat===cat);}
+
+// ── BUILD CHIPS ──
+function buildChips(){
+  const row=document.getElementById('chiprow');
+  row.innerHTML='';
+  const allC=document.createElement('div');
+  allC.className='chip chip-all on';
+  allC.dataset.cat='all';
+  allC.textContent='All';
+  allC.onclick=function(){filterCat('all');};
+  row.appendChild(allC);
+  CATS.forEach(c=>{
+    const d=document.createElement('div');
+    d.className='chip chip-'+(c==='subs'?'subs':c);
+    d.dataset.cat=c;
+    d.textContent=CL[c];
+    d.onclick=function(){filterCat(c);};
+    row.appendChild(d);
+  });
+}
+
+function filterCat(cat){
+  activeCat=cat;
+  document.querySelectorAll('.chip').forEach(p=>p.classList.toggle('on',p.dataset.cat===cat));
+  document.querySelectorAll('.cat-section').forEach(s=>{
+    s.classList.toggle('hidden',cat!=='all'&&s.dataset.section!==cat);
+  });
+}
 
 // ── RENDER ──
-function render() {
-  const visible = ITEMS.filter(item =>
-    !state.removed.has(item.id) &&
-    (state.filter === 'all' || item.cat === state.filter)
-  );
+function render(){
+  const ct=document.getElementById('ct');
+  let html='';
+  let visibleCats=CATS.filter(c=>getCatItems(c).length>0);
+  let catIdx=0;
 
-  const wrap = document.getElementById('cards-wrap');
+  CATS.forEach(cat=>{
+    const catItems=getCatItems(cat);
+    if(catItems.length===0)return;
+    const color=CC[cat];
+    const count=catItems.length;
 
-  if (visible.length === 0) {
-    wrap.innerHTML = '<div class="empty-state">No items in this category.<br>Try "All" or add another item.</div>' +
-      '<div class="add-more" onclick="showAdd()">+ Add another item</div>';
-    updateCTA();
+    html+=`<div class="cat-section" data-section="${cat}">`;
+    html+=`<div class="cat-lbl"><span class="cat-dot" style="background:${color}"></span>${CL[cat]} <span class="cat-count">&middot; ${count} item${count!==1?'s':''}</span></div>`;
+    html+=`<div class="tile-grid">`;
+
+    catItems.forEach(item=>{
+      const isExp=expandedTile===item.id;
+      const svg=ICONS[item.icon]?ICONS[item.icon].replace(/§/g,color):'';
+      const totalTasks=item.tasks.length;
+
+      html+=`<div class="tile-wrap" id="wrap-${item.id}" style="grid-column:${isExp?'1 / -1':'auto'}">`;
+      html+=`<div class="tile${isExp?' expanded':''}" style="background:rgba(${hexToRgb(color)},0.10);" onclick="toggleTile('${item.id}',event)" data-item="${item.id}">`;
+      html+=`<div class="tile-top">`;
+      html+=`<div class="tile-icon">${svg}</div>`;
+      html+=`<button class="tile-remove" onclick="removeItem('${item.id}',event)" title="Remove item">`;
+      html+=`<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 2l6 6M8 2l-6 6" stroke="var(--mid-a)" stroke-width="1.2" stroke-linecap="round"/></svg>`;
+      html+=`</button>`;
+      html+=`</div>`;
+      html+=`<div class="tile-bottom">`;
+      html+=`<div><div class="tile-name">${item.name}</div><div class="tile-meta">${totalTasks} task${totalTasks!==1?'s':''}</div></div>`;
+      html+=`<svg class="tile-chevron" width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M3 1.5l3 2.5-3 2.5" stroke="var(--mid)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+      html+=`</div>`;
+      html+=`</div>`;
+
+      // Drawer
+      html+=`<div class="drawer${isExp?' open':''}" id="drawer-${item.id}">`;
+      html+=`<div class="drawer-collapse" onclick="toggleTile('${item.id}',event)">`;
+      html+=`<svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 5l2.5-3 2.5 3" stroke="var(--mid-a)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+      html+=`<span>Collapse</span></div>`;
+
+      item.tasks.forEach(task=>{
+        const isPro=task.pro;
+        html+=`<div class="task-row${isPro?' pro':''}" id="task-${task.id}" data-item="${item.id}" data-task="${task.id}">`;
+        html+=`<span class="task-dot" style="background:${task.first?color:'rgba(26,22,18,0.15)'}"></span>`;
+        html+=`<div class="task-info"><div class="task-name">${task.name}</div><div class="task-freq">${task.freq}</div></div>`;
+        if(isPro){
+          html+=`<span class="pro-badge">Pro</span>`;
+        }else{
+          html+=`<button class="task-del" onclick="deleteTask('${item.id}','${task.id}',event)" title="Remove task">`;
+          html+=`<svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 1.5l5 5M6.5 1.5l-5 5" stroke="var(--mid)" stroke-width="1" stroke-linecap="round"/></svg>`;
+          html+=`</button>`;
+        }
+        html+=`</div>`;
+      });
+
+      html+=`</div>`;// drawer
+      html+=`</div>`;// tile-wrap
+    });
+
+    html+=`</div>`;// tile-grid
+    html+=`</div>`;// cat-section
+
+    catIdx++;
+    if(catIdx<visibleCats.length){
+      html+=`<div class="sec-div"></div>`;
+    }
+  });
+
+  // Add item row
+  const count=getItemCount();
+  if(count<FREE_LIMIT){
+    html+=`<div class="add-row" onclick="addItem()">`;
+    html+=`<div class="add-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8" stroke="var(--cta)" stroke-width="1.5" stroke-linecap="round"/></svg></div>`;
+    html+=`<span class="add-label">Add another item</span>`;
+    html+=`</div>`;
+  }else{
+    html+=`<div class="add-row locked">`;
+    html+=`<div class="add-icon" style="background:rgba(26,22,18,0.06);"><svg width="11" height="11" viewBox="0 0 256 256" fill="none"><rect x="40" y="112" width="176" height="120" rx="16" stroke="var(--mid)" stroke-width="18" fill="none"/><path d="M80 112V80a48 48 0 0 1 96 0v32" stroke="var(--mid)" stroke-width="18" stroke-linecap="round" fill="none"/><circle cx="128" cy="168" r="12" fill="var(--mid)"/></svg></div>`;
+    html+=`<span class="add-label">Free plan limit reached</span>`;
+    html+=`<span class="add-pro-link" onclick="event.stopPropagation();showToastMsg('Pro upgrade flow...','')">Go Pro</span>`;
+    html+=`</div>`;
+  }
+
+  ct.innerHTML=html;
+
+  // Re-apply current filter
+  if(activeCat!=='all'){
+    document.querySelectorAll('.cat-section').forEach(s=>{
+      s.classList.toggle('hidden',s.dataset.section!==activeCat);
+    });
+  }
+
+  updateTierBanner();
+}
+
+// ── TILE TOGGLE ──
+function toggleTile(id,e){
+  e.stopPropagation();
+  expandedTile=(expandedTile===id)?null:id;
+  render();
+  if(expandedTile){
+    setTimeout(()=>{
+      const drawer=document.getElementById('drawer-'+id);
+      if(drawer)drawer.scrollIntoView({behavior:'smooth',block:'nearest'});
+    },50);
+  }
+}
+
+// ── REMOVE ITEM ──
+function removeItem(id,e){
+  e.stopPropagation();
+  const wrap=document.getElementById('wrap-'+id);
+  if(wrap)wrap.classList.add('removing');
+  setTimeout(()=>{
+    const item=items.find(i=>i.id===id);
+    items=items.filter(i=>i.id!==id);
+    if(expandedTile===id)expandedTile=null;
+    render();
+    showToastMsg(item?`${item.name} removed`:'Item removed','warn');
+  },250);
+}
+
+// ── DELETE TASK ──
+function deleteTask(itemId,taskId,e){
+  e.stopPropagation();
+  const item=items.find(i=>i.id===itemId);
+  if(!item)return;
+
+  const taskEl=document.getElementById('task-'+taskId);
+  if(taskEl)taskEl.classList.add('removing');
+
+  setTimeout(()=>{
+    const taskIdx=item.tasks.findIndex(t=>t.id===taskId);
+    if(taskIdx===-1)return;
+    const removedTask=item.tasks[taskIdx];
+    item.tasks.splice(taskIdx,1);
+
+    // Check if a Pro task should unlock
+    const proTask=item.tasks.find(t=>t.pro);
+    if(proTask&&removedTask&&!removedTask.pro){
+      proTask.pro=false;
+      proTask.first=false;
+      render();
+      // Animate unlock
+      setTimeout(()=>{
+        const unlocked=document.getElementById('task-'+proTask.id);
+        if(unlocked){unlocked.classList.add('unlocking');}
+      },50);
+      showToastMsg('Pro task unlocked!','');
+    }else{
+      render();
+      showToastMsg('Task removed','warn');
+    }
+
+    // If no tasks remain, remove item entirely
+    if(item.tasks.length===0){
+      setTimeout(()=>{
+        items=items.filter(i=>i.id!==itemId);
+        if(expandedTile===itemId)expandedTile=null;
+        render();
+      },300);
+    }
+  },250);
+}
+
+// ── ADD ITEM ──
+function addItem(){
+  if(getItemCount()>=FREE_LIMIT)return;
+  if(demoIdx>=DEMO_ITEMS.length){
+    showToastMsg('No more demo items available','warn');
     return;
   }
-
-  wrap.innerHTML = visible.map(item => cardHTML(item)).join('') +
-    '<div class="add-more" onclick="showAdd()">+ Add another item</div>';
-
-  updateCTA();
-  updateCountPill();
-}
-
-function cardHTML(item) {
-  const isOpen = state.expanded.has(item.id);
-  const ld = state.lastDone[item.id];
-  const isAnswered = !!ld;
-  const taskCount = item.tasks.filter(t => !t.pro).length;
-  const proCount = item.tasks.filter(t => t.pro).length;
-  const hintText = `${item.tasks.length} task${item.tasks.length !== 1 ? 's' : ''} · tap to review`;
-
-  return `
-<div class="card card-${item.cat}${isOpen ? ' open' : ''}${isAnswered ? ' answered' : ''}" id="card-${item.id}">
-  <div class="card-head" onclick="toggleCard('${item.id}')">
-    <div class="ci ci-${item.cat}">
-      <svg viewBox="0 0 24 24">${item.icon}</svg>
-    </div>
-    <div class="card-name">${item.name}</div>
-    <div class="card-done-dot"></div>
-    <div class="card-scan" onclick="event.stopPropagation();doScan('${item.id}')" title="Scan to confirm brand/model">
-      <svg viewBox="0 0 16 16"><path d="M2 5V3.5A1.5 1.5 0 013.5 2H5"/><path d="M11 2h1.5A1.5 1.5 0 0114 3.5V5"/><path d="M14 11v1.5a1.5 1.5 0 01-1.5 1.5H11"/><path d="M5 14H3.5A1.5 1.5 0 012 12.5V11"/></svg>
-    </div>
-    <div class="card-remove" onclick="event.stopPropagation();removeItem('${item.id}')" title="Remove item">
-      <svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg>
-    </div>
-    <svg class="card-chev" viewBox="0 0 10 10"><polyline points="2,3.5 5,6.5 8,3.5"/></svg>
-  </div>
-
-  <div class="card-hint">${hintText}${isAnswered ? ' · <span style="color:var(--sage);font-weight:500;">done ✓</span>' : ''}</div>
-
-  <div class="card-body">
-    <div class="card-sep"></div>
-    <div class="task-list">
-      ${item.tasks.map(t => `
-      <div class="task-row">
-        <div class="task-dot task-dot-${item.cat}"></div>
-        <div class="task-name${t.pro ? ' locked' : ''}">${t.name}${t.pro ? '<span class="pro-pill">Pro</span>' : ''}</div>
-        <div class="task-cad">${t.cadence}</div>
-      </div>`).join('')}
-    </div>
-    <div class="ld-row">
-      <div class="ld-label">Last done:</div>
-      <div class="ld-pills">
-        <div class="ld-pill${ld === 'this-month' ? ' on' : ''}" onclick="pickLastDone('${item.id}','this-month')">This month</div>
-        <div class="ld-pill${ld === '6-months' ? ' on' : ''}" onclick="pickLastDone('${item.id}','6-months')">6 months ago</div>
-        <div class="ld-pill${ld === 'not-sure' ? ' on' : ''}" onclick="pickLastDone('${item.id}','not-sure')">Not sure</div>
-      </div>
-    </div>
-  </div>
-</div>`;
-}
-
-// ── INTERACTIONS ──
-function setFilter(cat) {
-  state.filter = cat;
-  document.querySelectorAll('.chip').forEach(el => el.classList.remove('on'));
-  document.querySelector(`.chip-${cat === 'all' ? 'all' : cat}`).classList.add('on');
+  const newItem=cloneData(DEMO_ITEMS[demoIdx]);
+  demoIdx++;
+  items.push(newItem);
   render();
+  showToastMsg(`${newItem.name} added`,'');
 }
 
-function toggleCard(id) {
-  if (state.expanded.has(id)) {
-    state.expanded.delete(id);
-  } else {
-    state.expanded.add(id);
+// ── TIER BANNER ──
+function updateTierBanner(){
+  const count=getItemCount();
+  const banner=document.getElementById('tier-banner');
+  let cls='normal';
+  if(count>=FREE_LIMIT)cls='full';
+  else if(count>=8)cls='warn';
+
+  let pips='';
+  for(let i=0;i<FREE_LIMIT;i++){
+    if(cls==='warn'||cls==='full'){
+      pips+=`<span class="tier-pip ${i<count?'warn-filled':'empty'}"></span>`;
+    }else{
+      pips+=`<span class="tier-pip ${i<count?'filled':'empty'}"></span>`;
+    }
   }
-  render();
+
+  const label=count>=FREE_LIMIT
+    ?`<strong>${count}/${FREE_LIMIT}</strong> items, limit reached`
+    :`<strong>${count}/${FREE_LIMIT}</strong> free items used`;
+
+  banner.innerHTML=`
+    <div class="tier-banner ${cls}">
+      <div class="tier-pips">${pips}</div>
+      <div class="tier-text">${label}</div>
+      <span class="tier-pro" onclick="showToastMsg('Pro upgrade flow...','')">Go Pro</span>
+    </div>`;
 }
 
-function pickLastDone(id, val) {
-  if (state.lastDone[id] === val) {
-    delete state.lastDone[id];
-  } else {
-    state.lastDone[id] = val;
-  }
-  render();
+// ── TOAST ──
+function showToastMsg(msg,type){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.className='toast'+(type?' '+type:'');
+  clearTimeout(toastTimer);
+  requestAnimationFrame(()=>{t.classList.add('show');});
+  toastTimer=setTimeout(()=>{t.classList.remove('show');},1800);
 }
-
-function removeItem(id) {
-  state.removed.add(id);
-  render();
-}
-
-function doScan(id) {
-  // Show a brief visual cue
-  const btn = document.querySelector(`#card-${id} .card-scan`);
-  if (!btn) return;
-  const orig = btn.innerHTML;
-  btn.innerHTML = '<svg viewBox="0 0 16 16" style="animation:spin 0.6s linear infinite"><circle cx="8" cy="8" r="5" stroke="var(--cta)" stroke-width="1.5" fill="none" stroke-dasharray="12 20"/></svg>';
-  btn.style.background = 'rgba(155,127,212,0.12)';
-  setTimeout(() => {
-    btn.innerHTML = orig;
-    btn.style.background = '';
-  }, 900);
-}
-
-function showAdd() {
-  // Bounce the add-more text briefly
-  const el = document.querySelector('.add-more');
-  if (!el) return;
-  el.style.opacity = '0.4';
-  setTimeout(() => { el.style.opacity = ''; }, 300);
-}
-
-function updateCTA() {
-  const active = ITEMS.filter(i => !state.removed.has(i.id));
-  const answered = active.filter(i => state.lastDone[i.id]);
-  const label = document.getElementById('cta-label');
-  if (!label) return;
-  if (active.length === 0) {
-    label.textContent = 'Add at least one item';
-    return;
-  }
-  if (answered.length === active.length) {
-    label.textContent = 'All set, continue';
-  } else if (answered.length > 0) {
-    label.textContent = 'Looks good, continue';
-  } else {
-    label.textContent = 'Looks good, continue';
-  }
-}
-
-function updateCountPill() {
-  const active = ITEMS.filter(i => !state.removed.has(i.id));
-  const totalTasks = active.reduce((sum, i) => sum + i.tasks.length, 0);
-  const pill = document.getElementById('count-pill');
-  if (pill) pill.textContent = `${active.length} item${active.length !== 1 ? 's' : ''} · ${totalTasks} task${totalTasks !== 1 ? 's' : ''}`;
-
-  // Update progress bar: 64% base, grows toward 72% as last-done items answered
-  const answered = active.filter(i => state.lastDone[i.id]).length;
-  const pct = 64 + Math.round((answered / Math.max(active.length, 1)) * 8);
-  document.getElementById('pf').style.width = pct + '%';
-}
-
-// ── CSS anim for scan spin ──
-const style = document.createElement('style');
-style.textContent = '@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}';
-document.head.appendChild(style);
 
 // ── INIT ──
+buildChips();
 render();
 </script>
+
 </body>
 </html>

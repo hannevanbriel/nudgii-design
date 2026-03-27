@@ -1,112 +1,167 @@
-<!-- Previously: s05-onboarding-review-hifi.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>nudgii · S-05 Onboarding review — hi-fi</title>
+<title>nudgii · S-04 Review · hi-fi</title>
 <link rel="stylesheet" href="../system/components.css">
 <style>
-/* ── S-05 screen-specific ── */
+/* ── S-04 screen-specific ── */
 body{background:#CBC5BB;padding:0 0 80px;}
 
-/* review headline */
-.rev-headline{font-family:'DM Serif Display',Georgia,serif;font-size:16px;font-weight:400;line-height:1.1;letter-spacing:-0.25px;color:var(--ink);margin-bottom:2px;}
-.rev-sub{font-size:11px;font-style:italic;color:var(--mid-a);margin-bottom:14px;line-height:1.5;}
+/* Two-phone layout */
+.content-row{display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap;}
+.phone-col{display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap;flex-shrink:0;}
+.phone-stack{display:flex;flex-direction:column;align-items:center;gap:10px;}
+.phone-lbl{font-size:9px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:rgba(26,22,18,0.40);text-align:center;}
 
-/* review cards */
-.rev-cards{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;}
-.rev-card{
-  background:var(--surface);border:0.5px solid var(--border);
-  border-radius:10px;box-shadow:var(--shadow-card);
-  overflow:hidden;transition:all 0.25s ease-in-out;
+/* Screen padding overrides */
+.w-screen{padding:10px 16px 0;}
+.w-bottom{padding:8px 0 20px;}
+
+/* Header */
+.s04-hed{font-family:'DM Serif Display',Georgia,serif;font-size:20px;font-weight:400;line-height:1.1;letter-spacing:-0.3px;color:var(--ink);margin-bottom:2px;}
+.s04-sub{font-size:11px;font-style:italic;color:var(--mid);margin-bottom:10px;}
+
+/* Category chips */
+.chip-row{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;padding:4px 0;margin-bottom:6px;}
+.chip-row::-webkit-scrollbar{display:none;}
+.cat-chip{flex-shrink:0;padding:5px 12px;border-radius:100px;font-size:11px;font-weight:500;cursor:pointer;user-select:none;outline:none;}
+.cat-chip-all{background:rgba(155,127,212,0.12);color:var(--cta);outline:1px solid var(--cta);}
+.cat-chip-home{background:rgba(200,120,80,0.13);color:var(--cat-home);}
+.cat-chip-vehicle{background:rgba(74,130,160,0.13);color:var(--cat-vehicle);}
+.cat-chip-garden{background:rgba(90,144,96,0.13);color:var(--cat-garden);}
+.cat-chip-subs{background:rgba(128,96,168,0.13);color:var(--cat-sub);}
+.cat-chip-home.active{outline:1px solid var(--cat-home);}
+.cat-chip-vehicle.active{outline:1px solid var(--cat-vehicle);}
+.cat-chip-garden.active{outline:1px solid var(--cat-garden);}
+.cat-chip-subs.active{outline:1px solid var(--cat-sub);}
+
+/* Category section headers */
+.cat-sec{padding:6px 0 3px;}
+.cat-lbl{display:flex;align-items:center;gap:5px;font-size:9px;font-weight:600;letter-spacing:1.3px;text-transform:uppercase;color:var(--mid-a);margin-bottom:5px;}
+.cat-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+
+/* 2-column tile grid */
+.tile-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;padding:2px 0 6px;}
+
+/* Tiles */
+.tile{
+  border-radius:20px;padding:14px 10px 10px;
+  text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px;
+  position:relative;cursor:pointer;
+  transition:transform 0.12s;
 }
-.rev-header{
-  display:flex;align-items:center;gap:8px;padding:10px 12px;
-  cursor:pointer;user-select:none;transition:background 0.15s;
+.tile:hover{transform:scale(1.02);}
+.tile:active{transform:scale(0.96);}
+.tile-icon{width:36px;height:36px;display:flex;align-items:center;justify-content:center;}
+.tile-icon svg{width:36px;height:36px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.tile-lbl{font-size:12px;font-weight:600;color:var(--ink);line-height:1.2;text-align:center;}
+.tile-tasks{font-size:10px;color:var(--mid);margin-top:-2px;}
+.tile-chev{width:14px;height:14px;fill:none;stroke:rgba(26,22,18,0.22);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;margin-top:2px;}
+
+/* Remove X on tile */
+.tile-remove{
+  position:absolute;top:8px;right:8px;
+  width:22px;height:22px;border-radius:50%;
+  background:rgba(26,22,18,0.06);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:background 0.15s;
 }
-.rev-header:active{background:rgba(26,22,18,0.03);}
-.rev-name{font-size:12px;font-weight:500;color:var(--ink);flex:1;min-width:0;}
+.tile-remove:hover{background:rgba(26,22,18,0.12);}
+.tile-remove svg{width:8px;height:8px;fill:none;stroke:rgba(26,22,18,0.35);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
 
-/* scan button */
-.rev-scan{
-  width:20px;height:20px;border-radius:5px;background:rgba(26,22,18,0.05);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;
-  border:0.5px solid rgba(26,22,18,0.08);transition:background 0.15s;
+/* Inline drawer */
+.drawer{
+  grid-column:1/-1;
+  background:var(--surface);border:1px solid rgba(26,22,18,0.09);
+  border-radius:20px;padding:14px 14px 12px;
+  box-shadow:0 1px 4px rgba(26,22,18,0.04);
 }
-.rev-scan:hover{background:rgba(26,22,18,0.08);}
-.rev-scan svg{width:10px;height:10px;fill:none;stroke:var(--mid-a);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.drawer-title{font-size:11px;font-weight:600;color:var(--ink);}
+.drawer-collapse{font-size:9px;font-weight:500;color:var(--mid);cursor:pointer;display:flex;align-items:center;gap:3px;}
+.drawer-collapse svg{width:8px;height:8px;fill:none;stroke:var(--mid);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
 
-/* remove button */
-.rev-remove{
-  width:20px;height:20px;border-radius:5px;display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;cursor:pointer;transition:background 0.15s;
+/* Task rows in drawer */
+.task-list{display:flex;flex-direction:column;gap:6px;}
+.task-row{display:flex;align-items:center;gap:7px;}
+.task-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+.task-name{flex:1;font-size:10.5px;color:var(--mid-a);line-height:1.3;}
+.task-cadence{
+  font-size:8px;color:var(--mid);
+  background:rgba(26,22,18,0.04);border:0.5px solid rgba(26,22,18,0.06);
+  border-radius:100px;padding:2px 7px;white-space:nowrap;flex-shrink:0;
 }
-.rev-remove:hover{background:rgba(26,22,18,0.06);}
-.rev-remove svg{width:9px;height:9px;fill:none;stroke:var(--mid-lt);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
-
-/* chevron */
-.rev-chevron{
-  width:10px;height:10px;fill:none;stroke:var(--mid-lt);stroke-width:1.6;
-  stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;
-  transition:transform 0.25s ease-in-out;
+.task-remove{
+  width:16px;height:16px;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;flex-shrink:0;
 }
-.rev-card.collapsed .rev-chevron{transform:rotate(0deg);}
-.rev-card:not(.collapsed) .rev-chevron{transform:rotate(180deg);}
+.task-remove svg{width:7px;height:7px;fill:none;stroke:rgba(26,22,18,0.25);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
 
-/* collapsed hint */
-.rev-collapsed-hint{
-  display:none;font-size:9px;color:var(--mid);padding:0 12px 8px 48px;
-  align-items:center;gap:6px;
-}
-.rev-card.collapsed .rev-collapsed-hint{display:flex;}
-
-/* expanded body */
-.rev-body{padding:0 12px 12px;display:block;}
-.rev-card.collapsed .rev-body{display:none;}
-.rev-card.collapsed .rev-scan{display:none;}
-
-/* tasks list */
-.rev-tasks{display:flex;flex-direction:column;gap:5px;margin-bottom:10px;}
-.rev-task{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--mid-a);line-height:1.4;}
-.rev-task-dot{width:4px;height:4px;border-radius:50%;background:var(--mid-lt);flex-shrink:0;}
-.rev-task-name{flex:1;min-width:0;}
-.rev-task-cadence{
-  font-size:8px;color:var(--mid);background:rgba(26,22,18,0.05);
-  border:0.5px solid rgba(26,22,18,0.07);border-radius:100px;padding:2px 7px;
-  flex-shrink:0;white-space:nowrap;
-}
-
-/* pro lock */
-.rev-task.pro-locked{opacity:0.4;}
+/* Pro-locked task */
+.task-row.pro-locked{opacity:0.38;}
 .pro-pill{
-  font-size:7px;font-weight:500;color:var(--cta);background:rgba(155,127,212,0.10);
-  border:0.5px solid rgba(155,127,212,0.20);border-radius:100px;padding:2px 6px;
-  flex-shrink:0;cursor:pointer;
+  font-size:7.5px;font-weight:500;color:var(--cta);
+  background:rgba(155,127,212,0.10);border:0.5px solid rgba(155,127,212,0.22);
+  border-radius:100px;padding:1px 6px;flex-shrink:0;
 }
 
-/* last done picker */
-.rev-lastdone{display:flex;align-items:center;gap:6px;margin-top:2px;}
-.rev-lastdone-label{font-size:9px;color:var(--mid);flex-shrink:0;}
-.ld-pills{display:flex;gap:4px;}
-.ld-pill{
-  font-size:8px;font-weight:500;color:var(--mid-a);
-  background:rgba(26,22,18,0.04);border:0.5px solid rgba(26,22,18,0.10);
-  border-radius:100px;padding:2px 8px;cursor:pointer;transition:all 0.15s;
-  user-select:none;
+/* Add item row */
+.add-row{
+  grid-column:1/-1;
+  border:1.5px dashed rgba(26,22,18,0.15);border-radius:16px;
+  padding:14px;display:flex;align-items:center;gap:10px;
+  cursor:pointer;transition:background 0.15s;
 }
-.ld-pill:hover{background:rgba(26,22,18,0.07);}
-.ld-pill.active{
-  background:rgba(26,22,18,0.08);border-color:rgba(26,22,18,0.18);
-  color:var(--ink);
+.add-row:hover{background:rgba(26,22,18,0.02);}
+.add-icon{
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(26,22,18,0.05);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.add-icon svg{width:12px;height:12px;fill:none;stroke:var(--mid);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+.add-text{flex:1;}
+.add-title{font-size:11px;font-weight:500;color:var(--ink);margin-bottom:1px;}
+.add-hint{font-size:9px;color:var(--mid);}
+
+/* Locked add row */
+.add-row.locked{border-color:rgba(26,22,18,0.08);cursor:default;}
+.add-row.locked:hover{background:transparent;}
+.add-row.locked .add-title{color:var(--mid);}
+.add-go-pro{font-size:9px;font-weight:500;color:var(--cta);cursor:pointer;flex-shrink:0;}
+
+/* Free tier banner */
+.tier-banner{
+  display:flex;align-items:center;gap:8px;
+  padding:6px 10px;margin-bottom:8px;
+  background:rgba(26,22,18,0.04);border-radius:10px;
+}
+.pips{display:flex;gap:3px;flex-shrink:0;}
+.pip{width:7px;height:7px;border-radius:50%;background:rgba(26,22,18,0.12);}
+.pip.filled{background:var(--cta);}
+.pip.warn{background:#E8A87C;}
+.tier-text{flex:1;font-size:9px;color:var(--mid-a);}
+.tier-go-pro{
+  font-size:9px;font-weight:600;color:var(--cta);
+  cursor:pointer;flex-shrink:0;white-space:nowrap;
 }
 
-/* add another */
-.add-another{
-  text-align:center;padding:10px 0 4px;
-  font-size:9px;font-weight:500;color:var(--cta);cursor:pointer;
+/* CTA button */
+.cta-on{
+  width:100%;padding:13px;border-radius:100px;border:none;
+  background:var(--cta);color:var(--cta-fg);
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
+  box-shadow:0 4px 18px rgba(155,127,212,0.35);
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  cursor:pointer;
 }
-.add-another:hover{text-decoration:underline;}
+
+/* Row divider */
+.row-div{height:0.5px;background:rgba(26,22,18,0.08);margin:2px 0;}
+
+/* Annotation overrides */
+.annot-col{flex:1;min-width:280px;}
 </style>
 </head>
 <body>
@@ -122,280 +177,455 @@ body{background:#CBC5BB;padding:0 0 80px;}
     Design hub
   </a>
   <span class="nav-sep">/</span>
-  <span class="nav-title">S-05 — Onboarding review</span>
+  <span class="nav-title">S-04 · Review</span>
   <span class="nav-status progress">In progress</span>
 </nav>
 
 <div class="page">
 
   <!-- PAGE HEADER -->
-  <div class="page-eyebrow">S-05 · Onboarding review · Hi-fi · 390x844px (iPhone 15) · March 2026</div>
-  <h1 class="page-h1">Onboarding review</h1>
-  <p class="page-sub">Review screen where users confirm the items nudgii detected from voice, browse, or search input. Each item card expands to show tasks, a "last done" picker, and a scan button for AI brand/model detection. Third task row shows a soft Pro upsell.</p>
+  <div class="page-eyebrow">S-04 · Review · Hi-fi · 390x844px (iPhone 15) · March 2026</div>
+  <h1 class="page-h1">Review</h1>
+  <p class="page-sub">After S-02 (conversation) or S-03 (browse), the user reviews items nudgii found. Tile grid layout matches S-03. Inline drawers expand per item to show tasks. Free tier limit banner always visible. Two states shown: default (All) and filtered (Home).</p>
   <div class="meta">
     <span class="mp hifi">Hi-fi</span>
     <span class="mp ob">Onboarding flow</span>
-    <span class="mp">S-05</span>
-    <span class="mp">March 2026</span>
+    <span class="mp">S-04</span>
+    <span class="mp">v1.0 · March 2026</span>
   </div>
 
-  <!-- CONTENT ROW: phone + annotation sidebar -->
+  <!-- CONTENT ROW -->
   <div class="content-row">
 
-    <!-- PHONE -->
+    <!-- TWO PHONES -->
     <div class="phone-col">
-      <div class="phone">
-        <div class="notch"><div class="np"></div></div>
-        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
-        <!-- progress bar 60% -->
-        <div class="prog-bar"><div class="prog-fill" style="width:60%;"></div></div>
 
-        <div class="w-screen">
-          <div class="w-content">
+      <!-- Phone 1: Default state, All categories, Boiler drawer open -->
+      <div class="phone-stack">
+        <div class="phone-lbl">Default: "All" active, Boiler drawer open</div>
+        <div class="phone">
+          <div class="notch"><div class="np"></div></div>
+          <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+          <!-- progress bar: 60% (step 3 of 5) -->
+          <div class="prog-bar"><div class="prog-fill" style="width:60%;"></div></div>
 
-            <!-- headline -->
-            <div class="rev-headline">Here's what nudgii found.</div>
-            <div class="rev-sub">Scan to confirm brand or model. You can adjust anything later.</div>
+          <div class="w-screen">
+            <div class="w-content">
 
-            <!-- review cards -->
-            <div class="rev-cards">
+              <!-- Header -->
+              <div class="s04-hed">Here's what nudgii found.</div>
+              <div class="s04-sub">Tap a card to review its tasks. Adjust anything later.</div>
 
-              <!-- Card 1: Boiler / CV ketel (EXPANDED) -->
-              <div class="rev-card" data-card="boiler">
-                <div class="rev-header" onclick="toggleCard(this.parentElement)">
-                  <div class="ci ci-h">
-                    <svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="12" cy="15" r="3"/><line x1="12" y1="3" x2="12" y2="6"/></svg>
+              <!-- Category chips: All active -->
+              <div class="chip-row">
+                <div class="cat-chip cat-chip-all">All</div>
+                <div class="cat-chip cat-chip-home">Home</div>
+                <div class="cat-chip cat-chip-vehicle">Vehicle</div>
+                <div class="cat-chip cat-chip-garden">Garden</div>
+                <div class="cat-chip cat-chip-subs">Subscriptions</div>
+              </div>
+
+              <!-- HOME section -->
+              <div class="cat-sec">
+                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-home);"></span>Home</div>
+                <div class="tile-grid">
+
+                  <!-- Boiler tile (drawer open, so tile shows active state) -->
+                  <div class="tile" style="background:rgba(200,120,80,0.10);border:1.5px solid var(--cat-home);border-radius:20px;">
+                    <div class="tile-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>
+                    <div class="tile-icon"><svg viewBox="0 0 24 24" stroke="#C87850"><rect x="5" y="2" width="14" height="18" rx="3"/><circle cx="12" cy="13" r="3"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="8" y1="20" x2="16" y2="20"/></svg></div>
+                    <div class="tile-lbl">Boiler</div>
+                    <div class="tile-tasks">4 tasks</div>
+                    <svg class="tile-chev" viewBox="0 0 10 10" style="transform:rotate(180deg);"><polyline points="2,3.5 5,6.5 8,3.5"/></svg>
                   </div>
-                  <div class="rev-name">Boiler / central heating</div>
-                  <div class="rev-scan" title="Scan to identify brand/model">
-                    <svg viewBox="0 0 16 16">
-                      <path d="M2 5V3.5A1.5 1.5 0 0 1 3.5 2H5"/>
-                      <path d="M11 2h1.5A1.5 1.5 0 0 1 14 3.5V5"/>
-                      <path d="M14 11v1.5a1.5 1.5 0 0 1-1.5 1.5H11"/>
-                      <path d="M5 14H3.5A1.5 1.5 0 0 1 2 12.5V11"/>
-                    </svg>
-                  </div>
-                  <div class="rev-remove" title="Remove item">
-                    <svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg>
-                  </div>
-                  <svg class="rev-chevron" viewBox="0 0 10 10"><polyline points="2,3.5 5,6.5 8,3.5"/></svg>
-                </div>
 
-                <div class="rev-body">
-                  <div class="rev-tasks">
-                    <div class="rev-task">
-                      <div class="rev-task-dot"></div>
-                      <div class="rev-task-name">Annual boiler service</div>
-                      <div class="rev-task-cadence">yearly</div>
-                      <div class="rev-task-cadence">autumn</div>
+                  <!-- Dishwasher tile -->
+                  <div class="tile" style="background:rgba(200,120,80,0.10);">
+                    <div class="tile-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>
+                    <div class="tile-icon"><svg viewBox="0 0 24 24" stroke="#C87850"><rect x="3" y="2" width="18" height="20" rx="3"/><circle cx="12" cy="13" r="4"/><line x1="12" y1="2" x2="12" y2="5"/></svg></div>
+                    <div class="tile-lbl">Dishwasher</div>
+                    <div class="tile-tasks">3 tasks</div>
+                    <svg class="tile-chev" viewBox="0 0 10 10"><polyline points="2,3.5 5,6.5 8,3.5"/></svg>
+                  </div>
+
+                  <!-- Boiler drawer (spans full width) -->
+                  <div class="drawer">
+                    <div class="drawer-head">
+                      <div class="drawer-title">Boiler tasks</div>
+                      <div class="drawer-collapse">
+                        <svg viewBox="0 0 10 10"><polyline points="2,6.5 5,3.5 8,6.5"/></svg>
+                        collapse
+                      </div>
                     </div>
-                    <div class="rev-task">
-                      <div class="rev-task-dot"></div>
-                      <div class="rev-task-name">Check CO detector</div>
-                      <div class="rev-task-cadence">yearly</div>
-                    </div>
-                    <div class="rev-task pro-locked">
-                      <div class="rev-task-dot"></div>
-                      <div class="rev-task-name">Bleed radiators</div>
-                      <div class="rev-task-cadence">before winter</div>
-                      <span class="pro-pill">Pro</span>
+                    <div class="task-list">
+                      <div class="task-row">
+                        <div class="task-dot" style="background:var(--cat-home);"></div>
+                        <div class="task-name">Annual boiler service</div>
+                        <div class="task-cadence">yearly, autumn</div>
+                        <div class="task-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>
+                      </div>
+                      <div class="task-row">
+                        <div class="task-dot" style="background:transparent;"></div>
+                        <div class="task-name">Check CO detector</div>
+                        <div class="task-cadence">yearly</div>
+                        <div class="task-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>
+                      </div>
+                      <div class="task-row">
+                        <div class="task-dot" style="background:transparent;"></div>
+                        <div class="task-name">Bleed radiators</div>
+                        <div class="task-cadence">before winter</div>
+                        <div class="task-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>
+                      </div>
+                      <div class="task-row pro-locked">
+                        <div class="task-dot" style="background:transparent;"></div>
+                        <div class="task-name">Pressure check expansion vessel</div>
+                        <div class="task-cadence">every 2 years</div>
+                        <span class="pro-pill">Pro</span>
+                      </div>
                     </div>
                   </div>
 
-                  <div class="rev-lastdone">
-                    <div class="rev-lastdone-label">Last done:</div>
-                    <div class="ld-pills" data-group="boiler">
-                      <div class="ld-pill" onclick="pickLastDone(this)">Recently</div>
-                      <div class="ld-pill" onclick="pickLastDone(this)">A while ago</div>
-                      <div class="ld-pill active" onclick="pickLastDone(this)">Not sure</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="rev-collapsed-hint">
-                  <span>3 tasks · tap to review</span>
                 </div>
               </div>
 
-              <!-- Card 2: Dishwasher (COLLAPSED) -->
-              <div class="rev-card collapsed" data-card="dishwasher">
-                <div class="rev-header" onclick="toggleCard(this.parentElement)">
-                  <div class="ci ci-h">
-                    <svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="4" y1="8" x2="20" y2="8"/><circle cx="8" cy="5" r="1"/><circle cx="12" cy="5" r="1"/></svg>
-                  </div>
-                  <div class="rev-name">Dishwasher</div>
-                  <div class="rev-scan" title="Scan to identify brand/model">
-                    <svg viewBox="0 0 16 16">
-                      <path d="M2 5V3.5A1.5 1.5 0 0 1 3.5 2H5"/>
-                      <path d="M11 2h1.5A1.5 1.5 0 0 1 14 3.5V5"/>
-                      <path d="M14 11v1.5a1.5 1.5 0 0 1-1.5 1.5H11"/>
-                      <path d="M5 14H3.5A1.5 1.5 0 0 1 2 12.5V11"/>
-                    </svg>
-                  </div>
-                  <div class="rev-remove" title="Remove item">
-                    <svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg>
-                  </div>
-                  <svg class="rev-chevron" viewBox="0 0 10 10"><polyline points="2,3.5 5,6.5 8,3.5"/></svg>
-                </div>
+              <div class="row-div"></div>
 
-                <div class="rev-body">
-                  <div class="rev-tasks">
-                    <div class="rev-task">
-                      <div class="rev-task-dot"></div>
-                      <div class="rev-task-name">Clean dishwasher filter</div>
-                      <div class="rev-task-cadence">every 6-8 wks</div>
-                    </div>
-                    <div class="rev-task">
-                      <div class="rev-task-dot"></div>
-                      <div class="rev-task-name">Refill dishwasher salt</div>
-                      <div class="rev-task-cadence">every 6-8 wks</div>
-                    </div>
-                    <div class="rev-task pro-locked">
-                      <div class="rev-task-dot"></div>
-                      <div class="rev-task-name">Deep clean spray arms</div>
-                      <div class="rev-task-cadence">every 3 months</div>
-                      <span class="pro-pill">Pro</span>
-                    </div>
+              <!-- VEHICLE section -->
+              <div class="cat-sec">
+                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-vehicle);"></span>Vehicle</div>
+                <div class="tile-grid">
+
+                  <!-- Car tile -->
+                  <div class="tile" style="background:rgba(74,130,160,0.10);">
+                    <div class="tile-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>
+                    <div class="tile-icon"><svg viewBox="0 0 24 24" stroke="#4A82A0"><path d="M3 14L6 8h12l3 6v4H3v-4z"/><circle cx="7.5" cy="17" r="2"/><circle cx="16.5" cy="17" r="2"/><path d="M3 14h18"/></svg></div>
+                    <div class="tile-lbl">Car</div>
+                    <div class="tile-tasks">5 tasks</div>
+                    <svg class="tile-chev" viewBox="0 0 10 10"><polyline points="2,3.5 5,6.5 8,3.5"/></svg>
                   </div>
 
-                  <div class="rev-lastdone">
-                    <div class="rev-lastdone-label">Last done:</div>
-                    <div class="ld-pills" data-group="dishwasher">
-                      <div class="ld-pill" onclick="pickLastDone(this)">Recently</div>
-                      <div class="ld-pill" onclick="pickLastDone(this)">A while ago</div>
-                      <div class="ld-pill active" onclick="pickLastDone(this)">Not sure</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="rev-collapsed-hint">
-                  <span>3 tasks · tap to review</span>
                 </div>
               </div>
 
-            </div><!-- /rev-cards -->
+              <div class="row-div"></div>
 
-            <!-- add another -->
-            <div class="add-another" onclick="void(0)">+ Add another item</div>
+              <!-- GARDEN section -->
+              <div class="cat-sec">
+                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-garden);"></span>Garden</div>
+                <div class="tile-grid">
 
-          </div><!-- /w-content -->
+                  <!-- Olive tree tile -->
+                  <div class="tile" style="background:rgba(90,144,96,0.10);">
+                    <div class="tile-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>
+                    <div class="tile-icon"><svg viewBox="0 0 24 24" stroke="#5A9060"><line x1="12" y1="22" x2="12" y2="11"/><path d="M12 11C12 7 8 4 8 4C8 4 8 9 12 11Z"/><path d="M12 11C12 7 16 4 16 4C16 4 16 9 12 11Z"/><path d="M12 11C12 16 10 20 10 20"/></svg></div>
+                    <div class="tile-lbl">Olive tree</div>
+                    <div class="tile-tasks">2 tasks</div>
+                    <svg class="tile-chev" viewBox="0 0 10 10"><polyline points="2,3.5 5,6.5 8,3.5"/></svg>
+                  </div>
 
-          <!-- sticky bottom zone -->
-          <div class="w-bottom">
-            <button class="btn-a">Looks good &#8594;</button>
-          </div>
-        </div>
-      </div>
-    </div>
+                </div>
+              </div>
+
+              <div class="row-div"></div>
+
+              <!-- SUBSCRIPTIONS section -->
+              <div class="cat-sec">
+                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-sub);"></span>Subscriptions</div>
+                <div class="tile-grid">
+
+                  <!-- Streaming tile -->
+                  <div class="tile" style="background:rgba(128,96,168,0.10);">
+                    <div class="tile-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>
+                    <div class="tile-icon"><svg viewBox="0 0 24 24" stroke="#8060A8"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="5" x2="8" y2="19"/></svg></div>
+                    <div class="tile-lbl">Streaming</div>
+                    <div class="tile-tasks">2 tasks</div>
+                    <svg class="tile-chev" viewBox="0 0 10 10"><polyline points="2,3.5 5,6.5 8,3.5"/></svg>
+                  </div>
+
+                  <!-- Add item row -->
+                  <div class="add-row" style="grid-column:1/-1;">
+                    <div class="add-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="2" x2="6" y2="10"/><line x1="2" y1="6" x2="10" y2="6"/></svg></div>
+                    <div class="add-text">
+                      <div class="add-title">Add another item</div>
+                      <div class="add-hint">Search any appliance, vehicle or plant</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div><!-- /w-content -->
+
+            <div class="w-bottom">
+              <!-- Free tier banner -->
+              <div class="tier-banner">
+                <div class="pips">
+                  <div class="pip filled"></div>
+                  <div class="pip filled"></div>
+                  <div class="pip filled"></div>
+                  <div class="pip filled"></div>
+                  <div class="pip filled"></div>
+                  <div class="pip"></div>
+                  <div class="pip"></div>
+                  <div class="pip"></div>
+                  <div class="pip"></div>
+                  <div class="pip"></div>
+                </div>
+                <div class="tier-text">5 of 10 free items</div>
+                <div class="tier-go-pro">Go Pro</div>
+              </div>
+              <button class="cta-on">Looks good &#8594;</button>
+            </div>
+          </div><!-- /w-screen -->
+        </div><!-- /phone -->
+      </div><!-- /phone-stack -->
+
+      <!-- Phone 2: Filtered view, Home active, Dishwasher drawer open -->
+      <div class="phone-stack">
+        <div class="phone-lbl">Filtered: "Home" active, Dishwasher drawer open</div>
+        <div class="phone">
+          <div class="notch"><div class="np"></div></div>
+          <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+          <div class="prog-bar"><div class="prog-fill" style="width:60%;"></div></div>
+
+          <div class="w-screen">
+            <div class="w-content">
+
+              <div class="s04-hed">Here's what nudgii found.</div>
+              <div class="s04-sub">Tap a card to review its tasks. Adjust anything later.</div>
+
+              <!-- Chips: Home active -->
+              <div class="chip-row">
+                <div class="cat-chip cat-chip-all" style="background:rgba(26,22,18,0.07);color:var(--mid-a);outline:none;">All</div>
+                <div class="cat-chip cat-chip-home active">Home</div>
+                <div class="cat-chip cat-chip-vehicle">Vehicle</div>
+                <div class="cat-chip cat-chip-garden">Garden</div>
+                <div class="cat-chip cat-chip-subs">Subscriptions</div>
+              </div>
+
+              <!-- Home section only (filtered) -->
+              <div class="cat-sec">
+                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-home);"></span>Home</div>
+                <div class="tile-grid">
+
+                  <!-- Boiler tile -->
+                  <div class="tile" style="background:rgba(200,120,80,0.10);">
+                    <div class="tile-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>
+                    <div class="tile-icon"><svg viewBox="0 0 24 24" stroke="#C87850"><rect x="5" y="2" width="14" height="18" rx="3"/><circle cx="12" cy="13" r="3"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="8" y1="20" x2="16" y2="20"/></svg></div>
+                    <div class="tile-lbl">Boiler</div>
+                    <div class="tile-tasks">4 tasks</div>
+                    <svg class="tile-chev" viewBox="0 0 10 10"><polyline points="2,3.5 5,6.5 8,3.5"/></svg>
+                  </div>
+
+                  <!-- Dishwasher tile (active, drawer open) -->
+                  <div class="tile" style="background:rgba(200,120,80,0.10);border:1.5px solid var(--cat-home);border-radius:20px;">
+                    <div class="tile-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>
+                    <div class="tile-icon"><svg viewBox="0 0 24 24" stroke="#C87850"><rect x="3" y="2" width="18" height="20" rx="3"/><circle cx="12" cy="13" r="4"/><line x1="12" y1="2" x2="12" y2="5"/></svg></div>
+                    <div class="tile-lbl">Dishwasher</div>
+                    <div class="tile-tasks">3 tasks</div>
+                    <svg class="tile-chev" viewBox="0 0 10 10" style="transform:rotate(180deg);"><polyline points="2,3.5 5,6.5 8,3.5"/></svg>
+                  </div>
+
+                  <!-- Dishwasher drawer -->
+                  <div class="drawer">
+                    <div class="drawer-head">
+                      <div class="drawer-title">Dishwasher tasks</div>
+                      <div class="drawer-collapse">
+                        <svg viewBox="0 0 10 10"><polyline points="2,6.5 5,3.5 8,6.5"/></svg>
+                        collapse
+                      </div>
+                    </div>
+                    <div class="task-list">
+                      <div class="task-row">
+                        <div class="task-dot" style="background:var(--cat-home);"></div>
+                        <div class="task-name">Clean dishwasher filter</div>
+                        <div class="task-cadence">every 6-8 wks</div>
+                        <div class="task-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>
+                      </div>
+                      <div class="task-row">
+                        <div class="task-dot" style="background:transparent;"></div>
+                        <div class="task-name">Refill dishwasher salt</div>
+                        <div class="task-cadence">every 6-8 wks</div>
+                        <div class="task-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>
+                      </div>
+                      <div class="task-row pro-locked">
+                        <div class="task-dot" style="background:transparent;"></div>
+                        <div class="task-name">Deep clean spray arms</div>
+                        <div class="task-cadence">every 3 months</div>
+                        <span class="pro-pill">Pro</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Add item row -->
+                  <div class="add-row" style="grid-column:1/-1;">
+                    <div class="add-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="2" x2="6" y2="10"/><line x1="2" y1="6" x2="10" y2="6"/></svg></div>
+                    <div class="add-text">
+                      <div class="add-title">Add another item</div>
+                      <div class="add-hint">Search any appliance, vehicle or plant</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div><!-- /w-content -->
+
+            <div class="w-bottom">
+              <!-- Free tier banner -->
+              <div class="tier-banner">
+                <div class="pips">
+                  <div class="pip filled"></div>
+                  <div class="pip filled"></div>
+                  <div class="pip filled"></div>
+                  <div class="pip filled"></div>
+                  <div class="pip filled"></div>
+                  <div class="pip"></div>
+                  <div class="pip"></div>
+                  <div class="pip"></div>
+                  <div class="pip"></div>
+                  <div class="pip"></div>
+                </div>
+                <div class="tier-text">5 of 10 free items</div>
+                <div class="tier-go-pro">Go Pro</div>
+              </div>
+              <button class="cta-on">Looks good &#8594;</button>
+            </div>
+          </div><!-- /w-screen -->
+        </div><!-- /phone -->
+      </div><!-- /phone-stack -->
+
+    </div><!-- /phone-col -->
 
     <!-- ANNOTATION SIDEBAR -->
     <div class="annot-col">
 
-      <div class="annot-section">Shell + layout</div>
+      <div class="annot-section">Structure + shell</div>
 
       <div class="annot-card">
-        <div class="annot-head">
-          <span class="badge-rule">Rule</span>
-          Progress bar
-        </div>
+        <div class="annot-head"><span class="badge-rule">Rule</span> Progress bar</div>
         <div class="annot-body">
-          Full-width, edge-to-edge, <strong>outside SafeArea</strong>. 3px height, <code>colorCta #9B7FD4</code> fill at <strong>60%</strong> (S-05 = step 3 of 5). Track: <code>rgba(26,22,18,0.08)</code>. Never segmented, never dots. Flutter: <code>LinearProgressIndicator</code> inside <code>ClipRRect(borderRadius:100px)</code>.
+          <strong>60%</strong> fill (step 3 of 5). Full-width, edge-to-edge, outside SafeArea. 3px height, <code>colorCta</code> fill. Track: <code>rgba(26,22,18,0.08)</code>. Flutter: <code>LinearProgressIndicator</code> inside <code>ClipRRect(borderRadius:100px)</code>.
         </div>
       </div>
 
       <div class="annot-card">
-        <div class="annot-head">
-          <span class="badge-rule">Rule</span>
-          Back button + scroll zones
-        </div>
+        <div class="annot-head"><span class="badge-rule">Rule</span> Shell pattern</div>
         <div class="annot-body">
-          Back button: <code>PhosphorIcons.arrowLeft</code>, 44x44px tap target. SVG: horizontal line + arrowhead, <code>viewBox 0 0 12 12</code>. Content zone scrolls (headline through add-another link). CTA button is <strong>fixed at bottom</strong>, outside scroll area. Flutter: <code>Column</code> with <code>Expanded(child: SingleChildScrollView)</code> + fixed bottom <code>Column</code>.
+          <code>SafeArea + Column + Expanded</code>. Scroll zone = headline through add-item row. Bottom bar = tier banner + CTA, fixed below Expanded (not Spacer). No visible back button on this screen: iOS swipe-back gesture only.
         </div>
       </div>
 
-      <div class="annot-section">Content</div>
+      <div class="annot-section">Header</div>
 
       <div class="annot-card">
-        <div class="annot-head">
-          <span class="badge-note">Note</span>
-          Headline + subtitle
-        </div>
+        <div class="annot-head"><span class="badge-rule">Rule</span> Headline</div>
         <div class="annot-body">
-          Headline: "Here's what nudgii found." in 16px DM Sans 500, <code>colorInk</code>. Subtitle: "Scan to confirm brand or model. You can adjust anything later." in 11px italic DM Sans, <code>colorMidAccessible</code>. Reduces review friction: reminds user the AI scan is available, "adjust later" lowers perfectionism.
-        </div>
-      </div>
-
-      <div class="annot-card decision">
-        <div class="annot-head">
-          <span class="badge-decision">Decision</span>
-          Review cards expand/collapse
-        </div>
-        <div class="annot-body">
-          Tap card header to toggle expanded/collapsed. <strong>First card expanded by default</strong>, remaining cards collapsed. Expanded state: tasks list + "last done" picker + scan button visible. Collapsed state: task count hint ("3 tasks · tap to review") + chevron + remove button. Flutter: <code>AnimatedContainer</code> (250ms ease-in-out) for height transitions.
-        </div>
-      </div>
-
-      <div class="annot-card decision">
-        <div class="annot-head">
-          <span class="badge-decision">Decision</span>
-          "Last done" picker
-        </div>
-        <div class="annot-body">
-          3-tap single-select: <strong>Recently</strong> (delays first task 6-8 weeks), <strong>A while ago</strong> (schedules sooner), <strong>Not sure</strong> (default, conservative schedule, tasks appear soon). "Not sure" is always the active default. Flutter: <code>ChoiceChip</code> with single selection. Changes task scheduling logic on the backend.
-        </div>
-      </div>
-
-      <div class="annot-card decision">
-        <div class="annot-head">
-          <span class="badge-decision">Decision</span>
-          Scan button placement
-        </div>
-        <div class="annot-body">
-          Scan button appears in each <strong>expanded card header</strong> (20x20px rounded square with viewfinder icon). Triggers camera for AI brand/model detection via Claude API. Returns <code>item_type</code>, <code>brand</code>, <code>model</code>, <code>tasks[]</code>. Hidden when card is collapsed.
-        </div>
-      </div>
-
-      <div class="annot-card decision">
-        <div class="annot-head">
-          <span class="badge-decision">Decision</span>
-          Remove button
-        </div>
-        <div class="annot-body">
-          X icon per card header, visible in both expanded and collapsed states. Removes item from review list. Flutter: confirm dialog ("Remove [item name]?") before <code>removeItem()</code>. No undo toast on this screen (items can be re-added via "+ Add another item").
-        </div>
-      </div>
-
-      <div class="annot-section">Upsell</div>
-
-      <div class="annot-card decision">
-        <div class="annot-head">
-          <span class="badge-decision">Decision</span>
-          Pro lock pattern
-        </div>
-        <div class="annot-body">
-          3rd task row in each card is <strong>greyed out (opacity 0.4)</strong> with a "Pro" pill (<code>colorCta</code> text, purple-tinted background). Visible during setup, <strong>does not block anything</strong>. Soft upsell: user sees what they'd get with Pro without being stopped. Flutter: <code>GestureDetector</code> on Pro pill navigates to S-22 paywall.
+          DM Serif Display, 20px, <code>letter-spacing:-0.3px</code>, <code>colorInk</code>. "Here's what nudgii found." One serif moment on this screen (the headline only).
         </div>
       </div>
 
       <div class="annot-card">
-        <div class="annot-head">
-          <span class="badge-note">Note</span>
-          Item counter
-        </div>
+        <div class="annot-head"><span class="badge-note">Note</span> Subtitle</div>
         <div class="annot-body">
-          When approaching the <strong>10-item free tier limit</strong>, a subtle banner appears above the card list. Not shown in this mockup (2 items). Copy at limit: "You've hit 10 items. Your house has more opinions." Links to S-22 paywall.
+          DM Sans italic, 11px, <code>colorMid</code>. "Tap a card to review its tasks. Adjust anything later." Action-oriented guidance, lowers perfectionism.
         </div>
       </div>
 
-      <div class="annot-section">Button zone</div>
+      <div class="annot-section">Category filter</div>
 
       <div class="annot-card">
-        <div class="annot-head">
-          <span class="badge-rule">Rule</span>
-          "Looks good" CTA
-        </div>
+        <div class="annot-head"><span class="badge-rule">Rule</span> Chip style</div>
         <div class="annot-body">
-          Proceeds to S-06 auth. Same button specs as S-01 Path A: <code>colorCta</code> fill, 50px height, pill radius, <code>box-shadow: 0 2px 12px rgba(155,127,212,0.32)</code>. Arrow entity in button text. Sentence case. Sticky at bottom, never scrolls.
+          Same as S-03. Tinted bg (13% opacity) + category color text. Active = <code>1px solid categoryColor</code> outline.<br><br>
+          <strong>"All" active:</strong> <code>rgba(155,127,212,0.12)</code> bg, <code>colorCta</code> text, <code>1px solid colorCta</code>.<br>
+          <strong>"All" inactive:</strong> <code>rgba(26,22,18,0.07)</code> bg, <code>colorMid</code> text, no outline.<br><br>
+          <strong>Behaviour:</strong> "All" shows all category sections. Tapping a category shows only that section. Flutter: <code>GestureDetector + AnimatedContainer</code>, 150ms transition.
+        </div>
+      </div>
+
+      <div class="annot-section">Tile grid</div>
+
+      <div class="annot-card">
+        <div class="annot-head"><span class="badge-rule">Rule</span> Layout</div>
+        <div class="annot-body">
+          2-column CSS grid per category section. <code>gap:9px</code>. Each tile shows: bare colored SVG icon (36px), item name (12px, 600 weight), task count (10px), chevron. Tiles use category tint background at 10% opacity, <code>border-radius:20px</code>.
+        </div>
+      </div>
+
+      <div class="annot-card">
+        <div class="annot-head"><span class="badge-rule">Rule</span> Remove X</div>
+        <div class="annot-body">
+          Top-right of each tile, 22px circle, <code>rgba(26,22,18,0.06)</code> bg. Fades to 12% on hover. Flutter: confirm dialog before removing. Removed items can be re-added via "Add another item."
+        </div>
+      </div>
+
+      <div class="annot-section">Inline drawer</div>
+
+      <div class="annot-card">
+        <div class="annot-head"><span class="badge-rule">Rule</span> Drawer panel</div>
+        <div class="annot-body">
+          White panel, <code>border-radius:20px</code>, <code>1px solid rgba(26,22,18,0.09)</code>. Spans full grid width (<code>grid-column:1/-1</code>). Opens below the tapped tile. <strong>One at a time:</strong> opening a drawer closes any other open drawer. Flutter: <code>AnimatedContainer</code>, 250ms ease-in-out.
+        </div>
+      </div>
+
+      <div class="annot-card">
+        <div class="annot-head"><span class="badge-component">Component</span> Task rows</div>
+        <div class="annot-body">
+          Category-colored dot on first task only (subsequent dots transparent). Task name: 10.5px, <code>colorMidAccessible</code>. Frequency cadence pill: 8px, light bg, rounded. Delete X per task row (7px icon).<br><br>
+          <strong>Pro tasks:</strong> 38% opacity, purple "Pro" pill, no delete button. Tapping Pro pill navigates to S-22 paywall.
+        </div>
+      </div>
+
+      <div class="annot-card">
+        <div class="annot-head"><span class="badge-note">Note</span> Collapse button</div>
+        <div class="annot-body">
+          Top-right of drawer: upward chevron + "collapse" text, <code>colorMid</code>, 9px. Tapping collapses drawer and returns chevron on tile to default rotation.
+        </div>
+      </div>
+
+      <div class="annot-section">Add item row</div>
+
+      <div class="annot-card">
+        <div class="annot-head"><span class="badge-rule">Rule</span> Normal state</div>
+        <div class="annot-body">
+          Dashed border (<code>1.5px dashed</code>), <code>border-radius:16px</code>. 28px circle icon with + sign. "Add another item" (11px, 500 weight) + "Search any appliance, vehicle or plant" (9px hint). Spans full grid width.
+        </div>
+      </div>
+
+      <div class="annot-card">
+        <div class="annot-head"><span class="badge-state">State</span> Locked (at limit)</div>
+        <div class="annot-body">
+          When at 10-item free tier limit: lock icon replaces +, "Free plan limit reached" replaces title, "Go Pro" link on right. Dashed border fades to <code>rgba(26,22,18,0.08)</code>. Not tappable.
+        </div>
+      </div>
+
+      <div class="annot-section">Free tier banner</div>
+
+      <div class="annot-card">
+        <div class="annot-head"><span class="badge-rule">Rule</span> Pip dots + count</div>
+        <div class="annot-body">
+          Always visible in sticky bottom bar, above CTA. 10 pip dots (7px circles): filled = <code>colorCta</code>, empty = <code>rgba(26,22,18,0.12)</code>. Count text: "X of 10 free items" (9px). "Go Pro" link on right.<br><br>
+          <strong>Warning state</strong> (8+ items): filled pips switch to <code>colorApricot</code>.<br>
+          <strong>Full state</strong> (10 items): stronger apricot, count text in apricot.
+        </div>
+      </div>
+
+      <div class="annot-section">CTA</div>
+
+      <div class="annot-card">
+        <div class="annot-head"><span class="badge-rule">Rule</span> "Looks good" button</div>
+        <div class="annot-body">
+          Full-width pill, <code>colorCta</code> bg, <code>colorCtaFg</code> text, 13px 500 weight. <code>box-shadow:0 4px 18px rgba(155,127,212,0.35)</code>. Arrow entity in text. Proceeds to S-05 AHA + celebration. Sticky at bottom, never scrolls.
+        </div>
+      </div>
+
+      <div class="annot-section">Navigation</div>
+
+      <div class="annot-card">
+        <div class="annot-head"><span class="badge-note">Note</span> Back gesture</div>
+        <div class="annot-body">
+          iOS swipe-back gesture only. No visible back button on this screen. Swiping back returns to S-02 or S-03 (whichever path the user took).
         </div>
       </div>
 
@@ -410,43 +640,41 @@ body{background:#CBC5BB;padding:0 0 80px;}
     <div class="cl-title">Changelog</div>
 
     <div class="cl-entry">
-      <div class="cl-ver">v1.0 · 2026-03-24 · ADDITIVE</div>
-      <div class="cl-body"><strong>Initial hi-fi</strong> based on onboarding-full-preview.html (source of truth).</div>
-      <div class="cl-body"><strong>Review cards:</strong> expanded state shows tasks + "last done" picker + scan button. Collapsed state: task count hint + chevron + remove button.</div>
-      <div class="cl-body"><strong>"Last done" 3-tap picker:</strong> Recently / A while ago / Not sure (default). Single selection per card.</div>
-      <div class="cl-body"><strong>Pro lock pattern:</strong> 3rd task greyed with Pro pill (soft upsell, does not block).</div>
-      <div class="cl-body"><strong>"+ Add another item"</strong> link below cards for adding items missed during voice/browse/search.</div>
+      <div class="cl-ver">v1.0 · 2026-03-27 · BREAKING</div>
+      <div class="cl-body"><strong>Tile grid review screen.</strong> Complete redesign from flat card list to 2-column tile grid with category-tinted tiles and inline drawers. Matches S-03 visual language.</div>
+      <div class="cl-body"><strong>Category filter chips.</strong> Same chip style as S-03: tinted bg + category color text. "All" active by default. Active chip adds 1px solid outline in category color.</div>
+      <div class="cl-body"><strong>Inline drawers.</strong> White panel expands below tapped tile, showing task rows with cadence pills. One drawer open at a time. Collapse button top-right. Pro tasks at 38% opacity with purple "Pro" pill.</div>
+      <div class="cl-body"><strong>Free tier banner.</strong> 10 pip dots + count text + "Go Pro" link. Always visible in sticky bottom bar above CTA. Warning state at 8+ items (apricot pips).</div>
+      <div class="cl-body"><strong>Add item row.</strong> Dashed border, + icon, hint text. Locked state at 10-item limit with lock icon and "Go Pro" link.</div>
+      <div class="cl-body"><strong>Remove X on tiles.</strong> 22px circle top-right. Confirm dialog before removing. Removed items can be re-added.</div>
+      <div class="cl-body"><strong>CTA: "Looks good"</strong> with arrow. Full-width pill, proceeds to S-05 AHA + celebration.</div>
     </div>
 
     <div class="cl-flutter">
-      <div class="cl-flutter-head">Standard Flutter implementation block · S-05</div>
+      <div class="cl-flutter-head">Flutter implementation block · S-04 v1.0</div>
       <div class="cl-flutter-body">
-        Mockup base:&nbsp;&nbsp;&nbsp;&nbsp;390px width (iPhone 15)<br>
-        SafeArea:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;top=false, progress bar outside SafeArea<br>
-        Scroll:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SingleChildScrollView for content zone only<br>
-        Bottom zone:&nbsp;&nbsp;&nbsp;&nbsp;Sticky: fixed Column at bottom, not Spacer<br>
-        Progress bar:&nbsp;&nbsp;&nbsp;Full width, height 3px, outside SafeArea, 60% fill<br>
-        Scaling:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All visual elements x (screenWidth/390).clamp(0.9, 1.15)<br>
-        Special:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Review cards use AnimatedContainer for expand/collapse (250ms ease-in-out). "Last done" pills are ChoiceChips with single selection. Scan button launches camera (Plant.id or Claude API). Remove button: confirm dialog then removeItem(). Pro lock row: GestureDetector navigates to S-22 paywall.
+        Mockup base:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;390px width (iPhone 15)<br>
+        SafeArea:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;top: true, bottom: true<br>
+        Scroll:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Expanded + SingleChildScrollView for content zone only<br>
+        Bottom zone:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tier banner + CTA in fixed Column below Expanded (not Spacer)<br>
+        Progress bar:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;60% fill, outside SafeArea, full-width, 3px height<br>
+        Scaling:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Text clamp at 1.3x. All visual elements x (screenWidth/390).clamp(0.9, 1.15)<br>
+        Special:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AnimatedContainer for drawer expand/collapse (250ms ease-in-out). One-drawer-at-a-time state management (activeDrawerId). Category filter chips: GestureDetector + AnimatedContainer (150ms). Tile grid: CSS Grid 2-col equivalent via GridView. Drawer spans full width via grid-column:1/-1 (Flutter: use SliverToBoxAdapter or column layout). Remove X: confirm dialog. Pro pill: GestureDetector to S-22 paywall.<br>
+        Navigation:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CTA onTap: push to S-05 AHA. Swipe-back to S-02 or S-03.
       </div>
     </div>
 
   </div><!-- /changelog -->
 
+  <!-- BOTTOM LINKS -->
+  <div style="padding:20px 0 0;display:flex;gap:16px;flex-wrap:wrap;">
+    <a href="s04-review-lofi.html" style="font-size:11px;color:var(--cta);text-decoration:none;">Lo-fi</a>
+    <a href="s04-review-prototype.html" style="font-size:11px;color:var(--cta);text-decoration:none;">Prototype</a>
+    <a href="../system/design-system.html" style="font-size:11px;color:var(--cta);text-decoration:none;">Design system</a>
+    <a href="../index.html" style="font-size:11px;color:var(--cta);text-decoration:none;">Design hub</a>
+  </div>
+
 </div><!-- /page -->
-
-<script>
-function toggleCard(card) {
-  card.classList.toggle('collapsed');
-}
-
-function pickLastDone(pill) {
-  var group = pill.parentElement;
-  var pills = group.querySelectorAll('.ld-pill');
-  pills.forEach(function(p) { p.classList.remove('active'); });
-  pill.classList.add('active');
-}
-</script>
 
 </body>
 </html>
