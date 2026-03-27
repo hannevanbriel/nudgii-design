@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · S-03 Browse categories · prototype</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+  --cream:#F5F0E8;--ink:#1A1612;--cta:#9B7FD4;--cta-fg:#FAF8FF;
+  --mid:#8A8070;--mid-a:#6B6358;--surface:#FFFFFF;--border:rgba(26,22,18,0.08);
+  --cat-home:#C87850;--cat-vehicle:#4A82A0;--cat-garden:#5A9060;--cat-sub:#8060A8;
+}
+
+body{
+  font-family:'DM Sans',-apple-system,sans-serif;
+  background:#2A2520;color:var(--ink);
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;
+}
+
+/* ── PAGE HEADER ── */
+.page-header{
+  display:flex;align-items:center;justify-content:space-between;
+  width:100%;max-width:800px;padding:20px 32px 0;
+}
+.page-logo{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;color:rgba(245,240,232,0.40);text-decoration:none;}
+.page-logo:hover{color:rgba(245,240,232,0.65);}
+.page-nav{display:flex;gap:16px;}
+.page-nav a{font-size:10px;font-weight:500;color:rgba(245,240,232,0.30);text-decoration:none;letter-spacing:0.3px;}
+.page-nav a:hover{color:rgba(245,240,232,0.60);}
+
+/* ── PAGE CONTENT ── */
+.page-content{
+  display:flex;flex-direction:column;align-items:center;
+  padding:24px 32px 80px;gap:20px;
+}
+.page-eyebrow{
+  font-size:10px;font-weight:500;letter-spacing:1.6px;text-transform:uppercase;
+  color:rgba(245,240,232,0.30);text-align:center;
+}
+.page-title{
+  font-family:'DM Serif Display',serif;font-size:22px;color:rgba(245,240,232,0.85);
+  text-align:center;line-height:1.2;margin-top:-4px;
+}
+.page-desc{
+  font-size:12px;color:rgba(245,240,232,0.35);text-align:center;
+  max-width:480px;line-height:1.6;
+}
+
+/* ── DEVICE ── */
+.device{
+  width:310px;background:var(--cream);border-radius:38px;
+  overflow:hidden;border:1.5px solid rgba(26,22,18,0.15);
+  box-shadow:0 24px 60px rgba(0,0,0,0.28);
+}
+
+/* Progress bar */
+.pbar{height:3px;background:rgba(26,22,18,0.10);}
+.pfill{height:100%;background:var(--cta);transition:width 0.5s ease;}
+
+/* Screen body */
+.screen{padding:12px 14px 0;font-family:'DM Sans',sans-serif;color:var(--ink);}
+
+/* Back button */
+.back{display:flex;align-items:center;gap:4px;padding:4px 0;margin-bottom:4px;cursor:pointer;color:var(--ink);background:none;border:none;font-family:'DM Sans',sans-serif;font-size:11px;}
+.back:active{opacity:0.6;}
+
+/* Header */
+.hed{font-family:'DM Serif Display',serif;font-size:20px;color:var(--ink);line-height:1.1;margin-bottom:2px;}
+.hed em{font-style:italic;color:var(--cta);}
+.sub{font-size:11px;font-style:italic;color:var(--mid);margin-bottom:10px;}
+
+/* Search */
+.sbox{display:flex;align-items:center;gap:7px;background:#fff;border:0.5px solid rgba(26,22,18,0.15);border-radius:10px;padding:7px 11px;margin-bottom:8px;}
+.sbox input{border:none;outline:none;font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--ink);background:#fff;width:100%;}
+.sbox input::placeholder{color:rgba(107,99,88,0.40);font-style:italic;}
+
+/* Category chips — no dot, tinted bg + category color text */
+.chips{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;padding:4px 0;margin-bottom:2px;}
+.chips::-webkit-scrollbar{display:none;}
+.chip{
+  flex-shrink:0;padding:5px 12px;border-radius:100px;
+  font-size:10.5px;font-weight:500;cursor:pointer;user-select:none;
+  transition:outline 0.12s,background 0.12s,color 0.12s;
+  outline:1.5px solid transparent;outline-offset:0;
+}
+.chip-all{background:rgba(26,22,18,0.07);color:var(--mid-a);}
+.chip-all.on{background:rgba(155,127,212,0.12);color:var(--cta);outline:1px solid var(--cta);}
+.chip-home{background:rgba(200,120,80,0.13);color:var(--cat-home);}
+.chip-home.on{outline:1px solid var(--cat-home);}
+.chip-vehicle{background:rgba(74,130,160,0.13);color:var(--cat-vehicle);}
+.chip-vehicle.on{outline:1px solid var(--cat-vehicle);}
+.chip-garden{background:rgba(90,144,96,0.13);color:var(--cat-garden);}
+.chip-garden.on{outline:1px solid var(--cat-garden);}
+.chip-subs{background:rgba(128,96,168,0.13);color:var(--cat-sub);}
+.chip-subs.on{outline:1px solid var(--cat-sub);}
+
+/* Selected pill */
+.pill-wrap{height:24px;display:flex;align-items:center;margin-bottom:6px;}
+.sel-pill{display:inline-flex;align-items:center;gap:5px;background:var(--cta);color:var(--cta-fg);font-size:10px;font-weight:600;padding:3px 10px 3px 5px;border-radius:100px;cursor:pointer;user-select:none;}
+.sel-pill:active{opacity:0.85;}
+.snum{background:rgba(255,255,255,0.28);width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:700;}
+
+/* Content scroll area */
+.content{overflow-y:auto;max-height:370px;scrollbar-width:none;padding-bottom:4px;}
+.content::-webkit-scrollbar{display:none;}
+
+/* Category section headers */
+.cat-sec{padding:8px 0 4px;}
+.cat-lbl{display:flex;align-items:center;gap:5px;font-size:9px;font-weight:600;letter-spacing:1.3px;text-transform:uppercase;color:var(--mid-a);margin-bottom:5px;}
+.cat-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+
+/* Horizontal tile row */
+.hrow{
+  display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;
+  padding:3px 0 5px;
+  -webkit-overflow-scrolling:touch;
+}
+.hrow::-webkit-scrollbar{display:none;}
+
+/* Tile */
+.tile{
+  flex-shrink:0;width:86px;border-radius:14px;padding:13px 6px 9px;
+  text-align:center;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  user-select:none;
+  border:1.5px solid transparent;
+  transition:background 0.15s,border-color 0.15s,transform 0.12s;
+}
+.tile:hover{transform:scale(1.03);}
+.tile:active{transform:scale(0.93);}
+.tn{font-size:9.5px;font-weight:500;color:var(--ink);line-height:1.2;}
+
+/* 3-col grid for category view */
+.full-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;padding:4px 0 8px;}
+.full-grid .tile{width:auto;}
+
+/* Empty state */
+.empty{padding:20px 0;text-align:center;font-size:11px;color:var(--mid);font-style:italic;line-height:1.6;}
+
+/* Row divider */
+.row-div{height:0.5px;background:rgba(26,22,18,0.08);margin:2px 0;}
+
+/* CTA zone */
+.cta-wrap{padding:8px 14px 18px;background:var(--cream);}
+.hairline{height:0.5px;background:rgba(26,22,18,0.10);margin-bottom:8px;}
+.cta{
+  width:100%;padding:12px;border-radius:100px;border:none;
+  font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:600;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:all 0.25s ease;
+}
+.cta:active{transform:scale(0.97);}
+.cta.off{background:rgba(26,22,18,0.08);color:var(--mid);cursor:default;pointer-events:none;}
+.cta.go{background:var(--cta);color:var(--cta-fg);box-shadow:0 4px 18px rgba(155,127,212,0.35);}
+.cbadge{background:rgba(255,255,255,0.24);width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700;flex-shrink:0;}
+.cta-inner{display:flex;align-items:center;gap:8px;transition:opacity 0.18s;}
+
+/* ── LEGEND ── */
+.legend{
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+  max-width:400px;
+}
+.legend-item{
+  font-size:10px;color:rgba(245,240,232,0.35);
+  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);
+  border-radius:6px;padding:5px 10px;
+}
+.legend-item strong{font-weight:500;color:rgba(245,240,232,0.55);}
+</style>
+</head>
+<body>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <a class="page-logo" href="../index.html">
+    <svg width="14" height="16" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
+      <path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
+      <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
+    </svg>
+    nudgii design system
+  </a>
+  <div class="page-nav">
+    <a href="s03-browse-categories-lofi.html">Lo-fi</a>
+    <a href="s03-browse-categories-hifi.html">Hi-fi</a>
+    <a href="../index.html">Design hub</a>
+  </div>
+</div>
+
+<div class="page-content">
+
+  <div class="page-eyebrow">S-03 · Path B · Interactive prototype</div>
+  <div class="page-title">Browse categories</div>
+  <div class="page-desc">Tap tiles to select items. Tap category chips to filter. Try the search bar. Watch the progress bar and CTA update live.</div>
+
+  <!-- DEVICE -->
+  <div class="device">
+    <div class="pbar"><div class="pfill" id="pf" style="width:40%;"></div></div>
+    <div class="screen">
+
+      <!-- Back -->
+      <button class="back" onclick="history.back()">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M10 6H2" stroke="#1A1612" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M5 3L2 6L5 9" stroke="#1A1612" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <!-- Header -->
+      <div class="hed">What's <em>yours?</em></div>
+      <div class="sub">Tap what applies, we'll take it from there.</div>
+
+      <!-- Search -->
+      <div class="sbox">
+        <svg width="13" height="13" viewBox="0 0 256 256" fill="none" style="flex-shrink:0;">
+          <circle cx="112" cy="112" r="80" stroke="#8A8070" stroke-width="22" fill="none"/>
+          <line x1="170" y1="170" x2="224" y2="224" stroke="#8A8070" stroke-width="22" stroke-linecap="round"/>
+        </svg>
+        <input id="si" type="text" placeholder="Search items..." oninput="doSearch()">
+      </div>
+
+      <!-- Chips -->
+      <div class="chips" id="chiprow"></div>
+
+      <!-- Selected pill -->
+      <div class="pill-wrap" id="pw"></div>
+
+    </div><!-- /screen -->
+
+    <div class="content" id="ct"></div>
+
+    <div class="cta-wrap">
+      <div class="hairline"></div>
+      <button class="cta off" id="cb">
+        <div class="cta-inner" id="ci"><span>Tick something first</span></div>
+      </button>
+    </div>
+  </div><!-- /device -->
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="legend-item"><strong>Tile border</strong> = category color (not purple)</div>
+    <div class="legend-item"><strong>Progress</strong> grows +8% per item</div>
+    <div class="legend-item"><strong>CTA copy</strong> changes at 1, 2, 3+ items</div>
+    <div class="legend-item"><strong>Chip tap</strong> switches to 3-col grid</div>
+    <div class="legend-item"><strong>Selected pill</strong> shows only chosen items</div>
+    <div class="legend-item"><strong>Swipe hint</strong> fires once on first load</div>
+  </div>
+
+</div><!-- /page-content -->
+
+<script>
+const CC={home:'#C87850',vehicle:'#4A82A0',garden:'#5A9060',subs:'#8060A8'};
+const CL={home:'Home',vehicle:'Vehicle',garden:'Garden',subs:'Subscriptions'};
+const CATS=['home','vehicle','garden','subs'];
+function rgb(h){return[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)).join(',');}
+
+const SW=14;
+const IC={
+  dishwasher:`<svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="32" y="48" width="192" height="160" rx="16" stroke="§" stroke-width="${SW}" fill="none"/><line x1="32" y1="100" x2="224" y2="100" stroke="§" stroke-width="${SW}" stroke-linecap="round"/><circle cx="128" cy="164" r="34" stroke="§" stroke-width="${SW-2}" fill="none"/><circle cx="128" cy="164" r="10" fill="§"/></svg>`,
+  washing:`<svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="32" y="32" width="192" height="192" rx="16" stroke="§" stroke-width="${SW}" fill="none"/><circle cx="128" cy="150" r="48" stroke="§" stroke-width="${SW-2}" fill="none"/><circle cx="82" cy="74" r="11" fill="§"/></svg>`,
+  boiler:`<svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="72" y="24" width="112" height="208" rx="20" stroke="§" stroke-width="${SW}" fill="none"/><circle cx="128" cy="124" r="34" stroke="§" stroke-width="${SW-2}" fill="none"/><line x1="128" y1="58" x2="128" y2="76" stroke="§" stroke-width="${SW-2}" stroke-linecap="round"/><line x1="128" y1="202" x2="128" y2="218" stroke="§" stroke-width="${SW-2}" stroke-linecap="round"/></svg>`,
+  fridge:`<svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="48" y="24" width="160" height="208" rx="16" stroke="§" stroke-width="${SW}" fill="none"/><line x1="48" y1="112" x2="208" y2="112" stroke="§" stroke-width="${SW}" stroke-linecap="round"/><line x1="128" y1="64" x2="128" y2="88" stroke="§" stroke-width="${SW-4}" stroke-linecap="round"/><line x1="128" y1="148" x2="128" y2="184" stroke="§" stroke-width="${SW-4}" stroke-linecap="round"/></svg>`,
+  airco:`<svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="16" y="60" width="224" height="88" rx="16" stroke="§" stroke-width="${SW}" fill="none"/><line x1="64" y1="185" x2="80" y2="148" stroke="§" stroke-width="${SW-2}" stroke-linecap="round"/><line x1="128" y1="185" x2="128" y2="148" stroke="§" stroke-width="${SW-2}" stroke-linecap="round"/><line x1="192" y1="185" x2="176" y2="148" stroke="§" stroke-width="${SW-2}" stroke-linecap="round"/></svg>`,
+  smoke:`<svg width="26" height="26" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="100" r="68" stroke="§" stroke-width="${SW}" fill="none"/><line x1="128" y1="184" x2="128" y2="232" stroke="§" stroke-width="${SW-2}" stroke-linecap="round"/><line x1="96" y1="208" x2="160" y2="208" stroke="§" stroke-width="${SW-4}" stroke-linecap="round"/><circle cx="128" cy="100" r="18" fill="§"/></svg>`,
+  car:`<svg width="26" height="26" viewBox="0 0 256 256" fill="none"><path d="M8 144a8 8 0 0 1 8-8h16L60 80h136l28 56h16a8 8 0 0 1 8 8v32a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8v-32z" stroke="§" stroke-width="${SW}" fill="none" stroke-linejoin="round"/><circle cx="76" cy="192" r="24" stroke="§" stroke-width="${SW}" fill="none"/><circle cx="180" cy="192" r="24" stroke="§" stroke-width="${SW}" fill="none"/></svg>`,
+  bicycle:`<svg width="26" height="26" viewBox="0 0 256 256" fill="none"><circle cx="60" cy="168" r="44" stroke="§" stroke-width="${SW}" fill="none"/><circle cx="196" cy="168" r="44" stroke="§" stroke-width="${SW}" fill="none"/><path d="M60 168l56-96h48" stroke="§" stroke-width="${SW}" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M128 72l68 96" stroke="§" stroke-width="${SW}" stroke-linecap="round"/></svg>`,
+  motorcycle:`<svg width="26" height="26" viewBox="0 0 256 256" fill="none"><circle cx="56" cy="180" r="44" stroke="§" stroke-width="${SW}" fill="none"/><circle cx="200" cy="180" r="44" stroke="§" stroke-width="${SW}" fill="none"/><path d="M56 180l60-84h52l28 36H128" stroke="§" stroke-width="${SW}" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  lawn:`<svg width="26" height="26" viewBox="0 0 256 256" fill="none"><path d="M24 200c0 0 20-88 56-88s28 56 48 56 36-120 56-120 48 152 48 152" stroke="§" stroke-width="${SW}" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="200" x2="244" y2="200" stroke="§" stroke-width="${SW}" stroke-linecap="round"/></svg>`,
+  hedge:`<svg width="26" height="26" viewBox="0 0 256 256" fill="none"><line x1="128" y1="224" x2="128" y2="140" stroke="§" stroke-width="${SW}" stroke-linecap="round"/><circle cx="128" cy="96" r="52" stroke="§" stroke-width="${SW}" fill="none"/><circle cx="82" cy="140" r="34" stroke="§" stroke-width="${SW-2}" fill="none"/><circle cx="174" cy="140" r="34" stroke="§" stroke-width="${SW-2}" fill="none"/><line x1="68" y1="224" x2="188" y2="224" stroke="§" stroke-width="${SW}" stroke-linecap="round"/></svg>`,
+  plant:`<svg width="26" height="26" viewBox="0 0 256 256" fill="none"><line x1="128" y1="224" x2="128" y2="128" stroke="§" stroke-width="${SW}" stroke-linecap="round"/><path d="M128 172c0 0-36-16-52-56s20-80 52-72c32-8 68 32 52 72s-52 56-52 56z" stroke="§" stroke-width="${SW-2}" fill="none" stroke-linejoin="round"/></svg>`,
+  streaming:`<svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="32" y="64" width="192" height="128" rx="16" stroke="§" stroke-width="${SW}" fill="none"/><path d="M100 100l72 28-72 28V100z" stroke="§" stroke-width="${SW-2}" fill="none" stroke-linejoin="round"/></svg>`,
+  insurance:`<svg width="26" height="26" viewBox="0 0 256 256" fill="none"><path d="M128 24L32 64v72c0 56 40 96 96 112 56-16 96-56 96-112V64L128 24z" stroke="§" stroke-width="${SW}" fill="none" stroke-linejoin="round"/><path d="M92 128l28 28 44-52" stroke="§" stroke-width="${SW}" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  cloud:`<svg width="26" height="26" viewBox="0 0 256 256" fill="none"><path d="M80 192H64a64 64 0 1 1 14-126A80 80 0 1 1 80 192z" stroke="§" stroke-width="${SW}" fill="none" stroke-linejoin="round"/></svg>`,
+  phone:`<svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="64" y="16" width="128" height="224" rx="16" stroke="§" stroke-width="${SW}" fill="none"/><circle cx="128" cy="192" r="8" fill="§"/></svg>`,
+};
+
+const ITEMS=[
+  {id:'dishwasher',name:'Dishwasher',cat:'home',icon:'dishwasher'},
+  {id:'washing',name:'Washing machine',cat:'home',icon:'washing'},
+  {id:'boiler',name:'Boiler',cat:'home',icon:'boiler'},
+  {id:'fridge',name:'Fridge',cat:'home',icon:'fridge'},
+  {id:'airco',name:'Airco',cat:'home',icon:'airco'},
+  {id:'smoke',name:'Smoke detector',cat:'home',icon:'smoke'},
+  {id:'car',name:'Car',cat:'vehicle',icon:'car'},
+  {id:'bicycle',name:'Bicycle',cat:'vehicle',icon:'bicycle'},
+  {id:'motorcycle',name:'Motorcycle',cat:'vehicle',icon:'motorcycle'},
+  {id:'lawn',name:'Lawn',cat:'garden',icon:'lawn'},
+  {id:'hedge',name:'Hedge',cat:'garden',icon:'hedge'},
+  {id:'plant',name:'Houseplant',cat:'garden',icon:'plant'},
+  {id:'insurance',name:'Insurance',cat:'subs',icon:'insurance'},
+  {id:'streaming',name:'Streaming',cat:'subs',icon:'streaming'},
+  {id:'cloud',name:'Cloud storage',cat:'subs',icon:'cloud'},
+  {id:'phone',name:'Mobile plan',cat:'phone',icon:'phone'},
+];
+
+function ctaCopy(n){
+  if(n===0)return{text:'Tick something first',go:false};
+  if(n===1)return{text:'Good start, continue',go:true};
+  if(n===2)return{text:'Nice, keep going or continue',go:true};
+  return{text:'Looking good, continue',go:true};
+}
+
+let sel=new Set(),cat='all',q='',hintDone=false;
+
+function buildChips(){
+  const row=document.getElementById('chiprow');
+  row.innerHTML=`<div class="chip chip-all on" data-cat="all" onclick="setCat('all',this)">All</div>`;
+  CATS.forEach(c=>{
+    const div=document.createElement('div');
+    div.className=`chip chip-${c}`;
+    div.dataset.cat=c;
+    div.textContent=CL[c];
+    div.onclick=function(){setCat(c,this);};
+    row.appendChild(div);
+  });
+}
+
+function makeTile(item,wide){
+  const c=CC[item.cat]||CC.subs;
+  const r=rgb(c);
+  const on=sel.has(item.id);
+  const bgBase=`rgba(${r},0.12)`;
+  const bgHover=`rgba(${r},0.20)`;
+  const svg=IC[item.icon]?IC[item.icon].replace(/§/g,c):'';
+  const w=wide?'width:auto;':'width:86px;';
+  return `<div class="tile${on?' on':''}"
+    style="${w}background:${bgBase};border:1.5px solid ${on?c:'transparent'};"
+    data-bg-base="${bgBase}" data-bg-hover="${bgHover}"
+    onmouseenter="this.style.background=this.dataset.bgHover"
+    onmouseleave="this.style.background=this.dataset.bgBase"
+    onclick="toggle('${item.id}')">
+    ${svg}
+    <div class="tn">${item.name}</div>
+  </div>`;
+}
+
+function render(){
+  const area=document.getElementById('ct');
+  const n=sel.size;
+
+  document.querySelectorAll('.chip').forEach(ch=>{
+    ch.classList.remove('on');
+    if(ch.dataset.cat===cat) ch.classList.add('on');
+  });
+
+  document.getElementById('pw').innerHTML=n>0
+    ?`<span class="sel-pill" onclick="showSel()"><span class="snum">${n}</span> selected</span>`:'';
+
+  if(q){
+    const res=ITEMS.filter(it=>it.name.toLowerCase().includes(q));
+    area.innerHTML=res.length===0
+      ?`<div class="empty" style="padding:20px 14px;">Nothing found for "${q}"</div>`
+      :`<div class="full-grid" style="padding:4px 14px 8px;">${res.map(it=>makeTile(it,true)).join('')}</div>`;
+    return;
+  }
+
+  if(cat!=='all'){
+    const items=ITEMS.filter(it=>it.cat===cat);
+    const sorted=[...items.filter(it=>sel.has(it.id)),...items.filter(it=>!sel.has(it.id))];
+    area.innerHTML=`<div class="full-grid" style="padding:4px 14px 8px;">${sorted.map(it=>makeTile(it,true)).join('')}</div>`;
+    return;
+  }
+
+  let html='';
+  CATS.forEach((c,ci)=>{
+    const items=ITEMS.filter(it=>it.cat===c);
+    const sorted=[...items.filter(it=>sel.has(it.id)),...items.filter(it=>!sel.has(it.id))];
+    html+=`<div class="cat-sec" style="padding:8px 14px 4px;">
+      <div class="cat-lbl">
+        <span class="cat-dot" style="background:${CC[c]};"></span>${CL[c]}
+      </div>
+      <div class="hrow" id="hrow-${c}">
+        ${sorted.map(it=>makeTile(it,false)).join('')}
+        <div style="flex-shrink:0;width:18px;display:flex;align-items:center;justify-content:center;">
+          <span style="font-size:13px;color:rgba(26,22,18,0.20);">›</span>
+        </div>
+      </div>
+    </div>`;
+    if(ci<CATS.length-1) html+=`<div class="row-div" style="margin:0 14px;"></div>`;
+  });
+  area.innerHTML=html;
+
+  if(!hintDone){
+    hintDone=true;
+    setTimeout(()=>{
+      const row=document.getElementById('hrow-home');
+      if(!row)return;
+      row.scrollTo({left:52,behavior:'smooth'});
+      setTimeout(()=>row.scrollTo({left:0,behavior:'smooth'}),520);
+    },800);
+  }
+}
+
+function toggle(id){sel.has(id)?sel.delete(id):sel.add(id);render();updateCTA();}
+
+function setCat(c){
+  cat=c;q='';document.getElementById('si').value='';render();
+}
+
+function showSel(){
+  cat='__sel__';q='';
+  document.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));
+  const selItems=ITEMS.filter(it=>sel.has(it.id));
+  document.getElementById('ct').innerHTML=`<div class="full-grid" style="padding:4px 14px 8px;">${selItems.map(it=>makeTile(it,true)).join('')}</div>`;
+}
+
+function doSearch(){
+  q=document.getElementById('si').value.toLowerCase().trim();
+  if(q)cat='search';
+  render();
+}
+
+function updateCTA(){
+  const n=sel.size,copy=ctaCopy(n);
+  const btn=document.getElementById('cb'),ci=document.getElementById('ci');
+  ci.style.opacity='0';
+  setTimeout(()=>{
+    btn.className=copy.go?'cta go':'cta off';
+    ci.innerHTML=copy.go
+      ?`<span>${copy.text}</span><span class="cbadge">${n}</span>`
+      :`<span>${copy.text}</span>`;
+    ci.style.opacity='1';
+  },180);
+  document.getElementById('pf').style.width=(n===0?40:Math.min(40+n*8,80))+'%';
+}
+
+buildChips();render();updateCTA();
+</script>
+
+</body>
+</html>

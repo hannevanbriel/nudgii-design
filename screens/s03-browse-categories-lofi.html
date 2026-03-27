@@ -67,55 +67,65 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 .w-screen{flex:1;overflow:hidden;display:flex;flex-direction:column;padding:10px 16px 0;}
 .w-content{flex:1;overflow-y:auto;scrollbar-width:none;}
 .w-content::-webkit-scrollbar{display:none;}
-.w-bottom{padding:10px 0 14px;flex-shrink:0;}
+.w-bottom{padding:8px 0 14px;flex-shrink:0;}
+
+/* Back button */
+.back-btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:transparent;border:none;cursor:default;margin-bottom:6px;}
+
+/* Header */
+.hed{font-family:'DM Serif Display',Georgia,serif;font-size:16px;font-weight:400;line-height:1.1;color:var(--ink);margin-bottom:2px;}
+.hed em{font-style:italic;color:var(--cta);}
+.hed-sub{font-size:10px;font-style:italic;color:var(--mid-a);margin-bottom:10px;}
 
 /* Search bar */
-.search-bar{display:flex;align-items:center;gap:8px;background:var(--surface);border:0.5px solid var(--border-md);border-radius:10px;padding:9px 12px;margin-bottom:10px;}
-.search-bar svg{width:14px;height:14px;fill:none;stroke:var(--mid);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+.search-bar{display:flex;align-items:center;gap:8px;background:var(--surface);border:0.5px solid var(--border-md);border-radius:10px;padding:9px 12px;margin-bottom:8px;}
+.search-bar svg{width:13px;height:13px;fill:none;stroke:var(--mid);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
 .search-text{font-size:11px;font-style:italic;color:rgba(107,99,88,0.45);}
 
-/* Category filter strip */
-.cat-strip{display:flex;gap:4px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-bottom:10px;-webkit-overflow-scrolling:touch;}
-.cat-strip::-webkit-scrollbar{display:none;}
-.cat-pill{display:inline-flex;align-items:center;gap:4px;background:var(--surface);border:0.5px solid rgba(26,22,18,0.12);border-radius:100px;padding:4px 10px;font-size:10px;font-weight:500;color:var(--mid-a, #6B6358);flex-shrink:0;cursor:default;transition:background 0.15s ease-out,border-color 0.15s ease-out,color 0.15s ease-out;}
-.cat-pill.active{background:rgba(155,127,212,0.06);color:var(--cta);border-color:var(--cta);}
-.cat-pill.active .cat-dot{opacity:0.85;}
+/* Category chips — new style: no dot, tinted bg + category color text */
+.chip-row{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;padding:4px 0;margin-bottom:2px;}
+.chip-row::-webkit-scrollbar{display:none;}
+.chip{flex-shrink:0;padding:5px 11px;border-radius:100px;font-size:10px;font-weight:500;cursor:default;}
+.chip-all{background:rgba(26,22,18,0.07);color:var(--mid-a);outline:none;}
+.chip-all.active{background:rgba(155,127,212,0.12);color:var(--cta);outline:1px solid var(--cta);}
+.chip-home{background:rgba(200,120,80,0.13);color:var(--cat-home);}
+.chip-vehicle{background:rgba(74,130,160,0.13);color:var(--cat-vehicle);}
+.chip-garden{background:rgba(90,144,96,0.13);color:var(--cat-garden);}
+.chip-subs{background:rgba(128,96,168,0.13);color:var(--cat-sub);}
+
+/* Selected pill */
+.sel-pill-wrap{height:24px;display:flex;align-items:center;margin-bottom:6px;}
+.sel-pill{display:inline-flex;align-items:center;gap:5px;background:var(--cta);color:var(--cta-fg);font-size:9.5px;font-weight:600;padding:3px 10px 3px 5px;border-radius:100px;}
+.sel-num{background:rgba(255,255,255,0.28);width:15px;height:15px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:700;}
+
+/* Category section headers */
+.cat-sec{padding:8px 0 4px;}
+.cat-lbl{display:flex;align-items:center;gap:5px;font-size:9px;font-weight:600;letter-spacing:1.3px;text-transform:uppercase;color:var(--mid-a);margin-bottom:6px;}
 .cat-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
 
-/* Section headers */
-.sec-lbl{font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--mid-a);padding:8px 0 6px;}
+/* Horizontal tile row */
+.tile-row{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding:2px 0 4px;}
+.tile-row::-webkit-scrollbar{display:none;}
 
-/* Item rows */
-.item-rows{display:flex;flex-direction:column;gap:6px;margin-bottom:6px;}
-.irow{background:var(--surface);border:0.5px solid rgba(26,22,18,0.08);border-radius:10px;box-shadow:0 1px 3px rgba(26,22,18,0.04);padding:9px 10px;display:flex;align-items:center;gap:8px;cursor:default;}
-.irow.sel{border:1.5px solid rgba(155,127,212,0.35);background:rgba(155,127,212,0.04);}
-.irow.else{border:0.5px dashed rgba(26,22,18,0.14);background:transparent;box-shadow:none;}
+/* Tile */
+.tile{
+  flex-shrink:0;width:80px;border-radius:12px;padding:12px 6px 9px;
+  text-align:center;display:flex;flex-direction:column;align-items:center;gap:5px;
+  border:1.5px solid transparent;
+}
+.tile.sel{border-color:var(--tile-cc);}
+.tile-icon{width:26px;height:26px;display:flex;align-items:center;justify-content:center;}
+.tile-icon svg{width:22px;height:22px;}
+.tile-lbl{font-size:9px;font-weight:500;color:var(--ink);line-height:1.2;text-align:center;}
+.peek{width:16px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;color:rgba(26,22,18,0.18);}
 
-/* Category icon chip */
-.ci{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.ci svg{width:11px;height:11px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
-.ci-h{background:rgba(200,120,80,0.10);} .ci-h svg{stroke:var(--cat-home);}
-.ci-v{background:rgba(74,130,160,0.10);} .ci-v svg{stroke:var(--cat-vehicle);}
-.ci-g{background:rgba(90,144,96,0.10);}  .ci-g svg{stroke:var(--cat-garden);}
-.ci-n{background:rgba(26,22,18,0.05);}   .ci-n svg{stroke:var(--mid);}
+/* Row divider */
+.row-div{height:0.5px;background:rgba(26,22,18,0.08);margin:0;}
 
-/* Item text */
-.iinfo{flex:1;min-width:0;}
-.iname{font-size:10.5px;font-weight:500;color:var(--ink);line-height:1.2;}
-.imeta{display:flex;align-items:center;gap:5px;margin-top:1px;}
-.itask-count{font-size:8.5px;color:var(--mid);background:rgba(26,22,18,0.05);border:0.5px solid rgba(26,22,18,0.07);border-radius:100px;padding:1px 6px;}
-.else-name{font-size:10.5px;font-weight:500;color:var(--mid-a);}
-.else-sub{font-size:9px;color:rgba(26,22,18,0.35);}
-
-/* Check circle */
-.chk{width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(26,22,18,0.14);background:transparent;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.chk svg{display:none;width:9px;height:9px;stroke:var(--cta-fg);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
-.chk.on{background:var(--cta);border-color:var(--cta);}
-.chk.on svg{display:block;}
-
-/* CTA button */
-.cta-btn{width:100%;height:46px;border-radius:100px;border:none;background:var(--cta);color:var(--cta-fg);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:default;box-shadow:0 2px 10px rgba(155,127,212,0.30);display:flex;align-items:center;justify-content:center;gap:6px;}
-.cta-count{background:rgba(250,248,255,0.20);border-radius:100px;padding:1px 7px;font-size:10px;font-weight:500;}
+/* CTA */
+.cta-btn{width:100%;height:44px;border-radius:100px;border:none;background:var(--cta);color:var(--cta-fg);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:default;box-shadow:0 4px 16px rgba(155,127,212,0.30);display:flex;align-items:center;justify-content:center;gap:7px;}
+.cta-badge{background:rgba(255,255,255,0.20);border-radius:100px;padding:2px 8px;font-size:10.5px;font-weight:500;}
+.cta-btn.off{background:rgba(26,22,18,0.08);color:var(--mid);box-shadow:none;}
 
 /* ── RIGHT COLUMN ── */
 .right{flex:1;min-width:280px;}
@@ -173,12 +183,12 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 
   <!-- HEADER -->
   <h1>Browse categories</h1>
-  <p class="sub">Path B: the user browses a flat list of items grouped by category, ticking what they own. No typing, no speaking. Fast and visual. Designed for Arne and users who already know what they have.</p>
+  <p class="sub">Path B: the user selects items they own from a visual tile grid grouped by category. Horizontal scroll rows in overview, 3-column grid per category. Fast and visual. Designed for Arne and users who know what they have.</p>
   <div class="meta">
     <span class="mp lo">Lo-fi</span>
     <span class="mp ob">Onboarding flow</span>
     <span class="mp">S-03</span>
-    <span class="mp">Path B, leads to S-05</span>
+    <span class="mp">Path B, leads to S-04</span>
   </div>
 
   <!-- MAIN LAYOUT -->
@@ -189,7 +199,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
       <div class="phone">
         <div class="screen">
 
-          <!-- Zone A: notch + status bar -->
+          <!-- Zone A: status bar -->
           <div class="zone">
             <div class="zone-tag">A</div>
             <div class="z-sbar"><div class="z-sbar-pill"></div></div>
@@ -202,120 +212,152 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
             <div class="prog-bar"><div class="prog-fill" style="width:40%;"></div></div>
           </div>
 
-          <!-- Scrollable content zone -->
+          <!-- Scrollable content + sticky bottom -->
           <div class="w-screen">
             <div class="w-content">
 
-              <div style="font-family:'DM Serif Display',Georgia,serif;font-size:14px;font-weight:400;line-height:1.1;color:var(--ink);margin-bottom:2px;">What do you have?</div>
-              <div style="font-size:10px;font-style:italic;color:var(--mid-a);margin-bottom:8px;">Tick what applies. We'll figure out the rest.</div>
+              <!-- Zone C: back button -->
+              <div class="zone" style="position:relative;">
+                <div class="zone-tag">C</div>
+                <div class="back-btn">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M10 6H2" stroke="#1A1612" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M5 3L2 6L5 9" stroke="#1A1612" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
 
-              <!-- Search bar -->
+              <!-- Zone D: header -->
               <div class="zone" style="position:relative;">
                 <div class="zone-tag">D</div>
+                <div class="hed">What's <em>yours?</em></div>
+                <div class="hed-sub">Tap what applies, we'll take it from there.</div>
+              </div>
+
+              <!-- Zone E: search bar -->
+              <div class="zone" style="position:relative;">
+                <div class="zone-tag">E</div>
                 <div class="search-bar">
                   <svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/></svg>
                   <div class="search-text">Search items...</div>
                 </div>
               </div>
 
-              <!-- Category filter strip -->
+              <!-- Zone F: category chips (new style, no dots) -->
               <div class="zone" style="position:relative;">
-                <div class="zone-tag">E</div>
-                <div class="cat-strip">
-                  <div class="cat-pill active">All</div>
-                  <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-home);"></span>Home</div>
-                  <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-vehicle);"></span>Vehicle</div>
-                  <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-garden);"></span>Garden</div>
-                  <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-sub);"></span>Subscriptions</div>
+                <div class="zone-tag">F</div>
+                <div class="chip-row">
+                  <div class="chip chip-all active">All</div>
+                  <div class="chip chip-home">Home</div>
+                  <div class="chip chip-vehicle">Vehicle</div>
+                  <div class="chip chip-garden">Garden</div>
+                  <div class="chip chip-subs">Subscriptions</div>
                 </div>
               </div>
 
-              <!-- Item list grouped by category -->
-              <div class="zone" style="position:relative;">
-                <div class="zone-tag">F</div>
-
-                <!-- HOME section -->
-                <div class="sec-lbl">Home</div>
-                <div class="item-rows">
-                  <div class="irow sel">
-                    <div class="ci ci-h"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
-                    <div class="iinfo">
-                      <div class="iname">Dishwasher</div>
-                      <div class="imeta"><span class="itask-count">3 reminders</span></div>
-                    </div>
-                    <div class="chk on"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
-                  </div>
-                  <div class="irow">
-                    <div class="ci ci-h"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="12" cy="15" r="3"/><line x1="12" y1="3" x2="12" y2="6"/></svg></div>
-                    <div class="iinfo">
-                      <div class="iname">Boiler / central heating</div>
-                      <div class="imeta"><span class="itask-count">2 reminders</span></div>
-                    </div>
-                    <div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
-                  </div>
-                  <div class="irow">
-                    <div class="ci ci-h"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
-                    <div class="iinfo">
-                      <div class="iname">Airco / heat pump</div>
-                      <div class="imeta"><span class="itask-count">2 reminders</span></div>
-                    </div>
-                    <div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
-                  </div>
-                </div>
-
-                <!-- VEHICLE section -->
-                <div class="sec-lbl">Vehicle</div>
-                <div class="item-rows">
-                  <div class="irow sel">
-                    <div class="ci ci-v"><svg viewBox="0 0 24 24"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/></svg></div>
-                    <div class="iinfo">
-                      <div class="iname">Car</div>
-                      <div class="imeta"><span class="itask-count">4 reminders</span></div>
-                    </div>
-                    <div class="chk on"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
-                  </div>
-                  <div class="irow">
-                    <div class="ci ci-v"><svg viewBox="0 0 24 24"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/></svg></div>
-                    <div class="iinfo">
-                      <div class="iname">Motorcycle</div>
-                      <div class="imeta"><span class="itask-count">3 reminders</span></div>
-                    </div>
-                    <div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
-                  </div>
-                </div>
-
-                <!-- GARDEN section -->
-                <div class="sec-lbl">Garden</div>
-                <div class="item-rows">
-                  <div class="irow">
-                    <div class="ci ci-g"><svg viewBox="0 0 24 24"><line x1="12" y1="22" x2="12" y2="15"/><path d="M9 18c0-4 3-7 3-7s3 3 3 7a3 3 0 01-6 0z"/></svg></div>
-                    <div class="iinfo">
-                      <div class="iname">Hedge / haag</div>
-                      <div class="imeta"><span class="itask-count">2 reminders</span></div>
-                    </div>
-                    <div class="chk"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
-                  </div>
-                </div>
-
-                <!-- Something else row -->
-                <div class="item-rows" style="margin-top:8px;">
-                  <div class="irow else">
-                    <div class="ci ci-n"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-                    <div class="iinfo">
-                      <div class="else-name">Something else</div>
-                      <div class="else-sub">browse all items</div>
-                    </div>
-                  </div>
-                </div>
-
-              </div><!-- /zone F -->
-            </div><!-- /w-content -->
-
-            <!-- Sticky CTA -->
-            <div class="w-bottom">
+              <!-- Zone G: selected pill (2 items pre-selected) -->
               <div class="zone" style="position:relative;">
                 <div class="zone-tag">G</div>
-                <div class="cta-btn">Continue with 2 items <span class="cta-count">2</span></div>
+                <div class="sel-pill-wrap">
+                  <div class="sel-pill"><div class="sel-num">2</div> selected</div>
+                </div>
+              </div>
+
+              <!-- Zone H: tile rows per category -->
+              <div class="zone" style="position:relative;">
+                <div class="zone-tag">H</div>
+
+                <!-- Home row -->
+                <div class="cat-sec">
+                  <div class="cat-lbl">
+                    <span class="cat-dot" style="background:var(--cat-home);"></span>
+                    Home
+                  </div>
+                  <div class="tile-row">
+                    <!-- Selected tile (Dishwasher) -->
+                    <div class="tile sel" style="background:rgba(200,120,80,0.12);--tile-cc:var(--cat-home);">
+                      <div class="tile-icon">
+                        <svg viewBox="0 0 256 256" fill="none"><rect x="32" y="48" width="192" height="160" rx="16" stroke="#C87850" stroke-width="14" fill="none"/><line x1="32" y1="100" x2="224" y2="100" stroke="#C87850" stroke-width="14" stroke-linecap="round"/><circle cx="128" cy="164" r="34" stroke="#C87850" stroke-width="12" fill="none"/><circle cx="128" cy="164" r="10" fill="#C87850"/></svg>
+                      </div>
+                      <div class="tile-lbl">Dishwasher</div>
+                    </div>
+                    <!-- Unselected tile -->
+                    <div class="tile" style="background:rgba(200,120,80,0.12);">
+                      <div class="tile-icon">
+                        <svg viewBox="0 0 256 256" fill="none"><rect x="32" y="32" width="192" height="192" rx="16" stroke="#C87850" stroke-width="14" fill="none"/><circle cx="128" cy="150" r="48" stroke="#C87850" stroke-width="12" fill="none"/><circle cx="82" cy="74" r="11" fill="#C87850"/></svg>
+                      </div>
+                      <div class="tile-lbl">Washing machine</div>
+                    </div>
+                    <div class="tile" style="background:rgba(200,120,80,0.12);">
+                      <div class="tile-icon">
+                        <svg viewBox="0 0 256 256" fill="none"><rect x="72" y="24" width="112" height="208" rx="20" stroke="#C87850" stroke-width="14" fill="none"/><circle cx="128" cy="124" r="34" stroke="#C87850" stroke-width="12" fill="none"/></svg>
+                      </div>
+                      <div class="tile-lbl">Boiler</div>
+                    </div>
+                    <div class="peek">›</div>
+                  </div>
+                </div>
+
+                <div class="row-div"></div>
+
+                <!-- Vehicle row -->
+                <div class="cat-sec">
+                  <div class="cat-lbl">
+                    <span class="cat-dot" style="background:var(--cat-vehicle);"></span>
+                    Vehicle
+                  </div>
+                  <div class="tile-row">
+                    <!-- Selected tile (Car) -->
+                    <div class="tile sel" style="background:rgba(74,130,160,0.12);--tile-cc:var(--cat-vehicle);">
+                      <div class="tile-icon">
+                        <svg viewBox="0 0 256 256" fill="none"><path d="M8 144a8 8 0 0 1 8-8h16L60 80h136l28 56h16a8 8 0 0 1 8 8v32a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8v-32z" stroke="#4A82A0" stroke-width="14" fill="none" stroke-linejoin="round"/><circle cx="76" cy="192" r="24" stroke="#4A82A0" stroke-width="14" fill="none"/><circle cx="180" cy="192" r="24" stroke="#4A82A0" stroke-width="14" fill="none"/></svg>
+                      </div>
+                      <div class="tile-lbl">Car</div>
+                    </div>
+                    <div class="tile" style="background:rgba(74,130,160,0.12);">
+                      <div class="tile-icon">
+                        <svg viewBox="0 0 256 256" fill="none"><circle cx="60" cy="168" r="44" stroke="#4A82A0" stroke-width="14" fill="none"/><circle cx="196" cy="168" r="44" stroke="#4A82A0" stroke-width="14" fill="none"/><path d="M60 168l56-96h48" stroke="#4A82A0" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M128 72l68 96" stroke="#4A82A0" stroke-width="14" stroke-linecap="round"/></svg>
+                      </div>
+                      <div class="tile-lbl">Bicycle</div>
+                    </div>
+                    <div class="peek">›</div>
+                  </div>
+                </div>
+
+                <div class="row-div"></div>
+
+                <!-- Garden row -->
+                <div class="cat-sec">
+                  <div class="cat-lbl">
+                    <span class="cat-dot" style="background:var(--cat-garden);"></span>
+                    Garden
+                  </div>
+                  <div class="tile-row">
+                    <div class="tile" style="background:rgba(90,144,96,0.12);">
+                      <div class="tile-icon">
+                        <svg viewBox="0 0 256 256" fill="none"><path d="M24 200c0 0 20-88 56-88s28 56 48 56 36-120 56-120 48 152 48 152" stroke="#5A9060" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="200" x2="244" y2="200" stroke="#5A9060" stroke-width="14" stroke-linecap="round"/></svg>
+                      </div>
+                      <div class="tile-lbl">Lawn</div>
+                    </div>
+                    <div class="tile" style="background:rgba(90,144,96,0.12);">
+                      <div class="tile-icon">
+                        <svg viewBox="0 0 256 256" fill="none"><line x1="128" y1="224" x2="128" y2="140" stroke="#5A9060" stroke-width="14" stroke-linecap="round"/><circle cx="128" cy="96" r="52" stroke="#5A9060" stroke-width="14" fill="none"/></svg>
+                      </div>
+                      <div class="tile-lbl">Hedge</div>
+                    </div>
+                    <div class="peek">›</div>
+                  </div>
+                </div>
+
+              </div><!-- /zone H -->
+            </div><!-- /w-content -->
+
+            <!-- Zone I: sticky CTA -->
+            <div class="w-bottom">
+              <div class="zone" style="position:relative;">
+                <div class="zone-tag">I</div>
+                <div style="height:0.5px;background:rgba(26,22,18,0.10);margin-bottom:8px;"></div>
+                <div class="cta-btn">Looking good, continue <div class="cta-badge">2</div></div>
               </div>
             </div>
           </div><!-- /w-screen -->
@@ -330,62 +372,103 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
       <!-- ZONES -->
       <div class="sec">
         <div class="sec-eye">Zones</div>
-        <div class="sec-title">Flat browse with filters</div>
+        <div class="sec-title">Tile grid browse</div>
         <div class="sec-rule"></div>
 
         <div class="zone-card">
           <div class="zc-head"><span class="zc-badge">A+B</span><span class="zc-name">Status bar + progress bar</span></div>
           <div class="zc-body">
-            Standard iOS notch (24px) + status bar. Progress bar: full-width, edge-to-edge, 3px, <code>colorCta #9B7FD4</code> fill at <strong>40%</strong> (S-03 = step 2 of 5). Outside SafeArea. Never segmented, never dots.
+            Standard iOS notch + status bar. Progress bar: full-width, edge-to-edge, 3px, <code>colorCta #9B7FD4</code> at <strong>40%</strong> (S-03 = step 2). Outside SafeArea. Fills 8% per selected item, clamped at 80%. Animates on every toggle.
           </div>
         </div>
 
         <div class="zone-card">
           <div class="zc-head"><span class="zc-badge">C</span><span class="zc-name">Back button</span></div>
           <div class="zc-body">
-            PhosphorIcons ArrowLeft: horizontal line + arrowhead. SVG paths <code>d="M10 6H2"</code> + <code>d="M5 3L2 6L5 9"</code> in viewBox 0 0 12 12. 44x44px tap target. Navigates back to S-01.
+            PhosphorIcons ArrowLeft: horizontal line + arrowhead. 44x44px tap target. Returns to S-01.
           </div>
         </div>
 
         <div class="zone-card">
-          <div class="zc-head"><span class="zc-badge">D</span><span class="zc-name">Search bar</span></div>
+          <div class="zc-head"><span class="zc-badge">D</span><span class="zc-name">Header</span></div>
           <div class="zc-body">
-            Magnifying glass icon + "Search items..." placeholder. White surface bg, border-radius 10px, 0.5px border. <strong>Live filter</strong>: filters visible items as user types. No separate search screen.
+            DM Serif Display 20px. "What's" plain, "<em style="font-style:italic;color:var(--cta);">yours?</em>" italic in <code>colorCta</code>. Subtitle: DM Sans 11px italic <code>colorMid</code>. One serif moment per screen.
+          </div>
+        </div>
+
+        <div class="zone-card">
+          <div class="zc-head"><span class="zc-badge">E</span><span class="zc-name">Search bar</span></div>
+          <div class="zc-body">
+            White surface, 0.5px border, 10px radius. MagnifyingGlass icon 13px. Live filter: filters visible tiles as user types. Shows flat grid when query present. Clears when category chip is tapped.
           </div>
         </div>
 
         <div class="zone-card highlight">
-          <div class="zc-head"><span class="zc-badge purple">E</span><span class="zc-name">Category filter strip</span></div>
+          <div class="zc-head"><span class="zc-badge purple">F</span><span class="zc-name">Category chips — new style</span></div>
           <div class="zc-body">
-            "All" pill always first, always the initial active state. Single scrollable row (<code>flex-wrap:nowrap; overflow-x:auto</code>). Each pill includes a 6px colored dot + label.
+            <strong>No dots. No borders.</strong> Each chip uses category-tinted background + category color text.
             <div class="zc-rule"></div>
-            Active pill: <code>background:rgba(155,127,212,0.06); color:var(--cta); border-color:var(--cta)</code> (purple outline)<br>
-            Inactive pill: surface bg, 0.5px border, <code>colorMidAccessible</code> text.<br>
-            Tapping a category pill filters the item list below to only show that category.
+            Home chip: <code>rgba(200,120,80,0.13)</code> bg, <code>#C87850</code> text.<br>
+            Vehicle chip: <code>rgba(74,130,160,0.13)</code> bg, <code>#4A82A0</code> text.<br>
+            Garden chip: <code>rgba(90,144,96,0.13)</code> bg, <code>#5A9060</code> text.<br>
+            Subscriptions chip: <code>rgba(128,96,168,0.13)</code> bg, <code>#8060A8</code> text.
+            <div class="zc-rule"></div>
+            Active category: adds <code>1px solid categoryColor</code> outline.<br>
+            "All" inactive: <code>rgba(26,22,18,0.07)</code> bg, <code>colorMid</code> text, no outline.<br>
+            "All" active: <code>rgba(155,127,212,0.12)</code> bg, <code>1px solid colorCta</code> outline, <code>colorCta</code> text.
+            <div class="zc-rule"></div>
+            Single scrollable row. No GestureDetector dot, no FilterChip widget. Use <code>GestureDetector + AnimatedContainer</code> for smooth transitions.
           </div>
         </div>
 
         <div class="zone-card highlight">
-          <div class="zc-head"><span class="zc-badge purple">F</span><span class="zc-name">Item list (grouped by category)</span></div>
+          <div class="zc-head"><span class="zc-badge purple">G</span><span class="zc-name">Selected pill</span></div>
           <div class="zc-body">
-            Items grouped under section headers: 9px, 500 weight, 1.8px letter-spacing, uppercase, <code>colorMidAccessible</code>.
+            Appears when <code>selectedIds.isNotEmpty</code>. <code>colorCta</code> filled pill, white text, count in a small white-tinted circle left side.
             <div class="zc-rule"></div>
-            Each item = individual white card with 6px gap. No border-bottom separators. Card: 0.5px border, 10px radius, subtle shadow.
+            Tapping it shows only selected items in a 3-col grid. Acts as a quick filter for review.
+          </div>
+        </div>
+
+        <div class="zone-card highlight">
+          <div class="zc-head"><span class="zc-badge purple">H</span><span class="zc-name">Tile rows — overview mode</span></div>
+          <div class="zc-body">
+            <strong>One section per category</strong> in order: Home, Vehicle, Garden, Subscriptions. Section header: 9px, 600 weight, 1.3px letter-spacing, uppercase, <code>colorMidAccessible</code> + 6px colored dot.
             <div class="zc-rule"></div>
-            Each row: <strong>category icon chip</strong> (22x22px) + <strong>item name</strong> (10.5px/500) + <strong>reminder count pill</strong> ("3 reminders") + <strong>check circle</strong> (right side, 18px diameter).
+            Each section: horizontal <code>SingleChildScrollView</code> row of tiles. Padding: <code>EdgeInsets.symmetric(vertical:4, horizontal:16)</code>. Critical: vertical padding prevents selected border from clipping.
             <div class="zc-rule"></div>
-            <strong>Pre-checked items:</strong> Items selected on S-01 arrive pre-checked (Dishwasher, Car in this example). Selected state: 1.5px CTA border + subtle CTA tint bg.
+            <strong>Swipe hint (first load only):</strong> Home row scrolls 52px right, pauses 520ms, snaps back. Teaches the swipe pattern. <code>hintDone</code> flag prevents repeat.
             <div class="zc-rule"></div>
-            <strong>"Something else" row:</strong> Dashed border, plus icon. Discovery path for items not in the default list.
+            End of each row: faint <code>›</code> peek indicator (shows more tiles exist). <code>rgba(26,22,18,0.20)</code>.
+            <div class="zc-rule"></div>
+            <strong>Single category mode (chip tapped):</strong> Switches to 3-column <code>GridView</code> of all items in that category. Selected items sort to the top.
+          </div>
+        </div>
+
+        <div class="zone-card">
+          <div class="zc-head"><span class="zc-badge">H</span><span class="zc-name">Tile widget</span></div>
+          <div class="zc-body">
+            88px wide, radius 14px. Background: category color at 12% opacity. Border: 1.5px solid transparent (unselected) / 1.5px solid <strong>categoryColor</strong> (selected, NOT purple).
+            <div class="zc-rule"></div>
+            Icon: Phosphor outline, 26px, category color. No inner wrapper. Rendered directly on tile background.
+            <div class="zc-rule"></div>
+            Label: DM Sans 9.5px, weight 500, <code>colorInk</code>, centered, max 2 lines.
+            <div class="zc-rule"></div>
+            Hover (web): bg lifts to category color at 20%, scale 1.03.<br>
+            Press: scale 0.93. Haptic: <code>HapticFeedback.selectionClick()</code> on every toggle.
           </div>
         </div>
 
         <div class="zone-card cta-card">
-          <div class="zc-head"><span class="zc-badge purple">G</span><span class="zc-name">Sticky CTA</span></div>
+          <div class="zc-head"><span class="zc-badge purple">I</span><span class="zc-name">Sticky CTA</span></div>
           <div class="zc-body">
-            "Continue with X items" label updates dynamically as items are checked/unchecked. Count badge shows the number. Navigates to S-05 (review).
+            Full width, 50px, radius 100px. Above: 0.5px hairline separator.
             <div class="zc-rule"></div>
-            Disabled state when 0 items selected: <code>rgba(155,127,212,0.35)</code> bg, <code>rgba(250,248,255,0.5)</code> text.
+            <strong>0 items:</strong> <code>rgba(26,22,18,0.08)</code> bg, <code>colorMid</code> text "Tick something first". Not tappable.<br>
+            <strong>1 item:</strong> Active CTA, "Good start, continue".<br>
+            <strong>2 items:</strong> "Nice, keep going or continue".<br>
+            <strong>3+ items:</strong> "Looking good, continue".<br>
+            Copy transition: fade out 180ms, swap, fade in. Count badge in white-tinted circle, right side.
           </div>
         </div>
       </div>
@@ -397,20 +480,28 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
         <div class="sec-rule"></div>
         <div class="rules-grid">
           <div class="rule-item">
-            <div class="ri-label">Flat list, not category tiles</div>
-            <div class="ri-desc">Single scrollable list with section headers replaces the 2x2 category grid. Faster for Arne: fewer taps to select items.</div>
+            <div class="ri-label">Tiles, not rows</div>
+            <div class="ri-desc">Visual tile grid replaces flat list rows. More items visible above the fold. Faster for Arne: tap to recognize, not read.</div>
           </div>
           <div class="rule-item">
-            <div class="ri-label">Category colors only in chips</div>
-            <div class="ri-desc">catHome/catVehicle/catGarden/catSub appear only in category icon chips. Never on status, tab bar, or buttons.</div>
+            <div class="ri-label">No dots on chips</div>
+            <div class="ri-desc">Category chips use tinted bg + category color text. No dot indicator. Cleaner. Color conveys category identity.</div>
           </div>
           <div class="rule-item">
-            <div class="ri-label">Individual white cards</div>
-            <div class="ri-desc">Items are always individual cards with gap between them. Never border-bottom separators. Cream gap IS the separator.</div>
+            <div class="ri-label">Category color on tile border (selected)</div>
+            <div class="ri-desc">Selected tile border = category color, not purple. Purple is reserved for CTA/active filter. Category owns its visual.</div>
           </div>
           <div class="rule-item">
-            <div class="ri-label">"All" pill first</div>
-            <div class="ri-desc">"All" pill always first and active by default. Functional filter on S-03 (unlike S-01 where it was decorative).</div>
+            <div class="ri-label">Swipe hint once only</div>
+            <div class="ri-desc">Home row scroll hint fires on first load only. <code>hintDone</code> flag. Never repeated — doesn't teach twice what users learn once.</div>
+          </div>
+          <div class="rule-item">
+            <div class="ri-label">Progress bar grows with selections</div>
+            <div class="ri-desc">40% base + 8% per item, clamped at 80%. Reinforces that adding items = moving forward.</div>
+          </div>
+          <div class="rule-item">
+            <div class="ri-label">CTA copy progression</div>
+            <div class="ri-desc">"Tick something first" → "Good start" → "Nice, keep going" → "Looking good, continue". Friendly, progressive, never pushy.</div>
           </div>
         </div>
       </div>
@@ -423,9 +514,9 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
         <div class="zone-card">
           <div class="zc-body">
             <strong>Comes from:</strong> S-01 Welcome, Path B CTA "Show me what I can track".<br>
-            <strong>Context carry-over:</strong> Items pre-selected on S-01 arrive checked. Never re-ask for information already given.<br>
-            <strong>Goes to:</strong> S-05 Onboarding review, via CTA "Continue with X items".<br>
-            <strong>Back button:</strong> Returns to S-01. No intermediate states.
+            <strong>Context carry-over:</strong> No items pre-selected (S-01 no longer has interactive selection as of v2). S-03 always opens fresh.<br>
+            <strong>Goes to:</strong> S-04 Review, via CTA (any active state).<br>
+            <strong>Back button:</strong> Returns to S-01.
           </div>
         </div>
       </div>
@@ -433,9 +524,10 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
       <!-- LINKS -->
       <div class="links">
         <a class="link-btn hi" href="s03-browse-categories-hifi.html">Hi-fi version</a>
+        <a class="link-btn hi" href="s03-browse-categories-prototype.html">Prototype</a>
         <a class="link-btn sys" href="../index.html">Design hub</a>
         <a class="link-btn sys" href="s01-welcome-hifi.html">S-01 Welcome</a>
-        <a class="link-btn sys" href="s05-onboarding-review-hifi.html">S-05 Review</a>
+        <a class="link-btn sys" href="s04-review-hifi.html">S-04 Review</a>
         <a class="link-btn sys" href="../system/design-system.html">Design system</a>
       </div>
 
