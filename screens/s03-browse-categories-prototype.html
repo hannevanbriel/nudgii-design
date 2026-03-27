@@ -64,8 +64,6 @@ body{
 .screen{padding:12px 14px 0;font-family:'DM Sans',sans-serif;color:var(--ink);}
 
 /* Back button */
-.back{display:flex;align-items:center;gap:4px;padding:4px 0;margin-bottom:4px;cursor:pointer;color:var(--ink);background:none;border:none;font-family:'DM Sans',sans-serif;font-size:11px;}
-.back:active{opacity:0.6;}
 
 /* Header */
 .hed{font-family:'DM Serif Display',serif;font-size:20px;color:var(--ink);line-height:1.1;margin-bottom:2px;}
@@ -200,14 +198,6 @@ body{
   <div class="device">
     <div class="pbar"><div class="pfill" id="pf" style="width:40%;"></div></div>
     <div class="screen">
-
-      <!-- Back -->
-      <button class="back" onclick="history.back()">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-          <path d="M10 6H2" stroke="#1A1612" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M5 3L2 6L5 9" stroke="#1A1612" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
 
       <!-- Header -->
       <div class="hed">What's <em>yours?</em></div>

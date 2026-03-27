@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · S-03 Browse categories · Flutter spec</title>
+<link rel="stylesheet" href="../system/components.css">
+<style>
+body{background:#CBC5BB;padding:0 0 80px;}
+
+/* Spec sections */
+.spec{max-width:860px;margin:0 auto;padding:0 28px;}
+.spec h2{font-family:'DM Serif Display',Georgia,serif;font-size:22px;color:var(--ink);margin:40px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border-md);}
+.spec h3{font-size:13px;font-weight:600;color:var(--ink);margin:24px 0 8px;letter-spacing:-0.2px;}
+.spec p,.spec li{font-size:12px;color:var(--ink);line-height:1.65;}
+.spec ul{margin:0 0 12px 18px;}
+.spec li{margin-bottom:4px;}
+.spec strong{font-weight:600;}
+.spec em{font-style:italic;color:var(--mid-a);}
+
+/* Code blocks */
+.spec pre{background:var(--ink);color:#E8E0D6;font-size:11px;line-height:1.55;padding:14px 16px;border-radius:8px;overflow-x:auto;margin:8px 0 16px;font-family:'SF Mono','Fira Code',monospace;}
+.spec code{font-family:'SF Mono','Fira Code',monospace;font-size:11px;}
+.spec p code,.spec li code{background:rgba(26,22,18,0.06);padding:1px 5px;border-radius:3px;color:var(--terra);}
+
+/* Color swatch rows */
+.swatch-row{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 16px;}
+.swatch{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--ink);font-family:'SF Mono',monospace;}
+.swatch-dot{width:16px;height:16px;border-radius:4px;border:0.5px solid rgba(26,22,18,0.12);flex-shrink:0;}
+
+/* Timeline table */
+.timeline-table{width:100%;border-collapse:collapse;margin:8px 0 20px;font-size:11px;}
+.timeline-table th{text-align:left;font-weight:600;font-size:10px;letter-spacing:0.5px;text-transform:uppercase;color:var(--mid-a);padding:6px 10px;border-bottom:1px solid var(--border-md);}
+.timeline-table td{padding:6px 10px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--ink);}
+.timeline-table td:first-child{font-family:'SF Mono',monospace;white-space:nowrap;color:var(--cta);font-weight:500;}
+
+/* Mapping table */
+.map-table{width:100%;border-collapse:collapse;margin:8px 0 20px;font-size:11px;}
+.map-table th{text-align:left;font-weight:600;font-size:10px;letter-spacing:0.5px;text-transform:uppercase;color:var(--mid-a);padding:6px 10px;border-bottom:1px solid var(--border-md);}
+.map-table td{padding:6px 10px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--ink);}
+.map-table code{font-size:10px;}
+
+/* Edge case cards */
+.edge-case{background:var(--surface);border:0.5px solid var(--border-md);border-radius:8px;padding:12px 14px;margin:6px 0;}
+.edge-case-title{font-size:11px;font-weight:600;color:var(--ink);margin-bottom:4px;}
+.edge-case-body{font-size:11px;color:var(--mid-a);line-height:1.5;}
+
+/* Summary card */
+.summary-card{background:var(--surface);border:0.5px solid var(--border-md);border-radius:10px;padding:16px 18px;margin:12px 0 20px;}
+.summary-card h4{font-size:11px;font-weight:600;margin-bottom:8px;color:var(--cta);}
+.summary-card p{font-size:11px;line-height:1.6;color:var(--ink);}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-back" href="../index.html">
+    <svg width="16" height="18" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:2px;">
+      <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
+      <path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
+      <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
+    </svg>
+    Design hub
+  </a>
+  <span class="nav-sep">/</span>
+  <a href="s03-browse-categories-hifi.html" style="color:var(--mid-a);font-size:13px;text-decoration:none;">S-03 hi-fi</a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">Flutter spec</span>
+  <span class="nav-status ready">Dev handoff</span>
+</nav>
+
+<div class="spec">
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>1. Screen overview</h2>
+
+<div class="summary-card">
+  <h4>What this screen does</h4>
+  <p>S-03 is the Path B onboarding screen. The user browses items by category using a tile grid and taps to select what they own. In overview mode ("All" filter active), each category shows a horizontally scrollable row of tiles. When the user taps a category chip, the view collapses into a full 3-column grid showing only that category. A selected pill tracks the count. The CTA copy changes as selections accumulate. The progress bar grows with each selection.</p>
+</div>
+
+<ul>
+  <li><strong>Source hi-fi:</strong> <a href="s03-browse-categories-hifi.html">s03-browse-categories-hifi.html</a></li>
+  <li><strong>Source prototype:</strong> <a href="s03-browse-categories-prototype.html">s03-browse-categories-prototype.html</a></li>
+  <li><strong>Progress bar fill:</strong> 40% base + 8% per selected item, clamped at 80%</li>
+  <li><strong>No tab bar.</strong> This is an onboarding screen.</li>
+  <li><strong>Back button</strong> in the top-left of the content zone (not a native AppBar).</li>
+  <li><strong>Navigation:</strong> Back goes to S-02. CTA taps go to S-04 (Review screen).</li>
+</ul>
+
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>2. State model</h2>
+
+<h3>2.1 Riverpod state class</h3>
+
+<pre>
+// Use Riverpod with a StateNotifier for the screen state.
+
+enum CatFilter { all, home, vehicle, garden, subscriptions }
+
+@immutable
+class S03State {
+  final CatFilter activeFilter;
+  final String searchQuery;
+  final Set&lt;String&gt; selectedIds;
+
+  const S03State({
+    this.activeFilter = CatFilter.all,
+    this.searchQuery = '',
+    this.selectedIds = const {},
+  });
+
+  S03State copyWith({
+    CatFilter? activeFilter,
+    String? searchQuery,
+    Set&lt;String&gt;? selectedIds,
+  }) =&gt; S03State(
+    activeFilter: activeFilter ?? this.activeFilter,
+    searchQuery: searchQuery ?? this.searchQuery,
+    selectedIds: selectedIds ?? this.selectedIds,
+  );
+
+  int get selectionCount =&gt; selectedIds.length;
+  bool isSelected(String id) =&gt; selectedIds.contains(id);
+}
+
+class S03Notifier extends StateNotifier&lt;S03State&gt; {
+  S03Notifier() : super(const S03State());
+
+  void setFilter(CatFilter filter) =&gt; state = state.copyWith(activeFilter: filter);
+
+  void toggleItem(String id) {
+    final updated = Set&lt;String&gt;.from(state.selectedIds);
+    if (updated.contains(id)) {
+      updated.remove(id);
+    } else {
+      updated.add(id);
+    }
+    state = state.copyWith(selectedIds: updated);
+  }
+
+  void setSearch(String q) =&gt; state = state.copyWith(searchQuery: q);
+}
+
+final s03Provider = StateNotifierProvider&lt;S03Notifier, S03State&gt;(
+  (_) =&gt; S03Notifier(),
+);
+</pre>
+
+
+<h3>2.2 Item data model</h3>
+
+<pre>
+// Items are loaded from Supabase once and filtered client-side.
+// The category_items table contains all trackable item types.
+
+class CategoryItem {
+  final String id;       // e.g. 'dishwasher', 'car_battery'
+  final String label;    // display name, e.g. "Dishwasher"
+  final String emoji;    // single emoji, e.g. "🍽"
+  final CatFilter category;
+  final bool isPopular;  // show first in list within category
+}
+
+// Provider that loads all items once:
+final categoryItemsProvider = FutureProvider&lt;List&lt;CategoryItem&gt;&gt;((ref) async {
+  // Query Supabase category_items table
+  // Return sorted: popular first, then alphabetical within each category
+});
+</pre>
+
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>3. Screen shell</h2>
+
+<pre>
+class BrowseCategoriesScreen extends ConsumerStatefulWidget {
+  const BrowseCategoriesScreen({super.key});
+
+  @override
+  ConsumerState&lt;BrowseCategoriesScreen&gt; createState() =&gt;
+      _BrowseCategoriesScreenState();
+}
+
+class _BrowseCategoriesScreenState
+    extends ConsumerState&lt;BrowseCategoriesScreen&gt; {
+
+  bool _hintDone = false; // swipe hint runs once per session
+
+  @override
+  void initState() {
+    super.initState();
+    // Trigger swipe hint after first frame
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_hintDone) _runSwipeHint();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: colorCream,
+      body: SafeArea(
+        top: false, // progress bar bleeds under status bar
+        child: Column(
+          children: [
+            _buildProgressBar(),       // outside SafeArea, full-width
+            Expanded(
+              child: Column(
+                children: [
+                  _buildScrollableContent(), // scrolls
+                ],
+              ),
+            ),
+            _buildBottomZone(),        // fixed, does NOT scroll
+          ],
+        ),
+      ),
+    );
+  }
+}
+</pre>
+
+<ul>
+  <li>Progress bar is the very first widget, rendered before <code>SafeArea</code> kicks in, so it bleeds edge-to-edge under the status bar.</li>
+  <li>The content zone above the CTA scrolls. The CTA zone is always visible.</li>
+  <li>No <code>SingleChildScrollView</code> wrapping the entire screen. Only the content zone scrolls.</li>
+</ul>
+
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>4. Progress bar</h2>
+
+<pre>
+// Base fill: 40%. Each selection adds 8%, clamped at 80%.
+// Animates on every selection/deselection.
+
+Widget _buildProgressBar() {
+  final selCount = ref.watch(s03Provider).selectionCount;
+  final fillFraction = (0.40 + selCount * 0.08).clamp(0.0, 0.80);
+
+  return SizedBox(
+    height: 3,
+    child: LayoutBuilder(
+      builder: (context, constraints) {
+        return Stack(
+          children: [
+            // Track
+            Container(
+              width: constraints.maxWidth,
+              height: 3,
+              color: colorCream, // same as bg — track is invisible
+            ),
+            // Fill
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeInOut,
+              width: constraints.maxWidth * fillFraction,
+              height: 3,
+              decoration: BoxDecoration(
+                color: colorCta,
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(2),
+                  bottomRight: Radius.circular(2),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    ),
+  );
+}
+
+// Color tokens:
+// Track: not rendered — bg shows through
+// Fill: colorCta = Color(0xFF9B7FD4)
+</pre>
+
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>5. Category chip bar</h2>
+
+<h3>5.1 Layout</h3>
+
+<pre>
+// Horizontally scrollable row. No second line. No wrap.
+// "All" is always first. Other chips follow in fixed order:
+// Home, Vehicle, Garden, Subscriptions.
+
+Widget _buildChipBar() {
+  final active = ref.watch(s03Provider).activeFilter;
+
+  return SingleChildScrollView(
+    scrollDirection: Axis.horizontal,
+    padding: const EdgeInsets.symmetric(vertical: 4),
+    child: Row(
+      children: [
+        _buildChip(CatFilter.all,          'All',           active),
+        const SizedBox(width: 5),
+        _buildChip(CatFilter.home,         'Home',          active),
+        const SizedBox(width: 5),
+        _buildChip(CatFilter.vehicle,      'Vehicle',       active),
+        const SizedBox(width: 5),
+        _buildChip(CatFilter.garden,       'Garden',        active),
+        const SizedBox(width: 5),
+        _buildChip(CatFilter.subscriptions,'Subscriptions', active),
+      ],
+    ),
+  );
+}
+</pre>
+
+<h3>5.2 Individual chip widget</h3>
+
+<pre>
+Widget _buildChip(CatFilter filter, String label, CatFilter active) {
+  final isActive = filter == active;
+
+  // Colors per filter
+  final Map&lt;CatFilter, Color&gt; chipBgColor = {
+    CatFilter.all:           const Color(0x1F9B7FD4), // rgba(155,127,212,0.12)
+    CatFilter.home:          const Color(0x21C87850), // rgba(200,120,80,0.13)
+    CatFilter.vehicle:       const Color(0x214A82A0), // rgba(74,130,160,0.13)
+    CatFilter.garden:        const Color(0x215A9060), // rgba(90,144,96,0.13)
+    CatFilter.subscriptions: const Color(0x218060A8), // rgba(128,96,168,0.13)
+  };
+
+  final Map&lt;CatFilter, Color&gt; chipTextColor = {
+    CatFilter.all:           colorCta,                // #9B7FD4
+    CatFilter.home:          catHome,                 // #C87850
+    CatFilter.vehicle:       catVehicle,              // #4A82A0
+    CatFilter.garden:        catGarden,               // #5A9060
+    CatFilter.subscriptions: catSub,                  // #8060A8
+  };
+
+  final Map&lt;CatFilter, Color&gt; chipBorderColor = {
+    CatFilter.all:           colorCta,
+    CatFilter.home:          catHome,
+    CatFilter.vehicle:       catVehicle,
+    CatFilter.garden:        catGarden,
+    CatFilter.subscriptions: catSub,
+  };
+
+  return GestureDetector(
+    onTap: () =&gt; ref.read(s03Provider.notifier).setFilter(filter),
+    child: AnimatedContainer(
+      duration: const Duration(milliseconds: 150),
+      curve: Curves.easeOut,
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+      decoration: BoxDecoration(
+        color: chipBgColor[filter],
+        borderRadius: BorderRadius.circular(100),
+        border: isActive
+          ? Border.all(color: chipBorderColor[filter]!, width: 1)
+          : Border.all(color: Colors.transparent, width: 1),
+      ),
+      child: Text(
+        label,
+        style: GoogleFonts.dmSans(
+          fontSize: 11,
+          fontWeight: FontWeight.w500,
+          color: chipTextColor[filter],
+        ),
+      ),
+    ),
+  );
+}
+
+// IMPORTANT: The border must always be present (transparent when inactive)
+// to prevent layout shift when the border appears on selection.
+// Use Border.all(transparent, width:1) for inactive state.
+</pre>
+
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>6. Tile widget</h2>
+
+<pre>
+// Each tile is 88px wide (in grid: adapts to 1/3 column width).
+// 14px border-radius. Category color at 12% opacity background.
+// Selected: category-color border 1.5px (NOT purple).
+// Press: scale(0.93). Hover/focus: scale(1.03).
+
+Widget _buildTile(CategoryItem item, bool isSelected) {
+  final catColor = _categoryColor(item.category); // e.g. catHome
+
+  return GestureDetector(
+    onTap: () =&gt; ref.read(s03Provider.notifier).toggleItem(item.id),
+    child: AnimatedContainer(
+      duration: const Duration(milliseconds: 150),
+      curve: Curves.easeOut,
+      width: 88, // in grid mode: set to null and use Column parent
+      padding: const EdgeInsets.fromLTRB(6, 13, 6, 9),
+      decoration: BoxDecoration(
+        color: catColor.withOpacity(0.12),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(
+          color: isSelected ? catColor : Colors.transparent,
+          width: 1.5,
+        ),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(item.emoji, style: const TextStyle(fontSize: 22)),
+          const SizedBox(height: 6),
+          Text(
+            item.label,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.dmSans(
+              fontSize: 9.5,
+              fontWeight: FontWeight.w500,
+              color: colorInk,
+              height: 1.2,
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Color _categoryColor(CatFilter category) {
+  switch (category) {
+    case CatFilter.home:          return catHome;
+    case CatFilter.vehicle:       return catVehicle;
+    case CatFilter.garden:        return catGarden;
+    case CatFilter.subscriptions: return catSub;
+    case CatFilter.all:           return colorCta;
+  }
+}
+</pre>
+
+<ul>
+  <li>Selected border is always the <strong>category color</strong> (never purple / colorCta). This clearly communicates which category the item belongs to.</li>
+  <li>In 3-col grid mode, set <code>width: null</code> — the GridView handles sizing. Keep all other styles identical.</li>
+  <li>Minimum tap target: 44x44px. The tile padding should ensure the combined height is at least 44px.</li>
+</ul>
+
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>7. Overview mode: horizontal tile rows</h2>
+
+<h3>7.1 Category section</h3>
+
+<pre>
+// In "All" mode, each category renders as:
+// 1. Section header (section label + colored dot)
+// 2. Horizontal ScrollView of tiles
+// 3. A peek arrow indicating more content to the right
+
+Widget _buildCategorySection(CatFilter cat, List&lt;CategoryItem&gt; items) {
+  final catColor = _categoryColor(cat);
+  final catLabel = _categoryLabel(cat); // 'HOME', 'VEHICLE', etc.
+  final state = ref.watch(s03Provider);
+
+  // Filter by search query
+  final visible = items.where((i) =&gt;
+    i.label.toLowerCase().contains(state.searchQuery.toLowerCase())
+  ).toList();
+
+  if (visible.isEmpty) return const SizedBox.shrink();
+
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      // Section header
+      Padding(
+        padding: const EdgeInsets.only(top: 8, bottom: 5),
+        child: Row(
+          children: [
+            Container(width: 6, height: 6,
+              decoration: BoxDecoration(
+                color: catColor,
+                shape: BoxShape.circle,
+              ),
+            ),
+            const SizedBox(width: 5),
+            Text(
+              catLabel,
+              style: GoogleFonts.dmSans(
+                fontSize: 9,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 1.3,
+                color: colorMidAccessible,
+              ),
+            ),
+          ],
+        ),
+      ),
+      // Horizontal tile row
+      SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.only(bottom: 5, top: 3),
+        child: Row(
+          children: [
+            ...visible.map((item) =&gt;
+              Padding(
+                padding: const EdgeInsets.only(right: 7),
+                child: _buildTile(item, state.isSelected(item.id)),
+              )
+            ),
+            // Peek arrow (always last, indicates more content)
+            if (visible.length &gt; 3)
+              Padding(
+                padding: const EdgeInsets.only(left: 2),
+                child: Icon(PhosphorIcons.caretRight,
+                  size: 13,
+                  color: colorInk.withOpacity(0.20),
+                ),
+              ),
+          ],
+        ),
+      ),
+    ],
+  );
+}
+</pre>
+
+<h3>7.2 Swipe hint animation</h3>
+
+<pre>
+// On first load (before user has scrolled), animate the Home row
+// scrolling 52px to the right, pause 520ms, then snap back.
+// This hints that rows are horizontally scrollable.
+// Uses _hintDone flag: runs once per app session.
+
+// Each category section needs its own ScrollController.
+final ScrollController _homeRowController = ScrollController();
+
+Future&lt;void&gt; _runSwipeHint() async {
+  if (_hintDone) return;
+  _hintDone = true;
+
+  // Small delay so the row is rendered before animating
+  await Future.delayed(const Duration(milliseconds: 600));
+  if (!mounted) return;
+
+  // Scroll right 52px
+  await _homeRowController.animateTo(
+    52,
+    duration: const Duration(milliseconds: 400),
+    curve: Curves.easeInOut,
+  );
+
+  // Pause
+  await Future.delayed(const Duration(milliseconds: 520));
+  if (!mounted) return;
+
+  // Snap back
+  await _homeRowController.animateTo(
+    0,
+    duration: const Duration(milliseconds: 300),
+    curve: Curves.easeOut,
+  );
+}
+
+// Attach _homeRowController to the Home category's SingleChildScrollView.
+// Do NOT attach the same controller to other rows.
+
+// IMPORTANT: Destroy the swipe hint if the user manually scrolls first.
+// Add a listener to _homeRowController that sets _hintDone = true
+// on user-initiated scroll, and cancel the Future if still pending.
+</pre>
+
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>8. Category mode: 3-column grid</h2>
+
+<pre>
+// When any category chip other than "All" is tapped,
+// switch to a full 3-column grid showing only that category's items.
+
+Widget _buildCategoryGrid(CatFilter cat, List&lt;CategoryItem&gt; items) {
+  final state = ref.watch(s03Provider);
+  final visible = items.where((i) =&gt;
+    i.label.toLowerCase().contains(state.searchQuery.toLowerCase())
+  ).toList();
+
+  return GridView.builder(
+    shrinkWrap: true,
+    physics: const NeverScrollableScrollPhysics(), // parent handles scroll
+    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 3,
+      crossAxisSpacing: 7,
+      mainAxisSpacing: 7,
+      childAspectRatio: 0.85, // approx 88px wide tile, ~104px tall
+    ),
+    itemCount: visible.length,
+    itemBuilder: (_, i) =&gt; _buildTile(visible[i], state.isSelected(visible[i].id)),
+  );
+}
+
+// Switch between overview and grid mode based on activeFilter:
+Widget _buildItemContent(List&lt;CategoryItem&gt; allItems) {
+  final filter = ref.watch(s03Provider).activeFilter;
+
+  if (filter == CatFilter.all) {
+    // Overview: one horizontal row per category
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: CatFilter.values
+        .where((c) =&gt; c != CatFilter.all)
+        .map((c) =&gt; _buildCategorySection(
+              c,
+              allItems.where((i) =&gt; i.category == c).toList(),
+            ))
+        .toList(),
+    );
+  } else {
+    // Single category: 3-col grid
+    return _buildCategoryGrid(
+      filter,
+      allItems.where((i) =&gt; i.category == filter).toList(),
+    );
+  }
+}
+</pre>
+
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>9. Selected pill</h2>
+
+<pre>
+// Shows above the chip bar when at least 1 item is selected.
+// Hides (AnimatedOpacity to 0) when count is 0.
+// Count badge inside pill: white circle, number in bold.
+
+Widget _buildSelectedPill() {
+  final count = ref.watch(s03Provider).selectionCount;
+
+  return AnimatedOpacity(
+    opacity: count &gt; 0 ? 1.0 : 0.0,
+    duration: const Duration(milliseconds: 180),
+    child: IgnorePointer(
+      ignoring: count == 0,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 6),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.fromLTRB(5, 3, 10, 3),
+              decoration: BoxDecoration(
+                color: colorCta,
+                borderRadius: BorderRadius.circular(100),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Count badge
+                  Container(
+                    width: 16, height: 16,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.25),
+                      shape: BoxShape.circle,
+                    ),
+                    alignment: Alignment.center,
+                    child: Text(
+                      '$count',
+                      style: GoogleFonts.dmSans(
+                        fontSize: 8.5,
+                        fontWeight: FontWeight.w700,
+                        color: colorCtaFg,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 5),
+                  Text(
+                    count == 1 ? '1 item selected' : '$count items selected',
+                    style: GoogleFonts.dmSans(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w600,
+                      color: colorCtaFg,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+</pre>
+
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>10. Search bar</h2>
+
+<pre>
+// Filters tiles across ALL categories in real time.
+// In overview mode ("All"), hides category sections with 0 visible items.
+// In single-category mode, filters within that category's grid.
+
+Widget _buildSearchBar() {
+  return Container(
+    margin: const EdgeInsets.only(bottom: 8),
+    padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 8),
+    decoration: BoxDecoration(
+      color: colorSurface,
+      border: Border.all(color: colorBorderMd, width: 0.5),
+      borderRadius: BorderRadius.circular(10),
+    ),
+    child: Row(
+      children: [
+        Icon(PhosphorIcons.magnifyingGlass, size: 13, color: colorMid),
+        const SizedBox(width: 7),
+        Expanded(
+          child: TextField(
+            onChanged: (q) =&gt; ref.read(s03Provider.notifier).setSearch(q),
+            style: GoogleFonts.dmSans(fontSize: 11.5, color: colorInk),
+            decoration: InputDecoration(
+              hintText: 'Search items…',
+              hintStyle: GoogleFonts.dmSans(
+                fontSize: 11.5,
+                fontStyle: FontStyle.italic,
+                color: colorMid.withOpacity(0.40),
+              ),
+              border: InputBorder.none,
+              isDense: true,
+              contentPadding: EdgeInsets.zero,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+</pre>
+
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>11. CTA copy progression</h2>
+
+<h3>11.1 Copy states</h3>
+
+<table class="timeline-table">
+  <thead>
+    <tr><th>Selection count</th><th>CTA copy</th><th>CTA state</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>0</td><td>"Tick something first"</td><td>Disabled (muted bg, no shadow)</td></tr>
+    <tr><td>1</td><td>"Good start, continue"</td><td>Active (colorCta + shadow)</td></tr>
+    <tr><td>2</td><td>"Nice, keep going or continue"</td><td>Active</td></tr>
+    <tr><td>3+</td><td>"Looking good, continue"</td><td>Active</td></tr>
+  </tbody>
+</table>
+
+<h3>11.2 Flutter implementation</h3>
+
+<pre>
+String _ctaCopy(int count) {
+  if (count == 0) return 'Tick something first';
+  if (count == 1) return 'Good start, continue';
+  if (count == 2) return 'Nice, keep going or continue';
+  return 'Looking good, continue';
+}
+
+Widget _buildBottomZone() {
+  final count = ref.watch(s03Provider).selectionCount;
+  final isEnabled = count &gt; 0;
+
+  return Padding(
+    padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
+    child: AnimatedSwitcher(
+      duration: const Duration(milliseconds: 180),
+      transitionBuilder: (child, animation) =&gt;
+        FadeTransition(opacity: animation, child: child),
+      child: GestureDetector(
+        key: ValueKey(count &gt; 3 ? '3+' : count), // trigger rebuild per state
+        onTap: isEnabled ? _onContinue : null,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 150),
+          curve: Curves.easeOut,
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(vertical: 13),
+          decoration: BoxDecoration(
+            color: isEnabled ? colorCta : colorInk.withOpacity(0.08),
+            borderRadius: BorderRadius.circular(100),
+            boxShadow: isEnabled
+              ? [BoxShadow(
+                  color: colorCta.withOpacity(0.35),
+                  blurRadius: 18,
+                  offset: const Offset(0, 4),
+                )]
+              : [],
+          ),
+          alignment: Alignment.center,
+          child: Text(
+            _ctaCopy(count),
+            style: GoogleFonts.dmSans(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: isEnabled ? colorCtaFg : colorMid,
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+void _onContinue() {
+  final selected = ref.read(s03Provider).selectedIds;
+  context.push('/onboarding/review', extra: {'selectedIds': selected});
+}
+</pre>
+
+<ul>
+  <li><code>AnimatedSwitcher</code> with <code>FadeTransition</code> handles the 180ms label crossfade when the copy changes.</li>
+  <li>The key on the inner widget must change per copy state, not per count — otherwise the fade fires too often (at count 4, 5, 6 etc the copy stays "Looking good, continue").</li>
+  <li>Bottom zone is outside <code>Expanded</code>. It does NOT scroll. It stays pinned to the bottom at all times.</li>
+  <li>Bottom padding: 20px minimum. Add <code>MediaQuery.of(context).padding.bottom</code> on devices with home indicator.</li>
+</ul>
+
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>12. CSS to Flutter mapping</h2>
+
+<table class="map-table">
+  <thead>
+    <tr><th>CSS (prototype)</th><th>Flutter equivalent</th><th>Notes</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>outline: 1px solid catColor</code> on chip</td>
+      <td><code>Border.all(color: catColor, width: 1)</code> on BoxDecoration</td>
+      <td>Always present at width:1, transparent when inactive — prevents layout shift</td>
+    </tr>
+    <tr>
+      <td><code>padding: 4px 0</code> on chip row (for outline space)</td>
+      <td><code>padding: EdgeInsets.symmetric(vertical: 4)</code> on SingleChildScrollView</td>
+      <td>Gives the border room to render without clipping</td>
+    </tr>
+    <tr>
+      <td><code>overflow-x: auto; scrollbar-width: none</code></td>
+      <td><code>SingleChildScrollView(scrollDirection: Axis.horizontal)</code></td>
+      <td>Flutter hides scrollbars on mobile by default</td>
+    </tr>
+    <tr>
+      <td><code>transition: border-color 150ms ease-out</code> on tile</td>
+      <td><code>AnimatedContainer(duration: Duration(milliseconds: 150), curve: Curves.easeOut)</code></td>
+      <td>Border appears/disappears with a smooth 150ms ease</td>
+    </tr>
+    <tr>
+      <td><code>transform: scale(0.93)</code> on tile <code>:active</code></td>
+      <td><code>GestureDetector</code> + <code>onTapDown</code>/<code>onTapUp</code> to toggle a scale state, or use <code>InkWell</code> with custom splash</td>
+      <td>Scale press feedback. Consider <code>ScaleTransition</code> for a polished feel.</td>
+    </tr>
+    <tr>
+      <td><code>grid-template-columns: repeat(3, 1fr)</code></td>
+      <td><code>GridView.builder</code> with <code>SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3)</code></td>
+      <td>childAspectRatio ~0.85 matches the tile height from the prototype</td>
+    </tr>
+    <tr>
+      <td><code>transition: width 500ms ease-in-out</code> on progress bar</td>
+      <td><code>AnimatedContainer(duration: Duration(milliseconds: 500), curve: Curves.easeInOut)</code> on fill width</td>
+      <td>Width is a fraction of <code>LayoutBuilder</code> constraints.maxWidth</td>
+    </tr>
+    <tr>
+      <td><code>box-shadow: 0 4px 18px rgba(155,127,212,0.35)</code> on active CTA</td>
+      <td><code>BoxShadow(color: colorCta.withOpacity(0.35), blurRadius: 18, offset: Offset(0, 4))</code></td>
+      <td>Shadow fades in/out with <code>AnimatedContainer</code> on the button</td>
+    </tr>
+    <tr>
+      <td><code>opacity: 0 → 1</code> on selected pill</td>
+      <td><code>AnimatedOpacity(opacity: count &gt; 0 ? 1.0 : 0.0, duration: Duration(milliseconds: 180))</code></td>
+      <td>Wrap in <code>IgnorePointer(ignoring: count == 0)</code> to prevent invisible taps</td>
+    </tr>
+    <tr>
+      <td><code>scrollTo(52px, duration: 400ms)</code> swipe hint</td>
+      <td><code>ScrollController.animateTo(52, duration: Duration(milliseconds: 400), curve: Curves.easeInOut)</code></td>
+      <td>Only runs once. Set <code>_hintDone = true</code> in initState after firing.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>13. Color reference</h2>
+
+<h3>13.1 Category colors</h3>
+<div class="swatch-row">
+  <div class="swatch"><div class="swatch-dot" style="background:#C87850;"></div> catHome #C87850</div>
+  <div class="swatch"><div class="swatch-dot" style="background:#4A82A0;"></div> catVehicle #4A82A0</div>
+  <div class="swatch"><div class="swatch-dot" style="background:#5A9060;"></div> catGarden #5A9060</div>
+  <div class="swatch"><div class="swatch-dot" style="background:#8060A8;"></div> catSub #8060A8</div>
+</div>
+
+<h3>13.2 Chip backgrounds (13% opacity tints)</h3>
+<div class="swatch-row">
+  <div class="swatch"><div class="swatch-dot" style="background:rgba(155,127,212,0.12);border:1px solid #9B7FD4;"></div> All: rgba(155,127,212,0.12) + #9B7FD4 border (always active)</div>
+  <div class="swatch"><div class="swatch-dot" style="background:rgba(200,120,80,0.13);"></div> Home: rgba(200,120,80,0.13)</div>
+  <div class="swatch"><div class="swatch-dot" style="background:rgba(74,130,160,0.13);"></div> Vehicle: rgba(74,130,160,0.13)</div>
+  <div class="swatch"><div class="swatch-dot" style="background:rgba(90,144,96,0.13);"></div> Garden: rgba(90,144,96,0.13)</div>
+  <div class="swatch"><div class="swatch-dot" style="background:rgba(128,96,168,0.13);"></div> Subscriptions: rgba(128,96,168,0.13)</div>
+</div>
+
+<h3>13.3 Tile backgrounds (12% opacity tints)</h3>
+<div class="swatch-row">
+  <div class="swatch"><div class="swatch-dot" style="background:rgba(200,120,80,0.12);"></div> Home tile: rgba(200,120,80,0.12)</div>
+  <div class="swatch"><div class="swatch-dot" style="background:rgba(74,130,160,0.12);"></div> Vehicle tile: rgba(74,130,160,0.12)</div>
+  <div class="swatch"><div class="swatch-dot" style="background:rgba(90,144,96,0.12);"></div> Garden tile: rgba(90,144,96,0.12)</div>
+  <div class="swatch"><div class="swatch-dot" style="background:rgba(128,96,168,0.12);"></div> Subscriptions tile: rgba(128,96,168,0.12)</div>
+</div>
+
+<h3>13.4 CTA states</h3>
+<div class="swatch-row">
+  <div class="swatch"><div class="swatch-dot" style="background:#9B7FD4;box-shadow:0 4px 18px rgba(155,127,212,0.35);"></div> Active: colorCta #9B7FD4</div>
+  <div class="swatch"><div class="swatch-dot" style="background:rgba(26,22,18,0.08);"></div> Disabled: rgba(26,22,18,0.08)</div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>14. Edge cases</h2>
+
+<div class="edge-case">
+  <div class="edge-case-title">Empty search results</div>
+  <div class="edge-case-body">If the search query returns no items in any category (overview mode) or no items in the selected category (grid mode), show a centered empty state: "Nothing matched. Try a different word." in 12px DM Sans italic, colorMid. Do not show any category headers when all sections are empty.</div>
+</div>
+
+<div class="edge-case">
+  <div class="edge-case-title">Item data loading</div>
+  <div class="edge-case-body">While category_items loads from Supabase, show a skeleton state: grey placeholder tiles in the same tile shape, using Shimmer effect. Do not block the UI. If loading fails, show the error card component (full-border + red-lt bg + icon-chip) above the chip bar.</div>
+</div>
+
+<div class="edge-case">
+  <div class="edge-case-title">Swipe hint race condition</div>
+  <div class="edge-case-body">If the user taps a tile or scrolls before the swipe hint fires (600ms delay), cancel the hint. Attach a scroll listener to _homeRowController that sets _hintDone = true on any user gesture, before the Future.delayed fires.</div>
+</div>
+
+<div class="edge-case">
+  <div class="edge-case-title">Large selection counts</div>
+  <div class="edge-case-body">The selected pill count badge is 16x16px. For counts above 99, show "99+" in a slightly smaller font (7px). The pill width will expand naturally as the count label grows.</div>
+</div>
+
+<div class="edge-case">
+  <div class="edge-case-title">Free tier limit — no blocking during onboarding</div>
+  <div class="edge-case-body">Never block or warn the user during S-03 selection, even if they select more than 10 items. The 10-item free tier limit is enforced on the dashboard only. Items 11+ get a "Pro" pill on the dashboard and are paused. Let users select freely here.</div>
+</div>
+
+<div class="edge-case">
+  <div class="edge-case-title">Filter switch with active search</div>
+  <div class="edge-case-body">When the user switches from a category filter back to "All", preserve the search query. The search filters across all categories in overview mode. Only clear the search field if the user explicitly taps the clear (X) icon.</div>
+</div>
+
+<div class="edge-case">
+  <div class="edge-case-title">Back navigation with selections</div>
+  <div class="edge-case-body">If the user presses back (to S-02) with items already selected, preserve the selection in S03State. If they return to S-03, their previously selected tiles should still be highlighted. Do not clear state on back navigation.</div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════ -->
+<h2>15. Navigation and data handoff</h2>
+
+<pre>
+// S-03 receives no data on entry. It loads all category items independently.
+
+// On CTA tap ("Looking good, continue" etc.):
+// Pass selected item IDs to S-04 Review screen.
+
+void _onContinue() {
+  final selectedIds = ref.read(s03Provider).selectedIds.toList();
+
+  // Using go_router:
+  context.push('/onboarding/review', extra: {
+    'selectedIds': selectedIds,
+    'source': 'path_b', // S-04 uses this to know which path led here
+  });
+}
+
+// S-04 Review takes selectedIds, looks up full item data,
+// and shows the user what nudgii will track for each item.
+
+// Back navigation: iOS swipe-back gesture only. No visible back button on this screen.
+</pre>
+
+</div><!-- /spec -->
+</body>
+</html>

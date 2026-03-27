@@ -100,13 +100,6 @@ body{background:#CBC5BB;padding:0 0 80px;}
 }
 .cta-badge{background:rgba(255,255,255,0.22);border-radius:100px;padding:2px 9px;font-size:11px;font-weight:500;}
 
-/* Back button (in phone) */
-.back-btn{
-  display:flex;align-items:center;gap:5px;padding:6px 0;
-  background:none;border:none;cursor:pointer;color:var(--ink);
-  font-family:'DM Sans',sans-serif;font-size:12px;
-}
-.back-btn svg{flex-shrink:0;}
 
 /* Annotation overrides */
 .annot-col{flex:1;min-width:280px;}
@@ -126,6 +119,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
   </a>
   <span class="nav-sep">/</span>
   <span class="nav-title">S-03 — Browse categories</span>
+  <a href="s03-browse-categories-flutter-spec.html" class="nav-status ready" style="text-decoration:none;">Flutter spec</a>
   <span class="nav-status ready">Ready for dev</span>
 </nav>
 
@@ -159,14 +153,6 @@ body{background:#CBC5BB;padding:0 0 80px;}
 
           <div class="w-screen">
             <div class="w-content">
-
-              <!-- Back button -->
-              <button class="back-btn">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                  <path d="M10 6H2" stroke="#1A1612" stroke-width="1.5" stroke-linecap="round"/>
-                  <path d="M5 3L2 6L5 9" stroke="#1A1612" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
 
               <!-- Header -->
               <div class="s03-hed">What's <em>yours?</em></div>
@@ -302,13 +288,6 @@ body{background:#CBC5BB;padding:0 0 80px;}
           <div class="w-screen">
             <div class="w-content">
 
-              <button class="back-btn">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                  <path d="M10 6H2" stroke="#1A1612" stroke-width="1.5" stroke-linecap="round"/>
-                  <path d="M5 3L2 6L5 9" stroke="#1A1612" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-
               <div class="s03-hed">What's <em>yours?</em></div>
               <div class="s03-sub">Tap what applies, we'll take it from there.</div>
 
@@ -380,13 +359,6 @@ body{background:#CBC5BB;padding:0 0 80px;}
         <div class="annot-head"><span class="badge-rule">Rule</span> Progress bar</div>
         <div class="annot-body">
           Starts at <strong>40%</strong> (step 2 of 5). Grows by <strong>8% per selected item</strong>, clamped at 80%. Animates on every toggle via <code>AnimatedContainer</code>. Outside SafeArea, full-width edge-to-edge.
-        </div>
-      </div>
-
-      <div class="annot-card">
-        <div class="annot-head"><span class="badge-rule">Rule</span> Back button</div>
-        <div class="annot-body">
-          PhosphorIcons ArrowLeft. SVG paths <code>d="M10 6H2"</code> + <code>d="M5 3L2 6L5 9"</code> in viewBox 0 0 12 12. 44x44px tap target. Returns to S-01.
         </div>
       </div>
 

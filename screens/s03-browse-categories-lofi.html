@@ -69,8 +69,6 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 .w-content::-webkit-scrollbar{display:none;}
 .w-bottom{padding:8px 0 14px;flex-shrink:0;}
 
-/* Back button */
-.back-btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:transparent;border:none;cursor:default;margin-bottom:6px;}
 
 /* Header */
 .hed{font-family:'DM Serif Display',Georgia,serif;font-size:16px;font-weight:400;line-height:1.1;color:var(--ink);margin-bottom:2px;}
@@ -216,20 +214,9 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
           <div class="w-screen">
             <div class="w-content">
 
-              <!-- Zone C: back button -->
+              <!-- Zone C: header -->
               <div class="zone" style="position:relative;">
                 <div class="zone-tag">C</div>
-                <div class="back-btn">
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                    <path d="M10 6H2" stroke="#1A1612" stroke-width="1.5" stroke-linecap="round"/>
-                    <path d="M5 3L2 6L5 9" stroke="#1A1612" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-              </div>
-
-              <!-- Zone D: header -->
-              <div class="zone" style="position:relative;">
-                <div class="zone-tag">D</div>
                 <div class="hed">What's <em>yours?</em></div>
                 <div class="hed-sub">Tap what applies, we'll take it from there.</div>
               </div>
@@ -383,14 +370,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
         </div>
 
         <div class="zone-card">
-          <div class="zc-head"><span class="zc-badge">C</span><span class="zc-name">Back button</span></div>
-          <div class="zc-body">
-            PhosphorIcons ArrowLeft: horizontal line + arrowhead. 44x44px tap target. Returns to S-01.
-          </div>
-        </div>
-
-        <div class="zone-card">
-          <div class="zc-head"><span class="zc-badge">D</span><span class="zc-name">Header</span></div>
+          <div class="zc-head"><span class="zc-badge">C</span><span class="zc-name">Header</span></div>
           <div class="zc-body">
             DM Serif Display 20px. "What's" plain, "<em style="font-style:italic;color:var(--cta);">yours?</em>" italic in <code>colorCta</code>. Subtitle: DM Sans 11px italic <code>colorMid</code>. One serif moment per screen.
           </div>
@@ -515,8 +495,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
           <div class="zc-body">
             <strong>Comes from:</strong> S-01 Welcome, Path B CTA "Show me what I can track".<br>
             <strong>Context carry-over:</strong> No items pre-selected (S-01 no longer has interactive selection as of v2). S-03 always opens fresh.<br>
-            <strong>Goes to:</strong> S-04 Review, via CTA (any active state).<br>
-            <strong>Back button:</strong> Returns to S-01.
+            <strong>Goes to:</strong> S-04 Review, via CTA (any active state). Back: iOS swipe gesture.
           </div>
         </div>
       </div>
