@@ -97,12 +97,16 @@ body{
 /* ── REVIEW CARD ── */
 .card{
   border-radius:12px;margin-bottom:7px;overflow:hidden;
-  border:1.5px solid;
+  background:var(--surface);
+  border:0.5px solid rgba(26,22,18,0.09);
+  box-shadow:0 1px 3px rgba(26,22,18,0.04);
   transition:opacity 0.2s;
 }
-.card-home{background:rgba(200,120,80,0.10);border-color:var(--cat-home);}
-.card-vehicle{background:rgba(74,130,160,0.10);border-color:var(--cat-vehicle);}
-.card-garden{background:rgba(90,144,96,0.10);border-color:var(--cat-garden);}
+/* Category stripe — 3px top bar only */
+.card-stripe{height:3px;width:100%;flex-shrink:0;}
+.card-home .card-stripe{background:var(--cat-home);}
+.card-vehicle .card-stripe{background:var(--cat-vehicle);}
+.card-garden .card-stripe{background:var(--cat-garden);}
 
 /* Card header */
 .card-head{
@@ -113,12 +117,12 @@ body{
 .card-head:active{background:rgba(26,22,18,0.03);}
 .card-name{flex:1;font-size:12px;font-weight:500;color:var(--ink);min-width:0;}
 
-/* Icon chip */
-.ci{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.ci svg{width:14px;height:14px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
-.ci-home{background:rgba(200,120,80,0.18);} .ci-home svg{stroke:var(--cat-home);}
-.ci-vehicle{background:rgba(74,130,160,0.18);} .ci-vehicle svg{stroke:var(--cat-vehicle);}
-.ci-garden{background:rgba(90,144,96,0.18);} .ci-garden svg{stroke:var(--cat-garden);}
+/* Icon — no container, just the colored SVG */
+.ci{width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ci svg{width:16px;height:16px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.ci-home svg{stroke:var(--cat-home);}
+.ci-vehicle svg{stroke:var(--cat-vehicle);}
+.ci-garden svg{stroke:var(--cat-garden);}
 
 /* Scan button */
 .card-scan{
@@ -388,6 +392,7 @@ function cardHTML(item) {
 
   return `
 <div class="card card-${item.cat}${isOpen ? ' open' : ''}${isAnswered ? ' answered' : ''}" id="card-${item.id}">
+  <div class="card-stripe"></div>
   <div class="card-head" onclick="toggleCard('${item.id}')">
     <div class="ci ci-${item.cat}">
       <svg viewBox="0 0 24 24">${item.icon}</svg>
