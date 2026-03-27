@@ -97,16 +97,13 @@ body{
 /* ── REVIEW CARD ── */
 .card{
   border-radius:12px;margin-bottom:7px;overflow:hidden;
-  background:var(--surface);
-  border:0.5px solid rgba(26,22,18,0.09);
-  box-shadow:0 1px 3px rgba(26,22,18,0.04);
+  border:none;
   transition:opacity 0.2s;
 }
-/* Category stripe — 3px top bar only */
-.card-stripe{height:3px;width:100%;flex-shrink:0;}
-.card-home .card-stripe{background:var(--cat-home);}
-.card-vehicle .card-stripe{background:var(--cat-vehicle);}
-.card-garden .card-stripe{background:var(--cat-garden);}
+/* Category-tinted background — same identity as S-03 tiles */
+.card-home{background:rgba(200,120,80,0.09);}
+.card-vehicle{background:rgba(74,130,160,0.09);}
+.card-garden{background:rgba(90,144,96,0.09);}
 
 /* Card header */
 .card-head{
@@ -156,10 +153,10 @@ body{
 .card-hint{padding:1px 12px 9px 48px;font-size:9px;color:var(--mid);}
 .card.open .card-hint{display:none;}
 
-/* Card body (expanded) */
-.card-body{display:none;padding:0 12px 12px;}
+/* Card body (expanded) — white inset for task readability */
+.card-body{display:none;margin:0 8px 8px;padding:10px 10px 10px;background:var(--surface);border-radius:8px;}
 .card.open .card-body{display:block;}
-.card-sep{height:0.5px;background:rgba(26,22,18,0.09);margin-bottom:9px;}
+.card-sep{display:none;}
 
 /* Task list */
 .task-list{display:flex;flex-direction:column;gap:5px;margin-bottom:10px;}
@@ -392,7 +389,6 @@ function cardHTML(item) {
 
   return `
 <div class="card card-${item.cat}${isOpen ? ' open' : ''}${isAnswered ? ' answered' : ''}" id="card-${item.id}">
-  <div class="card-stripe"></div>
   <div class="card-head" onclick="toggleCard('${item.id}')">
     <div class="ci ci-${item.cat}">
       <svg viewBox="0 0 24 24">${item.icon}</svg>
