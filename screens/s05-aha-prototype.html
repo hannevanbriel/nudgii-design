@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · S-05 AHA + celebration · prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream: #F5F0E8;
+  --ink: #1A1612;
+  --cta: #9B7FD4;
+  --cta-fg: #FAF8FF;
+  --cta-pressed: #7D62B3;
+  --apricot: #E8A87C;
+  --apricot-dk: #C8784A;
+  --terra: #C4503A;
+  --plum: #2D1F4A;
+  --mid: #8A8070;
+  --mid-ac: #6B6358;
+  --sage: #3B6D11;
+  --sage-lt: #EAF3DE;
+  --surface: #FFFFFF;
+  --border: rgba(26,22,18,0.08);
+  --cat-home: #C87850;
+  --cat-vehicle: #4A82A0;
+  --cat-garden: #5A9060;
+  --cat-sub: #8060A8;
+}
+
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: #2C2824;
+  color: var(--ink);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ── PAGE HEADER ── */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 800px;
+  padding: 20px 32px 0;
+}
+.page-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(245,240,232,0.45);
+  text-decoration: none;
+}
+.page-logo:hover { color: rgba(245,240,232,0.65); }
+.page-logo svg { opacity: 0.5; }
+.page-nav { display: flex; gap: 16px; }
+.page-nav a {
+  font-size: 10px;
+  font-weight: 500;
+  color: rgba(245,240,232,0.35);
+  text-decoration: none;
+  letter-spacing: 0.3px;
+}
+.page-nav a:hover { color: rgba(245,240,232,0.6); }
+
+/* ── PAGE CONTENT ── */
+.page-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 32px 24px;
+  gap: 16px;
+}
+.page-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.25);
+}
+.page-hint {
+  font-size: 11px;
+  color: rgba(245,240,232,0.30);
+  font-style: italic;
+  min-height: 18px;
+  text-align: center;
+  transition: opacity 0.3s;
+  cursor: default;
+}
+.page-hint.clickable {
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.page-hint.clickable:hover { color: rgba(245,240,232,0.50); }
+
+/* ── PHONE FRAME ── */
+.phone {
+  width: 390px;
+  height: 844px;
+  border-radius: 50px;
+  overflow: hidden;
+  position: relative;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.06),
+    0 20px 60px rgba(0,0,0,0.45),
+    0 8px 24px rgba(0,0,0,0.3);
+  flex-shrink: 0;
+}
+
+/* Phone bg transitions between cream and plum */
+.phone-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--cream);
+  transition: background-color 400ms ease-in-out;
+  z-index: 0;
+}
+.phone.celebrating .phone-bg { background: var(--plum); }
+
+/* ── STATUS BAR ── */
+.status-notch {
+  width: 126px;
+  height: 34px;
+  background: #000;
+  border-radius: 20px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+}
+.status-bar {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 28px 0;
+  height: 54px;
+}
+.status-time {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.3px;
+  transition: color 400ms ease-in-out;
+}
+.phone.celebrating .status-time { color: rgba(245,240,232,0.7); }
+.status-icons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.status-icons svg { transition: opacity 400ms; }
+.phone.celebrating .status-icons svg { opacity: 0.6; }
+
+/* ── PROGRESS BAR ── */
+.progress-bar {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 3px;
+  background: rgba(26,22,18,0.08);
+  transition: background 400ms;
+}
+.phone.celebrating .progress-bar { background: rgba(255,255,255,0.08); }
+.progress-fill {
+  height: 100%;
+  width: 80%;
+  background: var(--cta);
+  border-radius: 0 100px 100px 0;
+  transition: width 500ms ease-in-out;
+}
+.phone.celebrating .progress-fill { width: 85%; }
+
+/* ═══════════════════════════════════
+   STATE 1: SCHEDULE REVEAL (AHA)
+   ═══════════════════════════════════ */
+.state-1 {
+  position: absolute;
+  inset: 0;
+  top: 57px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  opacity: 1;
+  transition: opacity 300ms ease-out;
+}
+.phone.celebrating .state-1 {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.s1-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 20px 0;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.s1-content::-webkit-scrollbar { display: none; }
+
+/* ii mark */
+.ii-mark {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+/* kicker */
+.kicker {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 1.8px;
+  color: var(--apricot);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+/* headline: ONE serif moment */
+.headline {
+  font-family: 'DM Serif Display', serif;
+  font-size: 28px;
+  color: var(--ink);
+  line-height: 1.1;
+  letter-spacing: -0.4px;
+  margin-bottom: 4px;
+  text-align: center;
+}
+.headline em { font-style: normal; color: var(--cta); }
+.headline-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  color: var(--mid-ac);
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+.headline-sub em { font-style: italic; color: var(--cta); }
+
+/* stat pills */
+.pills { display: flex; gap: 6px; margin-bottom: 22px; }
+.pill {
+  flex: 1;
+  background: rgba(155,127,212,0.08);
+  border: 0.5px solid rgba(155,127,212,0.18);
+  border-radius: 12px;
+  padding: 10px 6px;
+  text-align: center;
+}
+.pill.pill-hero {
+  background: rgba(155,127,212,0.16);
+  border-color: rgba(155,127,212,0.35);
+}
+.pill-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 22px;
+  color: var(--cta);
+  line-height: 1;
+}
+.pill-hero .pill-num { font-size: 26px; color: #6B4DB0; }
+.pill-label {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: var(--mid-ac);
+  margin-top: 3px;
+}
+
+/* section labels */
+.section-label {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 1.8px;
+  color: var(--mid-ac);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+/* nudge card */
+.nudge-card {
+  background: var(--surface);
+  border-radius: 10px;
+  padding: 14px;
+  border: 0.5px solid var(--border);
+  box-shadow: 0 1px 3px rgba(26,22,18,0.04);
+  margin-bottom: 20px;
+}
+.card-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.icon-chip {
+  width: 30px; height: 30px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(200,120,80,0.10);
+}
+.icon-chip svg {
+  width: 14px; height: 14px; fill: none; stroke: var(--cat-home);
+  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+}
+.card-item { font-size: 11px; color: var(--mid-ac); }
+.card-date { margin-left: auto; font-size: 13px; font-weight: 500; color: var(--terra); }
+.card-title { font-size: 15px; font-weight: 500; color: var(--ink); line-height: 1.3; margin-bottom: 10px; }
+
+.why-box {
+  background: rgba(200,120,80,0.06); border-radius: 8px;
+  padding: 10px 12px; margin-bottom: 10px;
+}
+.why-label { font-size: 9px; font-weight: 500; letter-spacing: 1.8px; color: var(--cat-home); text-transform: uppercase; margin-bottom: 3px; }
+.why-text { font-size: 13px; color: var(--ink); line-height: 1.5; }
+.how-label { font-size: 9px; font-weight: 500; letter-spacing: 1.8px; color: var(--mid-ac); text-transform: uppercase; margin-bottom: 3px; }
+.how-text { font-size: 13px; color: var(--mid-ac); line-height: 1.5; }
+.more-tasks {
+  font-size: 11px; color: var(--mid-ac); font-style: italic;
+  margin-top: 10px; padding-top: 8px; border-top: 0.5px solid rgba(26,22,18,0.06);
+}
+
+/* year grid */
+.year-grid { display: flex; gap: 5px; margin-bottom: 4px; }
+.month-col { flex: 1; text-align: center; }
+.month-square {
+  width: 100%; aspect-ratio: 1.1; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 500; margin-bottom: 4px;
+}
+.month-label { font-size: 9px; color: var(--mid-ac); font-weight: 500; letter-spacing: 0.3px; }
+
+/* bottom zone */
+.s1-bottom {
+  padding: 14px 20px 0;
+  margin-top: auto;
+}
+.cta-btn {
+  width: 100%; height: 52px; border-radius: 100px;
+  background: var(--cta); border: none; color: var(--cta-fg);
+  font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500;
+  letter-spacing: -0.2px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; box-shadow: 0 2px 12px rgba(155,127,212,0.28);
+  transition: background 0.1s ease-out, transform 0.1s ease-out;
+  -webkit-tap-highlight-color: transparent;
+}
+.cta-btn:active { background: var(--cta-pressed); transform: scale(0.97); }
+.home-indicator {
+  width: 134px; height: 5px; background: var(--ink);
+  border-radius: 100px; margin: 12px auto 8px; opacity: 0.15;
+  transition: background 400ms, opacity 400ms;
+}
+.phone.celebrating .home-indicator { background: #F5F0E8; opacity: 0.12; }
+
+/* ── State 1 entrance animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.7); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ii-mark      { animation: fadeUp 0.5s ease-out both; }
+  .kicker       { animation: fadeUp 0.5s ease-out 0.12s both; }
+  .headline     { animation: fadeUp 0.5s ease-out 0.22s both; }
+  .headline-sub { animation: fadeUp 0.4s ease-out 0.32s both; }
+  .pill:nth-child(1) { animation: popIn 0.45s cubic-bezier(0.34,1.56,0.64,1) 0.45s both; }
+  .pill:nth-child(2) { animation: popIn 0.45s cubic-bezier(0.34,1.56,0.64,1) 0.57s both; }
+  .pill:nth-child(3) { animation: popIn 0.45s cubic-bezier(0.34,1.56,0.64,1) 0.69s both; }
+  .nudge-card   { animation: fadeUp 0.5s ease-out 0.8s both; }
+  .month-col:nth-child(1) { animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1) 1.05s both; }
+  .month-col:nth-child(2) { animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1) 1.10s both; }
+  .month-col:nth-child(3) { animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1) 1.15s both; }
+  .month-col:nth-child(4) { animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1) 1.20s both; }
+  .month-col:nth-child(5) { animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1) 1.25s both; }
+  .month-col:nth-child(6) { animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1) 1.30s both; }
+  .cta-btn      { animation: fadeUp 0.4s ease-out 1.5s both; }
+}
+
+
+/* ═══════════════════════════════════
+   STATE 2: CELEBRATION
+   ═══════════════════════════════════ */
+.state-2 {
+  position: absolute;
+  inset: 0;
+  top: 57px;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 20px;
+  pointer-events: none;
+}
+
+/* Confetti */
+.confetti-layer {
+  position: absolute;
+  inset: 0;
+  top: 57px;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+}
+.confetti-piece {
+  position: absolute;
+  opacity: 0;
+  top: -10px;
+}
+
+@keyframes confetti-fall {
+  0% { opacity: 0; transform: translateY(-20px) rotate(0deg) scale(0.5); }
+  8% { opacity: var(--piece-opacity); transform: translateY(0) rotate(15deg) scale(1); }
+  100% { opacity: 0; transform: translateY(calc(var(--fall-distance, 650px))) rotate(var(--spin, 360deg)) scale(0.6); }
+}
+@keyframes confetti-sway {
+  0%, 100% { margin-left: 0; }
+  25% { margin-left: var(--sway-left, -12px); }
+  75% { margin-left: var(--sway-right, 12px); }
+}
+.confetti-piece.falling {
+  animation:
+    confetti-fall var(--fall-dur, 3.5s) ease-in forwards,
+    confetti-sway var(--sway-dur, 2s) ease-in-out infinite;
+}
+
+/* ii mark (celebration) */
+.cele-ii {
+  margin-top: 100px;
+  opacity: 0;
+  transform: scale(0.3);
+  margin-bottom: 20px;
+}
+@keyframes spring-in {
+  0% { opacity: 0; transform: scale(0.3); }
+  50% { opacity: 1; transform: scale(1.12); }
+  75% { transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.cele-ii.visible {
+  animation: spring-in 500ms cubic-bezier(0.34,1.56,0.64,1) forwards;
+}
+
+/* Celebration text */
+.cele-eyebrow {
+  font-size: 8px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 1.3px; color: rgba(245,240,232,0.40);
+  opacity: 0; margin-bottom: 10px; transition: opacity 300ms ease-out;
+}
+.cele-eyebrow.visible { opacity: 1; }
+
+.cele-headline {
+  font-family: 'DM Serif Display', serif; font-style: italic;
+  font-size: 26px; line-height: 1.05; color: var(--apricot);
+  text-align: center; opacity: 0; transform: translateY(16px);
+  transition: opacity 350ms ease-out, transform 350ms ease-out;
+  margin-bottom: 8px;
+}
+.cele-headline.visible { opacity: 1; transform: translateY(0); }
+
+.cele-sub {
+  font-size: 8.5px; font-style: italic;
+  color: rgba(245,240,232,0.50); text-align: center;
+  opacity: 0; transition: opacity 250ms ease-out; margin-bottom: 28px;
+}
+.cele-sub.visible { opacity: 1; }
+
+/* Reminder pill */
+.cele-reminder {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 5px; opacity: 0; transition: opacity 300ms ease-out;
+}
+.cele-reminder.visible { opacity: 1; }
+.reminder-pill {
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.10);
+  border-radius: 100px; padding: 7px 14px; font-size: 11px;
+  color: rgba(245,240,232,0.55);
+}
+.reminder-pill .date { color: var(--apricot); font-weight: 500; }
+.reminder-sub { font-size: 7px; font-style: italic; color: rgba(245,240,232,0.28); }
+
+
+/* ═══════════════════════════════════
+   SCRIM + SIGN-IN BOTTOM SHEET
+   ═══════════════════════════════════ */
+.scrim {
+  position: absolute; inset: 0; z-index: 15;
+  background: rgba(0,0,0,0); pointer-events: none;
+  transition: background 250ms ease-out;
+}
+.scrim.visible { background: rgba(0,0,0,0.25); pointer-events: auto; }
+
+.bottom-sheet {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 20;
+  background: var(--surface); border-radius: 20px 20px 0 0;
+  box-shadow: 0 -8px 30px rgba(0,0,0,0.20);
+  transform: translateY(100%); padding: 12px 24px 34px;
+  display: flex; flex-direction: column; align-items: center;
+}
+@keyframes sheet-up {
+  0% { transform: translateY(100%); }
+  100% { transform: translateY(0); }
+}
+.bottom-sheet.visible { animation: sheet-up 350ms ease-out forwards; }
+
+.sheet-handle { width: 32px; height: 3px; border-radius: 100px; background: rgba(26,22,18,0.12); margin-bottom: 20px; flex-shrink: 0; }
+.sheet-ii { margin-bottom: 14px; }
+.sheet-headline {
+  font-family: 'DM Serif Display', serif; font-size: 22px;
+  line-height: 1.1; color: var(--ink); text-align: center; margin-bottom: 5px;
+}
+.sheet-sub {
+  font-size: 12px; font-style: italic; color: var(--mid);
+  text-align: center; margin-bottom: 24px;
+}
+
+.auth-btn {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; border-radius: 100px;
+  font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500;
+  cursor: pointer; border: none; -webkit-tap-highlight-color: transparent;
+}
+.auth-apple { height: 50px; background: var(--ink); color: #FFFFFF; margin-bottom: 10px; }
+.auth-google { height: 48px; background: var(--surface); color: var(--ink); border: 1px solid rgba(26,22,18,0.16); margin-bottom: 16px; }
+.sheet-skip {
+  font-size: 13px; color: var(--mid); cursor: pointer;
+  background: none; border: none; font-family: 'DM Sans', sans-serif;
+  padding: 6px 12px; -webkit-tap-highlight-color: transparent;
+}
+.sheet-skip:hover { color: var(--mid-ac); }
+
+
+/* ── RESPONSIVE ── */
+@media (max-height: 860px) {
+  .page-content { padding: 16px 32px 16px; gap: 12px; }
+}
+@media (max-width: 500px) {
+  .phone {
+    width: calc(100vw - 16px);
+    height: calc((100vw - 16px) * 844 / 390);
+    border-radius: calc(50px * (100vw - 16px) / 390);
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Page header -->
+<header class="page-header">
+  <a href="../index.html" class="page-logo">
+    <svg width="16" height="18" viewBox="0 0 625.96 700.13" fill="none">
+      <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
+      <path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
+      <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
+    </svg>
+    nudgii · Design Hub
+  </a>
+  <nav class="page-nav">
+    <a href="../index.html">Hub</a>
+    <a href="../system/design-system.html">System</a>
+  </nav>
+</header>
+
+<!-- Main content -->
+<div class="page-content">
+  <div class="page-label">S-05 · AHA + celebration prototype</div>
+
+  <!-- Phone frame -->
+  <div class="phone" id="phone">
+    <div class="phone-bg"></div>
+    <div class="status-notch"></div>
+
+    <!-- Status bar -->
+    <div class="status-bar">
+      <span class="status-time">9:41</span>
+      <div class="status-icons">
+        <svg width="16" height="11" viewBox="0 0 16 11" fill="none"><rect x="0" y="3" width="3" height="8" rx="0.8" fill="currentColor" opacity="0.35"/><rect x="4.5" y="1.5" width="3" height="9.5" rx="0.8" fill="currentColor" opacity="0.5"/><rect x="9" y="0" width="3" height="11" rx="0.8" fill="currentColor" opacity="0.7"/><rect x="13" y="3" width="3" height="8" rx="0.8" fill="currentColor" opacity="0.3"/></svg>
+        <svg width="15" height="11" viewBox="0 0 15 11" fill="none"><path d="M7.5 2.5C9.5 2.5 11.3 3.3 12.6 4.6L14 3.2C12.3 1.5 10 0.5 7.5 0.5C5 0.5 2.7 1.5 1 3.2L2.4 4.6C3.7 3.3 5.5 2.5 7.5 2.5Z" fill="currentColor" opacity="0.4"/><path d="M7.5 5.5C8.8 5.5 10 6 10.9 6.9L12.3 5.5C11 4.2 9.3 3.5 7.5 3.5C5.7 3.5 4 4.2 2.7 5.5L4.1 6.9C5 6 6.2 5.5 7.5 5.5Z" fill="currentColor" opacity="0.6"/><circle cx="7.5" cy="9.5" r="1.5" fill="currentColor"/></svg>
+        <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0" y="1" width="21" height="10" rx="2.5" stroke="currentColor" stroke-width="1" opacity="0.35"/><rect x="22" y="4" width="2" height="4" rx="1" fill="currentColor" opacity="0.25"/><rect x="1.5" y="2.5" width="14" height="7" rx="1.5" fill="currentColor" opacity="0.45"/></svg>
+      </div>
+    </div>
+
+    <!-- Progress bar: 80% → 85% on celebration -->
+    <div class="progress-bar"><div class="progress-fill"></div></div>
+
+    <!-- Confetti layer (behind celebration content) -->
+    <div class="confetti-layer" id="confettiLayer"></div>
+
+    <!-- ════ STATE 1: Schedule reveal ════ -->
+    <div class="state-1" id="state1">
+      <div class="s1-content">
+        <!-- ii mark: dark on light variant -->
+        <div class="ii-mark">
+          <svg width="28" height="32" viewBox="0 0 626 700">
+            <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0C56.05,700.13,0,642.43,0,571.26V128.87C0,57.7,56.05,0,125.18,0Z"/>
+            <path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
+            <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
+          </svg>
+        </div>
+
+        <div class="kicker">your schedule is ready</div>
+        <div class="headline">You said <em>what.</em></div>
+        <div class="headline-sub">We figured out <em>when</em> and <em>why.</em></div>
+
+        <!-- stat pills -->
+        <div class="pills">
+          <div class="pill"><div class="pill-num">3</div><div class="pill-label">items</div></div>
+          <div class="pill pill-hero"><div class="pill-num">14</div><div class="pill-label">tasks</div></div>
+          <div class="pill"><div class="pill-num">12</div><div class="pill-label">months</div></div>
+        </div>
+
+        <div class="section-label">your first nudge</div>
+        <div class="nudge-card">
+          <div class="card-head">
+            <div class="icon-chip">
+              <svg viewBox="0 0 256 256"><path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8,8,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8,8,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"/></svg>
+            </div>
+            <div class="card-item">Boiler, yearly</div>
+            <div class="card-date">Oct 28</div>
+          </div>
+          <div class="card-title">Annual boiler service</div>
+          <div class="why-box">
+            <div class="why-label">why it matters</div>
+            <div class="why-text">Skipping the annual check voids most warranty agreements and increases carbon monoxide risk in enclosed spaces.</div>
+          </div>
+          <div class="how-label">how to do it</div>
+          <div class="how-text">Book a certified technician 2-3 weeks ahead. They inspect gas pressure, flue output, and the safety valve.</div>
+          <div class="more-tasks">+ 2 more tasks for your boiler</div>
+        </div>
+
+        <div class="section-label">your year at a glance</div>
+        <div class="year-grid">
+          <div class="month-col"><div class="month-square" style="background:rgba(155,127,212,0.20);color:#6B4DB0;">2</div><div class="month-label">Oct</div></div>
+          <div class="month-col"><div class="month-square" style="background:rgba(155,127,212,0.42);color:#3C2880;">4</div><div class="month-label">Nov</div></div>
+          <div class="month-col"><div class="month-square" style="background:rgba(155,127,212,0.12);color:#9B7FD4;">1</div><div class="month-label">Dec</div></div>
+          <div class="month-col"><div class="month-square" style="background:rgba(155,127,212,0.20);color:#6B4DB0;">2</div><div class="month-label">Jan</div></div>
+          <div class="month-col"><div class="month-square" style="background:rgba(155,127,212,0.12);color:#9B7FD4;">1</div><div class="month-label">Feb</div></div>
+          <div class="month-col"><div class="month-square" style="background:rgba(155,127,212,0.12);color:#9B7FD4;">1</div><div class="month-label">Mar</div></div>
+        </div>
+      </div>
+
+      <div class="s1-bottom">
+        <button class="cta-btn" id="ctaBtn">That's it. I'm done.</button>
+        <div class="home-indicator"></div>
+      </div>
+    </div>
+
+    <!-- ════ STATE 2: Celebration ════ -->
+    <div class="state-2" id="state2">
+      <!-- ii mark (light on dark) -->
+      <div class="cele-ii" id="celeIi">
+        <svg width="48" height="54" viewBox="0 0 625.96 700.13" fill="none">
+          <path fill="#F5F0E8" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
+          <path fill="#9B7FD4" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
+          <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
+        </svg>
+      </div>
+
+      <div class="cele-eyebrow" id="celeEyebrow">you're in</div>
+      <div class="cele-headline" id="celeHeadline">Your boiler is relieved.</div>
+      <div class="cele-sub" id="celeSub">We'll remind you when it matters.</div>
+
+      <div class="cele-reminder" id="celeReminder">
+        <div class="reminder-pill">
+          First reminder <span style="margin: 0 2px">·</span> <span class="date">Oct 28</span>
+        </div>
+        <div class="reminder-sub">Annual boiler service</div>
+      </div>
+    </div>
+
+    <!-- Scrim -->
+    <div class="scrim" id="scrim"></div>
+
+    <!-- Sign-in bottom sheet -->
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="sheet-handle"></div>
+
+      <!-- ii mark (dark on light) -->
+      <div class="sheet-ii">
+        <svg width="20" height="22" viewBox="0 0 625.96 700.13" fill="none">
+          <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
+          <path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
+          <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
+        </svg>
+      </div>
+
+      <div class="sheet-headline">Save your schedule</div>
+      <div class="sheet-sub">Your data stays yours. We never share it.</div>
+
+      <!-- Apple -->
+      <button class="auth-btn auth-apple">
+        <svg width="16" height="19" viewBox="0 0 16 19" fill="white">
+          <path d="M13.3 10.1c0-2 1.6-3 1.7-3.1-0.9-1.4-2.4-1.5-2.9-1.6-1.2-0.1-2.4 0.7-3 0.7s-1.6-0.7-2.6-0.7C4.8 5.5 3.2 6.6 2.3 8.3 0.5 11.6 1.8 16.5 3.6 19.2c0.9 1.3 1.9 2.8 3.3 2.7 1.3-0.1 1.8-0.9 3.4-0.9s2 0.9 3.4 0.8c1.4-0.1 2.3-1.3 3.2-2.6 1-1.5 1.4-2.9 1.4-3-0.1 0-2.7-1-2.7-4.1h0.7zM11 4.3c0.7-0.9 1.2-2.2 1.1-3.4-1 0-2.3 0.7-3 1.6-0.7 0.8-1.2 2-1.1 3.2 1.2 0.1 2.3-0.6 3-1.4z" transform="translate(-1, -1)"/>
+        </svg>
+        Continue with Apple
+      </button>
+
+      <!-- Google -->
+      <button class="auth-btn auth-google">
+        <svg width="16" height="16" viewBox="0 0 48 48">
+          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+        </svg>
+        Continue with Google
+      </button>
+
+      <button class="sheet-skip">Not now</button>
+    </div>
+  </div>
+
+  <div class="page-hint" id="hint">tap the button to celebrate</div>
+</div>
+
+<script>
+(function() {
+  var phone = document.getElementById('phone');
+  var ctaBtn = document.getElementById('ctaBtn');
+  var hint = document.getElementById('hint');
+  var confettiLayer = document.getElementById('confettiLayer');
+
+  // Celebration elements
+  var celeIi = document.getElementById('celeIi');
+  var celeEyebrow = document.getElementById('celeEyebrow');
+  var celeHeadline = document.getElementById('celeHeadline');
+  var celeSub = document.getElementById('celeSub');
+  var celeReminder = document.getElementById('celeReminder');
+  var scrim = document.getElementById('scrim');
+  var bottomSheet = document.getElementById('bottomSheet');
+
+  var isPlaying = false;
+  var timeouts = [];
+
+  // Confetti colors from nudgii category palette
+  var confettiColors = [
+    '#C87850', '#D4956A',
+    '#9B7FD4', '#B49EE0',
+    '#5A9060', '#7AAC7E',
+    '#4A82A0', '#6BA0B8',
+    '#E8A87C', '#F0C4A0',
+    '#8060A8', '#A080C0',
+    '#F5F0E8',
+  ];
+  var confettiShapes = ['rect', 'circle', 'rect', 'rect', 'circle'];
+
+  function createConfetti() {
+    confettiLayer.innerHTML = '';
+    for (var i = 0; i < 40; i++) {
+      var el = document.createElement('div');
+      el.className = 'confetti-piece';
+      var color = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+      var shape = confettiShapes[Math.floor(Math.random() * confettiShapes.length)];
+      var w = shape === 'circle' ? (4 + Math.random() * 5) : (3 + Math.random() * 4);
+      var h = shape === 'circle' ? w : (w * (2 + Math.random() * 1.5));
+
+      el.style.left = (5 + Math.random() * 90) + '%';
+      el.style.width = w + 'px';
+      el.style.height = h + 'px';
+      el.style.background = color;
+      el.style.borderRadius = shape === 'circle' ? '50%' : '1px';
+      el.style.setProperty('--piece-opacity', (0.6 + Math.random() * 0.35).toFixed(2));
+      el.style.setProperty('--fall-distance', (500 + Math.random() * 300) + 'px');
+      el.style.setProperty('--fall-dur', (2.5 + Math.random() * 2.5) + 's');
+      el.style.setProperty('--spin', (180 + Math.random() * 540) + 'deg');
+      el.style.setProperty('--sway-left', (-8 - Math.random() * 16) + 'px');
+      el.style.setProperty('--sway-right', (8 + Math.random() * 16) + 'px');
+      el.style.setProperty('--sway-dur', (1.5 + Math.random() * 1.5) + 's');
+
+      confettiLayer.appendChild(el);
+    }
+  }
+
+  function schedule(fn, ms) {
+    var id = setTimeout(fn, ms);
+    timeouts.push(id);
+    return id;
+  }
+
+  function reset() {
+    timeouts.forEach(clearTimeout);
+    timeouts = [];
+
+    phone.classList.remove('celebrating');
+    celeIi.classList.remove('visible');
+    celeEyebrow.classList.remove('visible');
+    celeHeadline.classList.remove('visible');
+    celeSub.classList.remove('visible');
+    celeReminder.classList.remove('visible');
+    scrim.classList.remove('visible');
+    bottomSheet.classList.remove('visible');
+
+    confettiLayer.querySelectorAll('.confetti-piece').forEach(function(d) {
+      d.classList.remove('falling');
+    });
+
+    document.querySelector('.progress-fill').style.width = '80%';
+
+    hint.textContent = 'tap the button to celebrate';
+    hint.classList.remove('clickable');
+    hint.onclick = null;
+
+    isPlaying = false;
+  }
+
+  function playCelebration() {
+    if (isPlaying) return;
+    isPlaying = true;
+    hint.textContent = '';
+
+    createConfetti();
+
+    // 150ms: background cream → plum, state 1 fades out
+    schedule(function() {
+      phone.classList.add('celebrating');
+    }, 150);
+
+    // 250ms: confetti burst (staggered 30ms each)
+    confettiLayer.querySelectorAll('.confetti-piece').forEach(function(piece, i) {
+      schedule(function() { piece.classList.add('falling'); }, 250 + i * 30);
+    });
+
+    // 400ms: ii mark springs in
+    schedule(function() { celeIi.classList.add('visible'); }, 400);
+
+    // 550ms: eyebrow
+    schedule(function() { celeEyebrow.classList.add('visible'); }, 550);
+
+    // 650ms: headline slides up
+    schedule(function() { celeHeadline.classList.add('visible'); }, 650);
+
+    // 800ms: subtitle
+    schedule(function() { celeSub.classList.add('visible'); }, 800);
+
+    // 900ms: reminder pill
+    schedule(function() { celeReminder.classList.add('visible'); }, 900);
+
+    // 3500ms: sign-in bottom sheet + scrim
+    schedule(function() {
+      scrim.classList.add('visible');
+      bottomSheet.classList.add('visible');
+    }, 3500);
+
+    // 4200ms: show replay hint
+    schedule(function() {
+      hint.textContent = 'tap to replay';
+      hint.classList.add('clickable');
+      hint.onclick = function() {
+        reset();
+        setTimeout(function() { isPlaying = false; }, 100);
+      };
+      isPlaying = false;
+    }, 4200);
+  }
+
+  // Initialize
+  createConfetti();
+
+  // CTA click triggers celebration
+  ctaBtn.addEventListener('click', function() {
+    playCelebration();
+  });
+})();
+</script>
+
+</body>
+</html>
