@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · item + task detail · contextual AI</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#F5F0E8;--card:#FFF;--text:#1A1612;--text-mid:#6B6358;--text-hint:#8A8070;--cta:#9B7FD4;--cta-fg:#FAF8FF;--apricot:#E8A87C;--apricot-dk:#C8784A;--terra:#C4503A;--cat-home:#C87850;--cat-vehicle:#4A82A0;--cat-garden:#5A9060;--cat-sub:#6B5B95;--sage:#3B6D11;--sage-lt:#EAF3DE;--border:rgba(26,22,18,0.08);--shadow:rgba(26,22,18,0.04)}
+body{background:#2C2A28;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;padding:24px 12px;min-height:100vh}
+.lab{font-size:11px;font-weight:500;letter-spacing:2px;color:#8A8070;margin-bottom:4px;text-transform:uppercase}
+.sub-t{font-size:10px;color:#6B6358;margin-bottom:12px;text-align:center;max-width:520px;line-height:1.5}
+
+.ph{width:390px;height:844px;background:var(--bg);border-radius:50px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:1px solid rgba(26,22,18,0.12)}
+.notch{width:102px;height:8px;background:#1A1612;border-radius:100px;position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:10}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:16px 24px 0;font-size:15px;font-weight:600;color:var(--text);flex-shrink:0}
+.sbar-r{display:flex;gap:5px}.sbar-r svg{fill:var(--text)}
+.ct{flex:1;overflow-y:auto;padding:0 16px;-webkit-overflow-scrolling:touch}.ct::-webkit-scrollbar{display:none}
+
+/* back */
+.bk{display:flex;align-items:center;gap:6px;padding:14px 0 12px;cursor:pointer}
+.bk svg{width:12px;height:12px;fill:none;stroke:var(--cta);stroke-width:1.8;stroke-linecap:round}
+.bk span{font-size:12px;color:var(--cta);font-weight:500}
+
+/* item header */
+.ih{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.i-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(200,120,80,0.10)}
+.i-icon svg{width:22px;height:22px;fill:none;stroke:var(--cat-home);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.i-info{flex:1}.i-nm{font-family:'DM Serif Display',serif;font-size:22px;color:var(--text)}.i-mt{font-size:11px;color:var(--text-mid);margin-top:2px}
+.i-acts{display:flex;gap:6px}
+.ia{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:rgba(26,22,18,0.03)}
+.ia:active{transform:scale(.93)}.ia svg{width:16px;height:16px;fill:none;stroke:var(--text-hint);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.ia.dng svg{stroke:var(--terra)}
+
+/* status chips */
+.sc{display:flex;gap:8px;margin:14px 0 18px}
+.sch{display:flex;align-items:center;gap:4px;padding:5px 10px;border-radius:100px;font-size:10px;font-weight:500}
+.sc-od{background:rgba(196,80,58,0.08);color:var(--terra)}.sc-ok{background:var(--sage-lt);color:var(--sage)}.sc-t{background:rgba(26,22,18,0.04);color:var(--text-mid)}
+.scd{width:5px;height:5px;border-radius:50%}
+
+/* section */
+.sl{font-size:9px;font-weight:500;letter-spacing:1.8px;color:var(--text-mid);text-transform:uppercase;margin-bottom:8px}
+.shd{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.slk{font-size:11px;color:var(--cta);font-weight:500}
+
+/* task rows */
+.tr{background:var(--card);border-radius:10px;padding:12px 14px;border:0.5px solid var(--border);box-shadow:0 1px 3px var(--shadow);display:flex;align-items:center;gap:10px;margin-bottom:8px;cursor:pointer;transition:transform .1s}
+.tr:active{transform:scale(.98)}
+.tr-st{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.tr-body{flex:1;min-width:0}
+.tr-nm{font-size:14px;font-weight:500;color:var(--text);line-height:1.3}.tr-nm.od{color:var(--terra)}
+.tr-sub{font-size:10px;color:var(--text-mid);margin-top:1px;display:flex;align-items:center;gap:6px}
+.tr-rt{font-size:11px;color:var(--text-hint);flex-shrink:0}.tr-rt.od{color:var(--terra);font-weight:500}
+.tr-ch{width:14px;height:14px;stroke:var(--text-hint);fill:none;stroke-width:1.5;stroke-linecap:round;flex-shrink:0}
+.cadence{display:flex;gap:2px;align-items:center}.cadence-dot{width:3px;height:3px;border-radius:50%;background:var(--cta);opacity:0.5}
+
+/* removed */
+.tr.removed{opacity:0.45}.tr.removed .tr-nm{text-decoration:line-through;color:var(--text-hint)}
+.tr-rbadge{font-size:8px;font-weight:500;color:var(--terra);background:rgba(196,80,58,0.08);padding:2px 6px;border-radius:100px;margin-left:auto;flex-shrink:0}
+.tr-restore{font-size:10px;color:var(--cta);font-weight:500;margin-left:6px;cursor:pointer;flex-shrink:0}
+
+/* important dates section */
+.date-row{background:var(--card);border-radius:10px;padding:12px 14px;border:0.5px solid var(--border);box-shadow:0 1px 3px var(--shadow);display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.dr-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dr-icon svg{width:14px;height:14px;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.dr-body{flex:1}.dr-label{font-size:10px;color:var(--text-mid)}.dr-value{font-size:14px;font-weight:500;color:var(--text);margin-top:1px}
+.dr-edit{font-size:10px;color:var(--cta);font-weight:500;cursor:pointer;flex-shrink:0}
+.dr-empty{font-size:13px;color:var(--text-hint);font-style:italic}
+.dr-add{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--cta);font-weight:500;cursor:pointer;padding:8px 0}
+.dr-add svg{width:12px;height:12px;stroke:var(--cta);fill:none;stroke-width:1.8;stroke-linecap:round}
+
+/* contextual tip (for dates) */
+.ctx-tip{background:rgba(232,168,124,0.08);border:0.5px solid rgba(232,168,124,0.18);border-radius:12px;padding:14px;margin-bottom:14px;display:flex;gap:10px;align-items:flex-start}
+.ctx-tip-icon{width:32px;height:32px;border-radius:9px;background:rgba(232,168,124,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ctx-tip-icon svg{width:15px;height:15px;stroke:var(--apricot-dk);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.ctx-tip-body{flex:1}.ctx-tip-tt{font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px}
+.ctx-tip-tx{font-size:11px;color:var(--text-mid);line-height:1.4}
+.ctx-tip-actions{display:flex;gap:12px;margin-top:8px}
+.ctx-tip-act{font-size:10px;font-weight:500;color:var(--cta);cursor:pointer}
+.ctx-tip-act.muted{color:var(--text-hint)}
+
+/* export pill */
+.ep{display:flex;align-items:center;justify-content:center;gap:6px;margin:6px 0 20px;padding:10px 20px;border-radius:100px;background:rgba(155,127,212,0.08);border:0.5px solid rgba(155,127,212,0.18);cursor:pointer;width:fit-content;margin-left:auto;margin-right:auto}
+.ep:active{transform:scale(.96)}.ep svg{width:14px;height:14px;stroke:var(--cta);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}.ep span{font-size:12px;font-weight:500;color:var(--cta)}
+
+/* history */
+.hr{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:0.5px solid var(--border)}.hr:last-child{border-bottom:none}
+.hr-t{font-size:12px;color:var(--text)}.hr-d{font-size:11px;font-weight:500}
+.hr-done{color:var(--sage)}.hr-removed{color:var(--terra)}
+
+/* chat zone */
+.chat-zone{background:var(--card);border-radius:12px;border:0.5px solid var(--border);padding:14px;margin-bottom:14px}
+.cz-label{font-size:10px;font-weight:500;color:var(--text-mid);margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.cz-label svg{width:12px;height:12px;stroke:var(--cta);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.cz-thread{margin-bottom:10px}
+.cz-bub{padding:8px 12px;border-radius:10px;font-size:12px;line-height:1.5;margin-bottom:6px;max-width:90%}
+.cz-n{background:var(--bg);border-radius:10px 10px 10px 4px;color:var(--text)}
+.cz-u{background:var(--cta);color:var(--cta-fg);border-radius:10px 10px 4px 10px;margin-left:auto}
+.cz-input{display:flex;align-items:center;gap:6px;background:var(--bg);border:0.5px solid var(--border);border-radius:100px;padding:5px 6px 5px 12px}
+.cz-input-text{flex:1;font-size:11px;color:var(--text-hint);font-style:italic}
+.cz-input-mic{width:24px;height:24px;border-radius:50%;background:var(--cta);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer}
+.cz-input-mic svg{width:11px;height:11px;stroke:var(--cta-fg);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.cz-sugs{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
+.cz-sug{font-size:9px;padding:4px 8px;border-radius:100px;background:var(--bg);border:0.5px solid rgba(26,22,18,.10);color:var(--text-mid);cursor:pointer}
+
+/* overlays */
+.ov{position:absolute;inset:0;background:rgba(26,22,18,.4);z-index:30;opacity:0;pointer-events:none;transition:opacity .25s;border-radius:50px}.ov.open{opacity:1;pointer-events:auto}
+.bs{position:absolute;bottom:0;left:0;right:0;background:var(--bg);border-radius:20px 20px 0 0;padding:0 20px 30px;transform:translateY(100%);transition:transform .3s cubic-bezier(.32,.72,0,1);z-index:31;box-shadow:0 -4px 30px rgba(0,0,0,.1);max-height:85%;overflow-y:auto}.bs.open{transform:translateY(0)}
+.bs-h{width:36px;height:4px;background:var(--border);border-radius:100px;margin:10px auto 16px}
+.bs-ti{font-family:'DM Serif Display',serif;font-size:20px;color:var(--text);margin-bottom:4px}
+.bs-su{font-size:11px;color:var(--text-mid);margin-bottom:14px;font-style:italic;line-height:1.4}
+.bs-meta{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px}
+.bs-pill{font-size:10px;font-weight:500;padding:4px 10px;border-radius:100px;background:var(--card);border:.5px solid var(--border);color:var(--text-mid)}.bs-pill.urg{background:rgba(196,80,58,.08);color:var(--terra);border-color:rgba(196,80,58,.12)}
+.bs-why{background:rgba(200,120,80,.06);border-radius:10px;padding:12px 14px;margin-bottom:12px}.bs-wyl{font-size:8px;font-weight:500;letter-spacing:1.5px;color:var(--cat-home);text-transform:uppercase;margin-bottom:3px}.bs-wyt{font-size:13px;color:var(--text);line-height:1.5}
+.bs-how{margin-bottom:14px}.bs-howl{font-size:8px;font-weight:500;letter-spacing:1.5px;color:var(--text-mid);text-transform:uppercase;margin-bottom:6px}.bs-howt{font-size:13px;color:var(--text-mid);line-height:1.55}
+.bs-edit{background:var(--card);border-radius:10px;border:.5px solid var(--border);padding:12px 14px;margin-bottom:14px}
+.bs-edit-l{font-size:8px;font-weight:500;letter-spacing:1.5px;color:var(--text-mid);text-transform:uppercase;margin-bottom:8px}
+.int-opts{display:flex;gap:5px;flex-wrap:wrap}
+.int-opt{padding:6px 12px;border-radius:100px;font-size:11px;font-weight:500;border:.5px solid var(--border);background:var(--bg);color:var(--text-mid);cursor:pointer;transition:all .15s}
+.int-opt.sel{background:rgba(155,127,212,.10);border-color:var(--cta);color:var(--cta)}
+.int-opt:active{transform:scale(.96)}
+.bs-cta{width:100%;height:48px;border-radius:100px;background:var(--cta);border:none;color:var(--cta-fg);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;box-shadow:0 2px 12px rgba(155,127,212,.28);margin-bottom:8px}.bs-cta:active{background:#7D62B3;transform:scale(.97)}
+.bs-acts{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
+.bs-a{font-size:12px;color:var(--text-mid);cursor:pointer;display:flex;align-items:center;gap:4px}.bs-a svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}.bs-a.dng{color:var(--terra)}
+.bs-cancel{text-align:center;font-size:13px;color:var(--text-mid);padding:8px;cursor:pointer}
+.spacer{height:30px}
+</style>
+</head>
+<body>
+
+<div class="lab">nudgii · item detail + contextual AI</div>
+<div class="sub-t">Full item detail screen with important dates, contextual tip card, task rows with detail sheets, AI chat zone with item context, and soft-deleted task. Tap task rows and suggestion chips to interact.</div>
+
+<div class="ph" id="phone">
+  <div class="notch"></div>
+  <div class="sbar"><span>9:41</span><div class="sbar-r"><svg width="16" height="12" viewBox="0 0 16 12"><rect x="0" y="6" width="3" height="6" rx="1"/><rect x="4.5" y="4" width="3" height="8" rx="1"/><rect x="9" y="2" width="3" height="10" rx="1"/><rect x="13" y="0" width="3" height="12" rx="1"/></svg><svg width="25" height="12" viewBox="0 0 25 12"><rect x="0" y="0" width="22" height="12" rx="3" stroke="currentColor" stroke-width="1" fill="none"/><rect x="1.5" y="1.5" width="17" height="9" rx="1.5" fill="currentColor"/></svg></div></div>
+  <div class="ct">
+    <div class="bk"><svg viewBox="0 0 12 12"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg><span>My stuff</span></div>
+
+    <!-- ITEM HEADER -->
+    <div class="ih">
+      <div class="i-icon"><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="14" rx="2"/><path d="M8 6V4a2 2 0 0 1 4 0v2"/><circle cx="12" cy="14" r="2"/></svg></div>
+      <div class="i-info"><div class="i-nm">Boiler</div><div class="i-mt">Home · added Oct 2024</div></div>
+      <div class="i-acts">
+        <div class="ia"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <div class="ia dng"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div>
+      </div>
+    </div>
+
+    <div class="sc">
+      <div class="sch sc-od"><div class="scd" style="background:var(--terra)"></div>1 overdue</div>
+      <div class="sch sc-ok"><div class="scd" style="background:var(--sage)"></div>3 on track</div>
+      <div class="sch sc-t">5 tasks</div>
+    </div>
+
+    <!-- CONTEXTUAL TIP: important date prompt -->
+    <div class="ctx-tip" id="ctxTip">
+      <div class="ctx-tip-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/><path d="M8 4v6"/><path d="M16 4v6"/></svg></div>
+      <div class="ctx-tip-body">
+        <div class="ctx-tip-tt">When was the last boiler service?</div>
+        <div class="ctx-tip-tx">Adding this date helps nudgii calculate when your next one is due. More accurate = fewer unnecessary reminders.</div>
+        <div class="ctx-tip-actions">
+          <div class="ctx-tip-act" onclick="document.getElementById('ctxTip').style.display='none'">Add date</div>
+          <div class="ctx-tip-act muted" onclick="document.getElementById('ctxTip').style.display='none'">Dismiss</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IMPORTANT DATES SECTION -->
+    <div class="shd"><div class="sl">important dates</div></div>
+    <div class="date-row">
+      <div class="dr-icon" style="background:rgba(200,120,80,0.10)"><svg viewBox="0 0 24 24" stroke="#C87850"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/></svg></div>
+      <div class="dr-body"><div class="dr-label">Last service</div><div class="dr-value">October 15, 2024</div></div>
+      <div class="dr-edit">Edit</div>
+    </div>
+    <div class="date-row">
+      <div class="dr-icon" style="background:rgba(200,120,80,0.10)"><svg viewBox="0 0 24 24" stroke="#C87850"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg></div>
+      <div class="dr-body"><div class="dr-label">Warranty expires</div><div class="dr-value">March 2027</div></div>
+      <div class="dr-edit">Edit</div>
+    </div>
+    <div class="date-row">
+      <div class="dr-icon" style="background:rgba(26,22,18,0.04)"><svg viewBox="0 0 24 24" stroke="var(--text-hint)"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+      <div class="dr-body"><div class="dr-label">Purchase date</div><div class="dr-empty">Not set</div></div>
+      <div class="dr-add"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add date</div>
+    </div>
+
+    <!-- TASKS -->
+    <div class="shd" style="margin-top:14px"><div class="sl">tasks</div></div>
+
+    <div class="tr" onclick="openS('task1')">
+      <div class="tr-st" style="background:var(--terra)"></div>
+      <div class="tr-body"><div class="tr-nm od">Annual boiler service</div><div class="tr-sub">Yearly<span style="margin-left:4px;color:var(--text-hint)">·</span><div class="cadence"><div class="cadence-dot"></div></div></div></div>
+      <div class="tr-rt od">12d overdue</div>
+      <svg class="tr-ch" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+    </div>
+    <div class="tr" onclick="openS('task2')">
+      <div class="tr-st" style="background:var(--sage)"></div>
+      <div class="tr-body"><div class="tr-nm">Check CO detector</div><div class="tr-sub">Yearly<span style="margin-left:4px;color:var(--text-hint)">·</span><div class="cadence"><div class="cadence-dot"></div></div><span style="margin-left:4px;color:var(--text-hint)">· next Oct 2026</span></div></div>
+      <div class="tr-rt">on track</div>
+      <svg class="tr-ch" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+    </div>
+    <div class="tr" onclick="openS('task2')">
+      <div class="tr-st" style="background:var(--sage)"></div>
+      <div class="tr-body"><div class="tr-nm">Bleed radiators</div><div class="tr-sub">Seasonal · before winter<span style="margin-left:4px;color:var(--text-hint)">·</span><div class="cadence"><div class="cadence-dot"></div></div></div></div>
+      <div class="tr-rt">on track</div>
+      <svg class="tr-ch" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+    </div>
+    <div class="tr" onclick="openS('task2')">
+      <div class="tr-st" style="background:var(--sage)"></div>
+      <div class="tr-body"><div class="tr-nm">Check boiler pressure</div><div class="tr-sub">Every 3 months<span style="margin-left:4px;color:var(--text-hint)">·</span><div class="cadence"><div class="cadence-dot"></div><div class="cadence-dot"></div><div class="cadence-dot"></div><div class="cadence-dot"></div></div><span style="margin-left:4px;color:var(--text-hint)">· next Apr 15</span></div></div>
+      <div class="tr-rt">on track</div>
+      <svg class="tr-ch" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+    </div>
+    <div class="tr removed">
+      <div class="tr-st" style="background:var(--text-hint);opacity:0.3"></div>
+      <div class="tr-body"><div class="tr-nm">Descale boiler</div><div class="tr-sub" style="color:var(--text-hint)">Was every 6 months · removed Mar 10</div></div>
+      <div class="tr-rbadge">removed</div>
+      <div class="tr-restore">Restore</div>
+    </div>
+
+    <div class="ep"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>Export tasks</span></div>
+
+    <!-- HISTORY -->
+    <div class="shd"><div class="sl">recent history</div><div class="slk">See all</div></div>
+    <div class="hr"><div class="hr-t">Annual boiler service</div><div class="hr-d hr-done">Done · Oct 15, 2024</div></div>
+    <div class="hr"><div class="hr-t">Check boiler pressure</div><div class="hr-d hr-done">Done · Jan 8, 2025</div></div>
+    <div class="hr"><div class="hr-t">Bleed radiators</div><div class="hr-d hr-done">Done · Nov 2, 2024</div></div>
+    <div class="hr"><div class="hr-t">Descale boiler</div><div class="hr-d hr-removed">Removed · Mar 10</div></div>
+    <div class="spacer"></div>
+  </div>
+
+  <!-- TASK DETAIL SHEET: overdue task -->
+  <div class="ov" id="ov-task1" onclick="closeS('task1')"></div>
+  <div class="bs" id="bs-task1">
+    <div class="bs-h"></div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><div style="width:30px;height:30px;border-radius:8px;background:rgba(200,120,80,0.10);display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C87850" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="14" rx="2"/><path d="M8 6V4a2 2 0 0 1 4 0v2"/><circle cx="12" cy="14" r="2"/></svg></div><div style="font-size:11px;color:var(--text-mid)">Boiler · yearly</div></div>
+    <div class="bs-ti">Annual boiler service</div>
+    <div class="bs-su">Your boiler quietly judges you when you skip this.</div>
+    <div class="bs-meta"><div class="bs-pill urg">12 days overdue</div><div class="bs-pill">Yearly</div><div class="bs-pill">Last: Oct 2024</div><div class="bs-pill">Warranty: Mar 2027</div></div>
+    <div class="bs-why"><div class="bs-wyl">why it matters</div><div class="bs-wyt">Skipping the annual check voids most warranty agreements and increases carbon monoxide risk in enclosed spaces. Your warranty expires March 2027 — don't let a missed service void it.</div></div>
+    <div class="bs-how"><div class="bs-howl">how to do it</div><div class="bs-howt">Book a certified technician 2-3 weeks ahead. They inspect gas pressure, flue output, and the safety valve. Keep the certificate — your insurer may ask for it.</div></div>
+    <div class="bs-edit"><div class="bs-edit-l">interval</div><div class="int-opts"><div class="int-opt" onclick="pickInt(this)">6 months</div><div class="int-opt sel" onclick="pickInt(this)">Yearly</div><div class="int-opt" onclick="pickInt(this)">2 years</div></div></div>
+    <div class="bs-cta" onclick="closeS('task1')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FAF8FF" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Mark as done</div>
+    <div class="bs-acts"><div class="bs-a" onclick="closeS('task1')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Snooze</div><div class="bs-a" onclick="closeS('task1')"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>Skip</div><div class="bs-a" onclick="closeS('task1')"><svg viewBox="0 0 24 24"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></svg>Edit</div><div class="bs-a dng" onclick="closeS('task1')"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>Remove</div></div>
+    <div class="bs-cancel" onclick="closeS('task1')">Close</div>
+  </div>
+
+  <!-- TASK DETAIL SHEET: on-track task -->
+  <div class="ov" id="ov-task2" onclick="closeS('task2')"></div>
+  <div class="bs" id="bs-task2">
+    <div class="bs-h"></div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><div style="width:30px;height:30px;border-radius:8px;background:rgba(200,120,80,0.10);display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C87850" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="14" rx="2"/><path d="M8 6V4a2 2 0 0 1 4 0v2"/><circle cx="12" cy="14" r="2"/></svg></div><div style="font-size:11px;color:var(--text-mid)">Boiler</div></div>
+    <div class="bs-ti">Check CO detector</div>
+    <div class="bs-su">The one task you hope you never actually need.</div>
+    <div class="bs-meta"><div class="bs-pill">On track</div><div class="bs-pill">Yearly</div><div class="bs-pill">Next: Oct 2026</div></div>
+    <div class="bs-why"><div class="bs-wyl">why it matters</div><div class="bs-wyt">Carbon monoxide is odourless. A working detector is the only warning you'll get. Test the button monthly, replace the unit every 7 years.</div></div>
+    <div class="bs-how"><div class="bs-howl">how to do it</div><div class="bs-howt">Press the test button for 5 seconds. If it beeps, you're good. If nothing happens, replace the batteries. If still nothing — replace the detector.</div></div>
+    <div class="bs-edit"><div class="bs-edit-l">interval</div><div class="int-opts"><div class="int-opt" onclick="pickInt(this)">6 months</div><div class="int-opt sel" onclick="pickInt(this)">Yearly</div><div class="int-opt" onclick="pickInt(this)">2 years</div></div></div>
+    <div class="bs-acts"><div class="bs-a" onclick="closeS('task2')"><svg viewBox="0 0 24 24"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></svg>Edit</div><div class="bs-a dng" onclick="closeS('task2')"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>Remove</div></div>
+    <div class="bs-cancel" onclick="closeS('task2')">Close</div>
+  </div>
+</div>
+
+<script>
+function openS(id){document.getElementById('ov-'+id).classList.add('open');document.getElementById('bs-'+id).classList.add('open')}
+function closeS(id){document.getElementById('ov-'+id).classList.remove('open');document.getElementById('bs-'+id).classList.remove('open')}
+function pickInt(el){el.closest('.int-opts').querySelectorAll('.int-opt').forEach(o=>o.classList.remove('sel'));el.classList.add('sel')}
+const czResponses={
+  "Is it normal for the pressure to drop?":"Some drop is normal over time. If your gauge reads below 1 bar when cold, you need to repressurise. The filling loop is usually a silver braided hose underneath. Open the valve slowly until the gauge reads 1.2-1.5 bar, then close.",
+  "What does the annual service include?":"A certified technician checks: gas pressure and flow rate, flue gas analysis for CO levels, safety valve operation, condensate trap, general condition of seals and connections. Takes about 45 minutes. Keep the certificate — your insurer may ask for it.",
+  "How do I bleed the radiators?":"Turn off the heating first. Start with the radiator furthest from the boiler. Use the bleed key (small brass key) on the valve at the top. Turn anticlockwise until you hear air hissing. When water starts coming out, close it. Check the boiler pressure after — you may need to top it up."
+};
+function czChat(text){
+  const thread=document.getElementById('czThread');
+  const u=document.createElement('div');u.className='cz-bub cz-u';u.textContent=text;thread.appendChild(u);
+  document.getElementById('czSugs').style.display='none';
+  setTimeout(()=>{
+    const r=document.createElement('div');r.className='cz-bub cz-n';
+    r.textContent=czResponses[text]||"That's a good question about your boiler. Let me think...";
+    thread.appendChild(r);
+    r.scrollIntoView({behavior:'smooth',block:'end'});
+  },600);
+}
+</script>
+</body>
+</html>

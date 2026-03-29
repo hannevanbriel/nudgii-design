@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · illustration system · v1</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#2C2A28;font-family:'DM Sans',sans-serif;color:#F5F0E8;padding:32px 16px;min-height:100vh;}
+.page-title{font-family:'DM Serif Display',serif;font-size:28px;text-align:center;margin-bottom:4px;color:#F5F0E8;}
+.page-sub{font-size:12px;color:#8A8070;text-align:center;margin-bottom:32px;line-height:1.5;max-width:500px;margin-left:auto;margin-right:auto;}
+.grid{display:flex;flex-wrap:wrap;gap:24px;justify-content:center;max-width:900px;margin:0 auto;}
+.card{width:420px;background:#1A1816;border-radius:20px;overflow:hidden;border:1px solid rgba(245,240,232,0.06);}
+.card-illust{display:flex;align-items:center;justify-content:center;padding:32px;min-height:260px;}
+.card-illust.on-cream{background:#F5F0E8;}
+.card-illust.on-plum{background:#2D1F4A;}
+.card-illust.on-dark{background:#111614;}
+.card-body{padding:20px 24px 24px;}
+.card-label{font-size:9px;font-weight:500;letter-spacing:1.8px;color:#9B7FD4;text-transform:uppercase;margin-bottom:6px;}
+.card-title{font-family:'DM Serif Display',serif;font-size:18px;color:#F5F0E8;margin-bottom:6px;}
+.card-desc{font-size:12px;color:#8A8070;line-height:1.55;}
+.card-placement{font-size:10px;color:#6B6358;margin-top:10px;padding-top:8px;border-top:0.5px solid rgba(245,240,232,0.06);}
+.card-placement strong{color:#E8A87C;font-weight:500;}
+
+/* animation for the all-caught-up scene */
+@keyframes gentleBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes dotPulse{0%,100%{opacity:0.4}50%{opacity:1}}
+@media(prefers-reduced-motion:no-preference){
+  .bob{animation:gentleBob 3s ease-in-out infinite;}
+  .pulse-dot{animation:dotPulse 2s ease-in-out infinite;}
+}
+</style>
+</head>
+<body>
+
+<div class="page-title">nudgii illustration system</div>
+<div class="page-sub">Six SVG illustrations built from the ii mark's visual DNA: pills, dots, and organic rounded geometry. All use the locked nudgii color tokens. Designed for Hanne to refine in Figma with noise/grain texture if desired.</div>
+
+<div class="grid">
+
+<!-- ═══ 1. ALL CAUGHT UP (S-10 empty state) ═══ -->
+<div class="card">
+  <div class="card-illust on-cream">
+    <svg width="200" height="180" viewBox="0 0 200 180">
+      <!-- house shape from pills -->
+      <rect x="55" y="60" width="36" height="90" rx="18" fill="#C87850" opacity="0.15"/>
+      <rect x="100" y="40" width="36" height="110" rx="18" fill="#C87850" opacity="0.25"/>
+      <rect x="68" y="80" width="56" height="70" rx="8" fill="#FFFFFF" stroke="#C87850" stroke-width="1" opacity="0.6"/>
+      <!-- roof pill -->
+      <rect x="58" y="36" width="76" height="18" rx="9" fill="#C87850" opacity="0.35"/>
+      <!-- checkmark garden -->
+      <g class="bob">
+        <circle cx="152" cy="108" r="18" fill="#EAF3DE"/>
+        <path d="M143 108l6 6 12-12" stroke="#3B6D11" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </g>
+      <!-- floating dots — life is good -->
+      <circle class="pulse-dot" cx="42" cy="50" r="4" fill="#E8A87C" opacity="0.5"/>
+      <circle class="pulse-dot" cx="168" cy="56" r="3" fill="#9B7FD4" opacity="0.4" style="animation-delay:0.6s"/>
+      <circle class="pulse-dot" cx="56" cy="140" r="3" fill="#5A9060" opacity="0.4" style="animation-delay:1.2s"/>
+      <!-- little plant -->
+      <rect x="148" y="128" width="8" height="22" rx="4" fill="#5A9060" opacity="0.3"/>
+      <circle cx="152" cy="124" r="8" fill="#5A9060" opacity="0.2"/>
+      <!-- ground line -->
+      <rect x="30" y="150" width="140" height="3" rx="1.5" fill="#1A1612" opacity="0.06"/>
+    </svg>
+  </div>
+  <div class="card-body">
+    <div class="card-label">illustration 1</div>
+    <div class="card-title">All caught up</div>
+    <div class="card-desc">Shown on S-10 when every task is done. The house (pill-based) sits quietly with a green checkmark. Floating dots (apricot, purple, green) signal calm. The plant is growing. Everything is fine.</div>
+    <div class="card-placement"><strong>Placement:</strong> Today tab empty state. Below "Nothing overdue. Suspicious." copy. Centered, 180px tall.</div>
+  </div>
+</div>
+
+<!-- ═══ 2. CELEBRATION (S-05 state 2) ═══ -->
+<div class="card">
+  <div class="card-illust on-plum">
+    <svg width="200" height="180" viewBox="0 0 200 180">
+      <!-- large ii mark, celebratory -->
+      <rect x="62" y="30" width="28" height="100" rx="14" fill="#F5F0E8"/>
+      <rect x="102" y="30" width="28" height="100" rx="14" fill="#9B7FD4"/>
+      <circle cx="122" cy="40" r="12" fill="#E8A87C"/>
+      <!-- confetti dots -->
+      <circle cx="38" cy="44" r="5" fill="#E8A87C" opacity="0.6"/>
+      <circle cx="160" cy="36" r="4" fill="#9B7FD4" opacity="0.5"/>
+      <circle cx="46" cy="100" r="3" fill="#5A9060" opacity="0.5"/>
+      <circle cx="156" cy="90" r="6" fill="#C87850" opacity="0.35"/>
+      <circle cx="170" cy="120" r="3" fill="#E8A87C" opacity="0.4"/>
+      <circle cx="30" cy="72" r="4" fill="#4A82A0" opacity="0.4"/>
+      <!-- small confetti pills -->
+      <rect x="42" y="58" width="4" height="12" rx="2" fill="#9B7FD4" opacity="0.4" transform="rotate(-20 44 64)"/>
+      <rect x="150" y="64" width="4" height="10" rx="2" fill="#E8A87C" opacity="0.45" transform="rotate(15 152 69)"/>
+      <rect x="166" y="48" width="3" height="8" rx="1.5" fill="#5A9060" opacity="0.35" transform="rotate(-30 168 52)"/>
+      <!-- sparkle lines -->
+      <line x1="36" y1="130" x2="42" y2="124" stroke="#F5F0E8" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/>
+      <line x1="162" y1="140" x2="168" y2="134" stroke="#F5F0E8" stroke-width="1.5" stroke-linecap="round" opacity="0.25"/>
+      <!-- base line -->
+      <rect x="50" y="148" width="92" height="3" rx="1.5" fill="#F5F0E8" opacity="0.1"/>
+    </svg>
+  </div>
+  <div class="card-body">
+    <div class="card-label">illustration 2</div>
+    <div class="card-title">Celebration</div>
+    <div class="card-desc">The ii mark surrounded by confetti dots and tiny pill shapes. Used on the plum celebration screen after onboarding. The mark is the hero; the confetti is the emotion. Same brand shapes, festive context.</div>
+    <div class="card-placement"><strong>Placement:</strong> S-05 state 2 (celebration). Above "Your boiler is relieved." Centered on plum background. Replaces floating dots in current design.</div>
+  </div>
+</div>
+
+<!-- ═══ 3. SPRING SEASON (Calendar empty / seasonal) ═══ -->
+<div class="card">
+  <div class="card-illust on-cream">
+    <svg width="200" height="180" viewBox="0 0 200 180">
+      <!-- soil base -->
+      <rect x="30" y="140" width="140" height="14" rx="7" fill="#C87850" opacity="0.15"/>
+      <!-- stems as pills -->
+      <rect x="64" y="60" width="8" height="84" rx="4" fill="#5A9060" opacity="0.3"/>
+      <rect x="96" y="44" width="8" height="100" rx="4" fill="#5A9060" opacity="0.45"/>
+      <rect x="128" y="70" width="8" height="74" rx="4" fill="#5A9060" opacity="0.25"/>
+      <!-- leaf dots / buds -->
+      <circle cx="68" cy="56" r="10" fill="#5A9060" opacity="0.2"/>
+      <circle cx="100" cy="38" r="14" fill="#5A9060" opacity="0.25"/>
+      <circle cx="132" cy="66" r="9" fill="#5A9060" opacity="0.18"/>
+      <!-- flower dots -->
+      <circle cx="68" cy="52" r="5" fill="#E8A87C" opacity="0.6"/>
+      <circle cx="100" cy="32" r="7" fill="#9B7FD4" opacity="0.5"/>
+      <circle cx="132" cy="62" r="4" fill="#E8A87C" opacity="0.5"/>
+      <!-- tiny flying dots -->
+      <circle cx="44" cy="40" r="2.5" fill="#9B7FD4" opacity="0.3"/>
+      <circle cx="160" cy="50" r="2" fill="#E8A87C" opacity="0.35"/>
+      <circle cx="152" cy="100" r="2.5" fill="#5A9060" opacity="0.25"/>
+      <!-- sun hint -->
+      <circle cx="168" cy="28" r="12" fill="#E8A87C" opacity="0.15"/>
+      <circle cx="168" cy="28" r="6" fill="#E8A87C" opacity="0.3"/>
+    </svg>
+  </div>
+  <div class="card-body">
+    <div class="card-label">illustration 3</div>
+    <div class="card-title">Spring garden</div>
+    <div class="card-desc">Three pill-stems growing from a soil bar, with dot-buds blooming at the top. Apricot and purple dots as flowers. A faint sun in the corner. Everything is pill and circle shapes only.</div>
+    <div class="card-placement"><strong>Placement:</strong> Calendar tab when filtered to Garden category, or as a seasonal header in the weekly digest email. Also usable as the empty-state for a new Garden category with no items yet.</div>
+  </div>
+</div>
+
+<!-- ═══ 4. PRO UPGRADE ═══ -->
+<div class="card">
+  <div class="card-illust on-cream">
+    <svg width="220" height="180" viewBox="0 0 220 180">
+      <!-- house outline from pills — bigger, more items -->
+      <rect x="32" y="80" width="22" height="64" rx="11" fill="#C87850" opacity="0.12"/>
+      <rect x="60" y="60" width="22" height="84" rx="11" fill="#4A82A0" opacity="0.15"/>
+      <rect x="88" y="44" width="22" height="100" rx="11" fill="#5A9060" opacity="0.18"/>
+      <rect x="116" y="56" width="22" height="88" rx="11" fill="#8060A8" opacity="0.14"/>
+      <rect x="144" y="68" width="22" height="76" rx="11" fill="#C87850" opacity="0.12"/>
+      <rect x="172" y="80" width="22" height="64" rx="11" fill="#4A82A0" opacity="0.10"/>
+      <!-- dots on top — items wanting attention -->
+      <circle cx="43" cy="74" r="5" fill="#C87850" opacity="0.5"/>
+      <circle cx="71" cy="54" r="5" fill="#4A82A0" opacity="0.5"/>
+      <circle cx="99" cy="38" r="6" fill="#5A9060" opacity="0.55"/>
+      <circle cx="127" cy="50" r="5" fill="#8060A8" opacity="0.5"/>
+      <circle cx="155" cy="62" r="5" fill="#C87850" opacity="0.45"/>
+      <circle cx="183" cy="74" r="4.5" fill="#4A82A0" opacity="0.4"/>
+      <!-- apricot nudge dot floating up -->
+      <g class="bob">
+        <circle cx="110" cy="18" r="9" fill="#E8A87C" opacity="0.7"/>
+        <text x="110" y="22" font-family="DM Sans" font-size="10" font-weight="600" fill="#FFFFFF" text-anchor="middle">+</text>
+      </g>
+      <!-- ground -->
+      <rect x="24" y="148" width="172" height="3" rx="1.5" fill="#1A1612" opacity="0.06"/>
+      <!-- label -->
+      <rect x="62" y="156" width="96" height="16" rx="8" fill="rgba(155,127,212,0.10)"/>
+      <text x="110" y="168" font-family="DM Sans" font-size="8" font-weight="500" fill="#9B7FD4" text-anchor="middle" letter-spacing="1">YOUR HOUSE WANTS MORE</text>
+    </svg>
+  </div>
+  <div class="card-body">
+    <div class="card-label">illustration 4</div>
+    <div class="card-title">Pro upgrade</div>
+    <div class="card-desc">A row of category-colored pills (your items) with dots on top (their tasks). A floating apricot "+" dot bobs above — there's more to add. The label says "your house wants more." Warm, inviting, not pushy.</div>
+    <div class="card-placement"><strong>Placement:</strong> Upgrade prompt when user hits 10-item ceiling. Also usable on the S-22 paywall screen. Cream background.</div>
+  </div>
+</div>
+
+<!-- ═══ 5. FIRST TASK DONE ═══ -->
+<div class="card">
+  <div class="card-illust on-plum">
+    <svg width="200" height="180" viewBox="0 0 200 180">
+      <!-- single tall pill — the task -->
+      <rect x="80" y="30" width="32" height="100" rx="16" fill="#9B7FD4" opacity="0.7"/>
+      <!-- checkmark overlay -->
+      <circle cx="96" cy="70" r="20" fill="rgba(245,240,232,0.15)"/>
+      <path d="M86 70l7 7 14-14" stroke="#F5F0E8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <!-- celebration sparks -->
+      <circle cx="56" cy="50" r="4" fill="#E8A87C" opacity="0.6"/>
+      <circle cx="140" cy="42" r="5" fill="#E8A87C" opacity="0.5"/>
+      <circle cx="48" cy="90" r="3" fill="#F5F0E8" opacity="0.2"/>
+      <circle cx="148" cy="80" r="3.5" fill="#F5F0E8" opacity="0.25"/>
+      <!-- mini pills burst -->
+      <rect x="52" y="64" width="4" height="10" rx="2" fill="#F5F0E8" opacity="0.2" transform="rotate(-25 54 69)"/>
+      <rect x="138" y="58" width="4" height="10" rx="2" fill="#F5F0E8" opacity="0.2" transform="rotate(20 140 63)"/>
+      <!-- base -->
+      <rect x="60" y="142" width="72" height="3" rx="1.5" fill="#F5F0E8" opacity="0.08"/>
+    </svg>
+  </div>
+  <div class="card-body">
+    <div class="card-label">illustration 5</div>
+    <div class="card-title">First task done</div>
+    <div class="card-desc">A single pill with a check mark — one task completed. Apricot celebration dots around it. Used in the done overlay moment. The pill IS the task; the check IS the accomplishment. Simple, satisfying.</div>
+    <div class="card-placement"><strong>Placement:</strong> S-11 done overlay (dashboard swipe-to-complete). Behind the "Done. Your dishwasher approves." copy. Plum background.</div>
+  </div>
+</div>
+
+<!-- ═══ 6. EMPTY CALENDAR ═══ -->
+<div class="card">
+  <div class="card-illust on-cream">
+    <svg width="200" height="180" viewBox="0 0 200 180">
+      <!-- calendar frame from rounded shapes -->
+      <rect x="46" y="36" width="108" height="108" rx="16" fill="#FFFFFF" stroke="#1A1612" stroke-width="0.8" opacity="0.6"/>
+      <!-- top bar / binding -->
+      <rect x="46" y="36" width="108" height="24" rx="12" fill="rgba(155,127,212,0.12)"/>
+      <!-- binding pegs -->
+      <rect x="72" y="28" width="6" height="18" rx="3" fill="#9B7FD4" opacity="0.4"/>
+      <rect x="122" y="28" width="6" height="18" rx="3" fill="#9B7FD4" opacity="0.4"/>
+      <!-- grid dots — tasks as dots on calendar -->
+      <circle cx="72" cy="80" r="5" fill="#C87850" opacity="0.3"/>
+      <circle cx="100" cy="80" r="5" fill="rgba(26,22,18,0.06)"/>
+      <circle cx="128" cy="80" r="5" fill="#5A9060" opacity="0.3"/>
+      <circle cx="72" cy="104" r="5" fill="rgba(26,22,18,0.06)"/>
+      <circle cx="100" cy="104" r="5" fill="#4A82A0" opacity="0.3"/>
+      <circle cx="128" cy="104" r="5" fill="rgba(26,22,18,0.06)"/>
+      <circle cx="72" cy="128" r="5" fill="rgba(26,22,18,0.06)"/>
+      <circle cx="100" cy="128" r="5" fill="#8060A8" opacity="0.3"/>
+      <circle cx="128" cy="128" r="5" fill="#E8A87C" opacity="0.4"/>
+      <!-- leaf accent -->
+      <g transform="translate(155,100) rotate(-15)">
+        <rect x="0" y="0" width="6" height="28" rx="3" fill="#5A9060" opacity="0.3"/>
+        <circle cx="3" cy="-4" r="7" fill="#5A9060" opacity="0.18"/>
+      </g>
+      <!-- floating dot -->
+      <circle class="pulse-dot" cx="38" cy="60" r="3" fill="#E8A87C" opacity="0.4"/>
+    </svg>
+  </div>
+  <div class="card-body">
+    <div class="card-label">illustration 6</div>
+    <div class="card-title">Your year is filling up</div>
+    <div class="card-desc">A calendar frame (pill-topped) with a grid of category-colored dots representing tasks throughout the months. A small leaf sprouts beside it. Used when the calendar is empty or as the first-load illustration.</div>
+    <div class="card-placement"><strong>Placement:</strong> Calendar tab first load (before any items added), or as the weekly digest email header illustration. Cream background.</div>
+  </div>
+</div>
+
+</div><!-- /grid -->
+
+<div style="max-width:500px;margin:40px auto 0;text-align:center;">
+  <div style="font-size:11px;color:#6B6358;line-height:1.6;">
+    <strong style="color:#E8A87C;">Design language rules for all illustrations:</strong><br>
+    Only pill shapes (rounded rectangles with rx = half width) and circles/dots. No straight lines except ground bars. No literal object drawing (no house shape, no car shape, no leaf shape). Everything is abstract, composed from the same building blocks as the ii mark. Colors are exclusively from the nudgii token palette. Opacity varies between 0.1 and 0.7 to create depth without gradients. All SVGs are under 2KB. Hanne can add grain/noise texture in Figma as a final pass before PNG export for production.
+  </div>
+</div>
+
+</body>
+</html>

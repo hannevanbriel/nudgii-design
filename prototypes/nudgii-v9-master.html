@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · v9 · complete + gamification</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#F5F0E8;--card:#FFF;--text:#1A1612;--text-mid:#6B6358;--text-hint:#8A8070;--cta:#9B7FD4;--cta-fg:#FAF8FF;--apricot:#E8A87C;--apricot-dk:#C8784A;--terra:#C4503A;--plum:#2D1F4A;--plum-deep:#1A1433;--cat-home:#C87850;--cat-vehicle:#4A82A0;--cat-garden:#5A9060;--cat-sub:#8060A8;--sage:#3B6D11;--sage-lt:#EAF3DE;--border:rgba(26,22,18,0.08);--shadow:rgba(26,22,18,0.04)}
+.dark{--bg:#1A1433;--card:#231B3D;--text:#EDE8F5;--text-mid:#9E94B3;--text-hint:#6E6582;--border:rgba(255,255,255,0.07);--shadow:rgba(0,0,0,0.3)}
+body{background:#2C2A28;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;padding:24px 12px;min-height:100vh}
+.lab{font-size:11px;font-weight:500;letter-spacing:2px;color:#8A8070;margin-bottom:4px;text-transform:uppercase}
+.sub-t{font-size:10px;color:#6B6358;margin-bottom:6px;text-align:center;max-width:560px;line-height:1.5}
+.demo-btns{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;justify-content:center}
+.demo-btn{padding:5px 12px;border-radius:100px;font-size:9px;font-weight:500;cursor:pointer;border:1px solid rgba(245,240,232,0.15);background:transparent;color:#8A8070;font-family:'DM Sans',sans-serif;transition:all .15s}
+.demo-btn:hover{border-color:rgba(245,240,232,0.3);color:#F5F0E8}
+.demo-btn.active{background:rgba(155,127,212,0.2);border-color:var(--cta);color:var(--cta)}
+
+.ph{width:390px;height:844px;background:var(--bg);border-radius:50px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:1px solid rgba(26,22,18,0.12);transition:background .4s}
+.notch{width:102px;height:8px;border-radius:100px;position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:10;background:var(--text);opacity:.8;transition:background .4s}
+.sb{display:flex;justify-content:space-between;align-items:center;padding:16px 24px 0;font-size:15px;font-weight:600;color:var(--text);flex-shrink:0;transition:color .4s}
+.sb-r{display:flex;gap:5px}.sb-r svg{fill:var(--text);transition:fill .4s}
+.tp{display:none;flex:1;overflow-y:auto;padding:0 16px;-webkit-overflow-scrolling:touch}.tp::-webkit-scrollbar{display:none}.tp.on{display:block}
+
+/* ═══ ALL SHARED COMPONENTS (abbreviated for file size) ═══ */
+.sl{font-size:9px;font-weight:500;letter-spacing:1.8px;color:var(--text-mid);text-transform:uppercase;margin-bottom:8px;transition:color .4s}
+.shd{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.slk{font-size:11px;color:var(--cta);font-weight:500;cursor:pointer}
+.ic{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ic svg{width:14px;height:14px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ic-h{background:rgba(200,120,80,0.10)}.ic-h svg{stroke:var(--cat-home)}
+.ic-v{background:rgba(74,130,160,0.10)}.ic-v svg{stroke:var(--cat-vehicle)}
+.ic-g{background:rgba(90,144,96,0.10)}.ic-g svg{stroke:var(--cat-garden)}
+.ic-s{background:rgba(128,96,168,0.10)}.ic-s svg{stroke:var(--cat-sub)}
+.ss{display:flex;align-items:center;gap:10px;padding:10px 0 14px}
+.ring{width:44px;height:44px;position:relative;flex-shrink:0}.ring svg{width:44px;height:44px;transform:rotate(-90deg)}.ring-c{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--cta)}
+.sp{display:flex;align-items:center;gap:4px;background:rgba(232,168,124,0.10);border:0.5px solid rgba(232,168,124,0.22);border-radius:100px;padding:4px 10px 4px 7px;flex-shrink:0;margin-left:auto}
+.sp-n{font-family:'DM Serif Display',serif;font-size:16px;color:var(--apricot);line-height:1}.sp-l{font-size:8px;font-weight:500;letter-spacing:0.5px;color:var(--apricot-dk)}
+.cds{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.tc{background:var(--card);border-radius:10px;padding:12px 14px;border:0.5px solid var(--border);box-shadow:0 1px 3px var(--shadow);display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .25s}.tc:active{transform:scale(.98)}
+.tc-b{flex:1;min-width:0}.tc-n{font-size:14px;font-weight:500;color:var(--text);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .4s}.tc-n.od{color:var(--terra)}.tc-s{font-size:11px;color:var(--text-mid);margin-top:1px;transition:color .4s}
+.tc-d{font-size:12px;font-weight:500;flex-shrink:0;padding:3px 8px;border-radius:100px}
+.d-od{color:var(--terra);background:rgba(196,80,58,0.08)}.d-wk{color:var(--apricot-dk);background:rgba(200,120,74,0.08)}.d-cm{color:var(--text-hint);background:rgba(26,22,18,0.04)}
+.ft{background:var(--card);border-radius:12px;padding:16px;border:0.5px solid var(--border);box-shadow:0 2px 8px var(--shadow);margin-bottom:14px;cursor:pointer;transition:all .4s}
+.ft-hd{display:flex;align-items:center;gap:8px;margin-bottom:6px}.ft-k{font-size:9px;font-weight:500;letter-spacing:1.8px;color:var(--terra);text-transform:uppercase}
+.ft-t{font-size:17px;font-weight:500;color:var(--terra);line-height:1.25;margin-bottom:4px}.ft-i{font-size:11px;color:var(--text-mid);margin-bottom:10px;transition:color .4s}
+.ft-w{background:rgba(200,120,80,0.06);border-radius:8px;padding:10px 12px}.ft-wl{font-size:8px;font-weight:500;letter-spacing:1.5px;color:var(--cat-home);text-transform:uppercase;margin-bottom:2px}.ft-wt{font-size:12px;color:var(--text);line-height:1.45;transition:color .4s}
+.tip{background:rgba(155,127,212,0.06);border:0.5px solid rgba(155,127,212,0.15);border-radius:12px;padding:14px;margin-bottom:14px;display:flex;gap:12px}
+.tip-ic{width:36px;height:36px;border-radius:10px;background:rgba(155,127,212,0.10);display:flex;align-items:center;justify-content:center;flex-shrink:0}.tip-ic svg{width:16px;height:16px;stroke:var(--cta);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.tip-bd{flex:1}.tip-tt{font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px;transition:color .4s}.tip-tx{font-size:11px;color:var(--text-mid);line-height:1.4;transition:color .4s}.tip-dm{font-size:10px;color:var(--cta);font-weight:500;margin-top:6px;cursor:pointer}
+.tl{display:flex;align-items:flex-start;gap:12px;padding:5px 0}.tl-dt{width:38px;flex-shrink:0;text-align:right;padding-top:1px}.tl-dy{font-size:13px;font-weight:500;color:var(--text);line-height:1;transition:color .4s}.tl-mo{font-size:9px;color:var(--text-hint);font-weight:500;margin-top:1px;transition:color .4s}.tl-ln{width:1px;background:var(--border);min-height:36px;position:relative;flex-shrink:0;transition:background .4s}.tl-dot{width:7px;height:7px;border-radius:50%;position:absolute;top:4px;left:-3px}.tl-tx{flex:1}.tl-tn{font-size:13px;color:var(--text);font-weight:500;line-height:1.3;transition:color .4s}.tl-ti{font-size:10px;color:var(--text-mid);margin-top:1px;transition:color .4s}
+.tl-div{height:.5px;background:rgba(26,22,18,0.05);margin:2px 0 2px 50px}
+.vb{display:flex;align-items:center;gap:10px;background:var(--card);border:0.5px solid var(--border);border-radius:100px;padding:8px 10px 8px 14px;margin:12px 0 16px;cursor:pointer;transition:all .4s}
+.vb-t{flex:1;font-size:12px;font-style:italic;color:var(--text-hint);transition:color .4s}
+.vb-m{width:28px;height:28px;border-radius:50%;background:var(--cta);display:flex;align-items:center;justify-content:center;flex-shrink:0}.vb-m svg{width:13px;height:13px;stroke:var(--cta-fg);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.swh{display:flex;align-items:center;gap:5px;justify-content:center;padding:4px 0 2px}.swh span{font-size:10px;font-style:italic;color:rgba(107,99,88,.5)}.swh svg{width:14px;height:14px;stroke:rgba(107,99,88,.35);fill:none;stroke-width:1.5;stroke-linecap:round}
+
+/* Calendar */
+.cal-top{display:flex;align-items:center;justify-content:space-between;padding:16px 0 6px}.cal-mo{font-family:'DM Serif Display',serif;font-size:22px;color:var(--text);transition:color .4s}
+.cal-tog{display:flex;background:var(--border);border-radius:8px;overflow:hidden;transition:background .4s}.cal-tb{padding:5px 12px;font-size:10px;font-weight:500;color:var(--text-mid);cursor:pointer;border:none;background:transparent;font-family:'DM Sans',sans-serif;transition:color .4s}.cal-tb.on{background:var(--card);color:var(--text);border-radius:6px;box-shadow:0 1px 3px var(--shadow)}
+.ws{display:flex;gap:2px;padding:8px 0 14px}.wd{flex:1;text-align:center;padding:8px 0;border-radius:10px;cursor:pointer}.wd.sel{background:var(--cta)}.wdn{font-size:9px;font-weight:500;color:var(--text-hint);letter-spacing:.5px;margin-bottom:4px;transition:color .4s}.wd.sel .wdn{color:rgba(250,248,255,.7)}.wdnum{font-size:16px;font-weight:500;color:var(--text);transition:color .4s}.wd.sel .wdnum{color:var(--cta-fg)}.wdd{display:flex;gap:2px;justify-content:center;margin-top:4px;min-height:5px}.wdot{width:4px;height:4px;border-radius:50%}
+.mg{display:none;padding:4px 0 12px}.mg.show{display:block}.mgr{display:flex}.mgh{flex:1;text-align:center;font-size:9px;font-weight:500;color:var(--text-hint);padding:4px 0;transition:color .4s}.mgc{flex:1;text-align:center;padding:7px 0;font-size:12px;color:var(--text);border-radius:8px;position:relative;cursor:pointer;transition:color .4s}.mgc.today{background:var(--cta);color:var(--cta-fg);font-weight:600}.mgc.mut{color:var(--text-hint)}.mgc.ht::after{content:'';width:4px;height:4px;border-radius:50%;background:var(--cta);position:absolute;bottom:2px;left:50%;transform:translateX(-50%)}.mgc.today.ht::after{background:var(--cta-fg)}
+.season-bar{display:flex;align-items:center;gap:6px;padding:6px 12px;background:rgba(90,144,96,.07);border-radius:100px;margin-bottom:14px}.season-bar span{font-size:10px;font-weight:500;color:var(--sage);letter-spacing:.5px}
+.export-btn{display:flex;align-items:center;gap:5px;padding:5px 12px;border-radius:100px;background:rgba(155,127,212,0.08);border:0.5px solid rgba(155,127,212,0.18);cursor:pointer;transition:all .15s}.export-btn:active{transform:scale(.96)}.export-btn svg{width:14px;height:14px;stroke:var(--cta);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}.export-btn span{font-size:10px;font-weight:500;color:var(--cta)}
+
+/* My stuff tiles */
+.cat-g{margin-bottom:18px}.cat-hd{display:flex;align-items:center;gap:6px;margin-bottom:8px}.cat-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}.cat-nm{font-size:9px;font-weight:500;letter-spacing:1.8px;color:var(--text-mid);text-transform:uppercase;transition:color .4s}.cat-ct{font-size:9px;color:var(--text-hint);margin-left:auto;transition:color .4s}
+.tg{display:flex;gap:8px;flex-wrap:wrap}
+.it{width:calc(50% - 4px);border-radius:12px;padding:14px 12px;text-align:center;cursor:pointer;position:relative;border:.5px solid var(--border);transition:all .25s}.it:active{transform:scale(.97)}
+.it-ic{width:36px;height:36px;border-radius:10px;margin:0 auto 8px;display:flex;align-items:center;justify-content:center}.it-ic svg{width:18px;height:18px;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.it-nm{font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px;transition:color .4s}.it-tk{font-size:10px;color:var(--text-mid);transition:color .4s}.it-st{width:6px;height:6px;border-radius:50%;position:absolute;top:10px;right:10px}
+.it-h{background:rgba(200,120,80,.08)}.it-h .it-ic{background:rgba(200,120,80,.12)}.it-h .it-ic svg{stroke:var(--cat-home)}
+.it-v{background:rgba(74,130,160,.08)}.it-v .it-ic{background:rgba(74,130,160,.12)}.it-v .it-ic svg{stroke:var(--cat-vehicle)}
+.it-g{background:rgba(90,144,96,.08)}.it-g .it-ic{background:rgba(90,144,96,.12)}.it-g .it-ic svg{stroke:var(--cat-garden)}
+.it-su{background:rgba(128,96,168,.08)}.it-su .it-ic{background:rgba(128,96,168,.12)}.it-su .it-ic svg{stroke:var(--cat-sub)}
+.add-t{width:calc(50% - 4px);border-radius:12px;padding:14px 12px;text-align:center;border:1.5px dashed var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;color:var(--cta);font-size:12px;font-weight:500;min-height:100px}.add-t svg{width:20px;height:20px;stroke:var(--cta);fill:none;stroke-width:1.8;stroke-linecap:round}
+
+/* Profile */
+.pf-top{display:flex;flex-direction:column;align-items:center;padding:24px 0 16px}
+.pf-av{width:56px;height:56px;border-radius:50%;background:rgba(155,127,212,.12);border:2px solid rgba(155,127,212,.25);display:flex;align-items:center;justify-content:center;margin-bottom:10px}.pf-av svg{width:24px;height:24px;stroke:var(--cta);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.pf-nm{font-family:'DM Serif Display',serif;font-size:22px;color:var(--text);margin-bottom:2px;transition:color .4s}.pf-em{font-size:12px;color:var(--text-hint);margin-bottom:10px;transition:color .4s}
+.pf-badge{font-size:9px;font-weight:600;letter-spacing:1px;color:var(--cta);background:rgba(155,127,212,.10);border:.5px solid rgba(155,127,212,.22);padding:3px 10px;border-radius:100px;text-transform:uppercase}
+.ub{margin:16px 0;padding:0 20px}.ub-l{display:flex;justify-content:space-between;font-size:11px;color:var(--text-mid);margin-bottom:6px;transition:color .4s}.ub-tr{height:4px;background:var(--border);border-radius:100px;overflow:hidden;transition:background .4s}.ub-f{height:100%;background:var(--cta);border-radius:100px}
+.str{display:flex;gap:8px;margin-bottom:16px}.stc{flex:1;background:var(--card);border-radius:10px;padding:12px;text-align:center;border:.5px solid var(--border);transition:all .4s}.stn{font-family:'DM Serif Display',serif;font-size:22px;color:var(--cta);line-height:1;margin-bottom:2px}.stl{font-size:9px;font-weight:500;letter-spacing:.5px;color:var(--text-mid);transition:color .4s}
+.sr{display:flex;align-items:center;gap:10px;padding:13px 0;border-bottom:.5px solid var(--border);transition:border-color .4s}.sr:last-child{border-bottom:none}
+.sr-i{width:18px;height:18px;stroke:var(--text-mid);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;transition:stroke .4s}
+.sr-l{flex:1;font-size:13px;color:var(--text);transition:color .4s}.sr-v{font-size:12px;color:var(--text-hint);transition:color .4s}.sr-c{width:14px;height:14px;stroke:var(--text-hint);fill:none;stroke-width:1.5;stroke-linecap:round;flex-shrink:0;transition:stroke .4s}
+.dmt{width:36px;height:20px;border-radius:10px;background:var(--border);position:relative;cursor:pointer;transition:background .2s;flex-shrink:0}.dmt.on{background:var(--cta)}.dmk{width:16px;height:16px;border-radius:50%;background:var(--card);position:absolute;top:2px;left:2px;transition:all .2s;box-shadow:0 1px 3px rgba(0,0,0,.15)}.dmt.on .dmk{transform:translateX(16px)}
+
+/* Bottom nav + FAB */
+.bz{flex-shrink:0;padding:0 16px}.tbw{display:flex;align-items:flex-end;gap:10px;padding-bottom:8px}
+.tbar{flex:1;display:flex;background:var(--card);border-radius:22px;padding:9px 4px 11px;box-shadow:0 4px 20px rgba(26,22,18,.11);border:1px solid var(--border);transition:all .4s}
+.tb{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.tb svg{width:20px;height:20px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.tb.a svg,.tb.a svg *{stroke:var(--cta)!important}.tb.i svg,.tb.i svg *{stroke:var(--text-hint)!important;opacity:.4}
+.tbl{font-size:9px;font-weight:500;transition:color .4s}.tb.a .tbl{color:var(--cta)}.tb.i .tbl{color:var(--text-hint);opacity:.4}
+.fab{width:46px;height:46px;border-radius:15px;background:var(--cta);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(155,127,212,.45);flex-shrink:0;margin-bottom:4px;cursor:pointer;transition:transform .15s}.fab:active{transform:scale(.92)}.fab svg{width:17px;height:17px;stroke:var(--cta-fg);fill:none;stroke-width:2;stroke-linecap:round;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}.fab.open svg{transform:rotate(45deg)}
+.hi{width:134px;height:5px;background:var(--text);border-radius:100px;margin:4px auto 8px;opacity:.12;transition:background .4s}
+.fs{position:absolute;bottom:76px;right:16px;display:flex;flex-direction:column;gap:8px;z-index:25;opacity:0;pointer-events:none;transform:translateY(12px);transition:all .25s cubic-bezier(.32,.72,0,1)}.fs.open{opacity:1;pointer-events:auto;transform:translateY(0)}
+.fo{display:flex;align-items:center;gap:10px;flex-direction:row-reverse;cursor:pointer}.fo:active{transform:scale(.96)}
+.fo-i{width:42px;height:42px;border-radius:13px;background:var(--card);border:.5px solid var(--border);box-shadow:0 2px 12px rgba(26,22,18,.08);display:flex;align-items:center;justify-content:center;transition:all .4s}.fo-i svg{width:18px;height:18px;fill:none;stroke:var(--cta);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.fo-l{background:var(--card);border:.5px solid var(--border);border-radius:8px;padding:6px 12px;box-shadow:0 2px 8px rgba(26,22,18,.06);font-size:12px;font-weight:500;color:var(--text);white-space:nowrap;transition:all .4s}
+.f-scrim{position:absolute;inset:0;background:rgba(245,240,232,.7);z-index:24;opacity:0;pointer-events:none;transition:opacity .2s;border-radius:50px;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}.f-scrim.open{opacity:1;pointer-events:auto}
+.dark .f-scrim{background:rgba(26,20,51,.7)}
+
+/* Overlays & sheets */
+.ov{position:absolute;inset:0;background:rgba(26,22,18,.4);z-index:30;opacity:0;pointer-events:none;transition:opacity .25s;border-radius:50px}.ov.open{opacity:1;pointer-events:auto}
+.dark .ov{background:rgba(10,8,20,.5)}
+.bs{position:absolute;bottom:0;left:0;right:0;background:var(--bg);border-radius:20px 20px 0 0;padding:0 20px 30px;transform:translateY(100%);transition:all .3s cubic-bezier(.32,.72,0,1);z-index:31;box-shadow:0 -4px 30px rgba(0,0,0,.1);max-height:85%;overflow-y:auto}.bs.open{transform:translateY(0)}
+.bs-h{width:36px;height:4px;background:var(--border);border-radius:100px;margin:10px auto 16px;transition:background .4s}
+.bs-ti{font-family:'DM Serif Display',serif;font-size:20px;color:var(--text);margin-bottom:4px;transition:color .4s}
+.bs-su{font-size:11px;color:var(--text-mid);margin-bottom:14px;font-style:italic;line-height:1.4;transition:color .4s}
+.bs-meta{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px}
+.bs-pill{font-size:10px;font-weight:500;padding:4px 10px;border-radius:100px;background:var(--card);border:.5px solid var(--border);color:var(--text-mid);transition:all .4s}.bs-pill.urg{background:rgba(196,80,58,.08);color:var(--terra);border-color:rgba(196,80,58,.12)}
+.bs-why{background:rgba(200,120,80,.06);border-radius:10px;padding:12px 14px;margin-bottom:12px}.bs-wyl{font-size:8px;font-weight:500;letter-spacing:1.5px;color:var(--cat-home);text-transform:uppercase;margin-bottom:3px}.bs-wyt{font-size:13px;color:var(--text);line-height:1.5;transition:color .4s}
+.bs-how{margin-bottom:14px}.bs-howl{font-size:8px;font-weight:500;letter-spacing:1.5px;color:var(--text-mid);text-transform:uppercase;margin-bottom:6px;transition:color .4s}.bs-howt{font-size:13px;color:var(--text-mid);line-height:1.55;transition:color .4s}
+.bs-cta{width:100%;height:48px;border-radius:100px;background:var(--cta);border:none;color:var(--cta-fg);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;box-shadow:0 2px 12px rgba(155,127,212,.28);margin-bottom:8px}.bs-cta:active{background:#7D62B3;transform:scale(.97)}
+.bs-acts{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
+.bs-a{font-size:12px;color:var(--text-mid);cursor:pointer;display:flex;align-items:center;gap:4px;transition:color .4s}.bs-a svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}.bs-a.dng{color:var(--terra)}
+.bs-cancel{text-align:center;font-size:13px;color:var(--text-mid);padding:8px;cursor:pointer;transition:color .4s}
+
+/* Chat sheet */
+.chat-sheet{max-height:92%}
+.chat-thread{padding:0 0 10px;display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+.chat-bub{max-width:84%;padding:10px 14px;border-radius:12px;font-size:13px;line-height:1.5}
+.bub-n{align-self:flex-start;background:var(--card);border:.5px solid var(--border);border-radius:12px 12px 12px 4px;color:var(--text);transition:all .4s}
+.bub-u{align-self:flex-end;background:var(--cta);color:var(--cta-fg);border-radius:12px 12px 4px 12px}
+.bub-label{font-size:8px;font-weight:500;color:var(--text-mid);margin-bottom:4px;letter-spacing:.4px;transition:color .4s}
+.chat-chip{display:inline-flex;align-items:center;gap:4px;background:var(--sage-lt);color:var(--sage);font-size:10px;font-weight:500;padding:3px 8px;border-radius:100px;margin-top:6px}
+.chat-chip svg{width:10px;height:10px;stroke:var(--sage);fill:none;stroke-width:2;stroke-linecap:round}
+.chat-sugs{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+.chat-sug{font-size:10px;padding:5px 10px;border-radius:100px;background:var(--bg);border:.5px solid rgba(26,22,18,.12);color:var(--text-mid);cursor:pointer;transition:all .4s}
+.chat-input{display:flex;align-items:center;gap:8px;background:var(--card);border:.5px solid var(--border);border-radius:100px;padding:6px 8px 6px 14px;transition:all .4s}
+.chat-input-text{flex:1;font-size:12px;color:var(--text-hint);font-style:italic;transition:color .4s}
+.chat-input-mic{width:28px;height:28px;border-radius:50%;background:var(--cta);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer}
+.chat-input-mic svg{width:13px;height:13px;stroke:var(--cta-fg);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.chat-input-scan{width:16px;height:16px;stroke:var(--text-hint);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;cursor:pointer;flex-shrink:0;transition:stroke .4s}
+.chat-privacy{font-size:7px;font-style:italic;color:rgba(107,99,88,.4);text-align:center;margin-top:6px}
+
+/* ═══ MILESTONE CELEBRATION OVERLAY ═══ */
+.milestone-ov{position:absolute;inset:0;background:var(--plum);z-index:40;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s;border-radius:50px;padding:40px}
+.milestone-ov.open{opacity:1;pointer-events:auto}
+.milestone-close{position:absolute;top:40px;right:24px;width:32px;height:32px;border-radius:50%;background:rgba(245,240,232,.1);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.milestone-close svg{width:14px;height:14px;stroke:#F5F0E8;fill:none;stroke-width:2;stroke-linecap:round}
+.ms-count{font-family:'DM Serif Display',serif;font-size:64px;color:#E8A87C;line-height:1;margin-bottom:4px}
+.ms-label{font-size:11px;font-weight:500;letter-spacing:2px;color:rgba(245,240,232,.4);text-transform:uppercase;margin-bottom:20px}
+.ms-head{font-family:'DM Serif Display',serif;font-size:24px;color:#F5F0E8;text-align:center;line-height:1.2;margin-bottom:8px}
+.ms-head em{color:var(--cta);font-style:italic}
+.ms-sub{font-size:13px;color:rgba(245,240,232,.5);text-align:center;font-style:italic;line-height:1.5;max-width:260px;margin-bottom:24px}
+.ms-cta{padding:12px 32px;border-radius:100px;background:var(--cta);color:var(--cta-fg);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;border:none;box-shadow:0 2px 12px rgba(155,127,212,.4)}
+.ms-cta:active{transform:scale(.97)}
+
+/* Seasonal achievement card */
+.sa-card{background:rgba(90,144,96,.08);border:.5px solid rgba(90,144,96,.18);border-radius:12px;padding:14px;margin-bottom:14px;display:flex;gap:12px;align-items:center}
+.sa-badge{width:42px;height:42px;border-radius:12px;background:rgba(90,144,96,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sa-badge svg{width:20px;height:20px;stroke:var(--sage);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.sa-body{flex:1}.sa-tt{font-size:13px;font-weight:500;color:var(--sage);margin-bottom:2px}.sa-tx{font-size:11px;color:var(--text-mid);line-height:1.4;transition:color .4s}
+.sa-prog{display:flex;gap:3px;margin-top:6px}.sa-dot{width:8px;height:8px;border-radius:50%;background:rgba(90,144,96,.2)}.sa-dot.done{background:var(--sage)}
+
+.spacer{height:80px}
+/* confetti animation for milestone */
+@keyframes confettiFall{0%{transform:translateY(-20px) rotate(0deg);opacity:0}15%{opacity:1}100%{transform:translateY(40px) rotate(25deg);opacity:0}}
+.confetti-dot{position:absolute;width:6px;height:6px;border-radius:50%;animation:confettiFall 2s ease-out infinite}
+</style>
+</head>
+<body>
+
+<div class="lab">nudgii · v9 · complete master</div>
+<div class="sub-t">Everything connected: 4 tabs, FAB, bottom sheets, chat, dark mode, export, and gamification moments. Tap the buttons below to trigger special states.</div>
+<div class="demo-btns">
+  <div class="demo-btn" onclick="showMilestone()">Show milestone: 50th task</div>
+  <div class="demo-btn" onclick="swTab(document.querySelector('[data-p=p-cal]'));setTimeout(()=>document.getElementById('sa').scrollIntoView({behavior:'smooth'}),200)">Show seasonal achievement</div>
+</div>
+
+<div class="ph" id="phone">
+  <div class="notch"></div>
+  <div class="sb"><span>9:41</span><div class="sb-r"><svg width="16" height="12" viewBox="0 0 16 12"><rect x="0" y="6" width="3" height="6" rx="1"/><rect x="4.5" y="4" width="3" height="8" rx="1"/><rect x="9" y="2" width="3" height="10" rx="1"/><rect x="13" y="0" width="3" height="12" rx="1"/></svg><svg width="25" height="12" viewBox="0 0 25 12"><rect x="0" y="0" width="22" height="12" rx="3" stroke="currentColor" stroke-width="1" fill="none"/><rect x="1.5" y="1.5" width="17" height="9" rx="1.5" fill="currentColor"/></svg></div></div>
+
+  <!-- ═══ TODAY ═══ -->
+  <div class="tp on" id="p-today">
+    <div style="display:flex;align-items:center;padding:18px 0 2px"><div style="flex:1"><div style="font-size:13px;color:var(--text-mid)">Good morning,</div><div style="font-family:'DM Serif Display',serif;font-size:25px;color:var(--text);line-height:.95;transition:color .4s"><em style="font-style:italic;color:var(--apricot)">Martijn.</em></div></div></div>
+    <div class="ss"><div class="ring"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" fill="none" stroke="var(--border)" stroke-width="3.5"/><circle cx="22" cy="22" r="18" fill="none" stroke="var(--cta)" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="113" stroke-dashoffset="23"/></svg><div class="ring-c">11/14</div></div><div style="font-size:13px;color:var(--text);line-height:1.35;transition:color .4s">3 things need attention<br><span style="color:var(--text-mid);transition:color .4s">11 of 14 items on track</span></div><div class="sp"><div class="sp-n">4</div><div class="sp-l">week<br>streak</div></div></div>
+    <div class="tip"><div class="tip-ic"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><div class="tip-bd"><div class="tip-tt">Did you know?</div><div class="tip-tx">Most Belgian homes need gutter cleaning twice a year.</div><div class="tip-dm" onclick="this.closest('.tip').style.display='none'">Add gutters · Dismiss</div></div></div>
+    <div class="ft" onclick="openS('task-detail')"><div class="ft-hd"><div class="ic ic-h"><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="14" rx="2"/><path d="M8 6V4a2 2 0 0 1 4 0v2"/><circle cx="12" cy="14" r="2"/></svg></div><div class="ft-k">overdue · 12 days</div></div><div class="ft-t">Annual boiler service</div><div class="ft-i">Boiler · yearly</div><div class="ft-w"><div class="ft-wl">why it matters</div><div class="ft-wt">Skipping the annual check voids most warranty agreements and increases carbon monoxide risk.</div></div></div>
+    <div style="margin-bottom:14px"><div class="shd"><div class="sl">also overdue</div></div><div class="cds"><div class="tc" onclick="openS('quick')"><div class="ic ic-h"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><circle cx="7" cy="14" r="1"/></svg></div><div class="tc-b"><div class="tc-n od">Refill dishwasher salt</div><div class="tc-s">Dishwasher</div></div><div class="tc-d d-od">3 days</div></div></div><div class="swh"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg><span>swipe right to complete · tap for options</span></div></div>
+    <div style="margin-bottom:14px"><div class="shd"><div class="sl">due this week</div></div><div class="cds"><div class="tc" onclick="openS('quick')"><div class="ic ic-v"><svg viewBox="0 0 24 24"><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M5 17H3v-4l2-5h10l2 5v4h-2"/><path d="M5 12h14"/></svg></div><div class="tc-b"><div class="tc-n">Check tyre pressure</div><div class="tc-s">Car</div></div><div class="tc-d d-wk">Thu</div></div><div class="tc" onclick="openS('quick')"><div class="ic ic-g"><svg viewBox="0 0 24 24"><path d="M12 22V8"/><path d="M5 12c0-4 3-7 7-7s7 3 7 7"/><path d="M8 18c0-2.2 1.8-4 4-4s4 1.8 4 4"/></svg></div><div class="tc-b"><div class="tc-n">Prune olive tree</div><div class="tc-s">Olive tree</div></div><div class="tc-d d-wk">Sat</div></div></div></div>
+    <div style="margin-bottom:6px"><div class="shd"><div class="sl">coming up</div><div class="slk">next 30 days</div></div><div class="tl"><div class="tl-dt"><div class="tl-dy">18</div><div class="tl-mo">Apr</div></div><div class="tl-ln"><div class="tl-dot" style="background:var(--cat-home)"></div></div><div class="tl-tx"><div class="tl-tn">Clean gutters</div><div class="tl-ti">House</div></div></div><div class="tl-div"></div><div class="tl"><div class="tl-dt"><div class="tl-dy">29</div><div class="tl-mo">Apr</div></div><div class="tl-ln"><div class="tl-dot" style="background:var(--cat-sub)"></div></div><div class="tl-tx"><div class="tl-tn">Renew home insurance</div><div class="tl-ti">Subscriptions</div></div></div></div>
+    <div class="vb" onclick="openS('chat')"><div class="vb-t">Ask nudgii anything...</div><div class="vb-m"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 18v4"/></svg></div></div>
+    <div class="spacer"></div>
+  </div>
+
+  <!-- ═══ CALENDAR ═══ -->
+  <div class="tp" id="p-cal">
+    <div class="cal-top"><div class="cal-mo">March 2026</div><div class="cal-tog"><div class="cal-tb on" onclick="togCal('w',this)">Week</div><div class="cal-tb" onclick="togCal('m',this)">Month</div></div></div>
+    <div id="wv"><div class="ws"><div class="wd"><div class="wdn">Mon</div><div class="wdnum">23</div><div class="wdd"><div class="wdot" style="background:var(--terra)"></div></div></div><div class="wd"><div class="wdn">Tue</div><div class="wdnum">24</div><div class="wdd"></div></div><div class="wd"><div class="wdn">Wed</div><div class="wdnum">25</div><div class="wdd"><div class="wdot" style="background:var(--cat-home)"></div><div class="wdot" style="background:var(--cat-garden)"></div></div></div><div class="wd"><div class="wdn">Thu</div><div class="wdnum">26</div><div class="wdd"><div class="wdot" style="background:var(--cat-vehicle)"></div></div></div><div class="wd sel"><div class="wdn">Fri</div><div class="wdnum">28</div><div class="wdd"><div class="wdot" style="background:rgba(250,248,255,.6)"></div></div></div><div class="wd"><div class="wdn">Sat</div><div class="wdnum">29</div><div class="wdd"><div class="wdot" style="background:var(--cat-garden)"></div></div></div><div class="wd"><div class="wdn">Sun</div><div class="wdnum">30</div><div class="wdd"></div></div></div></div>
+    <div class="mg" id="mv"><div class="mgr"><div class="mgh">Mon</div><div class="mgh">Tue</div><div class="mgh">Wed</div><div class="mgh">Thu</div><div class="mgh">Fri</div><div class="mgh">Sat</div><div class="mgh">Sun</div></div><div class="mgr"><div class="mgc mut">23</div><div class="mgc mut">24</div><div class="mgc mut">25</div><div class="mgc mut">26</div><div class="mgc mut">27</div><div class="mgc mut">28</div><div class="mgc">1</div></div><div class="mgr"><div class="mgc">2</div><div class="mgc">3</div><div class="mgc ht">4</div><div class="mgc">5</div><div class="mgc">6</div><div class="mgc">7</div><div class="mgc">8</div></div><div class="mgr"><div class="mgc">9</div><div class="mgc ht">10</div><div class="mgc">11</div><div class="mgc">12</div><div class="mgc">13</div><div class="mgc">14</div><div class="mgc">15</div></div><div class="mgr"><div class="mgc ht">16</div><div class="mgc">17</div><div class="mgc ht">18</div><div class="mgc">19</div><div class="mgc">20</div><div class="mgc">21</div><div class="mgc">22</div></div><div class="mgr"><div class="mgc">23</div><div class="mgc">24</div><div class="mgc">25</div><div class="mgc">26</div><div class="mgc">27</div><div class="mgc today ht">28</div><div class="mgc ht">29</div></div><div class="mgr"><div class="mgc">30</div><div class="mgc">31</div><div class="mgc mut">1</div><div class="mgc mut">2</div><div class="mgc mut">3</div><div class="mgc mut">4</div><div class="mgc mut">5</div></div></div>
+    <div class="season-bar"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#3B6D11" stroke-width="1.8" stroke-linecap="round"><path d="M12 22V8"/><path d="M5 12c0-4 3-7 7-7s7 3 7 7"/></svg><span>Spring tasks active</span></div>
+
+    <!-- SEASONAL ACHIEVEMENT CARD -->
+    <div class="sa-card" id="sa">
+      <div class="sa-badge"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+      <div class="sa-body">
+        <div class="sa-tt">Winter survivor</div>
+        <div class="sa-tx">Complete all autumn prep tasks before December 1st to earn this.</div>
+        <div class="sa-prog"><div class="sa-dot done"></div><div class="sa-dot done"></div><div class="sa-dot done"></div><div class="sa-dot"></div><div class="sa-dot"></div></div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:14px"><div class="shd"><div class="sl">friday, march 28</div><div class="export-btn" onclick="openS('export')"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>Export</span></div></div><div class="cds"><div class="tc" onclick="openS('task-detail')"><div class="ic ic-h"><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="14" rx="2"/><path d="M8 6V4a2 2 0 0 1 4 0v2"/><circle cx="12" cy="14" r="2"/></svg></div><div class="tc-b"><div class="tc-n od">Annual boiler service</div><div class="tc-s">Boiler · overdue 12 days</div></div><div class="tc-d d-od">overdue</div></div><div class="tc" onclick="openS('quick')"><div class="ic ic-g"><svg viewBox="0 0 24 24"><path d="M12 22V8"/><path d="M5 12c0-4 3-7 7-7s7 3 7 7"/></svg></div><div class="tc-b"><div class="tc-n">Prune olive tree</div><div class="tc-s">Olive tree · seasonal</div></div><div class="tc-d d-wk">Sat</div></div></div></div>
+    <div class="spacer"></div>
+  </div>
+
+  <!-- ═══ MY STUFF ═══ -->
+  <div class="tp" id="p-stuff">
+    <div style="padding:16px 0 14px"><div style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--text);transition:color .4s">My stuff</div><div style="font-size:12px;color:var(--text-mid);margin-top:4px;transition:color .4s">5 items · 14 tasks</div></div>
+    <div class="cat-g"><div class="cat-hd"><div class="cat-dot" style="background:var(--cat-home)"></div><div class="cat-nm">home</div><div class="cat-ct">2 items</div></div><div class="tg"><div class="it it-h"><div class="it-st" style="background:var(--terra)"></div><div class="it-ic"><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="14" rx="2"/><path d="M8 6V4a2 2 0 0 1 4 0v2"/><circle cx="12" cy="14" r="2"/></svg></div><div class="it-nm">Boiler</div><div class="it-tk">4 tasks</div></div><div class="it it-h"><div class="it-st" style="background:var(--terra)"></div><div class="it-ic"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><circle cx="7" cy="14" r="1"/></svg></div><div class="it-nm">Dishwasher</div><div class="it-tk">3 tasks</div></div></div></div>
+    <div class="cat-g"><div class="cat-hd"><div class="cat-dot" style="background:var(--cat-vehicle)"></div><div class="cat-nm">vehicle</div><div class="cat-ct">1 item</div></div><div class="tg"><div class="it it-v"><div class="it-st" style="background:var(--cat-garden)"></div><div class="it-ic"><svg viewBox="0 0 24 24"><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M5 17H3v-4l2-5h10l2 5v4h-2"/><path d="M5 12h14"/></svg></div><div class="it-nm">Car</div><div class="it-tk">5 tasks</div></div></div></div>
+    <div class="cat-g"><div class="cat-hd"><div class="cat-dot" style="background:var(--cat-garden)"></div><div class="cat-nm">garden</div><div class="cat-ct">1 item</div></div><div class="tg"><div class="it it-g"><div class="it-st" style="background:var(--apricot-dk)"></div><div class="it-ic"><svg viewBox="0 0 24 24"><path d="M12 22V8"/><path d="M5 12c0-4 3-7 7-7s7 3 7 7"/><path d="M8 18c0-2.2 1.8-4 4-4s4 1.8 4 4"/></svg></div><div class="it-nm">Olive tree</div><div class="it-tk">2 tasks</div></div></div></div>
+    <div class="cat-g"><div class="cat-hd"><div class="cat-dot" style="background:var(--cat-sub)"></div><div class="cat-nm">subscriptions</div><div class="cat-ct">1 item</div></div><div class="tg"><div class="it it-su"><div class="it-st" style="background:var(--cat-garden)"></div><div class="it-ic"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 10h20"/><path d="M6 14h4"/></svg></div><div class="it-nm">Home insurance</div><div class="it-tk">1 task</div></div><div class="add-t" onclick="toggleFab()"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add item</div></div></div>
+    <div class="spacer"></div>
+  </div>
+
+  <!-- ═══ PROFILE ═══ -->
+  <div class="tp" id="p-profile">
+    <div class="pf-top"><div class="pf-av"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5 20c0-3.87 3.13-7 7-7s7 3.13 7 7"/></svg></div><div class="pf-nm">Martijn</div><div class="pf-em">martijn@example.com</div><div class="pf-badge">free plan</div></div>
+    <div class="ub"><div class="ub-l"><span>5 of 10 items</span><span style="color:var(--cta);font-weight:500;cursor:pointer">Go Pro</span></div><div class="ub-tr"><div class="ub-f" style="width:50%"></div></div></div>
+    <div class="str"><div class="stc"><div class="stn">47</div><div class="stl">completed</div></div><div class="stc"><div class="stn">4</div><div class="stl">week streak</div></div><div class="stc"><div class="stn">14</div><div class="stl">active tasks</div></div></div>
+    <div><div class="shd"><div class="sl">appearance</div></div><div class="sr"><svg class="sr-i" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><div class="sr-l">Dark mode</div><div class="dmt" id="dmt" onclick="tD()"><div class="dmk"></div></div></div></div>
+    <div><div class="shd"><div class="sl" style="margin-top:10px">settings</div></div><div class="sr"><svg class="sr-i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><div class="sr-l">Digest day and time</div><div class="sr-v">Monday 08:00</div><svg class="sr-c" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div><div class="sr"><svg class="sr-i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><div class="sr-l">Region and language</div><div class="sr-v">Belgium · NL</div><svg class="sr-c" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div><div class="sr"><svg class="sr-i" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><div class="sr-l">Account</div><svg class="sr-c" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div></div>
+    <div class="spacer"></div>
+  </div>
+
+  <!-- ═══ TASK DETAIL SHEET ═══ -->
+  <div class="ov" id="ov-task-detail" onclick="closeS('task-detail')"></div>
+  <div class="bs" id="bs-task-detail">
+    <div class="bs-h"></div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><div class="ic ic-h"><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="14" rx="2"/><path d="M8 6V4a2 2 0 0 1 4 0v2"/><circle cx="12" cy="14" r="2"/></svg></div><div style="font-size:11px;color:var(--text-mid)">Boiler · yearly</div></div>
+    <div class="bs-ti">Annual boiler service</div>
+    <div class="bs-su">Your boiler quietly judges you when you skip this.</div>
+    <div class="bs-meta"><div class="bs-pill urg">12 days overdue</div><div class="bs-pill">Yearly</div><div class="bs-pill">Last: Oct 2024</div></div>
+    <div class="bs-why"><div class="bs-wyl">why it matters</div><div class="bs-wyt">Skipping the annual check voids most warranty agreements and increases carbon monoxide risk.</div></div>
+    <div class="bs-how"><div class="bs-howl">how to do it</div><div class="bs-howt">Book a certified technician 2-3 weeks ahead. They inspect gas pressure, flue output, and the safety valve.</div></div>
+    <div class="bs-cta" onclick="closeS('task-detail')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FAF8FF" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Mark as done</div>
+    <div class="bs-acts"><div class="bs-a" onclick="closeS('task-detail')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Snooze</div><div class="bs-a" onclick="closeS('task-detail')"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>Skip</div><div class="bs-a" onclick="closeS('task-detail')"><svg viewBox="0 0 24 24"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></svg>Edit</div><div class="bs-a dng" onclick="closeS('task-detail')"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>Remove</div></div>
+    <div class="bs-cancel" onclick="closeS('task-detail')">Close</div>
+  </div>
+
+  <!-- ═══ QUICK ACTION SHEET ═══ -->
+  <div class="ov" id="ov-quick" onclick="closeS('quick')"></div>
+  <div class="bs" id="bs-quick" style="max-height:50%">
+    <div class="bs-h"></div>
+    <div class="bs-ti" style="font-size:17px">Refill dishwasher salt</div>
+    <div style="font-size:11px;color:var(--text-mid);margin-bottom:14px;transition:color .4s">Dishwasher · 3 days overdue</div>
+    <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--card);border-radius:10px;border:.5px solid var(--border);cursor:pointer;transition:all .4s" onclick="closeS('quick')"><div style="width:32px;height:32px;border-radius:9px;background:var(--sage-lt);display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div><div style="flex:1"><div style="font-size:13px;font-weight:500;color:var(--text);transition:color .4s">Done</div><div style="font-size:10px;color:var(--text-mid);transition:color .4s">Mark complete, schedule next</div></div></div>
+      <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--card);border-radius:10px;border:.5px solid var(--border);cursor:pointer;transition:all .4s" onclick="closeS('quick')"><div style="width:32px;height:32px;border-radius:9px;background:rgba(232,168,124,.1);display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--apricot-dk)" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div style="flex:1"><div style="font-size:13px;font-weight:500;color:var(--text);transition:color .4s">Snooze</div><div style="font-size:10px;color:var(--text-mid);transition:color .4s">1 day, 3 days, 1 week</div></div></div>
+      <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--card);border-radius:10px;border:.5px solid var(--border);cursor:pointer;transition:all .4s" onclick="closeS('quick')"><div style="width:32px;height:32px;border-radius:9px;background:rgba(26,22,18,.03);display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-hint)" stroke-width="1.5" stroke-linecap="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div><div style="flex:1"><div style="font-size:13px;font-weight:500;color:var(--text);transition:color .4s">Skip this time</div><div style="font-size:10px;color:var(--text-mid);transition:color .4s">Schedule the next occurrence</div></div></div>
+    </div>
+    <div class="bs-cancel" onclick="closeS('quick')">Cancel</div>
+  </div>
+
+  <!-- ═══ EXPORT SHEET ═══ -->
+  <div class="ov" id="ov-export" onclick="closeS('export')"></div>
+  <div class="bs" id="bs-export" style="max-height:60%">
+    <div class="bs-h"></div>
+    <div class="bs-ti" style="font-size:17px">Export this week</div>
+    <div style="font-size:11px;color:var(--text-mid);margin-bottom:14px;transition:color .4s">March 23–29 · 4 tasks</div>
+    <div style="background:var(--card);border-radius:12px;border:.5px solid var(--border);padding:14px;margin-bottom:14px;transition:all .4s">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;padding-bottom:8px;border-bottom:.5px solid var(--border)"><svg width="16" height="18" viewBox="0 0 626 700"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0C56.05,700.13,0,642.43,0,571.26V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/></svg><div style="font-size:12px;font-weight:500;color:var(--text);flex:1;transition:color .4s">Week 13 · March 2026</div><div style="font-size:10px;color:var(--text-hint);transition:color .4s">nudgii</div></div>
+      <div style="display:flex;align-items:center;gap:8px;padding:4px 0"><div style="width:5px;height:5px;border-radius:50%;background:var(--terra)"></div><div style="font-size:11px;color:var(--text);flex:1;transition:color .4s">Annual boiler service</div><div style="font-size:10px;color:var(--text-hint);transition:color .4s">Overdue</div></div>
+      <div style="display:flex;align-items:center;gap:8px;padding:4px 0"><div style="width:5px;height:5px;border-radius:50%;background:var(--terra)"></div><div style="font-size:11px;color:var(--text);flex:1;transition:color .4s">Refill dishwasher salt</div><div style="font-size:10px;color:var(--text-hint);transition:color .4s">Overdue</div></div>
+      <div style="display:flex;align-items:center;gap:8px;padding:4px 0"><div style="width:5px;height:5px;border-radius:50%;background:var(--cat-vehicle)"></div><div style="font-size:11px;color:var(--text);flex:1;transition:color .4s">Check tyre pressure</div><div style="font-size:10px;color:var(--text-hint);transition:color .4s">Thu</div></div>
+      <div style="display:flex;align-items:center;gap:8px;padding:4px 0"><div style="width:5px;height:5px;border-radius:50%;background:var(--cat-garden)"></div><div style="font-size:11px;color:var(--text);flex:1;transition:color .4s">Prune olive tree</div><div style="font-size:10px;color:var(--text-hint);transition:color .4s">Sat</div></div>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:14px">
+      <div style="flex:1;background:var(--card);border-radius:10px;padding:10px 8px;text-align:center;border:1px solid var(--cta);cursor:pointer;transition:all .4s"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cta)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 4px;display:block"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><div style="font-size:11px;font-weight:500;color:var(--cta)">PDF</div></div>
+      <div style="flex:1;background:var(--card);border-radius:10px;padding:10px 8px;text-align:center;border:.5px solid var(--border);cursor:pointer;transition:all .4s"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-mid)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 4px;display:block"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/></svg><div style="font-size:11px;font-weight:500;color:var(--text);transition:color .4s">Calendar</div></div>
+      <div style="flex:1;background:var(--card);border-radius:10px;padding:10px 8px;text-align:center;border:.5px solid var(--border);cursor:pointer;transition:all .4s"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-mid)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 4px;display:block"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><div style="font-size:11px;font-weight:500;color:var(--text);transition:color .4s">Share</div></div>
+    </div>
+    <div class="bs-cta" onclick="closeS('export')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FAF8FF" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export as PDF</div>
+    <div class="bs-cancel" onclick="closeS('export')">Cancel</div>
+  </div>
+
+  <!-- ═══ CHAT SHEET ═══ -->
+  <div class="ov" id="ov-chat" onclick="closeS('chat')"></div>
+  <div class="bs chat-sheet" id="bs-chat">
+    <div class="bs-h"></div>
+    <div class="chat-thread">
+      <div class="bub-label">nudgii</div>
+      <div class="chat-bub bub-n">Hey Martijn. What's on your mind?</div>
+      <div class="chat-bub bub-n" style="margin-top:-4px"><div class="chat-sugs"><div class="chat-sug" onclick="addChat('What\\'s most urgent?')">What's most urgent?</div><div class="chat-sug" onclick="addChat('Add my espresso machine')">Add new item</div><div class="chat-sug" onclick="addChat('Change boiler service to 6 months')">Change a task</div></div></div>
+      <div id="chatMsgs"></div>
+    </div>
+    <div class="chat-input"><svg class="chat-input-scan" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h.01"/><path d="M7 12h.01"/><path d="M7 16h.01"/><path d="M11 8h6"/><path d="M11 12h6"/><path d="M11 16h6"/></svg><div class="chat-input-text">Type or speak...</div><div class="chat-input-mic"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 18v4"/></svg></div></div>
+    <div class="chat-privacy">audio sent for transcription only · deleted after · responds in text</div>
+  </div>
+
+  <!-- ═══ MILESTONE CELEBRATION OVERLAY ═══ -->
+  <div class="milestone-ov" id="milestone">
+    <div class="milestone-close" onclick="closeMilestone()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+    <!-- illustration: ii mark + confetti -->
+    <svg width="120" height="110" viewBox="0 0 200 180" style="margin-bottom:16px">
+      <rect x="70" y="30" width="24" height="86" rx="12" fill="#F5F0E8"/>
+      <rect x="102" y="30" width="24" height="86" rx="12" fill="#9B7FD4"/>
+      <circle cx="118" cy="38" r="10" fill="#E8A87C"/>
+      <circle cx="42" cy="44" r="4.5" fill="#E8A87C" opacity=".6"/>
+      <circle cx="156" cy="36" r="3.5" fill="#9B7FD4" opacity=".5"/>
+      <circle cx="50" cy="92" r="3" fill="#5A9060" opacity=".5"/>
+      <circle cx="152" cy="82" r="5" fill="#C87850" opacity=".35"/>
+      <circle cx="164" cy="110" r="2.5" fill="#E8A87C" opacity=".4"/>
+      <circle cx="34" cy="68" r="3.5" fill="#4A82A0" opacity=".4"/>
+      <rect x="46" y="56" width="3.5" height="10" rx="1.75" fill="#9B7FD4" opacity=".35" transform="rotate(-20 48 61)"/>
+      <rect x="148" y="58" width="3.5" height="9" rx="1.75" fill="#E8A87C" opacity=".4" transform="rotate(15 150 63)"/>
+    </svg>
+    <div class="ms-count">50</div>
+    <div class="ms-label">tasks completed</div>
+    <div class="ms-head">Half a hundred.<br><em>Your stuff approves.</em></div>
+    <div class="ms-sub">That's 50 things you didn't forget, skip, or quietly hope would fix themselves. Your home is genuinely better for it.</div>
+    <button class="ms-cta" onclick="closeMilestone()">Keep going</button>
+  </div>
+
+  <!-- ═══ FAB ═══ -->
+  <div class="f-scrim" id="fScrim" onclick="closeFab()"></div>
+  <div class="fs" id="fSheet">
+    <div class="fo" onclick="closeFab()"><div class="fo-i"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><div class="fo-l">Search for item</div></div>
+    <div class="fo" onclick="closeFab()"><div class="fo-i"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div><div class="fo-l">Browse categories</div></div>
+    <div class="fo" onclick="closeFab();openS('chat')"><div class="fo-i"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 18v4"/></svg></div><div class="fo-l">Tell me what you have</div></div>
+  </div>
+
+  <div class="bz"><div class="tbw"><div class="tbar">
+    <div class="tb a" data-p="p-today" onclick="swTab(this)"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="tbl">Today</span></div>
+    <div class="tb i" data-p="p-cal" onclick="swTab(this)"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/><path d="M8 4v6"/><path d="M16 4v6"/></svg><span class="tbl">Calendar</span></div>
+    <div class="tb i" data-p="p-stuff" onclick="swTab(this)"><svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg><span class="tbl">My stuff</span></div>
+    <div class="tb i" data-p="p-profile" onclick="swTab(this)"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5 20c0-3.87 3.13-7 7-7s7 3.13 7 7"/></svg><span class="tbl">Profile</span></div>
+  </div><div class="fab" id="fabBtn" onclick="toggleFab()"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div><div class="hi"></div></div>
+</div>
+
+<script>
+function swTab(el){document.querySelectorAll('.tb').forEach(t=>{t.classList.remove('a');t.classList.add('i')});el.classList.remove('i');el.classList.add('a');document.querySelectorAll('.tp').forEach(p=>p.classList.remove('on'));document.getElementById(el.dataset.p).classList.add('on')}
+function togCal(v,btn){document.querySelectorAll('.cal-tb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');document.getElementById('wv').style.display=v==='w'?'block':'none';document.getElementById('mv').classList.toggle('show',v==='m')}
+function openS(id){document.getElementById('ov-'+id).classList.add('open');document.getElementById('bs-'+id).classList.add('open')}
+function closeS(id){document.getElementById('ov-'+id).classList.remove('open');document.getElementById('bs-'+id).classList.remove('open')}
+let fabOpen=false;function toggleFab(){fabOpen=!fabOpen;document.getElementById('fSheet').classList.toggle('open',fabOpen);document.getElementById('fScrim').classList.toggle('open',fabOpen);document.getElementById('fabBtn').classList.toggle('open',fabOpen)}
+function closeFab(){fabOpen=false;document.getElementById('fSheet').classList.remove('open');document.getElementById('fScrim').classList.remove('open');document.getElementById('fabBtn').classList.remove('open')}
+function tD(){document.getElementById('phone').classList.toggle('dark');document.getElementById('dmt').classList.toggle('on')}
+function showMilestone(){document.getElementById('milestone').classList.add('open')}
+function closeMilestone(){document.getElementById('milestone').classList.remove('open')}
+const responses={"What's most urgent?":"Your boiler service is 12 days overdue — that's the priority. Skipping it can void your warranty. Want me to open the details?","Add my espresso machine":"Got it! I'll set up your espresso machine with 3 tasks: descale every 2 months, clean the group head weekly, and replace the water filter every 6 months.","Change boiler service to 6 months":"Done — boiler service changed from yearly to every 6 months. Next check: September 2026."};
+function addChat(text){const c=document.getElementById('chatMsgs');const u=document.createElement('div');u.className='chat-bub bub-u';u.textContent=text.replace(/\\'/g,"'");c.appendChild(u);setTimeout(()=>{const r=document.createElement('div');r.className='chat-bub bub-n';const resp=responses[text.replace(/\\'/g,"'")]||"I'll look into that for you.";r.innerHTML='<div class="bub-label">nudgii</div>'+resp;if(text.includes('espresso'))r.innerHTML+='<div class="chat-chip"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Espresso machine added</div>';if(text.includes('Change'))r.innerHTML+='<div class="chat-chip"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Interval updated</div>';c.appendChild(r);r.scrollIntoView({behavior:'smooth',block:'end'})},800)}
+</script>
+</body>
+</html>
