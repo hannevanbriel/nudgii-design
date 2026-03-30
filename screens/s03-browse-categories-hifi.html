@@ -228,16 +228,16 @@ body{background:#CBC5BB;padding:0 0 80px;}
               <div class="cat-sec">
                 <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-garden);"></span>Garden</div>
                 <div class="hrow">
-                  <div class="tile" style="background:#C0CEC9;">
-                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><path d="M24 200c0 0 20-88 56-88s28 56 48 56 36-120 56-120 48 152 48 152" stroke="#607870" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="200" x2="244" y2="200" stroke="#607870" stroke-width="14" stroke-linecap="round"/></svg>
+                  <div class="tile" style="background:#C4DABE;">
+                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><path d="M24 200c0 0 20-88 56-88s28 56 48 56 36-120 56-120 48 152 48 152" stroke="#4A7A40" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="200" x2="244" y2="200" stroke="#4A7A40" stroke-width="14" stroke-linecap="round"/></svg>
                     <div class="tile-lbl">Lawn</div>
                   </div>
-                  <div class="tile" style="background:#C0CEC9;">
-                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><line x1="128" y1="224" x2="128" y2="140" stroke="#607870" stroke-width="14" stroke-linecap="round"/><circle cx="128" cy="96" r="52" stroke="#607870" stroke-width="14" fill="none"/><circle cx="82" cy="140" r="34" stroke="#607870" stroke-width="12" fill="none"/><circle cx="174" cy="140" r="34" stroke="#607870" stroke-width="12" fill="none"/><line x1="68" y1="224" x2="188" y2="224" stroke="#607870" stroke-width="14" stroke-linecap="round"/></svg>
+                  <div class="tile" style="background:#C4DABE;">
+                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><line x1="128" y1="224" x2="128" y2="140" stroke="#4A7A40" stroke-width="14" stroke-linecap="round"/><circle cx="128" cy="96" r="52" stroke="#4A7A40" stroke-width="14" fill="none"/><circle cx="82" cy="140" r="34" stroke="#4A7A40" stroke-width="12" fill="none"/><circle cx="174" cy="140" r="34" stroke="#4A7A40" stroke-width="12" fill="none"/><line x1="68" y1="224" x2="188" y2="224" stroke="#4A7A40" stroke-width="14" stroke-linecap="round"/></svg>
                     <div class="tile-lbl">Hedge</div>
                   </div>
-                  <div class="tile" style="background:#C0CEC9;">
-                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><line x1="128" y1="224" x2="128" y2="128" stroke="#607870" stroke-width="14" stroke-linecap="round"/><path d="M128 172c0 0-36-16-52-56s20-80 52-72c32-8 68 32 52 72s-52 56-52 56z" stroke="#607870" stroke-width="12" fill="none" stroke-linejoin="round"/></svg>
+                  <div class="tile" style="background:#C4DABE;">
+                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><line x1="128" y1="224" x2="128" y2="128" stroke="#4A7A40" stroke-width="14" stroke-linecap="round"/><path d="M128 172c0 0-36-16-52-56s20-80 52-72c32-8 68 32 52 72s-52 56-52 56z" stroke="#4A7A40" stroke-width="12" fill="none" stroke-linejoin="round"/></svg>
                     <div class="tile-lbl">Houseplant</div>
                   </div>
                   <div class="peek">›</div>
@@ -397,7 +397,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
         <div class="annot-head"><span class="badge-rule">Rule</span> Tile widget</div>
         <div class="annot-body">
           88px wide, 14px radius. <code>position: relative</code> for check circle overlay.<br><br>
-          <strong>Unselected:</strong> solid pastel bg (Home <code>#D2BEB6</code>, Vehicle <code>#C0CDD8</code>, Garden <code>#C0CEC9</code>, Subs <code>#D0C6DC</code>). No border, no indicator.<br>
+          <strong>Unselected:</strong> solid pastel bg (Home <code>#D2BEB6</code>, Vehicle <code>#C0CDD8</code>, Garden <code>#C4DABE</code>, Subs <code>#D0C6DC</code>). No border, no indicator.<br>
           <strong>Selected:</strong> deepened bg (Home <code>#C4A89E</code>, Vehicle <code>#A8B8C4</code>, Garden <code>#A8B8B4</code>, Subs <code>#BCB0CC</code>) + filled circle top-right (16px, category icon color bg, white tick 9px).<br><br>
           Icon: Phosphor outline, 26px, category icon color, no inner wrapper.<br>
           Label: DM Sans 9.5px, 500 weight, <code>colorInk</code>, centered, max 2 lines.<br><br>
@@ -449,9 +449,9 @@ body{background:#CBC5BB;padding:0 0 80px;}
     <div class="cl-entry">
       <div class="cl-ver">v2.2 · 2026-03-30 · BREAKING</div>
       <div class="cl-body"><strong>Tile selection state: border removed, check circle added.</strong> Selected tiles no longer show a 1.5px category color border. New pattern: deepened pastel background + filled 16px check circle (top-right corner, category icon color bg, white tick). Unselected tiles: flat solid pastel, no indicator. Flutter: wrap tile in <code>Stack</code>, add <code>Positioned</code> check circle widget when selected. Animate with <code>AnimatedOpacity 150ms</code> + <code>AnimatedContainer</code> on background color.</div>
-      <div class="cl-body"><strong>Tile backgrounds: solid pastels replace opacity tints.</strong> All tile backgrounds now use solid hex values instead of <code>rgba(color, 0.12)</code> on cream. Unselected: Home <code>#D2BEB6</code>, Vehicle <code>#C0CDD8</code>, Garden <code>#C0CEC9</code>, Subs <code>#D0C6DC</code>. Selected (deepened): Home <code>#C4A89E</code>, Vehicle <code>#A8B8C4</code>, Garden <code>#A8B8B4</code>, Subs <code>#BCB0CC</code>. Flutter: use <code>Color(0xFF...)</code> constants, never <code>withOpacity()</code>.</div>
+      <div class="cl-body"><strong>Tile backgrounds: solid pastels replace opacity tints.</strong> All tile backgrounds now use solid hex values instead of <code>rgba(color, 0.12)</code> on cream. Unselected: Home <code>#D2BEB6</code>, Vehicle <code>#C0CDD8</code>, Garden <code>#C4DABE</code>, Subs <code>#D0C6DC</code>. Selected (deepened): Home <code>#C4A89E</code>, Vehicle <code>#A8B8C4</code>, Garden <code>#A8B8B4</code>, Subs <code>#BCB0CC</code>. Flutter: use <code>Color(0xFF...)</code> constants, never <code>withOpacity()</code>.</div>
       <div class="cl-body"><strong>Category section dividers removed.</strong> The 0.5px hairline between category rows is removed. The category dot + label provides sufficient visual separation. Flutter: remove <code>Divider</code> widgets between category sections.</div>
-      <div class="cl-body"><strong>Garden icon color updated to v10.5.</strong> All garden SVG strokes updated from <code>#4A7A40</code> to <code>catGardenIc #607870</code>.</div>
+      <div class="cl-body"><strong>Garden icon color corrected to v10.5.</strong> All garden SVG strokes corrected from <code>#607870</code> to <code>catGardenIc #4A7A40</code>.</div>
     </div>
 
     <div class="cl-entry">
@@ -460,7 +460,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
       <div class="cl-body"><strong>All category icon colors replaced — confirmed in dev build as incorrect.</strong> Dev build shows old legacy icon color values. New v10.5 values for all category chip text, tile icon stroke, and tile bg tint:<br>
         Home: text/icon <code>#7A5A50</code> → <code>catHomeIc #7A5A50</code>; tile bg tint base → <code>#7A5A50</code> at 12% opacity<br>
         Vehicle: <code>#4A6A82</code> → <code>catVehicleIc #4A6A82</code><br>
-        Garden: <code>#607870</code> → <code>catGardenIc #607870</code><br>
+        Garden: <code>#607870</code> → <code>catGardenIc #4A7A40</code><br>
         Subscriptions: <code>#6A5085</code> → <code>catSubsIc #6A5085</code><br>
         Health: <code>#B86478</code> (was pink) → <code>catHealthIc #6A6858</code> (now olive)<br>
         Pets (new): icon <code>catPetsIc #8A6238</code>; tile bg tint → <code>#8A6238</code> at 12% opacity<br>

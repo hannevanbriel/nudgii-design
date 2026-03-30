@@ -81,7 +81,7 @@ html{scroll-behavior:smooth;}
   /* category card backgrounds — SOLID pastels, v10.5 */
   --cat-home-bg:#D2BEB6;
   --cat-vehicle-bg:#C0CDD8;
-  --cat-garden-bg:#C0CEC9;
+  --cat-garden-bg:#C4DABE;
   --cat-sub-bg:#D0C6DC;
   --cat-health-bg:#D2D0C4;
   --cat-pets-bg:#DECDC0;
@@ -89,7 +89,7 @@ html{scroll-behavior:smooth;}
   /* category icon strokes — v10.5 */
   --cat-home-ic:#7A5A50;
   --cat-vehicle-ic:#4A6A82;
-  --cat-garden-ic:#607870;
+  --cat-garden-ic:#4A7A40;
   --cat-sub-ic:#6A5085;
   --cat-health-ic:#6A6858;
   --cat-pets-ic:#8A6238;

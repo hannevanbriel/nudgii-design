@@ -15,19 +15,17 @@
   --ink: #2C2824;
   --cta: #9B7FD4;
   --cta-fg: #FAF8FF;
-  --apricot: #C4A8E8;
-  --apricot-dk: #9B7FD4;
-  --terra: #6B4A3A;
   --mid: #8A8070;
   --mid-ac: #6B6358;
   --sage: #3B6D11;
   --sage-lt: #EAF3DE;
   --surface: #FFFFFF;
   --border: rgba(26,22,18,0.08);
-  --cat-home: #7A5A50;
-  --cat-vehicle: #4A6A82;
-  --cat-garden: #607870;
-  --cat-sub: #6A5085;
+  /* v10.5 category tokens */
+  --cat-home-bg: #D2BEB6;  --cat-home-ic: #7A5A50;
+  --cat-vehicle-bg: #C0CDD8; --cat-vehicle-ic: #4A6A82;
+  --cat-garden-bg: #C4DABE;  --cat-garden-ic: #4A7A40;
+  --cat-sub-bg: #D0C6DC;   --cat-sub-ic: #6A5085;
 }
 
 body {
@@ -247,16 +245,23 @@ body {
 .cat-strip::-webkit-scrollbar { display: none; }
 .cat-pill {
   display: inline-flex; align-items: center; gap: 4px;
-  background: var(--surface); border: 0.5px solid rgba(26,22,18,0.12);
+  background: rgba(26,22,18,0.07); border: none;
   border-radius: 100px; padding: 4px 10px;
-  font-size: 10px; font-weight: 500; color: var(--mid-a, #6B6358); flex-shrink: 0;
-  transition: background 0.15s ease-out, border-color 0.15s ease-out, color 0.15s ease-out;
+  font-size: 10px; font-weight: 500; color: var(--mid-ac); flex-shrink: 0;
+  transition: background 0.15s ease-out, color 0.15s ease-out;
 }
-.cat-pill.active { background: var(--ink); color: #F5F0E8; border-color: var(--ink); }
-.cat-pill.active .cat-dot { opacity: 0.7; }
+.cat-pill.active { background: var(--cta); color: var(--cta-fg); }
+.cat-pill.home { background: var(--cat-home-bg); color: var(--cat-home-ic); }
+.cat-pill.home.active { background: var(--cat-home-ic); color: #FAF8FF; }
+.cat-pill.vehicle { background: var(--cat-vehicle-bg); color: var(--cat-vehicle-ic); }
+.cat-pill.vehicle.active { background: var(--cat-vehicle-ic); color: #FAF8FF; }
+.cat-pill.garden { background: var(--cat-garden-bg); color: var(--cat-garden-ic); }
+.cat-pill.garden.active { background: var(--cat-garden-ic); color: #FAF8FF; }
+.cat-pill.subs { background: var(--cat-sub-bg); color: var(--cat-sub-ic); }
+.cat-pill.subs.active { background: var(--cat-sub-ic); color: #FAF8FF; }
 .cat-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 
-/* ── CATEGORY CHIP ── */
+/* ── CATEGORY CHIP (icon container in item rows) ── */
 .chip {
   width: 22px; height: 22px;
   border-radius: 6px;
@@ -264,13 +269,13 @@ body {
   flex-shrink: 0;
 }
 .chip svg { width: 11px; height: 11px; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-.chip.home { background: rgba(122,90,80,0.10); }
+.chip.home { background: var(--cat-home-bg); }
 .chip.home svg { stroke: var(--cat-home-ic); }
-.chip.vehicle { background: rgba(74,106,130,0.10); }
+.chip.vehicle { background: var(--cat-vehicle-bg); }
 .chip.vehicle svg { stroke: var(--cat-vehicle-ic); }
-.chip.garden { background: rgba(74,122,64,0.10); }
+.chip.garden { background: var(--cat-garden-bg); }
 .chip.garden svg { stroke: var(--cat-garden-ic); }
-.chip.sub { background: rgba(106,80,133,0.10); }
+.chip.sub { background: var(--cat-sub-bg); }
 .chip.sub svg { stroke: var(--cat-sub-ic); }
 .chip.neutral { background: rgba(26,22,18,0.05); }
 .chip.neutral svg { stroke: var(--mid); }
@@ -462,12 +467,18 @@ body {
   display: inline-flex; align-items: center; gap: 4px;
   font-size: 10px; font-weight: 500;
   padding: 4px 10px; border-radius: 100px; flex-shrink: 0;
-  border: 0.5px solid rgba(26,22,18,0.12);
-  background: var(--surface); color: var(--mid-ac, #6B6358); cursor: pointer;
-  transition: background 0.15s ease-out, border-color 0.15s ease-out, color 0.15s ease-out;
+  border: none;
+  background: rgba(26,22,18,0.07); color: var(--mid-ac); cursor: pointer;
+  transition: background 0.15s ease-out, color 0.15s ease-out;
 }
-.cat-f.on { background: var(--ink); color: var(--cream); border-color: var(--ink); }
-.cat-f.on .cat-dot { opacity: 0.7; }
+.cat-f.home { background: var(--cat-home-bg); color: var(--cat-home-ic); }
+.cat-f.home.on { background: var(--cat-home-ic); color: #FAF8FF; }
+.cat-f.vehicle { background: var(--cat-vehicle-bg); color: var(--cat-vehicle-ic); }
+.cat-f.vehicle.on { background: var(--cat-vehicle-ic); color: #FAF8FF; }
+.cat-f.garden { background: var(--cat-garden-bg); color: var(--cat-garden-ic); }
+.cat-f.garden.on { background: var(--cat-garden-ic); color: #FAF8FF; }
+.cat-f.subs { background: var(--cat-sub-bg); color: var(--cat-sub-ic); }
+.cat-f.subs.on { background: var(--cat-sub-ic); color: #FAF8FF; }
 
 .browse-rows { display: flex; flex-direction: column; gap: 4px; }
 .brow {
@@ -544,7 +555,7 @@ body {
 .nname { font-size: 9px; font-weight: 500; color: var(--ink); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .nsub { font-size: 7px; color: var(--mid); font-style: italic; }
 .ndate { font-size: 8px; font-weight: 500; flex-shrink: 0; }
-.overdue { color: var(--overdue-badge); }
+.overdue { color: var(--terra); }
 .soon { color: var(--apricot-dk); }
 .ok { color: var(--mid-ac); }
 
@@ -589,7 +600,7 @@ body {
 <div class="page-header">
   <a class="page-logo" href="../index.html">
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-      <rect width="18" height="18" rx="5" fill="#2C2824"/>
+      <rect width="18" height="18" rx="5" fill="#1A1612"/>
       <text x="3.5" y="13" fill="#F5F0E8" font-size="11" font-family="Georgia, serif">ii</text>
     </svg>
     Design hub
@@ -637,10 +648,10 @@ body {
           <div class="h1" style="margin-top:8px;">Your stuff won't<br><em>maintain itself.</em></div>
           <div class="promise">nudgii knows when, for everything you own.</div>
           <div class="cat-strip">
-            <div class="cat-pill"><span class="cat-dot" style="background:#7A5A50"></span>Home</div>
-            <div class="cat-pill"><span class="cat-dot" style="background:#4A6A82"></span>Vehicle</div>
-            <div class="cat-pill"><span class="cat-dot" style="background:#607870"></span>Garden</div>
-            <div class="cat-pill"><span class="cat-dot" style="background:#6A5085"></span>Subscriptions</div>
+            <div class="cat-pill home">Home</div>
+            <div class="cat-pill vehicle">Vehicle</div>
+            <div class="cat-pill garden">Garden</div>
+            <div class="cat-pill subs">Subscriptions</div>
           </div>
           <div class="micro">For example — tap what applies to you:</div>
           <div class="task-rows">
@@ -779,10 +790,10 @@ body {
           <div class="search-text">Search items…</div>
         </div>
         <div class="cat-filters">
-          <div class="cat-f"><span class="cat-dot" style="background:#7A5A50;"></span>Home</div>
-          <div class="cat-f"><span class="cat-dot" style="background:#4A6A82;"></span>Vehicle</div>
-          <div class="cat-f"><span class="cat-dot" style="background:#607870;"></span>Garden</div>
-          <div class="cat-f"><span class="cat-dot" style="background:#6A5085;"></span>Subscriptions</div>
+          <div class="cat-f home">Home</div>
+          <div class="cat-f vehicle">Vehicle</div>
+          <div class="cat-f garden">Garden</div>
+          <div class="cat-f subs">Subscriptions</div>
         </div>
         <div class="scroll" style="padding-top:8px;">
           <div class="sec-label" style="margin-top:0;">Home</div>
@@ -900,7 +911,7 @@ body {
             </div>
             <div class="rev-tasks">
               <div class="rtask">
-                <div class="rtask-dot" style="background:var(--overdue-badge)"></div>
+                <div class="rtask-dot" style="background:var(--terra)"></div>
                 <div class="rtask-name">Switch to winter tyres</div>
                 <div class="rtask-cad">before Nov · BE</div>
               </div>
