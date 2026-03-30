@@ -10,30 +10,38 @@
 html{scroll-behavior:smooth;}
 
 :root{
+  /* ── v10.5 — locked 2026-03-30 ── */
   --cream:    #F5F0E8;
   --cream-2:  #EDE6D4;
-  --ink:      #1A1612;
-  --mid:      #8A8070;
-  --mid-lt:   #B0A898;
-  --border:   rgba(26,22,18,0.08);
-  --border-md:rgba(26,22,18,0.12);
-  --ap:       #E8A87C;
-  --ap-dk:    #C8784A;   /* due-soon status dates ONLY — no longer CTA */
-  --cta:      #9B7FD4;   /* PRIMARY CTA — light plum, locked */
-  --terra:    #C4503A;
-  --plum:     #2D1F4A;
-  --plum-lt:  #9B7FD4;
-  --plum-pale:#C4A8E8;
-  --ch:#C87850;--chb:rgba(200,120,80,0.10);
-  --cv:#4A82A0;--cvb:rgba(74,130,160,0.10);
-  --cg:#5A9060;--cgb:rgba(90,144,96,0.10);
-  --cs:#8060A8;--csb:rgba(128,96,168,0.10);
-  --chl:#B86478;--chlb:rgba(184,100,120,0.10);
+  --ink:      #2C2824;   /* warm charcoal — softer than pre-v10.5 #1A1612 */
+  --mid:      #8A8070;   /* decorative italic subtitles only — 2.8:1, NOT functional text */
+  --mid-a:    #6B6358;   /* ALL functional mid text — WCAG AA 4.6:1 on cream */
+  --hint:     #A09888;   /* placeholders, very secondary text */
+  --border:   rgba(44,40,36,0.08);
+  --border-md:rgba(44,40,36,0.12);
+  --cta:      #9B7FD4;   /* PRIMARY CTA — the ONLY bright color in the app */
+  --cta-fg:   #FAF8FF;   /* text on CTA background */
+  --plum:     #2D1F4A;   /* done overlay bg — sacred, nowhere else */
+  --plum-pale:#C4A8E8;   /* done overlay ii mark pill */
+  --overdue-badge: #6B4A3A; /* overdue badge bg — warm brown, NOT red */
+  --surface:  #FFFFFF;   /* bottom sheets, dialogs */
 
-  /* Surface token — all cards, sheets, inputs, nav bars */
-  --surface:  #FFFFFF;
+  /* Category — solid pastel fills (v10.5). Icon stroke = darkened tint. No borders on cards. */
+  --ch-bg:#D2BEB6;--ch-ic:#7A5A50;   /* Home — Anthropic blush */
+  --cv-bg:#C0CDD8;--cv-ic:#4A6A82;   /* Vehicle — steel mist */
+  --cg-bg:#C4DABE;--cg-ic:#4A7A40;   /* Garden — leaf green */
+  --cs-bg:#D0C6DC;--cs-ic:#6A5085;   /* Subscriptions — lavender */
+  --cx-bg:#D2D0C4;--cx-ic:#6A6858;   /* Health — soft olive */
+  --cp-bg:#DECDC0;--cp-ic:#8A6238;   /* Pets — warm amber */
 
-  /* Spacing scale — never use arbitrary values (13px, 22px, 7px etc.) */
+  /* Legacy category aliases — kept for onboarding/filter chip usage */
+  --ch:var(--ch-ic);--chb:rgba(122,90,80,0.10);
+  --cv:var(--cv-ic);--cvb:rgba(74,106,130,0.10);
+  --cg:var(--cg-ic);--cgb:rgba(74,122,64,0.10);
+  --cs:var(--cs-ic);--csb:rgba(106,80,133,0.10);
+  --chl:var(--cx-ic);--chlb:rgba(106,104,88,0.10);
+
+  /* Spacing scale — never use arbitrary values */
   --space-1:  4px;
   --space-2:  8px;
   --space-3:  12px;
@@ -44,21 +52,25 @@ html{scroll-behavior:smooth;}
   --space-16: 64px;
 
   /* Shadow hierarchy — elevation, not decoration */
-  --shadow-card:    none;                              /* cards use border, not shadow */
-  --shadow-tab-bar: 0 4px 20px rgba(26,22,18,0.11);
-  --shadow-fab:     0 6px 20px rgba(155,127,212,0.45);
-  --shadow-sheet:   0 -2px 20px rgba(26,22,18,0.12);
-
-  /* Accessible mid — WCAG AA 4.6:1 on cream — use for ALL functional text */
-  --mid-a:    #6B6358;
+  --shadow-card:    none;
+  --shadow-tab-bar: 0 4px 24px rgba(44,40,36,0.10);
+  --shadow-fab:     0 4px 14px rgba(155,127,212,0.25);
+  --shadow-sheet:   0 -2px 20px rgba(44,40,36,0.12);
 
   /* Semantic feedback tokens */
-  --sage:     #3B6D11;   /* success text */
-  --sage-lt:  #EAF3DE;   /* success background */
-  --red:      #A32D2D;   /* error text */
-  --red-lt:   #FCEBEB;   /* error background */
-  --amber:    #854F0B;   /* warning text */
-  --amber-lt: #FAEEDA;   /* warning background */
+  --sage:     #3B6D11;
+  --sage-lt:  #EAF3DE;
+  --red:      #A32D2D;
+  --red-lt:   #FCEBEB;
+  --amber:    #854F0B;
+  --amber-lt: #FAEEDA;
+
+  /* ── Legacy (pre-v10.5) — for reference only ── */
+  --legacy-ink:    #1A1612;
+  --legacy-ap:     #E8A87C;
+  --legacy-ap-dk:  #C8784A;
+  --legacy-terra:  #C4503A;
+  --legacy-mid-lt: #B0A898;
 }
 
 body{background:var(--cream);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;color:var(--ink);line-height:1.55;}
@@ -266,16 +278,18 @@ section{padding-top:60px;}
     <p class="hero-sub">All tokens, rules, components, and Figma workflow for nudgii. If it's not in here it's not decided. If it's in here it doesn't get questioned in a design review.</p>
     <div class="hero-pills">
       <span class="hero-pill locked">CTA → light plum #9B7FD4</span>
-      <span class="hero-pill locked">Pro badge → plum-lt full pill</span>
-      <span class="hero-pill locked">Dark base → deep sage #111614</span>
+      <span class="hero-pill locked">Ink → warm charcoal #2C2824</span>
+      <span class="hero-pill locked">Dark base → warm #1E1C18</span>
+      <span class="hero-pill locked">Overdue → warm brown badge #6B4A3A</span>
+      <span class="hero-pill locked">Category cards → solid pastels, no opacity</span>
+      <span class="hero-pill locked">Icons → direct on card, no container</span>
       <span class="hero-pill locked">nudgii always lowercase</span>
       <span class="hero-pill locked">No gradients anywhere</span>
-      <span class="hero-pill locked">Icons → Phosphor outline only</span>
+      <span class="hero-pill locked">Phosphor outline only</span>
       <span class="hero-pill locked">Plum sacred → done overlay only</span>
       <span class="hero-pill locked">Tab bar → floating pill</span>
-      <span class="hero-pill locked">FAB → rounded square, bottom-right</span>
-      <span class="hero-pill locked">Settings → Faders · Scan → Scan · Edit → PencilLine</span>
     </div>
+    <div style="font-size:10px;color:var(--mid);margin-top:10px;">v10.5 — locked 2026-03-30</div>
 
     <div class="toc">
       <div class="toc-lbl">Contents</div>
@@ -445,55 +459,85 @@ section{padding-top:60px;}
   <section id="color">
     <div class="sec-eye">02</div>
     <h2 class="sec-title">Color tokens · light mode</h2>
-    <p class="sec-desc">Seven semantic tokens. Every color has one job. Color is information, not decoration.</p>
+    <p class="sec-desc">Every color has one job. Color is information, not decoration. v10.5 — locked 2026-03-30.</p>
 
     <div class="token-grid">
-      <div class="ttile"><div class="tsw" style="background:#F5F0E8;"></div><div class="tbody"><div class="tname">Cream</div><div class="thex">#F5F0E8</div><div class="trole">App background</div></div></div>
-      <div class="ttile"><div class="tsw" style="background:#1A1612;"></div><div class="tbody"><div class="tname">Ink</div><div class="thex">#1A1612</div><div class="trole">All body text. Warm charcoal — no blue hue.</div><div class="tnote">Changed from #1E2832 (too blue)</div></div></div>
-      <div class="ttile" style="outline:2px solid #9B7FD4;outline-offset:2px;border-radius:11px;"><div class="tsw" style="background:#9B7FD4;"></div><div class="tbody"><div class="tname">CTA · plum-lt <span style="font-size:9px;color:#7040C0;font-weight:500;"></span></div><div class="thex">#9B7FD4</div><div class="trole">Primary CTA button. Active filter chip. Active tab icon + label. Also Pro badge.</div><div class="tnote">Replaces apricot-dk as CTA</div></div></div>
-      <div class="ttile"><div class="tsw" style="background:#E8A87C;"></div><div class="tbody"><div class="tname">Apricot</div><div class="thex">#E8A87C</div><div class="trole">ii dot · greeting name em · streak number · done overlay dot.</div><div class="tnote">Warm accent only — never buttons</div></div></div>
-      <div class="ttile"><div class="tsw" style="background:#C8784A;"></div><div class="tbody"><div class="tname">Apricot-dk</div><div class="thex">#C8784A</div><div class="trole">Due-soon date labels only. No longer CTA.</div><div class="tnote">Due-soon labels only — not buttons</div></div></div>
-      <div class="ttile"><div class="tsw" style="background:#C4503A;"></div><div class="tbody"><div class="tname">Terra</div><div class="thex">#C4503A</div><div class="trole">Overdue status — date label + task name. Nothing else.</div></div></div>
-      <div class="ttile"><div class="tsw" style="background:#2D1F4A;"></div><div class="tbody"><div class="tname">Plum</div><div class="thex">#2D1F4A</div><div class="trole">Done overlay background. Sacred. Appears nowhere else.</div></div></div>
-      <div class="ttile"><div class="tsw" style="background:#9B7FD4;"></div><div class="tbody"><div class="tname">Plum-lt</div><div class="thex">#9B7FD4</div><div class="trole">Pro badge only. No other use.</div><div class="tnote">Pro badge, profile screen only</div></div></div>
-      <div class="ttile"><div class="tsw" style="background:#8A8070;"></div><div class="tbody"><div class="tname">Mid</div><div class="thex">#8A8070</div><div class="trole">Italic subtitles. Hint text. Section labels.</div></div></div>
+      <div class="ttile"><div class="tsw" style="background:#F5F0E8;"></div><div class="tbody"><div class="tname">Cream</div><div class="thex">#F5F0E8</div><div class="trole">App background. Never pure white.</div></div></div>
+      <div class="ttile"><div class="tsw" style="background:#2C2824;"></div><div class="tbody"><div class="tname">Ink</div><div class="thex">#2C2824</div><div class="trole">All body text. Warm charcoal — softer than pre-v10.5.</div><div class="tnote">Was #1A1612 — updated v10.5</div></div></div>
+      <div class="ttile"><div class="tsw" style="background:#8A8070;"></div><div class="tbody"><div class="tname">Mid</div><div class="thex">#8A8070</div><div class="trole">Decorative italic subtitles only. 2.8:1 contrast — never functional text.</div></div></div>
+      <div class="ttile"><div class="tsw" style="background:#6B6358;"></div><div class="tbody"><div class="tname">Mid-accessible</div><div class="thex">#6B6358</div><div class="trole">All functional mid text — hints, labels, descriptions. WCAG AA 4.6:1.</div></div></div>
+      <div class="ttile"><div class="tsw" style="background:#A09888;"></div><div class="tbody"><div class="tname">Hint</div><div class="thex">#A09888</div><div class="trole">Placeholders, very secondary text. Use sparingly.</div></div></div>
+      <div class="ttile" style="outline:2px solid #9B7FD4;outline-offset:2px;border-radius:11px;"><div class="tsw" style="background:#9B7FD4;"></div><div class="tbody"><div class="tname">CTA</div><div class="thex">#9B7FD4</div><div class="trole">Primary CTA, FAB, Export, Done button, active nav tab, active filter pill. The ONLY bright color in the app.</div></div></div>
+      <div class="ttile"><div class="tsw" style="background:#FAF8FF;border:1px solid rgba(44,40,36,0.08);"></div><div class="tbody"><div class="tname">CTA foreground</div><div class="thex">#FAF8FF</div><div class="trole">Text and icons on CTA background. Lavender-white.</div></div></div>
+      <div class="ttile"><div class="tsw" style="background:#2D1F4A;"></div><div class="tbody"><div class="tname">Plum</div><div class="thex">#2D1F4A</div><div class="trole">Done overlay background. Sacred — appears nowhere else.</div></div></div>
+      <div class="ttile"><div class="tsw" style="background:#C4A8E8;"></div><div class="tbody"><div class="tname">Plum-pale</div><div class="thex">#C4A8E8</div><div class="trole">Done overlay ii mark pill fill.</div></div></div>
+      <div class="ttile"><div class="tsw" style="background:#6B4A3A;"></div><div class="tbody"><div class="tname">Overdue badge</div><div class="thex">#6B4A3A</div><div class="trole">Overdue pill background. Warm brown — NOT red. Cream text on top.</div><div class="tnote">Replaces terra (#C4503A) — v10.5</div></div></div>
+      <div class="ttile"><div class="tsw" style="background:#FFFFFF;border:1px solid rgba(44,40,36,0.08);"></div><div class="tbody"><div class="tname">Surface</div><div class="thex">#FFFFFF</div><div class="trole">Bottom sheets, dialogs, inline modals.</div></div></div>
+    </div>
+
+    <!-- SEMANTIC FEEDBACK -->
+    <div style="margin-top:6px;margin-bottom:16px;">
+      <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:8px;">Semantic feedback</div>
+      <div class="token-grid" style="margin-bottom:0;">
+        <div class="ttile"><div class="tsw" style="background:#EAF3DE;"></div><div class="tbody"><div class="tname">Sage-lt</div><div class="thex">#EAF3DE</div><div class="trole">Success background</div></div></div>
+        <div class="ttile"><div class="tsw" style="background:#3B6D11;"></div><div class="tbody"><div class="tname">Sage</div><div class="thex">#3B6D11</div><div class="trole">Success text</div></div></div>
+        <div class="ttile"><div class="tsw" style="background:#FCEBEB;"></div><div class="tbody"><div class="tname">Red-lt</div><div class="thex">#FCEBEB</div><div class="trole">Error background</div></div></div>
+        <div class="ttile"><div class="tsw" style="background:#A32D2D;"></div><div class="tbody"><div class="tname">Red</div><div class="thex">#A32D2D</div><div class="trole">Error text</div></div></div>
+        <div class="ttile"><div class="tsw" style="background:#FAEEDA;"></div><div class="tbody"><div class="tname">Amber-lt</div><div class="thex">#FAEEDA</div><div class="trole">Warning background</div></div></div>
+        <div class="ttile"><div class="tsw" style="background:#854F0B;"></div><div class="tbody"><div class="tname">Amber</div><div class="thex">#854F0B</div><div class="trole">Warning text</div></div></div>
+      </div>
     </div>
 
     <!-- COLOR THREAD -->
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:18px 20px;margin-bottom:9px;box-shadow:0 1px 3px rgba(26,22,18,0.04);">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:18px 20px;margin-bottom:9px;box-shadow:0 1px 3px rgba(44,40,36,0.04);">
       <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:5px;display:flex;align-items:center;gap:7px;">The color thread <span class="tag tag-lock">locked</span></div>
-      <div style="font-size:12px;color:var(--mid);line-height:1.65;margin-bottom:16px;">One color family connects the entire user journey — homescreen to first tap to reward moment. The welcome screen ii mark, the CTA button, and the done overlay all share the same two plum hues.</div>
+      <div style="font-size:12px;color:var(--mid);line-height:1.65;margin-bottom:16px;">One color family connects the entire user journey — homescreen to first tap to reward moment. The ii mark, the CTA button, and the done overlay all share the same plum hues.</div>
       <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
         <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
           <svg width="52" height="52" viewBox="0 0 80 80" style="border-radius:13px;box-shadow:0 6px 18px rgba(45,31,74,0.3);"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
-          <div style="font-size:9px;color:var(--mid);text-align:center;line-height:1.4;">Homescreen icon<br><strong style="color:var(--ink);font-weight:500;">deep plum</strong> bg<br><strong style="color:var(--ink);font-weight:500;">light plum</strong> right pill<br>apricot dot</div>
+          <div style="font-size:9px;color:var(--mid);text-align:center;line-height:1.4;">App icon<br><strong style="color:var(--ink);font-weight:500;">deep plum</strong> bg<br><strong style="color:var(--ink);font-weight:500;">light plum</strong> right pill</div>
         </div>
-        <div style="font-size:16px;color:rgba(26,22,18,0.15);">→</div>
+        <div style="font-size:16px;color:rgba(44,40,36,0.15);">→</div>
         <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
-          <div style="width:52px;height:52px;border-radius:100px;background:#9B7FD4;box-shadow:0 4px 14px rgba(155,127,212,0.3);display:flex;align-items:center;justify-content:center;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(250,248,255,0.8)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg>
+          <div style="width:52px;height:32px;border-radius:100px;background:#9B7FD4;box-shadow:0 4px 14px rgba(155,127,212,0.25);display:flex;align-items:center;justify-content:center;padding:0 16px;">
+            <span style="font-size:11px;font-weight:500;color:#FAF8FF;">Add item</span>
           </div>
-          <div style="font-size:9px;color:var(--mid);text-align:center;line-height:1.4;">CTA button<br><strong style="color:var(--ink);font-weight:500;">#9B7FD4</strong><br>= icon right pill</div>
+          <div style="font-size:9px;color:var(--mid);text-align:center;line-height:1.4;">CTA button<br><strong style="color:var(--ink);font-weight:500;">#9B7FD4</strong></div>
         </div>
-        <div style="font-size:16px;color:rgba(26,22,18,0.15);">→</div>
+        <div style="font-size:16px;color:rgba(44,40,36,0.15);">→</div>
         <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
           <div style="width:52px;height:52px;border-radius:13px;background:#2D1F4A;box-shadow:0 6px 18px rgba(45,31,74,0.3);display:flex;align-items:center;justify-content:center;">
             <div style="display:flex;align-items:flex-start;gap:3px;"><div style="width:7px;height:20px;border-radius:100px;background:#C4A8E8;"></div><div style="width:7px;height:20px;border-radius:100px;background:rgba(196,168,232,0.3);position:relative;"><div style="width:5px;height:5px;border-radius:50%;background:#E8A87C;position:absolute;top:2px;right:-2px;"></div></div></div>
           </div>
-          <div style="font-size:9px;color:var(--mid);text-align:center;line-height:1.4;">Done overlay<br><strong style="color:var(--ink);font-weight:500;">#2D1F4A</strong><br>= icon bg · 3× deeper</div>
+          <div style="font-size:9px;color:var(--mid);text-align:center;line-height:1.4;">Done overlay<br><strong style="color:var(--ink);font-weight:500;">#2D1F4A</strong></div>
         </div>
-        <div style="font-size:16px;color:rgba(26,22,18,0.15);">+</div>
+        <div style="font-size:16px;color:rgba(44,40,36,0.15);">+</div>
         <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
-          <div style="width:22px;height:22px;border-radius:50%;background:#E8A87C;box-shadow:0 3px 8px rgba(232,168,124,0.35);"></div>
-          <div style="font-size:9px;color:var(--mid);text-align:center;line-height:1.4;">Apricot<br><strong style="color:var(--ink);font-weight:500;">#E8A87C</strong><br>warm accent throughout</div>
+          <div style="width:22px;height:32px;border-radius:100px;background:#6B4A3A;display:flex;align-items:center;justify-content:center;"><span style="font-size:7px;font-weight:600;color:#F5F0E8;">12d</span></div>
+          <div style="font-size:9px;color:var(--mid);text-align:center;line-height:1.4;">Overdue badge<br><strong style="color:var(--ink);font-weight:500;">#6B4A3A</strong><br>warm brown</div>
         </div>
       </div>
     </div>
 
     <div class="rcard">
-      <div class="rcard-title">Primary CTA — light plum <span class="tag tag-new"></span></div>
-      <div class="rcard-body"><strong>All primary action buttons use <code>#9B7FD4</code> background with <code>#FAF8FF</code> lavender-cream text.</strong> This applies to: welcome screen Path A button, onboarding confirm buttons, dashboard add button, active filter chip, tab bar active pip.<br><br>Contrast ratio: 4.7:1 on cream (passes WCAG AA). Box shadow: <code>0 2px 12px rgba(155,127,212,0.28)</code> — subtle plum glow that ties the button to the icon.<br><br><strong>Why light plum:</strong> the icon right pill, the CTA button, and the Pro badge are all <code>#9B7FD4</code>. The done overlay is <code>#2D1F4A</code> — same family, 3× deeper. Tapping the button feels like a preview of the reward. The color thread: icon → CTA → overlay.<br><br>Apricot-dk <code>#C8784A</code> is now status-only — due-soon date labels. Never used on interactive elements.</div>
+      <div class="rcard-title">Primary CTA — light plum <span class="tag tag-lock">locked</span></div>
+      <div class="rcard-body"><strong>All primary action buttons use <code>#9B7FD4</code> background with <code>#FAF8FF</code> lavender-cream text.</strong> This is the ONLY bright color in the app — CTA button, FAB, Export button, active nav tab, active filter pill, Done button.<br><br>Contrast: 4.7:1 on cream (WCAG AA). FAB shadow: <code>0 4px 14px rgba(155,127,212,0.25)</code> — subtle, not heavy.<br><br><strong>Why warm brown for overdue:</strong> red (#C4503A) felt alarming — like an error state rather than a gentle nudge. Warm brown (#6B4A3A) communicates urgency without stress. The app's job is to help, not to scold.</div>
     </div>
+
+    <!-- LEGACY REFERENCE -->
+    <details style="margin-top:14px;">
+      <summary style="font-size:11px;font-weight:500;color:var(--mid);cursor:pointer;padding:10px 14px;background:rgba(44,40,36,0.03);border-radius:10px;border:1px solid var(--border);list-style:none;">Previous values (pre-v10.5) — for reference and rollback</summary>
+      <div style="padding:14px;border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;background:var(--surface);">
+        <div style="font-size:10px;color:var(--mid);margin-bottom:10px;font-style:italic;">These values were used before the March 30, 2026 design session. Do not use in new work.</div>
+        <div class="token-grid" style="margin-bottom:0;">
+          <div class="ttile" style="opacity:0.6;"><div class="tsw" style="background:#1A1612;"></div><div class="tbody"><div class="tname" style="text-decoration:line-through;">Ink (old)</div><div class="thex">#1A1612</div><div class="trole">Too dark/harsh. Replaced by #2C2824.</div></div></div>
+          <div class="ttile" style="opacity:0.6;"><div class="tsw" style="background:#E8A87C;"></div><div class="tbody"><div class="tname" style="text-decoration:line-through;">Apricot</div><div class="thex">#E8A87C</div><div class="trole">Was greeting name em. Greeting name now uses CTA purple.</div></div></div>
+          <div class="ttile" style="opacity:0.6;"><div class="tsw" style="background:#C8784A;"></div><div class="tbody"><div class="tname" style="text-decoration:line-through;">Apricot-dk</div><div class="thex">#C8784A</div><div class="trole">Was due-soon labels. Now plain ink at 55% opacity, no background.</div></div></div>
+          <div class="ttile" style="opacity:0.6;"><div class="tsw" style="background:#C4503A;"></div><div class="tbody"><div class="tname" style="text-decoration:line-through;">Terra</div><div class="thex">#C4503A</div><div class="trole">Was overdue color. Replaced by warm brown badge #6B4A3A.</div></div></div>
+          <div class="ttile" style="opacity:0.6;"><div class="tsw" style="background:#B0A898;"></div><div class="tbody"><div class="tname" style="text-decoration:line-through;">Mid-lt</div><div class="thex">#B0A898</div><div class="trole">Was upcoming date labels. Removed.</div></div></div>
+        </div>
+      </div>
+    </details>
   </section>
 
   <div class="rule"></div>
@@ -502,31 +546,74 @@ section{padding-top:60px;}
   <section id="dark">
     <div class="sec-eye">03</div>
     <h2 class="sec-title">Dark mode tokens</h2>
-    <p class="sec-desc">Deep sage base — a very subtle cool-green tint, like old paper in dim light. Not blue, not neutral. Warm in a different register than the light mode.</p>
+    <p class="sec-desc">Warm dark — no blue, no cool-green. Like old paper in dim light. v10.5 — locked 2026-03-30.</p>
 
-    <div class="dark-panel">
-      <div class="dark-lbl">Dark mode · follows system preference · deep sage base</div>
+    <div class="dark-panel" style="background:#1E1C18;">
+      <div class="dark-lbl">Dark mode · follows system preference · warm dark base</div>
       <div class="dark-grid">
-        <div class="dark-tile"><div class="tsw" style="background:#111614;"></div><div class="dark-body"><div class="dark-name">App bg</div><div class="dark-hex">#111614</div><div class="dark-role">Deep sage. No blue.</div></div></div>
-        <div class="dark-tile"><div class="tsw" style="background:#1A1F1D;"></div><div class="dark-body"><div class="dark-name">Card</div><div class="dark-hex">#1A1F1D</div><div class="dark-role">White cards → this in dark.</div></div></div>
-        <div class="dark-tile"><div class="tsw" style="background:#252E28;"></div><div class="dark-body"><div class="dark-name">Card hover</div><div class="dark-hex">#252E28</div><div class="dark-role">Pressed / active state.</div></div></div>
-        <div class="dark-tile"><div class="tsw" style="background:#EFF0E8;"></div><div class="dark-body"><div class="dark-name">Cream-dark</div><div class="dark-hex">#EFF0E8</div><div class="dark-role">Primary text on dark.</div></div></div>
-        <div class="dark-tile"><div class="tsw" style="background:#96A89C;"></div><div class="dark-body"><div class="dark-name">Mid-dark</div><div class="dark-hex">#96A89C</div><div class="dark-role">Secondary text, subtitles.</div></div></div>
-        <div class="dark-tile"><div class="tsw" style="background:#9B7FD4;"></div><div class="dark-body"><div class="dark-name">CTA</div><div class="dark-hex">#9B7FD4</div><div class="dark-role">CTA unchanged in dark — light plum works on both.</div></div></div>
-        <div class="dark-tile"><div class="tsw" style="background:#D4623C;"></div><div class="dark-body"><div class="dark-name">Terra-dark</div><div class="dark-hex">#D4623C</div><div class="dark-role">Overdue on dark bg.</div></div></div>
-        <div class="dark-tile"><div class="tsw" style="background:#9B7FD4;"></div><div class="dark-body"><div class="dark-name">Plum-lt</div><div class="dark-hex">#9B7FD4</div><div class="dark-role">Pro badge — same as light.</div></div></div>
+        <div class="dark-tile"><div class="tsw" style="background:#1E1C18;"></div><div class="dark-body"><div class="dark-name">App bg</div><div class="dark-hex">#1E1C18</div><div class="dark-role">Warm dark cream. No blue, no green.</div></div></div>
+        <div class="dark-tile"><div class="tsw" style="background:#28261F;"></div><div class="dark-body"><div class="dark-name">Nav</div><div class="dark-hex">#28261F</div><div class="dark-role">Tab bar and FAB options surface.</div></div></div>
+        <div class="dark-tile"><div class="tsw" style="background:#E0DDD6;"></div><div class="dark-body"><div class="dark-name">Text primary</div><div class="dark-hex">#E0DDD6</div><div class="dark-role">Primary text on dark.</div></div></div>
+        <div class="dark-tile"><div class="tsw" style="background:#96908A;"></div><div class="dark-body"><div class="dark-name">Text mid</div><div class="dark-hex">#96908A</div><div class="dark-role">Secondary text, subtitles.</div></div></div>
+        <div class="dark-tile"><div class="tsw" style="background:#9B7FD4;"></div><div class="dark-body"><div class="dark-name">CTA</div><div class="dark-hex">#9B7FD4</div><div class="dark-role">Unchanged in dark mode.</div></div></div>
       </div>
-      <div style="margin-top:14px;font-size:11px;color:rgba(239,240,232,0.3);line-height:1.6;">Border: <code style="font-family:monospace;font-size:10px;background:rgba(255,255,255,0.07);padding:1px 5px;border-radius:3px;">rgba(220,240,225,0.07)</code> — green-tinted hairline, consistent with the base hue · Card shadow: none in dark mode — elevation is communicated by the bg/card color difference alone</div>
+
+      <div style="margin-top:14px;">
+        <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(224,221,214,0.35);margin-bottom:8px;">Category card backgrounds · dark mode</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(224,221,214,0.08);min-width:100px;">
+            <div style="height:32px;background:#3A302E;"></div>
+            <div style="padding:6px 10px;background:#28261F;"><div style="font-size:10px;font-weight:500;color:#E0DDD6;">Home</div><div style="font-size:9px;color:rgba(224,221,214,0.4);font-family:monospace;">#3A302E</div></div>
+          </div>
+          <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(224,221,214,0.08);min-width:100px;">
+            <div style="height:32px;background:#283020;"></div>
+            <div style="padding:6px 10px;background:#28261F;"><div style="font-size:10px;font-weight:500;color:#E0DDD6;">Garden</div><div style="font-size:9px;color:rgba(224,221,214,0.4);font-family:monospace;">#283020</div></div>
+          </div>
+          <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(224,221,214,0.08);min-width:100px;">
+            <div style="height:32px;background:#262E34;"></div>
+            <div style="padding:6px 10px;background:#28261F;"><div style="font-size:10px;font-weight:500;color:#E0DDD6;">Vehicle</div><div style="font-size:9px;color:rgba(224,221,214,0.4);font-family:monospace;">#262E34</div></div>
+          </div>
+          <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(224,221,214,0.08);min-width:100px;">
+            <div style="height:32px;background:#302838;"></div>
+            <div style="padding:6px 10px;background:#28261F;"><div style="font-size:10px;font-weight:500;color:#E0DDD6;">Subs</div><div style="font-size:9px;color:rgba(224,221,214,0.4);font-family:monospace;">#302838</div></div>
+          </div>
+          <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(224,221,214,0.08);min-width:100px;">
+            <div style="height:32px;background:#2E2E26;"></div>
+            <div style="padding:6px 10px;background:#28261F;"><div style="font-size:10px;font-weight:500;color:#E0DDD6;">Health</div><div style="font-size:9px;color:rgba(224,221,214,0.4);font-family:monospace;">#2E2E26</div></div>
+          </div>
+          <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(224,221,214,0.08);min-width:100px;">
+            <div style="height:32px;background:#342C22;"></div>
+            <div style="padding:6px 10px;background:#28261F;"><div style="font-size:10px;font-weight:500;color:#E0DDD6;">Pets</div><div style="font-size:9px;color:rgba(224,221,214,0.4);font-family:monospace;">#342C22</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:14px;font-size:11px;color:rgba(224,221,214,0.3);line-height:1.6;">Border: <code style="font-family:monospace;font-size:10px;background:rgba(255,255,255,0.07);padding:1px 5px;border-radius:3px;">rgba(224,221,214,0.08)</code> — warm hairline · Card shadow: none — elevation from bg/card color difference alone</div>
     </div>
 
     <div style="margin-top:14px;">
     <div class="rcard">
-      <div class="rcard-title">Dark mode rules</div>
-      <div class="rcard-body"><strong>Default is light.</strong> Dark follows system preference (iOS dark mode toggle). Both modes must be fully designed — "just invert" is not acceptable.<br><br>
-      The profile/settings screen uses an ink band header in both modes. The done overlay uses <code>plum #2D1F4A</code> in both modes — it's already dark enough to read as a mode shift in light mode, and stays consistent in dark.<br><br>
-      <strong>CTA button color is identical in both modes</strong> — <code>#9B7FD4</code>. Light plum works against both cream and dark-card backgrounds.</div>
+      <div class="rcard-title">Dark mode rules <span class="tag tag-lock">locked</span></div>
+      <div class="rcard-body"><strong>Default is light.</strong> Dark follows system preference. Both modes must be fully designed — "just invert" is not acceptable.<br><br>
+      <strong>No blue or cool-green tints anywhere in dark mode.</strong> The base (#1E1C18) is warm dark cream. Category card backgrounds are warm desaturated versions of their light counterparts.<br><br>
+      The done overlay uses <code>plum #2D1F4A</code> in both modes — already dark enough in light mode, consistent in dark.<br><br>
+      <strong>CTA (#9B7FD4) is identical in both modes</strong> — light plum works against both cream and the warm dark background.</div>
     </div>
     </div>
+
+    <!-- LEGACY DARK REFERENCE -->
+    <details style="margin-top:10px;">
+      <summary style="font-size:11px;font-weight:500;color:var(--mid);cursor:pointer;padding:10px 14px;background:rgba(44,40,36,0.03);border-radius:10px;border:1px solid var(--border);list-style:none;">Previous dark mode values (pre-v10.5) — for reference</summary>
+      <div style="padding:14px;border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;background:var(--surface);">
+        <div style="font-size:10px;color:var(--mid);margin-bottom:10px;font-style:italic;">Was cool-green tinted (#111614). Updated to warm (#1E1C18) in v10.5.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <div style="border-radius:8px;overflow:hidden;border:1px solid var(--border);opacity:0.6;"><div style="height:28px;background:#111614;"></div><div style="padding:5px 8px;background:var(--surface);"><div style="font-size:9px;font-weight:500;color:var(--ink);text-decoration:line-through;">#111614</div><div style="font-size:9px;color:var(--mid);">old bg</div></div></div>
+          <div style="border-radius:8px;overflow:hidden;border:1px solid var(--border);opacity:0.6;"><div style="height:28px;background:#1A1F1D;"></div><div style="padding:5px 8px;background:var(--surface);"><div style="font-size:9px;font-weight:500;color:var(--ink);text-decoration:line-through;">#1A1F1D</div><div style="font-size:9px;color:var(--mid);">old card</div></div></div>
+          <div style="border-radius:8px;overflow:hidden;border:1px solid var(--border);opacity:0.6;"><div style="height:28px;background:#252E28;"></div><div style="padding:5px 8px;background:var(--surface);"><div style="font-size:9px;font-weight:500;color:var(--ink);text-decoration:line-through;">#252E28</div><div style="font-size:9px;color:var(--mid);">old hover</div></div></div>
+          <div style="border-radius:8px;overflow:hidden;border:1px solid var(--border);opacity:0.6;"><div style="height:28px;background:#96A89C;"></div><div style="padding:5px 8px;background:var(--surface);"><div style="font-size:9px;font-weight:500;color:var(--ink);text-decoration:line-through;">#96A89C</div><div style="font-size:9px;color:var(--mid);">old mid (green-tinted)</div></div></div>
+        </div>
+      </div>
+    </details>
   </section>
 
   <div class="rule"></div>
@@ -535,22 +622,80 @@ section{padding-top:60px;}
   <section id="category">
     <div class="sec-eye">04</div>
     <h2 class="sec-title">Categories, items &amp; tasks</h2>
-    <p class="sec-desc">nudgii organises everything into a three-level hierarchy: categories contain items, items contain tasks. Every visual element in the app reflects this structure.</p>
+    <p class="sec-desc">nudgii organises everything into a three-level hierarchy: categories contain items, items contain tasks. v10.5 — cards use solid pastel fills. Icons sit directly on the card, no container.</p>
 
-    <div class="cat-row">
-      <div class="ctile"><div class="cicon" style="background:var(--chb);"><svg viewBox="0 0 24 24" style="stroke:var(--ch);"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div><div class="cname">Home</div><div class="chex">#C87850</div><div class="cnote">Warm · apricot family</div></div></div>
-      <div class="ctile"><div class="cicon" style="background:var(--cvb);"><svg viewBox="0 0 24 24" style="stroke:var(--cv);"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg></div><div><div class="cname">Vehicle</div><div class="chex">#4A82A0</div><div class="cnote">Cool slate</div></div></div>
-      <div class="ctile"><div class="cicon" style="background:var(--cgb);"><svg viewBox="0 0 24 24" style="stroke:var(--cg);"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1 1.1 2.8.8 5.3-.6 7.4"/></svg></div><div><div class="cname">Garden</div><div class="chex">#5A9060</div><div class="cnote">Muted green</div></div></div>
-      <div class="ctile"><div class="cicon" style="background:var(--csb);"><svg viewBox="0 0 24 24" style="stroke:var(--cs);"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div><div><div class="cname">Subscriptions</div><div class="chex">#8060A8</div><div class="cnote">Muted plum tint</div></div></div>
-      <div class="ctile"><div class="cicon" style="background:var(--chlb);"><svg viewBox="0 0 24 24" style="stroke:var(--chl);"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="cname">Health</div><div class="chex">#B86478</div><div class="cnote">Dusty rose · v2</div></div></div>
+    <!-- v10.5 card-style category swatches -->
+    <div style="margin-bottom:8px;font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);">Task card backgrounds + icon strokes · v10.5</div>
+    <div class="cat-row" style="margin-bottom:18px;">
+      <!-- Home -->
+      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(44,40,36,0.06);min-width:130px;">
+        <div style="background:#D2BEB6;padding:14px 14px 10px;display:flex;align-items:center;gap:10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7A5A50" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span style="font-size:12px;font-weight:500;color:#2C2824;">Home</span>
+        </div>
+        <div style="padding:8px 12px;background:var(--surface);"><div style="font-size:9px;font-family:monospace;color:var(--mid);">bg #D2BEB6</div><div style="font-size:9px;font-family:monospace;color:var(--mid);">ic #7A5A50</div><div style="font-size:9px;color:var(--mid);font-style:italic;">Anthropic blush</div></div>
+      </div>
+      <!-- Garden -->
+      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(44,40,36,0.06);min-width:130px;">
+        <div style="background:#C4DABE;padding:14px 14px 10px;display:flex;align-items:center;gap:10px;">
+          <svg width="20" height="20" viewBox="0 0 256 256" fill="none" stroke="#4A7A40" stroke-width="16" stroke-linecap="round"><path d="M128,24C128,24,48,80,48,128a80,80,0,0,0,160,0C208,80,128,24,128,24Z"/></svg>
+          <span style="font-size:12px;font-weight:500;color:#2C2824;">Garden</span>
+        </div>
+        <div style="padding:8px 12px;background:var(--surface);"><div style="font-size:9px;font-family:monospace;color:var(--mid);">bg #C4DABE</div><div style="font-size:9px;font-family:monospace;color:var(--mid);">ic #4A7A40</div><div style="font-size:9px;color:var(--mid);font-style:italic;">Leaf green</div></div>
+      </div>
+      <!-- Vehicle -->
+      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(44,40,36,0.06);min-width:130px;">
+        <div style="background:#C0CDD8;padding:14px 14px 10px;display:flex;align-items:center;gap:10px;">
+          <svg width="20" height="20" viewBox="0 0 256 256" fill="none" stroke="#4A6A82" stroke-width="16" stroke-linecap="round"><circle cx="128" cy="128" r="96"/><circle cx="128" cy="128" r="36"/></svg>
+          <span style="font-size:12px;font-weight:500;color:#2C2824;">Vehicle</span>
+        </div>
+        <div style="padding:8px 12px;background:var(--surface);"><div style="font-size:9px;font-family:monospace;color:var(--mid);">bg #C0CDD8</div><div style="font-size:9px;font-family:monospace;color:var(--mid);">ic #4A6A82</div><div style="font-size:9px;color:var(--mid);font-style:italic;">Steel mist</div></div>
+      </div>
+      <!-- Subscriptions -->
+      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(44,40,36,0.06);min-width:130px;">
+        <div style="background:#D0C6DC;padding:14px 14px 10px;display:flex;align-items:center;gap:10px;">
+          <svg width="20" height="20" viewBox="0 0 256 256" fill="none" stroke="#6A5085" stroke-width="16" stroke-linecap="round"><rect x="32" y="56" width="192" height="144" rx="8"/><line x1="32" y1="104" x2="224" y2="104"/></svg>
+          <span style="font-size:12px;font-weight:500;color:#2C2824;">Subscriptions</span>
+        </div>
+        <div style="padding:8px 12px;background:var(--surface);"><div style="font-size:9px;font-family:monospace;color:var(--mid);">bg #D0C6DC</div><div style="font-size:9px;font-family:monospace;color:var(--mid);">ic #6A5085</div><div style="font-size:9px;color:var(--mid);font-style:italic;">Lavender</div></div>
+      </div>
+      <!-- Health -->
+      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(44,40,36,0.06);min-width:130px;">
+        <div style="background:#D2D0C4;padding:14px 14px 10px;display:flex;align-items:center;gap:10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6A6858" stroke-width="1.6" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          <span style="font-size:12px;font-weight:500;color:#2C2824;">Health</span>
+        </div>
+        <div style="padding:8px 12px;background:var(--surface);"><div style="font-size:9px;font-family:monospace;color:var(--mid);">bg #D2D0C4</div><div style="font-size:9px;font-family:monospace;color:var(--mid);">ic #6A6858</div><div style="font-size:9px;color:var(--mid);font-style:italic;">Soft olive · v2</div></div>
+      </div>
+      <!-- Pets -->
+      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(44,40,36,0.06);min-width:130px;">
+        <div style="background:#DECDC0;padding:14px 14px 10px;display:flex;align-items:center;gap:10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A6238" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2a2 2 0 0 1 2 2M12 20a2 2 0 0 0 2 2M20 12a2 2 0 0 1 2 2M2 12a2 2 0 0 0 2 2"/></svg>
+          <span style="font-size:12px;font-weight:500;color:#2C2824;">Pets</span>
+        </div>
+        <div style="padding:8px 12px;background:var(--surface);"><div style="font-size:9px;font-family:monospace;color:var(--mid);">bg #DECDC0</div><div style="font-size:9px;font-family:monospace;color:var(--mid);">ic #8A6238</div><div style="font-size:9px;color:var(--mid);font-style:italic;">Warm amber</div></div>
+      </div>
     </div>
 
-    <div style="margin-top:12px;">
     <div class="rcard">
-      <div class="rcard-title">Category color rules <span class="tag tag-lock">locked</span></div>
-      <div class="rcard-body">Category colors appear <strong>only in the icon chip</strong> (30–34px rounded square). Never in: date labels, section headers, card backgrounds, tab bar, filter chip backgrounds, or anywhere carrying status meaning.<br><br><strong>Adding a new category:</strong> pick one muted hue not already in the system. Add <code>--c-name: #hex</code> and <code>--c-name-bg: rgba(r,g,b,0.10)</code>. One icon SVG. Done — the system absorbs it without redesign.</div>
+      <div class="rcard-title">Category color rules · v10.5 <span class="tag tag-lock">locked</span></div>
+      <div class="rcard-body"><strong>Card backgrounds are SOLID pastel fills</strong> — never <code>rgba(color, opacity)</code> on cream. The fill defines the element. No borders on colored cards.<br><br><strong>Icons sit directly on the card</strong> — no circle or rounded-square container. Stroke color is the darkened version of the card background (the <code>-ic</code> token), never ink black.<br><br>Category colors appear <strong>only on task cards, My Stuff tiles, and dynamic cards</strong>. Never on: date labels, section headers, tab bar, filter text, or any status indicator.<br><br><strong>Adding a new category:</strong> choose a muted pastel not already in the system. Define <code>bg</code> (solid fill) and <code>ic</code> (darkened stroke) tokens. One Phosphor outline icon. Done — the system absorbs it without redesign.</div>
     </div>
-    </div>
+
+    <!-- Legacy reference -->
+    <details style="margin-top:10px;">
+      <summary style="font-size:11px;font-weight:500;color:var(--mid);cursor:pointer;padding:10px 14px;background:rgba(44,40,36,0.03);border-radius:10px;border:1px solid var(--border);list-style:none;">Previous category values (pre-v10.5) — opacity-based, for reference</summary>
+      <div style="padding:14px;border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;background:var(--surface);">
+        <div style="font-size:10px;color:var(--mid);margin-bottom:10px;font-style:italic;">Categories previously used icon strokes with 10% opacity tint backgrounds on cream. Replaced by solid pastel fills in v10.5 to avoid washed-out look on the cream app background.</div>
+        <div class="cat-row">
+          <div class="ctile" style="opacity:0.6;"><div class="cicon" style="background:rgba(200,120,80,0.10);"><svg viewBox="0 0 24 24" fill="none" stroke="#C87850" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div><div class="cname" style="text-decoration:line-through;">Home</div><div class="chex">#C87850</div><div class="cnote">rgba(200,120,80,0.10) bg</div></div></div>
+          <div class="ctile" style="opacity:0.6;"><div class="cicon" style="background:rgba(74,130,160,0.10);"><svg viewBox="0 0 24 24" fill="none" stroke="#4A82A0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg></div><div><div class="cname" style="text-decoration:line-through;">Vehicle</div><div class="chex">#4A82A0</div><div class="cnote">rgba(74,130,160,0.10) bg</div></div></div>
+          <div class="ctile" style="opacity:0.6;"><div class="cicon" style="background:rgba(90,144,96,0.10);"><svg viewBox="0 0 24 24" fill="none" stroke="#5A9060" stroke-width="1.5" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1 1.1 2.8.8 5.3-.6 7.4"/></svg></div><div><div class="cname" style="text-decoration:line-through;">Garden</div><div class="chex">#5A9060</div><div class="cnote">rgba(90,144,96,0.10) bg</div></div></div>
+          <div class="ctile" style="opacity:0.6;"><div class="cicon" style="background:rgba(128,96,168,0.10);"><svg viewBox="0 0 24 24" fill="none" stroke="#8060A8" stroke-width="1.5" stroke-linecap="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div><div><div class="cname" style="text-decoration:line-through;">Subscriptions</div><div class="chex">#8060A8</div><div class="cnote">rgba(128,96,168,0.10) bg</div></div></div>
+          <div class="ctile" style="opacity:0.6;"><div class="cicon" style="background:rgba(184,100,120,0.10);"><svg viewBox="0 0 24 24" fill="none" stroke="#B86478" stroke-width="1.5" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="cname" style="text-decoration:line-through;">Health (old pink)</div><div class="chex">#B86478</div><div class="cnote">rgba(184,100,120,0.10) bg — now olive</div></div></div>
+        </div>
+      </div>
+    </details>
 
     <!-- ── HIERARCHY OVERVIEW ── -->
     <div style="margin-top:28px;">
@@ -1182,13 +1327,14 @@ final sidePad = MediaQuery.of(context).size.width &lt; 420 ? 16.0 : 20.0;</pre>
     </div>
 
     <div class="rcard" style="margin-bottom:28px;">
-      <div class="rcard-title">Shadow hierarchy <span class="tag tag-lock">locked</span></div>
+      <div class="rcard-title">Shadow hierarchy <span class="tag tag-lock">locked · v10.5</span></div>
       <div class="rcard-body">
         Shadows communicate elevation — never decoration. Never add a shadow for aesthetics.<br><br>
-        <code>--shadow-card: none</code> — cards use border, not shadow<br>
-        <code>--shadow-tab-bar: 0 4px 20px rgba(26,22,18,0.11)</code> — floating pill tab bar<br>
-        <code>--shadow-fab: 0 6px 20px rgba(155,127,212,0.45)</code> — FAB (plum glow, elevated)<br>
-        <code>--shadow-sheet: 0 -2px 20px rgba(26,22,18,0.12)</code> — bottom sheet
+        <code>--shadow-card: none</code> — colored pastel cards use fill, not shadow<br>
+        <code>--shadow-tab-bar: 0 4px 24px rgba(44,40,36,0.10)</code> — floating pill tab bar (warmer base)<br>
+        <code>--shadow-fab: 0 4px 14px rgba(155,127,212,0.25)</code> — FAB (subtle plum glow, not heavy)<br>
+        <code>--shadow-sheet: 0 -2px 20px rgba(44,40,36,0.12)</code> — bottom sheet<br><br>
+        <strong>Why FAB shadow changed:</strong> old value (0.45 opacity) was too heavy against the solid pastel cards. New value is present but doesn't compete with card content.
       </div>
     </div>
 
@@ -1309,26 +1455,206 @@ final sidePad = MediaQuery.of(context).size.width &lt; 420 ? 16.0 : 20.0;</pre>
       </div>
     </div>
 
-    <!-- ── COMPONENT: NUDGE CARD ── -->
-    <div class="rcard" style="margin-bottom:20px;">
-      <div class="rcard-title" style="margin-bottom:12px;">Nudge card <a href="../screens/s09-dashboard-hifi.html" style="font-size:10px;color:var(--cta);text-decoration:none;margin-left:8px;">↗ S-09</a></div>
-      <!-- VISUAL DEMO -->
-      <div style="background:var(--cream-2);border-radius:10px;padding:20px;margin-bottom:16px;display:flex;flex-direction:column;gap:6px;">
-        <div class="ncard"><div class="nci" style="background:var(--chb);"><svg viewBox="0 0 24 24" style="stroke:var(--ch);width:12px;height:12px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="nb"><div class="nn nn-ov">Dishwasher salt</div><div class="ns">it's starting to smell</div></div><div class="nd" style="color:var(--terra);">5d</div></div>
-        <div class="ncard"><div class="nci" style="background:var(--cvb);"><svg viewBox="0 0 24 24" style="stroke:var(--cv);width:12px;height:12px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg></div><div class="nb"><div class="nn">Winter tyres</div><div class="ns">giving you the look</div></div><div class="nd" style="color:var(--ap-dk);">Thu 20</div></div>
-        <div class="ncard"><div class="nci" style="background:var(--csb);"><svg viewBox="0 0 24 24" style="stroke:var(--cs);width:12px;height:12px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div><div class="nb"><div class="nn">Netflix review</div><div class="ns">quietly charging away</div></div><div class="nd" style="color:rgba(26,22,18,0.2);">Apr 2</div></div>
+    <!-- ── COMPONENT: TASK CARD (universal) ── -->
+    <div class="comp-card" style="margin-bottom:20px;">
+      <div class="comp-header">
+        <div class="comp-name">Task card</div>
+        <span class="tag tag-lock">v10.5 — universal · Today + Plan tabs</span>
+        <a href="../screens/s09-dashboard-hifi.html" style="font-size:10px;color:var(--cta);text-decoration:none;margin-left:auto;">↗ S-09</a>
       </div>
-      <div class="rcard-body">
-        White card on cream background. The cream gap between cards is the visual separator — no border-bottom, no dividers.<br><br>
-        <strong>Card:</strong> bg white · border-radius 10–11px · border 0.5px solid <code>rgba(26,22,18,0.08)</code> · shadow <code>0 1px 3px rgba(26,22,18,0.04)</code><br>
-        <strong>Category icon chip:</strong> 28×28px · border-radius 8px · category-colored bg at 10% opacity · Phosphor outline icon 12px · stroke 1.5<br>
-        <strong>Task name:</strong> DM Sans 500 · 13–14px · <code>--ink</code> · ls -0.1px<br>
-        <strong>Witty subtitle:</strong> DM Sans 400 italic · 10–11px · <code>--mid</code> (decorative, not functional)<br>
-        <strong>Date label:</strong> DM Sans 500 · 11px · overdue = <code>--terra</code> · due-soon = <code>--ap-dk</code> · future = <code>rgba(26,22,18,0.2)</code><br>
-        <strong>Gap between cards:</strong> 6px (onboarding/review) · 8px (dashboard)<br>
-        <strong>No left-border accent lines — ever.</strong> Status lives in the date label color only.<br>
-        <strong>Swipe right:</strong> completes at 40% threshold · reveals done overlay on release<br>
-        <strong>Done state:</strong> opacity 0.35 + strikethrough · <code>AnimatedOpacity</code> 250ms
+      <div class="comp-body">
+        <!-- Visual demo -->
+        <div style="background:var(--cream-2);border-radius:10px;padding:16px;margin-bottom:18px;display:flex;flex-direction:column;gap:7px;">
+          <!-- Overdue card -->
+          <div style="display:flex;align-items:center;gap:12px;background:#D2BEB6;border-radius:16px;padding:13px 14px;">
+            <svg width="20" height="20" viewBox="0 0 256 256" fill="none" stroke="#7A5A50" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M208,224H48a8,8,0,0,1-8-8V104a8,8,0,0,1,3.2-6.4l80-60a8,8,0,0,1,9.6,0l80,60A8,8,0,0,1,216,104V216A8,8,0,0,1,208,224Z"/></svg>
+            <div style="flex:1;min-width:0;">
+              <div style="font-size:13px;font-weight:500;color:#2C2824;line-height:1.25;">Annual boiler service</div>
+              <div style="font-size:10px;color:#8A8070;margin-top:2px;">Boiler <span style="font-style:italic;opacity:0.7;">· yearly</span></div>
+            </div>
+            <span style="font-size:9px;font-weight:600;color:#F5F0E8;background:#6B4A3A;border-radius:100px;padding:3px 9px;flex-shrink:0;">12d overdue</span>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#2C2824" stroke-width="2" stroke-linecap="round" style="opacity:0.35;flex-shrink:0;"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <!-- Due soon card -->
+          <div style="display:flex;align-items:center;gap:12px;background:#C0CDD8;border-radius:16px;padding:13px 14px;">
+            <svg width="20" height="20" viewBox="0 0 256 256" fill="none" stroke="#4A6A82" stroke-width="16" stroke-linecap="round" style="flex-shrink:0;"><circle cx="128" cy="128" r="96"/><circle cx="128" cy="128" r="36"/></svg>
+            <div style="flex:1;min-width:0;">
+              <div style="font-size:13px;font-weight:500;color:#2C2824;line-height:1.25;">Check tyre pressure</div>
+              <div style="font-size:10px;color:#8A8070;margin-top:2px;">Car <span style="font-style:italic;opacity:0.7;">· monthly</span></div>
+            </div>
+            <span style="font-size:9px;font-weight:500;color:#2C2824;opacity:0.55;flex-shrink:0;">Wed 26</span>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#2C2824" stroke-width="2" stroke-linecap="round" style="opacity:0.35;flex-shrink:0;"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <!-- On track card -->
+          <div style="display:flex;align-items:center;gap:12px;background:#C4DABE;border-radius:16px;padding:13px 14px;">
+            <svg width="20" height="20" viewBox="0 0 256 256" fill="none" stroke="#4A7A40" stroke-width="16" stroke-linecap="round" style="flex-shrink:0;"><path d="M128,24C128,24,48,80,48,128a80,80,0,0,0,160,0C208,80,128,24,128,24Z"/></svg>
+            <div style="flex:1;min-width:0;">
+              <div style="font-size:13px;font-weight:500;color:#2C2824;line-height:1.25;">Prune olive tree</div>
+              <div style="font-size:10px;color:#8A8070;margin-top:2px;">Olive tree <span style="font-style:italic;opacity:0.7;">· seasonal</span></div>
+            </div>
+            <span style="font-size:9px;font-weight:500;color:#2C2824;opacity:0.55;flex-shrink:0;">Sat 29 Mar</span>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#2C2824" stroke-width="2" stroke-linecap="round" style="opacity:0.35;flex-shrink:0;"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </div>
+        <!-- Spec table -->
+        <div class="spec-grid" style="margin-bottom:12px;">
+          <div class="spec-row"><div class="spec-l">Background</div><div class="spec-r">Category solid pastel — never rgba opacity on cream. No border.</div></div>
+          <div class="spec-row"><div class="spec-l">Border-radius</div><div class="spec-r">16px</div></div>
+          <div class="spec-row"><div class="spec-l">Padding</div><div class="spec-r">13px 14px</div></div>
+          <div class="spec-row"><div class="spec-l">Icon</div><div class="spec-r">20px Phosphor outline · stroke = category icon token · NO container — sits directly on card</div></div>
+          <div class="spec-row"><div class="spec-l">Gap (icon to text)</div><div class="spec-r">12px</div></div>
+          <div class="spec-row"><div class="spec-l">Task name</div><div class="spec-r">DM Sans 500 · 13px · <code>#2C2824</code></div></div>
+          <div class="spec-row"><div class="spec-l">Subtitle</div><div class="spec-r">10px · item name (regular) + frequency (italic, 70% opacity) · <code>colorMid</code></div></div>
+          <div class="spec-row"><div class="spec-l">Overdue badge</div><div class="spec-r">Cream text on <code>#6B4A3A</code> pill · 9px/600 · "12d overdue"</div></div>
+          <div class="spec-row"><div class="spec-l">Due date label</div><div class="spec-r">Plain text · 9px/500 · ink at 55% opacity · no background</div></div>
+          <div class="spec-row"><div class="spec-l">Chevron</div><div class="spec-r">10px · ink · 35% opacity · right-aligned</div></div>
+          <div class="spec-row"><div class="spec-l">Gap between cards</div><div class="spec-r">7px</div></div>
+          <div class="spec-row"><div class="spec-l">Swipe gesture</div><div class="spec-r">Right = complete at 60% threshold · haptic at 60% · done overlay triggers</div></div>
+          <div class="spec-row" style="border-bottom:none;"><div class="spec-l">Never</div><div class="spec-r">Border · shadow · left-accent stripe · icon container · red/terra for overdue</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── COMPONENT: EXPANDABLE TASK CARD ── -->
+    <div class="comp-card" style="margin-bottom:20px;">
+      <div class="comp-header">
+        <div class="comp-name">Expandable task card</div>
+        <span class="tag tag-lock">v10.5 — overdue + tap-to-expand</span>
+      </div>
+      <div class="comp-body">
+        <!-- Visual demo -->
+        <div style="background:var(--cream-2);border-radius:10px;padding:16px;margin-bottom:18px;">
+          <div style="background:#D2BEB6;border-radius:16px;padding:13px 14px;">
+            <!-- Top row -->
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+              <svg width="20" height="20" viewBox="0 0 256 256" fill="none" stroke="#7A5A50" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M208,224H48a8,8,0,0,1-8-8V104a8,8,0,0,1,3.2-6.4l80-60a8,8,0,0,1,9.6,0l80,60A8,8,0,0,1,216,104V216A8,8,0,0,1,208,224Z"/></svg>
+              <div style="flex:1;">
+                <div style="font-size:15px;font-weight:500;color:#2C2824;line-height:1.25;">Annual boiler service</div>
+                <div style="font-size:11px;color:#8A8070;margin-top:2px;font-style:italic;">Don't let it turn into a plumber's retirement fund.</div>
+              </div>
+              <span style="font-size:9px;font-weight:600;color:#F5F0E8;background:#6B4A3A;border-radius:100px;padding:3px 9px;flex-shrink:0;">12d overdue</span>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#2C2824" stroke-width="2" stroke-linecap="round" style="opacity:0.35;transform:rotate(180deg);flex-shrink:0;"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <!-- Why it matters box -->
+            <div style="background:rgba(255,255,255,0.4);border-radius:10px;padding:9px 11px;margin-bottom:10px;">
+              <div style="font-size:9px;font-weight:600;color:#7A5A50;margin-bottom:3px;">Why it matters</div>
+              <div style="font-size:10px;color:#8A8070;line-height:1.45;">Annual servicing keeps efficiency high and catches faults before winter. A missed service voids most warranties.</div>
+            </div>
+            <!-- Action row -->
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+              <button style="font-family:inherit;font-size:11px;font-weight:500;padding:8px 16px;border-radius:100px;background:#9B7FD4;color:#FAF8FF;border:none;cursor:pointer;display:flex;align-items:center;gap:5px;">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done
+              </button>
+              <button style="font-family:inherit;font-size:11px;font-weight:500;padding:8px 14px;border-radius:100px;background:rgba(44,40,36,0.08);color:#2C2824;border:none;cursor:pointer;">Snooze</button>
+              <button style="font-family:inherit;font-size:11px;font-weight:500;padding:8px 14px;border-radius:100px;background:rgba(44,40,36,0.08);color:#2C2824;border:none;cursor:pointer;">Edit</button>
+              <button style="font-family:inherit;font-size:11px;font-weight:400;color:#8A8070;background:none;border:none;cursor:pointer;padding:8px 4px;">Skip</button>
+            </div>
+          </div>
+        </div>
+        <div class="spec-grid">
+          <div class="spec-row"><div class="spec-l">Collapsed</div><div class="spec-r">Same as task card. Chevron at 0.35 opacity, pointing right.</div></div>
+          <div class="spec-row"><div class="spec-l">Expanded trigger</div><div class="spec-r">Tap anywhere on the card. Chevron rotates 180°.</div></div>
+          <div class="spec-row"><div class="spec-l">Task name size</div><div class="spec-r">15px/500 when expanded (featured) vs 13px/500 collapsed</div></div>
+          <div class="spec-row"><div class="spec-l">Why it matters</div><div class="spec-r">rgba(255,255,255,0.4) bg · 10px radius · label 9px/600 in category icon color · body 10px colorMid</div></div>
+          <div class="spec-row"><div class="spec-l">Done button</div><div class="spec-r">CTA purple pill with checkmark — primary action. Same <code>#9B7FD4</code> as all CTAs.</div></div>
+          <div class="spec-row"><div class="spec-l">Snooze / Edit</div><div class="spec-r">Neutral pill · rgba(44,40,36,0.08) bg · ink text</div></div>
+          <div class="spec-row"><div class="spec-l">Skip</div><div class="spec-r">Text only · no pill · colorMid · tertiary action</div></div>
+          <div class="spec-row" style="border-bottom:none;"><div class="spec-l">Animation</div><div class="spec-r"><code>max-height</code> transition · 300ms ease · no spring here</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── COMPONENT: DYNAMIC CARD ── -->
+    <div class="comp-card" style="margin-bottom:20px;">
+      <div class="comp-header">
+        <div class="comp-name">Dynamic card</div>
+        <span class="tag tag-lock">v10.5 — horizontal scroll row · Today tab</span>
+      </div>
+      <div class="comp-body">
+        <!-- Visual demo -->
+        <div style="background:var(--cream-2);border-radius:10px;padding:16px;margin-bottom:18px;display:flex;gap:10px;overflow-x:auto;">
+          <!-- Did you know -->
+          <div style="min-width:175px;max-width:200px;flex-shrink:0;background:#D2BEB6;border-radius:16px;padding:14px;position:relative;">
+            <div style="position:absolute;top:10px;right:10px;width:20px;height:20px;border-radius:50%;background:rgba(44,40,36,0.08);display:flex;align-items:center;justify-content:center;"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#7A5A50" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+            <div style="display:flex;align-items:center;gap:5px;margin-bottom:4px;padding-right:16px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7A5A50" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span style="font-size:10px;font-weight:600;color:#2C2824;">Did you know?</span>
+            </div>
+            <div style="font-size:10px;color:#8A8070;line-height:1.45;margin-bottom:8px;">Gutters clogged? Water can damage your foundation in one season.</div>
+            <button style="font-family:inherit;font-size:9px;font-weight:500;padding:5px 12px;border-radius:100px;background:#7A5A50;color:#F5F0E8;border:none;cursor:pointer;">Add gutters</button>
+          </div>
+          <!-- Savings -->
+          <div style="min-width:175px;max-width:200px;flex-shrink:0;background:rgba(44,40,36,0.04);border-radius:16px;padding:14px;position:relative;border:1px solid rgba(44,40,36,0.06);">
+            <div style="position:absolute;top:10px;right:10px;width:20px;height:20px;border-radius:50%;background:rgba(44,40,36,0.06);display:flex;align-items:center;justify-content:center;"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#8A8070" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+            <div style="display:flex;align-items:center;gap:5px;margin-bottom:4px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9B7FD4" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+              <span style="font-size:10px;font-weight:600;color:#2C2824;">Saved this year</span>
+            </div>
+            <div style="font-size:26px;font-weight:500;color:#9B7FD4;line-height:1.1;margin:6px 0 2px;">~€340</div>
+            <div style="font-size:10px;color:#8A8070;line-height:1.4;margin-bottom:6px;">Estimated repair costs avoided.</div>
+            <div style="font-size:9px;color:#A09888;font-style:italic;">AI estimate · tap for details</div>
+          </div>
+          <!-- Spring ready -->
+          <div style="min-width:175px;max-width:200px;flex-shrink:0;background:#C4DABE;border-radius:16px;padding:14px;position:relative;">
+            <div style="position:absolute;top:10px;right:10px;width:20px;height:20px;border-radius:50%;background:rgba(44,40,36,0.06);display:flex;align-items:center;justify-content:center;"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#4A7A40" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+            <div style="display:flex;align-items:center;gap:5px;margin-bottom:4px;padding-right:16px;">
+              <svg width="14" height="14" viewBox="0 0 256 256" fill="none" stroke="#4A7A40" stroke-width="18" stroke-linecap="round"><path d="M128,24C128,24,48,80,48,128a80,80,0,0,0,160,0C208,80,128,24,128,24Z"/></svg>
+              <span style="font-size:10px;font-weight:600;color:#2C2824;">Spring ready</span>
+            </div>
+            <div style="font-size:10px;color:#8A8070;line-height:1.45;margin-bottom:8px;">2 of 5 spring tasks done</div>
+            <div style="display:flex;gap:3px;">
+              <div style="width:8px;height:8px;border-radius:50%;background:#4A7A40;"></div><div style="width:8px;height:8px;border-radius:50%;background:#4A7A40;"></div><div style="width:8px;height:8px;border-radius:50%;border:1.5px solid rgba(44,40,36,0.15);"></div><div style="width:8px;height:8px;border-radius:50%;border:1.5px solid rgba(44,40,36,0.15);"></div><div style="width:8px;height:8px;border-radius:50%;border:1.5px solid rgba(44,40,36,0.15);"></div>
+            </div>
+          </div>
+        </div>
+        <div class="spec-grid">
+          <div class="spec-row"><div class="spec-l">Min-width</div><div class="spec-r">175px · max-width 200px</div></div>
+          <div class="spec-row"><div class="spec-l">Border-radius</div><div class="spec-r">16px</div></div>
+          <div class="spec-row"><div class="spec-l">Padding</div><div class="spec-r">14px</div></div>
+          <div class="spec-row"><div class="spec-l">Background</div><div class="spec-r">Category pastel matching card content · savings card uses rgba(44,40,36,0.04)</div></div>
+          <div class="spec-row"><div class="spec-l">Dismiss</div><div class="spec-r">X button top-right · 20px circle · subtle bg · card removes from list</div></div>
+          <div class="spec-row"><div class="spec-l">Title</div><div class="spec-r">14px Phosphor icon inline + 10px/600 label</div></div>
+          <div class="spec-row"><div class="spec-l">CTA pill</div><div class="spec-r">Category dark icon color as bg (NOT ink black) · cream text</div></div>
+          <div class="spec-row"><div class="spec-l">Card types</div><div class="spec-r">Did you know? · Saved this year · Season ready · Seasonal tip</div></div>
+          <div class="spec-row" style="border-bottom:none;"><div class="spec-l">Scroll</div><div class="spec-r">Horizontal, no scrollbar · <code>overflow-x: auto · scrollbar-width: none</code></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── COMPONENT: MY STUFF TILE ── -->
+    <div class="comp-card" style="margin-bottom:20px;">
+      <div class="comp-header">
+        <div class="comp-name">My Stuff tile</div>
+        <span class="tag tag-lock">v10.5 — 2-column grid · My Stuff tab</span>
+      </div>
+      <div class="comp-body">
+        <!-- Visual demo -->
+        <div style="background:var(--cream-2);border-radius:10px;padding:16px;margin-bottom:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:340px;">
+          <div style="background:#D2BEB6;border-radius:18px;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:12px;">
+            <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke="#7A5A50" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"><path d="M208,224H48a8,8,0,0,1-8-8V104a8,8,0,0,1,3.2-6.4l80-60a8,8,0,0,1,9.6,0l80,60A8,8,0,0,1,216,104V216A8,8,0,0,1,208,224Z"/><rect x="96" y="144" width="64" height="80" rx="4" stroke-width="14" fill="none"/></svg>
+            <div style="font-size:12px;font-weight:500;color:#2C2824;text-align:center;">Boiler</div>
+            <div style="font-size:9px;color:#8A8070;">3 tasks</div>
+          </div>
+          <div style="background:#C0CDD8;border-radius:18px;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:12px;">
+            <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke="#4A6A82" stroke-width="14" stroke-linecap="round"><circle cx="128" cy="128" r="96"/><circle cx="128" cy="128" r="36"/><circle cx="128" cy="128" r="8" fill="#4A6A82"/></svg>
+            <div style="font-size:12px;font-weight:500;color:#2C2824;text-align:center;">Car</div>
+            <div style="font-size:9px;color:#8A8070;">4 tasks</div>
+          </div>
+          <div style="background:#C4DABE;border-radius:18px;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:12px;">
+            <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke="#4A7A40" stroke-width="14" stroke-linecap="round"><path d="M128,24C128,24,48,80,48,128a80,80,0,0,0,160,0C208,80,128,24,128,24Z"/><line x1="128" y1="208" x2="128" y2="128" stroke-width="14"/></svg>
+            <div style="font-size:12px;font-weight:500;color:#2C2824;text-align:center;">Olive tree</div>
+            <div style="font-size:9px;color:#8A8070;">2 tasks</div>
+          </div>
+        </div>
+        <div class="spec-grid">
+          <div class="spec-row"><div class="spec-l">Background</div><div class="spec-r">Category solid pastel</div></div>
+          <div class="spec-row"><div class="spec-l">Border-radius</div><div class="spec-r">18px</div></div>
+          <div class="spec-row"><div class="spec-l">Aspect-ratio</div><div class="spec-r">1:1 (square)</div></div>
+          <div class="spec-row"><div class="spec-l">Layout</div><div class="spec-r">Flex column, center aligned. Icon → name → task count.</div></div>
+          <div class="spec-row"><div class="spec-l">Icon</div><div class="spec-r">22px Phosphor outline · category icon token stroke · NO container</div></div>
+          <div class="spec-row"><div class="spec-l">Name</div><div class="spec-r">12px/500 · colorInk</div></div>
+          <div class="spec-row" style="border-bottom:none;"><div class="spec-l">Subtitle</div><div class="spec-r">9px · colorMid · "N tasks"</div></div>
+        </div>
       </div>
     </div>
 

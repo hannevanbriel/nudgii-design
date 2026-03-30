@@ -164,20 +164,21 @@ UX spec §2.2 says "nudgii speaks first — non-negotiable." MVP scope defers TT
 
 ## 7. Design system — color tokens (light mode)
 
-All values locked in design-system v2.3. Never hardcode hex in Flutter — always reference token constants.
+**v10.5 — locked 2026-03-30. Supersedes all previous values.** Never hardcode hex in Flutter — always reference token constants. Reference prototype: `nudgii-v10-5.html`. Full handoff: `nudgii-v10.5-handoff.md`.
 
 ```dart
-// Color tokens — light mode
-const Color colorCream     = Color(0xFFF5F0E8);  // App background
-const Color colorInk       = Color(0xFF1A1612);  // All body text — warm charcoal
-const Color colorCta       = Color(0xFF9B7FD4);  // Primary CTA, active filter chip, active tab icon+label, Pro badge
-const Color colorCtaFg     = Color(0xFFFAF8FF);  // Text on CTA button — lavender-white
-const Color colorApricot   = Color(0xFFE8A87C);  // ii dot, greeting name em, streak number
-const Color colorApricotDk = Color(0xFFC8784A);  // Due-soon date labels ONLY — no buttons
-const Color colorTerra     = Color(0xFFC4503A);  // Overdue status — date label + task name ONLY
-const Color colorPlum      = Color(0xFF2D1F4A);  // Done overlay background ONLY — nowhere else
-const Color colorMid       = Color(0xFF8A8070);  // Italic subtitles, hint text, section labels
+// ── Color tokens · light mode · v10.5 ──────────────────────────────────────
+const Color colorCream         = Color(0xFFF5F0E8);  // App background
+const Color colorInk           = Color(0xFF2C2824);  // All body text — warmer charcoal (was #1A1612)
+const Color colorMid           = Color(0xFF8A8070);  // Decorative italic subtitles ONLY — 2.8:1 fails AA
 const Color colorMidAccessible = Color(0xFF6B6358);  // All functional mid text — WCAG AA 4.6:1 on cream
+const Color colorHint          = Color(0xFFA09888);  // Placeholders, very secondary text
+const Color colorCta           = Color(0xFF9B7FD4);  // THE ONLY BRIGHT COLOR — CTA, FAB, active tab, filter pill, Done button
+const Color colorCtaFg         = Color(0xFFFAF8FF);  // Text on CTA background — lavender-white
+const Color colorPlum          = Color(0xFF2D1F4A);  // Done overlay background ONLY — sacred, nowhere else
+const Color colorPlumPale      = Color(0xFFC4A8E8);  // Done overlay ii mark pill fill
+const Color colorOverdueBadge  = Color(0xFF6B4A3A);  // Overdue badge background — warm brown, NOT red
+const Color colorSurface       = Color(0xFFFFFFFF);  // Bottom sheets, dialogs
 
 // Semantic feedback tokens
 const Color colorSage      = Color(0xFF3B6D11);   // success text
@@ -187,31 +188,58 @@ const Color colorRedLt     = Color(0xFFFCEBEB);   // error background
 const Color colorAmber     = Color(0xFF854F0B);   // warning text
 const Color colorAmberLt   = Color(0xFFFAEEDA);   // warning background
 
-// Category colors
-const Color catHome         = Color(0xFFC87850);
-const Color catVehicle      = Color(0xFF4A82A0);
-const Color catGarden       = Color(0xFF5A9060);
-const Color catSubscriptions = Color(0xFF8060A8);
-const Color catHealth       = Color(0xFFB86478);  // v2 — include in Figma, hide in MVP build
+// Category colors · v10.5 — solid pastel fills + darkened icon strokes
+// Card backgrounds are SOLID — never rgba(color, opacity) on cream
+const Color catHomeBg          = Color(0xFFD2BEB6);  // Home card background — Anthropic blush
+const Color catHomeIc          = Color(0xFF7A5A50);  // Home icon stroke
+const Color catGardenBg        = Color(0xFFC4DABE);  // Garden card background — leaf green
+const Color catGardenIc        = Color(0xFF4A7A40);  // Garden icon stroke
+const Color catVehicleBg       = Color(0xFFC0CDD8);  // Vehicle card background — steel mist
+const Color catVehicleIc       = Color(0xFF4A6A82);  // Vehicle icon stroke
+const Color catSubsBg          = Color(0xFFD0C6DC);  // Subscriptions card background — lavender
+const Color catSubsIc          = Color(0xFF6A5085);  // Subscriptions icon stroke
+const Color catHealthBg        = Color(0xFFD2D0C4);  // Health card background — soft olive (v2)
+const Color catHealthIc        = Color(0xFF6A6858);  // Health icon stroke
+const Color catPetsBg          = Color(0xFFDECDC0);  // Pets card background — warm amber
+const Color catPetsIc          = Color(0xFF8A6238);  // Pets icon stroke
 
-// Dark mode tokens
-const Color darkBg         = Color(0xFF111614);  // Deep sage — no blue
-const Color darkCard       = Color(0xFF1A1F1D);
-const Color darkCardHover  = Color(0xFF252E28);
-const Color darkTextPrimary = Color(0xFFEFF0E8);
-const Color darkTextMid    = Color(0xFF96A89C);
+// Dark mode tokens · v10.5 — warm dark, no blue or cool-green
+const Color darkBg             = Color(0xFF1E1C18);  // Warm dark cream (was cold sage #111614)
+const Color darkNav            = Color(0xFF28261F);  // Tab bar and FAB options surface
+const Color darkHomeBg         = Color(0xFF3A302E);
+const Color darkGardenBg       = Color(0xFF283020);
+const Color darkVehicleBg      = Color(0xFF262E34);
+const Color darkSubsBg         = Color(0xFF302838);
+const Color darkHealthBg       = Color(0xFF2E2E26);
+const Color darkPetsBg         = Color(0xFF342C22);
+const Color darkTextPrimary    = Color(0xFFE0DDD6);  // (was #EFF0E8)
+const Color darkTextMid        = Color(0xFF96908A);  // (was #96A89C — was green-tinted)
 // colorCta (#9B7FD4) is identical in dark mode — no change needed
+
+// ── LEGACY — pre-v10.5, archived 2026-03-30 ────────────────────────────────
+// const Color colorInkLegacy    = Color(0xFF1A1612);  // Too dark — replaced by #2C2824
+// const Color colorApricot      = Color(0xFFE8A87C);  // Removed — greeting name now uses colorCta
+// const Color colorApricotDk    = Color(0xFFC8784A);  // Removed — due dates now plain ink at 55%
+// const Color colorTerra        = Color(0xFFC4503A);  // Removed — overdue now uses warm brown badge
+// const Color catHome           = Color(0xFFC87850);  // Replaced by catHomeIc + catHomeBg
+// const Color catVehicle        = Color(0xFF4A82A0);  // Replaced
+// const Color catGarden         = Color(0xFF5A9060);  // Replaced
+// const Color catSubscriptions  = Color(0xFF8060A8);  // Replaced
+// const Color catHealth         = Color(0xFFB86478);  // Replaced (was pink, now olive)
+// const Color darkBgLegacy      = Color(0xFF111614);  // Replaced by #1E1C18
+// const Color darkCardLegacy    = Color(0xFF1A1F1D);  // Replaced by darkNav
 ```
 
 **Color rules that never bend:**
-- `colorPlum` = done overlay ONLY. Never chips, headers, badges
-- `colorCta` = primary CTA button + active filter chip + active tab (icon + label) + Pro badge
-- `colorApricotDk` = due-soon date labels ONLY. Not buttons, not any interactive element
-- `colorTerra` = overdue status ONLY — date label color + task name. Nothing else
-- Category colors appear ONLY inside category icon chips. Never on status, never on UI icons
+- `colorCta` (#9B7FD4) = THE ONLY BRIGHT COLOR. CTA button, FAB, Export, Done, active tab, active filter pill
+- `colorPlum` = done overlay ONLY. Never chips, headers, badges, any other surface
+- `colorOverdueBadge` (#6B4A3A) = overdue badge background ONLY. Warm brown, not red. Cream text on top.
+- Category card backgrounds are SOLID pastel fills — never `rgba(color, opacity)` on cream
+- Icons sit directly on cards — no container. Stroke = category icon token, never ink black
+- `colorMid` (#8A8070) = decorative italic subtitles ONLY — 2.8:1 fails WCAG AA. Never functional text
+- `colorMidAccessible` (#6B6358) = all functional mid text — 4.6:1 AA pass
 - No gradients anywhere in the app — zero exceptions
-- `colorMid` (#8A8070) = decorative italic subtitles ONLY — 2.8:1 contrast fails WCAG AA. Never on functional text
-- `colorMidAccessible` (#6B6358) = all functional mid-coloured text (hints, labels, descriptions) — 4.6:1 AA pass
+- No borders on category cards — the fill defines the element
 
 ---
 
@@ -222,8 +250,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 // DM Serif Display — ONE moment per screen. Never two visible simultaneously.
 // Welcome headline: 33px, lh 0.97, ls -0.55px
-// Dashboard greeting: 25–27px, lh 0.95, ls -0.4px, name em in colorApricot
+// Dashboard greeting: 28px, lh 1.12 — "Good morning," in colorInk, "Martijn." in colorCta italic
 // Done overlay: 28–30px, lh 1.1, on plum background
+// Plan/MyStuff/Profile headers: 24px
 // Empty state: 22px, lh 1.2
 
 // DM Sans — everything daily
