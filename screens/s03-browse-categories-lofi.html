@@ -81,16 +81,20 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 .search-bar svg{width:13px;height:13px;fill:none;stroke:var(--mid);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
 .search-text{font-size:11px;font-style:italic;color:rgba(107,99,88,0.45);}
 
-/* Category chips — new style: no dot, tinted bg + category color text */
+/* Category chips — Option B: pastel bg + icon text inactive; filled icon bg + cream text active */
 .chip-row{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;padding:4px 0;margin-bottom:2px;}
 .chip-row::-webkit-scrollbar{display:none;}
-.chip{flex-shrink:0;padding:5px 11px;border-radius:100px;font-size:10px;font-weight:500;cursor:default;}
-.chip-all{background:rgba(26,22,18,0.07);color:var(--mid-a);outline:none;}
-.chip-all.active{background:rgba(155,127,212,0.12);color:var(--cta);outline:1px solid var(--cta);}
-.chip-home{background:rgba(122,90,80,0.13);color:var(--cat-home-ic);}
-.chip-vehicle{background:rgba(74,106,130,0.13);color:var(--cat-vehicle-ic);}
-.chip-garden{background:rgba(96,120,112,0.13);color:var(--cat-garden-ic);}
-.chip-subs{background:rgba(106,80,133,0.13);color:var(--cat-sub-ic);}
+.chip{flex-shrink:0;padding:5px 11px;border-radius:100px;font-size:10px;font-weight:500;cursor:default;transition:background 0.15s,color 0.15s;}
+.chip-all{background:rgba(26,22,18,0.07);color:var(--mid-a);}
+.chip-all.active{background:var(--cta);color:var(--cta-fg);}
+.chip-home{background:var(--cat-home-bg);color:var(--cat-home-ic);}
+.chip-home.active{background:var(--cat-home-ic);color:#FAF8FF;}
+.chip-vehicle{background:var(--cat-vehicle-bg);color:var(--cat-vehicle-ic);}
+.chip-vehicle.active{background:var(--cat-vehicle-ic);color:#FAF8FF;}
+.chip-garden{background:var(--cat-garden-bg);color:var(--cat-garden-ic);}
+.chip-garden.active{background:var(--cat-garden-ic);color:#FAF8FF;}
+.chip-subs{background:var(--cat-sub-bg);color:var(--cat-sub-ic);}
+.chip-subs.active{background:var(--cat-sub-ic);color:#FAF8FF;}
 
 /* Selected pill */
 .sel-pill-wrap{height:24px;display:flex;align-items:center;margin-bottom:6px;}
@@ -385,12 +389,12 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
         <div class="zone-card highlight">
           <div class="zc-head"><span class="zc-badge purple">F</span><span class="zc-name">Category chips — new style</span></div>
           <div class="zc-body">
-            <strong>No dots. No borders.</strong> Each chip uses category-tinted background + category color text.
+            <strong>Option B: filled/inverted.</strong> Inactive: solid pastel bg + icon stroke color text. Active: solid icon color bg + cream text (<code>#FAF8FF</code>).
             <div class="zc-rule"></div>
-            Home chip: <code>rgba(122,90,80,0.13)</code> bg, <code>#7A5A50</code> text.<br>
-            Vehicle chip: <code>rgba(74,106,130,0.13)</code> bg, <code>#4A6A82</code> text.<br>
-            Garden chip: <code>rgba(96,120,112,0.13)</code> bg, <code>#607870</code> text.<br>
-            Subscriptions chip: <code>rgba(106,80,133,0.13)</code> bg, <code>#6A5085</code> text.
+            Home inactive: <code>#D2BEB6</code> bg, <code>#7A5A50</code> text. Active: <code>#7A5A50</code> bg, cream text.<br>
+            Vehicle inactive: <code>#C0CDD8</code> bg, <code>#4A6A82</code> text. Active: <code>#4A6A82</code> bg, cream text.<br>
+            Garden inactive: <code>#C4DABE</code> bg, <code>#4A7A40</code> text. Active: <code>#4A7A40</code> bg, cream text.<br>
+            Subscriptions inactive: <code>#D0C6DC</code> bg, <code>#6A5085</code> text. Active: <code>#6A5085</code> bg, cream text.
             <div class="zc-rule"></div>
             Active category: adds <code>1px solid categoryColor</code> outline.<br>
             "All" inactive: <code>rgba(26,22,18,0.07)</code> bg, <code>colorMid</code> text, no outline.<br>

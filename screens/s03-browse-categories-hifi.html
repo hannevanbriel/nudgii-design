@@ -33,20 +33,20 @@ body{background:#CBC5BB;padding:0 0 80px;}
 .search-bar svg{width:13px;height:13px;fill:none;stroke:var(--mid);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
 .search-input-mock{font-size:11.5px;font-style:italic;color:rgba(107,99,88,0.40);}
 
-/* Category chips — new style: tinted bg + category color, NO dots */
+/* Category chips — Option B: pastel bg + icon text inactive; filled icon bg + cream text active */
 .chip-row{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;padding:4px 0;margin-bottom:2px;}
 .chip-row::-webkit-scrollbar{display:none;}
-.cat-chip{flex-shrink:0;padding:5px 12px;border-radius:100px;font-size:11px;font-weight:500;cursor:pointer;user-select:none;outline:none;}
-.cat-chip-all{background:rgba(155,127,212,0.12);color:var(--cta);outline:1px solid var(--cta);}
-.cat-chip-home{background:rgba(122,90,80,0.12);color:var(--cat-home);}
-.cat-chip-vehicle{background:rgba(74,106,130,0.12);color:var(--cat-vehicle);}
-.cat-chip-garden{background:rgba(74,122,64,0.12);color:var(--cat-garden);}
-.cat-chip-subs{background:rgba(106,80,133,0.12);color:var(--cat-sub);}
-/* active category chip: add outline */
-.cat-chip-home.active{outline:1px solid var(--cat-home);}
-.cat-chip-vehicle.active{outline:1px solid var(--cat-vehicle);}
-.cat-chip-garden.active{outline:1px solid var(--cat-garden);}
-.cat-chip-subs.active{outline:1px solid var(--cat-sub);}
+.cat-chip{flex-shrink:0;padding:5px 12px;border-radius:100px;font-size:11px;font-weight:500;cursor:pointer;user-select:none;transition:background 0.15s,color 0.15s;}
+.cat-chip-all{background:rgba(26,22,18,0.07);color:var(--mid-a);}
+.cat-chip-all.active{background:var(--cta);color:var(--cta-fg);}
+.cat-chip-home{background:var(--cat-home-bg);color:var(--cat-home-ic);}
+.cat-chip-home.active{background:var(--cat-home-ic);color:#FAF8FF;}
+.cat-chip-vehicle{background:var(--cat-vehicle-bg);color:var(--cat-vehicle-ic);}
+.cat-chip-vehicle.active{background:var(--cat-vehicle-ic);color:#FAF8FF;}
+.cat-chip-garden{background:var(--cat-garden-bg);color:var(--cat-garden-ic);}
+.cat-chip-garden.active{background:var(--cat-garden-ic);color:#FAF8FF;}
+.cat-chip-subs{background:var(--cat-sub-bg);color:var(--cat-sub-ic);}
+.cat-chip-subs.active{background:var(--cat-sub-ic);color:#FAF8FF;}
 
 /* Selected pill */
 .sel-pill{display:inline-flex;align-items:center;gap:5px;background:var(--cta);color:var(--cta-fg);font-size:10px;font-weight:600;padding:3px 10px 3px 5px;border-radius:100px;margin-bottom:6px;}
@@ -166,7 +166,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
 
               <!-- Category chips: All active -->
               <div class="chip-row">
-                <div class="cat-chip cat-chip-all">All</div>
+                <div class="cat-chip cat-chip-all active">All</div>
                 <div class="cat-chip cat-chip-home">Home</div>
                 <div class="cat-chip cat-chip-vehicle">Vehicle</div>
                 <div class="cat-chip cat-chip-garden">Garden</div>
@@ -297,7 +297,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
 
               <!-- Chips: Home active -->
               <div class="chip-row">
-                <div class="cat-chip cat-chip-all" style="background:rgba(26,22,18,0.07);color:var(--mid-a);outline:none;">All</div>
+                <div class="cat-chip cat-chip-all">All</div>
                 <div class="cat-chip cat-chip-home active">Home</div>
                 <div class="cat-chip cat-chip-vehicle">Vehicle</div>
                 <div class="cat-chip cat-chip-garden">Garden</div>

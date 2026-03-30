@@ -301,17 +301,33 @@ body{
 
 .cat-pill{
   display:inline-flex;align-items:center;gap:4px;
-  background:var(--surface);
-  border:0.5px solid rgba(26,22,18,0.12);
+  background:rgba(26,22,18,0.07);
+  border:none;
   border-radius:100px;
-  padding:4px 10px;
+  padding:5px 12px;
   font-size:10px;font-weight:500;
   color:var(--mid-a, #6B6358);
   flex-shrink:0;cursor:pointer;
-  transition:background 0.15s ease-out,border-color 0.15s ease-out,color 0.15s ease-out;
+  transition:background 0.15s ease-out,color 0.15s ease-out;
 }
-.cat-pill.active{background:rgba(155,127,212,0.06);color:var(--cta);border-color:var(--cta);}
-.cat-pill.active .cat-dot{opacity:0.85;}
+/* "All" active — CTA purple */
+.cat-pill.active{background:var(--cta);color:var(--cta-fg);}
+/* Category modifier — inactive: pastel bg + icon stroke color text */
+.cat-pill.home{background:var(--cat-home-bg,#D2BEB6);color:var(--cat-home-ic,#7A5A50);}
+.cat-pill.vehicle{background:var(--cat-vehicle-bg,#C0CDD8);color:var(--cat-vehicle-ic,#4A6A82);}
+.cat-pill.garden{background:var(--cat-garden-bg,#C4DABE);color:var(--cat-garden-ic,#4A7A40);}
+.cat-pill.subs{background:var(--cat-sub-bg,#D0C6DC);color:var(--cat-sub-ic,#6A5085);}
+/* Category modifier — active: filled icon color bg + cream text */
+.cat-pill.home.active{background:var(--cat-home-ic,#7A5A50);color:#FAF8FF;}
+.cat-pill.vehicle.active{background:var(--cat-vehicle-ic,#4A6A82);color:#FAF8FF;}
+.cat-pill.garden.active{background:var(--cat-garden-ic,#4A7A40);color:#FAF8FF;}
+.cat-pill.subs.active{background:var(--cat-sub-ic,#6A5085);color:#FAF8FF;}
+/* .on alias for prototype compat */
+.cat-pill.on{background:var(--cta);color:var(--cta-fg);}
+.cat-pill.home.on{background:var(--cat-home-ic,#7A5A50);color:#FAF8FF;}
+.cat-pill.vehicle.on{background:var(--cat-vehicle-ic,#4A6A82);color:#FAF8FF;}
+.cat-pill.garden.on{background:var(--cat-garden-ic,#4A7A40);color:#FAF8FF;}
+.cat-pill.subs.on{background:var(--cat-sub-ic,#6A5085);color:#FAF8FF;}
 .cat-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
 
 
@@ -434,9 +450,6 @@ body{
 }
 .btn-b:active{background:rgba(26,22,18,0.04);}
 
-/* .cat-pill.on alias for .cat-pill.active (s03 compat) */
-.cat-pill.on{background:rgba(155,127,212,0.06);color:var(--cta);border-color:var(--cta);}
-.cat-pill.on .cat-dot{opacity:0.85;}
 
 
 /* ── 18. DIVIDER ── */
