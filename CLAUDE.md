@@ -397,7 +397,8 @@ These are locked decisions. Do not question them in design or code reviews.
 - ❌ Never wrap the entire screen in SingleChildScrollView — only the content zone scrolls
 - ❌ Never use a fixed-count dot or step indicator for onboarding — continuous bar only
 - ❌ Never flatten the shell pattern into a single scrollable column — fixed top + Expanded + fixed bottom, always
-- ❌ Never show interactive items on S-01 — nudge bubbles are display only, no onTap, no hover, no selection state
+- ❌ Never show interactive items on S-01 — photo cards are display/swipeable only, no item selection, no check circles
+- ❌ Never show a category filter strip on S-01 — category filter exists on S-03 and S-09 only
 - ❌ Never use Dutch copy in design files (lo-fi, hi-fi, prototype) — English only in all design artefacts
 - ❌ Never write locale-specific copy as the primary copy in design files — label it explicitly (e.g., "nl-BE example")
 - ❌ Never add "Step X of Y" text labels anywhere on screen — the progress bar is the only progress indicator, ever
@@ -469,12 +470,12 @@ Update this section when open decisions are resolved.
 | S-01 category strip removed | Category filter chips (Home, Vehicle, Garden, Subscriptions) removed from S-01. Screen was too busy. Category strip stays on S-03 and S-09 where it's a functional filter. | ✅ Yes | 2026-03-26 |
 | S-01 subtitle v2 | "We remind you before things break, expire, or get too late." replaces "Add what you own. We'll remind you when it matters." Explains the why (prevent problems) not the how (add items). | ✅ Yes | 2026-03-26 |
 | S-01 badge copy | "Set up in 2 minutes" replaces "Ready in 2 minutes". Action-oriented (user takes action) vs passive. | ✅ Yes | 2026-03-26 |
-| V2 flow promoted | v2 onboarding flow promoted to main. v1 archived. Celebration before auth, two-state AHA+celebration screen, sign-in as bottom sheet, nudge bubbles on S-01. | ✅ Yes | 2026-03-26 |
+| V2 flow promoted | v2 onboarding flow promoted to main. v1 archived. Celebration before auth, two-state AHA+celebration screen, sign-in as bottom sheet, photo card carousel on S-01. | ✅ Yes | 2026-03-26 |
 | Screen renumbering | S-05 Review → S-04. S-06 AHA → S-05 (combined with celebration + sign-in). S-07 Push → S-06. Old S-07 completion + S-08 SSO merged into S-05 two-state. S-09 Dashboard unchanged. | ✅ Yes | 2026-03-26 |
-| Nudge bubbles component | S-01 welcome shows 3 staggered nudge bubbles in nudgii voice. Category-tinted bg (7%), rotation angles, display only. Replaces item cards and category chips. | ✅ Yes | 2026-03-26 |
-| S-02 no carry-over | S-02 opens fresh ("What do you have at home?"). No selection carry-over from S-01 since S-01 no longer has interactive items. | ✅ Yes | 2026-03-26 |
+| S-01 photo carousel | S-01 welcome shows 3 swipeable polaroid-style photo cards (tyres, tomato, lawn). Caveat handwritten captions, season chip, dots navigation, pivot text. Auto-advance 3.8s. Replaces nudge bubbles. Assets: assets/s01-tyres.jpg, s01-tomato.jpg, s01-lawn.jpg. | ✅ Yes | 2026-03-30 |
+| S-02 no carry-over | S-02 opens fresh ("What do you have at home?"). No selection carry-over from S-01 since S-01 has no interactive items (photo cards only). | ✅ Yes | 2026-03-26 |
 | Gamification micro-moments | Celebration prototype pattern (confetti + spring animation) to be reused for: first task completed, streak milestones, weekly all-done. Design as reusable component. | ✅ Yes | 2026-03-26 |
-| Nudge bubble localization | S-01 nudge bubble content needs locale variants (nl-BE, nl-NL, fr) and seasonal rotation (adjust by current month). Store in database, not hardcoded. | ✅ Yes | 2026-03-26 |
+| Photo card localization | S-01 photo card content (captions, badges, pivot text) needs locale variants (nl-BE, nl-NL, fr) and seasonal rotation (4 asset sets per season). Store in database, not hardcoded. Season chip adapts to current month. | ✅ Yes | 2026-03-30 |
 | Free tier: no onboarding limits | Never block during onboarding. Let users add unlimited items. 10-item limit enforced on dashboard only. Items 11+ show "Pro" badge and don't send reminders. User chooses which 10 stay active, or upgrades. Conversion trigger: when a paused item's task comes due. | ✅ Yes | 2026-03-26 |
 | S-02 edge cases | 7 conversation scenarios documented in hi-fi: nonsense input, duplicate, ambiguous, unknown item, silence, brand mentioned, many items at once. Bubble tints: red for errors, amber for duplicates, standard for clarifications. | ✅ Yes | 2026-03-26 |
 | Continue chip copy | "Show my schedule" renamed to "Continue" in S-02. Next screen is S-04 Review, not the schedule. "Ready to review what I found?" replaces "Ready to see your schedule?" | ✅ Yes | 2026-03-26 |

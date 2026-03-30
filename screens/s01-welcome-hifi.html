@@ -6,26 +6,39 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>nudgii · S-01 Welcome · hi-fi</title>
 <link rel="stylesheet" href="../system/components.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
 <style>
 /* ── S-01 screen-specific ── */
 body{background:#CBC5BB;padding:0 0 80px;}
 .w-top{display:flex;align-items:center;justify-content:flex-start;margin-bottom:12px;}
-.w-h1{font-family:'DM Serif Display',Georgia,serif;font-size:33px;font-weight:400;line-height:0.97;letter-spacing:-0.55px;color:var(--ink);margin-bottom:6px;}
-.w-h1 em{color:var(--ap-dk);font-style:italic;}
+.w-h1{font-family:'DM Serif Display',Georgia,serif;font-size:33px;font-weight:400;line-height:0.97;letter-spacing:-0.55px;color:var(--ink);margin-bottom:8px;}
+.w-h1 em{color:var(--cta);font-style:italic;}
 
-/* ── Nudge bubbles (S-01 v2) ── */
-.nudge-bubbles{display:flex;flex-direction:column;gap:12px;margin:24px 0 0;padding:0;align-items:flex-start;}
-.nb{border-radius:12px;padding:10px 14px 10px 10px;display:inline-flex;align-items:center;gap:10px;border:none;box-shadow:none;max-width:85%;}
-.nb.nb-home{background:rgba(200,120,80,0.07);transform:rotate(-1.2deg);margin-left:8px;}
-.nb.nb-garden{background:rgba(90,144,96,0.07);transform:rotate(0.8deg);margin-left:32px;}
-.nb.nb-vehicle{background:rgba(74,130,160,0.07);transform:rotate(-0.5deg);margin-left:18px;}
-.nb-icon{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.nb-icon svg{width:11px;height:11px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
-.nb-content{flex:1;}
-.nb-title{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:1px;}
-.nb-sub{font-size:11px;color:var(--mid);font-style:italic;}
+/* ── Season chip ── */
+.season-chip{display:inline-flex;align-items:center;gap:4px;font-size:9.5px;font-weight:600;letter-spacing:0.5px;background:rgba(74,122,64,0.13);color:#2D5A30;padding:3px 10px;border-radius:100px;}
 
-.support-line{font-size:13px;font-style:italic;color:var(--mid);text-align:center;margin:16px 0 0;line-height:1.5;}
+/* ── Polaroid stage ── */
+.pol-stage{position:relative;height:260px;margin:20px 0 0;overflow:visible;}
+.pol{position:absolute;left:50%;top:0;background:white;padding:9px 9px 0;width:180px;box-shadow:0 8px 40px rgba(44,40,36,0.22);cursor:grab;touch-action:none;transform:translateX(-50%) rotate(-2deg);transition:transform 0.52s cubic-bezier(0.34,1.56,0.64,1),opacity 0.35s ease;user-select:none;}
+.pol-photo{width:100%;height:128px;overflow:hidden;}
+.pol-photo img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(0.88) contrast(0.95) brightness(0.97);}
+.pol-note-area{padding:8px 7px 12px;text-align:center;background:white;}
+.pol-note{font-family:'Caveat',cursive;font-size:16px;font-weight:500;color:var(--ink);line-height:1.3;display:block;}
+.pol-note em{font-style:italic;color:var(--cta);}
+.pol-badge{display:inline-block;font-family:'DM Sans',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;padding:2px 8px;border-radius:100px;margin-top:5px;}
+
+/* ── Dots ── */
+.pol-dots{display:flex;justify-content:center;gap:7px;margin:12px 0 0;}
+.pol-dot{width:5px;height:5px;border-radius:50%;background:rgba(44,40,36,0.15);transition:background 0.25s,transform 0.25s;}
+.pol-dot.on{background:var(--cta);transform:scale(1.3);}
+
+/* ── Pivot text ── */
+.pivot{margin:14px 28px 0;text-align:center;height:40px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;transition:opacity 0.25s;}
+.pivot-l1{font-size:12px;font-style:italic;color:var(--mid);line-height:1.4;white-space:nowrap;}
+.pivot-l2{font-size:12px;font-style:italic;color:var(--mid);line-height:1.4;white-space:nowrap;}
+.pivot-l2 strong{font-style:normal;font-weight:600;color:var(--ink);}
+
 .trust-line{text-align:center;font-size:11px;color:var(--mid);margin-top:12px;}
 </style>
 </head>
@@ -52,7 +65,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
   <!-- PAGE HEADER -->
   <div class="page-eyebrow">S-01 · Welcome screen · Hi-fi · 390x844px (iPhone 15) · March 2026</div>
   <h1 class="page-h1">Welcome</h1>
-  <p class="page-sub">First screen after app launch. Shows what nudgii does through 3 example nudge bubbles in nudgii's warm voice. Two clear paths forward: voice/type (Path A) or browse (Path B). No interactive items, no selection state.</p>
+  <p class="page-sub">First screen after app launch. Shows what nudgii does through a swipeable photo card carousel — real imagery with handwritten-style captions that demonstrate nudgii's seasonal awareness. Two clear paths forward: voice/type (Path A) or browse (Path B). No category filter on this screen.</p>
   <div class="meta">
     <span class="mp hifi">Hi-fi</span>
     <span class="mp ob">Onboarding flow</span>
@@ -69,7 +82,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
         <div class="notch"><div class="np"></div></div>
         <div class="sbar"><span>9:41</span><div class="batt"></div></div>
         <!-- progress bar 20% -->
-        <div class="prog-bar"><div class="prog-fill" style="width:20%;"></div></div>
+        <div class="prog-bar"><div class="prog-fill" id="s01-pf" style="width:20%;"></div></div>
 
         <div class="w-screen">
           <div class="w-content">
@@ -83,29 +96,32 @@ body{background:#CBC5BB;padding:0 0 80px;}
             </div>
 
             <!-- headline -->
-            <div class="w-h1">Your stuff won't<br><em>maintain itself.</em></div>
+            <div class="w-h1">Your stuff won't<br><em>remind itself.</em></div>
+            <div class="season-chip">🌱 spring</div>
 
-            <!-- nudge bubbles: 3 display-only bubbles in nudgii's voice -->
-            <div class="nudge-bubbles">
-              <!-- Home: boiler -->
-              <div class="nb nb-home">
-                <div class="nb-icon" style="background:rgba(200,120,80,0.14);"><svg viewBox="0 0 16 16" style="stroke:var(--cat-home);"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div>
-                <div class="nb-content"><div class="nb-title">Your boiler could use some love</div><div class="nb-sub">we'll remind you before winter</div></div>
-              </div>
-              <!-- Garden: lawn -->
-              <div class="nb nb-garden">
-                <div class="nb-icon" style="background:rgba(90,144,96,0.14);"><svg viewBox="0 0 16 16" style="stroke:var(--cat-garden);"><path d="M8 14V8"/><path d="M5 11c-2-1-2-4 1-5 0-2 4-3 5 0 3 0 3 4 0 5"/></svg></div>
-                <div class="nb-content"><div class="nb-title">Lawn's waking up soon</div><div class="nb-sub">spring prep before it gets ahead of you</div></div>
-              </div>
-              <!-- Vehicle: car -->
-              <div class="nb nb-vehicle">
-                <div class="nb-icon" style="background:rgba(74,130,160,0.14);"><svg viewBox="0 0 16 16" style="stroke:var(--cat-vehicle);"><rect x="1" y="6" width="14" height="6" rx="2"/><circle cx="4.5" cy="12" r="1.5"/><circle cx="11.5" cy="12" r="1.5"/><path d="M3 6L5 2h6l2 4"/></svg></div>
-                <div class="nb-content"><div class="nb-title">Car check-up is coming</div><div class="nb-sub">one less thing to remember</div></div>
+            <!-- polaroid photo card -->
+            <div class="pol-stage">
+              <div class="pol" id="s01-pol">
+                <div class="pol-photo"><img id="s01-img" src="" alt=""></div>
+                <div class="pol-note-area">
+                  <span class="pol-note" id="s01-note"></span>
+                  <span class="pol-badge" id="s01-badge"></span>
+                </div>
               </div>
             </div>
 
-            <!-- supporting line -->
-            <div class="support-line">Nudges when it matters. Silent otherwise.</div>
+            <!-- dots -->
+            <div class="pol-dots">
+              <div class="pol-dot on" id="s01-d0"></div>
+              <div class="pol-dot" id="s01-d1"></div>
+              <div class="pol-dot" id="s01-d2"></div>
+            </div>
+
+            <!-- pivot text -->
+            <div class="pivot" id="s01-pivot">
+              <span class="pivot-l1" id="s01-pl1"></span>
+              <span class="pivot-l2" id="s01-pl2"></span>
+            </div>
           </div>
 
           <!-- sticky bottom zone -->
@@ -139,7 +155,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
           Scroll + sticky zones
         </div>
         <div class="annot-body">
-          Content zone scrolls (ii mark through support line). Button zone is <strong>fixed at bottom</strong>, outside scroll area. Flutter: <code>Column</code> with <code>Expanded(child: SingleChildScrollView)</code> + fixed bottom <code>Column</code>. Never a <code>Spacer</code> to push buttons down.
+          Content zone scrolls (ii mark through pivot text). Button zone is <strong>fixed at bottom</strong>, outside scroll area. Flutter: <code>Column</code> with <code>Expanded(child: SingleChildScrollView)</code> + fixed bottom <code>Column</code>. Never a <code>Spacer</code> to push buttons down.
         </div>
       </div>
 
@@ -149,7 +165,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
           ii mark
         </div>
         <div class="annot-body">
-          ii mark: inline SVG, 18x20px. Dark-on-light variant (CTA purple left, plum right, apricot dot). Top-left, no free badge alongside. Free badge removed from this screen (trust line at bottom replaces it).
+          ii mark: inline SVG, 18x20px. Dark-on-light variant (CTA purple left, plum right, plumPale dot). Top-left, no free badge alongside. Trust signals consolidated in bottom trust line.
         </div>
       </div>
 
@@ -160,36 +176,44 @@ body{background:#CBC5BB;padding:0 0 80px;}
           <span class="badge-note">Headline</span>
         </div>
         <div class="annot-body">
-          DM Serif Display 33px, <code>line-height: 0.97</code>, <code>letter-spacing: -0.55px</code>. "remind itself." in <code>colorCta #9B7FD4</code> italic (confirmed in dev build). One serif moment for this screen.
+          DM Serif Display 33px, <code>line-height: 0.97</code>, <code>letter-spacing: -0.55px</code>. "remind itself." in <code>colorCta #9B7FD4</code> italic. One serif moment for this screen. Below: seasonal chip (garden-tinted bg, 9.5px DM Sans 600).
         </div>
       </div>
 
       <div class="annot-card decision">
         <div class="annot-head">
           <span class="badge-decision">Decision</span>
-          Nudge bubbles replace item rows
+          Photo card carousel replaces nudge bubbles
         </div>
         <div class="annot-body">
-          3 display-only bubbles in nudgii's warm voice replace interactive task rows. Each bubble: category-tinted background at 7% opacity, 12px radius, no border. Staggered rotation (-1.2deg, 0.8deg, -0.5deg) and varied left margins (8px, 32px, 18px) for organic feel. Category icon chip 22x22px. Title 13px DM Sans 500, subtitle 11px italic <code>colorMid</code>. <strong>Not interactive:</strong> no onTap, no hover, no selection state. Flutter: <code>Column</code> of <code>Container</code> widgets with <code>Transform.rotate</code>. No <code>GestureDetector</code>, no <code>InkWell</code>.
-        </div>
-      </div>
-
-      <div class="annot-card decision">
-        <div class="annot-head">
-          <span class="badge-decision">Decision</span>
-          Bubble content in nudgii's voice
-        </div>
-        <div class="annot-body">
-          Copy is warm and conversational: "Your boiler could use some love" not "Service the boiler." Subtitles frame value: "we'll remind you before winter." Content is locale-dependent and seasonally rotated (stored in database). English shown in design files per design system rules.
+          A swipeable polaroid-style card shows real seasonal photos with handwritten-style captions (Caveat font) demonstrating nudgii's awareness. 3 cards cycle automatically (3.8s interval) or on swipe. Spring card order: tyres, tomato, lawn. Cards auto-advance; swipe left/right to skip. Replaces 3 static nudge bubbles from v2.7.
         </div>
       </div>
 
       <div class="annot-card">
         <div class="annot-head">
-          <span class="badge-note">Support line</span>
+          <span class="badge-note">Polaroid card
         </div>
         <div class="annot-body">
-          "Nudges when it matters. Silent otherwise." Centered, 13px italic DM Sans, <code>colorMid</code>. Positioned below nudge bubbles with 16px margin-top. One-line value proposition that addresses the #1 objection (notification fatigue).
+          White card, 9px padding, slight rotation per card (-1.8°, 2.4°, -1.0°). Shadow: <code>0 8px 40px rgba(44,40,36,0.22)</code>. Photo: 128px tall, object-fit: cover, slight desaturation filter. Caption: Caveat 16px 500, <code>colorInk</code>. Italic emphasis: <code>colorCta</code>. Badge pill: DM Sans 7.5px 700 uppercase, category-tinted background.
+        </div>
+      </div>
+
+      <div class="annot-card">
+        <div class="annot-head">
+          <span class="badge-note">Dots + pivot</span>
+        </div>
+        <div class="annot-body">
+          3 dots below card, 5px diameter. Active: <code>colorCta</code>, scale 1.3×. Inactive: <code>rgba(44,40,36,0.15)</code>. Pivot: 2-line italic DM Sans 12px <code>colorMid</code> with bold keyword on line 2. Fades cross-dissolves on card change (220ms). Progress bar advances: 20% → 28% → 36% per card.
+        </div>
+      </div>
+
+      <div class="annot-card">
+        <div class="annot-head">
+          <span class="badge-note">Photos (assets)</span>
+        </div>
+        <div class="annot-body">
+          3 JPEG assets in <code>assets/</code>: <code>s01-tyres.jpg</code>, <code>s01-tomato.jpg</code>, <code>s01-lawn.jpg</code>. Flutter: bundle in <code>assets/images/</code>, declare in pubspec.yaml. Use <code>Image.asset()</code> with <code>BoxFit.cover</code>. Seasonal rotation: swap asset set per season (spring/summer/autumn/winter) in app config.
         </div>
       </div>
 
@@ -198,10 +222,10 @@ body{background:#CBC5BB;padding:0 0 80px;}
       <div class="annot-card decision">
         <div class="annot-head">
           <span class="badge-decision">Decision</span>
-          Two paths, clean bottom zone
+          Two paths, no category filter
         </div>
         <div class="annot-body">
-          <strong>Path A</strong> "Tell me what you have" leads to S-02 (voice/type/scan). <strong>Path B</strong> "Show me what I can track" leads to S-03 (browse categories). "How do you want to start?" divider removed for cleaner layout. Always vertically stacked, never side-by-side. Sentence case.
+          <strong>Path A</strong> "Tell me what you have" leads to S-02 (voice/type/scan). <strong>Path B</strong> "Show me what I can track" leads to S-03 (browse categories). No category filter strip on S-01 — it was removed as too busy. Always vertically stacked. Sentence case.
         </div>
       </div>
 
@@ -210,17 +234,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
           <span class="badge-note">Trust line</span>
         </div>
         <div class="annot-body">
-          "Free · no credit card · 2 min setup" below secondary CTA. 11px, <code>colorMid</code>, centered. Replaces the old free badge (top-right) and "Set up in 2 minutes" pill. All three trust signals in one line at the decision point.
-        </div>
-      </div>
-
-      <div class="annot-card">
-        <div class="annot-head">
-          <span class="badge-rule">Rule</span>
-          Button hierarchy
-        </div>
-        <div class="annot-body">
-          Path A: <code>colorCta</code> fill, 50px height, pill, shadow. Path B: transparent, 1.5px border, 46px height. Trust line: 11px centered text below buttons. 24px bottom padding for safe area.
+          "Free · no credit card · 2 min setup" below secondary CTA. 11px, <code>colorMid</code>, centered. All three trust signals at the decision point.
         </div>
       </div>
 
@@ -235,41 +249,23 @@ body{background:#CBC5BB;padding:0 0 80px;}
     <div class="cl-title">Changelog</div>
 
     <div class="cl-entry">
+      <div class="cl-ver">v4.0 · 2026-03-30 · BREAKING</div>
+      <div class="cl-body"><strong>Photo card carousel replaces nudge bubbles.</strong> 3 swipeable polaroid-style cards with real seasonal photos (tyres, tomato, lawn) replace the 3 static nudge bubbles from v2.7. Each card: white polaroid frame, Caveat handwritten caption, category badge pill, slight rotation. Auto-advance 3.8s, swipe left/right to skip. Flutter: <code>GestureDetector</code> with horizontal drag + <code>AnimatedContainer</code> for card transitions. Caveat font: add <code>google_fonts</code> Caveat. Assets: <code>s01-tyres.jpg</code>, <code>s01-tomato.jpg</code>, <code>s01-lawn.jpg</code> in <code>assets/</code>.</div>
+      <div class="cl-body"><strong>Season chip added.</strong> "🌱 spring" pill below headline. Garden-tinted bg, 9.5px DM Sans 600. Content is seasonal — swap copy per season. Flutter: read current season from DateTime, swap chip text and emoji.</div>
+      <div class="cl-body"><strong>Dots + pivot added.</strong> 3 navigation dots below card. Pivot: 2-line italic subtitle that cross-dissolves on card change. Communicates nudgii's value per card. Flutter: <code>Row</code> of <code>AnimatedContainer</code> dots + <code>AnimatedOpacity</code> pivot.</div>
+      <div class="cl-body"><strong>Progress bar advances with carousel.</strong> 20% on first card, 28% on second, 36% on third. Communicates forward progress without user interaction. Flutter: update <code>LinearProgressIndicator</code> value on card change.</div>
+    </div>
+
+    <div class="cl-entry">
       <div class="cl-ver">v3.2 · 2026-03-30 · BREAKING</div>
-      <div class="cl-body"><strong>colorInk token updated globally.</strong> All body text, task names, and UI labels: <code>Color(0xFF1A1612)</code> → <code>Color(0xFF2C2824)</code>. Warmer charcoal — never pure black. Flutter: update <code>colorInk</code> constant and any hardcoded <code>#1A1612</code> references across the app.</div>
-      <div class="cl-body"><strong>Path A CTA missing in dev build — must add.</strong> Dev currently only shows Path B "Show me what I can track". Path A "Tell me what you have" is the primary CTA and must appear first (full-width pill, colorCta bg). Path B is the secondary ghost button below it. Flutter: add <code>ElevatedButton</code> for Path A above the existing <code>TextButton</code> for Path B.</div>
-      <div class="cl-body"><strong>Photo card carousel is the final dev UX — design hub updated to match.</strong> The dev team iterated to a photo card carousel (real imagery, dot pagination, swipeable). This replaces the text-bubble concept from earlier design iterations. Design hub now treats the photo card as canonical for S-01.</div>
-      <div class="cl-body"><strong>Headline italic now colorCta.</strong> "remind itself." in <code>colorCta #9B7FD4</code> italic (confirmed in dev build). Was documented as colorApricotDk — colorApricotDk removed in v10.5. Flutter: no change needed if dev already renders this in colorCta.</div>
-    </div>
-
-    <div class="cl-entry">
-      <div class="cl-ver">v3.0 · 2026-03-24 · BREAKING</div>
-      <div class="cl-body"><strong>Layout restructured.</strong> Single English phone + annotation sidebar. Matches S-02 hi-fi pattern. Locale variants (nl-BE/nl-NL) removed from design files (English only per design system rules).</div>
-      <div class="cl-body"><strong>Interactive item rows.</strong> Static preview cards replaced with tappable task rows + check circles. Task names ("Clean dishwasher filter") replace item names ("Dishwasher"). Category context + cadence pills in metadata.</div>
-      <div class="cl-body"><strong>Mic icon removed from Path A CTA.</strong> "Tell me what you have" is text-only. Path A covers voice, text, and scan. Mic icon was misleading (implied voice-only).</div>
-      <div class="cl-body"><strong>Path C ghost button removed.</strong> Two paths only: Path A (tell) + Path B (browse). "Something else" row handles discovery. Three paths + a footnote was too many choices.</div>
-      <div class="cl-body"><strong>Subtitle updated.</strong> "Add what you own. We'll remind you when it matters." replaces earlier subtitle. Action-oriented + names the core value (timely reminders).</div>
-      <div class="cl-body"><strong>"For example, tap what applies to you:"</strong> microcopy added above task rows. Provides affordance for cold-start users.</div>
-      <div class="cl-body"><strong>"Something else" row added.</strong> Dashed border, plus icon, "browse all items" link. Gentle path to discovery without a third button.</div>
-    </div>
-
-    <div class="cl-entry">
-      <div class="cl-ver">v3.1 · 2026-03-26 · BREAKING</div>
-      <div class="cl-body"><strong>Category strip removed.</strong> The row of category pills (Home, Vehicle, Garden, Subscriptions) is gone. Screen was too busy. Category context is already visible in each task row's subtitle line. Flutter: remove the <code>cat-strip</code> widget entirely from S-01. Component stays in S-03 and S-09.</div>
-      <div class="cl-body"><strong>Subtitle changed.</strong> "We remind you before things break, expire, or get too late." replaces "Add what you own. We'll remind you when it matters." Explains the why (prevent problems) not the how (add items). Flutter: update the <code>promise-line</code> text string.</div>
-      <div class="cl-body"><strong>Badge text changed.</strong> "Set up in 2 minutes" replaces "Ready in 2 minutes". Action-oriented framing (user takes action) vs passive. Flutter: update the <code>ready-badge</code> text string.</div>
+      <div class="cl-body"><strong>colorInk token updated globally.</strong> All body text, task names, and UI labels: <code>Color(0xFF1A1612)</code> → <code>Color(0xFF2C2824)</code>. Warmer charcoal. Flutter: update <code>colorInk</code> constant.</div>
+      <div class="cl-body"><strong>Path A CTA confirmed in dev build.</strong> "Tell me what you have" primary CTA present. "Show me what I can track" secondary ghost button below it.</div>
+      <div class="cl-body"><strong>Headline italic is colorCta.</strong> "remind itself." in <code>colorCta #9B7FD4</code>. colorApricotDk removed in v10.5.</div>
     </div>
 
     <div class="cl-entry">
       <div class="cl-ver">v2.7 · 2026-03-26 · BREAKING</div>
-      <div class="cl-body"><strong>Nudge bubbles replace item rows.</strong> 3 interactive task rows with check circles + "Something else" dashed card removed. Replaced with 3 display-only nudge bubbles in nudgii's warm voice. Each bubble: category-tinted background (7% opacity), 12px border-radius, no border. Staggered rotation angles (-1.2deg, 0.8deg, -0.5deg) and varied left margins (8px, 32px, 18px). Category icon chip 22x22px, title 13px DM Sans 500, subtitle 11px italic colorMid. Flutter: replace <code>GestureDetector</code> task rows with non-interactive <code>Container</code> widgets using <code>Transform.rotate</code>. Remove all selection state, <code>AnimatedSwitcher</code> check logic, and pre-selection carry-forward to S-02.</div>
-      <div class="cl-body"><strong>Free badge removed.</strong> Top-right sage-green "Free · no credit card" pill removed from ii mark row. Trust signals consolidated into bottom trust line. Flutter: remove <code>free-badge</code> widget from top row.</div>
-      <div class="cl-body"><strong>Subtitle line removed.</strong> "We remind you before things break, expire, or get too late." removed. The nudge bubbles now demonstrate the value proposition visually instead of stating it in text. Flutter: remove <code>promise-line</code> widget.</div>
-      <div class="cl-body"><strong>"Set up in 2 minutes" badge removed.</strong> Clock icon + text pill removed. Time expectation consolidated into bottom trust line as "2 min setup". Flutter: remove <code>ready-badge</code> widget.</div>
-      <div class="cl-body"><strong>"How do you want to start?" divider removed.</strong> Path divider with lines removed for cleaner layout. CTAs speak for themselves. Flutter: remove <code>pdiv</code> widget from bottom zone.</div>
-      <div class="cl-body"><strong>Microcopy removed.</strong> "For example, tap what applies to you:" removed (no longer applicable with display-only bubbles). Flutter: remove <code>micro</code> text widget.</div>
-      <div class="cl-body"><strong>Support line added.</strong> "Nudges when it matters. Silent otherwise." below nudge bubbles. 13px italic DM Sans, colorMid, centered, 16px margin-top. Addresses notification fatigue objection. Flutter: add <code>Text</code> widget with italic style.</div>
-      <div class="cl-body"><strong>Trust line added.</strong> "Free · no credit card · 2 min setup" below secondary CTA. 11px, colorMid, centered, 12px margin-top. Consolidates three trust signals at the decision point. Flutter: add <code>Text</code> widget in bottom zone below Path B button.</div>
+      <div class="cl-body"><strong>Nudge bubbles replaced item rows.</strong> 3 display-only bubbles (Home, Garden, Vehicle) in nudgii's warm voice. Now replaced by photo cards in v4.0.</div>
     </div>
 
     <div class="cl-flutter">
@@ -279,15 +275,134 @@ body{background:#CBC5BB;padding:0 0 80px;}
         SafeArea:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;top=false, progress bar outside SafeArea<br>
         Scroll:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SingleChildScrollView for content zone only<br>
         Bottom zone:&nbsp;&nbsp;&nbsp;&nbsp;Sticky: fixed Column at bottom, not Spacer<br>
-        Progress bar:&nbsp;&nbsp;&nbsp;Full width, height 3px, outside SafeArea, 20% fill<br>
+        Progress bar:&nbsp;&nbsp;&nbsp;Full width, height 3px, outside SafeArea, 20–36% fill (advances with carousel)<br>
         Scaling:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All visual elements x (screenWidth/390).clamp(0.9, 1.15)<br>
-        Special:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nudge bubbles are display-only (no GestureDetector, no InkWell). Use Transform.rotate for stagger. No pre-selection state, no carry-forward to S-02.
+        Special:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Polaroid card: GestureDetector + AnimatedContainer. Auto-advance Timer(3.8s). Caveat font from google_fonts. Assets: s01-tyres.jpg, s01-tomato.jpg, s01-lawn.jpg. No category filter strip on this screen.
       </div>
     </div>
 
   </div><!-- /changelog -->
 
 </div><!-- /page -->
+
+<script>
+const MOMENTS=[
+  {
+    img:"../assets/s01-tyres.jpg",
+    note:"summer tyres.<br>frost is gone. <em>almost.</em>",
+    badge:"after the frost",
+    bg:"rgba(74,122,64,0.12)",col:"#2D5A30",
+    rot:"-1.8deg",
+    l1:"nudgii reminds you before the garage fills up.",
+    l2:"<strong>Book before November.</strong>"
+  },
+  {
+    img:"../assets/s01-tomato.jpg",
+    note:"tomatoes. sow now<br><em>or wait till next year.</em>",
+    badge:"narrow window",
+    bg:"rgba(122,90,80,0.12)",col:"#6B4030",
+    rot:"2.4deg",
+    l1:"nudgii knows the window.",
+    l2:"<strong>You</strong> get to enjoy the harvest."
+  },
+  {
+    img:"../assets/s01-lawn.jpg",
+    note:"lawn. three weeks.<br><em>the neighbours are counting.</em>",
+    badge:"early spring",
+    bg:"rgba(74,106,130,0.12)",col:"#2A5E78",
+    rot:"-1.0deg",
+    l1:"nudgii schedules it",
+    l2:"<strong>before</strong> it gets out of hand."
+  },
+];
+
+let cur=0,dragging=false,startX=null,startY=null,dragOffset=0,autoTimer=null;
+const pol=document.getElementById("s01-pol");
+const polImg=document.getElementById("s01-img");
+const polNote=document.getElementById("s01-note");
+const polBadge=document.getElementById("s01-badge");
+const pl1=document.getElementById("s01-pl1");
+const pl2=document.getElementById("s01-pl2");
+const pivotEl=document.getElementById("s01-pivot");
+const pfEl=document.getElementById("s01-pf");
+
+function updateDots(i){
+  for(let j=0;j<3;j++){
+    document.getElementById("s01-d"+j).classList.toggle("on",i===j);
+  }
+}
+
+function setMoment(idx,fromDir){
+  const m=MOMENTS[idx];
+  polImg.src=m.img;
+  polNote.innerHTML=m.note;
+  polBadge.textContent=m.badge;
+  polBadge.style.background=m.bg;
+  polBadge.style.color=m.col;
+  updateDots(idx);
+  pivotEl.style.opacity="0";
+  setTimeout(()=>{
+    pl1.innerHTML=m.l1;
+    pl2.innerHTML=m.l2;
+    pivotEl.style.opacity="1";
+  },220);
+  const fx=fromDir==="left"?"110px":"-110px";
+  pol.style.transition="none";
+  pol.style.opacity="0";
+  pol.style.transform=`translateX(calc(-50% + ${fx})) rotate(${m.rot})`;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    pol.style.transition="transform 0.52s cubic-bezier(0.34,1.56,0.64,1),opacity 0.32s ease";
+    pol.style.opacity="1";
+    pol.style.transform=`translateX(-50%) rotate(${m.rot})`;
+  }));
+  pfEl.style.width=(20+idx*8)+"%";
+}
+
+function goTo(idx,dir){
+  if(idx===cur)return;
+  pol.style.transition="transform 0.28s ease-in,opacity 0.26s ease-in";
+  pol.style.transform=`translateX(calc(-50% + ${dir==="left"?"-260px":"260px"})) rotate(${dir==="left"?"-14deg":"14deg"})`;
+  pol.style.opacity="0";
+  setTimeout(()=>{cur=idx;setMoment(cur,dir==="left"?"right":"left");},250);
+  resetAuto();
+}
+
+function next(){goTo((cur+1)%3,"left");}
+function prev(){goTo((cur+2)%3,"right");}
+function resetAuto(){clearInterval(autoTimer);autoTimer=setInterval(next,3800);}
+
+pol.addEventListener("pointerdown",e=>{
+  startX=e.clientX;startY=e.clientY;
+  dragging=true;dragOffset=0;
+  pol.setPointerCapture(e.pointerId);
+  clearInterval(autoTimer);
+  pol.style.transition="none";
+});
+pol.addEventListener("pointermove",e=>{
+  if(!dragging||startX===null)return;
+  const dx=e.clientX-startX;
+  if(Math.abs(e.clientY-startY)>Math.abs(dx)*1.1){dragging=false;return;}
+  dragOffset=dx;
+  const base=parseFloat(MOMENTS[cur].rot);
+  pol.style.transform=`translateX(calc(-50% + ${dx}px)) rotate(${base+dx*0.04}deg)`;
+  pol.style.opacity=Math.max(0.38,1-Math.abs(dx)/200);
+});
+pol.addEventListener("pointerup",()=>{
+  if(!dragging)return;dragging=false;
+  if(dragOffset<-55)next();
+  else if(dragOffset>55)prev();
+  else{
+    pol.style.transition="transform 0.42s cubic-bezier(0.34,1.4,0.64,1),opacity 0.25s";
+    pol.style.transform=`translateX(-50%) rotate(${MOMENTS[cur].rot})`;
+    pol.style.opacity="1";
+    resetAuto();
+  }
+  dragOffset=0;
+});
+
+setMoment(0,"right");
+resetAuto();
+</script>
 
 </body>
 </html>
