@@ -11,7 +11,7 @@
 :root{
   --cream:#F5F0E8;--ink:#2C2824;--cta:#9B7FD4;--cta-fg:#FAF8FF;
   --mid:#8A8070;--mid-a:#6B6358;--surface:#FFFFFF;--border:rgba(26,22,18,0.08);
-  --cat-home:#7A5A50;--cat-vehicle:#4A6A82;--cat-garden:#4A7A40;--cat-sub:#6A5085;
+  --cat-home:#7A5A50;--cat-vehicle:#4A6A82;--cat-garden:#607870;--cat-sub:#6A5085;
 }
 
 body{
@@ -51,7 +51,7 @@ body{
 
 /* ── DEVICE ── */
 .device{
-  width:310px;background:var(--cream);border-radius:38px;
+  width:390px;background:var(--cream);border-radius:44px;
   overflow:hidden;border:1.5px solid rgba(26,22,18,0.15);
   box-shadow:0 24px 60px rgba(0,0,0,0.28);
 }
@@ -90,7 +90,7 @@ body{
 .chip-home.on{outline:1px solid var(--cat-home);}
 .chip-vehicle{background:rgba(74,106,130,0.13);color:var(--cat-vehicle);}
 .chip-vehicle.on{outline:1px solid var(--cat-vehicle);}
-.chip-garden{background:rgba(74,122,64,0.13);color:var(--cat-garden);}
+.chip-garden{background:rgba(96,120,112,0.13);color:var(--cat-garden);}
 .chip-garden.on{outline:1px solid var(--cat-garden);}
 .chip-subs{background:rgba(106,80,133,0.13);color:var(--cat-sub);}
 .chip-subs.on{outline:1px solid var(--cat-sub);}
@@ -102,7 +102,7 @@ body{
 .snum{background:rgba(255,255,255,0.28);width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:700;}
 
 /* Content scroll area */
-.content{overflow-y:auto;max-height:370px;scrollbar-width:none;padding-bottom:4px;}
+.content{overflow-y:auto;max-height:460px;scrollbar-width:none;padding-bottom:4px;}
 .content::-webkit-scrollbar{display:none;}
 
 /* Category section headers */
@@ -243,10 +243,10 @@ body{
 </div><!-- /page-content -->
 
 <script>
-const CC={home:'#7A5A50',vehicle:'#4A6A82',garden:'#4A7A40',subs:'#6A5085'};
+const CC={home:'#7A5A50',vehicle:'#4A6A82',garden:'#607870',subs:'#6A5085'};
+const CB={home:'#D2BEB6',vehicle:'#C0CDD8',garden:'#C0CEC9',subs:'#D0C6DC'};
 const CL={home:'Home',vehicle:'Vehicle',garden:'Garden',subs:'Subscriptions'};
 const CATS=['home','vehicle','garden','subs'];
-function rgb(h){return[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)).join(',');}
 
 const SW=14;
 const IC={
@@ -311,10 +311,9 @@ function buildChips(){
 
 function makeTile(item,wide){
   const c=CC[item.cat]||CC.subs;
-  const r=rgb(c);
   const on=sel.has(item.id);
-  const bgBase=`rgba(${r},0.12)`;
-  const bgHover=`rgba(${r},0.20)`;
+  const bgBase=CB[item.cat]||CB.subs;
+  const bgHover=bgBase;
   const svg=IC[item.icon]?IC[item.icon].replace(/§/g,c):'';
   const w=wide?'width:auto;':'width:86px;';
   return `<div class="tile${on?' on':''}"
