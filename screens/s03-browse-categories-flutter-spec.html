@@ -59,7 +59,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
     <svg width="16" height="18" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:2px;">
       <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
       <path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
-      <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
+      <circle fill="#C4A8E8" cx="535.96" cy="119.29" r="90"/>
     </svg>
     Design hub
   </a>
@@ -322,18 +322,18 @@ Widget _buildChip(CatFilter filter, String label, CatFilter active) {
   // Colors per filter
   final Map&lt;CatFilter, Color&gt; chipBgColor = {
     CatFilter.all:           const Color(0x1F9B7FD4), // rgba(155,127,212,0.12)
-    CatFilter.home:          const Color(0x21C87850), // rgba(200,120,80,0.13)
-    CatFilter.vehicle:       const Color(0x214A82A0), // rgba(74,130,160,0.13)
-    CatFilter.garden:        const Color(0x215A9060), // rgba(90,144,96,0.13)
-    CatFilter.subscriptions: const Color(0x218060A8), // rgba(128,96,168,0.13)
+    CatFilter.home:          const Color(0x21C87850), // rgba(122,90,80,0.13)
+    CatFilter.vehicle:       const Color(0x214A82A0), // rgba(74,106,130,0.13)
+    CatFilter.garden:        const Color(0x215A9060), // rgba(74,122,64,0.13)
+    CatFilter.subscriptions: const Color(0x218060A8), // rgba(106,80,133,0.13)
   };
 
   final Map&lt;CatFilter, Color&gt; chipTextColor = {
     CatFilter.all:           colorCta,                // #9B7FD4
-    CatFilter.home:          catHome,                 // #C87850
-    CatFilter.vehicle:       catVehicle,              // #4A82A0
-    CatFilter.garden:        catGarden,               // #5A9060
-    CatFilter.subscriptions: catSub,                  // #8060A8
+    CatFilter.home:          catHome,                 // #7A5A50
+    CatFilter.vehicle:       catVehicle,              // #4A6A82
+    CatFilter.garden:        catGarden,               // #4A7A40
+    CatFilter.subscriptions: catSub,                  // #6A5085
   };
 
   final Map&lt;CatFilter, Color&gt; chipBorderColor = {
@@ -885,27 +885,27 @@ void _onContinue() {
 
 <h3>13.1 Category colors</h3>
 <div class="swatch-row">
-  <div class="swatch"><div class="swatch-dot" style="background:#C87850;"></div> catHome #C87850</div>
-  <div class="swatch"><div class="swatch-dot" style="background:#4A82A0;"></div> catVehicle #4A82A0</div>
-  <div class="swatch"><div class="swatch-dot" style="background:#5A9060;"></div> catGarden #5A9060</div>
-  <div class="swatch"><div class="swatch-dot" style="background:#8060A8;"></div> catSub #8060A8</div>
+  <div class="swatch"><div class="swatch-dot" style="background:#7A5A50;"></div> catHome #7A5A50</div>
+  <div class="swatch"><div class="swatch-dot" style="background:#4A6A82;"></div> catVehicle #4A6A82</div>
+  <div class="swatch"><div class="swatch-dot" style="background:#4A7A40;"></div> catGarden #4A7A40</div>
+  <div class="swatch"><div class="swatch-dot" style="background:#6A5085;"></div> catSub #6A5085</div>
 </div>
 
 <h3>13.2 Chip backgrounds (13% opacity tints)</h3>
 <div class="swatch-row">
   <div class="swatch"><div class="swatch-dot" style="background:rgba(155,127,212,0.12);border:1px solid #9B7FD4;"></div> All: rgba(155,127,212,0.12) + #9B7FD4 border (always active)</div>
-  <div class="swatch"><div class="swatch-dot" style="background:rgba(200,120,80,0.13);"></div> Home: rgba(200,120,80,0.13)</div>
-  <div class="swatch"><div class="swatch-dot" style="background:rgba(74,130,160,0.13);"></div> Vehicle: rgba(74,130,160,0.13)</div>
-  <div class="swatch"><div class="swatch-dot" style="background:rgba(90,144,96,0.13);"></div> Garden: rgba(90,144,96,0.13)</div>
-  <div class="swatch"><div class="swatch-dot" style="background:rgba(128,96,168,0.13);"></div> Subscriptions: rgba(128,96,168,0.13)</div>
+  <div class="swatch"><div class="swatch-dot" style="background:rgba(122,90,80,0.13);"></div> Home: rgba(122,90,80,0.13)</div>
+  <div class="swatch"><div class="swatch-dot" style="background:rgba(74,106,130,0.13);"></div> Vehicle: rgba(74,106,130,0.13)</div>
+  <div class="swatch"><div class="swatch-dot" style="background:rgba(74,122,64,0.13);"></div> Garden: rgba(74,122,64,0.13)</div>
+  <div class="swatch"><div class="swatch-dot" style="background:rgba(106,80,133,0.13);"></div> Subscriptions: rgba(106,80,133,0.13)</div>
 </div>
 
 <h3>13.3 Tile backgrounds (12% opacity tints)</h3>
 <div class="swatch-row">
-  <div class="swatch"><div class="swatch-dot" style="background:rgba(200,120,80,0.12);"></div> Home tile: rgba(200,120,80,0.12)</div>
-  <div class="swatch"><div class="swatch-dot" style="background:rgba(74,130,160,0.12);"></div> Vehicle tile: rgba(74,130,160,0.12)</div>
-  <div class="swatch"><div class="swatch-dot" style="background:rgba(90,144,96,0.12);"></div> Garden tile: rgba(90,144,96,0.12)</div>
-  <div class="swatch"><div class="swatch-dot" style="background:rgba(128,96,168,0.12);"></div> Subscriptions tile: rgba(128,96,168,0.12)</div>
+  <div class="swatch"><div class="swatch-dot" style="background:rgba(122,90,80,0.12);"></div> Home tile: rgba(122,90,80,0.12)</div>
+  <div class="swatch"><div class="swatch-dot" style="background:rgba(74,106,130,0.12);"></div> Vehicle tile: rgba(74,106,130,0.12)</div>
+  <div class="swatch"><div class="swatch-dot" style="background:rgba(74,122,64,0.12);"></div> Garden tile: rgba(74,122,64,0.12)</div>
+  <div class="swatch"><div class="swatch-dot" style="background:rgba(106,80,133,0.12);"></div> Subscriptions tile: rgba(106,80,133,0.12)</div>
 </div>
 
 <h3>13.4 CTA states</h3>

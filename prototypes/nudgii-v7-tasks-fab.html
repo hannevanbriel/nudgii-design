@@ -7,13 +7,13 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-:root{--bg:#F5F0E8;--card:#FFFFFF;--text:#1A1612;--text-mid:#6B6358;--text-hint:#8A8070;--cta:#9B7FD4;--cta-fg:#FAF8FF;--apricot:#E8A87C;--apricot-dk:#C8784A;--terra:#C4503A;--cat-home:#C87850;--cat-vehicle:#4A82A0;--cat-garden:#5A9060;--cat-sub:#8060A8;--sage:#3B6D11;--sage-lt:#EAF3DE;--border:rgba(26,22,18,0.08);--shadow:rgba(26,22,18,0.04);}
+:root{--bg:#F5F0E8;--card:#FFFFFF;--text:#2C2824;--text-mid:#6B6358;--text-hint:#8A8070;--cta:#9B7FD4;--cta-fg:#FAF8FF;--apricot:#C4A8E8;--apricot-dk:#9B7FD4;--terra:#6B4A3A;--cat-home:#7A5A50;--cat-vehicle:#4A6A82;--cat-garden:#4A7A40;--cat-sub:#6A5085;--sage:#3B6D11;--sage-lt:#EAF3DE;--border:rgba(26,22,18,0.08);--shadow:rgba(26,22,18,0.04);}
 body{background:#2C2A28;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;padding:32px 16px;min-height:100vh;}
 .lab{font-size:11px;font-weight:500;letter-spacing:2px;color:#8A8070;margin-bottom:4px;text-transform:uppercase;}
 .sub{font-size:10px;color:#6B6358;margin-bottom:14px;text-align:center;max-width:500px;line-height:1.5;}
 
 .phone{width:390px;height:844px;background:var(--bg);border-radius:50px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:1px solid rgba(26,22,18,0.12);}
-.notch{width:102px;height:8px;background:#1A1612;border-radius:100px;position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:10;}
+.notch{width:102px;height:8px;background:#2C2824;border-radius:100px;position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:10;}
 .sbar{display:flex;justify-content:space-between;align-items:center;padding:16px 24px 0;font-size:15px;font-weight:600;color:var(--text);flex-shrink:0;}
 .sbar-r{display:flex;gap:5px;}.sbar-r svg{fill:var(--text);}
 .ct{flex:1;overflow-y:auto;padding:0 16px;-webkit-overflow-scrolling:touch;}.ct::-webkit-scrollbar{display:none;}
@@ -25,7 +25,7 @@ body{background:#2C2A28;font-family:'DM Sans',sans-serif;display:flex;flex-direc
 
 /* header */
 .ih{display:flex;align-items:center;gap:12px;margin-bottom:6px;}
-.ii{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(200,120,80,0.10);}
+.ii{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(122,90,80,0.10);}
 .ii svg{width:22px;height:22px;fill:none;stroke:var(--cat-home);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
 .iinf{flex:1;}.inm{font-family:'DM Serif Display',serif;font-size:22px;color:var(--text);}.imt{font-size:11px;color:var(--text-mid);margin-top:2px;}
 .ias{display:flex;gap:6px;}
@@ -92,7 +92,7 @@ body{background:#2C2A28;font-family:'DM Sans',sans-serif;display:flex;flex-direc
 .fab:active{transform:scale(0.92);}
 .fab svg{width:17px;height:17px;stroke:var(--cta-fg);fill:none;stroke-width:2;stroke-linecap:round;transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);}
 .fab.open svg{transform:rotate(45deg);}
-.hi{width:134px;height:5px;background:#1A1612;border-radius:100px;margin:4px auto 8px;opacity:0.15;}
+.hi{width:134px;height:5px;background:#2C2824;border-radius:100px;margin:4px auto 8px;opacity:0.15;}
 
 /* ═══ FAB ACTION SHEET ═══ */
 .fab-sheet{position:absolute;bottom:76px;right:16px;display:flex;flex-direction:column;gap:8px;z-index:25;opacity:0;pointer-events:none;transform:translateY(12px);transition:all 0.25s cubic-bezier(0.32,0.72,0,1);}
@@ -118,7 +118,7 @@ body{background:#2C2A28;font-family:'DM Sans',sans-serif;display:flex;flex-direc
 .bs-pill{font-size:10px;font-weight:500;padding:4px 10px;border-radius:100px;background:var(--card);border:0.5px solid var(--border);color:var(--text-mid);}
 .bs-pill.urg{background:rgba(196,80,58,0.08);color:var(--terra);border-color:rgba(196,80,58,0.12);}
 /* why/how */
-.bs-why{background:rgba(200,120,80,0.06);border-radius:10px;padding:12px 14px;margin-bottom:12px;}
+.bs-why{background:rgba(122,90,80,0.06);border-radius:10px;padding:12px 14px;margin-bottom:12px;}
 .bs-wyl{font-size:8px;font-weight:500;letter-spacing:1.5px;color:var(--cat-home);text-transform:uppercase;margin-bottom:3px;}
 .bs-wyt{font-size:13px;color:var(--text);line-height:1.5;}
 .bs-how{margin-bottom:14px;}
@@ -239,7 +239,7 @@ body{background:#2C2A28;font-family:'DM Sans',sans-serif;display:flex;flex-direc
   <div class="bs" id="bs-task1">
     <div class="bs-h"></div>
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-      <div style="width:30px;height:30px;border-radius:8px;background:rgba(200,120,80,0.10);display:flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C87850" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="14" rx="2"/><path d="M8 6V4a2 2 0 0 1 4 0v2"/><circle cx="12" cy="14" r="2"/></svg></div>
+      <div style="width:30px;height:30px;border-radius:8px;background:rgba(122,90,80,0.10);display:flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7A5A50" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="14" rx="2"/><path d="M8 6V4a2 2 0 0 1 4 0v2"/><circle cx="12" cy="14" r="2"/></svg></div>
       <div style="font-size:11px;color:var(--text-mid);">Boiler · yearly</div>
     </div>
     <div class="bs-ti">Annual boiler service</div>
@@ -292,7 +292,7 @@ body{background:#2C2A28;font-family:'DM Sans',sans-serif;display:flex;flex-direc
   <div class="bs" id="bs-task2">
     <div class="bs-h"></div>
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-      <div style="width:30px;height:30px;border-radius:8px;background:rgba(200,120,80,0.10);display:flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C87850" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="14" rx="2"/><path d="M8 6V4a2 2 0 0 1 4 0v2"/><circle cx="12" cy="14" r="2"/></svg></div>
+      <div style="width:30px;height:30px;border-radius:8px;background:rgba(122,90,80,0.10);display:flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7A5A50" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="14" rx="2"/><path d="M8 6V4a2 2 0 0 1 4 0v2"/><circle cx="12" cy="14" r="2"/></svg></div>
       <div style="font-size:11px;color:var(--text-mid);">Boiler</div>
     </div>
     <div class="bs-ti">Check CO detector</div>

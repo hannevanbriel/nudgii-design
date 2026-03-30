@@ -8,10 +8,10 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#F5F0E8;--card:#FFFFFF;--text:#1A1612;--text-mid:#6B6358;--text-hint:#8A8070;
-  --cta:#9B7FD4;--cta-fg:#FAF8FF;--apricot:#E8A87C;--apricot-dk:#C8784A;--terra:#C4503A;
+  --bg:#F5F0E8;--card:#FFFFFF;--text:#2C2824;--text-mid:#6B6358;--text-hint:#8A8070;
+  --cta:#9B7FD4;--cta-fg:#FAF8FF;--apricot:#C4A8E8;--apricot-dk:#9B7FD4;--terra:#6B4A3A;
   --plum:#2D1F4A;--mid:#8A8070;--surface:#FFFFFF;
-  --cat-home:#C87850;--cat-vehicle:#4A82A0;--cat-garden:#5A9060;--cat-sub:#8060A8;
+  --cat-home:#7A5A50;--cat-vehicle:#4A6A82;--cat-garden:#4A7A40;--cat-sub:#6A5085;
   --sage:#3B6D11;--sage-lt:#EAF3DE;
   --border:rgba(26,22,18,0.08);--shadow:rgba(26,22,18,0.04);
 }
@@ -27,7 +27,7 @@ body{background:#2C2A28;font-family:'DM Sans',sans-serif;display:flex;flex-direc
 /* phone */
 .phone{width:390px;height:844px;background:var(--bg);border-radius:50px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:1px solid rgba(26,22,18,0.12);transition:background 0.4s;}
 .notch{width:102px;height:8px;border-radius:100px;position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:10;}
-.light-notch{background:#1A1612;}
+.light-notch{background:#2C2824;}
 .dark-notch{background:rgba(245,240,232,0.3);}
 .sbar{display:flex;justify-content:space-between;align-items:center;padding:16px 24px 0;font-size:15px;font-weight:600;color:var(--text);flex-shrink:0;}
 .sbar-r{display:flex;gap:5px;align-items:center;}
@@ -41,9 +41,9 @@ body{background:#2C2A28;font-family:'DM Sans',sans-serif;display:flex;flex-direc
 .s-link{font-size:11px;color:var(--cta);font-weight:500;}
 .ic{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .ic svg{width:14px;height:14px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
-.ic-h{background:rgba(200,120,80,0.10);}.ic-h svg{stroke:var(--cat-home);}
-.ic-v{background:rgba(74,130,160,0.10);}.ic-v svg{stroke:var(--cat-vehicle);}
-.ic-g{background:rgba(90,144,96,0.10);}.ic-g svg{stroke:var(--cat-garden);}
+.ic-h{background:rgba(122,90,80,0.10);}.ic-h svg{stroke:var(--cat-home);}
+.ic-v{background:rgba(74,106,130,0.10);}.ic-v svg{stroke:var(--cat-vehicle);}
+.ic-g{background:rgba(74,122,64,0.10);}.ic-g svg{stroke:var(--cat-garden);}
 .streak-pill{display:flex;align-items:center;gap:4px;background:rgba(232,168,124,0.10);border:0.5px solid rgba(232,168,124,0.22);border-radius:100px;padding:4px 10px 4px 7px;flex-shrink:0;}
 .streak-num{font-family:'DM Serif Display',serif;font-size:16px;color:var(--apricot);line-height:1;}
 .streak-label{font-size:8px;font-weight:500;letter-spacing:0.5px;color:var(--apricot-dk);}
@@ -69,7 +69,7 @@ body{background:#2C2A28;font-family:'DM Sans',sans-serif;display:flex;flex-direc
 .feat-k{font-size:9px;font-weight:500;letter-spacing:1.8px;color:var(--terra);text-transform:uppercase;}
 .feat-ti{font-size:17px;font-weight:500;color:var(--terra);line-height:1.25;margin-bottom:4px;}
 .feat-it{font-size:11px;color:var(--text-mid);margin-bottom:10px;}
-.feat-w{background:rgba(200,120,80,0.06);border-radius:8px;padding:10px 12px;}
+.feat-w{background:rgba(122,90,80,0.06);border-radius:8px;padding:10px 12px;}
 .feat-wl{font-size:8px;font-weight:500;letter-spacing:1.5px;color:var(--cat-home);text-transform:uppercase;margin-bottom:2px;}
 .feat-wt{font-size:12px;color:var(--text);line-height:1.45;}
 
@@ -129,7 +129,7 @@ body{background:#2C2A28;font-family:'DM Sans',sans-serif;display:flex;flex-direc
 .bs-meta{display:flex;gap:6px;margin-bottom:14px;}
 .bs-pill{font-size:10px;font-weight:500;padding:4px 10px;border-radius:100px;background:var(--card);border:0.5px solid var(--border);color:var(--text-mid);}
 .bs-pill.urgent{background:rgba(196,80,58,0.08);color:var(--terra);border-color:rgba(196,80,58,0.15);}
-.bs-why{background:rgba(200,120,80,0.06);border-radius:10px;padding:12px 14px;margin-bottom:14px;}
+.bs-why{background:rgba(122,90,80,0.06);border-radius:10px;padding:12px 14px;margin-bottom:14px;}
 .bs-why-l{font-size:8px;font-weight:500;letter-spacing:1.5px;color:var(--cat-home);text-transform:uppercase;margin-bottom:3px;}
 .bs-why-t{font-size:13px;color:var(--text);line-height:1.5;}
 .bs-how{margin-bottom:14px;}

@@ -9,26 +9,26 @@
 :root{
   --cream:    #F5F0E8;
   --cream-2:  #EDE6D4;
-  --ink:      #1A1612;
+  --ink:      #2C2824;
   --mid:      #8A8070;
   --mid-lt:   #B0A898;
   --border:   rgba(26,22,18,0.08);
   --border-md:rgba(26,22,18,0.12);
-  --ap:       #E8A87C;
-  --ap-dk:    #C8784A;
+  --ap:       #C4A8E8;
+  --ap-dk:    #9B7FD4;
   --cta:      #9B7FD4;
   --cta-fg:   #FAF8FF;
-  --terra:    #C4503A;
+  --terra:    #6B4A3A;
   --plum:     #2D1F4A;
   --plum-lt:  #9B7FD4;
   --surface:  #FFFFFF;
 
   /* flow colors */
   --f-ob:   #9B7FD4;   --f-ob-bg:  rgba(155,127,212,0.08);  --f-ob-bd: rgba(155,127,212,0.20);
-  --f-db:   #C8784A;   --f-db-bg:  rgba(200,120,74,0.08);   --f-db-bd: rgba(200,120,74,0.20);
-  --f-tk:   #C4503A;   --f-tk-bg:  rgba(196,80,58,0.07);    --f-tk-bd: rgba(196,80,58,0.18);
-  --f-it:   #5A9060;   --f-it-bg:  rgba(90,144,96,0.08);    --f-it-bd: rgba(90,144,96,0.20);
-  --f-ask:  #4A82A0;   --f-ask-bg: rgba(74,130,160,0.08);   --f-ask-bd: rgba(74,130,160,0.20);
+  --f-db:   #9B7FD4;   --f-db-bg:  rgba(200,120,74,0.08);   --f-db-bd: rgba(200,120,74,0.20);
+  --f-tk:   #6B4A3A;   --f-tk-bg:  rgba(196,80,58,0.07);    --f-tk-bd: rgba(196,80,58,0.18);
+  --f-it:   #4A7A40;   --f-it-bg:  rgba(74,122,64,0.08);    --f-it-bd: rgba(74,122,64,0.20);
+  --f-ask:  #4A6A82;   --f-ask-bg: rgba(74,106,130,0.08);   --f-ask-bd: rgba(74,106,130,0.20);
   --f-pr:   #2D1F4A;   --f-pr-bg:  rgba(45,31,74,0.07);     --f-pr-bd: rgba(45,31,74,0.16);
   --f-sys:  #8A8070;   --f-sys-bg: rgba(138,128,112,0.08);  --f-sys-bd: rgba(138,128,112,0.18);
 }
@@ -57,7 +57,7 @@ body{background:var(--cream);font-family:'DM Sans',sans-serif;-webkit-font-smoot
 .stat{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:11px 16px;min-width:120px;}
 .stat-n{font-family:'DM Serif Display',serif;font-size:28px;color:var(--ink);line-height:1;}
 .stat-l{font-size:11px;color:var(--mid);margin-top:3px;}
-.stat.s-ready{border-color:rgba(90,144,96,0.25);background:rgba(90,144,96,0.04);}
+.stat.s-ready{border-color:rgba(74,122,64,0.25);background:rgba(74,122,64,0.04);}
 .stat.s-ready .stat-n{color:#3A6E40;}
 .stat.s-wip{border-color:rgba(155,127,212,0.25);background:rgba(155,127,212,0.04);}
 .stat.s-wip .stat-n{color:#5C3E8A;}
@@ -104,14 +104,14 @@ section{padding-top:48px;}
 .node-badges{display:flex;gap:4px;flex-wrap:wrap;}
 .nb{display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:500;padding:2px 6px;border-radius:100px;}
 .nb-lo{background:rgba(138,128,112,0.10);color:var(--mid);}
-.nb-lo.done{background:rgba(90,144,96,0.10);color:#2A5A30;}
+.nb-lo.done{background:rgba(74,122,64,0.10);color:#2A5A30;}
 .nb-hi{background:rgba(155,127,212,0.10);color:#5C3E8A;}
 .nb-hi.done{background:rgba(155,127,212,0.15);color:#5C3E8A;}
 .nb-dot{width:4px;height:4px;border-radius:50%;flex-shrink:0;}
 
 /* status strip at bottom of card */
 .node-status{width:100%;height:3px;border-radius:0 0 9px 9px;margin-top:4px;}
-.ns-ready{background:#5A9060;}
+.ns-ready{background:#4A7A40;}
 .ns-wip{background:var(--cta);}
 .ns-todo{background:var(--border-md);}
 .ns-dec{background:var(--terra);}
@@ -155,7 +155,7 @@ section{padding-top:48px;}
 
 /* status badges (text) */
 .s-badge{font-size:9px;font-weight:500;padding:2px 7px;border-radius:100px;display:inline-block;margin-top:5px;}
-.s-ready{background:rgba(90,144,96,0.10);color:#2A5A30;}
+.s-ready{background:rgba(74,122,64,0.10);color:#2A5A30;}
 .s-wip{background:rgba(155,127,212,0.10);color:#5C3E8A;}
 .s-todo{background:rgba(138,128,112,0.08);color:var(--mid);}
 .s-dec{background:rgba(196,80,58,0.07);color:#8B3020;}
@@ -179,7 +179,7 @@ section{padding-top:48px;}
 /* ── NODE LINK ROW (lo / hi quick links below card) ── */
 .node-links{display:flex;gap:4px;margin-top:4px;justify-content:center;}
 .nl-btn{font-size:9px;font-weight:500;padding:2px 8px;border-radius:100px;text-decoration:none;transition:opacity .15s;}
-.nl-btn.lo{background:rgba(90,144,96,0.10);color:#2A5A30;border:1px solid rgba(90,144,96,0.20);}
+.nl-btn.lo{background:rgba(74,122,64,0.10);color:#2A5A30;border:1px solid rgba(74,122,64,0.20);}
 .nl-btn.hi{background:rgba(155,127,212,0.10);color:#5C3E8A;border:1px solid rgba(155,127,212,0.22);}
 .nl-btn:hover{opacity:.7;}
 </style>
@@ -189,7 +189,7 @@ section{padding-top:48px;}
 <!-- Hub nav -->
 <div class="hub-nav">
   <a class="hub-back" href="../index.html">
-    <svg width="18" height="18" viewBox="0 0 80 80" style="border-radius:4px;flex-shrink:0"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
+    <svg width="18" height="18" viewBox="0 0 80 80" style="border-radius:4px;flex-shrink:0"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#C4A8E8"/></svg>
     Design hub
   </a>
   <span class="hub-title">UX Flow overview</span>
@@ -505,7 +505,7 @@ section{padding-top:48px;}
       </div>
 
       <!-- 6 strong points -->
-      <div style="background:#F2FAF0;border:1px solid rgba(90,144,96,0.20);border-radius:12px;padding:16px 18px;">
+      <div style="background:#F2FAF0;border:1px solid rgba(74,122,64,0.20);border-radius:12px;padding:16px 18px;">
         <div style="font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:#2A5A30;margin-bottom:10px;">6 sterke punten — niet aanpassen</div>
         <ul style="font-size:11px;color:#1E4228;line-height:1.7;padding-left:14px;">
           <li>Deferred auth</li>

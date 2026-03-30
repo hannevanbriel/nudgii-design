@@ -7,13 +7,13 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#F5F0E8;--card:#FFF;--text:#1A1612;--text-mid:#6B6358;--text-hint:#8A8070;--cta:#9B7FD4;--cta-fg:#FAF8FF;--apricot:#E8A87C;--apricot-dk:#C8784A;--terra:#C4503A;--cat-home:#C87850;--cat-vehicle:#4A82A0;--cat-garden:#5A9060;--cat-sub:#6B5B95;--sage:#3B6D11;--sage-lt:#EAF3DE;--border:rgba(26,22,18,0.08);--shadow:rgba(26,22,18,0.04)}
+:root{--bg:#F5F0E8;--card:#FFF;--text:#2C2824;--text-mid:#6B6358;--text-hint:#8A8070;--cta:#9B7FD4;--cta-fg:#FAF8FF;--apricot:#C4A8E8;--apricot-dk:#9B7FD4;--terra:#6B4A3A;--cat-home:#7A5A50;--cat-vehicle:#4A6A82;--cat-garden:#4A7A40;--cat-sub:#6B5B95;--sage:#3B6D11;--sage-lt:#EAF3DE;--border:rgba(26,22,18,0.08);--shadow:rgba(26,22,18,0.04)}
 body{background:#2C2A28;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;padding:24px 12px;min-height:100vh}
 .lab{font-size:11px;font-weight:500;letter-spacing:2px;color:#8A8070;margin-bottom:4px;text-transform:uppercase}
 .sub-t{font-size:10px;color:#6B6358;margin-bottom:12px;text-align:center;max-width:520px;line-height:1.5}
 
 .ph{width:390px;height:844px;background:var(--bg);border-radius:50px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:1px solid rgba(26,22,18,0.12)}
-.notch{width:102px;height:8px;background:#1A1612;border-radius:100px;position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:10}
+.notch{width:102px;height:8px;background:#2C2824;border-radius:100px;position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:10}
 .sbar{display:flex;justify-content:space-between;align-items:center;padding:16px 24px 0;font-size:15px;font-weight:600;color:var(--text);flex-shrink:0}
 .sbar-r{display:flex;gap:5px}.sbar-r svg{fill:var(--text)}
 .ct{flex:1;overflow-y:auto;padding:0 16px;-webkit-overflow-scrolling:touch}.ct::-webkit-scrollbar{display:none}
@@ -25,7 +25,7 @@ body{background:#2C2A28;font-family:'DM Sans',sans-serif;display:flex;flex-direc
 
 /* item header */
 .ih{display:flex;align-items:center;gap:12px;margin-bottom:6px}
-.i-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(200,120,80,0.10)}
+.i-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(122,90,80,0.10)}
 .i-icon svg{width:22px;height:22px;fill:none;stroke:var(--cat-home);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .i-info{flex:1}.i-nm{font-family:'DM Serif Display',serif;font-size:22px;color:var(--text)}.i-mt{font-size:11px;color:var(--text-mid);margin-top:2px}
 .i-acts{display:flex;gap:6px}
@@ -112,7 +112,7 @@ body{background:#2C2A28;font-family:'DM Sans',sans-serif;display:flex;flex-direc
 .bs-su{font-size:11px;color:var(--text-mid);margin-bottom:14px;font-style:italic;line-height:1.4}
 .bs-meta{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px}
 .bs-pill{font-size:10px;font-weight:500;padding:4px 10px;border-radius:100px;background:var(--card);border:.5px solid var(--border);color:var(--text-mid)}.bs-pill.urg{background:rgba(196,80,58,.08);color:var(--terra);border-color:rgba(196,80,58,.12)}
-.bs-why{background:rgba(200,120,80,.06);border-radius:10px;padding:12px 14px;margin-bottom:12px}.bs-wyl{font-size:8px;font-weight:500;letter-spacing:1.5px;color:var(--cat-home);text-transform:uppercase;margin-bottom:3px}.bs-wyt{font-size:13px;color:var(--text);line-height:1.5}
+.bs-why{background:rgba(122,90,80,.06);border-radius:10px;padding:12px 14px;margin-bottom:12px}.bs-wyl{font-size:8px;font-weight:500;letter-spacing:1.5px;color:var(--cat-home);text-transform:uppercase;margin-bottom:3px}.bs-wyt{font-size:13px;color:var(--text);line-height:1.5}
 .bs-how{margin-bottom:14px}.bs-howl{font-size:8px;font-weight:500;letter-spacing:1.5px;color:var(--text-mid);text-transform:uppercase;margin-bottom:6px}.bs-howt{font-size:13px;color:var(--text-mid);line-height:1.55}
 .bs-edit{background:var(--card);border-radius:10px;border:.5px solid var(--border);padding:12px 14px;margin-bottom:14px}
 .bs-edit-l{font-size:8px;font-weight:500;letter-spacing:1.5px;color:var(--text-mid);text-transform:uppercase;margin-bottom:8px}
@@ -170,12 +170,12 @@ body{background:#2C2A28;font-family:'DM Sans',sans-serif;display:flex;flex-direc
     <!-- IMPORTANT DATES SECTION -->
     <div class="shd"><div class="sl">important dates</div></div>
     <div class="date-row">
-      <div class="dr-icon" style="background:rgba(200,120,80,0.10)"><svg viewBox="0 0 24 24" stroke="#C87850"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/></svg></div>
+      <div class="dr-icon" style="background:rgba(122,90,80,0.10)"><svg viewBox="0 0 24 24" stroke="#7A5A50"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/></svg></div>
       <div class="dr-body"><div class="dr-label">Last service</div><div class="dr-value">October 15, 2024</div></div>
       <div class="dr-edit">Edit</div>
     </div>
     <div class="date-row">
-      <div class="dr-icon" style="background:rgba(200,120,80,0.10)"><svg viewBox="0 0 24 24" stroke="#C87850"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg></div>
+      <div class="dr-icon" style="background:rgba(122,90,80,0.10)"><svg viewBox="0 0 24 24" stroke="#7A5A50"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg></div>
       <div class="dr-body"><div class="dr-label">Warranty expires</div><div class="dr-value">March 2027</div></div>
       <div class="dr-edit">Edit</div>
     </div>
@@ -234,7 +234,7 @@ body{background:#2C2A28;font-family:'DM Sans',sans-serif;display:flex;flex-direc
   <div class="ov" id="ov-task1" onclick="closeS('task1')"></div>
   <div class="bs" id="bs-task1">
     <div class="bs-h"></div>
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><div style="width:30px;height:30px;border-radius:8px;background:rgba(200,120,80,0.10);display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C87850" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="14" rx="2"/><path d="M8 6V4a2 2 0 0 1 4 0v2"/><circle cx="12" cy="14" r="2"/></svg></div><div style="font-size:11px;color:var(--text-mid)">Boiler · yearly</div></div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><div style="width:30px;height:30px;border-radius:8px;background:rgba(122,90,80,0.10);display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7A5A50" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="14" rx="2"/><path d="M8 6V4a2 2 0 0 1 4 0v2"/><circle cx="12" cy="14" r="2"/></svg></div><div style="font-size:11px;color:var(--text-mid)">Boiler · yearly</div></div>
     <div class="bs-ti">Annual boiler service</div>
     <div class="bs-su">Your boiler quietly judges you when you skip this.</div>
     <div class="bs-meta"><div class="bs-pill urg">12 days overdue</div><div class="bs-pill">Yearly</div><div class="bs-pill">Last: Oct 2024</div><div class="bs-pill">Warranty: Mar 2027</div></div>
@@ -250,7 +250,7 @@ body{background:#2C2A28;font-family:'DM Sans',sans-serif;display:flex;flex-direc
   <div class="ov" id="ov-task2" onclick="closeS('task2')"></div>
   <div class="bs" id="bs-task2">
     <div class="bs-h"></div>
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><div style="width:30px;height:30px;border-radius:8px;background:rgba(200,120,80,0.10);display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C87850" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="14" rx="2"/><path d="M8 6V4a2 2 0 0 1 4 0v2"/><circle cx="12" cy="14" r="2"/></svg></div><div style="font-size:11px;color:var(--text-mid)">Boiler</div></div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><div style="width:30px;height:30px;border-radius:8px;background:rgba(122,90,80,0.10);display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7A5A50" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="14" rx="2"/><path d="M8 6V4a2 2 0 0 1 4 0v2"/><circle cx="12" cy="14" r="2"/></svg></div><div style="font-size:11px;color:var(--text-mid)">Boiler</div></div>
     <div class="bs-ti">Check CO detector</div>
     <div class="bs-su">The one task you hope you never actually need.</div>
     <div class="bs-meta"><div class="bs-pill">On track</div><div class="bs-pill">Yearly</div><div class="bs-pill">Next: Oct 2026</div></div>
