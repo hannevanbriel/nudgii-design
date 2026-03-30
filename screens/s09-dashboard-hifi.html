@@ -6,6 +6,19 @@
 <title>nudgii · S-09 Dashboard · hi-fi</title>
 <link rel="stylesheet" href="../system/components.css">
 <style>
+/* ── v10.5 token overrides (in case components.css is cached) ── */
+:root{
+  --ink:#2C2824;
+  --cat-home-bg:#D2BEB6;  --cat-home-ic:#7A5A50;
+  --cat-vehicle-bg:#C0CDD8; --cat-vehicle-ic:#4A6A82;
+  --cat-garden-bg:#C4DABE;  --cat-garden-ic:#4A7A40;
+  --cat-sub-bg:#D0C6DC;     --cat-sub-ic:#6A5085;
+  --cat-health-bg:#D2D0C4;  --cat-health-ic:#6A6858;
+  --cat-pets-bg:#DECDC0;    --cat-pets-ic:#8A6238;
+  --plum-pale:#C4A8E8;
+  --overdue-badge:#6B4A3A;
+}
+
 /* ── S-09 screen-specific ── */
 body{background:#CBC5BB;padding:0 0 80px;}
 
@@ -15,58 +28,172 @@ body{background:#CBC5BB;padding:0 0 80px;}
 .state-col{display:flex;flex-direction:column;align-items:center;gap:12px;}
 .state-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:var(--mid-a);}
 
+/* Dashboard screen area */
+.d-screen{flex:1;overflow:hidden;display:flex;flex-direction:column;}
+.d-content{flex:1;overflow-y:auto;padding:0 16px 96px;scrollbar-width:none;}
+.d-content::-webkit-scrollbar{display:none;}
+
 /* Greeting row */
-.d-greeting{padding:16px 20px 10px;flex-shrink:0;}
-.d-greeting-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:3px;}
-.d-greeting-name{font-family:'DM Serif Display',Georgia,serif;font-size:25px;font-weight:400;line-height:0.95;letter-spacing:-0.4px;color:var(--ink);}
+.d-greeting{padding:16px 20px 8px;flex-shrink:0;display:flex;align-items:flex-start;justify-content:space-between;}
+.d-greeting-left{flex:1;}
+.d-date{font-size:10px;font-weight:500;color:var(--mid-a);letter-spacing:0.2px;margin-bottom:4px;}
+.d-greeting-name{font-family:'DM Serif Display',Georgia,serif;font-size:26px;font-weight:400;line-height:1.08;letter-spacing:-0.4px;color:var(--ink);}
 .d-greeting-name em{color:var(--cta);font-style:italic;}
-.d-greeting-sub{font-size:11px;color:var(--mid-a);margin-top:4px;}
-.d-greeting-sub .check-inline{display:inline-flex;width:11px;height:11px;vertical-align:-1px;margin-right:2px;}
+
+/* ii mark avatar */
+.d-avatar{width:42px;height:42px;border-radius:50%;background:rgba(44,40,36,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 
 /* Settings icon */
 .d-settings{width:44px;height:44px;border-radius:10px;background:rgba(26,22,18,0.05);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;transition:background 0.15s;}
 .d-settings:active{background:rgba(26,22,18,0.09);}
 .d-settings svg{width:16px;height:16px;stroke:var(--mid-a);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
 
-/* Dashboard screen area */
-.d-screen{flex:1;overflow:hidden;display:flex;flex-direction:column;}
-.d-content{flex:1;overflow-y:auto;padding:0 16px 90px;scrollbar-width:none;}
-.d-content::-webkit-scrollbar{display:none;}
+/* Progress summary row */
+.d-progress{
+  display:flex;align-items:center;gap:10px;
+  margin:8px 20px 12px;
+  background:var(--surface);
+  border-radius:14px;
+  padding:10px 12px;
+  box-shadow:var(--shadow-card);
+  flex-shrink:0;
+}
+.d-ring{position:relative;width:44px;height:44px;flex-shrink:0;}
+.d-ring svg{width:44px;height:44px;}
+.d-ring-text{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:600;color:var(--ink);letter-spacing:-0.3px;
+}
+.d-progress-info{flex:1;min-width:0;}
+.d-progress-title{font-size:13px;font-weight:500;color:var(--ink);line-height:1.2;margin-bottom:2px;}
+.d-progress-sub{font-size:10px;color:var(--mid-a);}
+.d-streak{
+  display:flex;flex-direction:column;align-items:center;
+  background:rgba(155,127,212,0.08);border-radius:10px;padding:6px 9px;flex-shrink:0;
+}
+.d-streak-num{font-size:16px;font-weight:600;color:var(--cta);line-height:1;}
+.d-streak-label{font-size:8px;font-weight:500;color:var(--cta);margin-top:2px;white-space:nowrap;}
 
-/* Section labels: rgba(26,22,18,0.28) is the section label color, decorative only */
+/* Dynamic cards horizontal scroll row */
+.d-cards-row{
+  display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;
+  padding:0 20px 12px;flex-shrink:0;
+  -webkit-overflow-scrolling:touch;
+}
+.d-cards-row::-webkit-scrollbar{display:none;}
+.d-dyn-card{
+  flex-shrink:0;width:148px;border-radius:14px;
+  padding:11px 12px;
+  display:flex;flex-direction:column;gap:4px;
+  cursor:pointer;
+}
+.d-dyn-card.home{background:var(--cat-home-bg);}
+.d-dyn-card.garden{background:var(--cat-garden-bg);}
+.d-dyn-card.cream{background:rgba(245,240,232,0.85);border:0.5px solid rgba(44,40,36,0.08);}
+.d-dyn-card-label{font-size:8px;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;color:rgba(44,40,36,0.40);}
+.d-dyn-card-title{font-size:12px;font-weight:500;color:var(--ink);line-height:1.3;}
+.d-dyn-card-sub{font-size:10px;color:var(--mid-a);font-style:italic;margin-top:1px;}
+
+/* Section labels */
 .d-sec{font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:rgba(26,22,18,0.28);margin:14px 0 8px;}
 
-/* Task cards (dashboard = 8px gap) */
-.d-tasks{display:flex;flex-direction:column;gap:8px;}
-.d-task{
+/* Expandable task cards (feat pattern) */
+.feat{
   background:var(--surface);
-  border:none;
-  border-radius:12px;
-  box-shadow:none;
-  padding:12px 14px;
-  display:flex;align-items:center;gap:10px;
+  border-radius:16px;
+  overflow:hidden;
   cursor:pointer;
-  transition:background 0.15s;
+  transition:filter 0.15s;
+  margin-bottom:8px;
 }
-.d-task:active{filter:brightness(0.97);}
-/* category backgrounds — v10.5 solid pastels */
-.d-task.cat-h{background:var(--cat-home-bg);}
-.d-task.cat-v{background:var(--cat-vehicle-bg);}
-.d-task.cat-g{background:var(--cat-garden-bg);}
-.d-task.cat-s{background:var(--cat-sub-bg);}
-.d-task.cat-hl{background:var(--cat-health-bg);}
-.d-task.cat-p{background:var(--cat-pets-bg);}
+.feat:active{filter:brightness(0.97);}
+.feat.cat-h{background:var(--cat-home-bg);}
+.feat.cat-v{background:var(--cat-vehicle-bg);}
+.feat.cat-g{background:var(--cat-garden-bg);}
+.feat.cat-s{background:var(--cat-sub-bg);}
+.feat.cat-hl{background:var(--cat-health-bg);}
+.feat.cat-p{background:var(--cat-pets-bg);}
 
-.d-task-info{flex:1;min-width:0;}
-.d-task-name{font-size:13px;font-weight:500;color:var(--ink);line-height:1.2;letter-spacing:-0.2px;margin-bottom:2px;}
-.d-task-sub{font-size:11px;color:var(--mid-a);font-style:italic;}
-.d-task-date{font-size:11px;font-weight:500;flex-shrink:0;white-space:nowrap;}
-.d-task-date.overdue{color:var(--overdue-badge);}
-.d-task-date.due-soon{color:rgba(44,40,36,0.55);}
-.d-task-date.neutral{color:var(--mid-a);}
+.feat-header{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 14px;
+}
+.feat-icon{flex-shrink:0;width:20px;height:20px;}
+.feat-icon svg{width:20px;height:20px;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+.feat.cat-h .feat-icon svg{stroke:var(--cat-home-ic);}
+.feat.cat-v .feat-icon svg{stroke:var(--cat-vehicle-ic);}
+.feat.cat-g .feat-icon svg{stroke:var(--cat-garden-ic);}
+.feat.cat-s .feat-icon svg{stroke:var(--cat-sub-ic);}
+.feat.cat-hl .feat-icon svg{stroke:var(--cat-health-ic);}
+.feat.cat-p .feat-icon svg{stroke:var(--cat-pets-ic);}
+
+.feat-info{flex:1;min-width:0;}
+.feat-name{font-size:13px;font-weight:500;color:var(--ink);line-height:1.2;letter-spacing:-0.2px;margin-bottom:2px;}
+.feat-meta{font-size:10px;color:var(--mid-a);font-style:italic;}
+
+.feat-right{display:flex;align-items:center;gap:7px;flex-shrink:0;}
+
+/* Overdue badge: cream text on colorOverdueBadge pill */
+.feat-overdue{
+  background:var(--overdue-badge);color:var(--cream);
+  font-size:9px;font-weight:600;
+  padding:3px 9px;border-radius:100px;
+  white-space:nowrap;
+}
+/* Due date: plain text */
+.feat-date{
+  font-size:9px;font-weight:500;
+  color:rgba(44,40,36,0.55);
+  white-space:nowrap;
+}
+
+.feat-chevron{
+  width:14px;height:14px;flex-shrink:0;
+  transition:transform 0.2s ease-in-out;
+}
+.feat-chevron svg{width:14px;height:14px;fill:none;stroke:rgba(44,40,36,0.30);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.feat.expanded .feat-chevron{transform:rotate(180deg);}
+
+/* Expanded content */
+.feat-expand{
+  display:none;
+  padding:0 14px 14px;
+}
+.feat.expanded .feat-expand{display:block;}
+
+.feat-why{
+  background:rgba(44,40,36,0.06);
+  border-radius:10px;
+  padding:9px 12px;
+  margin-bottom:10px;
+  font-size:11px;color:var(--mid-a);line-height:1.55;
+}
+.feat-why strong{color:var(--ink);font-weight:500;}
+
+.feat-actions{display:flex;gap:6px;}
+.feat-btn{
+  flex:1;height:34px;border-radius:100px;border:none;
+  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;
+  cursor:pointer;transition:background 0.1s,transform 0.1s;
+  display:flex;align-items:center;justify-content:center;
+}
+.feat-btn.done{background:var(--cta);color:var(--cta-fg);}
+.feat-btn.done:active{background:#7D62B3;transform:scale(0.96);}
+.feat-btn.snooze{background:rgba(44,40,36,0.08);color:var(--ink);}
+.feat-btn.snooze:active{background:rgba(44,40,36,0.13);}
+.feat-btn.skip{background:rgba(44,40,36,0.06);color:var(--mid-a);}
+.feat-btn.skip:active{background:rgba(44,40,36,0.11);}
+
+/* "Coming up" collapsible */
+.d-coming-toggle{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:6px 0 8px;cursor:pointer;
+}
+.d-coming-toggle .d-sec{margin:0;}
+.d-coming-chev svg{width:12px;height:12px;fill:none;stroke:rgba(44,40,36,0.25);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
 
 /* Paused task cards */
-.d-task.paused{opacity:0.45;}
+.feat.paused{opacity:0.45;}
 .pro-pill{
   font-size:9px;font-weight:500;
   color:var(--cta);
@@ -81,7 +208,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
 .d-sec-paused{font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:rgba(155,127,212,0.50);margin:18px 0 8px;}
 
 /* Gesture hint */
-.d-gesture{display:flex;align-items:center;justify-content:flex-end;gap:4px;padding:4px 4px 0;margin-top:-2px;}
+.d-gesture{display:flex;align-items:center;justify-content:flex-end;gap:4px;padding:4px 4px 0;margin-top:-4px;margin-bottom:4px;}
 .d-gesture span{font-size:10px;font-style:italic;color:var(--mid-a);}
 
 /* Free tier banner */
@@ -141,12 +268,57 @@ body{background:#CBC5BB;padding:0 0 80px;}
 .d-digest-dismiss:active{background:rgba(26,22,18,0.06);}
 .d-digest-dismiss svg{width:10px;height:10px;stroke:var(--mid);fill:none;stroke-width:2;stroke-linecap:round;}
 
+/* Plan tab styles */
+.plan-month{font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:rgba(26,22,18,0.28);margin:14px 0 8px;}
+.plan-row{
+  display:flex;align-items:center;gap:10px;
+  padding:11px 12px;border-radius:14px;
+  margin-bottom:6px;cursor:pointer;
+}
+.plan-row.cat-h{background:var(--cat-home-bg);}
+.plan-row.cat-v{background:var(--cat-vehicle-bg);}
+.plan-row.cat-g{background:var(--cat-garden-bg);}
+.plan-row.cat-s{background:var(--cat-sub-bg);}
+.plan-icon svg{width:16px;height:16px;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+.plan-row.cat-h .plan-icon svg{stroke:var(--cat-home-ic);}
+.plan-row.cat-v .plan-icon svg{stroke:var(--cat-vehicle-ic);}
+.plan-row.cat-g .plan-icon svg{stroke:var(--cat-garden-ic);}
+.plan-info{flex:1;min-width:0;}
+.plan-name{font-size:12px;font-weight:500;color:var(--ink);}
+.plan-sub{font-size:10px;color:var(--mid-a);font-style:italic;}
+.plan-date{font-size:10px;font-weight:500;color:rgba(44,40,36,0.55);flex-shrink:0;}
+
+/* My Stuff tab styles */
+.stuff-category{margin-bottom:16px;}
+.stuff-cat-label{font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:rgba(26,22,18,0.28);margin-bottom:8px;}
+.stuff-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.stuff-tile{
+  border-radius:14px;padding:11px 10px;
+  cursor:pointer;
+}
+.stuff-tile.cat-h{background:var(--cat-home-bg);}
+.stuff-tile.cat-v{background:var(--cat-vehicle-bg);}
+.stuff-tile.cat-g{background:var(--cat-garden-bg);}
+.stuff-tile-icon svg{width:16px;height:16px;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;margin-bottom:5px;}
+.stuff-tile.cat-h .stuff-tile-icon svg{stroke:var(--cat-home-ic);}
+.stuff-tile.cat-v .stuff-tile-icon svg{stroke:var(--cat-vehicle-ic);}
+.stuff-tile.cat-g .stuff-tile-icon svg{stroke:var(--cat-garden-ic);}
+.stuff-tile-name{font-size:11px;font-weight:500;color:var(--ink);line-height:1.3;margin-bottom:1px;}
+.stuff-tile-tasks{font-size:10px;color:var(--mid-a);}
+
 /* Tab bar bottom zone (absolute, inside phone) */
 .d-bottom{
   position:absolute;bottom:14px;left:14px;right:14px;
   display:flex;align-items:flex-end;gap:8px;
   z-index:20;
 }
+
+/* 4-tab bar: needs slightly wider layout */
+.d-bottom .tab-bar{
+  flex:1;
+  padding:9px 2px 11px;
+}
+.d-bottom .tab-item{width:56px;}
 </style>
 </head>
 <body>
@@ -171,12 +343,12 @@ body{background:#CBC5BB;padding:0 0 80px;}
   <!-- PAGE HEADER -->
   <div class="page-eyebrow">S-09 · Dashboard · Hi-fi · 390x844px (iPhone 15) · March 2026</div>
   <h1 class="page-h1">Dashboard</h1>
-  <p class="page-sub">Main app screen. 5 states: default (signed in, under 10 items), empty (no items), paused items (free tier limit), all done, and skipped sign-in (with digest nudge).</p>
+  <p class="page-sub">Main app screen. 6 states: default (signed in, tasks with expandable cards, progress ring), empty (no items), all done, free tier (paused items), Plan tab, and My Stuff tab.</p>
   <div class="meta">
     <span class="mp hifi">Hi-fi</span>
     <span class="mp">Dashboard</span>
     <span class="mp">S-09</span>
-    <span class="mp">March 2026</span>
+    <span class="mp">v3.0 · March 2026</span>
   </div>
 
   <!-- ════════════════════════════════════════════════════════════ -->
@@ -185,7 +357,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
   <div class="states-row">
 
     <!-- ──────────────────────────────────────────────────────── -->
-    <!-- STATE 1: Default (signed in, <10 items)                  -->
+    <!-- STATE 1: Default (signed in, expandable task cards)      -->
     <!-- ──────────────────────────────────────────────────────── -->
     <div class="state-col">
       <div class="state-label">State 1: Default</div>
@@ -194,104 +366,235 @@ body{background:#CBC5BB;padding:0 0 80px;}
         <div class="sbar"><span>9:41</span><div class="batt"></div></div>
 
         <div class="d-screen">
-          <!-- Greeting -->
+
+          <!-- Greeting row: ii avatar + name + settings -->
           <div class="d-greeting">
-            <div class="d-greeting-top">
-              <div class="d-greeting-name">Good morning,<br><em>Martijn.</em></div>
-              <!-- Settings: PhosphorIcons.faders -->
-              <div class="d-settings">
-                <svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
-              </div>
+            <div class="d-avatar">
+              <svg width="22" height="30" viewBox="0 0 40 56" fill="none">
+                <path d="M11,5 C7,5 5,8.5 5,11.5 L5,34.5 C5,37.5 7,41 11,41 C15,41 17,37.5 17,34.5 L17,11.5 C17,8.5 15,5 11,5Z" fill="none" stroke="var(--ink)" stroke-width="2.8" stroke-linecap="round" opacity="0.25"/>
+                <path d="M29,15 C25,15 23,18.5 23,21.5 L23,44.5 C23,47.5 25,51 29,51 C33,51 35,47.5 35,44.5 L35,21.5 C35,18.5 33,15 29,15Z" fill="var(--cta)" opacity="0.35"/>
+                <circle cx="35" cy="10" r="3.5" fill="var(--cta)" opacity="0.35"/>
+              </svg>
             </div>
-            <div class="d-greeting-sub">3 tasks this week</div>
+            <div class="d-greeting-left" style="padding:0 10px;">
+              <div class="d-date">Friday 28 March</div>
+              <div class="d-greeting-name">Good morning,<br><em>Martijn.</em></div>
+            </div>
+            <!-- Settings: PhosphorIcons.faders -->
+            <div class="d-settings">
+              <svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+            </div>
+          </div>
+
+          <!-- Progress summary row -->
+          <div class="d-progress">
+            <div class="d-ring">
+              <svg viewBox="0 0 44 44">
+                <circle cx="22" cy="22" r="18" fill="none" stroke="rgba(44,40,36,0.08)" stroke-width="3"/>
+                <circle cx="22" cy="22" r="18" fill="none" stroke="var(--cta)" stroke-width="3" stroke-dasharray="113" stroke-dashoffset="24" stroke-linecap="round" transform="rotate(-90 22 22)"/>
+              </svg>
+              <div class="d-ring-text">11/14</div>
+            </div>
+            <div class="d-progress-info">
+              <div class="d-progress-title">3 things need attention</div>
+              <div class="d-progress-sub">11 of 14 items on track</div>
+            </div>
+            <div class="d-streak">
+              <div class="d-streak-num">4</div>
+              <div class="d-streak-label">week streak</div>
+            </div>
+          </div>
+
+          <!-- Dynamic cards horizontal scroll -->
+          <div class="d-cards-row">
+            <div class="d-dyn-card home">
+              <div class="d-dyn-card-label">Did you know?</div>
+              <div class="d-dyn-card-title">Boiler efficiency drops 15% without servicing.</div>
+              <div class="d-dyn-card-sub">Tap to learn more</div>
+            </div>
+            <div class="d-dyn-card cream">
+              <div class="d-dyn-card-label">This year</div>
+              <div class="d-dyn-card-title">Saved roughly ~€340 by catching issues early.</div>
+              <div class="d-dyn-card-sub">Based on your tasks</div>
+            </div>
+            <div class="d-dyn-card garden">
+              <div class="d-dyn-card-label">Spring ready</div>
+              <div class="d-dyn-card-title">2 of 5 garden tasks completed.</div>
+              <div class="d-dyn-card-sub">3 left before April</div>
+            </div>
           </div>
 
           <!-- Category filter strip -->
-          <div class="cat-strip" style="padding:0 16px;">
+          <div class="cat-strip" style="padding:0 20px;">
             <div class="cat-pill active">All</div>
-            <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-home);"></span>Home</div>
-            <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-vehicle);"></span>Vehicle</div>
-            <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-garden);"></span>Garden</div>
+            <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-home-ic);"></span>Home</div>
+            <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-vehicle-ic);"></span>Vehicle</div>
+            <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-garden-ic);"></span>Garden</div>
           </div>
 
           <!-- Scrollable content -->
           <div class="d-content">
+
             <div class="d-sec">Overdue</div>
-            <div class="d-tasks">
-              <!-- Task 0: Overdue boiler service -->
-              <div class="d-task cat-h">
-                <div class="ci ci-h">
+
+            <!-- Expandable card: Annual boiler service (expanded example) -->
+            <div class="feat cat-h expanded" onclick="this.classList.toggle('expanded')">
+              <div class="feat-header">
+                <div class="feat-icon">
                   <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
                 </div>
-                <div class="d-task-info">
-                  <div class="d-task-name">Annual boiler service</div>
-                  <div class="d-task-sub">CV ketel, yearly</div>
+                <div class="feat-info">
+                  <div class="feat-name">Annual boiler service</div>
+                  <div class="feat-meta">CV boiler · yearly</div>
                 </div>
-                <div class="d-task-date overdue">Oct 28</div>
+                <div class="feat-right">
+                  <span class="feat-overdue">12d overdue</span>
+                  <div class="feat-chevron"><svg viewBox="0 0 14 14"><path d="M3 5l4 4 4-4"/></svg></div>
+                </div>
+              </div>
+              <div class="feat-expand">
+                <div class="feat-why">
+                  <strong>Why it matters:</strong> Unserviced boilers lose up to 15% efficiency and may fail safety checks. Book a certified engineer before the heating season.
+                </div>
+                <div class="feat-actions">
+                  <button class="feat-btn done">Done</button>
+                  <button class="feat-btn snooze">Snooze</button>
+                  <button class="feat-btn skip">Skip</button>
+                </div>
               </div>
             </div>
 
-            <!-- Gesture hint (below first overdue task) -->
+            <!-- Gesture hint -->
             <div class="d-gesture">
-              <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 4h9M7 1.5L10 4L7 6.5" stroke="#6B6358" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 4h9M7 1.5L10 4L7 6.5" stroke="var(--mid-a)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               <span>swipe right to complete</span>
             </div>
 
-            <div class="d-sec">This week</div>
-            <div class="d-tasks">
-              <!-- Task 1: Dishwasher filter (due soon) -->
-              <div class="d-task cat-h">
-                <div class="ci ci-h">
+            <!-- Expandable card: Refill dishwasher salt (collapsed) -->
+            <div class="feat cat-h" onclick="this.classList.toggle('expanded')">
+              <div class="feat-header">
+                <div class="feat-icon">
                   <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
                 </div>
-                <div class="d-task-info">
-                  <div class="d-task-name">Clean dishwasher filter</div>
-                  <div class="d-task-sub">Dishwasher, every 6-8 wks</div>
+                <div class="feat-info">
+                  <div class="feat-name">Refill dishwasher salt</div>
+                  <div class="feat-meta">Dishwasher · every 6-8 wks</div>
                 </div>
-                <div class="d-task-date due-soon">Nov 4</div>
+                <div class="feat-right">
+                  <span class="feat-overdue">3d overdue</span>
+                  <div class="feat-chevron"><svg viewBox="0 0 14 14"><path d="M3 5l4 4 4-4"/></svg></div>
+                </div>
               </div>
-
-              <!-- Task 2: CO detector -->
-              <div class="d-task cat-h">
-                <div class="ci ci-h">
-                  <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
+              <div class="feat-expand">
+                <div class="feat-why">
+                  <strong>Why it matters:</strong> Low salt causes limescale buildup and reduces wash quality. Takes about 2 minutes to top up.
                 </div>
-                <div class="d-task-info">
-                  <div class="d-task-name">Check CO detector</div>
-                  <div class="d-task-sub">CV ketel, yearly</div>
+                <div class="feat-actions">
+                  <button class="feat-btn done">Done</button>
+                  <button class="feat-btn snooze">Snooze</button>
+                  <button class="feat-btn skip">Skip</button>
                 </div>
-                <div class="d-task-date neutral">Nov 15</div>
               </div>
             </div>
+
+            <div class="d-sec">Due this week</div>
+
+            <!-- Card: Check tyre pressure (collapsed) -->
+            <div class="feat cat-v" onclick="this.classList.toggle('expanded')">
+              <div class="feat-header">
+                <div class="feat-icon">
+                  <svg viewBox="0 0 24 24"><path d="M5 17h14M6 11l1.5-4.5h9L18 11"/><rect x="4" y="11" width="16" height="6" rx="2" fill="none"/><circle cx="7.5" cy="17" r="1.5"/><circle cx="16.5" cy="17" r="1.5"/></svg>
+                </div>
+                <div class="feat-info">
+                  <div class="feat-name">Check tyre pressure</div>
+                  <div class="feat-meta">Car · monthly</div>
+                </div>
+                <div class="feat-right">
+                  <span class="feat-date">Wed 26</span>
+                  <div class="feat-chevron"><svg viewBox="0 0 14 14"><path d="M3 5l4 4 4-4"/></svg></div>
+                </div>
+              </div>
+              <div class="feat-expand">
+                <div class="feat-why">
+                  <strong>Why it matters:</strong> Correct pressure improves fuel economy by up to 3% and extends tyre life significantly.
+                </div>
+                <div class="feat-actions">
+                  <button class="feat-btn done">Done</button>
+                  <button class="feat-btn snooze">Snooze</button>
+                  <button class="feat-btn skip">Skip</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card: Prune olive tree (collapsed) -->
+            <div class="feat cat-g" onclick="this.classList.toggle('expanded')">
+              <div class="feat-header">
+                <div class="feat-icon">
+                  <svg viewBox="0 0 24 24"><path d="M12 22V8M8 12l4-4 4 4"/><path d="M5 8c0-4 3-6 7-6s7 2 7 6c0 3-2 5-4 6H9c-2-1-4-3-4-6z"/></svg>
+                </div>
+                <div class="feat-info">
+                  <div class="feat-name">Prune olive tree</div>
+                  <div class="feat-meta">Olive tree · twice yearly</div>
+                </div>
+                <div class="feat-right">
+                  <span class="feat-date">Sat 29</span>
+                  <div class="feat-chevron"><svg viewBox="0 0 14 14"><path d="M3 5l4 4 4-4"/></svg></div>
+                </div>
+              </div>
+              <div class="feat-expand">
+                <div class="feat-why">
+                  <strong>Why it matters:</strong> Spring pruning keeps the tree in shape and encourages fruit production. Best before new growth appears.
+                </div>
+                <div class="feat-actions">
+                  <button class="feat-btn done">Done</button>
+                  <button class="feat-btn snooze">Snooze</button>
+                  <button class="feat-btn skip">Skip</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Coming up (collapsed by default) -->
+            <div class="d-coming-toggle">
+              <div class="d-sec" style="margin:0;">Coming up</div>
+              <div class="d-coming-chev"><svg viewBox="0 0 14 14"><path d="M3 5l4 4 4-4"/></svg></div>
+            </div>
+
           </div>
         </div>
 
         <!-- Tab bar + FAB -->
         <div class="d-bottom">
           <div class="tab-bar" style="flex:1;">
-            <!-- Tasks (active) -->
+            <!-- Today (active) -->
             <div class="tab-item active">
               <svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2" fill="none"/><line x1="16" y1="3" x2="16" y2="7"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="4" y1="11" x2="20" y2="11"/></svg>
-              <span class="tab-label">Tasks</span>
+              <span class="tab-label">Today</span>
             </div>
-            <!-- Ask (inactive) -->
+            <!-- Plan -->
             <div class="tab-item">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" fill="none"/><circle cx="12" cy="17" r="0.5"/></svg>
-              <span class="tab-label">Ask</span>
+              <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              <span class="tab-label">Plan</span>
             </div>
-            <!-- Profile (inactive) -->
+            <!-- My Stuff -->
             <div class="tab-item">
-              <svg viewBox="0 0 256 256"><circle cx="128" cy="96" r="40" fill="none"/><path d="M48,224c0-44.2,35.8-80,80-80s80,35.8,80,80" fill="none"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+              <span class="tab-label">My Stuff</span>
+            </div>
+            <!-- Profile -->
+            <div class="tab-item">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" fill="none"/></svg>
               <span class="tab-label">Profile</span>
             </div>
           </div>
-          <!-- FAB -->
-          <div class="fab">
+          <!-- FAB: outside tab bar pill -->
+          <div class="fab" style="position:absolute;right:0;bottom:4px;">
             <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           </div>
         </div>
+
       </div>
-    </div>
+    </div><!-- /state 1 -->
+
 
     <!-- ──────────────────────────────────────────────────────── -->
     <!-- STATE 2: Empty dashboard                                 -->
@@ -303,462 +606,598 @@ body{background:#CBC5BB;padding:0 0 80px;}
         <div class="sbar"><span>9:41</span><div class="batt"></div></div>
 
         <div class="d-screen">
-          <!-- Greeting (no name, skipped sign-in) -->
           <div class="d-greeting">
-            <div class="d-greeting-top">
+            <div class="d-avatar">
+              <svg width="22" height="30" viewBox="0 0 40 56" fill="none">
+                <path d="M11,5 C7,5 5,8.5 5,11.5 L5,34.5 C5,37.5 7,41 11,41 C15,41 17,37.5 17,34.5 L17,11.5 C17,8.5 15,5 11,5Z" fill="none" stroke="var(--ink)" stroke-width="2.8" stroke-linecap="round" opacity="0.25"/>
+                <path d="M29,15 C25,15 23,18.5 23,21.5 L23,44.5 C23,47.5 25,51 29,51 C33,51 35,47.5 35,44.5 L35,21.5 C35,18.5 33,15 29,15Z" fill="var(--cta)" opacity="0.35"/>
+                <circle cx="35" cy="10" r="3.5" fill="var(--cta)" opacity="0.35"/>
+              </svg>
+            </div>
+            <div class="d-greeting-left" style="padding:0 10px;">
+              <div class="d-date">Friday 28 March</div>
               <div class="d-greeting-name">Good morning,<br><em>there.</em></div>
-              <div class="d-settings">
-                <svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
-              </div>
+            </div>
+            <div class="d-settings">
+              <svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
             </div>
           </div>
 
-          <!-- No category filters (nothing to filter) -->
-
-          <!-- Empty state -->
+          <!-- Empty state: no category filter, no ring -->
           <div class="d-empty">
             <div class="d-empty-h">Nothing here yet.</div>
             <div class="d-empty-sub">Add your first item and we'll build your schedule.</div>
           </div>
         </div>
 
-        <!-- Tab bar + FAB -->
         <div class="d-bottom">
           <div class="tab-bar" style="flex:1;">
             <div class="tab-item active">
               <svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2" fill="none"/><line x1="16" y1="3" x2="16" y2="7"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="4" y1="11" x2="20" y2="11"/></svg>
-              <span class="tab-label">Tasks</span>
+              <span class="tab-label">Today</span>
             </div>
             <div class="tab-item">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" fill="none"/><circle cx="12" cy="17" r="0.5"/></svg>
-              <span class="tab-label">Ask</span>
+              <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              <span class="tab-label">Plan</span>
             </div>
             <div class="tab-item">
-              <svg viewBox="0 0 256 256"><circle cx="128" cy="96" r="40" fill="none"/><path d="M48,224c0-44.2,35.8-80,80-80s80,35.8,80,80" fill="none"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+              <span class="tab-label">My Stuff</span>
+            </div>
+            <div class="tab-item">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" fill="none"/></svg>
               <span class="tab-label">Profile</span>
             </div>
           </div>
-          <div class="fab">
+          <div class="fab" style="position:absolute;right:0;bottom:4px;">
             <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           </div>
         </div>
       </div>
-    </div>
+    </div><!-- /state 2 -->
+
 
     <!-- ──────────────────────────────────────────────────────── -->
-    <!-- STATE 3: Paused items (free tier, >10 items)             -->
+    <!-- STATE 3: All done                                        -->
     <!-- ──────────────────────────────────────────────────────── -->
     <div class="state-col">
-      <div class="state-label">State 3: Free tier limit</div>
+      <div class="state-label">State 3: All done</div>
       <div class="phone" style="position:relative;">
         <div class="notch"><div class="np"></div></div>
         <div class="sbar"><span>9:41</span><div class="batt"></div></div>
 
         <div class="d-screen">
-          <!-- Greeting -->
           <div class="d-greeting">
-            <div class="d-greeting-top">
+            <div class="d-avatar">
+              <svg width="22" height="30" viewBox="0 0 40 56" fill="none">
+                <path d="M11,5 C7,5 5,8.5 5,11.5 L5,34.5 C5,37.5 7,41 11,41 C15,41 17,37.5 17,34.5 L17,11.5 C17,8.5 15,5 11,5Z" fill="none" stroke="var(--ink)" stroke-width="2.8" stroke-linecap="round" opacity="0.25"/>
+                <path d="M29,15 C25,15 23,18.5 23,21.5 L23,44.5 C23,47.5 25,51 29,51 C33,51 35,47.5 35,44.5 L35,21.5 C35,18.5 33,15 29,15Z" fill="var(--cta)" opacity="0.35"/>
+                <circle cx="35" cy="10" r="3.5" fill="var(--cta)" opacity="0.35"/>
+              </svg>
+            </div>
+            <div class="d-greeting-left" style="padding:0 10px;">
+              <div class="d-date">Friday 28 March</div>
               <div class="d-greeting-name">Good morning,<br><em>Martijn.</em></div>
-              <div class="d-settings">
-                <svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
-              </div>
             </div>
-            <div class="d-greeting-sub">5 tasks this week</div>
+            <div class="d-settings">
+              <svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+            </div>
           </div>
 
-          <!-- Category filter strip -->
-          <div class="cat-strip" style="padding:0 16px;">
+          <!-- Progress ring: 14/14 -->
+          <div class="d-progress">
+            <div class="d-ring">
+              <svg viewBox="0 0 44 44">
+                <circle cx="22" cy="22" r="18" fill="none" stroke="rgba(44,40,36,0.08)" stroke-width="3"/>
+                <circle cx="22" cy="22" r="18" fill="none" stroke="var(--cta)" stroke-width="3" stroke-dasharray="113" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 22 22)"/>
+              </svg>
+              <div class="d-ring-text">14/14</div>
+            </div>
+            <div class="d-progress-info">
+              <div class="d-progress-title">All caught up</div>
+              <div class="d-progress-sub">14 of 14 items on track</div>
+            </div>
+            <div class="d-streak">
+              <div class="d-streak-num">4</div>
+              <div class="d-streak-label">week streak</div>
+            </div>
+          </div>
+
+          <div class="cat-strip" style="padding:0 20px;">
             <div class="cat-pill active">All</div>
-            <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-home);"></span>Home</div>
-            <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-vehicle);"></span>Vehicle</div>
-            <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-garden);"></span>Garden</div>
+            <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-home-ic);"></span>Home</div>
+            <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-vehicle-ic);"></span>Vehicle</div>
+            <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-garden-ic);"></span>Garden</div>
           </div>
 
-          <!-- Scrollable content -->
-          <div class="d-content">
-            <!-- Free tier banner -->
-            <div class="d-banner">
-              <strong>You added 13 items.</strong> Free plan tracks 10. 3 items are paused. <a href="#">Manage &rarr;</a>
-            </div>
-
-            <div class="d-sec">This week</div>
-            <div class="d-tasks">
-              <!-- Active task 1 -->
-              <div class="d-task cat-h">
-                <div class="ci ci-h">
-                  <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
-                </div>
-                <div class="d-task-info">
-                  <div class="d-task-name">Annual boiler service</div>
-                  <div class="d-task-sub">CV ketel, yearly</div>
-                </div>
-                <div class="d-task-date due-soon">Oct 28</div>
-              </div>
-
-              <!-- Active task 2 -->
-              <div class="d-task cat-h">
-                <div class="ci ci-h">
-                  <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
-                </div>
-                <div class="d-task-info">
-                  <div class="d-task-name">Clean dishwasher filter</div>
-                  <div class="d-task-sub">Dishwasher, every 6-8 wks</div>
-                </div>
-                <div class="d-task-date neutral">Nov 8</div>
-              </div>
-
-              <!-- Active task 3 -->
-              <div class="d-task cat-h">
-                <div class="ci ci-h">
-                  <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
-                </div>
-                <div class="d-task-info">
-                  <div class="d-task-name">Check CO detector</div>
-                  <div class="d-task-sub">CV ketel, yearly</div>
-                </div>
-                <div class="d-task-date neutral">Nov 15</div>
-              </div>
-            </div>
-
-            <!-- Paused section -->
-            <div class="d-sec-paused">Paused (upgrade to activate)</div>
-            <div class="d-tasks">
-              <!-- Paused task 1 (Garden) -->
-              <div class="d-task cat-g paused">
-                <div class="ci ci-g">
-                  <svg viewBox="0 0 24 24"><path d="M12 22V8M8 12l4-4 4 4"/><path d="M5 8c0-4 3-6 7-6s7 2 7 6c0 3-2 5-4 6H9c-2-1-4-3-4-6z"/></svg>
-                </div>
-                <div class="d-task-info">
-                  <div class="d-task-name">Autumn pruning</div>
-                  <div class="d-task-sub">Olive tree, yearly</div>
-                </div>
-                <span class="pro-pill">Pro</span>
-              </div>
-
-              <!-- Paused task 2 (Vehicle) -->
-              <div class="d-task cat-v paused">
-                <div class="ci ci-v">
-                  <svg viewBox="0 0 24 24"><path d="M5 17h14M6 11l1.5-4.5h9L18 11"/><rect x="4" y="11" width="16" height="6" rx="2" fill="none"/><circle cx="7.5" cy="17" r="1.5"/><circle cx="16.5" cy="17" r="1.5"/></svg>
-                </div>
-                <div class="d-task-info">
-                  <div class="d-task-name">Switch to winter tyres</div>
-                  <div class="d-task-sub">Car, before Nov</div>
-                </div>
-                <span class="pro-pill">Pro</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Tab bar + FAB -->
-        <div class="d-bottom">
-          <div class="tab-bar" style="flex:1;">
-            <div class="tab-item active">
-              <svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2" fill="none"/><line x1="16" y1="3" x2="16" y2="7"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="4" y1="11" x2="20" y2="11"/></svg>
-              <span class="tab-label">Tasks</span>
-            </div>
-            <div class="tab-item">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" fill="none"/><circle cx="12" cy="17" r="0.5"/></svg>
-              <span class="tab-label">Ask</span>
-            </div>
-            <div class="tab-item">
-              <svg viewBox="0 0 256 256"><circle cx="128" cy="96" r="40" fill="none"/><path d="M48,224c0-44.2,35.8-80,80-80s80,35.8,80,80" fill="none"/></svg>
-              <span class="tab-label">Profile</span>
-            </div>
-          </div>
-          <div class="fab">
-            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /states-row -->
-
-  <!-- ════════════════════════════════════════════════════════════ -->
-  <!-- ROW 2: States 4, 5 + Annotation sidebar                    -->
-  <!-- ════════════════════════════════════════════════════════════ -->
-  <div class="states-row-2">
-
-    <!-- ──────────────────────────────────────────────────────── -->
-    <!-- STATE 4: All tasks done                                   -->
-    <!-- ──────────────────────────────────────────────────────── -->
-    <div class="state-col">
-      <div class="state-label">State 4: All done</div>
-      <div class="phone" style="position:relative;">
-        <div class="notch"><div class="np"></div></div>
-        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
-
-        <div class="d-screen">
-          <!-- Greeting -->
-          <div class="d-greeting">
-            <div class="d-greeting-top">
-              <div class="d-greeting-name">Good morning,<br><em>Martijn.</em></div>
-              <div class="d-settings">
-                <svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
-              </div>
-            </div>
-            <div class="d-greeting-sub">
-              <svg class="check-inline" width="11" height="11" viewBox="0 0 16 16" fill="none" style="display:inline;vertical-align:-1px;margin-right:2px;"><circle cx="8" cy="8" r="7" stroke="var(--sage)" stroke-width="1.5" fill="none"/><path d="M5 8l2 2 4-4" stroke="var(--sage)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
-              0 tasks this week
-            </div>
-          </div>
-
-          <!-- Category filter strip -->
-          <div class="cat-strip" style="padding:0 16px;">
-            <div class="cat-pill active">All</div>
-            <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-home);"></span>Home</div>
-            <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-vehicle);"></span>Vehicle</div>
-            <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-garden);"></span>Garden</div>
-          </div>
-
-          <!-- All done celebration (light, not plum) -->
           <div class="d-done">
             <div class="d-done-h">Nothing overdue. Suspicious.</div>
             <div class="d-done-sub">Enjoy the quiet. We'll nudge you when something's coming up.</div>
           </div>
         </div>
 
-        <!-- Tab bar + FAB -->
         <div class="d-bottom">
           <div class="tab-bar" style="flex:1;">
             <div class="tab-item active">
               <svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2" fill="none"/><line x1="16" y1="3" x2="16" y2="7"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="4" y1="11" x2="20" y2="11"/></svg>
-              <span class="tab-label">Tasks</span>
+              <span class="tab-label">Today</span>
             </div>
             <div class="tab-item">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" fill="none"/><circle cx="12" cy="17" r="0.5"/></svg>
-              <span class="tab-label">Ask</span>
+              <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              <span class="tab-label">Plan</span>
             </div>
             <div class="tab-item">
-              <svg viewBox="0 0 256 256"><circle cx="128" cy="96" r="40" fill="none"/><path d="M48,224c0-44.2,35.8-80,80-80s80,35.8,80,80" fill="none"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+              <span class="tab-label">My Stuff</span>
+            </div>
+            <div class="tab-item">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" fill="none"/></svg>
               <span class="tab-label">Profile</span>
             </div>
           </div>
-          <div class="fab">
+          <div class="fab" style="position:absolute;right:0;bottom:4px;">
             <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           </div>
         </div>
       </div>
-    </div>
+    </div><!-- /state 3 -->
+
+  </div><!-- /states-row -->
+
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- ROW 2: States 4, 5, 6 + Annotation sidebar                 -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <div class="states-row-2">
 
     <!-- ──────────────────────────────────────────────────────── -->
-    <!-- STATE 5: Skipped sign-in (digest nudge)                  -->
+    <!-- STATE 4: Free tier (paused items)                        -->
     <!-- ──────────────────────────────────────────────────────── -->
     <div class="state-col">
-      <div class="state-label">State 5: Skipped sign-in</div>
+      <div class="state-label">State 4: Free tier</div>
       <div class="phone" style="position:relative;">
         <div class="notch"><div class="np"></div></div>
         <div class="sbar"><span>9:41</span><div class="batt"></div></div>
 
         <div class="d-screen">
-          <!-- Greeting (no name) -->
           <div class="d-greeting">
-            <div class="d-greeting-top">
-              <div class="d-greeting-name">Good morning,<br><em>there.</em></div>
-              <div class="d-settings">
-                <svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
-              </div>
+            <div class="d-avatar">
+              <svg width="22" height="30" viewBox="0 0 40 56" fill="none">
+                <path d="M11,5 C7,5 5,8.5 5,11.5 L5,34.5 C5,37.5 7,41 11,41 C15,41 17,37.5 17,34.5 L17,11.5 C17,8.5 15,5 11,5Z" fill="none" stroke="var(--ink)" stroke-width="2.8" stroke-linecap="round" opacity="0.25"/>
+                <path d="M29,15 C25,15 23,18.5 23,21.5 L23,44.5 C23,47.5 25,51 29,51 C33,51 35,47.5 35,44.5 L35,21.5 C35,18.5 33,15 29,15Z" fill="var(--cta)" opacity="0.35"/>
+                <circle cx="35" cy="10" r="3.5" fill="var(--cta)" opacity="0.35"/>
+              </svg>
             </div>
-            <div class="d-greeting-sub">3 tasks this week</div>
+            <div class="d-greeting-left" style="padding:0 10px;">
+              <div class="d-date">Friday 28 March</div>
+              <div class="d-greeting-name">Good morning,<br><em>Martijn.</em></div>
+            </div>
+            <div class="d-settings">
+              <svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+            </div>
           </div>
 
-          <!-- Category filter strip -->
-          <div class="cat-strip" style="padding:0 16px;">
+          <div class="cat-strip" style="padding:0 20px;">
             <div class="cat-pill active">All</div>
-            <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-home);"></span>Home</div>
-            <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-vehicle);"></span>Vehicle</div>
+            <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-home-ic);"></span>Home</div>
+            <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-vehicle-ic);"></span>Vehicle</div>
+            <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-garden-ic);"></span>Garden</div>
           </div>
 
-          <!-- Scrollable content -->
           <div class="d-content">
+            <!-- Free tier banner -->
+            <div class="d-banner">
+              <strong>You added 13 items.</strong> Free plan tracks 10. 3 items are paused. <a href="#">Manage</a>
+            </div>
+
             <div class="d-sec">This week</div>
-            <div class="d-tasks">
-              <!-- Task 1 -->
-              <div class="d-task cat-h">
-                <div class="ci ci-h">
-                  <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
-                </div>
-                <div class="d-task-info">
-                  <div class="d-task-name">Annual boiler service</div>
-                  <div class="d-task-sub">CV ketel, yearly</div>
-                </div>
-                <div class="d-task-date due-soon">Oct 28</div>
-              </div>
 
-              <!-- Task 2 -->
-              <div class="d-task cat-h">
-                <div class="ci ci-h">
+            <div class="feat cat-h" onclick="this.classList.toggle('expanded')">
+              <div class="feat-header">
+                <div class="feat-icon">
                   <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
                 </div>
-                <div class="d-task-info">
-                  <div class="d-task-name">Clean dishwasher filter</div>
-                  <div class="d-task-sub">Dishwasher, every 6-8 wks</div>
+                <div class="feat-info">
+                  <div class="feat-name">Annual boiler service</div>
+                  <div class="feat-meta">CV boiler · yearly</div>
                 </div>
-                <div class="d-task-date neutral">Nov 8</div>
+                <div class="feat-right">
+                  <span class="feat-date">Mar 28</span>
+                  <div class="feat-chevron"><svg viewBox="0 0 14 14"><path d="M3 5l4 4 4-4"/></svg></div>
+                </div>
               </div>
-
-              <!-- Task 3 -->
-              <div class="d-task cat-h">
-                <div class="ci ci-h">
-                  <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
+              <div class="feat-expand">
+                <div class="feat-why"><strong>Why it matters:</strong> Unserviced boilers lose efficiency and may fail safety checks.</div>
+                <div class="feat-actions">
+                  <button class="feat-btn done">Done</button>
+                  <button class="feat-btn snooze">Snooze</button>
+                  <button class="feat-btn skip">Skip</button>
                 </div>
-                <div class="d-task-info">
-                  <div class="d-task-name">Check CO detector</div>
-                  <div class="d-task-sub">CV ketel, yearly</div>
-                </div>
-                <div class="d-task-date neutral">Nov 15</div>
               </div>
             </div>
 
-            <!-- Digest nudge card -->
-            <div class="d-digest">
-              <div class="d-digest-dismiss">
-                <svg viewBox="0 0 12 12"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg>
+            <div class="feat cat-h" onclick="this.classList.toggle('expanded')">
+              <div class="feat-header">
+                <div class="feat-icon">
+                  <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
+                </div>
+                <div class="feat-info">
+                  <div class="feat-name">Clean dishwasher filter</div>
+                  <div class="feat-meta">Dishwasher · every 6-8 wks</div>
+                </div>
+                <div class="feat-right">
+                  <span class="feat-date">Apr 8</span>
+                  <div class="feat-chevron"><svg viewBox="0 0 14 14"><path d="M3 5l4 4 4-4"/></svg></div>
+                </div>
               </div>
-              <div class="d-digest-title">Get a weekly summary in your inbox.</div>
-              <div class="d-digest-sub">A simple overview of what's coming up, delivered every Monday.</div>
-              <div class="d-digest-cta">
-                Sign in to enable
-                <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div class="feat-expand">
+                <div class="feat-why"><strong>Why it matters:</strong> Clogged filters reduce wash quality and can cause odours.</div>
+                <div class="feat-actions">
+                  <button class="feat-btn done">Done</button>
+                  <button class="feat-btn snooze">Snooze</button>
+                  <button class="feat-btn skip">Skip</button>
+                </div>
               </div>
             </div>
+
+            <div class="feat cat-h" onclick="this.classList.toggle('expanded')">
+              <div class="feat-header">
+                <div class="feat-icon">
+                  <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
+                </div>
+                <div class="feat-info">
+                  <div class="feat-name">Check CO detector</div>
+                  <div class="feat-meta">CV boiler · yearly</div>
+                </div>
+                <div class="feat-right">
+                  <span class="feat-date">Apr 15</span>
+                  <div class="feat-chevron"><svg viewBox="0 0 14 14"><path d="M3 5l4 4 4-4"/></svg></div>
+                </div>
+              </div>
+              <div class="feat-expand">
+                <div class="feat-why"><strong>Why it matters:</strong> Carbon monoxide is odourless. A working detector is essential safety.</div>
+                <div class="feat-actions">
+                  <button class="feat-btn done">Done</button>
+                  <button class="feat-btn snooze">Snooze</button>
+                  <button class="feat-btn skip">Skip</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Paused section -->
+            <div class="d-sec-paused">Paused: upgrade to activate</div>
+
+            <div class="feat cat-g paused">
+              <div class="feat-header">
+                <div class="feat-icon">
+                  <svg viewBox="0 0 24 24"><path d="M12 22V8M8 12l4-4 4 4"/><path d="M5 8c0-4 3-6 7-6s7 2 7 6c0 3-2 5-4 6H9c-2-1-4-3-4-6z"/></svg>
+                </div>
+                <div class="feat-info">
+                  <div class="feat-name">Autumn pruning</div>
+                  <div class="feat-meta">Olive tree · yearly</div>
+                </div>
+                <div class="feat-right">
+                  <span class="pro-pill">Pro</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feat cat-v paused">
+              <div class="feat-header">
+                <div class="feat-icon">
+                  <svg viewBox="0 0 24 24"><path d="M5 17h14M6 11l1.5-4.5h9L18 11"/><rect x="4" y="11" width="16" height="6" rx="2" fill="none"/><circle cx="7.5" cy="17" r="1.5"/><circle cx="16.5" cy="17" r="1.5"/></svg>
+                </div>
+                <div class="feat-info">
+                  <div class="feat-name">Switch to winter tyres</div>
+                  <div class="feat-meta">Car · before Nov</div>
+                </div>
+                <div class="feat-right">
+                  <span class="pro-pill">Pro</span>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 
-        <!-- Tab bar + FAB -->
         <div class="d-bottom">
           <div class="tab-bar" style="flex:1;">
             <div class="tab-item active">
               <svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2" fill="none"/><line x1="16" y1="3" x2="16" y2="7"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="4" y1="11" x2="20" y2="11"/></svg>
-              <span class="tab-label">Tasks</span>
+              <span class="tab-label">Today</span>
             </div>
             <div class="tab-item">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" fill="none"/><circle cx="12" cy="17" r="0.5"/></svg>
-              <span class="tab-label">Ask</span>
+              <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              <span class="tab-label">Plan</span>
             </div>
             <div class="tab-item">
-              <svg viewBox="0 0 256 256"><circle cx="128" cy="96" r="40" fill="none"/><path d="M48,224c0-44.2,35.8-80,80-80s80,35.8,80,80" fill="none"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+              <span class="tab-label">My Stuff</span>
+            </div>
+            <div class="tab-item">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" fill="none"/></svg>
               <span class="tab-label">Profile</span>
             </div>
           </div>
-          <div class="fab">
+          <div class="fab" style="position:absolute;right:0;bottom:4px;">
             <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           </div>
         </div>
       </div>
-    </div>
+    </div><!-- /state 4 -->
+
+
+    <!-- ──────────────────────────────────────────────────────── -->
+    <!-- STATE 5: Plan tab                                        -->
+    <!-- ──────────────────────────────────────────────────────── -->
+    <div class="state-col">
+      <div class="state-label">State 5: Plan tab</div>
+      <div class="phone" style="position:relative;">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+
+        <div class="d-screen">
+          <div class="d-greeting">
+            <div class="d-avatar">
+              <svg width="22" height="30" viewBox="0 0 40 56" fill="none">
+                <path d="M11,5 C7,5 5,8.5 5,11.5 L5,34.5 C5,37.5 7,41 11,41 C15,41 17,37.5 17,34.5 L17,11.5 C17,8.5 15,5 11,5Z" fill="none" stroke="var(--ink)" stroke-width="2.8" stroke-linecap="round" opacity="0.25"/>
+                <path d="M29,15 C25,15 23,18.5 23,21.5 L23,44.5 C23,47.5 25,51 29,51 C33,51 35,47.5 35,44.5 L35,21.5 C35,18.5 33,15 29,15Z" fill="var(--cta)" opacity="0.35"/>
+                <circle cx="35" cy="10" r="3.5" fill="var(--cta)" opacity="0.35"/>
+              </svg>
+            </div>
+            <div class="d-greeting-left" style="padding:0 10px;">
+              <div class="d-greeting-name" style="font-size:22px;">Plan</div>
+            </div>
+            <div class="d-settings">
+              <svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+            </div>
+          </div>
+
+          <div class="cat-strip" style="padding:0 20px;">
+            <div class="cat-pill active">All</div>
+            <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-home-ic);"></span>Home</div>
+            <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-vehicle-ic);"></span>Vehicle</div>
+            <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-garden-ic);"></span>Garden</div>
+          </div>
+
+          <div class="d-content">
+            <div class="plan-month">March</div>
+            <div class="plan-row cat-h">
+              <div class="plan-icon"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg></div>
+              <div class="plan-info">
+                <div class="plan-name">Annual boiler service</div>
+                <div class="plan-sub">CV boiler · yearly</div>
+              </div>
+              <div class="plan-date">Mar 28</div>
+            </div>
+            <div class="plan-row cat-g">
+              <div class="plan-icon"><svg viewBox="0 0 24 24"><path d="M12 22V8M8 12l4-4 4 4"/><path d="M5 8c0-4 3-6 7-6s7 2 7 6c0 3-2 5-4 6H9c-2-1-4-3-4-6z"/></svg></div>
+              <div class="plan-info">
+                <div class="plan-name">Prune olive tree</div>
+                <div class="plan-sub">Olive tree · twice yearly</div>
+              </div>
+              <div class="plan-date">Mar 29</div>
+            </div>
+
+            <div class="plan-month">April</div>
+            <div class="plan-row cat-h">
+              <div class="plan-icon"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg></div>
+              <div class="plan-info">
+                <div class="plan-name">Clean dishwasher filter</div>
+                <div class="plan-sub">Dishwasher · every 6-8 wks</div>
+              </div>
+              <div class="plan-date">Apr 8</div>
+            </div>
+            <div class="plan-row cat-v">
+              <div class="plan-icon"><svg viewBox="0 0 24 24"><path d="M5 17h14M6 11l1.5-4.5h9L18 11"/><rect x="4" y="11" width="16" height="6" rx="2" fill="none"/><circle cx="7.5" cy="17" r="1.5"/><circle cx="16.5" cy="17" r="1.5"/></svg></div>
+              <div class="plan-info">
+                <div class="plan-name">Check tyre pressure</div>
+                <div class="plan-sub">Car · monthly</div>
+              </div>
+              <div class="plan-date">Apr 12</div>
+            </div>
+            <div class="plan-row cat-h">
+              <div class="plan-icon"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg></div>
+              <div class="plan-info">
+                <div class="plan-name">Check CO detector</div>
+                <div class="plan-sub">CV boiler · yearly</div>
+              </div>
+              <div class="plan-date">Apr 15</div>
+            </div>
+            <div class="plan-row cat-g">
+              <div class="plan-icon"><svg viewBox="0 0 24 24"><path d="M12 22V8M8 12l4-4 4 4"/><path d="M5 8c0-4 3-6 7-6s7 2 7 6c0 3-2 5-4 6H9c-2-1-4-3-4-6z"/></svg></div>
+              <div class="plan-info">
+                <div class="plan-name">Fertilise garden beds</div>
+                <div class="plan-sub">Garden · twice yearly</div>
+              </div>
+              <div class="plan-date">Apr 20</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-bottom">
+          <div class="tab-bar" style="flex:1;">
+            <div class="tab-item">
+              <svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2" fill="none"/><line x1="16" y1="3" x2="16" y2="7"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="4" y1="11" x2="20" y2="11"/></svg>
+              <span class="tab-label">Today</span>
+            </div>
+            <div class="tab-item active">
+              <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              <span class="tab-label">Plan</span>
+            </div>
+            <div class="tab-item">
+              <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+              <span class="tab-label">My Stuff</span>
+            </div>
+            <div class="tab-item">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" fill="none"/></svg>
+              <span class="tab-label">Profile</span>
+            </div>
+          </div>
+          <div class="fab" style="position:absolute;right:0;bottom:4px;">
+            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+        </div>
+      </div>
+    </div><!-- /state 5 -->
+
+
+    <!-- ──────────────────────────────────────────────────────── -->
+    <!-- STATE 6: My Stuff tab                                    -->
+    <!-- ──────────────────────────────────────────────────────── -->
+    <div class="state-col">
+      <div class="state-label">State 6: My Stuff tab</div>
+      <div class="phone" style="position:relative;">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+
+        <div class="d-screen">
+          <div class="d-greeting">
+            <div class="d-avatar">
+              <svg width="22" height="30" viewBox="0 0 40 56" fill="none">
+                <path d="M11,5 C7,5 5,8.5 5,11.5 L5,34.5 C5,37.5 7,41 11,41 C15,41 17,37.5 17,34.5 L17,11.5 C17,8.5 15,5 11,5Z" fill="none" stroke="var(--ink)" stroke-width="2.8" stroke-linecap="round" opacity="0.25"/>
+                <path d="M29,15 C25,15 23,18.5 23,21.5 L23,44.5 C23,47.5 25,51 29,51 C33,51 35,47.5 35,44.5 L35,21.5 C35,18.5 33,15 29,15Z" fill="var(--cta)" opacity="0.35"/>
+                <circle cx="35" cy="10" r="3.5" fill="var(--cta)" opacity="0.35"/>
+              </svg>
+            </div>
+            <div class="d-greeting-left" style="padding:0 10px;">
+              <div class="d-greeting-name" style="font-size:22px;">My Stuff</div>
+            </div>
+            <div class="d-settings">
+              <svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+            </div>
+          </div>
+
+          <div class="cat-strip" style="padding:0 20px;">
+            <div class="cat-pill active">All</div>
+            <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-home-ic);"></span>Home</div>
+            <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-vehicle-ic);"></span>Vehicle</div>
+            <div class="cat-pill"><span class="cat-dot" style="background:var(--cat-garden-ic);"></span>Garden</div>
+          </div>
+
+          <div class="d-content">
+            <div class="stuff-category">
+              <div class="stuff-cat-label">Home</div>
+              <div class="stuff-grid">
+                <div class="stuff-tile cat-h">
+                  <div class="stuff-tile-icon"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z" fill="none" stroke="var(--cat-home-ic)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                  <div class="stuff-tile-name">CV Boiler</div>
+                  <div class="stuff-tile-tasks">2 tasks</div>
+                </div>
+                <div class="stuff-tile cat-h">
+                  <div class="stuff-tile-icon"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z" fill="none" stroke="var(--cat-home-ic)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                  <div class="stuff-tile-name">Dishwasher</div>
+                  <div class="stuff-tile-tasks">1 task</div>
+                </div>
+              </div>
+            </div>
+            <div class="stuff-category">
+              <div class="stuff-cat-label">Vehicle</div>
+              <div class="stuff-grid">
+                <div class="stuff-tile cat-v">
+                  <div class="stuff-tile-icon"><svg viewBox="0 0 24 24"><path d="M5 17h14M6 11l1.5-4.5h9L18 11" fill="none" stroke="var(--cat-vehicle-ic)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><rect x="4" y="11" width="16" height="6" rx="2" fill="none" stroke="var(--cat-vehicle-ic)" stroke-width="1.6"/><circle cx="7.5" cy="17" r="1.5" fill="none" stroke="var(--cat-vehicle-ic)" stroke-width="1.6"/><circle cx="16.5" cy="17" r="1.5" fill="none" stroke="var(--cat-vehicle-ic)" stroke-width="1.6"/></svg></div>
+                  <div class="stuff-tile-name">Car</div>
+                  <div class="stuff-tile-tasks">3 tasks</div>
+                </div>
+              </div>
+            </div>
+            <div class="stuff-category">
+              <div class="stuff-cat-label">Garden</div>
+              <div class="stuff-grid">
+                <div class="stuff-tile cat-g">
+                  <div class="stuff-tile-icon"><svg viewBox="0 0 24 24"><path d="M12 22V8M8 12l4-4 4 4" fill="none" stroke="var(--cat-garden-ic)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 8c0-4 3-6 7-6s7 2 7 6c0 3-2 5-4 6H9c-2-1-4-3-4-6z" fill="none" stroke="var(--cat-garden-ic)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                  <div class="stuff-tile-name">Olive tree</div>
+                  <div class="stuff-tile-tasks">2 tasks</div>
+                </div>
+                <div class="stuff-tile cat-g">
+                  <div class="stuff-tile-icon"><svg viewBox="0 0 24 24"><path d="M12 22V8M8 12l4-4 4 4" fill="none" stroke="var(--cat-garden-ic)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 8c0-4 3-6 7-6s7 2 7 6c0 3-2 5-4 6H9c-2-1-4-3-4-6z" fill="none" stroke="var(--cat-garden-ic)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                  <div class="stuff-tile-name">Garden beds</div>
+                  <div class="stuff-tile-tasks">1 task</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-bottom">
+          <div class="tab-bar" style="flex:1;">
+            <div class="tab-item">
+              <svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2" fill="none"/><line x1="16" y1="3" x2="16" y2="7"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="4" y1="11" x2="20" y2="11"/></svg>
+              <span class="tab-label">Today</span>
+            </div>
+            <div class="tab-item">
+              <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              <span class="tab-label">Plan</span>
+            </div>
+            <div class="tab-item active">
+              <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+              <span class="tab-label">My Stuff</span>
+            </div>
+            <div class="tab-item">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" fill="none"/></svg>
+              <span class="tab-label">Profile</span>
+            </div>
+          </div>
+          <div class="fab" style="position:absolute;right:0;bottom:4px;">
+            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+        </div>
+      </div>
+    </div><!-- /state 6 -->
+
 
     <!-- ANNOTATION SIDEBAR -->
     <div class="annot-col">
 
-      <div class="annot-section">Shell + layout</div>
+      <div class="annot-section">v10.5 changes</div>
 
-      <div class="annot-card">
+      <div class="annot-card decision">
         <div class="annot-head">
-          <span class="badge-rule">Rule</span>
-          Greeting personalization
+          <span class="badge-decision">v3.0</span>
+          4-tab bar: Today, Plan, My Stuff, Profile
         </div>
         <div class="annot-body">
-          Signed-in users: "Good morning, <strong>Martijn</strong>." (name from SSO, DM Serif Display 25px, name in italic <code>colorApricot</code>). Skipped users: "Good morning, <strong>there</strong>." Same styling, generic fallback. Time-aware: morning/afternoon/evening. Flutter: <code>Text.rich()</code> with separate <code>TextSpan</code> for name.
-        </div>
-      </div>
-
-      <div class="annot-card">
-        <div class="annot-head">
-          <span class="badge-rule">Rule</span>
-          Settings icon
-        </div>
-        <div class="annot-body">
-          <code>PhosphorIcons.faders</code>, never GearSix. 16px icon in a 44x44px tappable container (meets 44px minimum tap target). <code>colorMidAccessible #6B6358</code> stroke. Top-right of greeting row.
-        </div>
-      </div>
-
-      <div class="annot-card">
-        <div class="annot-head">
-          <span class="badge-rule">Rule</span>
-          Category filter strip
-        </div>
-        <div class="annot-body">
-          "All" pill always first, always the initial active state. Single scrollable row (<code>flex-wrap:nowrap; overflow-x:auto</code>). Active pill: <code>colorCta</code> border + text, subtle lavender bg. Category pills include 6px colored dot. Flutter: <code>SingleChildScrollView(scrollDirection: Axis.horizontal)</code>. Never wraps. Omitted on empty state (nothing to filter).
-        </div>
-      </div>
-
-      <div class="annot-section">Task cards</div>
-
-      <div class="annot-card">
-        <div class="annot-head">
-          <span class="badge-rule">Rule</span>
-          Card anatomy
-        </div>
-        <div class="annot-body">
-          White card on cream, <strong>8px gap</strong> (dashboard uses 8px, onboarding uses 6px). Each card: category icon chip (28x28, category-colored bg, Phosphor outline) + task name (13px DM Sans 500) + item/cadence subtitle (11px italic colorMidAccessible) + date label right-aligned. No left border accent lines, ever. Status lives in date label color only.
-        </div>
-      </div>
-
-      <div class="annot-card">
-        <div class="annot-head">
-          <span class="badge-note">Note</span>
-          Date label colors
-        </div>
-        <div class="annot-body">
-          <ul>
-            <li><strong>Overdue:</strong> <code>colorTerra #C4503A</code></li>
-            <li><strong>Due soon</strong> (within 7 days): <code>colorApricotDk #C8784A</code></li>
-            <li><strong>Normal:</strong> <code>colorMidAccessible #6B6358</code></li>
-          </ul>
+          Replaces the old 3-tab layout (Tasks, Ask, Profile). Plan tab shows month-grouped task list. My Stuff shows item tiles grouped by category. Custom widget only, never <code>BottomNavigationBar</code>. Active tab: <code>colorCta</code> on both icon stroke and label. Inactive: <code>rgba(26,22,18,0.20)</code>. No pip dot.
         </div>
       </div>
 
       <div class="annot-card interaction">
         <div class="annot-head">
           <span class="badge-interaction">Interaction</span>
-          Swipe to complete
+          Expandable task cards (feat pattern)
         </div>
         <div class="annot-body">
-          Swipe right to complete, threshold 40%. Gesture hint ("swipe right to complete") shown below first overdue/due-soon task on first visit. Hint disappears after first completion. Flutter: <code>Dismissible</code> with custom <code>confirmDismiss</code>. Done state: <code>AnimatedOpacity</code> to 0.35 + strikethrough, 250ms.
+          Tap card header to expand. Reveals: "Why it matters" context box + Done / Snooze / Skip action buttons. Chevron rotates 180 degrees when expanded. Card background: solid category pastel, no border, <code>border-radius: 16px</code>. Flutter: <code>AnimatedCrossFade</code> or <code>AnimatedSize</code> for expand. Done button: <code>colorCta</code>. Snooze: <code>rgba(44,40,36,0.08)</code>. Skip: <code>rgba(44,40,36,0.06)</code>.
         </div>
       </div>
 
-      <div class="annot-section">States</div>
-
-      <div class="annot-card decision">
+      <div class="annot-card">
         <div class="annot-head">
-          <span class="badge-decision">Decision</span>
-          Empty state (State 2)
+          <span class="badge-rule">Rule</span>
+          Progress summary ring
         </div>
         <div class="annot-body">
-          Centered vertically. DM Serif Display 22px headline: "Nothing here yet." Italic subtitle. No category filter strip (nothing to filter). FAB is the primary action path. No additional CTA needed.
+          44x44px SVG ring, <code>colorCta</code> stroke, 3px width. Centered fraction label (9px 600 weight). Ring: <code>stroke-dasharray="113"</code> (full circumference), <code>stroke-dashoffset</code> = proportion incomplete. Next to ring: attention count (13px 500) + on-track count (11px mid). Right side: week streak badge (number in cta, "week streak" label, cta-tint bg). Flutter: <code>CustomPaint</code> with <code>drawArc</code>.
         </div>
       </div>
 
-      <div class="annot-card decision">
+      <div class="annot-card">
         <div class="annot-head">
-          <span class="badge-decision">Decision</span>
-          Free tier limit (State 3)
+          <span class="badge-note">Note</span>
+          Dynamic cards row
         </div>
         <div class="annot-body">
-          Purple-tinted banner explains: "You added 13 items. Free plan tracks 10. 3 items are paused." with "Manage" link. Paused tasks: <strong>opacity 0.45</strong>, "Pro" pill badge (<code>colorCta</code> text + border). Conversion trigger: when a paused item's task comes due. See CLAUDE.md Section 3 for full tier details.
+          Horizontal scroll, 148px wide cards, 8px gap. Three card types: "Did you know?" (catHomeBg), savings summary (cream tint), seasonal progress (catGardenBg). Cards are dismissible. Content sourced from backend, not hardcoded. Flutter: <code>SingleChildScrollView(scrollDirection: Axis.horizontal)</code>.
         </div>
       </div>
 
-      <div class="annot-card decision">
+      <div class="annot-card">
         <div class="annot-head">
-          <span class="badge-decision">Decision</span>
-          All done (State 4)
+          <span class="badge-rule">Rule</span>
+          Overdue badge
         </div>
         <div class="annot-body">
-          Light celebration on cream (not the plum done overlay, that is for individual task completion via swipe). DM Serif Display 22px italic: "Nothing overdue. Suspicious." Witty, on-brand. Subtitle reassures: "Enjoy the quiet. We'll nudge you when something's coming up." Subtle checkmark next to "0 tasks this week".
-        </div>
-      </div>
-
-      <div class="annot-card decision">
-        <div class="annot-head">
-          <span class="badge-decision">Decision</span>
-          Digest nudge (State 5)
-        </div>
-        <div class="annot-body">
-          Shown to users who skipped sign-in. "Get a weekly summary in your inbox." with "Sign in to enable" CTA link. Opens sign-in bottom sheet (same as S-05). Dismissible via X button. Single most important leading indicator: weekly digest open rate.
+          Cream text on <code>colorOverdueBadge (#6B4A3A)</code> pill. Format: "12d overdue". Pill: <code>border-radius: 100px; padding: 3px 9px; font-size: 9px; font-weight: 600</code>. Replaces colorTerra text label from previous version. Never red, never terra red.
         </div>
       </div>
 
@@ -767,20 +1206,30 @@ body{background:#CBC5BB;padding:0 0 80px;}
       <div class="annot-card">
         <div class="annot-head">
           <span class="badge-rule">Rule</span>
-          Tab bar
+          FAB position
         </div>
         <div class="annot-body">
-          Custom widget, NOT <code>BottomNavigationBar</code>. Floating pill: white, 22px radius, <code>0 4px 20px rgba(26,22,18,0.11)</code> shadow. Active tab: <code>colorCta #9B7FD4</code> on <strong>both</strong> icon stroke and label. No pip dot. Inactive: <code>rgba(26,22,18,0.20)</code>. 14px from screen edge. Three tabs: Tasks, Ask, Profile.
+          FAB sits <strong>outside</strong> the tab bar pill, bottom-right. <code>position: absolute; right: 20px; bottom: 18px</code> relative to screen. 46x46px, 15px radius (rounded square, not circle). <code>colorCta</code> bg. Shadow: <code>0 6px 20px rgba(155,127,212,0.45)</code>. Plus rotates 45 degrees to X on open using <code>AnimatedRotation</code>.
         </div>
       </div>
 
       <div class="annot-card">
         <div class="annot-head">
           <span class="badge-rule">Rule</span>
-          FAB
+          ii mark avatar
         </div>
         <div class="annot-body">
-          46x46px, <strong>rounded square</strong> (15px radius, NOT circle). <code>colorCta</code> background. Plus icon 17px <code>colorCtaFg</code>. Shadow: <code>0 6px 20px rgba(155,127,212,0.45)</code>. Position: bottom-right, adjacent to tab bar. <code>margin-bottom: 4px</code> for elevation. Tapping opens FAB action sheet (S-12). Plus rotates 45 degrees to X using <code>AnimatedRotation</code>.
+          42x42px circle, <code>rgba(44,40,36,0.06)</code> bg. Replaces plain settings icon in greeting row. Two-path SVG: first i (left, faint outline stroke), second i (right, cta-tinted fill). Top-left of greeting row. Flutter: use inline SVG via <code>SvgPicture.string</code> or embed as asset.
+        </div>
+      </div>
+
+      <div class="annot-card decision">
+        <div class="annot-head">
+          <span class="badge-decision">Decision</span>
+          Free tier (State 4)
+        </div>
+        <div class="annot-body">
+          Purple-tinted banner: "You added 13 items. Free plan tracks 10. 3 items are paused." with "Manage" link. Paused tasks: <strong>opacity 0.45</strong>, "Pro" pill (<code>colorCta</code> text + border). Conversion trigger: when a paused item's task comes due. No auto-delete, no auto-hide, never block data.
         </div>
       </div>
 
@@ -795,60 +1244,64 @@ body{background:#CBC5BB;padding:0 0 80px;}
     <div class="cl-title">Changelog</div>
 
     <div class="cl-entry">
+      <div class="cl-ver">v3.0 · 2026-03-30 · BREAKING</div>
+      <div class="cl-body"><strong>Layout rebuilt to match v10.5 prototype.</strong> 4-tab bar (Today / Plan / My Stuff / Profile replaces old Tasks / Ask / Profile). Expandable task cards replace simple task rows. Progress summary ring added. Dynamic cards row added. All states updated to reflect new structure.</div>
+      <div class="cl-body"><strong>ii mark avatar added to greeting row.</strong> 42x42px circle, inline SVG, top-left position. Replaces implicit brand-less greeting header.</div>
+      <div class="cl-body"><strong>Progress ring added.</strong> 44x44px SVG, colorCta stroke, 11/14 fraction centered. Streak badge: number "4" in cta, "week streak" label. Flutter: CustomPaint with drawArc.</div>
+      <div class="cl-body"><strong>Dynamic cards row added.</strong> Horizontal scroll, 148px cards, catHomeBg / cream / catGardenBg fills. Three card types: Did you know, Saved this year, Spring ready.</div>
+      <div class="cl-body"><strong>Expandable task cards (feat pattern) replacing flat rows.</strong> Tap to expand: Why it matters box + Done / Snooze / Skip buttons. Chevron rotates 180 degrees on open. Flutter: AnimatedSize or AnimatedCrossFade. Significant widget restructure needed.</div>
+      <div class="cl-body"><strong>Overdue badge updated.</strong> Cream text on colorOverdueBadge pill (format: "12d overdue"). Due dates: plain text at colorInk 55% opacity. Replaces terra red and apricot text labels from previous versions.</div>
+      <div class="cl-body"><strong>Plan tab (State 5) added.</strong> Month-grouped task list with category-colored rows. Replaces n/a placeholder.</div>
+      <div class="cl-body"><strong>My Stuff tab (State 6) added.</strong> 2-column tile grid grouped by category. Each tile: category bg + icon + item name + task count.</div>
+      <div class="cl-body"><strong>Flutter note:</strong> significant widget restructure needed. Tab bar custom widget gains a 4th tab. Task card widget becomes expandable. Progress ring is a new custom paint widget. Dynamic cards row is a new horizontal list widget. See design-system.html component cards for full specs.</div>
+    </div>
+
+    <div class="cl-entry">
       <div class="cl-ver">v2.3 · 2026-03-30 · BREAKING</div>
-      <div class="cl-body"><strong>colorInk token updated globally.</strong> <code>Color(0xFF1A1612)</code> → <code>Color(0xFF2C2824)</code>. Flutter: update <code>colorInk</code> constant and any hardcoded values.</div>
-      <div class="cl-body"><strong>Greeting name: colorApricot removed — confirmed wrong in dev build.</strong> "arne.van.ham." renders in colorApricot (#C4A8E8) orange. Replace with <code>colorCta (#9B7FD4)</code> italic. Flutter: update greeting name <code>TextStyle</code> color from <code>colorApricot</code> to <code>colorCta</code>. This is the single most visible token error in the current build.</div>
-      <div class="cl-body"><strong>Task cards: white bg replaced by solid category pastel fills — confirmed wrong in dev build.</strong> All task cards currently use white (#FFFFFF) bg on cream. v10.5 spec: each card bg = the category's solid pastel token. Pets tasks → <code>catPetsBg #DECDC0</code>. Home → <code>catHomeBg #D2BEB6</code>. Vehicle → <code>catVehicleBg #C0CDD8</code>. Garden → <code>catGardenBg #C4DABE</code>. Subscriptions → <code>catSubsBg #D0C6DC</code>. Health → <code>catHealthBg #D2D0C4</code>. Border-radius: 16px. No border, no shadow. Flutter: update task card widget <code>decoration</code> to use <code>CategoryColors.bgForCategory(task.category)</code> instead of <code>colorSurface</code>.</div>
-      <div class="cl-body"><strong>Icon containers removed — confirmed wrong in dev build.</strong> Task card icons show a rounded-square container bg. Remove entirely. Icon sits directly on the pastel card bg. Flutter: remove the <code>Container</code> wrapping the category icon — replace with bare <code>PhosphorIcon</code> at 20px, <code>color: CategoryColors.icForCategory(task.category)</code>.</div>
-      <div class="cl-body"><strong>Category icon stroke colors updated.</strong> All six categories now use new icon values. Home: <code>#C87850</code> → <code>catHomeIc #7A5A50</code>. Garden: <code>#5A9060</code> → <code>catGardenIc #4A7A40</code>. Vehicle: <code>#4A82A0</code> → <code>catVehicleIc #4A6A82</code>. Subscriptions: <code>#8060A8</code> → <code>catSubsIc #6A5085</code>. Health: <code>#B86478</code> → <code>catHealthIc #6A6858</code>. Pets: <code>catPetsIc #8A6238</code> (new). Flutter: update <code>CategoryColors.icForCategory()</code> map.</div>
-      <div class="cl-body"><strong>colorTerra removed — overdue task styling.</strong> Overdue tasks previously used colorTerra (#C4503A) for status text. v10.5 spec: overdue badge = cream text on warm brown pill (<code>colorOverdueBadge #6B4A3A</code>). Format: "12d overdue" — pill shape, cream text, warm brown bg. No colored text label. Flutter: replace overdue text <code>TextStyle(color: colorTerra)</code> with a <code>Container</code> pill: <code>decoration: BoxDecoration(color: colorOverdueBadge, borderRadius: BorderRadius.circular(100))</code>, inner <code>Text</code> with <code>color: colorCream</code>.</div>
-      <div class="cl-body"><strong>colorApricotDk removed — due-soon date labels.</strong> Due-soon dates previously used colorApricotDk (#C8784A) on a tinted pill. v10.5 spec: plain text, <code>colorInk at 55% opacity</code>, no background pill. Flutter: remove due-soon date container/pill widget, replace with bare <code>Text</code> widget: <code>TextStyle(color: colorInk.withOpacity(0.55))</code>.</div>
-      <div class="cl-body"><strong>Tab bar pip dot still present in dev build — must remove.</strong> Active tab shows a small underline pip. v10.5 spec (locked since v1.2): active tab = colorCta on BOTH icon AND label. No pip, no underline, no dot. Flutter: remove the <code>Container</code> pip widget from active tab. Set icon color and label TextStyle color both to <code>colorCta</code>.</div>
-      <div class="cl-body"><strong>Category filter dots: update to new icon colors.</strong> Dot indicators on filter chips (Home, Vehicle, Garden, Subscriptions) use old legacy values. Update to new catXxxIc values. Flutter: update category dot color in the filter chip widget.</div>
-      <div class="cl-body"><strong>Dark mode tokens updated.</strong> <code>darkBg</code>: <code>#111614</code> → <code>#1E1C18</code>. <code>darkNav</code> (was darkCard): <code>#1A1F1D</code> → <code>#28261F</code>. Per-category dark card backgrounds: see tokens.json for all 6 values. Flutter: update all dark mode color constants.</div>
-      <div class="cl-body"><strong>New components required: expandable task card, dynamic cards row, My Stuff tile.</strong> Full specs in design-system.html component cards. These are net-new widgets not present in the current dev build. Reference the v10.5 prototype (nudgii-v10-5.html) for interaction behaviour.</div>
-      <div class="cl-body"><strong>FAB shadow updated.</strong> <code>0 6px 20px rgba(155,127,212,0.45)</code> → <code>0 4px 14px rgba(155,127,212,0.25)</code>. Lighter, less heavy. Flutter: update FAB <code>BoxShadow</code>.</div>
+      <div class="cl-body"><strong>colorInk token updated globally.</strong> <code>Color(0xFF1A1612)</code> replaced by <code>Color(0xFF2C2824)</code>. Flutter: update <code>colorInk</code> constant and any hardcoded values.</div>
+      <div class="cl-body"><strong>Greeting name: colorApricot removed.</strong> Name renders in <code>colorCta (#9B7FD4)</code> italic. Flutter: update greeting name <code>TextStyle</code> color from <code>colorApricot</code> to <code>colorCta</code>.</div>
+      <div class="cl-body"><strong>Task cards: white bg replaced by solid category pastel fills.</strong> Home: <code>catHomeBg #D2BEB6</code>. Vehicle: <code>catVehicleBg #C0CDD8</code>. Garden: <code>catGardenBg #C4DABE</code>. Subscriptions: <code>catSubsBg #D0C6DC</code>. Health: <code>catHealthBg #D2D0C4</code>. Pets: <code>catPetsBg #DECDC0</code>. Border-radius 16px. No border, no shadow.</div>
+      <div class="cl-body"><strong>Icon containers removed.</strong> Icon sits directly on card bg. Flutter: remove Container wrapping, use bare PhosphorIcon at 20px.</div>
+      <div class="cl-body"><strong>Category icon stroke colors updated.</strong> Home: <code>catHomeIc #7A5A50</code>. Garden: <code>catGardenIc #4A7A40</code>. Vehicle: <code>catVehicleIc #4A6A82</code>. Subscriptions: <code>catSubsIc #6A5085</code>. Health: <code>catHealthIc #6A6858</code>. Pets: <code>catPetsIc #8A6238</code>.</div>
+      <div class="cl-body"><strong>colorTerra removed.</strong> Overdue badge: cream text on colorOverdueBadge (#6B4A3A) pill. Format: "12d overdue". Flutter: replace text style with Container pill.</div>
+      <div class="cl-body"><strong>colorApricotDk removed.</strong> Due-soon dates: plain text, colorInk at 55% opacity. No background pill. Flutter: bare Text widget with <code>colorInk.withOpacity(0.55)</code>.</div>
+      <div class="cl-body"><strong>Tab bar pip dot removed.</strong> Active tab: colorCta on both icon and label. No pip, no underline, no dot. Flutter: remove pip Container widget.</div>
+      <div class="cl-body"><strong>Dark mode tokens updated.</strong> darkBg: <code>#111614</code> replaced by <code>#1E1C18</code>. darkNav: <code>#1A1F1D</code> replaced by <code>#28261F</code>.</div>
     </div>
 
     <div class="cl-entry">
       <div class="cl-ver">v2.2 · 2026-03-26 · BREAKING</div>
-      <div class="cl-body"><strong>Category icon chips: standardized SVGs across all task cards.</strong> All Home tasks use House SVG (viewBox 0 0 24 24), Vehicle tasks use Car SVG, Garden tasks use Tree/leaf SVG. Replaces mixed item-specific icons (boiler, house outline, plant drop) with consistent category icons. Flutter: use a single SVG per category, mapped by category enum.</div>
-      <div class="cl-body"><strong>Settings icon: replaced with Phosphor Faders (viewBox 0 0 24 24).</strong> Previous icon was horizontal sliders with circles (viewBox 0 0 256 256). New icon: vertical lines with horizontal knobs, matching PhosphorIcons.faders. Applied to all 5 states. Flutter: update to <code>PhosphorIcons.faders</code>.</div>
-      <div class="cl-body"><strong>FAB plus icon: updated to viewBox 0 0 24 24 with stroke-width 2.5.</strong> Previous icon used viewBox 0 0 256 256. Applied to all 5 states. Flutter: no change needed, icon is decorative.</div>
+      <div class="cl-body"><strong>Category icon SVGs standardized.</strong> All Home tasks use House SVG. Vehicle tasks use Car SVG. Garden tasks use Tree SVG. Replaces mixed item-specific icons.</div>
+      <div class="cl-body"><strong>Settings icon replaced with Phosphor Faders.</strong> Applied to all states. Flutter: update to <code>PhosphorIcons.faders</code>.</div>
+      <div class="cl-body"><strong>FAB plus icon updated</strong> to viewBox 0 0 24 24 with stroke-width 2.5.</div>
     </div>
 
     <div class="cl-entry">
       <div class="cl-ver">v2.1 · 2026-03-26 · BREAKING</div>
-      <div class="cl-body"><strong>colorMid replaced with colorMidAccessible on all functional text</strong> (greeting sub, task sub, date neutral, empty sub, done sub, digest sub). Flutter: change Color references from colorMid to colorMidAccessible.</div>
-      <div class="cl-body"><strong>Tab icons: CalendarBlank replaces notepad, ChatCircleQuestion replaces plain bubble.</strong> Flutter: update PhosphorIcons references.</div>
-      <div class="cl-body"><strong>Settings tap target: 34px to 44px.</strong> Flutter: wrap in SizedBox(width:44, height:44).</div>
-      <div class="cl-body"><strong>Added overdue task example to default state.</strong> "Annual boiler service" in colorTerra above due-soon tasks, with separate "Overdue" section label.</div>
-      <div class="cl-body"><strong>Gesture hint repositioned below first overdue task</strong> instead of below all task cards.</div>
-      <div class="cl-body"><strong>Nav title em dash replaced with middle dot.</strong></div>
+      <div class="cl-body"><strong>colorMid replaced with colorMidAccessible</strong> on all functional text. Flutter: update color references.</div>
+      <div class="cl-body"><strong>Tab icons: CalendarBlank replaces notepad, ChatCircleQuestion replaces plain bubble.</strong></div>
+      <div class="cl-body"><strong>Settings tap target increased to 44px.</strong> Flutter: wrap in SizedBox(width:44, height:44).</div>
+      <div class="cl-body"><strong>Overdue task example added to default state.</strong> "Annual boiler service" with separate "Overdue" section label.</div>
     </div>
 
     <div class="cl-entry">
       <div class="cl-ver">v1.0 · 2026-03-26 · NEW</div>
-      <div class="cl-body"><strong>Initial hi-fi with 5 states.</strong> Default (signed in, under 10 items), empty (no items), paused items (free tier limit at 10), all done, and skipped sign-in (with digest nudge card).</div>
-      <div class="cl-body"><strong>Greeting personalization.</strong> Signed-in users see name from SSO ("Good morning, Martijn."). Skipped users see "Good morning, there." Name rendered in italic colorApricot.</div>
-      <div class="cl-body"><strong>Category filter strip.</strong> "All" pill always first, always active by default. Omitted on empty state. Active state uses purple outline (colorCta border + text, lavender bg).</div>
-      <div class="cl-body"><strong>Task card anatomy.</strong> White cards on cream, 8px gap. Category icon chip + task name + item/cadence subtitle + date label. Date color encodes status: terra (overdue), apricot-dk (due soon), mid (normal). No left border accent.</div>
-      <div class="cl-body"><strong>Free tier banner.</strong> Purple-tinted card explaining item limit. Paused tasks at opacity 0.45 with "Pro" pill badge. "Manage" link for item selection.</div>
-      <div class="cl-body"><strong>All-done state.</strong> Light celebration on cream (not plum overlay). "Nothing overdue. Suspicious." with reassuring subtitle. Subtle checkmark next to "0 tasks this week".</div>
-      <div class="cl-body"><strong>Digest nudge card.</strong> For skipped sign-in users. "Get a weekly summary in your inbox." with "Sign in to enable" CTA. Dismissible via X.</div>
-      <div class="cl-body"><strong>Gesture hint.</strong> "swipe right to complete" below first task card. 10px italic, colorMidAccessible. Disappears after first completion.</div>
+      <div class="cl-body"><strong>Initial hi-fi with 5 states.</strong> Default (signed in), empty, paused items (free tier), all done, skipped sign-in (digest nudge).</div>
+      <div class="cl-body"><strong>Greeting personalization.</strong> Signed-in: name from SSO. Skipped: "there." fallback. Time-aware: morning / afternoon / evening.</div>
+      <div class="cl-body"><strong>Category filter strip.</strong> "All" pill first, active by default. Omitted on empty state. Active: colorCta outline.</div>
+      <div class="cl-body"><strong>Free tier banner.</strong> Purple-tinted card explaining item limit. Paused tasks at opacity 0.45 with "Pro" pill badge.</div>
     </div>
 
     <div class="cl-flutter">
       <div class="cl-flutter-head">Standard Flutter implementation block · S-09</div>
       <div class="cl-flutter-body">
-        Mockup base:&nbsp;&nbsp;&nbsp;&nbsp;390px width (iPhone 15)<br>
-        SafeArea:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wrap entire screen in SafeArea<br>
-        Scroll:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SingleChildScrollView for content zone only (task list area)<br>
-        Bottom zone:&nbsp;&nbsp;&nbsp;&nbsp;Floating pill tab bar + FAB, positioned 14px from screen edge<br>
-        Progress bar:&nbsp;&nbsp;&nbsp;None (dashboard is post-onboarding)<br>
-        Scaling:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All visual elements x (screenWidth/390).clamp(0.9, 1.15)<br>
-        Special:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tab bar is custom widget (NOT BottomNavigationBar). FAB is rounded square (15px radius, NOT circle). Swipe-to-complete uses Dismissible with 40% threshold. Greeting is time-aware (morning/afternoon/evening). Empty state hides category filter strip. Digest nudge card only shown to users who skipped sign-in.
+        Mockup base:        390px width (iPhone 15)<br>
+        SafeArea:           Wrap entire screen in SafeArea<br>
+        Scroll:             SingleChildScrollView for content zone only<br>
+        Bottom zone:        Floating pill tab bar + FAB outside pill, bottom-right at 14px from edge<br>
+        Progress bar:       None (dashboard is post-onboarding)<br>
+        Scaling:            All visual elements x (screenWidth/390).clamp(0.9, 1.15)<br>
+        Special:            Tab bar is 4-tab custom widget (NOT BottomNavigationBar). FAB is rounded square (15px radius, NOT circle), outside tab bar pill. Expandable cards use AnimatedSize. Progress ring uses CustomPaint. Dynamic cards row uses horizontal SingleChildScrollView. Swipe-to-complete uses Dismissible with 40% threshold. Greeting is time-aware. Empty state hides category filter and ring.
       </div>
     </div>
 
