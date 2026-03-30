@@ -65,7 +65,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
   <!-- PAGE HEADER -->
   <div class="page-eyebrow">S-01 · Welcome screen · Hi-fi · 390x844px (iPhone 15) · March 2026</div>
   <h1 class="page-h1">Welcome</h1>
-  <p class="page-sub">First screen after app launch. Shows what nudgii does through a swipeable photo card carousel — real imagery with handwritten-style captions that demonstrate nudgii's seasonal awareness. Two clear paths forward: voice/type (Path A) or browse (Path B). No category filter on this screen.</p>
+  <p class="page-sub">First screen after app launch. Shows what nudgii does through a swipeable photo card carousel — real imagery with handwritten-style captions that demonstrate nudgii's seasonal awareness. Single CTA: "Show me what I can track" leads to S-03 browse. No category filter on this screen.</p>
   <div class="meta">
     <span class="mp hifi">Hi-fi</span>
     <span class="mp ob">Onboarding flow</span>
@@ -126,8 +126,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
 
           <!-- sticky bottom zone -->
           <div class="w-bottom">
-            <button class="btn-a">Tell me what you have</button>
-            <button class="btn-b">Show me what I can track</button>
+            <button class="btn-a">Show me what I can track</button>
             <div class="trust-line">Free · no credit card · 2 min setup</div>
           </div>
         </div>
@@ -222,10 +221,10 @@ body{background:#CBC5BB;padding:0 0 80px;}
       <div class="annot-card decision">
         <div class="annot-head">
           <span class="badge-decision">Decision</span>
-          Two paths, no category filter
+          Single CTA: browse only
         </div>
         <div class="annot-body">
-          <strong>Path A</strong> "Tell me what you have" leads to S-02 (voice/type/scan). <strong>Path B</strong> "Show me what I can track" leads to S-03 (browse categories). No category filter strip on S-01 — it was removed as too busy. Always vertically stacked. Sentence case.
+          Path A ("Tell me what you have") removed — too open-ended as a cold start. Single CTA: <strong>"Show me what I can track"</strong> leads to S-03 (browse categories). Browse gives users a clear starting point: they can see what nudgii tracks before committing to input. Flutter: single <code>ElevatedButton</code>, full width, <code>colorCta</code> fill.
         </div>
       </div>
 
@@ -234,7 +233,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
           <span class="badge-note">Trust line</span>
         </div>
         <div class="annot-body">
-          "Free · no credit card · 2 min setup" below secondary CTA. 11px, <code>colorMid</code>, centered. All three trust signals at the decision point.
+          "Free · no credit card · 2 min setup" below CTA. 11px, <code>colorMid</code>, centered. All three trust signals at the decision point.
         </div>
       </div>
 
@@ -247,6 +246,11 @@ body{background:#CBC5BB;padding:0 0 80px;}
   <!-- CHANGELOG -->
   <div class="changelog">
     <div class="cl-title">Changelog</div>
+
+    <div class="cl-entry">
+      <div class="cl-ver">v4.1 · 2026-03-30 · BREAKING</div>
+      <div class="cl-body"><strong>Path A removed. Single CTA: "Show me what I can track".</strong> "Tell me what you have" (Path A, S-02) removed from S-01 — open-ended text/voice input is too difficult as a cold start. Single primary CTA now leads directly to S-03 (browse categories). Flutter: remove Path A <code>ElevatedButton</code>. Keep only one full-width <code>colorCta</code> button.</div>
+    </div>
 
     <div class="cl-entry">
       <div class="cl-ver">v4.0 · 2026-03-30 · BREAKING</div>
@@ -277,7 +281,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
         Bottom zone:&nbsp;&nbsp;&nbsp;&nbsp;Sticky: fixed Column at bottom, not Spacer<br>
         Progress bar:&nbsp;&nbsp;&nbsp;Full width, height 3px, outside SafeArea, 20–36% fill (advances with carousel)<br>
         Scaling:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All visual elements x (screenWidth/390).clamp(0.9, 1.15)<br>
-        Special:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Polaroid card: GestureDetector + AnimatedContainer. Auto-advance Timer(3.8s). Caveat font from google_fonts. Assets: s01-tyres.jpg, s01-tomato.jpg, s01-lawn.jpg. No category filter strip on this screen.
+        Special:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Polaroid card: GestureDetector + AnimatedContainer. Auto-advance Timer(3.8s). Caveat font from google_fonts. Assets: s01-tyres.jpg, s01-tomato.jpg, s01-lawn.jpg. No category filter strip on this screen. Single CTA only (Path A removed).
       </div>
     </div>
 

@@ -113,7 +113,7 @@ Status as of March 2026. Always check `nudgii-design/index.html` for current sta
 | Screen | Name | Status |
 |---|---|---|
 | S-01 | Welcome | 🔶 In progress |
-| S-02 | Tell me what you have (Path A) | 🔶 In progress |
+| S-02 | Tell me what you have (Path A) | ⛔ Decision needed (removed from S-01) |
 | S-03 | Show me what I can track (Path B) | 🔶 In progress |
 | S-04 | Review | 🔶 In progress |
 | S-05 | AHA + celebration + sign-in | 🔶 In progress |
@@ -399,6 +399,7 @@ These are locked decisions. Do not question them in design or code reviews.
 - ❌ Never flatten the shell pattern into a single scrollable column — fixed top + Expanded + fixed bottom, always
 - ❌ Never show interactive items on S-01 — photo cards are display/swipeable only, no item selection, no check circles
 - ❌ Never show a category filter strip on S-01 — category filter exists on S-03 and S-09 only
+- ❌ Never show Path A ("Tell me what you have") on S-01 — user testing showed open-ended input is too complex as cold start. Single CTA only.
 - ❌ Never use Dutch copy in design files (lo-fi, hi-fi, prototype) — English only in all design artefacts
 - ❌ Never write locale-specific copy as the primary copy in design files — label it explicitly (e.g., "nl-BE example")
 - ❌ Never add "Step X of Y" text labels anywhere on screen — the progress bar is the only progress indicator, ever
@@ -476,6 +477,7 @@ Update this section when open decisions are resolved.
 | S-02 no carry-over | S-02 opens fresh ("What do you have at home?"). No selection carry-over from S-01 since S-01 has no interactive items (photo cards only). | ✅ Yes | 2026-03-26 |
 | Gamification micro-moments | Celebration prototype pattern (confetti + spring animation) to be reused for: first task completed, streak milestones, weekly all-done. Design as reusable component. | ✅ Yes | 2026-03-26 |
 | Photo card localization | S-01 photo card content (captions, badges, pivot text) needs locale variants (nl-BE, nl-NL, fr) and seasonal rotation (4 asset sets per season). Store in database, not hardcoded. Season chip adapts to current month. | ✅ Yes | 2026-03-30 |
+| S-01 single CTA | Path A ("Tell me what you have") removed from S-01. User testing showed open-ended text/voice input too complex as cold start. Single CTA: "Show me what I can track" leads to S-03 browse. S-02 status changed to decision needed. | ✅ Yes | 2026-03-30 |
 | Free tier: no onboarding limits | Never block during onboarding. Let users add unlimited items. 10-item limit enforced on dashboard only. Items 11+ show "Pro" badge and don't send reminders. User chooses which 10 stay active, or upgrades. Conversion trigger: when a paused item's task comes due. | ✅ Yes | 2026-03-26 |
 | S-02 edge cases | 7 conversation scenarios documented in hi-fi: nonsense input, duplicate, ambiguous, unknown item, silence, brand mentioned, many items at once. Bubble tints: red for errors, amber for duplicates, standard for clarifications. | ✅ Yes | 2026-03-26 |
 | Continue chip copy | "Show my schedule" renamed to "Continue" in S-02. Next screen is S-04 Review, not the schedule. "Ready to review what I found?" replaces "Ready to see your schedule?" | ✅ Yes | 2026-03-26 |
