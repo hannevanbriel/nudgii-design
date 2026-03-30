@@ -7,13 +7,14 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet">
 <style>
 :root{
-  --cream:#F5F0E8;--ink:#1A1612;--cta:#9B7FD4;--cta-fg:#FAF8FF;
-  --ap:#E8A87C;--ap-dk:#C8784A;--terra:#C4503A;
+  --cream:#F5F0E8;--ink:#2C2824;--cta:#9B7FD4;--cta-fg:#FAF8FF;
   --mid:#8A8070;--mid-lt:#B0A898;--plum:#2D1F4A;
-  --mid-a:#6B6358;
+  --mid-a:#6B6358;--hint:#A09888;
   --sage:#3B6D11;--sage-lt:#EAF3DE;
   --amber:#854F0B;--amber-lt:#FAEEDA;
-  --cat-home:#C87850;--cat-vehicle:#4A82A0;--cat-garden:#5A9060;--cat-sub:#8060A8;
+  --cat-home-ic:#7A5A50;--cat-vehicle-ic:#4A6A82;--cat-garden-ic:#607870;--cat-sub-ic:#6A5085;
+  --cat-home-bg:#D2BEB6;--cat-vehicle-bg:#C0CDD8;--cat-garden-bg:#C0CEC9;--cat-sub-bg:#D0C6DC;
+  --cat-home-sel:#C4A89E;--cat-vehicle-sel:#A8B8C4;--cat-garden-sel:#A8B8B4;--cat-sub-sel:#BCB0CC;
   --ink-06:rgba(26,22,18,0.06);--ink-08:rgba(26,22,18,0.08);
   --ink-10:rgba(26,22,18,0.10);--ink-16:rgba(26,22,18,0.16);
   --surface:#FFFFFF;
@@ -86,10 +87,10 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 .chip{flex-shrink:0;padding:5px 11px;border-radius:100px;font-size:10px;font-weight:500;cursor:default;}
 .chip-all{background:rgba(26,22,18,0.07);color:var(--mid-a);outline:none;}
 .chip-all.active{background:rgba(155,127,212,0.12);color:var(--cta);outline:1px solid var(--cta);}
-.chip-home{background:rgba(200,120,80,0.13);color:var(--cat-home);}
-.chip-vehicle{background:rgba(74,130,160,0.13);color:var(--cat-vehicle);}
-.chip-garden{background:rgba(90,144,96,0.13);color:var(--cat-garden);}
-.chip-subs{background:rgba(128,96,168,0.13);color:var(--cat-sub);}
+.chip-home{background:rgba(122,90,80,0.13);color:var(--cat-home-ic);}
+.chip-vehicle{background:rgba(74,106,130,0.13);color:var(--cat-vehicle-ic);}
+.chip-garden{background:rgba(96,120,112,0.13);color:var(--cat-garden-ic);}
+.chip-subs{background:rgba(106,80,133,0.13);color:var(--cat-sub-ic);}
 
 /* Selected pill */
 .sel-pill-wrap{height:24px;display:flex;align-items:center;margin-bottom:6px;}
@@ -107,18 +108,16 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 
 /* Tile */
 .tile{
+  position:relative;
   flex-shrink:0;width:80px;border-radius:12px;padding:12px 6px 9px;
   text-align:center;display:flex;flex-direction:column;align-items:center;gap:5px;
-  border:1.5px solid transparent;
 }
-.tile.sel{border-color:var(--tile-cc);}
+.chk{position:absolute;top:5px;right:5px;width:15px;height:15px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
 .tile-icon{width:26px;height:26px;display:flex;align-items:center;justify-content:center;}
 .tile-icon svg{width:22px;height:22px;}
 .tile-lbl{font-size:9px;font-weight:500;color:var(--ink);line-height:1.2;text-align:center;}
 .peek{width:16px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;color:rgba(26,22,18,0.18);}
 
-/* Row divider */
-.row-div{height:0.5px;background:rgba(26,22,18,0.08);margin:0;}
 
 /* CTA */
 .cta-btn{width:100%;height:44px;border-radius:100px;border:none;background:var(--cta);color:var(--cta-fg);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:default;box-shadow:0 4px 16px rgba(155,127,212,0.30);display:flex;align-items:center;justify-content:center;gap:7px;}
@@ -140,7 +139,7 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
 .zc-badge{font-size:9px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;padding:2px 7px;border-radius:3px;background:rgba(26,22,18,0.07);color:var(--mid);flex-shrink:0;}
 .zc-badge.purple{background:rgba(155,127,212,0.12);color:#5C3E8A;}
 .zc-badge.green{background:rgba(90,144,96,0.10);color:#2A5A30;}
-.zc-badge.orange{background:rgba(200,120,80,0.12);color:#7A3A10;}
+.zc-badge.orange{background:var(--cat-home-bg);color:#7A3A10;}
 .zc-name{font-size:12px;font-weight:500;color:var(--ink);}
 .zc-body{font-size:11px;color:var(--mid);line-height:1.65;}
 .zc-body strong{color:var(--ink);font-weight:500;}
@@ -257,27 +256,28 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
                 <!-- Home row -->
                 <div class="cat-sec">
                   <div class="cat-lbl">
-                    <span class="cat-dot" style="background:var(--cat-home);"></span>
+                    <span class="cat-dot" style="background:var(--cat-home-ic);"></span>
                     Home
                   </div>
                   <div class="tile-row">
                     <!-- Selected tile (Dishwasher) -->
-                    <div class="tile sel" style="background:rgba(200,120,80,0.12);--tile-cc:var(--cat-home);">
+                    <div class="tile" style="background:var(--cat-home-sel);">
+                      <div class="chk" style="background:var(--cat-home-ic);"><svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#FAF8FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
                       <div class="tile-icon">
-                        <svg viewBox="0 0 256 256" fill="none"><rect x="32" y="48" width="192" height="160" rx="16" stroke="#C87850" stroke-width="14" fill="none"/><line x1="32" y1="100" x2="224" y2="100" stroke="#C87850" stroke-width="14" stroke-linecap="round"/><circle cx="128" cy="164" r="34" stroke="#C87850" stroke-width="12" fill="none"/><circle cx="128" cy="164" r="10" fill="#C87850"/></svg>
+                        <svg viewBox="0 0 256 256" fill="none"><rect x="32" y="48" width="192" height="160" rx="16" stroke="#7A5A50" stroke-width="14" fill="none"/><line x1="32" y1="100" x2="224" y2="100" stroke="#7A5A50" stroke-width="14" stroke-linecap="round"/><circle cx="128" cy="164" r="34" stroke="#7A5A50" stroke-width="12" fill="none"/><circle cx="128" cy="164" r="10" fill="#7A5A50"/></svg>
                       </div>
                       <div class="tile-lbl">Dishwasher</div>
                     </div>
                     <!-- Unselected tile -->
-                    <div class="tile" style="background:rgba(200,120,80,0.12);">
+                    <div class="tile" style="background:var(--cat-home-bg);">
                       <div class="tile-icon">
-                        <svg viewBox="0 0 256 256" fill="none"><rect x="32" y="32" width="192" height="192" rx="16" stroke="#C87850" stroke-width="14" fill="none"/><circle cx="128" cy="150" r="48" stroke="#C87850" stroke-width="12" fill="none"/><circle cx="82" cy="74" r="11" fill="#C87850"/></svg>
+                        <svg viewBox="0 0 256 256" fill="none"><rect x="32" y="32" width="192" height="192" rx="16" stroke="#7A5A50" stroke-width="14" fill="none"/><circle cx="128" cy="150" r="48" stroke="#7A5A50" stroke-width="12" fill="none"/><circle cx="82" cy="74" r="11" fill="#7A5A50"/></svg>
                       </div>
                       <div class="tile-lbl">Washing machine</div>
                     </div>
-                    <div class="tile" style="background:rgba(200,120,80,0.12);">
+                    <div class="tile" style="background:var(--cat-home-bg);">
                       <div class="tile-icon">
-                        <svg viewBox="0 0 256 256" fill="none"><rect x="72" y="24" width="112" height="208" rx="20" stroke="#C87850" stroke-width="14" fill="none"/><circle cx="128" cy="124" r="34" stroke="#C87850" stroke-width="12" fill="none"/></svg>
+                        <svg viewBox="0 0 256 256" fill="none"><rect x="72" y="24" width="112" height="208" rx="20" stroke="#7A5A50" stroke-width="14" fill="none"/><circle cx="128" cy="124" r="34" stroke="#7A5A50" stroke-width="12" fill="none"/></svg>
                       </div>
                       <div class="tile-lbl">Boiler</div>
                     </div>
@@ -285,25 +285,25 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
                   </div>
                 </div>
 
-                <div class="row-div"></div>
 
                 <!-- Vehicle row -->
                 <div class="cat-sec">
                   <div class="cat-lbl">
-                    <span class="cat-dot" style="background:var(--cat-vehicle);"></span>
+                    <span class="cat-dot" style="background:var(--cat-vehicle-ic);"></span>
                     Vehicle
                   </div>
                   <div class="tile-row">
                     <!-- Selected tile (Car) -->
-                    <div class="tile sel" style="background:rgba(74,130,160,0.12);--tile-cc:var(--cat-vehicle);">
+                    <div class="tile" style="background:var(--cat-vehicle-sel);">
+                      <div class="chk" style="background:var(--cat-vehicle-ic);"><svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#FAF8FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
                       <div class="tile-icon">
-                        <svg viewBox="0 0 256 256" fill="none"><path d="M8 144a8 8 0 0 1 8-8h16L60 80h136l28 56h16a8 8 0 0 1 8 8v32a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8v-32z" stroke="#4A82A0" stroke-width="14" fill="none" stroke-linejoin="round"/><circle cx="76" cy="192" r="24" stroke="#4A82A0" stroke-width="14" fill="none"/><circle cx="180" cy="192" r="24" stroke="#4A82A0" stroke-width="14" fill="none"/></svg>
+                        <svg viewBox="0 0 256 256" fill="none"><path d="M8 144a8 8 0 0 1 8-8h16L60 80h136l28 56h16a8 8 0 0 1 8 8v32a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8v-32z" stroke="#4A6A82" stroke-width="14" fill="none" stroke-linejoin="round"/><circle cx="76" cy="192" r="24" stroke="#4A6A82" stroke-width="14" fill="none"/><circle cx="180" cy="192" r="24" stroke="#4A6A82" stroke-width="14" fill="none"/></svg>
                       </div>
                       <div class="tile-lbl">Car</div>
                     </div>
-                    <div class="tile" style="background:rgba(74,130,160,0.12);">
+                    <div class="tile" style="background:var(--cat-vehicle-bg);">
                       <div class="tile-icon">
-                        <svg viewBox="0 0 256 256" fill="none"><circle cx="60" cy="168" r="44" stroke="#4A82A0" stroke-width="14" fill="none"/><circle cx="196" cy="168" r="44" stroke="#4A82A0" stroke-width="14" fill="none"/><path d="M60 168l56-96h48" stroke="#4A82A0" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M128 72l68 96" stroke="#4A82A0" stroke-width="14" stroke-linecap="round"/></svg>
+                        <svg viewBox="0 0 256 256" fill="none"><circle cx="60" cy="168" r="44" stroke="#4A6A82" stroke-width="14" fill="none"/><circle cx="196" cy="168" r="44" stroke="#4A6A82" stroke-width="14" fill="none"/><path d="M60 168l56-96h48" stroke="#4A6A82" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M128 72l68 96" stroke="#4A6A82" stroke-width="14" stroke-linecap="round"/></svg>
                       </div>
                       <div class="tile-lbl">Bicycle</div>
                     </div>
@@ -311,24 +311,23 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
                   </div>
                 </div>
 
-                <div class="row-div"></div>
 
                 <!-- Garden row -->
                 <div class="cat-sec">
                   <div class="cat-lbl">
-                    <span class="cat-dot" style="background:var(--cat-garden);"></span>
+                    <span class="cat-dot" style="background:var(--cat-garden-ic);"></span>
                     Garden
                   </div>
                   <div class="tile-row">
-                    <div class="tile" style="background:rgba(90,144,96,0.12);">
+                    <div class="tile" style="background:var(--cat-garden-bg);">
                       <div class="tile-icon">
-                        <svg viewBox="0 0 256 256" fill="none"><path d="M24 200c0 0 20-88 56-88s28 56 48 56 36-120 56-120 48 152 48 152" stroke="#5A9060" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="200" x2="244" y2="200" stroke="#5A9060" stroke-width="14" stroke-linecap="round"/></svg>
+                        <svg viewBox="0 0 256 256" fill="none"><path d="M24 200c0 0 20-88 56-88s28 56 48 56 36-120 56-120 48 152 48 152" stroke="#607870" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="200" x2="244" y2="200" stroke="#607870" stroke-width="14" stroke-linecap="round"/></svg>
                       </div>
                       <div class="tile-lbl">Lawn</div>
                     </div>
-                    <div class="tile" style="background:rgba(90,144,96,0.12);">
+                    <div class="tile" style="background:var(--cat-garden-bg);">
                       <div class="tile-icon">
-                        <svg viewBox="0 0 256 256" fill="none"><line x1="128" y1="224" x2="128" y2="140" stroke="#5A9060" stroke-width="14" stroke-linecap="round"/><circle cx="128" cy="96" r="52" stroke="#5A9060" stroke-width="14" fill="none"/></svg>
+                        <svg viewBox="0 0 256 256" fill="none"><line x1="128" y1="224" x2="128" y2="140" stroke="#607870" stroke-width="14" stroke-linecap="round"/><circle cx="128" cy="96" r="52" stroke="#607870" stroke-width="14" fill="none"/></svg>
                       </div>
                       <div class="tile-lbl">Hedge</div>
                     </div>
@@ -388,10 +387,10 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
           <div class="zc-body">
             <strong>No dots. No borders.</strong> Each chip uses category-tinted background + category color text.
             <div class="zc-rule"></div>
-            Home chip: <code>rgba(200,120,80,0.13)</code> bg, <code>#C87850</code> text.<br>
-            Vehicle chip: <code>rgba(74,130,160,0.13)</code> bg, <code>#4A82A0</code> text.<br>
-            Garden chip: <code>rgba(90,144,96,0.13)</code> bg, <code>#5A9060</code> text.<br>
-            Subscriptions chip: <code>rgba(128,96,168,0.13)</code> bg, <code>#8060A8</code> text.
+            Home chip: <code>rgba(122,90,80,0.13)</code> bg, <code>#7A5A50</code> text.<br>
+            Vehicle chip: <code>rgba(74,106,130,0.13)</code> bg, <code>#4A6A82</code> text.<br>
+            Garden chip: <code>rgba(96,120,112,0.13)</code> bg, <code>#607870</code> text.<br>
+            Subscriptions chip: <code>rgba(106,80,133,0.13)</code> bg, <code>#6A5085</code> text.
             <div class="zc-rule"></div>
             Active category: adds <code>1px solid categoryColor</code> outline.<br>
             "All" inactive: <code>rgba(26,22,18,0.07)</code> bg, <code>colorMid</code> text, no outline.<br>
@@ -428,14 +427,15 @@ h1{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
         <div class="zone-card">
           <div class="zc-head"><span class="zc-badge">H</span><span class="zc-name">Tile widget</span></div>
           <div class="zc-body">
-            88px wide, radius 14px. Background: category color at 12% opacity. Border: 1.5px solid transparent (unselected) / 1.5px solid <strong>categoryColor</strong> (selected, NOT purple).
+            88px wide, radius 14px. <code>position: relative</code> for check circle overlay.<br><br>
+            <strong>Unselected:</strong> solid pastel bg (Home <code>#D2BEB6</code>, Vehicle <code>#C0CDD8</code>, Garden <code>#C0CEC9</code>, Subs <code>#D0C6DC</code>). No border, no indicator.<br>
+            <strong>Selected:</strong> deepened bg (Home <code>#C4A89E</code>, Vehicle <code>#A8B8C4</code>, Garden <code>#A8B8B4</code>, Subs <code>#BCB0CC</code>) + filled 16px circle top-right (category icon color bg, white tick).
             <div class="zc-rule"></div>
-            Icon: Phosphor outline, 26px, category color. No inner wrapper. Rendered directly on tile background.
+            Icon: Phosphor outline, 26px, category icon color. No inner wrapper.
             <div class="zc-rule"></div>
             Label: DM Sans 9.5px, weight 500, <code>colorInk</code>, centered, max 2 lines.
             <div class="zc-rule"></div>
-            Hover (web): bg lifts to category color at 20%, scale 1.03.<br>
-            Press: scale 0.93. Haptic: <code>HapticFeedback.selectionClick()</code> on every toggle.
+            Hover (web): scale 1.03. Press: scale 0.93. Haptic: <code>HapticFeedback.selectionClick()</code>.
           </div>
         </div>
 

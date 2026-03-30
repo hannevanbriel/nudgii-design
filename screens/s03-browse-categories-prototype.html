@@ -9,9 +9,9 @@
 *{box-sizing:border-box;margin:0;padding:0;}
 
 :root{
-  --cream:#F5F0E8;--ink:#1A1612;--cta:#9B7FD4;--cta-fg:#FAF8FF;
+  --cream:#F5F0E8;--ink:#2C2824;--cta:#9B7FD4;--cta-fg:#FAF8FF;
   --mid:#8A8070;--mid-a:#6B6358;--surface:#FFFFFF;--border:rgba(26,22,18,0.08);
-  --cat-home:#C87850;--cat-vehicle:#4A82A0;--cat-garden:#5A9060;--cat-sub:#8060A8;
+  --cat-home:#7A5A50;--cat-vehicle:#4A6A82;--cat-garden:#607870;--cat-sub:#6A5085;
 }
 
 body{
@@ -51,7 +51,7 @@ body{
 
 /* ── DEVICE ── */
 .device{
-  width:310px;background:var(--cream);border-radius:38px;
+  width:390px;background:var(--cream);border-radius:44px;
   overflow:hidden;border:1.5px solid rgba(26,22,18,0.15);
   box-shadow:0 24px 60px rgba(0,0,0,0.28);
 }
@@ -86,13 +86,13 @@ body{
 }
 .chip-all{background:rgba(26,22,18,0.07);color:var(--mid-a);}
 .chip-all.on{background:rgba(155,127,212,0.12);color:var(--cta);outline:1px solid var(--cta);}
-.chip-home{background:rgba(200,120,80,0.13);color:var(--cat-home);}
+.chip-home{background:rgba(122,90,80,0.13);color:var(--cat-home);}
 .chip-home.on{outline:1px solid var(--cat-home);}
-.chip-vehicle{background:rgba(74,130,160,0.13);color:var(--cat-vehicle);}
+.chip-vehicle{background:rgba(74,106,130,0.13);color:var(--cat-vehicle);}
 .chip-vehicle.on{outline:1px solid var(--cat-vehicle);}
-.chip-garden{background:rgba(90,144,96,0.13);color:var(--cat-garden);}
+.chip-garden{background:rgba(96,120,112,0.13);color:var(--cat-garden);}
 .chip-garden.on{outline:1px solid var(--cat-garden);}
-.chip-subs{background:rgba(128,96,168,0.13);color:var(--cat-sub);}
+.chip-subs{background:rgba(106,80,133,0.13);color:var(--cat-sub);}
 .chip-subs.on{outline:1px solid var(--cat-sub);}
 
 /* Selected pill */
@@ -102,7 +102,7 @@ body{
 .snum{background:rgba(255,255,255,0.28);width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:700;}
 
 /* Content scroll area */
-.content{overflow-y:auto;max-height:370px;scrollbar-width:none;padding-bottom:4px;}
+.content{overflow-y:auto;max-height:460px;scrollbar-width:none;padding-bottom:4px;}
 .content::-webkit-scrollbar{display:none;}
 
 /* Category section headers */
@@ -120,12 +120,12 @@ body{
 
 /* Tile */
 .tile{
+  position:relative;
   flex-shrink:0;width:86px;border-radius:14px;padding:13px 6px 9px;
   text-align:center;cursor:pointer;
   display:flex;flex-direction:column;align-items:center;gap:6px;
   user-select:none;
-  border:1.5px solid transparent;
-  transition:background 0.15s,border-color 0.15s,transform 0.12s;
+  transition:background 0.15s,transform 0.12s;
 }
 .tile:hover{transform:scale(1.03);}
 .tile:active{transform:scale(0.93);}
@@ -138,8 +138,6 @@ body{
 /* Empty state */
 .empty{padding:20px 0;text-align:center;font-size:11px;color:var(--mid);font-style:italic;line-height:1.6;}
 
-/* Row divider */
-.row-div{height:0.5px;background:rgba(26,22,18,0.08);margin:2px 0;}
 
 /* CTA zone */
 .cta-wrap{padding:8px 14px 18px;background:var(--cream);}
@@ -177,7 +175,7 @@ body{
     <svg width="14" height="16" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg">
       <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
       <path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
-      <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
+      <circle fill="#C4A8E8" cx="535.96" cy="119.29" r="90"/>
     </svg>
     nudgii design system
   </a>
@@ -232,7 +230,7 @@ body{
 
   <!-- LEGEND -->
   <div class="legend">
-    <div class="legend-item"><strong>Tile border</strong> = category color (not purple)</div>
+    <div class="legend-item"><strong>Check circle</strong> = selected indicator</div>
     <div class="legend-item"><strong>Progress</strong> grows +8% per item</div>
     <div class="legend-item"><strong>CTA copy</strong> changes at 1, 2, 3+ items</div>
     <div class="legend-item"><strong>Chip tap</strong> switches to 3-col grid</div>
@@ -243,10 +241,11 @@ body{
 </div><!-- /page-content -->
 
 <script>
-const CC={home:'#C87850',vehicle:'#4A82A0',garden:'#5A9060',subs:'#8060A8'};
+const CC={home:'#7A5A50',vehicle:'#4A6A82',garden:'#607870',subs:'#6A5085'};
+const CB={home:'#D2BEB6',vehicle:'#C0CDD8',garden:'#C0CEC9',subs:'#D0C6DC'};
+const CD={home:'#C4A89E',vehicle:'#A8B8C4',garden:'#A8B8B4',subs:'#BCB0CC'};
 const CL={home:'Home',vehicle:'Vehicle',garden:'Garden',subs:'Subscriptions'};
 const CATS=['home','vehicle','garden','subs'];
-function rgb(h){return[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)).join(',');}
 
 const SW=14;
 const IC={
@@ -309,20 +308,22 @@ function buildChips(){
   });
 }
 
+function checkCircle(c){
+  return `<div style="position:absolute;top:6px;right:6px;width:16px;height:16px;border-radius:50%;background:${c};display:flex;align-items:center;justify-content:center;">
+    <svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#FAF8FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>`;
+}
+
 function makeTile(item,wide){
   const c=CC[item.cat]||CC.subs;
-  const r=rgb(c);
   const on=sel.has(item.id);
-  const bgBase=`rgba(${r},0.12)`;
-  const bgHover=`rgba(${r},0.20)`;
+  const bg=on?(CD[item.cat]||CD.subs):(CB[item.cat]||CB.subs);
   const svg=IC[item.icon]?IC[item.icon].replace(/§/g,c):'';
   const w=wide?'width:auto;':'width:86px;';
   return `<div class="tile${on?' on':''}"
-    style="${w}background:${bgBase};border:1.5px solid ${on?c:'transparent'};"
-    data-bg-base="${bgBase}" data-bg-hover="${bgHover}"
-    onmouseenter="this.style.background=this.dataset.bgHover"
-    onmouseleave="this.style.background=this.dataset.bgBase"
+    style="${w}background:${bg};"
     onclick="toggle('${item.id}')">
+    ${on?checkCircle(c):''}
     ${svg}
     <div class="tn">${item.name}</div>
   </div>`;
@@ -370,7 +371,6 @@ function render(){
         </div>
       </div>
     </div>`;
-    if(ci<CATS.length-1) html+=`<div class="row-div" style="margin:0 14px;"></div>`;
   });
   area.innerHTML=html;
 

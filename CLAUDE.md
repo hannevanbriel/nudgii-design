@@ -392,6 +392,7 @@ These are locked decisions. Do not question them in design or code reviews.
 - ❌ Never use border-bottom to separate items in a list — each item is its own card with gap between
 - ❌ Never wrap multiple items in a single container card — gap + individual cards only
 - ❌ Never hardcode bottom padding for safe area — always use SafeArea widget in Flutter
+- ❌ Never set device/phone width to anything other than 390px (height 844px) in HTML mockups — iPhone 15 is the standard. border-radius: 50px on the outer shell. No exceptions, no close-enough values like 310px, 375px, or 400px. Rule is enforced via the .phone class in system/components.css
 - ❌ Never put the progress bar inside SafeArea — it must bleed full-width, top: false
 - ❌ Never use Spacer to push a CTA to the bottom — use a fixed Column outside Expanded
 - ❌ Never wrap the entire screen in SingleChildScrollView — only the content zone scrolls
@@ -476,6 +477,7 @@ Update this section when open decisions are resolved.
 | Gamification micro-moments | Celebration prototype pattern (confetti + spring animation) to be reused for: first task completed, streak milestones, weekly all-done. Design as reusable component. | ✅ Yes | 2026-03-26 |
 | Nudge bubble localization | S-01 nudge bubble content needs locale variants (nl-BE, nl-NL, fr) and seasonal rotation (adjust by current month). Store in database, not hardcoded. | ✅ Yes | 2026-03-26 |
 | Free tier: no onboarding limits | Never block during onboarding. Let users add unlimited items. 10-item limit enforced on dashboard only. Items 11+ show "Pro" badge and don't send reminders. User chooses which 10 stay active, or upgrades. Conversion trigger: when a paused item's task comes due. | ✅ Yes | 2026-03-26 |
+| S-04 item counter | Show "X of 10 free" dot meter + quiet "Go Pro" link on S-04 Review only. Not on S-03 (too early, user still in discovery mode). Soft, non-blocking — sets honest expectations before dashboard. Dots meter reads like a storage bar. "Go Pro" is a link, not a button. | ✅ Yes | 2026-03-30 |
 | S-02 edge cases | 7 conversation scenarios documented in hi-fi: nonsense input, duplicate, ambiguous, unknown item, silence, brand mentioned, many items at once. Bubble tints: red for errors, amber for duplicates, standard for clarifications. | ✅ Yes | 2026-03-26 |
 | Continue chip copy | "Show my schedule" renamed to "Continue" in S-02. Next screen is S-04 Review, not the schedule. "Ready to review what I found?" replaces "Ready to see your schedule?" | ✅ Yes | 2026-03-26 |
 
