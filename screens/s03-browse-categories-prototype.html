@@ -120,12 +120,12 @@ body{
 
 /* Tile */
 .tile{
+  position:relative;
   flex-shrink:0;width:86px;border-radius:14px;padding:13px 6px 9px;
   text-align:center;cursor:pointer;
   display:flex;flex-direction:column;align-items:center;gap:6px;
   user-select:none;
-  border:1.5px solid transparent;
-  transition:background 0.15s,border-color 0.15s,transform 0.12s;
+  transition:background 0.15s,transform 0.12s;
 }
 .tile:hover{transform:scale(1.03);}
 .tile:active{transform:scale(0.93);}
@@ -138,8 +138,6 @@ body{
 /* Empty state */
 .empty{padding:20px 0;text-align:center;font-size:11px;color:var(--mid);font-style:italic;line-height:1.6;}
 
-/* Row divider */
-.row-div{height:0.5px;background:rgba(26,22,18,0.08);margin:2px 0;}
 
 /* CTA zone */
 .cta-wrap{padding:8px 14px 18px;background:var(--cream);}
@@ -232,7 +230,7 @@ body{
 
   <!-- LEGEND -->
   <div class="legend">
-    <div class="legend-item"><strong>Tile border</strong> = category color (not purple)</div>
+    <div class="legend-item"><strong>Check circle</strong> = selected indicator</div>
     <div class="legend-item"><strong>Progress</strong> grows +8% per item</div>
     <div class="legend-item"><strong>CTA copy</strong> changes at 1, 2, 3+ items</div>
     <div class="legend-item"><strong>Chip tap</strong> switches to 3-col grid</div>
@@ -245,6 +243,7 @@ body{
 <script>
 const CC={home:'#7A5A50',vehicle:'#4A6A82',garden:'#607870',subs:'#6A5085'};
 const CB={home:'#D2BEB6',vehicle:'#C0CDD8',garden:'#C0CEC9',subs:'#D0C6DC'};
+const CD={home:'#C4A89E',vehicle:'#A8B8C4',garden:'#A8B8B4',subs:'#BCB0CC'};
 const CL={home:'Home',vehicle:'Vehicle',garden:'Garden',subs:'Subscriptions'};
 const CATS=['home','vehicle','garden','subs'];
 
@@ -309,19 +308,22 @@ function buildChips(){
   });
 }
 
+function checkCircle(c){
+  return `<div style="position:absolute;top:6px;right:6px;width:16px;height:16px;border-radius:50%;background:${c};display:flex;align-items:center;justify-content:center;">
+    <svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#FAF8FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>`;
+}
+
 function makeTile(item,wide){
   const c=CC[item.cat]||CC.subs;
   const on=sel.has(item.id);
-  const bgBase=CB[item.cat]||CB.subs;
-  const bgHover=bgBase;
+  const bg=on?(CD[item.cat]||CD.subs):(CB[item.cat]||CB.subs);
   const svg=IC[item.icon]?IC[item.icon].replace(/§/g,c):'';
   const w=wide?'width:auto;':'width:86px;';
   return `<div class="tile${on?' on':''}"
-    style="${w}background:${bgBase};border:1.5px solid ${on?c:'transparent'};"
-    data-bg-base="${bgBase}" data-bg-hover="${bgHover}"
-    onmouseenter="this.style.background=this.dataset.bgHover"
-    onmouseleave="this.style.background=this.dataset.bgBase"
+    style="${w}background:${bg};"
     onclick="toggle('${item.id}')">
+    ${on?checkCircle(c):''}
     ${svg}
     <div class="tn">${item.name}</div>
   </div>`;
@@ -369,7 +371,6 @@ function render(){
         </div>
       </div>
     </div>`;
-    if(ci<CATS.length-1) html+=`<div class="row-div" style="margin:0 14px;"></div>`;
   });
   area.innerHTML=html;
 

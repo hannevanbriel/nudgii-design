@@ -210,7 +210,9 @@ body{
 .phone-col{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
 
 
-/* ── 8. PHONE SHELL (390x844 iPhone 15) ── */
+/* ── 8. PHONE SHELL (390x844 iPhone 15) ──
+   STANDARD: all HTML mockups must be exactly 390x844px.
+   Never change these dimensions. Source of truth: CLAUDE-layout.md §16. */
 .phone{
   width:390px;height:844px;border-radius:50px;overflow:hidden;
   background:var(--cream);

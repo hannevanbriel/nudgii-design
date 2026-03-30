@@ -113,7 +113,7 @@ Status as of March 2026. Always check `nudgii-design/index.html` for current sta
 | Screen | Name | Status |
 |---|---|---|
 | S-01 | Welcome | 🔶 In progress |
-| S-02 | Tell me what you have (Path A) | ⛔ Decision needed (removed from S-01) |
+| S-02 | Tell me what you have (Path A) | 🔶 In progress |
 | S-03 | Show me what I can track (Path B) | 🔶 In progress |
 | S-04 | Review | 🔶 In progress |
 | S-05 | AHA + celebration + sign-in | 🔶 In progress |
@@ -192,8 +192,8 @@ const Color colorAmberLt   = Color(0xFFFAEEDA);   // warning background
 // Card backgrounds are SOLID — never rgba(color, opacity) on cream
 const Color catHomeBg          = Color(0xFFD2BEB6);  // Home card background — Anthropic blush
 const Color catHomeIc          = Color(0xFF7A5A50);  // Home icon stroke
-const Color catGardenBg        = Color(0xFFC0CEC9);  // Garden card background — leaf green
-const Color catGardenIc        = Color(0xFF607870);  // Garden icon stroke
+const Color catGardenBg        = Color(0xFFC4DABE);  // Garden card background — leaf green
+const Color catGardenIc        = Color(0xFF4A7A40);  // Garden icon stroke
 const Color catVehicleBg       = Color(0xFFC0CDD8);  // Vehicle card background — steel mist
 const Color catVehicleIc       = Color(0xFF4A6A82);  // Vehicle icon stroke
 const Color catSubsBg          = Color(0xFFD0C6DC);  // Subscriptions card background — lavender
@@ -207,7 +207,7 @@ const Color catPetsIc          = Color(0xFF8A6238);  // Pets icon stroke
 const Color darkBg             = Color(0xFF1E1C18);  // Warm dark cream (was cold sage #111614)
 const Color darkNav            = Color(0xFF28261F);  // Tab bar and FAB options surface
 const Color darkHomeBg         = Color(0xFF3A302E);
-const Color darkGardenBg       = Color(0xFF242E2C);
+const Color darkGardenBg       = Color(0xFF283020);
 const Color darkVehicleBg      = Color(0xFF262E34);
 const Color darkSubsBg         = Color(0xFF302838);
 const Color darkHealthBg       = Color(0xFF2E2E26);
@@ -392,14 +392,13 @@ These are locked decisions. Do not question them in design or code reviews.
 - ❌ Never use border-bottom to separate items in a list — each item is its own card with gap between
 - ❌ Never wrap multiple items in a single container card — gap + individual cards only
 - ❌ Never hardcode bottom padding for safe area — always use SafeArea widget in Flutter
+- ❌ Never set device/phone width to anything other than 390px (height 844px) in HTML mockups — iPhone 15 is the standard. border-radius: 50px on the outer shell. No exceptions, no close-enough values like 310px, 375px, or 400px. Rule is enforced via the .phone class in system/components.css
 - ❌ Never put the progress bar inside SafeArea — it must bleed full-width, top: false
 - ❌ Never use Spacer to push a CTA to the bottom — use a fixed Column outside Expanded
 - ❌ Never wrap the entire screen in SingleChildScrollView — only the content zone scrolls
 - ❌ Never use a fixed-count dot or step indicator for onboarding — continuous bar only
 - ❌ Never flatten the shell pattern into a single scrollable column — fixed top + Expanded + fixed bottom, always
-- ❌ Never show interactive items on S-01 — photo cards are display/swipeable only, no item selection, no check circles
-- ❌ Never show a category filter strip on S-01 — category filter exists on S-03 and S-09 only
-- ❌ Never show Path A ("Tell me what you have") on S-01 — user testing showed open-ended input is too complex as cold start. Single CTA only.
+- ❌ Never show interactive items on S-01 — nudge bubbles are display only, no onTap, no hover, no selection state
 - ❌ Never use Dutch copy in design files (lo-fi, hi-fi, prototype) — English only in all design artefacts
 - ❌ Never write locale-specific copy as the primary copy in design files — label it explicitly (e.g., "nl-BE example")
 - ❌ Never add "Step X of Y" text labels anywhere on screen — the progress bar is the only progress indicator, ever
@@ -471,14 +470,14 @@ Update this section when open decisions are resolved.
 | S-01 category strip removed | Category filter chips (Home, Vehicle, Garden, Subscriptions) removed from S-01. Screen was too busy. Category strip stays on S-03 and S-09 where it's a functional filter. | ✅ Yes | 2026-03-26 |
 | S-01 subtitle v2 | "We remind you before things break, expire, or get too late." replaces "Add what you own. We'll remind you when it matters." Explains the why (prevent problems) not the how (add items). | ✅ Yes | 2026-03-26 |
 | S-01 badge copy | "Set up in 2 minutes" replaces "Ready in 2 minutes". Action-oriented (user takes action) vs passive. | ✅ Yes | 2026-03-26 |
-| V2 flow promoted | v2 onboarding flow promoted to main. v1 archived. Celebration before auth, two-state AHA+celebration screen, sign-in as bottom sheet, photo card carousel on S-01. | ✅ Yes | 2026-03-26 |
+| V2 flow promoted | v2 onboarding flow promoted to main. v1 archived. Celebration before auth, two-state AHA+celebration screen, sign-in as bottom sheet, nudge bubbles on S-01. | ✅ Yes | 2026-03-26 |
 | Screen renumbering | S-05 Review → S-04. S-06 AHA → S-05 (combined with celebration + sign-in). S-07 Push → S-06. Old S-07 completion + S-08 SSO merged into S-05 two-state. S-09 Dashboard unchanged. | ✅ Yes | 2026-03-26 |
-| S-01 photo carousel | S-01 welcome shows 3 swipeable polaroid-style photo cards (tyres, tomato, lawn). Caveat handwritten captions, season chip, dots navigation, pivot text. Auto-advance 3.8s. Replaces nudge bubbles. Assets: assets/s01-tyres.jpg, s01-tomato.jpg, s01-lawn.jpg. | ✅ Yes | 2026-03-30 |
-| S-02 no carry-over | S-02 opens fresh ("What do you have at home?"). No selection carry-over from S-01 since S-01 has no interactive items (photo cards only). | ✅ Yes | 2026-03-26 |
+| Nudge bubbles component | S-01 welcome shows 3 staggered nudge bubbles in nudgii voice. Category-tinted bg (7%), rotation angles, display only. Replaces item cards and category chips. | ✅ Yes | 2026-03-26 |
+| S-02 no carry-over | S-02 opens fresh ("What do you have at home?"). No selection carry-over from S-01 since S-01 no longer has interactive items. | ✅ Yes | 2026-03-26 |
 | Gamification micro-moments | Celebration prototype pattern (confetti + spring animation) to be reused for: first task completed, streak milestones, weekly all-done. Design as reusable component. | ✅ Yes | 2026-03-26 |
-| Photo card localization | S-01 photo card content (captions, badges, pivot text) needs locale variants (nl-BE, nl-NL, fr) and seasonal rotation (4 asset sets per season). Store in database, not hardcoded. Season chip adapts to current month. | ✅ Yes | 2026-03-30 |
-| S-01 single CTA | Path A ("Tell me what you have") removed from S-01. User testing showed open-ended text/voice input too complex as cold start. Single CTA: "Show me what I can track" leads to S-03 browse. S-02 status changed to decision needed. | ✅ Yes | 2026-03-30 |
+| Nudge bubble localization | S-01 nudge bubble content needs locale variants (nl-BE, nl-NL, fr) and seasonal rotation (adjust by current month). Store in database, not hardcoded. | ✅ Yes | 2026-03-26 |
 | Free tier: no onboarding limits | Never block during onboarding. Let users add unlimited items. 10-item limit enforced on dashboard only. Items 11+ show "Pro" badge and don't send reminders. User chooses which 10 stay active, or upgrades. Conversion trigger: when a paused item's task comes due. | ✅ Yes | 2026-03-26 |
+| S-04 item counter | Show "X of 10 free" dot meter + quiet "Go Pro" link on S-04 Review only. Not on S-03 (too early, user still in discovery mode). Soft, non-blocking — sets honest expectations before dashboard. Dots meter reads like a storage bar. "Go Pro" is a link, not a button. | ✅ Yes | 2026-03-30 |
 | S-02 edge cases | 7 conversation scenarios documented in hi-fi: nonsense input, duplicate, ambiguous, unknown item, silence, brand mentioned, many items at once. Bubble tints: red for errors, amber for duplicates, standard for clarifications. | ✅ Yes | 2026-03-26 |
 | Continue chip copy | "Show my schedule" renamed to "Continue" in S-02. Next screen is S-04 Review, not the schedule. "Ready to review what I found?" replaces "Ready to see your schedule?" | ✅ Yes | 2026-03-26 |
 
