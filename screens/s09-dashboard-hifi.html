@@ -19,7 +19,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
 .d-greeting{padding:16px 20px 10px;flex-shrink:0;}
 .d-greeting-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:3px;}
 .d-greeting-name{font-family:'DM Serif Display',Georgia,serif;font-size:25px;font-weight:400;line-height:0.95;letter-spacing:-0.4px;color:var(--ink);}
-.d-greeting-name em{color:var(--ap);font-style:italic;}
+.d-greeting-name em{color:var(--cta);font-style:italic;}
 .d-greeting-sub{font-size:11px;color:var(--mid-a);margin-top:4px;}
 .d-greeting-sub .check-inline{display:inline-flex;width:11px;height:11px;vertical-align:-1px;margin-right:2px;}
 
@@ -40,22 +40,29 @@ body{background:#CBC5BB;padding:0 0 80px;}
 .d-tasks{display:flex;flex-direction:column;gap:8px;}
 .d-task{
   background:var(--surface);
-  border:0.5px solid var(--border);
-  border-radius:10px;
-  box-shadow:var(--shadow-card);
+  border:none;
+  border-radius:12px;
+  box-shadow:none;
   padding:12px 14px;
   display:flex;align-items:center;gap:10px;
   cursor:pointer;
   transition:background 0.15s;
 }
-.d-task:active{background:rgba(26,22,18,0.03);}
+.d-task:active{filter:brightness(0.97);}
+/* category backgrounds — v10.5 solid pastels */
+.d-task.cat-h{background:var(--cat-home-bg);}
+.d-task.cat-v{background:var(--cat-vehicle-bg);}
+.d-task.cat-g{background:var(--cat-garden-bg);}
+.d-task.cat-s{background:var(--cat-sub-bg);}
+.d-task.cat-hl{background:var(--cat-health-bg);}
+.d-task.cat-p{background:var(--cat-pets-bg);}
+
 .d-task-info{flex:1;min-width:0;}
 .d-task-name{font-size:13px;font-weight:500;color:var(--ink);line-height:1.2;letter-spacing:-0.2px;margin-bottom:2px;}
-.d-task-name.overdue{color:var(--terra);}
 .d-task-sub{font-size:11px;color:var(--mid-a);font-style:italic;}
 .d-task-date{font-size:11px;font-weight:500;flex-shrink:0;white-space:nowrap;}
-.d-task-date.overdue{color:var(--terra);}
-.d-task-date.due-soon{color:var(--ap-dk);}
+.d-task-date.overdue{color:var(--overdue-badge);}
+.d-task-date.due-soon{color:rgba(44,40,36,0.55);}
 .d-task-date.neutral{color:var(--mid-a);}
 
 /* Paused task cards */
@@ -212,12 +219,12 @@ body{background:#CBC5BB;padding:0 0 80px;}
             <div class="d-sec">Overdue</div>
             <div class="d-tasks">
               <!-- Task 0: Overdue boiler service -->
-              <div class="d-task">
+              <div class="d-task cat-h">
                 <div class="ci ci-h">
                   <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
                 </div>
                 <div class="d-task-info">
-                  <div class="d-task-name overdue">Annual boiler service</div>
+                  <div class="d-task-name">Annual boiler service</div>
                   <div class="d-task-sub">CV ketel, yearly</div>
                 </div>
                 <div class="d-task-date overdue">Oct 28</div>
@@ -233,7 +240,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
             <div class="d-sec">This week</div>
             <div class="d-tasks">
               <!-- Task 1: Dishwasher filter (due soon) -->
-              <div class="d-task">
+              <div class="d-task cat-h">
                 <div class="ci ci-h">
                   <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
                 </div>
@@ -245,7 +252,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
               </div>
 
               <!-- Task 2: CO detector -->
-              <div class="d-task">
+              <div class="d-task cat-h">
                 <div class="ci ci-h">
                   <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
                 </div>
@@ -377,7 +384,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
             <div class="d-sec">This week</div>
             <div class="d-tasks">
               <!-- Active task 1 -->
-              <div class="d-task">
+              <div class="d-task cat-h">
                 <div class="ci ci-h">
                   <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
                 </div>
@@ -389,7 +396,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
               </div>
 
               <!-- Active task 2 -->
-              <div class="d-task">
+              <div class="d-task cat-h">
                 <div class="ci ci-h">
                   <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
                 </div>
@@ -401,7 +408,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
               </div>
 
               <!-- Active task 3 -->
-              <div class="d-task">
+              <div class="d-task cat-h">
                 <div class="ci ci-h">
                   <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
                 </div>
@@ -416,8 +423,8 @@ body{background:#CBC5BB;padding:0 0 80px;}
             <!-- Paused section -->
             <div class="d-sec-paused">Paused (upgrade to activate)</div>
             <div class="d-tasks">
-              <!-- Paused task 1 -->
-              <div class="d-task paused">
+              <!-- Paused task 1 (Garden) -->
+              <div class="d-task cat-g paused">
                 <div class="ci ci-g">
                   <svg viewBox="0 0 24 24"><path d="M12 22V8M8 12l4-4 4 4"/><path d="M5 8c0-4 3-6 7-6s7 2 7 6c0 3-2 5-4 6H9c-2-1-4-3-4-6z"/></svg>
                 </div>
@@ -428,8 +435,8 @@ body{background:#CBC5BB;padding:0 0 80px;}
                 <span class="pro-pill">Pro</span>
               </div>
 
-              <!-- Paused task 2 -->
-              <div class="d-task paused">
+              <!-- Paused task 2 (Vehicle) -->
+              <div class="d-task cat-v paused">
                 <div class="ci ci-v">
                   <svg viewBox="0 0 24 24"><path d="M5 17h14M6 11l1.5-4.5h9L18 11"/><rect x="4" y="11" width="16" height="6" rx="2" fill="none"/><circle cx="7.5" cy="17" r="1.5"/><circle cx="16.5" cy="17" r="1.5"/></svg>
                 </div>
@@ -568,7 +575,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
             <div class="d-sec">This week</div>
             <div class="d-tasks">
               <!-- Task 1 -->
-              <div class="d-task">
+              <div class="d-task cat-h">
                 <div class="ci ci-h">
                   <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
                 </div>
@@ -580,7 +587,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
               </div>
 
               <!-- Task 2 -->
-              <div class="d-task">
+              <div class="d-task cat-h">
                 <div class="ci ci-h">
                   <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
                 </div>
@@ -592,7 +599,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
               </div>
 
               <!-- Task 3 -->
-              <div class="d-task">
+              <div class="d-task cat-h">
                 <div class="ci ci-h">
                   <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
                 </div>

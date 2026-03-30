@@ -265,13 +265,13 @@ body {
 }
 .chip svg { width: 11px; height: 11px; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .chip.home { background: rgba(122,90,80,0.10); }
-.chip.home svg { stroke: var(--cat-home); }
+.chip.home svg { stroke: var(--cat-home-ic); }
 .chip.vehicle { background: rgba(74,106,130,0.10); }
-.chip.vehicle svg { stroke: var(--cat-vehicle); }
+.chip.vehicle svg { stroke: var(--cat-vehicle-ic); }
 .chip.garden { background: rgba(74,122,64,0.10); }
-.chip.garden svg { stroke: var(--cat-garden); }
+.chip.garden svg { stroke: var(--cat-garden-ic); }
 .chip.sub { background: rgba(106,80,133,0.10); }
-.chip.sub svg { stroke: var(--cat-sub); }
+.chip.sub svg { stroke: var(--cat-sub-ic); }
 .chip.neutral { background: rgba(26,22,18,0.05); }
 .chip.neutral svg { stroke: var(--mid); }
 
@@ -544,7 +544,7 @@ body {
 .nname { font-size: 9px; font-weight: 500; color: var(--ink); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .nsub { font-size: 7px; color: var(--mid); font-style: italic; }
 .ndate { font-size: 8px; font-weight: 500; flex-shrink: 0; }
-.overdue { color: var(--terra); }
+.overdue { color: var(--overdue-badge); }
 .soon { color: var(--apricot-dk); }
 .ok { color: var(--mid-ac); }
 
@@ -900,7 +900,7 @@ body {
             </div>
             <div class="rev-tasks">
               <div class="rtask">
-                <div class="rtask-dot" style="background:var(--terra)"></div>
+                <div class="rtask-dot" style="background:var(--overdue-badge)"></div>
                 <div class="rtask-name">Switch to winter tyres</div>
                 <div class="rtask-cad">before Nov · BE</div>
               </div>

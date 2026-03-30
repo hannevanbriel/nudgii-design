@@ -28,14 +28,14 @@ body{background:#CBC5BB;padding:0 0 80px;}
 .chip-row::-webkit-scrollbar{display:none;}
 .cat-chip{flex-shrink:0;padding:5px 12px;border-radius:100px;font-size:11px;font-weight:500;cursor:pointer;user-select:none;outline:none;}
 .cat-chip-all{background:rgba(155,127,212,0.12);color:var(--cta);outline:1px solid var(--cta);}
-.cat-chip-home{background:rgba(200,120,80,0.13);color:var(--cat-home);}
-.cat-chip-vehicle{background:rgba(74,130,160,0.13);color:var(--cat-vehicle);}
-.cat-chip-garden{background:rgba(90,144,96,0.13);color:var(--cat-garden);}
-.cat-chip-subs{background:rgba(128,96,168,0.13);color:var(--cat-sub);}
-.cat-chip-home.active{outline:1px solid var(--cat-home);}
-.cat-chip-vehicle.active{outline:1px solid var(--cat-vehicle);}
-.cat-chip-garden.active{outline:1px solid var(--cat-garden);}
-.cat-chip-subs.active{outline:1px solid var(--cat-sub);}
+.cat-chip-home{background:rgba(210,190,182,0.6);color:var(--cat-home-ic);}
+.cat-chip-vehicle{background:rgba(192,205,216,0.6);color:var(--cat-vehicle-ic);}
+.cat-chip-garden{background:rgba(196,218,190,0.6);color:var(--cat-garden-ic);}
+.cat-chip-subs{background:rgba(208,198,220,0.6);color:var(--cat-sub-ic);}
+.cat-chip-home.active{outline:1px solid var(--cat-home-ic);}
+.cat-chip-vehicle.active{outline:1px solid var(--cat-vehicle-ic);}
+.cat-chip-garden.active{outline:1px solid var(--cat-garden-ic);}
+.cat-chip-subs.active{outline:1px solid var(--cat-sub-ic);}
 
 /* Category section headers */
 .cat-sec{padding:6px 0 3px;}
@@ -227,11 +227,11 @@ body{background:#CBC5BB;padding:0 0 80px;}
 
               <!-- HOME section -->
               <div class="cat-sec">
-                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-home);"></span>Home</div>
+                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-home-ic);"></span>Home</div>
                 <div class="tile-grid">
 
                   <!-- Boiler tile (drawer open, so tile shows active state) -->
-                  <div class="tile" style="background:rgba(200,120,80,0.10);border:1.5px solid var(--cat-home);border-radius:20px;">
+                  <div class="tile" style="background:var(--cat-home-bg);outline:1.5px solid var(--cat-home-ic);border-radius:20px;">
                     <div class="tile-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>
                     <div class="tile-icon"><svg viewBox="0 0 24 24" stroke="#7A5A50"><rect x="5" y="2" width="14" height="18" rx="3"/><circle cx="12" cy="13" r="3"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="8" y1="20" x2="16" y2="20"/></svg></div>
                     <div class="tile-lbl">Boiler</div>
@@ -240,7 +240,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
                   </div>
 
                   <!-- Dishwasher tile -->
-                  <div class="tile" style="background:rgba(200,120,80,0.10);">
+                  <div class="tile" style="background:var(--cat-home-bg);">
                     <div class="tile-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>
                     <div class="tile-icon"><svg viewBox="0 0 24 24" stroke="#7A5A50"><rect x="3" y="2" width="18" height="20" rx="3"/><circle cx="12" cy="13" r="4"/><line x1="12" y1="2" x2="12" y2="5"/></svg></div>
                     <div class="tile-lbl">Dishwasher</div>
@@ -259,7 +259,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
                     </div>
                     <div class="task-list">
                       <div class="task-row">
-                        <div class="task-dot" style="background:var(--cat-home);"></div>
+                        <div class="task-dot" style="background:var(--cat-home-ic);"></div>
                         <div class="task-name">Annual boiler service</div>
                         <div class="task-cadence">yearly, autumn</div>
                         <div class="task-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>
@@ -292,11 +292,11 @@ body{background:#CBC5BB;padding:0 0 80px;}
 
               <!-- VEHICLE section -->
               <div class="cat-sec">
-                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-vehicle);"></span>Vehicle</div>
+                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-vehicle-ic);"></span>Vehicle</div>
                 <div class="tile-grid">
 
                   <!-- Car tile -->
-                  <div class="tile" style="background:rgba(74,130,160,0.10);">
+                  <div class="tile" style="background:var(--cat-vehicle-bg);">
                     <div class="tile-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>
                     <div class="tile-icon"><svg viewBox="0 0 24 24" stroke="#4A6A82"><path d="M3 14L6 8h12l3 6v4H3v-4z"/><circle cx="7.5" cy="17" r="2"/><circle cx="16.5" cy="17" r="2"/><path d="M3 14h18"/></svg></div>
                     <div class="tile-lbl">Car</div>
@@ -311,11 +311,11 @@ body{background:#CBC5BB;padding:0 0 80px;}
 
               <!-- GARDEN section -->
               <div class="cat-sec">
-                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-garden);"></span>Garden</div>
+                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-garden-ic);"></span>Garden</div>
                 <div class="tile-grid">
 
                   <!-- Olive tree tile -->
-                  <div class="tile" style="background:rgba(90,144,96,0.10);">
+                  <div class="tile" style="background:var(--cat-garden-bg);">
                     <div class="tile-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>
                     <div class="tile-icon"><svg viewBox="0 0 24 24" stroke="#4A7A40"><line x1="12" y1="22" x2="12" y2="11"/><path d="M12 11C12 7 8 4 8 4C8 4 8 9 12 11Z"/><path d="M12 11C12 7 16 4 16 4C16 4 16 9 12 11Z"/><path d="M12 11C12 16 10 20 10 20"/></svg></div>
                     <div class="tile-lbl">Olive tree</div>
@@ -330,11 +330,11 @@ body{background:#CBC5BB;padding:0 0 80px;}
 
               <!-- SUBSCRIPTIONS section -->
               <div class="cat-sec">
-                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-sub);"></span>Subscriptions</div>
+                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-sub-ic);"></span>Subscriptions</div>
                 <div class="tile-grid">
 
                   <!-- Streaming tile -->
-                  <div class="tile" style="background:rgba(128,96,168,0.10);">
+                  <div class="tile" style="background:var(--cat-sub-bg);">
                     <div class="tile-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>
                     <div class="tile-icon"><svg viewBox="0 0 24 24" stroke="#6A5085"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="5" x2="8" y2="19"/></svg></div>
                     <div class="tile-lbl">Streaming</div>
@@ -405,11 +405,11 @@ body{background:#CBC5BB;padding:0 0 80px;}
 
               <!-- Home section only (filtered) -->
               <div class="cat-sec">
-                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-home);"></span>Home</div>
+                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-home-ic);"></span>Home</div>
                 <div class="tile-grid">
 
                   <!-- Boiler tile -->
-                  <div class="tile" style="background:rgba(200,120,80,0.10);">
+                  <div class="tile" style="background:var(--cat-home-bg);">
                     <div class="tile-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>
                     <div class="tile-icon"><svg viewBox="0 0 24 24" stroke="#7A5A50"><rect x="5" y="2" width="14" height="18" rx="3"/><circle cx="12" cy="13" r="3"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="8" y1="20" x2="16" y2="20"/></svg></div>
                     <div class="tile-lbl">Boiler</div>
@@ -418,7 +418,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
                   </div>
 
                   <!-- Dishwasher tile (active, drawer open) -->
-                  <div class="tile" style="background:rgba(200,120,80,0.10);border:1.5px solid var(--cat-home);border-radius:20px;">
+                  <div class="tile" style="background:var(--cat-home-bg);outline:1.5px solid var(--cat-home-ic);border-radius:20px;">
                     <div class="tile-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>
                     <div class="tile-icon"><svg viewBox="0 0 24 24" stroke="#7A5A50"><rect x="3" y="2" width="18" height="20" rx="3"/><circle cx="12" cy="13" r="4"/><line x1="12" y1="2" x2="12" y2="5"/></svg></div>
                     <div class="tile-lbl">Dishwasher</div>
@@ -437,7 +437,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
                     </div>
                     <div class="task-list">
                       <div class="task-row">
-                        <div class="task-dot" style="background:var(--cat-home);"></div>
+                        <div class="task-dot" style="background:var(--cat-home-ic);"></div>
                         <div class="task-name">Clean dishwasher filter</div>
                         <div class="task-cadence">every 6-8 wks</div>
                         <div class="task-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>

@@ -97,14 +97,14 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,0.92);backdrop
 .hero-sub{font-size:14px;color:var(--mid);max-width:500px;line-height:1.6;}
 .hero-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;}
 .hero-pill{font-size:11px;font-weight:500;padding:4px 12px;border-radius:100px;background:rgba(26,22,18,0.06);color:rgba(26,22,18,0.55);}
-.hero-pill.locked{background:rgba(90,144,96,0.10);color:#3A6E40;}
+.hero-pill.locked{background:var(--cat-garden-bg);color:#3A6E40;}
 
 /* TOC */
 .toc{background:var(--cream-2);border-radius:12px;padding:18px 22px;margin-top:28px;border:1px solid var(--border);}
 .toc-lbl{font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:12px;}
 .toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:4px;}
 .toc-a{font-size:12px;color:var(--ink);text-decoration:none;padding:3px 0;display:block;}
-.toc-a:hover{color:var(--ap-dk);}
+.toc-a:hover{color:rgba(44,40,36,0.55);}
 .toc-n{color:var(--mid);margin-right:5px;font-size:11px;}
 
 /* SECTIONS */
@@ -123,7 +123,7 @@ section{padding-top:60px;}
 
 /* TAGS */
 .tag{font-size:9px;font-weight:500;padding:2px 7px;border-radius:100px;}
-.tag-lock{background:rgba(90,144,96,0.12);color:#3A6E40;}
+.tag-lock{background:var(--cat-garden-bg);color:#3A6E40;}
 .tag-new{background:rgba(200,120,74,0.12);color:#8A4A20;}
 .tag-never{background:rgba(196,80,58,0.10);color:#993C1D;}
 .tag-pro{background:rgba(155,127,212,0.12);color:#7040C0;}
@@ -185,7 +185,7 @@ section{padding-top:60px;}
 .nci svg{width:12px;height:12px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
 .nb{flex:1;min-width:0;}
 .nn{font-size:13px;font-weight:500;color:var(--ink);letter-spacing:-0.1px;}
-.nn-ov{color:var(--terra);}
+.nn-ov{color:var(--overdue-badge);}
 .ns{font-size:10px;font-style:italic;color:var(--mid);margin-top:1px;}
 .nd{font-size:11px;font-weight:500;flex-shrink:0;}
 
@@ -688,11 +688,11 @@ section{padding-top:60px;}
       <div style="padding:14px;border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;background:var(--surface);">
         <div style="font-size:10px;color:var(--mid);margin-bottom:10px;font-style:italic;">Categories previously used icon strokes with 10% opacity tint backgrounds on cream. Replaced by solid pastel fills in v10.5 to avoid washed-out look on the cream app background.</div>
         <div class="cat-row">
-          <div class="ctile" style="opacity:0.6;"><div class="cicon" style="background:rgba(200,120,80,0.10);"><svg viewBox="0 0 24 24" fill="none" stroke="#C87850" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div><div class="cname" style="text-decoration:line-through;">Home</div><div class="chex">#C87850</div><div class="cnote">rgba(200,120,80,0.10) bg</div></div></div>
-          <div class="ctile" style="opacity:0.6;"><div class="cicon" style="background:rgba(74,130,160,0.10);"><svg viewBox="0 0 24 24" fill="none" stroke="#4A82A0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg></div><div><div class="cname" style="text-decoration:line-through;">Vehicle</div><div class="chex">#4A82A0</div><div class="cnote">rgba(74,130,160,0.10) bg</div></div></div>
-          <div class="ctile" style="opacity:0.6;"><div class="cicon" style="background:rgba(90,144,96,0.10);"><svg viewBox="0 0 24 24" fill="none" stroke="#5A9060" stroke-width="1.5" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1 1.1 2.8.8 5.3-.6 7.4"/></svg></div><div><div class="cname" style="text-decoration:line-through;">Garden</div><div class="chex">#5A9060</div><div class="cnote">rgba(90,144,96,0.10) bg</div></div></div>
-          <div class="ctile" style="opacity:0.6;"><div class="cicon" style="background:rgba(128,96,168,0.10);"><svg viewBox="0 0 24 24" fill="none" stroke="#8060A8" stroke-width="1.5" stroke-linecap="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div><div><div class="cname" style="text-decoration:line-through;">Subscriptions</div><div class="chex">#8060A8</div><div class="cnote">rgba(128,96,168,0.10) bg</div></div></div>
-          <div class="ctile" style="opacity:0.6;"><div class="cicon" style="background:rgba(184,100,120,0.10);"><svg viewBox="0 0 24 24" fill="none" stroke="#B86478" stroke-width="1.5" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="cname" style="text-decoration:line-through;">Health (old pink)</div><div class="chex">#B86478</div><div class="cnote">rgba(184,100,120,0.10) bg — now olive</div></div></div>
+          <div class="ctile" style="opacity:0.6;"><div class="cicon" style="background:var(--cat-home-bg);"><svg viewBox="0 0 24 24" fill="none" stroke="#C87850" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div><div class="cname" style="text-decoration:line-through;">Home</div><div class="chex">#C87850</div><div class="cnote">var(--cat-home-bg) bg</div></div></div>
+          <div class="ctile" style="opacity:0.6;"><div class="cicon" style="background:var(--cat-vehicle-bg);"><svg viewBox="0 0 24 24" fill="none" stroke="#4A82A0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg></div><div><div class="cname" style="text-decoration:line-through;">Vehicle</div><div class="chex">#4A82A0</div><div class="cnote">var(--cat-vehicle-bg) bg</div></div></div>
+          <div class="ctile" style="opacity:0.6;"><div class="cicon" style="background:var(--cat-garden-bg);"><svg viewBox="0 0 24 24" fill="none" stroke="#5A9060" stroke-width="1.5" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1 1.1 2.8.8 5.3-.6 7.4"/></svg></div><div><div class="cname" style="text-decoration:line-through;">Garden</div><div class="chex">#5A9060</div><div class="cnote">var(--cat-garden-bg) bg</div></div></div>
+          <div class="ctile" style="opacity:0.6;"><div class="cicon" style="background:var(--cat-sub-bg);"><svg viewBox="0 0 24 24" fill="none" stroke="#8060A8" stroke-width="1.5" stroke-linecap="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div><div><div class="cname" style="text-decoration:line-through;">Subscriptions</div><div class="chex">#8060A8</div><div class="cnote">var(--cat-sub-bg) bg</div></div></div>
+          <div class="ctile" style="opacity:0.6;"><div class="cicon" style="background:var(--cat-health-bg);"><svg viewBox="0 0 24 24" fill="none" stroke="#B86478" stroke-width="1.5" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="cname" style="text-decoration:line-through;">Health (old pink)</div><div class="chex">#B86478</div><div class="cnote">var(--cat-health-bg) bg — now olive</div></div></div>
         </div>
       </div>
     </details>
@@ -878,7 +878,7 @@ section{padding-top:60px;}
         </div>
         <div style="margin-top:12px;">
           <div class="rcard" style="background:rgba(196,80,58,0.04);border-color:rgba(196,80,58,0.12);">
-            <div class="rcard-title" style="color:var(--terra);">Rules <span class="tag tag-never">never</span></div>
+            <div class="rcard-title" style="color:var(--overdue-badge);">Rules <span class="tag tag-never">never</span></div>
             <div class="rcard-body">Never border-bottom separators between items — the cream gap IS the separator.<br>Never wrap multiple items in one container card.<br>Category color never bleeds outside the icon chip.</div>
           </div>
         </div>
@@ -906,8 +906,8 @@ section{padding-top:60px;}
         <!-- Status color reference -->
         <div style="font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:10px;">Status colours</div>
         <div class="spec-grid">
-          <div class="spec-row"><div class="spec-l">Overdue</div><div class="spec-r">Task name + date label both in <code style="color:var(--terra);">#C4503A colorTerra</code></div></div>
-          <div class="spec-row"><div class="spec-l">Due soon (≤ 7 d)</div><div class="spec-r">Date label in <code style="color:var(--ap-dk);">#C8784A colorApricotDk</code></div></div>
+          <div class="spec-row"><div class="spec-l">Overdue</div><div class="spec-r">Task name + date label both in <code style="color:var(--overdue-badge);">#C4503A colorTerra</code></div></div>
+          <div class="spec-row"><div class="spec-l">Due soon (≤ 7 d)</div><div class="spec-r">Date label in <code style="color:rgba(44,40,36,0.55);">#C8784A colorApricotDk</code></div></div>
           <div class="spec-row" style="border-bottom:none;"><div class="spec-l">Future (&gt; 7 days)</div><div class="spec-r">Date label <code>rgba(26,22,18,0.20)</code> — muted, not prominent</div></div>
         </div>
       </div>
@@ -1286,7 +1286,7 @@ final sidePad = MediaQuery.of(context).size.width &lt; 420 ? 16.0 : 20.0;</pre>
         <table style="width:100%;border-collapse:collapse;font-size:12px;margin-top:10px;line-height:1.8;">
           <tr style="border-bottom:1px solid var(--border);">
             <td style="padding:4px 8px;font-weight:500;">--mid #8A8070</td>
-            <td style="padding:4px 8px;color:var(--terra);">2.8:1 · FAILS AA</td>
+            <td style="padding:4px 8px;color:var(--overdue-badge);">2.8:1 · FAILS AA</td>
             <td style="padding:4px 8px;">Decorative ONLY — witty italic card subtitles. Never functional.</td>
           </tr>
           <tr style="border-bottom:1px solid var(--border);">
@@ -1844,7 +1844,7 @@ Overlay.of(context).insert(
       <div class="rcard-body">
         Full semantic background + icon-chip. No border-left accent.<br><br>
         <strong>Background:</strong> <code>--red-lt #FCEBEB</code><br>
-        <strong>Border:</strong> 1px solid rgba(163,45,45,0.18) — all sides. <span style="color:var(--terra);font-weight:500;">No border-left accent stripe — ever.</span><br>
+        <strong>Border:</strong> 1px solid rgba(163,45,45,0.18) — all sides. <span style="color:var(--overdue-badge);font-weight:500;">No border-left accent stripe — ever.</span><br>
         <strong>Icon-chip:</strong> 28×28px · border-radius 8px · rgba(196,80,58,0.15) bg · Phosphor WarningCircle 14px stroke 1.8 · terra<br>
         <strong>Title:</strong> DM Sans 500 12px · ink<br>
         <strong>Body:</strong> DM Sans 400 11px · <code>--mid-a #6B6358</code><br>
@@ -2345,7 +2345,7 @@ Overlay.of(context).insert(
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;">
       <div class="rcard" style="border-color:rgba(196,80,58,0.15);background:rgba(196,80,58,0.03);">
-        <div class="rcard-title" style="color:var(--terra);">Don't do this</div>
+        <div class="rcard-title" style="color:var(--overdue-badge);">Don't do this</div>
         <div class="rcard-body">Don't design directly in the handoff file. Design in "Working" page, copy finished frames to "Handoff" page. Prevents accidental edits to locked screens.</div>
       </div>
       <div class="rcard" style="border-color:rgba(90,144,96,0.18);background:rgba(90,144,96,0.04);">
@@ -2473,13 +2473,13 @@ Overlay.of(context).insert(
             <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;width:160px;">Task</td>
             <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Em-accent</td>
           </tr>
-          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Dishwasher filter</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Your dishwasher approves."</td></tr>
-          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Washing machine</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Clean machine. Ironic."</td></tr>
-          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Oven</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Your oven forgives you."</td></tr>
-          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Fridge</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"The fridge has no complaints."</td></tr>
-          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Smoke detector</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Still beeping. Good sign."</td></tr>
-          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">HVAC filter</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Your air conditioner can breathe again."</td></tr>
-          <tr><td style="padding:4px 8px;font-weight:500;">Boiler</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Winter kan beginnen."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Dishwasher filter</td><td style="padding:4px 8px;font-style:italic;color:rgba(44,40,36,0.55);">"Your dishwasher approves."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Washing machine</td><td style="padding:4px 8px;font-style:italic;color:rgba(44,40,36,0.55);">"Clean machine. Ironic."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Oven</td><td style="padding:4px 8px;font-style:italic;color:rgba(44,40,36,0.55);">"Your oven forgives you."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Fridge</td><td style="padding:4px 8px;font-style:italic;color:rgba(44,40,36,0.55);">"The fridge has no complaints."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Smoke detector</td><td style="padding:4px 8px;font-style:italic;color:rgba(44,40,36,0.55);">"Still beeping. Good sign."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">HVAC filter</td><td style="padding:4px 8px;font-style:italic;color:rgba(44,40,36,0.55);">"Your air conditioner can breathe again."</td></tr>
+          <tr><td style="padding:4px 8px;font-weight:500;">Boiler</td><td style="padding:4px 8px;font-style:italic;color:rgba(44,40,36,0.55);">"Winter kan beginnen."</td></tr>
         </table>
 
         <div class="cgroup-title">Vehicle</div>
@@ -2488,10 +2488,10 @@ Overlay.of(context).insert(
             <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;width:160px;">Task</td>
             <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Em-accent</td>
           </tr>
-          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Winter tyres</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Winter kan beginnen."</td></tr>
-          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Car service</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Your car stops giving you the look."</td></tr>
-          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Tyre pressure</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Your tyres feel seen."</td></tr>
-          <tr><td style="padding:4px 8px;font-weight:500;">Air filter</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Your car is breathing normally."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Winter tyres</td><td style="padding:4px 8px;font-style:italic;color:rgba(44,40,36,0.55);">"Winter kan beginnen."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Car service</td><td style="padding:4px 8px;font-style:italic;color:rgba(44,40,36,0.55);">"Your car stops giving you the look."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Tyre pressure</td><td style="padding:4px 8px;font-style:italic;color:rgba(44,40,36,0.55);">"Your tyres feel seen."</td></tr>
+          <tr><td style="padding:4px 8px;font-weight:500;">Air filter</td><td style="padding:4px 8px;font-style:italic;color:rgba(44,40,36,0.55);">"Your car is breathing normally."</td></tr>
         </table>
 
         <div class="cgroup-title">Garden &amp; Plants</div>
@@ -2500,10 +2500,10 @@ Overlay.of(context).insert(
             <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;width:160px;">Task</td>
             <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Em-accent</td>
           </tr>
-          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Olive tree</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Je olijfboom is je dankbaar."</td></tr>
-          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Plant watering</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"It won't say thank you but it means it."</td></tr>
-          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Lawn mowing</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Your lawn is presentable again."</td></tr>
-          <tr><td style="padding:4px 8px;font-weight:500;">Winter prep</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Your garden is ready. Are you?"</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Olive tree</td><td style="padding:4px 8px;font-style:italic;color:rgba(44,40,36,0.55);">"Je olijfboom is je dankbaar."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Plant watering</td><td style="padding:4px 8px;font-style:italic;color:rgba(44,40,36,0.55);">"It won't say thank you but it means it."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Lawn mowing</td><td style="padding:4px 8px;font-style:italic;color:rgba(44,40,36,0.55);">"Your lawn is presentable again."</td></tr>
+          <tr><td style="padding:4px 8px;font-weight:500;">Winter prep</td><td style="padding:4px 8px;font-style:italic;color:rgba(44,40,36,0.55);">"Your garden is ready. Are you?"</td></tr>
         </table>
 
         <div class="cgroup-title">Subscriptions</div>
@@ -2512,9 +2512,9 @@ Overlay.of(context).insert(
             <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;width:160px;">Task</td>
             <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Em-accent</td>
           </tr>
-          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Subscription review</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"One less quiet charge."</td></tr>
-          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Annual renewal</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Intentional spending. Rare."</td></tr>
-          <tr><td style="padding:4px 8px;font-weight:500;">Password update</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Secure. For now."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Subscription review</td><td style="padding:4px 8px;font-style:italic;color:rgba(44,40,36,0.55);">"One less quiet charge."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Annual renewal</td><td style="padding:4px 8px;font-style:italic;color:rgba(44,40,36,0.55);">"Intentional spending. Rare."</td></tr>
+          <tr><td style="padding:4px 8px;font-weight:500;">Password update</td><td style="padding:4px 8px;font-style:italic;color:rgba(44,40,36,0.55);">"Secure. For now."</td></tr>
         </table>
 
         <div class="cgroup-title">Special cases</div>
@@ -2523,9 +2523,9 @@ Overlay.of(context).insert(
             <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;width:160px;">Trigger</td>
             <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Copy</td>
           </tr>
-          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Done early</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Done. {n} days early. Overachiever."</td></tr>
-          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Streak</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Done. {n}-week streak. Your stuff notices."</td></tr>
-          <tr><td style="padding:4px 8px;font-weight:500;">First task ever</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Done. That's the first one. The habit starts here."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Done early</td><td style="padding:4px 8px;font-style:italic;color:rgba(44,40,36,0.55);">"Done. {n} days early. Overachiever."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Streak</td><td style="padding:4px 8px;font-style:italic;color:rgba(44,40,36,0.55);">"Done. {n}-week streak. Your stuff notices."</td></tr>
+          <tr><td style="padding:4px 8px;font-weight:500;">First task ever</td><td style="padding:4px 8px;font-style:italic;color:rgba(44,40,36,0.55);">"Done. That's the first one. The habit starts here."</td></tr>
         </table>
       </div>
     </div>

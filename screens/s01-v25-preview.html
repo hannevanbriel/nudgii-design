@@ -7,15 +7,15 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
 :root{
-  --cream:#F5F0E8;--ink:#1A1612;--mid:#8A8070;--mid-a:#6B6358;
+  --cream:#F5F0E8;--ink:#2C2824;--mid:#8A8070;--mid-a:#6B6358;
   --border:rgba(26,22,18,0.08);--border-md:rgba(26,22,18,0.12);
-  --ap:#C4A8E8;--ap-dk:#C8784A;--terra:#C4503A;
+  --ap:#C4A8E8;--overdue-badge:#6B4A3A;--terra:#6B4A3A;
   --plum:#2D1F4A;--cta:#9B7FD4;--cta-fg:#FAF8FF;
   --sage:#3B6D11;--sage-lt:#EAF3DE;
-  --ch:#C87850;--chb:rgba(200,120,80,0.10);
-  --cv:#4A82A0;--cvb:rgba(74,130,160,0.10);
-  --cg:#5A9060;--cgb:rgba(90,144,96,0.10);
-  --cs:#8060A8;--csb:rgba(128,96,168,0.10);
+  --ch:#7A5A50;--chb:#D2BEB6;
+  --cv:#4A6A82;--cvb:#C0CDD8;
+  --cg:#4A7A40;--cgb:#C4DABE;
+  --cs:#6A5085;--csb:#D0C6DC;
   --surface:#FFFFFF;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -48,13 +48,13 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
 .ii{display:flex;align-items:flex-start;gap:3px;}
 .ii-l{width:7px;height:20px;border-radius:100px;background:var(--ink);}
 .ii-r{width:7px;height:20px;border-radius:100px;background:rgba(155,127,212,0.45);position:relative;}
-.ii-dot{width:5px;height:5px;border-radius:50%;background:var(--ap-dk);position:absolute;top:2px;right:-2px;}
+.ii-dot{width:5px;height:5px;border-radius:50%;background:rgba(44,40,36,0.55);position:absolute;top:2px;right:-2px;}
 .free-badge{display:inline-flex;align-items:center;gap:4px;background:var(--sage-lt);border-radius:100px;padding:4px 10px 4px 7px;font-size:10px;font-weight:500;color:var(--sage);}
 .fb-dot{width:5px;height:5px;border-radius:50%;background:var(--sage);}
 
 /* HEADLINE — locked */
 .w-h1{font-family:'DM Serif Display',serif;font-size:33px;color:var(--ink);line-height:0.97;letter-spacing:-0.55px;margin-bottom:8px;}
-.w-h1 em{font-style:italic;color:var(--ap-dk);}
+.w-h1 em{font-style:italic;color:var(--cta);}
 
 /* CHANGE 1 — promise line. Replaces "But we can remind you." */
 .promise-line{font-size:13px;font-style:italic;color:var(--mid);line-height:1.5;margin-bottom:14px;font-weight:400;}
@@ -70,7 +70,7 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
 .prev-item-info{flex:1;}
 .prev-item-name{font-size:13px;font-weight:500;color:var(--ink);}
 .prev-item-status{font-size:11px;color:var(--mid);margin-top:1px;}
-.ov{color:var(--terra);font-weight:500;}
+.ov{color:var(--overdue-badge);font-weight:500;}
 .ci{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .ci svg{width:13px;height:13px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
 
@@ -177,10 +177,10 @@ nav{background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 3
 
               <!-- CHANGE 2: category strip -->
               <div class="cat-strip">
-                <div class="cat-pill"><span class="cat-dot" style="background:#C87850;"></span>Home</div>
-                <div class="cat-pill"><span class="cat-dot" style="background:#4A82A0;"></span>Vehicle</div>
-                <div class="cat-pill"><span class="cat-dot" style="background:#5A9060;"></span>Garden</div>
-                <div class="cat-pill"><span class="cat-dot" style="background:#8060A8;"></span>Subscriptions</div>
+                <div class="cat-pill"><span class="cat-dot" style="background:#7A5A50;"></span>Home</div>
+                <div class="cat-pill"><span class="cat-dot" style="background:#4A6A82;"></span>Vehicle</div>
+                <div class="cat-pill"><span class="cat-dot" style="background:#4A7A40;"></span>Garden</div>
+                <div class="cat-pill"><span class="cat-dot" style="background:#6A5085;"></span>Subscriptions</div>
               </div>
 
               <!-- preview items — locked -->

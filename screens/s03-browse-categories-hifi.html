@@ -38,15 +38,15 @@ body{background:#CBC5BB;padding:0 0 80px;}
 .chip-row::-webkit-scrollbar{display:none;}
 .cat-chip{flex-shrink:0;padding:5px 12px;border-radius:100px;font-size:11px;font-weight:500;cursor:pointer;user-select:none;outline:none;}
 .cat-chip-all{background:rgba(155,127,212,0.12);color:var(--cta);outline:1px solid var(--cta);}
-.cat-chip-home{background:rgba(122,90,80,0.12);color:var(--cat-home);}
-.cat-chip-vehicle{background:rgba(74,106,130,0.12);color:var(--cat-vehicle);}
-.cat-chip-garden{background:rgba(74,122,64,0.12);color:var(--cat-garden);}
-.cat-chip-subs{background:rgba(106,80,133,0.12);color:var(--cat-sub);}
+.cat-chip-home{background:rgba(122,90,80,0.12);color:var(--cat-home-ic);}
+.cat-chip-vehicle{background:rgba(74,106,130,0.12);color:var(--cat-vehicle-ic);}
+.cat-chip-garden{background:rgba(74,122,64,0.12);color:var(--cat-garden-ic);}
+.cat-chip-subs{background:rgba(106,80,133,0.12);color:var(--cat-sub-ic);}
 /* active category chip: add outline */
-.cat-chip-home.active{outline:1px solid var(--cat-home);}
-.cat-chip-vehicle.active{outline:1px solid var(--cat-vehicle);}
-.cat-chip-garden.active{outline:1px solid var(--cat-garden);}
-.cat-chip-subs.active{outline:1px solid var(--cat-sub);}
+.cat-chip-home.active{outline:1px solid var(--cat-home-ic);}
+.cat-chip-vehicle.active{outline:1px solid var(--cat-vehicle-ic);}
+.cat-chip-garden.active{outline:1px solid var(--cat-garden-ic);}
+.cat-chip-subs.active{outline:1px solid var(--cat-sub-ic);}
 
 /* Selected pill */
 .sel-pill{display:inline-flex;align-items:center;gap:5px;background:var(--cta);color:var(--cta-fg);font-size:10px;font-weight:600;padding:3px 10px 3px 5px;border-radius:100px;margin-bottom:6px;}
@@ -178,20 +178,20 @@ body{background:#CBC5BB;padding:0 0 80px;}
 
               <!-- HOME row -->
               <div class="cat-sec">
-                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-home);"></span>Home</div>
+                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-home-ic);"></span>Home</div>
                 <div class="hrow">
                   <!-- Dishwasher: selected -->
-                  <div class="tile" style="background:rgba(200,120,80,0.12);border-color:var(--cat-home);">
+                  <div class="tile" style="background:var(--cat-home-bg);border-color:var(--cat-home-ic);">
                     <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="32" y="48" width="192" height="160" rx="16" stroke="#7A5A50" stroke-width="14" fill="none"/><line x1="32" y1="100" x2="224" y2="100" stroke="#7A5A50" stroke-width="14" stroke-linecap="round"/><circle cx="128" cy="164" r="34" stroke="#7A5A50" stroke-width="12" fill="none"/><circle cx="128" cy="164" r="10" fill="#7A5A50"/></svg>
                     <div class="tile-lbl">Dishwasher</div>
                   </div>
                   <!-- Washing machine: unselected -->
-                  <div class="tile" style="background:rgba(200,120,80,0.12);">
+                  <div class="tile" style="background:var(--cat-home-bg);">
                     <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="32" y="32" width="192" height="192" rx="16" stroke="#7A5A50" stroke-width="14" fill="none"/><circle cx="128" cy="150" r="48" stroke="#7A5A50" stroke-width="12" fill="none"/><circle cx="82" cy="74" r="11" fill="#7A5A50"/></svg>
                     <div class="tile-lbl">Washing machine</div>
                   </div>
                   <!-- Boiler: unselected -->
-                  <div class="tile" style="background:rgba(200,120,80,0.12);">
+                  <div class="tile" style="background:var(--cat-home-bg);">
                     <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="72" y="24" width="112" height="208" rx="20" stroke="#7A5A50" stroke-width="14" fill="none"/><circle cx="128" cy="124" r="34" stroke="#7A5A50" stroke-width="12" fill="none"/><line x1="128" y1="58" x2="128" y2="76" stroke="#7A5A50" stroke-width="12" stroke-linecap="round"/></svg>
                     <div class="tile-lbl">Boiler</div>
                   </div>
@@ -203,18 +203,18 @@ body{background:#CBC5BB;padding:0 0 80px;}
 
               <!-- VEHICLE row -->
               <div class="cat-sec">
-                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-vehicle);"></span>Vehicle</div>
+                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-vehicle-ic);"></span>Vehicle</div>
                 <div class="hrow">
                   <!-- Car: selected -->
-                  <div class="tile" style="background:rgba(74,130,160,0.12);border-color:var(--cat-vehicle);">
+                  <div class="tile" style="background:var(--cat-vehicle-bg);border-color:var(--cat-vehicle-ic);">
                     <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><path d="M8 144a8 8 0 0 1 8-8h16L60 80h136l28 56h16a8 8 0 0 1 8 8v32a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8v-32z" stroke="#4A6A82" stroke-width="14" fill="none" stroke-linejoin="round"/><circle cx="76" cy="192" r="24" stroke="#4A6A82" stroke-width="14" fill="none"/><circle cx="180" cy="192" r="24" stroke="#4A6A82" stroke-width="14" fill="none"/></svg>
                     <div class="tile-lbl">Car</div>
                   </div>
-                  <div class="tile" style="background:rgba(74,130,160,0.12);">
+                  <div class="tile" style="background:var(--cat-vehicle-bg);">
                     <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><circle cx="60" cy="168" r="44" stroke="#4A6A82" stroke-width="14" fill="none"/><circle cx="196" cy="168" r="44" stroke="#4A6A82" stroke-width="14" fill="none"/><path d="M60 168l56-96h48" stroke="#4A6A82" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M128 72l68 96" stroke="#4A6A82" stroke-width="14" stroke-linecap="round"/></svg>
                     <div class="tile-lbl">Bicycle</div>
                   </div>
-                  <div class="tile" style="background:rgba(74,130,160,0.12);">
+                  <div class="tile" style="background:var(--cat-vehicle-bg);">
                     <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><circle cx="56" cy="180" r="44" stroke="#4A6A82" stroke-width="14" fill="none"/><circle cx="200" cy="180" r="44" stroke="#4A6A82" stroke-width="14" fill="none"/><path d="M56 180l60-84h52l28 36H128" stroke="#4A6A82" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     <div class="tile-lbl">Motorcycle</div>
                   </div>
@@ -226,17 +226,17 @@ body{background:#CBC5BB;padding:0 0 80px;}
 
               <!-- GARDEN row -->
               <div class="cat-sec">
-                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-garden);"></span>Garden</div>
+                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-garden-ic);"></span>Garden</div>
                 <div class="hrow">
-                  <div class="tile" style="background:rgba(90,144,96,0.12);">
+                  <div class="tile" style="background:var(--cat-garden-bg);">
                     <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><path d="M24 200c0 0 20-88 56-88s28 56 48 56 36-120 56-120 48 152 48 152" stroke="#4A7A40" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="200" x2="244" y2="200" stroke="#4A7A40" stroke-width="14" stroke-linecap="round"/></svg>
                     <div class="tile-lbl">Lawn</div>
                   </div>
-                  <div class="tile" style="background:rgba(90,144,96,0.12);">
+                  <div class="tile" style="background:var(--cat-garden-bg);">
                     <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><line x1="128" y1="224" x2="128" y2="140" stroke="#4A7A40" stroke-width="14" stroke-linecap="round"/><circle cx="128" cy="96" r="52" stroke="#4A7A40" stroke-width="14" fill="none"/><circle cx="82" cy="140" r="34" stroke="#4A7A40" stroke-width="12" fill="none"/><circle cx="174" cy="140" r="34" stroke="#4A7A40" stroke-width="12" fill="none"/><line x1="68" y1="224" x2="188" y2="224" stroke="#4A7A40" stroke-width="14" stroke-linecap="round"/></svg>
                     <div class="tile-lbl">Hedge</div>
                   </div>
-                  <div class="tile" style="background:rgba(90,144,96,0.12);">
+                  <div class="tile" style="background:var(--cat-garden-bg);">
                     <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><line x1="128" y1="224" x2="128" y2="128" stroke="#4A7A40" stroke-width="14" stroke-linecap="round"/><path d="M128 172c0 0-36-16-52-56s20-80 52-72c32-8 68 32 52 72s-52 56-52 56z" stroke="#4A7A40" stroke-width="12" fill="none" stroke-linejoin="round"/></svg>
                     <div class="tile-lbl">Houseplant</div>
                   </div>
@@ -248,17 +248,17 @@ body{background:#CBC5BB;padding:0 0 80px;}
 
               <!-- SUBSCRIPTIONS row -->
               <div class="cat-sec">
-                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-sub);"></span>Subscriptions</div>
+                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-sub-ic);"></span>Subscriptions</div>
                 <div class="hrow">
-                  <div class="tile" style="background:rgba(128,96,168,0.12);">
+                  <div class="tile" style="background:var(--cat-sub-bg);">
                     <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><path d="M128 24L32 64v72c0 56 40 96 96 112 56-16 96-56 96-112V64L128 24z" stroke="#6A5085" stroke-width="14" fill="none" stroke-linejoin="round"/><path d="M92 128l28 28 44-52" stroke="#6A5085" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     <div class="tile-lbl">Insurance</div>
                   </div>
-                  <div class="tile" style="background:rgba(128,96,168,0.12);">
+                  <div class="tile" style="background:var(--cat-sub-bg);">
                     <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="32" y="64" width="192" height="128" rx="16" stroke="#6A5085" stroke-width="14" fill="none"/><path d="M100 100l72 28-72 28V100z" stroke="#6A5085" stroke-width="12" fill="none" stroke-linejoin="round"/></svg>
                     <div class="tile-lbl">Streaming</div>
                   </div>
-                  <div class="tile" style="background:rgba(128,96,168,0.12);">
+                  <div class="tile" style="background:var(--cat-sub-bg);">
                     <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><path d="M80 192H64a64 64 0 1 1 14-126A80 80 0 1 1 80 192z" stroke="#6A5085" stroke-width="14" fill="none" stroke-linejoin="round"/></svg>
                     <div class="tile-lbl">Cloud storage</div>
                   </div>
@@ -311,28 +311,28 @@ body{background:#CBC5BB;padding:0 0 80px;}
               <!-- Home 3-col grid, sorted: selected first -->
               <div class="tile-grid">
                 <!-- Dishwasher: selected, sorted to top -->
-                <div class="tile" style="background:rgba(200,120,80,0.12);border-color:var(--cat-home);">
+                <div class="tile" style="background:var(--cat-home-bg);border-color:var(--cat-home-ic);">
                   <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="32" y="48" width="192" height="160" rx="16" stroke="#7A5A50" stroke-width="14" fill="none"/><line x1="32" y1="100" x2="224" y2="100" stroke="#7A5A50" stroke-width="14" stroke-linecap="round"/><circle cx="128" cy="164" r="34" stroke="#7A5A50" stroke-width="12" fill="none"/><circle cx="128" cy="164" r="10" fill="#7A5A50"/></svg>
                   <div class="tile-lbl">Dishwasher</div>
                 </div>
                 <!-- Unselected tiles -->
-                <div class="tile" style="background:rgba(200,120,80,0.12);">
+                <div class="tile" style="background:var(--cat-home-bg);">
                   <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="32" y="32" width="192" height="192" rx="16" stroke="#7A5A50" stroke-width="14" fill="none"/><circle cx="128" cy="150" r="48" stroke="#7A5A50" stroke-width="12" fill="none"/><circle cx="82" cy="74" r="11" fill="#7A5A50"/></svg>
                   <div class="tile-lbl">Washing machine</div>
                 </div>
-                <div class="tile" style="background:rgba(200,120,80,0.12);">
+                <div class="tile" style="background:var(--cat-home-bg);">
                   <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="72" y="24" width="112" height="208" rx="20" stroke="#7A5A50" stroke-width="14" fill="none"/><circle cx="128" cy="124" r="34" stroke="#7A5A50" stroke-width="12" fill="none"/></svg>
                   <div class="tile-lbl">Boiler</div>
                 </div>
-                <div class="tile" style="background:rgba(200,120,80,0.12);">
+                <div class="tile" style="background:var(--cat-home-bg);">
                   <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="48" y="24" width="160" height="208" rx="16" stroke="#7A5A50" stroke-width="14" fill="none"/><line x1="48" y1="112" x2="208" y2="112" stroke="#7A5A50" stroke-width="14" stroke-linecap="round"/><line x1="128" y1="64" x2="128" y2="88" stroke="#7A5A50" stroke-width="10" stroke-linecap="round"/><line x1="128" y1="148" x2="128" y2="184" stroke="#7A5A50" stroke-width="10" stroke-linecap="round"/></svg>
                   <div class="tile-lbl">Fridge</div>
                 </div>
-                <div class="tile" style="background:rgba(200,120,80,0.12);">
+                <div class="tile" style="background:var(--cat-home-bg);">
                   <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="16" y="60" width="224" height="88" rx="16" stroke="#7A5A50" stroke-width="14" fill="none"/><line x1="64" y1="185" x2="80" y2="148" stroke="#7A5A50" stroke-width="12" stroke-linecap="round"/><line x1="128" y1="185" x2="128" y2="148" stroke="#7A5A50" stroke-width="12" stroke-linecap="round"/><line x1="192" y1="185" x2="176" y2="148" stroke="#7A5A50" stroke-width="12" stroke-linecap="round"/></svg>
                   <div class="tile-lbl">Airco</div>
                 </div>
-                <div class="tile" style="background:rgba(200,120,80,0.12);">
+                <div class="tile" style="background:var(--cat-home-bg);">
                   <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="100" r="68" stroke="#7A5A50" stroke-width="14" fill="none"/><line x1="128" y1="184" x2="128" y2="232" stroke="#7A5A50" stroke-width="12" stroke-linecap="round"/><line x1="96" y1="208" x2="160" y2="208" stroke="#7A5A50" stroke-width="10" stroke-linecap="round"/><circle cx="128" cy="100" r="18" fill="#7A5A50"/></svg>
                   <div class="tile-lbl">Smoke detector</div>
                 </div>

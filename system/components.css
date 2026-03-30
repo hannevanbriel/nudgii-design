@@ -46,21 +46,21 @@ html{scroll-behavior:smooth;}
 
 /* ── 1. DESIGN TOKENS ── */
 :root{
-  /* core palette */
+  /* core palette — v10.5 */
   --cream:#F5F0E8;
-  --ink:#1A1612;
+  --ink:#2C2824;
   --mid:#8A8070;
   --mid-lt:#B0A898;
   --mid-a:#6B6358;
+  --hint:#A09888;
   --surface:#FFFFFF;
 
   /* brand */
   --cta:#9B7FD4;
   --cta-fg:#FAF8FF;
-  --ap:#C4A8E8;
-  --ap-dk:#C8784A;
-  --terra:#C4503A;
   --plum:#2D1F4A;
+  --plum-pale:#C4A8E8;
+  --overdue-badge:#6B4A3A;
 
   /* semantic feedback */
   --sage:#3B6D11;
@@ -71,26 +71,36 @@ html{scroll-behavior:smooth;}
   --amber-lt:#FAEEDA;
 
   /* borders + opacity helpers */
-  --border:rgba(26,22,18,0.08);
-  --border-md:rgba(26,22,18,0.12);
-  --ink-06:rgba(26,22,18,0.06);
-  --ink-08:rgba(26,22,18,0.08);
-  --ink-10:rgba(26,22,18,0.10);
-  --ink-16:rgba(26,22,18,0.16);
+  --border:rgba(44,40,36,0.08);
+  --border-md:rgba(44,40,36,0.12);
+  --ink-06:rgba(44,40,36,0.06);
+  --ink-08:rgba(44,40,36,0.08);
+  --ink-10:rgba(44,40,36,0.10);
+  --ink-16:rgba(44,40,36,0.16);
 
-  /* category colors */
-  --cat-home:#C87850;
-  --cat-vehicle:#4A82A0;
-  --cat-garden:#5A9060;
-  --cat-sub:#8060A8;
-  --cat-health:#B86478;
+  /* category card backgrounds — SOLID pastels, v10.5 */
+  --cat-home-bg:#D2BEB6;
+  --cat-vehicle-bg:#C0CDD8;
+  --cat-garden-bg:#C4DABE;
+  --cat-sub-bg:#D0C6DC;
+  --cat-health-bg:#D2D0C4;
+  --cat-pets-bg:#DECDC0;
 
-  /* category background tints */
-  --cat-home-bg:rgba(200,120,80,0.10);
-  --cat-vehicle-bg:rgba(74,130,160,0.10);
-  --cat-garden-bg:rgba(90,144,96,0.10);
-  --cat-sub-bg:rgba(128,96,168,0.10);
-  --cat-health-bg:rgba(184,100,120,0.10);
+  /* category icon strokes — v10.5 */
+  --cat-home-ic:#7A5A50;
+  --cat-vehicle-ic:#4A6A82;
+  --cat-garden-ic:#4A7A40;
+  --cat-sub-ic:#6A5085;
+  --cat-health-ic:#6A6858;
+  --cat-pets-ic:#8A6238;
+
+  /* category dot aliases (used in filter pills — uses icon color) */
+  --cat-home:var(--cat-home-ic);
+  --cat-vehicle:var(--cat-vehicle-ic);
+  --cat-garden:var(--cat-garden-ic);
+  --cat-sub:var(--cat-sub-ic);
+  --cat-health:var(--cat-health-ic);
+  --cat-pets:var(--cat-pets-ic);
 
   /* spacing scale */
   --space-1:4px;
@@ -134,7 +144,7 @@ body{
 }
 .nudgii-hub-nav a{font-size:13px;color:#8A8070;text-decoration:none;}
 .nudgii-hub-nav a:first-child::before{content:'← ';}
-.nudgii-hub-nav span{font-size:13px;font-weight:500;color:#1A1612;}
+.nudgii-hub-nav span{font-size:13px;font-weight:500;color:var(--ink);}
 .nudgii-hub-nav .tag{
   margin-left:auto;font-size:10px;font-weight:500;
   color:#B0A898;letter-spacing:1.2px;text-transform:uppercase;font-family:monospace;
@@ -264,11 +274,13 @@ body{
 }
 .ci svg{width:13px;height:13px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
 
-.ci-h{background:var(--cat-home-bg);}  .ci-h svg{stroke:var(--cat-home);}
-.ci-v{background:var(--cat-vehicle-bg);}  .ci-v svg{stroke:var(--cat-vehicle);}
-.ci-g{background:var(--cat-garden-bg);}   .ci-g svg{stroke:var(--cat-garden);}
-.ci-s{background:var(--cat-sub-bg);}      .ci-s svg{stroke:var(--cat-sub);}
-.ci-n{background:rgba(26,22,18,0.05);}    .ci-n svg{stroke:var(--mid);}
+.ci-h{background:var(--cat-home-bg);}    .ci-h svg{stroke:var(--cat-home-ic);}
+.ci-v{background:var(--cat-vehicle-bg);} .ci-v svg{stroke:var(--cat-vehicle-ic);}
+.ci-g{background:var(--cat-garden-bg);}  .ci-g svg{stroke:var(--cat-garden-ic);}
+.ci-s{background:var(--cat-sub-bg);}     .ci-s svg{stroke:var(--cat-sub-ic);}
+.ci-hl{background:var(--cat-health-bg);} .ci-hl svg{stroke:var(--cat-health-ic);}
+.ci-p{background:var(--cat-pets-bg);}    .ci-p svg{stroke:var(--cat-pets-ic);}
+.ci-n{background:rgba(44,40,36,0.05);}   .ci-n svg{stroke:var(--mid);}
 
 
 /* ── 14. CATEGORY FILTER STRIP ──
@@ -306,18 +318,26 @@ body{
 
 .trow{
   background:var(--surface);
-  border:0.5px solid var(--border);
-  border-radius:10px;
-  box-shadow:var(--shadow-card);
+  border:none;
+  border-radius:12px;
+  box-shadow:none;
   padding:10px 12px;
   display:flex;align-items:center;gap:10px;
   cursor:pointer;
-  transition:border-color 0.15s,background 0.15s;
+  transition:background 0.15s;
   user-select:none;
 }
-.trow:active{background:rgba(26,22,18,0.03);}
-.trow.sel{border:1.5px solid rgba(155,127,212,0.35);background:rgba(155,127,212,0.04);}
-.trow.else{border:0.5px dashed rgba(26,22,18,0.14);background:transparent;box-shadow:none;}
+.trow:active{background:rgba(44,40,36,0.03);}
+.trow.sel{outline:1.5px solid rgba(155,127,212,0.35);background:rgba(155,127,212,0.04);}
+.trow.else{background:transparent;box-shadow:none;outline:0.5px dashed rgba(44,40,36,0.14);}
+
+/* category card backgrounds — v10.5 solid pastels */
+.trow-h{background:var(--cat-home-bg);}
+.trow-v{background:var(--cat-vehicle-bg);}
+.trow-g{background:var(--cat-garden-bg);}
+.trow-s{background:var(--cat-sub-bg);}
+.trow-hl{background:var(--cat-health-bg);}
+.trow-p{background:var(--cat-pets-bg);}
 
 /* item text */
 .tinfo{flex:1;min-width:0;}
