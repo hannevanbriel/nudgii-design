@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · Interaction States</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+:root{
+  --cream:#F5F0E8;--ink:#1A1612;--mid:#8A8070;--mid-lt:#B0A898;
+  --border:rgba(26,22,18,0.08);--border-md:rgba(26,22,18,0.12);
+  --cta:#9B7FD4;--cta-fg:#FAF8FF;
+  --cta-pressed:#7D62B3;       /* CTA darkened 15% for pressed */
+  --cta-disabled:rgba(155,127,212,0.35);
+  --ap:#E8A87C;--ap-dk:#C8784A;--terra:#C4503A;
+  --plum:#2D1F4A;
+  --ch:#C87850;--chb:rgba(200,120,80,0.10);
+  --cv:#4A82A0;--cvb:rgba(74,130,160,0.10);
+  --cg:#5A9060;--cgb:rgba(90,144,96,0.10);
+  --cs:#8060A8;--csb:rgba(128,96,168,0.10);
+
+  /* Surface token */
+  --surface: #FFFFFF;
+
+  /* Spacing scale — 4px base unit */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* Shadow hierarchy */
+  --shadow-card:    none;
+  --shadow-tab-bar: 0 4px 20px rgba(26,22,18,0.11);
+  --shadow-fab:     0 6px 20px rgba(155,127,212,0.45);
+  --shadow-sheet:   0 -2px 20px rgba(26,22,18,0.12);
+}
+body{background:var(--cream);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;color:var(--ink);line-height:1.55;}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,0.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 28px;}
+.nav-inner{max-width:1040px;margin:0 auto;display:flex;align-items:center;height:48px;}
+.nav-brand{font-size:13px;font-weight:500;color:var(--ink);text-decoration:none;margin-right:24px;flex-shrink:0;display:flex;align-items:center;gap:7px;}
+.nav-links{display:flex;overflow-x:auto;scrollbar-width:none;flex:1;}
+.nav-links::-webkit-scrollbar{display:none;}
+.nav-link{font-size:10px;font-weight:500;color:var(--mid);text-decoration:none;white-space:nowrap;padding:0 10px;height:48px;display:flex;align-items:center;border-bottom:2px solid transparent;transition:all 0.15s;}
+.nav-link:hover{color:var(--ink);}
+.nav-link.active{color:var(--ink);border-bottom-color:var(--cta);}
+
+/* ── PAGE ── */
+.page{max-width:1040px;margin:0 auto;padding:0 28px 100px;}
+
+/* ── HERO ── */
+.hero{padding:44px 0 32px;border-bottom:1px solid var(--border);}
+.hero-eye{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:8px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:36px;color:var(--ink);line-height:1.05;letter-spacing:-0.6px;margin-bottom:8px;}
+.hero-sub{font-size:13px;color:var(--mid);max-width:480px;line-height:1.6;}
+
+/* ── COMPONENT SECTIONS ── */
+.comp-section{padding-top:52px;}
+.cs-header{display:flex;align-items:flex-end;gap:14px;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--border);}
+.cs-num{font-family:'DM Serif Display',serif;font-size:40px;color:rgba(26,22,18,0.06);line-height:1;flex-shrink:0;}
+.cs-meta{}
+.cs-eye{font-size:9px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:2px;}
+.cs-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--ink);margin-bottom:1px;}
+.cs-sub{font-size:11px;color:var(--mid);}
+
+/* ── STATE GRID ── */
+.state-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:14px;}
+.state-grid-wide{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:14px;}
+
+/* ── STATE TILE ── */
+.state-tile{background:var(--cream);border:1px solid var(--border);border-radius:13px;padding:16px 14px 12px;display:flex;flex-direction:column;align-items:center;gap:10px;box-shadow:0 1px 3px rgba(26,22,18,0.04);}
+.state-name{font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(26,22,18,0.35);text-align:center;margin-top:2px;}
+.state-name.active{color:var(--cta);}
+.state-name.pressed{color:var(--ap-dk);}
+.state-name.disabled{color:rgba(26,22,18,0.25);}
+.state-name.error{color:var(--terra);}
+.state-name.loading{color:var(--mid);}
+
+/* ── SPEC STRIP ── */
+.spec-strip{background:rgba(245,240,232,0.8);border:1px solid var(--border);border-radius:10px;padding:11px 14px;margin-bottom:4px;font-size:11px;color:var(--mid);line-height:1.7;}
+.spec-strip strong{color:var(--ink);font-weight:500;}
+.spec-strip code{font-family:monospace;font-size:10px;background:rgba(26,22,18,0.07);padding:1px 5px;border-radius:3px;color:var(--ink);}
+
+/* ── FLUTTER NOTE ── */
+.flutter-note{background:rgba(155,127,212,0.06);border:1px solid rgba(155,127,212,0.14);border-radius:10px;padding:11px 14px;margin-bottom:18px;font-size:11px;color:rgba(26,22,18,0.5);line-height:1.65;}
+.flutter-note strong{color:rgba(26,22,18,0.72);font-weight:500;}
+.flutter-note code{font-family:monospace;font-size:10px;background:rgba(155,127,212,0.10);padding:1px 5px;border-radius:3px;color:var(--cta);}
+
+.zone-rule{height:1px;background:var(--border);margin:44px 0 0;}
+
+/* ═══════════════════════
+   BUTTON STATES
+═══════════════════════ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;font-family:'DM Sans',sans-serif;font-weight:500;border-radius:100px;border:none;cursor:pointer;letter-spacing:-0.1px;transition:all 0.12s;}
+.btn-full{width:100%;}
+
+/* Primary CTA */
+.btn-cta{background:var(--cta);color:var(--cta-fg);font-size:13px;height:50px;padding:0 20px;}
+.btn-cta-pressed{background:var(--cta-pressed);color:var(--cta-fg);font-size:13px;height:50px;padding:0 20px;transform:scale(0.97);}
+.btn-cta-disabled{background:var(--cta-disabled);color:rgba(250,248,255,0.5);font-size:13px;height:50px;padding:0 20px;cursor:not-allowed;}
+.btn-cta-loading{background:var(--cta);color:transparent;font-size:13px;height:50px;padding:0 20px;position:relative;}
+.btn-cta-loading::after{content:'';position:absolute;width:16px;height:16px;border-radius:50%;border:2px solid rgba(250,248,255,0.3);border-top-color:var(--cta-fg);animation:spin 0.7s linear infinite;}
+
+/* Secondary */
+.btn-sec{background:transparent;color:var(--ink);font-size:12px;height:46px;padding:0 18px;border:1.5px solid var(--border-md);}
+.btn-sec-pressed{background:rgba(26,22,18,0.05);color:var(--ink);font-size:12px;height:46px;padding:0 18px;border:1.5px solid var(--border-md);transform:scale(0.97);}
+.btn-sec-disabled{background:transparent;color:rgba(26,22,18,0.25);font-size:12px;height:46px;padding:0 18px;border:1.5px solid rgba(26,22,18,0.06);cursor:not-allowed;}
+
+/* Ghost */
+.btn-ghost{background:transparent;color:var(--mid);font-size:11px;height:36px;padding:0 14px;}
+.btn-ghost-pressed{background:rgba(26,22,18,0.04);color:var(--ink);font-size:11px;height:36px;padding:0 14px;border-radius:100px;}
+.btn-ghost-disabled{background:transparent;color:rgba(26,22,18,0.2);font-size:11px;height:36px;padding:0 14px;cursor:not-allowed;}
+
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* mic icon */
+.mic{width:18px;height:18px;border-radius:50%;background:rgba(250,248,255,0.15);display:flex;align-items:center;justify-content:center;}
+.mic svg{width:9px;height:9px;stroke:var(--cta-fg);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.mic-dim{width:18px;height:18px;border-radius:50%;background:rgba(250,248,255,0.06);display:flex;align-items:center;justify-content:center;}
+.mic-dim svg{width:9px;height:9px;stroke:rgba(250,248,255,0.3);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+
+/* ═══════════════════════
+   NUDGE CARD STATES
+═══════════════════════ */
+.nc{background:var(--surface);border-radius:11px;border:1px solid var(--border);padding:9px 11px;display:flex;align-items:center;gap:9px;box-shadow:0 1px 3px rgba(26,22,18,0.04);width:100%;min-height:56px;}
+.nci{width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.nci svg{width:11px;height:11px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.nb{flex:1;min-width:0;}
+.nn{font-size:12px;font-weight:500;color:var(--ink);letter-spacing:-0.1px;}
+.ns{font-size:9px;font-style:italic;color:var(--mid);margin-top:1px;}
+.nd{font-size:10px;font-weight:500;flex-shrink:0;}
+
+/* card states */
+.nc-pressed{background:rgba(26,22,18,0.03);border-radius:11px;border:1px solid rgba(26,22,18,0.10);padding:9px 11px;display:flex;align-items:center;gap:9px;box-shadow:none;width:100%;transform:scale(0.985);}
+.nc-done{background:var(--surface);border-radius:11px;border:1px solid var(--border);padding:9px 11px;display:flex;align-items:center;gap:9px;box-shadow:0 1px 3px rgba(26,22,18,0.04);width:100%;opacity:0.35;}
+.nc-done .nn{text-decoration:line-through;text-decoration-color:rgba(26,22,18,0.2);}
+.nc-swipe{position:relative;border-radius:11px;overflow:hidden;width:100%;}
+.nc-swipe-inner{background:var(--surface);border:1px solid var(--border);padding:9px 11px;display:flex;align-items:center;gap:9px;box-shadow:0 1px 3px rgba(26,22,18,0.04);transform:translateX(-60px);}
+.nc-swipe-bg{position:absolute;right:0;top:0;bottom:0;width:60px;background:var(--cg);display:flex;align-items:center;justify-content:center;border-radius:0 11px 11px 0;}
+.nc-swipe-bg svg{width:16px;height:16px;stroke:white;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+
+/* ═══════════════════════
+   CHIP STATES
+═══════════════════════ */
+.chip{font-size:10px;color:var(--mid);background:transparent;border:1px solid var(--border-md);border-radius:100px;padding:5px 11px;font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;}
+.chip-active{font-size:10px;color:var(--cta-fg);background:var(--cta);border:none;border-radius:100px;padding:5px 11px;font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;}
+.chip-pressed{font-size:10px;color:var(--mid);background:rgba(26,22,18,0.06);border:1px solid var(--border-md);border-radius:100px;padding:5px 11px;font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;transform:scale(0.95);}
+.chip-active-pressed{font-size:10px;color:var(--cta-fg);background:#7D62B3;border:none;border-radius:100px;padding:5px 11px;font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;transform:scale(0.95);}
+.cdot{width:4px;height:4px;border-radius:50%;}
+
+/* ═══════════════════════
+   TAB BAR STATES
+═══════════════════════ */
+.tab-pill{background:var(--surface);border-radius:22px;height:52px;padding:9px 4px 11px;display:flex;justify-content:space-around;align-items:center;box-shadow:0 4px 20px rgba(26,22,18,0.11),0 1px 4px rgba(26,22,18,0.06);border:1px solid rgba(26,22,18,0.07);width:100%;}
+.ti{display:flex;flex-direction:column;align-items:center;gap:2px;}
+.ti svg{width:19px;height:19px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.ti-l{font-size:7px;}
+.ti-pip{width:3px;height:3px;border-radius:50%;background:var(--cta);display:none;}
+
+/* ═══════════════════════
+   FAB STATES
+═══════════════════════ */
+.fab{width:46px;height:46px;border-radius:15px;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;}
+.fab svg{fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;}
+.fab-default{background:var(--cta);box-shadow:0 6px 20px rgba(155,127,212,0.45);}
+.fab-default svg{stroke:var(--cta-fg);width:17px;height:17px;}
+.fab-pressed{background:#7D62B3;box-shadow:0 3px 10px rgba(155,127,212,0.25);transform:scale(0.93);}
+.fab-pressed svg{stroke:var(--cta-fg);width:17px;height:17px;}
+.fab-open{background:var(--cta);box-shadow:0 6px 20px rgba(155,127,212,0.45);transform:rotate(45deg);}
+.fab-open svg{stroke:var(--cta-fg);width:17px;height:17px;}
+.fab-disabled{background:rgba(155,127,212,0.25);box-shadow:none;cursor:not-allowed;}
+.fab-disabled svg{stroke:rgba(250,248,255,0.4);width:17px;height:17px;}
+
+/* ═══════════════════════
+   ACTION SHEET STATES
+═══════════════════════ */
+.ao{background:var(--surface);border-radius:14px;border:1px solid rgba(26,22,18,0.07);box-shadow:0 4px 16px rgba(26,22,18,0.10);padding:10px 12px;display:flex;align-items:center;gap:9px;width:100%;}
+.ao-pressed{background:rgba(26,22,18,0.03);border-radius:14px;border:1px solid rgba(26,22,18,0.10);box-shadow:0 1px 4px rgba(26,22,18,0.06);padding:10px 12px;display:flex;align-items:center;gap:9px;width:100%;transform:scale(0.97);}
+.ao-icon{width:28px;height:28px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ao-icon svg{fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.ao-title{font-size:11px;font-weight:500;color:var(--ink);}
+.ao-sub{font-size:9px;font-style:italic;color:var(--mid);}
+
+/* ═══════════════════════
+   INPUT STATES
+═══════════════════════ */
+.input-wrap{width:100%;}
+.input-field{width:100%;background:var(--surface);border-radius:11px;border:1.5px solid var(--border-md);height:44px;padding:0 13px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink);display:flex;align-items:center;gap:8px;}
+.input-field.empty .placeholder{color:var(--mid-lt);font-style:italic;font-size:12px;}
+.input-field.focused{border-color:var(--cta);box-shadow:0 0 0 3px rgba(155,127,212,0.12);}
+.input-field.filled{border-color:var(--border-md);}
+.input-field.error{border-color:var(--terra);box-shadow:0 0 0 3px rgba(196,80,58,0.08);}
+.input-field.disabled{background:rgba(26,22,18,0.04);border-color:rgba(26,22,18,0.06);color:rgba(26,22,18,0.3);cursor:not-allowed;}
+.input-cursor{width:1.5px;height:14px;background:var(--cta);border-radius:1px;animation:blink 1s step-end infinite;flex-shrink:0;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+.input-icon svg{width:13px;height:13px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+.input-text{flex:1;font-size:12px;}
+.error-msg{font-size:10px;color:var(--terra);margin-top:5px;display:flex;align-items:center;gap:4px;}
+
+/* ═══════════════════════
+   CHECKBOX / TOGGLE
+═══════════════════════ */
+.checkbox{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--border-md);background:var(--surface);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.checkbox-checked{width:22px;height:22px;border-radius:6px;background:var(--cta);border:none;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.checkbox-checked svg{width:12px;height:12px;stroke:var(--cta-fg);stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.checkbox-loading{width:22px;height:22px;border-radius:6px;background:rgba(155,127,212,0.15);border:1.5px solid rgba(155,127,212,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.checkbox-loading::after{content:'';width:10px;height:10px;border-radius:50%;border:1.5px solid rgba(155,127,212,0.3);border-top-color:var(--cta);animation:spin 0.6s linear infinite;}
+.checkbox-disabled{width:22px;height:22px;border-radius:6px;border:1.5px solid rgba(26,22,18,0.08);background:rgba(26,22,18,0.04);flex-shrink:0;cursor:not-allowed;}
+
+/* row demo for checkbox */
+.check-row{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--surface);border-radius:10px;border:1px solid var(--border);width:100%;}
+.check-label{font-size:12px;font-weight:500;color:var(--ink);flex:1;}
+.check-label.done{text-decoration:line-through;text-decoration-color:rgba(26,22,18,0.2);color:rgba(26,22,18,0.35);}
+.check-label.dim{color:rgba(26,22,18,0.3);}
+
+/* ═══════════════════════
+   LOADING SPINNERS
+═══════════════════════ */
+.spinner{width:20px;height:20px;border-radius:50%;border:2.5px solid rgba(155,127,212,0.2);border-top-color:var(--cta);animation:spin 0.7s linear infinite;}
+.spinner-sm{width:14px;height:14px;border-radius:50%;border:2px solid rgba(155,127,212,0.2);border-top-color:var(--cta);animation:spin 0.7s linear infinite;}
+.spinner-light{width:16px;height:16px;border-radius:50%;border:2px solid rgba(250,248,255,0.2);border-top-color:var(--cta-fg);animation:spin 0.7s linear infinite;}
+
+/* skeleton */
+.skeleton{background:linear-gradient(90deg,rgba(26,22,18,0.06) 25%,rgba(26,22,18,0.10) 50%,rgba(26,22,18,0.06) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:6px;}
+@keyframes shimmer{to{background-position:-200% 0;}}
+
+/* ═══════════════════════
+   SUMMARY TABLE
+═══════════════════════ */
+.summary-table{width:100%;border-collapse:collapse;font-size:11px;margin-top:8px;}
+.summary-table th{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--mid);padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);background:rgba(245,240,232,0.5);}
+.summary-table td{padding:9px 12px;border-bottom:1px solid rgba(26,22,18,0.05);vertical-align:middle;color:rgba(26,22,18,0.6);}
+.summary-table tr:last-child td{border-bottom:none;}
+.summary-table td:first-child{font-weight:500;color:var(--ink);}
+.summary-table code{font-family:monospace;font-size:10px;background:rgba(26,22,18,0.06);padding:1px 5px;border-radius:3px;color:var(--ink);}
+.st-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(26,22,18,0.04);}
+</style>
+<style>.nudgii-hub-nav{position:sticky;top:0;z-index:999;background:#F5F0E8;border-bottom:1px solid rgba(26,22,18,0.12);padding:0 24px;display:flex;align-items:center;gap:16px;height:44px;font-family:'DM Sans',sans-serif}.nudgii-hub-nav a{font-size:13px;color:#8A8070;text-decoration:none}.nudgii-hub-nav a:first-child::before{content:'← ';}.nudgii-hub-nav span{font-size:13px;font-weight:500;color:#1A1612}.nudgii-hub-nav .tag{margin-left:auto;font-size:10px;font-weight:500;color:#B0A898;letter-spacing:1.2px;text-transform:uppercase;font-family:monospace}</style></head>
+<body><div class="nudgii-hub-nav"><a href="../index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:#8A8070"><svg width="18" height="18" viewBox="0 0 80 80" style="border-radius:4px;flex-shrink:0"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg><span>Design hub</span></a><span>Interaction states</span><span class="tag">System</span></div>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="#">
+      <svg width="15" height="15" viewBox="0 0 80 80"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
+      nudgii · states
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="#buttons">Buttons</a>
+      <a class="nav-link" href="#cards">Cards</a>
+      <a class="nav-link" href="#chips">Chips</a>
+      <a class="nav-link" href="#tabbar">Tab bar</a>
+      <a class="nav-link" href="#fab">FAB</a>
+      <a class="nav-link" href="#actionsheet">Action sheet</a>
+      <a class="nav-link" href="#inputs">Inputs</a>
+      <a class="nav-link" href="#checks">Checkbox</a>
+      <a class="nav-link" href="#loading">Loading</a>
+      <a class="nav-link" href="#summary">Summary</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-eye">nudgii · Interaction states · all components · March 2026</div>
+    <h1 class="hero-title">Every state.<br>Every component.</h1>
+    <p class="hero-sub">Default, pressed, disabled, loading, focused, error, done. Each one specified with the exact visual treatment and Flutter implementation note.</p>
+  </div>
+
+  <!-- ═══════════════════════════
+       01 BUTTONS
+  ═══════════════════════════ -->
+  <div class="comp-section" id="buttons">
+    <div class="cs-header">
+      <div class="cs-num">01</div>
+      <div class="cs-meta">
+        <div class="cs-eye">Component</div>
+        <div class="cs-title">Buttons</div>
+        <div class="cs-sub">3 variants · 4 states each</div>
+      </div>
+    </div>
+
+    <!-- Primary CTA -->
+    <div style="font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--mid);margin-bottom:10px;">Primary CTA</div>
+    <div class="state-grid">
+      <div class="state-tile">
+        <button class="btn btn-cta" style="width:100%;">Tell me what you have</button>
+        <div class="state-name active">Default</div>
+      </div>
+      <div class="state-tile">
+        <button class="btn btn-cta-pressed" style="width:100%;">Tell me what you have</button>
+        <div class="state-name pressed">Pressed · scale 0.97</div>
+      </div>
+      <div class="state-tile">
+        <button class="btn btn-cta-loading" style="width:100%;">Vertel het me</button>
+        <div class="state-name loading">Loading · spinner</div>
+      </div>
+      <div class="state-tile">
+        <button class="btn btn-cta-disabled" style="width:100%;">Tell me what you have</button>
+        <div class="state-name disabled">Disabled · 35% opacity</div>
+      </div>
+    </div>
+
+    <div class="spec-strip">
+      <strong>Pressed:</strong> bg darkens to <code>#7D62B3</code> (plum-lt –15%) · scale <code>0.97</code> · duration <code>100ms ease-out</code><br>
+      <strong>Loading:</strong> text invisible · centered spinner <code>16px, cta-fg</code> · button remains full width and disabled during load<br>
+      <strong>Disabled:</strong> bg <code>rgba(155,127,212,0.35)</code> · text <code>rgba(250,248,255,0.5)</code> · <code>cursor: not-allowed</code> · never reduced opacity on the whole button (looks broken) — change the colors instead
+    </div>
+
+    <!-- Secondary -->
+    <div style="font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--mid);margin-bottom:10px;margin-top:16px;">Secondary</div>
+    <div class="state-grid">
+      <div class="state-tile">
+        <button class="btn btn-sec" style="width:100%;">Laat me zien</button>
+        <div class="state-name active">Default</div>
+      </div>
+      <div class="state-tile">
+        <button class="btn btn-sec-pressed" style="width:100%;">Laat me zien</button>
+        <div class="state-name pressed">Pressed · bg tint</div>
+      </div>
+      <div class="state-tile" style="grid-column:span 2;">
+        <button class="btn btn-sec-disabled" style="width:100%;">Laat me zien wat ik kan bijhouden</button>
+        <div class="state-name disabled">Disabled · border + text fade</div>
+      </div>
+    </div>
+
+    <!-- Ghost -->
+    <div style="font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--mid);margin-bottom:10px;margin-top:16px;">Ghost</div>
+    <div class="state-grid">
+      <div class="state-tile">
+        <button class="btn btn-ghost">Ik weet wat ik nodig heb</button>
+        <div class="state-name active">Default</div>
+      </div>
+      <div class="state-tile">
+        <button class="btn btn-ghost-pressed">Ik weet wat ik nodig heb</button>
+        <div class="state-name pressed">Pressed · bg appears</div>
+      </div>
+      <div class="state-tile">
+        <button class="btn btn-ghost-disabled">Ik weet wat ik nodig heb</button>
+        <div class="state-name disabled">Disabled · faded</div>
+      </div>
+    </div>
+
+    <div class="flutter-note">
+      <strong>Flutter:</strong> Use <code>GestureDetector</code> with <code>onTapDown</code> / <code>onTapUp</code> + <code>AnimatedScale</code> for press animation. For loading state, swap button child to <code>SizedBox</code> with <code>CircularProgressIndicator</code>. For disabled, set <code>onPressed: null</code> and override the button's style with <code>ButtonStyle(backgroundColor: MaterialStateProperty.resolveWith(...))</code> — never use <code>Opacity</code> widget on buttons.
+    </div>
+
+    <div class="spec-strip" style="margin-top:14px;">
+      <strong>Component heights — locked, never deviate</strong>
+      <table style="width:100%;border-collapse:collapse;font-size:11px;margin-top:8px;line-height:1.9;">
+        <tbody>
+          <tr><td style="width:200px;color:var(--ink);font-weight:500;">Primary CTA button</td><td style="color:var(--mid);">50px</td></tr>
+          <tr><td style="color:var(--ink);font-weight:500;">Secondary button</td><td style="color:var(--mid);">46px</td></tr>
+          <tr><td style="color:var(--ink);font-weight:500;">Ghost / text button</td><td style="color:var(--mid);">36px</td></tr>
+          <tr><td style="color:var(--ink);font-weight:500;">Input field</td><td style="color:var(--mid);">44px</td></tr>
+          <tr><td style="color:var(--ink);font-weight:500;">Task card min-height</td><td style="color:var(--mid);">56px</td></tr>
+          <tr><td style="color:var(--ink);font-weight:500;">FAB</td><td style="color:var(--mid);">46 × 46px</td></tr>
+          <tr><td style="color:var(--ink);font-weight:500;">Tab bar height</td><td style="color:var(--mid);">52px</td></tr>
+          <tr><td style="color:var(--ink);font-weight:500;">Nav bar</td><td style="color:var(--mid);">44px</td></tr>
+          <tr><td style="color:var(--ink);font-weight:500;">Bottom sheet handle</td><td style="color:var(--mid);">3px high · 32px wide</td></tr>
+          <tr><td style="color:var(--ink);font-weight:500;">Settings row</td><td style="color:var(--mid);">48px</td></tr>
+          <tr><td style="color:var(--ink);font-weight:500;">Snooze option row</td><td style="color:var(--mid);">52px</td></tr>
+          <tr><td style="color:var(--ink);font-weight:500;">Minimum touch target</td><td style="color:var(--mid);">44 × 44px always</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="zone-rule"></div>
+
+  <!-- ═══════════════════════════
+       02 NUDGE CARDS
+  ═══════════════════════════ -->
+  <div class="comp-section" id="cards">
+    <div class="cs-header">
+      <div class="cs-num">02</div>
+      <div class="cs-meta">
+        <div class="cs-eye">Component</div>
+        <div class="cs-title">Nudge cards</div>
+        <div class="cs-sub">Default · pressed · swiped (done) · done state · skeleton loading</div>
+      </div>
+    </div>
+
+    <div class="state-grid-wide">
+      <!-- Default -->
+      <div class="state-tile">
+        <div class="nc">
+          <div class="nci" style="background:var(--chb);"><svg viewBox="0 0 24 24" style="stroke:var(--ch);width:11px;height:11px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <div class="nb"><div class="nn">Vaatwasser zoutbak</div><div class="ns">it's starting to smell</div></div>
+          <div class="nd" style="color:var(--terra);">5d</div>
+        </div>
+        <div class="state-name active">Default</div>
+      </div>
+      <!-- Pressed -->
+      <div class="state-tile">
+        <div class="nc-pressed">
+          <div class="nci" style="background:var(--chb);"><svg viewBox="0 0 24 24" style="stroke:var(--ch);width:11px;height:11px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <div class="nb"><div class="nn">Vaatwasser zoutbak</div><div class="ns">it's starting to smell</div></div>
+          <div class="nd" style="color:var(--terra);">5d</div>
+        </div>
+        <div class="state-name pressed">Pressed · scale 0.985 · subtle darken</div>
+      </div>
+      <!-- Swipe to complete -->
+      <div class="state-tile">
+        <div class="nc-swipe">
+          <div class="nc-swipe-bg">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="nc-swipe-inner">
+            <div class="nci" style="background:var(--chb);"><svg viewBox="0 0 24 24" style="stroke:var(--ch);width:11px;height:11px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+            <div class="nb"><div class="nn">Vaatwasser zoutbak</div><div class="ns">it's starting to smell</div></div>
+            <div class="nd" style="color:var(--terra);">5d</div>
+          </div>
+        </div>
+        <div class="state-name pressed">Swipe right → complete</div>
+      </div>
+      <!-- Done state -->
+      <div class="state-tile">
+        <div class="nc-done">
+          <div class="nci" style="background:var(--chb);"><svg viewBox="0 0 24 24" style="stroke:var(--ch);width:11px;height:11px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <div class="nb"><div class="nn">Vaatwasser zoutbak</div><div class="ns">it's starting to smell</div></div>
+          <div class="nd" style="color:rgba(26,22,18,0.2);">✓</div>
+        </div>
+        <div class="state-name disabled">Done · 35% opacity · strikethrough</div>
+      </div>
+      <!-- Skeleton -->
+      <div class="state-tile" style="grid-column:span 2;">
+        <div style="width:100%;background:var(--surface);border-radius:11px;border:1px solid var(--border);padding:9px 11px;display:flex;align-items:center;gap:9px;box-shadow:0 1px 3px rgba(26,22,18,0.04);">
+          <div class="skeleton" style="width:26px;height:26px;border-radius:8px;flex-shrink:0;"></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+            <div class="skeleton" style="height:12px;width:70%;border-radius:4px;"></div>
+            <div class="skeleton" style="height:9px;width:45%;border-radius:4px;"></div>
+          </div>
+          <div class="skeleton" style="width:24px;height:10px;border-radius:4px;flex-shrink:0;"></div>
+        </div>
+        <div class="state-name loading">Skeleton loading · shimmer animation</div>
+      </div>
+    </div>
+
+    <div class="spec-strip">
+      <strong>Pressed:</strong> bg <code>rgba(26,22,18,0.03)</code> · border <code>rgba(26,22,18,0.10)</code> · shadow removed · scale <code>0.985</code> · <code>100ms</code><br>
+      <strong>Swipe to complete:</strong> swipe right reveals garden-green check zone. Release past 40% threshold → fires done overlay. Release before → snaps back.<br>
+      <strong>Done:</strong> opacity <code>0.35</code> · name text has <code>line-through</code> in <code>rgba(26,22,18,0.2)</code>. Stays visible for 1 session, then collapses.<br>
+      <strong>Skeleton:</strong> shimmer gradient animation on placeholder shapes. Shown while initial data loads. Max 3 skeleton cards visible.
+    </div>
+
+    <div class="flutter-note">
+      <strong>Flutter:</strong> Wrap card in <code>Dismissible</code> with <code>direction: DismissDirection.endToStart</code> for swipe-to-complete. Background shows garden check icon. On dismiss: fire done overlay, update state. Use <code>AnimatedOpacity</code> for the done state transition (0.35 over 250ms).
+    </div>
+  </div>
+
+  <div class="zone-rule"></div>
+
+  <!-- ═══════════════════════════
+       03 FILTER CHIPS
+  ═══════════════════════════ -->
+  <div class="comp-section" id="chips">
+    <div class="cs-header">
+      <div class="cs-num">03</div>
+      <div class="cs-meta">
+        <div class="cs-eye">Component</div>
+        <div class="cs-title">Filter chips</div>
+        <div class="cs-sub">Default inactive · active · pressed variations</div>
+      </div>
+    </div>
+
+    <div class="state-grid">
+      <div class="state-tile">
+        <div class="chip">All</div>
+        <div class="state-name">Inactive</div>
+      </div>
+      <div class="state-tile">
+        <div class="chip-active">All</div>
+        <div class="state-name active">Active</div>
+      </div>
+      <div class="state-tile">
+        <div class="chip-pressed">All</div>
+        <div class="state-name pressed">Pressed inactive</div>
+      </div>
+      <div class="state-tile">
+        <div class="chip-active-pressed">All</div>
+        <div class="state-name pressed">Pressed active</div>
+      </div>
+      <div class="state-tile">
+        <div class="chip"><span class="cdot" style="background:var(--ch);"></span>Home</div>
+        <div class="state-name">Category · inactive</div>
+      </div>
+      <div class="state-tile">
+        <div class="chip-active"><span class="cdot" style="background:rgba(250,248,255,0.5);"></span>Home</div>
+        <div class="state-name active">Category · active</div>
+      </div>
+    </div>
+
+    <div class="spec-strip">
+      <strong>Active → inactive transition:</strong> <code>200ms ease</code> cross-fade between bg colors. Never a hard swap.<br>
+      <strong>Active pressed:</strong> bg darkens to <code>#7D62B3</code> — same pressed color as CTA button.<br>
+      <strong>Category dot:</strong> shows in inactive state (category color). In active state, dot becomes <code>rgba(250,248,255,0.5)</code> on the plum bg. Never disappears entirely.
+    </div>
+
+    <div class="flutter-note">
+      <strong>Flutter:</strong> Use <code>FilterChip</code> or custom <code>GestureDetector</code> + <code>AnimatedContainer</code>. Avoid <code>ChoiceChip</code> — its default styling fights the design system. Implement the color transition with <code>AnimatedContainer</code> on <code>decoration</code>.
+    </div>
+  </div>
+
+  <div class="zone-rule"></div>
+
+  <!-- ═══════════════════════════
+       04 TAB BAR
+  ═══════════════════════════ -->
+  <div class="comp-section" id="tabbar">
+    <div class="cs-header">
+      <div class="cs-num">04</div>
+      <div class="cs-meta">
+        <div class="cs-eye">Component</div>
+        <div class="cs-title">Floating tab bar</div>
+        <div class="cs-sub">Active · inactive · pressed</div>
+      </div>
+    </div>
+
+    <div class="state-grid-wide">
+      <!-- Today active -->
+      <div class="state-tile">
+        <div class="tab-pill" style="max-width:240px;">
+          <div class="ti" style="flex-direction:column;align-items:center;gap:3px;">
+            <svg width="19" height="19" viewBox="0 0 256 256" fill="none" style="stroke:var(--cta);stroke-width:16;stroke-linecap:round;stroke-linejoin:round;"><rect x="40" y="40" width="176" height="176" rx="16"/><line x1="176" y1="24" x2="176" y2="56"/><line x1="80" y1="24" x2="80" y2="56"/><line x1="40" y1="88" x2="216" y2="88"/></svg>
+            <div class="ti-l" style="color:var(--cta);font-weight:500;font-size:7px;">Today</div>
+          </div>
+          <div class="ti" style="flex-direction:column;align-items:center;gap:3px;opacity:0.2;">
+            <svg width="19" height="19" viewBox="0 0 256 256" fill="none" style="stroke:var(--ink);stroke-width:16;stroke-linecap:round;stroke-linejoin:round;"><path d="M45.15 230.11a8 8 0 0 1-9.26-9.26l9.45-42.51A96 96 0 1 1 136 224a95.23 95.23 0 0 1-45.83-11.65Z"/></svg>
+            <div class="ti-l" style="color:rgba(26,22,18,0.4);font-size:7px;">Ask</div>
+          </div>
+          <div class="ti" style="flex-direction:column;align-items:center;gap:3px;opacity:0.2;">
+            <svg width="19" height="19" viewBox="0 0 256 256" fill="none" style="stroke:var(--ink);stroke-width:16;stroke-linecap:round;stroke-linejoin:round;"><circle cx="128" cy="96" r="64"/><path d="M32 216c19.37-33.47 54.55-56 96-56s76.63 22.53 96 56" stroke-linecap="round"/></svg>
+            <div class="ti-l" style="color:rgba(26,22,18,0.4);font-size:7px;">You</div>
+          </div>
+        </div>
+        <div class="state-name active">Today active</div>
+      </div>
+      <!-- Ask active -->
+      <div class="state-tile">
+        <div class="tab-pill" style="max-width:240px;">
+          <div class="ti" style="flex-direction:column;align-items:center;gap:3px;opacity:0.2;">
+            <svg width="19" height="19" viewBox="0 0 256 256" fill="none" style="stroke:var(--ink);stroke-width:16;stroke-linecap:round;stroke-linejoin:round;"><rect x="40" y="40" width="176" height="176" rx="16"/><line x1="176" y1="24" x2="176" y2="56"/><line x1="80" y1="24" x2="80" y2="56"/><line x1="40" y1="88" x2="216" y2="88"/></svg>
+            <div class="ti-l" style="color:rgba(26,22,18,0.4);font-size:7px;">Today</div>
+          </div>
+          <div class="ti" style="flex-direction:column;align-items:center;gap:3px;">
+            <svg width="19" height="19" viewBox="0 0 256 256" fill="none" style="stroke:var(--cta);stroke-width:16;stroke-linecap:round;stroke-linejoin:round;"><path d="M45.15 230.11a8 8 0 0 1-9.26-9.26l9.45-42.51A96 96 0 1 1 136 224a95.23 95.23 0 0 1-45.83-11.65Z"/></svg>
+            <div class="ti-l" style="color:var(--cta);font-weight:500;font-size:7px;">Ask</div>
+          </div>
+          <div class="ti" style="flex-direction:column;align-items:center;gap:3px;opacity:0.2;">
+            <svg width="19" height="19" viewBox="0 0 256 256" fill="none" style="stroke:var(--ink);stroke-width:16;stroke-linecap:round;stroke-linejoin:round;"><circle cx="128" cy="96" r="64"/><path d="M32 216c19.37-33.47 54.55-56 96-56s76.63 22.53 96 56" stroke-linecap="round"/></svg>
+            <div class="ti-l" style="color:rgba(26,22,18,0.4);font-size:7px;">You</div>
+          </div>
+        </div>
+        <div class="state-name active">Ask active</div>
+      </div>
+      <!-- Pressed tab item -->
+      <div class="state-tile">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 16px;background:rgba(26,22,18,0.05);border-radius:12px;">
+          <svg width="19" height="19" viewBox="0 0 256 256" fill="none" style="stroke:var(--ink);stroke-width:16;stroke-linecap:round;stroke-linejoin:round;opacity:0.6;"><rect x="40" y="40" width="176" height="176" rx="16"/><line x1="176" y1="24" x2="176" y2="56"/><line x1="80" y1="24" x2="80" y2="56"/><line x1="40" y1="88" x2="216" y2="88"/></svg>
+          <div style="font-size:7px;color:rgba(26,22,18,0.5);font-weight:500;">Today</div>
+        </div>
+        <div class="state-name pressed">Tab item pressed · bg flash</div>
+      </div>
+    </div>
+
+    <div class="spec-strip">
+      <strong>Active:</strong> <code>colorCta #9B7FD4</code> on both icon stroke and label. No pip dot.<br>
+      <strong>Inactive:</strong> icon + label at <code>ink 20% opacity</code><br>
+      <strong>Pressed:</strong> brief <code>rgba(26,22,18,0.05)</code> bg flash behind the item · <code>100ms</code> · no scale on tab items (the pill absorbs the tap, not the item)<br>
+      <strong>Transition:</strong> icon color over <code>200ms ease</code>. Never a hard swap.
+    </div>
+
+    <div class="flutter-note">
+      <strong>Flutter:</strong> Build as custom widget, not <code>BottomNavigationBar</code>. The floating pill needs a <code>Container</code> with <code>BoxDecoration</code> shadow, positioned with <code>Positioned</code> in a <code>Stack</code>. Active tab: both icon color and label TextStyle set to <code>colorCta</code>. Inactive: <code>rgba(26,22,18,0.20)</code>. No pip dot.
+    </div>
+  </div>
+
+  <div class="zone-rule"></div>
+
+  <!-- ═══════════════════════════
+       05 FAB
+  ═══════════════════════════ -->
+  <div class="comp-section" id="fab">
+    <div class="cs-header">
+      <div class="cs-num">05</div>
+      <div class="cs-meta">
+        <div class="cs-eye">Component</div>
+        <div class="cs-title">FAB</div>
+        <div class="cs-sub">Default · pressed · open (rotated) · disabled</div>
+      </div>
+    </div>
+
+    <div class="state-grid">
+      <div class="state-tile">
+        <div class="fab fab-default">
+          <svg width="17" height="17" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19" stroke="var(--cta-fg)" stroke-width="2.4" stroke-linecap="round"/><line x1="5" y1="12" x2="19" y2="12" stroke="var(--cta-fg)" stroke-width="2.4" stroke-linecap="round"/></svg>
+        </div>
+        <div class="state-name active">Default · Plus</div>
+      </div>
+      <div class="state-tile">
+        <div class="fab fab-pressed">
+          <svg width="17" height="17" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19" stroke="var(--cta-fg)" stroke-width="2.4" stroke-linecap="round"/><line x1="5" y1="12" x2="19" y2="12" stroke="var(--cta-fg)" stroke-width="2.4" stroke-linecap="round"/></svg>
+        </div>
+        <div class="state-name pressed">Pressed · scale 0.93</div>
+      </div>
+      <div class="state-tile">
+        <div class="fab fab-open">
+          <svg width="17" height="17" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19" stroke="var(--cta-fg)" stroke-width="2.4" stroke-linecap="round"/><line x1="5" y1="12" x2="19" y2="12" stroke="var(--cta-fg)" stroke-width="2.4" stroke-linecap="round"/></svg>
+        </div>
+        <div class="state-name active">Open · rotated 45° = ×</div>
+      </div>
+      <div class="state-tile">
+        <div class="fab fab-disabled">
+          <svg width="17" height="17" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19" stroke="rgba(250,248,255,0.4)" stroke-width="2.4" stroke-linecap="round"/><line x1="5" y1="12" x2="19" y2="12" stroke="rgba(250,248,255,0.4)" stroke-width="2.4" stroke-linecap="round"/></svg>
+        </div>
+        <div class="state-name disabled">Disabled · muted</div>
+      </div>
+    </div>
+
+    <div class="spec-strip">
+      <strong>Pressed:</strong> bg <code>#7D62B3</code> · scale <code>0.93</code> · shadow reduces · <code>120ms spring</code><br>
+      <strong>Open:</strong> rotate <code>45deg</code> over <code>180ms cubic-bezier(0.34,1.2,0.64,1)</code>. The Plus icon becomes a × without swapping the icon — just rotation.<br>
+      <strong>Disabled:</strong> bg <code>rgba(155,127,212,0.25)</code> · icon <code>rgba(250,248,255,0.4)</code> · no shadow · cursor not-allowed
+    </div>
+
+    <div class="flutter-note">
+      <strong>Flutter:</strong> <code>AnimatedRotation</code> for open/close (0.0 turns → 0.125 turns = 45°). <code>AnimatedScale</code> for press. Keep the same icon — rotation achieves the × effect without a widget swap.
+    </div>
+  </div>
+
+  <div class="zone-rule"></div>
+
+  <!-- ═══════════════════════════
+       06 ACTION SHEET
+  ═══════════════════════════ -->
+  <div class="comp-section" id="actionsheet">
+    <div class="cs-header">
+      <div class="cs-num">06</div>
+      <div class="cs-meta">
+        <div class="cs-eye">Component</div>
+        <div class="cs-title">Action sheet options</div>
+        <div class="cs-sub">Default · pressed · the sheet itself</div>
+      </div>
+    </div>
+
+    <div class="state-grid-wide">
+      <div class="state-tile">
+        <div class="ao" style="background:rgba(155,127,212,0.06);border-color:rgba(155,127,212,0.18);">
+          <div class="ao-icon" style="background:rgba(155,127,212,0.14);">
+            <svg width="14" height="14" viewBox="0 0 256 256" fill="none" stroke="var(--cta)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><rect x="88" y="24" width="80" height="128" rx="40"/><path d="M208 128a80 80 0 0 1-160 0"/><line x1="128" y1="208" x2="128" y2="240"/></svg>
+          </div>
+          <div><div class="ao-title" style="color:var(--cta);">Vertel het me</div><div class="ao-sub">spreek of typ het</div></div>
+        </div>
+        <div class="state-name active">Voice · primary option · tinted</div>
+      </div>
+      <div class="state-tile">
+        <div class="ao-pressed" style="background:rgba(155,127,212,0.04);">
+          <div class="ao-icon" style="background:rgba(155,127,212,0.08);">
+            <svg width="14" height="14" viewBox="0 0 256 256" fill="none" stroke="var(--cta)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><rect x="88" y="24" width="80" height="128" rx="40"/><path d="M208 128a80 80 0 0 1-160 0"/><line x1="128" y1="208" x2="128" y2="240"/></svg>
+          </div>
+          <div><div class="ao-title" style="color:var(--cta);">Vertel het me</div><div class="ao-sub">spreek of typ het</div></div>
+        </div>
+        <div class="state-name pressed">Voice · pressed · tint dims</div>
+      </div>
+      <div class="state-tile">
+        <div class="ao">
+          <div class="ao-icon" style="background:rgba(26,22,18,0.06);">
+            <svg width="14" height="14" viewBox="0 0 256 256" fill="none" stroke="var(--mid)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><rect x="32" y="32" width="80" height="80" rx="8"/><rect x="144" y="32" width="80" height="80" rx="8"/><rect x="32" y="144" width="80" height="80" rx="8"/><rect x="144" y="144" width="80" height="80" rx="8"/></svg>
+          </div>
+          <div><div class="ao-title">Laat me zien</div><div class="ao-sub">blader per categorie</div></div>
+        </div>
+        <div class="state-name">Browse · secondary · neutral</div>
+      </div>
+      <div class="state-tile">
+        <div class="ao-pressed">
+          <div class="ao-icon" style="background:rgba(26,22,18,0.04);">
+            <svg width="14" height="14" viewBox="0 0 256 256" fill="none" stroke="var(--mid)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><rect x="32" y="32" width="80" height="80" rx="8"/><rect x="144" y="32" width="80" height="80" rx="8"/><rect x="32" y="144" width="80" height="80" rx="8"/><rect x="144" y="144" width="80" height="80" rx="8"/></svg>
+          </div>
+          <div><div class="ao-title">Laat me zien</div><div class="ao-sub">blader per categorie</div></div>
+        </div>
+        <div class="state-name pressed">Browse · pressed · subtle darken</div>
+      </div>
+    </div>
+
+    <div class="spec-strip">
+      <strong>Voice option</strong> has a persistent plum-lt tint — it's the primary path even at rest.<br>
+      <strong>All options on press:</strong> bg <code>rgba(26,22,18,0.03)</code> · border <code>rgba(26,22,18,0.10)</code> · scale <code>0.97</code> · shadow reduces · <code>100ms</code><br>
+      <strong>Sheet entrance:</strong> <code>translateY(12px) + scale(0.95)</code> → rest · <code>280ms cubic-bezier(0.34,1.4,0.64,1)</code> · stagger 40ms between items<br>
+      <strong>Sheet exit:</strong> <code>opacity 0</code> + <code>translateY(8px)</code> · <code>180ms ease-in</code> · all items simultaneously (no stagger on close)
+    </div>
+  </div>
+
+  <div class="zone-rule"></div>
+
+  <!-- ═══════════════════════════
+       07 TEXT INPUTS
+  ═══════════════════════════ -->
+  <div class="comp-section" id="inputs">
+    <div class="cs-header">
+      <div class="cs-num">07</div>
+      <div class="cs-meta">
+        <div class="cs-eye">Component</div>
+        <div class="cs-title">Text inputs</div>
+        <div class="cs-sub">Empty · focused · filled · error · disabled</div>
+      </div>
+    </div>
+
+    <div class="state-grid-wide">
+      <div class="state-tile">
+        <div class="input-field empty" style="width:100%;">
+          <div class="input-icon"><svg viewBox="0 0 24 24" style="stroke:var(--mid-lt);"><circle cx="11" cy="11" r="7"/><path d="m16 16 4 4"/></svg></div>
+          <div class="placeholder input-text">Zoek een item…</div>
+        </div>
+        <div class="state-name">Empty · placeholder</div>
+      </div>
+      <div class="state-tile">
+        <div class="input-field focused" style="width:100%;">
+          <div class="input-icon"><svg viewBox="0 0 24 24" style="stroke:var(--cta);"><circle cx="11" cy="11" r="7"/><path d="m16 16 4 4"/></svg></div>
+          <div class="input-text" style="color:var(--ink);font-size:12px;">vaatwas</div>
+          <div class="input-cursor"></div>
+        </div>
+        <div class="state-name active">Focused · cta border + glow</div>
+      </div>
+      <div class="state-tile">
+        <div class="input-field filled" style="width:100%;">
+          <div class="input-icon"><svg viewBox="0 0 24 24" style="stroke:var(--mid);"><circle cx="11" cy="11" r="7"/><path d="m16 16 4 4"/></svg></div>
+          <div class="input-text" style="color:var(--ink);font-size:12px;">vaatwasser</div>
+        </div>
+        <div class="state-name">Filled · default border</div>
+      </div>
+      <div class="state-tile">
+        <div style="width:100%;">
+          <div class="input-field error" style="width:100%;">
+            <div class="input-icon"><svg viewBox="0 0 24 24" style="stroke:var(--terra);"><circle cx="11" cy="11" r="7"/><path d="m16 16 4 4"/></svg></div>
+            <div class="input-text" style="color:var(--ink);font-size:12px;">xzqq@@</div>
+          </div>
+          <div class="error-msg">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--terra)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="1" fill="var(--terra)"/></svg>
+            Geen resultaten gevonden
+          </div>
+        </div>
+        <div class="state-name error">Error · terra border + message</div>
+      </div>
+      <div class="state-tile">
+        <div class="input-field disabled" style="width:100%;">
+          <div class="input-icon"><svg viewBox="0 0 24 24" style="stroke:rgba(26,22,18,0.25);"><circle cx="11" cy="11" r="7"/><path d="m16 16 4 4"/></svg></div>
+          <div class="input-text" style="color:rgba(26,22,18,0.3);font-size:12px;">Niet beschikbaar</div>
+        </div>
+        <div class="state-name disabled">Disabled · muted bg + text</div>
+      </div>
+    </div>
+
+    <div class="spec-strip">
+      <strong>Focused:</strong> border <code>1.5px cta #9B7FD4</code> · box-shadow <code>0 0 0 3px rgba(155,127,212,0.12)</code> · cursor blinks at <code>1s step-end</code><br>
+      <strong>Error:</strong> border <code>1.5px terra #C4503A</code> · shadow <code>0 0 0 3px rgba(196,80,58,0.08)</code> · error message 10px terra below field<br>
+      <strong>Disabled:</strong> bg <code>rgba(26,22,18,0.04)</code> · border <code>rgba(26,22,18,0.06)</code> · text <code>rgba(26,22,18,0.30)</code> · no focus ring possible
+    </div>
+
+    <div class="flutter-note">
+      <strong>Flutter:</strong> <code>TextField</code> with custom <code>InputDecoration</code>. Use <code>focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: colorCta, width: 1.5))</code>. Error state via <code>errorText</code> + <code>errorBorder</code>. The outer glow ring: wrap in a <code>Container</code> with <code>BoxDecoration</code> and conditional shadow based on focus node.
+    </div>
+  </div>
+
+  <div class="zone-rule"></div>
+
+  <!-- ═══════════════════════════
+       08 CHECKBOX / TASK CHECK
+  ═══════════════════════════ -->
+  <div class="comp-section" id="checks">
+    <div class="cs-header">
+      <div class="cs-num">08</div>
+      <div class="cs-meta">
+        <div class="cs-eye">Component</div>
+        <div class="cs-title">Checkbox / task check</div>
+        <div class="cs-sub">Unchecked · checked · loading · disabled</div>
+      </div>
+    </div>
+
+    <div class="state-grid">
+      <div class="state-tile">
+        <div class="check-row">
+          <div class="checkbox"></div>
+          <div class="check-label">Vaatwasser zoutbak</div>
+        </div>
+        <div class="state-name">Unchecked</div>
+      </div>
+      <div class="state-tile">
+        <div class="check-row">
+          <div class="checkbox-checked"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="check-label done">Vaatwasser zoutbak</div>
+        </div>
+        <div class="state-name active">Checked · cta fill</div>
+      </div>
+      <div class="state-tile">
+        <div class="check-row">
+          <div class="checkbox-loading"></div>
+          <div class="check-label" style="color:var(--mid);">Vaatwasser zoutbak</div>
+        </div>
+        <div class="state-name loading">Saving · spinner</div>
+      </div>
+      <div class="state-tile">
+        <div class="check-row" style="opacity:0.4;">
+          <div class="checkbox-disabled"></div>
+          <div class="check-label dim">Vaatwasser zoutbak</div>
+        </div>
+        <div class="state-name disabled">Disabled</div>
+      </div>
+    </div>
+
+    <div class="spec-strip">
+      <strong>Check animation:</strong> border fades out while fill + checkmark scales in · <code>150ms spring</code><br>
+      <strong>Checked:</strong> bg <code>cta #9B7FD4</code> · checkmark <code>cta-fg #FAF8FF</code> · label gets <code>line-through</code> simultaneously<br>
+      <strong>Loading:</strong> shown while Supabase write completes. Spinner replaces checkbox. Max duration 2s — if longer, show error state.
+    </div>
+
+    <div class="flutter-note">
+      <strong>Flutter:</strong> Custom <code>AnimatedContainer</code> for the checkbox — not <code>Checkbox</code> widget (styling is too limited). Use <code>AnimatedSwitcher</code> between the empty border state and the filled+check state. Trigger the <code>TextStyle(decoration: TextDecoration.lineThrough)</code> on the label simultaneously.
+    </div>
+  </div>
+
+  <div class="zone-rule"></div>
+
+  <!-- ═══════════════════════════
+       09 LOADING STATES
+  ═══════════════════════════ -->
+  <div class="comp-section" id="loading">
+    <div class="cs-header">
+      <div class="cs-num">09</div>
+      <div class="cs-meta">
+        <div class="cs-eye">Component</div>
+        <div class="cs-title">Loading states</div>
+        <div class="cs-sub">Spinners · skeletons · when to use each</div>
+      </div>
+    </div>
+
+    <div class="state-grid">
+      <div class="state-tile">
+        <div class="spinner"></div>
+        <div class="state-name loading">Spinner · default · 20px</div>
+      </div>
+      <div class="state-tile">
+        <div class="spinner-sm"></div>
+        <div class="state-name loading">Spinner · small · 14px</div>
+      </div>
+      <div class="state-tile">
+        <div style="background:var(--cta);border-radius:100px;padding:11px 20px;display:flex;align-items:center;justify-content:center;width:100%;">
+          <div class="spinner-light"></div>
+        </div>
+        <div class="state-name loading">Spinner on CTA button</div>
+      </div>
+      <div class="state-tile" style="grid-column:span 2;">
+        <div style="width:100%;display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div class="skeleton" style="width:26px;height:26px;border-radius:8px;flex-shrink:0;"></div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+              <div class="skeleton" style="height:11px;width:65%;border-radius:4px;"></div>
+              <div class="skeleton" style="height:9px;width:40%;border-radius:4px;"></div>
+            </div>
+            <div class="skeleton" style="width:22px;height:9px;border-radius:4px;"></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div class="skeleton" style="width:26px;height:26px;border-radius:8px;flex-shrink:0;"></div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+              <div class="skeleton" style="height:11px;width:80%;border-radius:4px;"></div>
+              <div class="skeleton" style="height:9px;width:50%;border-radius:4px;"></div>
+            </div>
+            <div class="skeleton" style="width:30px;height:9px;border-radius:4px;"></div>
+          </div>
+        </div>
+        <div class="state-name loading">Skeleton cards · shimmer · initial data load</div>
+      </div>
+    </div>
+
+    <div class="spec-strip">
+      <strong>Spinner:</strong> use for operations &lt;3 seconds (saving, AI processing, auth). Spin duration <code>700ms linear</code>.<br>
+      <strong>Skeleton:</strong> use for initial screen data load only. Shows 2–3 placeholder cards. Shimmer direction: left to right, <code>1400ms infinite</code>.<br>
+      <strong>Never stack spinners.</strong> Only one loading indicator visible at a time. If multiple things are loading, use the skeleton for the primary content area.
+    </div>
+
+    <div class="flutter-note">
+      <strong>Flutter:</strong> <code>CircularProgressIndicator.adaptive()</code> with custom <code>color</code> and <code>strokeWidth: 2.5</code>. For skeletons, use <code>shimmer</code> package or a custom <code>AnimationController</code> with a gradient sweep. Never use <code>LinearProgressIndicator</code> — it reads as a determinate loading bar, which is wrong for these interactions.
+    </div>
+  </div>
+
+  <div class="zone-rule"></div>
+
+  <!-- ═══════════════════════════
+       SUMMARY TABLE
+  ═══════════════════════════ -->
+  <div class="comp-section" id="summary">
+    <div class="cs-header">
+      <div class="cs-num">→</div>
+      <div class="cs-meta">
+        <div class="cs-eye">Reference</div>
+        <div class="cs-title">State summary</div>
+        <div class="cs-sub">All values in one place</div>
+      </div>
+    </div>
+
+    <div class="st-wrap">
+      <table class="summary-table">
+        <thead>
+          <tr><th>Component</th><th>State</th><th>Visual change</th><th>Duration</th><th>Flutter</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>CTA button</td><td>Pressed</td><td>bg <code>#7D62B3</code> · scale 0.97</td><td>100ms ease-out</td><td>AnimatedScale + color</td></tr>
+          <tr><td>CTA button</td><td>Loading</td><td>text hidden · spinner <code>cta-fg</code></td><td>—</td><td>AnimatedSwitcher</td></tr>
+          <tr><td>CTA button</td><td>Disabled</td><td>bg 35% · text 50%</td><td>—</td><td>ButtonStyle resolve</td></tr>
+          <tr><td>Secondary btn</td><td>Pressed</td><td>bg rgba(26,22,18,0.05) · scale 0.97</td><td>100ms ease-out</td><td>GestureDetector</td></tr>
+          <tr><td>Nudge card</td><td>Pressed</td><td>bg rgba(26,22,18,0.03) · shadow off · scale 0.985</td><td>100ms ease-out</td><td>GestureDetector + AnimatedContainer</td></tr>
+          <tr><td>Nudge card</td><td>Swipe</td><td>translateX · green action reveals</td><td>spring</td><td>Dismissible</td></tr>
+          <tr><td>Nudge card</td><td>Done</td><td>opacity 0.35 · line-through</td><td>250ms ease</td><td>AnimatedOpacity</td></tr>
+          <tr><td>Filter chip</td><td>Active</td><td>bg <code>cta</code> · text <code>cta-fg</code></td><td>200ms ease</td><td>AnimatedContainer</td></tr>
+          <tr><td>Filter chip</td><td>Pressed</td><td>scale 0.95 · bg tint</td><td>100ms</td><td>GestureDetector</td></tr>
+          <tr><td>Tab bar item</td><td>Active</td><td>colorCta icon + label · no pip</td><td>200ms ease</td><td>AnimatedDefaultTextStyle</td></tr>
+          <tr><td>FAB</td><td>Open</td><td>rotate 45° (Plus → ×)</td><td>180ms spring</td><td>AnimatedRotation</td></tr>
+          <tr><td>FAB</td><td>Pressed</td><td>bg <code>#7D62B3</code> · scale 0.93</td><td>120ms spring</td><td>AnimatedScale</td></tr>
+          <tr><td>Action option</td><td>Pressed</td><td>bg rgba(26,22,18,0.03) · scale 0.97</td><td>100ms</td><td>GestureDetector</td></tr>
+          <tr><td>Action sheet</td><td>Enter</td><td>translateY + scale from 0.95</td><td>280ms spring · stagger 40ms</td><td>AnimatedPositioned + staggered</td></tr>
+          <tr><td>Input</td><td>Focused</td><td>border <code>cta</code> · glow ring</td><td>150ms ease</td><td>FocusNode + AnimatedContainer</td></tr>
+          <tr><td>Input</td><td>Error</td><td>border <code>terra</code> · error msg</td><td>150ms ease</td><td>InputDecoration.errorText</td></tr>
+          <tr><td>Checkbox</td><td>Checked</td><td>fill <code>cta</code> · check appears · label strikethrough</td><td>150ms spring</td><td>AnimatedSwitcher</td></tr>
+          <tr><td>Checkbox</td><td>Loading</td><td>spinner replaces checkbox</td><td>—</td><td>AnimatedSwitcher</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="height:1px;background:var(--border);margin:52px 0 0;"></div>
+  <div style="padding:24px 0 16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <svg width="16" height="16" viewBox="0 0 80 80"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
+      <span style="font-size:12px;font-weight:500;color:var(--ink);">nudgii · Interaction states · all components</span>
+    </div>
+    <div style="font-size:11px;color:var(--mid);">March 2026 · Elf Consult · Next: Figma components →</div>
+  </div>
+
+</div>
+
+<script>
+const secs=document.querySelectorAll('.comp-section[id]');
+const links=document.querySelectorAll('.nav-link');
+const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){links.forEach(l=>l.classList.remove('active'));const a=document.querySelector(`.nav-link[href="#${en.target.id}"]`);if(a)a.classList.add('active');}});},{rootMargin:'-20% 0px -65% 0px'});
+secs.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>

@@ -1,0 +1,583 @@
+/* ═══════════════════════════════════════════════════════════════
+   nudgii · shared component stylesheet
+   ═══════════════════════════════════════════════════════════════
+   Single source of truth for reusable CSS across all design files.
+   Change a component here, every screen updates automatically.
+
+   Usage:
+     <link rel="stylesheet" href="../system/components.css">
+     (or href="system/components.css" from root)
+
+   Sections:
+     0. Reset
+     1. Design tokens
+     2. Google Fonts import
+     3. Body defaults
+     4. Hub nav (design hub breadcrumb)
+     5. Screen page nav (breadcrumb for screen files)
+     6. Page header (eyebrow, h1, subtitle, meta pills)
+     7. Layout wrapper (content-row, phone-col, annot-col)
+     8. Phone shell (390x844, notch, status bar)
+     9. Progress bar
+    10. Screen structure (scroll + sticky zones)
+    11. Back button
+    12. ii mark + free badge
+    13. Category icon chips
+    14. Category filter strip
+    15. Item card / task row
+    16. Check circle
+    17. Buttons (CTA, secondary, ghost)
+    18. Divider
+    19. Tab bar (floating pill)
+    20. FAB
+    21. Annotation sidebar
+    22. Changelog
+    23. Nudge card
+    24. Toast
+
+   Last updated: March 2026
+   ═══════════════════════════════════════════════════════════════ */
+
+
+/* ── 0. RESET ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+
+
+/* ── 1. DESIGN TOKENS ── */
+:root{
+  /* core palette */
+  --cream:#F5F0E8;
+  --ink:#1A1612;
+  --mid:#8A8070;
+  --mid-lt:#B0A898;
+  --mid-a:#6B6358;
+  --surface:#FFFFFF;
+
+  /* brand */
+  --cta:#9B7FD4;
+  --cta-fg:#FAF8FF;
+  --ap:#E8A87C;
+  --ap-dk:#C8784A;
+  --terra:#C4503A;
+  --plum:#2D1F4A;
+
+  /* semantic feedback */
+  --sage:#3B6D11;
+  --sage-lt:#EAF3DE;
+  --red:#A32D2D;
+  --red-lt:#FCEBEB;
+  --amber:#854F0B;
+  --amber-lt:#FAEEDA;
+
+  /* borders + opacity helpers */
+  --border:rgba(26,22,18,0.08);
+  --border-md:rgba(26,22,18,0.12);
+  --ink-06:rgba(26,22,18,0.06);
+  --ink-08:rgba(26,22,18,0.08);
+  --ink-10:rgba(26,22,18,0.10);
+  --ink-16:rgba(26,22,18,0.16);
+
+  /* category colors */
+  --cat-home:#C87850;
+  --cat-vehicle:#4A82A0;
+  --cat-garden:#5A9060;
+  --cat-sub:#8060A8;
+  --cat-health:#B86478;
+
+  /* category background tints */
+  --cat-home-bg:rgba(200,120,80,0.10);
+  --cat-vehicle-bg:rgba(74,130,160,0.10);
+  --cat-garden-bg:rgba(90,144,96,0.10);
+  --cat-sub-bg:rgba(128,96,168,0.10);
+  --cat-health-bg:rgba(184,100,120,0.10);
+
+  /* spacing scale */
+  --space-1:4px;
+  --space-2:8px;
+  --space-3:12px;
+  --space-4:16px;
+  --space-6:24px;
+  --space-8:32px;
+
+  /* shadows */
+  --shadow-tab-bar:0 4px 20px rgba(26,22,18,0.11);
+  --shadow-fab:0 6px 20px rgba(155,127,212,0.45);
+  --shadow-cta:0 2px 12px rgba(155,127,212,0.32);
+  --shadow-card:0 1px 3px rgba(26,22,18,0.04);
+  --shadow-sheet:0 -2px 20px rgba(26,22,18,0.12);
+}
+
+
+/* ── 2. GOOGLE FONTS ── */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap');
+
+
+/* ── 3. BODY DEFAULTS ── */
+body{
+  font-family:'DM Sans',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  color:var(--ink);
+  line-height:1.55;
+}
+
+
+/* ── 4. HUB NAV (design hub breadcrumb, used on system pages) ── */
+.nudgii-hub-nav{
+  position:sticky;top:0;z-index:999;
+  background:#F5F0E8;
+  border-bottom:1px solid rgba(26,22,18,0.12);
+  padding:0 24px;
+  display:flex;align-items:center;gap:16px;
+  height:44px;
+  font-family:'DM Sans',sans-serif;
+}
+.nudgii-hub-nav a{font-size:13px;color:#8A8070;text-decoration:none;}
+.nudgii-hub-nav a:first-child::before{content:'← ';}
+.nudgii-hub-nav span{font-size:13px;font-weight:500;color:#1A1612;}
+.nudgii-hub-nav .tag{
+  margin-left:auto;font-size:10px;font-weight:500;
+  color:#B0A898;letter-spacing:1.2px;text-transform:uppercase;font-family:monospace;
+}
+
+
+/* ── 5. SCREEN PAGE NAV (breadcrumb for screen hi-fi/lo-fi files) ──
+   Supports both <nav class="screen-nav"> and bare <nav> tag selectors.
+   Hi-fi screens use bare <nav>; keep both for compatibility.
+*/
+.screen-nav, nav{
+  background:var(--cream);
+  border-bottom:1px solid var(--border-md);
+  padding:0 32px;
+  display:flex;align-items:center;gap:16px;
+  height:48px;
+  position:sticky;top:0;z-index:100;
+}
+.screen-nav a.nav-back, nav .nav-back{
+  font-size:13px;color:var(--mid);text-decoration:none;
+  display:flex;align-items:center;gap:8px;
+}
+.screen-nav a.nav-back:hover, nav .nav-back:hover{color:var(--ink);}
+.screen-nav .nav-sep, nav .nav-sep{color:var(--border-md);}
+.screen-nav .nav-title, nav .nav-title{font-size:13px;font-weight:500;}
+.screen-nav .nav-status, nav .nav-status{
+  margin-left:auto;font-size:10px;font-weight:500;
+  padding:3px 10px;border-radius:100px;
+}
+/* status color variants */
+.nav-status.ready{background:rgba(59,109,17,0.10);color:#2A5A30;border:1px solid rgba(59,109,17,0.20);}
+.nav-status.progress{background:rgba(133,79,11,0.10);color:#854F0B;border:1px solid rgba(133,79,11,0.20);}
+.nav-status.todo{background:rgba(26,22,18,0.06);color:var(--mid);border:1px solid var(--ink-10);}
+
+
+/* ── 6. PAGE HEADER ── */
+.page{padding:40px 32px 60px;max-width:1700px;margin:0 auto;}
+
+.page-eyebrow{
+  font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(26,22,18,0.28);margin-bottom:10px;
+}
+.page-h1{
+  font-family:'DM Serif Display',serif;font-size:28px;
+  color:var(--ink);letter-spacing:-0.3px;margin-bottom:6px;
+}
+.page-sub{
+  font-size:14px;color:var(--mid-a);line-height:1.65;
+  max-width:640px;margin-bottom:12px;
+}
+.meta{display:flex;gap:8px;margin-bottom:48px;flex-wrap:wrap;}
+.mp{
+  font-size:11px;font-weight:500;padding:3px 10px;border-radius:100px;
+  border:1px solid var(--ink-10);color:var(--mid);
+}
+.mp.hifi{background:rgba(155,127,212,0.08);color:#5C3E8A;border-color:rgba(155,127,212,0.20);}
+.mp.lofi{background:rgba(26,22,18,0.05);color:var(--mid);border-color:var(--ink-10);}
+.mp.ob{background:rgba(200,120,80,0.08);color:#7A3A10;border-color:rgba(200,120,80,0.18);}
+
+
+/* ── 7. LAYOUT WRAPPER ── */
+.content-row{display:flex;gap:40px;align-items:flex-start;}
+.phone-col{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+
+
+/* ── 8. PHONE SHELL (390x844 iPhone 15) ── */
+.phone{
+  width:390px;height:844px;border-radius:50px;overflow:hidden;
+  background:var(--cream);
+  border:1.5px solid rgba(26,22,18,0.09);
+  box-shadow:0 28px 60px rgba(26,22,18,0.18),0 6px 16px rgba(26,22,18,0.07),inset 0 1px 0 rgba(255,255,255,0.65);
+  position:relative;flex-shrink:0;
+  display:flex;flex-direction:column;
+}
+
+/* notch + status bar */
+.notch{height:24px;background:var(--cream);display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px;}
+.np{width:102px;height:8px;border-radius:100px;background:rgba(26,22,18,0.10);}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:5px 18px 0;font-size:11px;font-weight:500;color:rgba(26,22,18,0.36);}
+.batt{width:14px;height:6px;border:1.5px solid rgba(26,22,18,0.28);border-radius:2px;position:relative;}
+.batt::after{content:'';position:absolute;left:1px;top:1px;right:2px;bottom:1px;background:rgba(26,22,18,0.32);border-radius:1px;}
+
+
+/* ── 9. PROGRESS BAR ── */
+.prog-bar{width:100%;height:3px;background:rgba(26,22,18,0.08);flex-shrink:0;}
+.prog-fill{height:3px;border-radius:0 100px 100px 0;background:var(--cta);}
+
+
+/* ── 10. SCREEN STRUCTURE ── */
+.w-screen{flex:1;overflow:hidden;display:flex;flex-direction:column;padding:14px 20px 0;}
+.w-content{flex:1;overflow-y:auto;scrollbar-width:none;}
+.w-content::-webkit-scrollbar{display:none;}
+.w-bottom{padding-bottom:24px;flex-shrink:0;}
+
+
+/* ── 11. BACK BUTTON ── */
+.back-btn{
+  width:44px;height:44px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;margin:-8px -12px 0;flex-shrink:0;
+}
+.back-btn svg{
+  width:12px;height:12px;fill:none;
+  stroke:var(--ink);stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+
+
+/* ── 12. II MARK + FREE BADGE ── */
+.ii-mark{display:block;flex-shrink:0;}
+
+.free-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  background:var(--sage-lt);
+  border:0.5px solid rgba(59,109,17,0.15);
+  border-radius:100px;
+  padding:4px 10px 4px 7px;
+  font-size:10px;font-weight:500;color:var(--sage);
+}
+.fb-dot{width:5px;height:5px;border-radius:50%;background:var(--sage);flex-shrink:0;}
+
+
+/* ── 13. CATEGORY ICON CHIPS (28x28px, inside item rows) ── */
+.ci{
+  width:28px;height:28px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.ci svg{width:13px;height:13px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+
+.ci-h{background:var(--cat-home-bg);}  .ci-h svg{stroke:var(--cat-home);}
+.ci-v{background:var(--cat-vehicle-bg);}  .ci-v svg{stroke:var(--cat-vehicle);}
+.ci-g{background:var(--cat-garden-bg);}   .ci-g svg{stroke:var(--cat-garden);}
+.ci-s{background:var(--cat-sub-bg);}      .ci-s svg{stroke:var(--cat-sub);}
+.ci-n{background:rgba(26,22,18,0.05);}    .ci-n svg{stroke:var(--mid);}
+
+
+/* ── 14. CATEGORY FILTER STRIP ──
+   Used on: S-01 (no "All" pill), S-03 (with "All"), S-09 (with "All")
+   "All" pill always first on S-03 and S-09. Removed from S-01.
+   Single scrollable row, never wraps to second line.
+   Active: ink bg, cream text. Inactive: surface bg, border, mid-accessible text.
+*/
+.cat-strip{
+  display:flex;gap:4px;flex-wrap:nowrap;
+  overflow-x:auto;scrollbar-width:none;
+  margin-bottom:10px;
+  -webkit-overflow-scrolling:touch;
+}
+.cat-strip::-webkit-scrollbar{display:none;}
+
+.cat-pill{
+  display:inline-flex;align-items:center;gap:4px;
+  background:var(--surface);
+  border:0.5px solid rgba(26,22,18,0.12);
+  border-radius:100px;
+  padding:4px 10px;
+  font-size:10px;font-weight:500;
+  color:var(--mid-a, #6B6358);
+  flex-shrink:0;cursor:pointer;
+  transition:background 0.15s ease-out,border-color 0.15s ease-out,color 0.15s ease-out;
+}
+.cat-pill.active{background:rgba(155,127,212,0.06);color:var(--cta);border-color:var(--cta);}
+.cat-pill.active .cat-dot{opacity:0.85;}
+.cat-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+
+
+/* ── 15. ITEM CARD / TASK ROW ── */
+.task-rows{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
+
+.trow{
+  background:var(--surface);
+  border:0.5px solid var(--border);
+  border-radius:10px;
+  box-shadow:var(--shadow-card);
+  padding:10px 12px;
+  display:flex;align-items:center;gap:10px;
+  cursor:pointer;
+  transition:border-color 0.15s,background 0.15s;
+  user-select:none;
+}
+.trow:active{background:rgba(26,22,18,0.03);}
+.trow.sel{border:1.5px solid rgba(155,127,212,0.35);background:rgba(155,127,212,0.04);}
+.trow.else{border:0.5px dashed rgba(26,22,18,0.14);background:transparent;box-shadow:none;}
+
+/* item text */
+.tinfo{flex:1;min-width:0;}
+.tname{font-size:13px;font-weight:500;color:var(--ink);line-height:1.2;margin-bottom:2px;}
+.tmeta{display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
+.tctx{font-size:11px;color:var(--mid);}
+.cadence{
+  font-size:10px;color:var(--mid-a);
+  background:rgba(26,22,18,0.05);
+  border:0.5px solid rgba(26,22,18,0.07);
+  border-radius:100px;padding:1px 7px;
+}
+.else-name{font-size:13px;font-weight:500;color:var(--mid-a);}
+.else-sub{font-size:11px;color:rgba(26,22,18,0.35);}
+
+/* microcopy above rows */
+.micro{font-size:11px;font-style:italic;color:var(--mid);margin-bottom:8px;}
+
+
+/* ── 16. CHECK CIRCLE ── */
+.chk{
+  width:20px;height:20px;border-radius:50%;
+  border:1.5px solid rgba(26,22,18,0.14);
+  background:transparent;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  transition:all 0.15s;
+}
+.chk svg{display:none;width:10px;height:10px;stroke:var(--cta-fg);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+.chk.on{background:var(--cta);border-color:var(--cta);}
+.chk.on svg{display:block;}
+
+
+/* ── 17. BUTTONS ── */
+
+/* path divider */
+.pdiv{display:flex;align-items:center;gap:10px;margin:10px 0 13px;}
+.pd-line{flex:1;height:1px;background:var(--border-md);}
+.pd-txt{font-size:10px;color:var(--mid-a);white-space:nowrap;}
+
+/* primary CTA */
+.btn-cta{
+  width:100%;height:50px;border-radius:100px;border:none;
+  background:var(--cta);color:var(--cta-fg);
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;letter-spacing:-0.1px;
+  box-shadow:var(--shadow-cta);
+  transition:background 0.1s,transform 0.1s;
+}
+.btn-cta:active{background:#7D62B3;transform:scale(0.97);}
+.btn-cta:disabled{background:rgba(155,127,212,0.35);color:rgba(250,248,255,0.5);cursor:default;box-shadow:none;}
+
+/* secondary (border) */
+.btn-secondary{
+  width:100%;height:46px;border-radius:100px;
+  border:1.5px solid var(--border-md);
+  background:transparent;
+  font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink);
+  cursor:pointer;
+  transition:background 0.12s;
+}
+.btn-secondary:active{background:rgba(26,22,18,0.04);}
+
+/* ghost (text link) */
+.btn-ghost{
+  background:none;border:none;
+  font-family:'DM Sans',sans-serif;font-size:11px;color:var(--mid-a);
+  cursor:pointer;padding:8px 0;
+}
+.btn-ghost:hover{color:var(--ink);}
+
+/* legacy aliases: point to canonical styles so old markup still works */
+.btn-a{
+  width:100%;height:50px;border-radius:100px;border:none;
+  background:var(--cta);color:var(--cta-fg);
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;margin-bottom:5px;letter-spacing:-0.1px;
+  box-shadow:var(--shadow-cta);
+  transition:background 0.1s,transform 0.1s;
+}
+.btn-a:active{background:#7D62B3;transform:scale(0.97);}
+
+.btn-b{
+  width:100%;height:46px;border-radius:100px;
+  border:1.5px solid var(--border-md);
+  background:transparent;
+  font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink);
+  cursor:pointer;
+  transition:background 0.12s;
+}
+.btn-b:active{background:rgba(26,22,18,0.04);}
+
+/* .cat-pill.on alias for .cat-pill.active (s03 compat) */
+.cat-pill.on{background:rgba(155,127,212,0.06);color:var(--cta);border-color:var(--cta);}
+.cat-pill.on .cat-dot{opacity:0.85;}
+
+
+/* ── 18. DIVIDER ── */
+.page-divider{height:1px;background:var(--border);margin:48px 0;}
+
+
+/* ── 19. TAB BAR (floating pill) ── */
+.tab-bar{
+  background:var(--surface);
+  border-radius:22px;
+  height:52px;
+  padding:9px 4px 11px;
+  display:flex;justify-content:space-around;align-items:center;
+  box-shadow:var(--shadow-tab-bar);
+  border:1px solid rgba(26,22,18,0.07);
+}
+.tab-item{
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  width:64px;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.tab-item svg{width:20px;height:20px;fill:none;stroke:rgba(26,22,18,0.20);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.tab-item .tab-label{font-size:9px;font-weight:500;color:rgba(26,22,18,0.20);}
+
+/* active: colorCta on BOTH icon AND label. No pip dot. */
+.tab-item.active svg,.tab-item.active svg *{stroke:var(--cta);}
+.tab-item.active .tab-label{color:var(--cta);}
+
+
+/* ── 20. FAB ── */
+.fab{
+  width:46px;height:46px;
+  border-radius:15px;
+  background:var(--cta);
+  display:flex;align-items:center;justify-content:center;
+  border:none;cursor:pointer;
+  box-shadow:var(--shadow-fab);
+  margin-bottom:4px;
+  transition:background 0.1s,transform 0.1s,box-shadow 0.15s;
+}
+.fab svg{width:17px;height:17px;fill:none;stroke:var(--cta-fg);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.fab:active{background:#7D62B3;transform:scale(0.92);box-shadow:0 3px 10px rgba(155,127,212,0.25);}
+
+
+/* ── 21. ANNOTATION SIDEBAR ── */
+.annot-col{
+  flex:0 0 340px;min-width:280px;
+  display:flex;flex-direction:column;gap:10px;
+  padding-top:0;
+}
+.annot-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:14px 16px;
+}
+.annot-card.decision{border-color:rgba(155,127,212,0.22);background:rgba(155,127,212,0.03);}
+.annot-card.interaction{border-color:rgba(200,120,80,0.22);background:rgba(200,120,80,0.03);}
+.annot-card.pattern{border-color:rgba(74,130,160,0.22);background:rgba(74,130,160,0.03);}
+
+.annot-head{
+  font-size:10px;font-weight:500;letter-spacing:0.3px;
+  margin-bottom:6px;display:flex;align-items:center;gap:6px;
+}
+.badge-rule{
+  font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;
+  background:rgba(59,109,17,0.10);color:var(--sage);
+}
+.badge-note{
+  font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;
+  background:rgba(26,22,18,0.07);color:var(--mid);
+}
+.badge-decision{
+  font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;
+  background:rgba(155,127,212,0.12);color:#5C3E8A;
+}
+.badge-interaction{
+  font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;
+  background:rgba(200,120,80,0.10);color:#7A3A10;
+}
+.badge-pattern{
+  font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;
+  background:rgba(74,130,160,0.10);color:#2A5A70;
+}
+
+.annot-body{font-size:11px;color:var(--mid-a);line-height:1.65;}
+.annot-body strong{color:var(--ink);font-weight:500;}
+.annot-body code{
+  font-family:monospace;font-size:10px;
+  background:var(--ink-06);padding:1px 4px;border-radius:3px;color:var(--ink);
+}
+.annot-body ul{margin:6px 0 0 14px;list-style:disc;}
+.annot-body li{margin-bottom:3px;}
+ul.ann-list{padding-left:14px;margin-top:4px;}
+ul.ann-list li{font-size:11px;color:var(--mid-a);line-height:1.65;margin-bottom:2px;}
+ul.ann-list li strong{color:var(--ink);font-weight:500;}
+
+.badge-state{
+  font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;
+  background:rgba(155,127,212,0.12);color:#5C3E8A;
+}
+
+.annot-section{
+  font-size:9px;font-weight:500;letter-spacing:1.6px;
+  text-transform:uppercase;color:rgba(26,22,18,0.28);
+  margin:20px 0 8px;
+}
+
+
+/* ── 22. CHANGELOG ── */
+.changelog{
+  width:100%;max-width:1400px;
+  background:var(--surface);border-radius:12px;
+  border:1px solid var(--border);padding:24px 28px;
+}
+.cl-title{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:16px;}
+.cl-entry{margin-bottom:8px;}
+.cl-ver{font-size:10px;font-weight:500;letter-spacing:0.3px;color:var(--mid-a);margin-bottom:6px;}
+.cl-body{font-size:12px;color:var(--mid);line-height:1.6;margin-bottom:4px;}
+.cl-body strong{color:var(--ink);font-weight:500;}
+
+.cl-flutter{
+  background:rgba(26,22,18,0.02);border:1px solid var(--border);
+  border-radius:8px;padding:14px 16px;margin-top:12px;
+}
+.cl-flutter-head{font-size:10px;font-weight:500;margin-bottom:8px;color:var(--mid-a);}
+.cl-flutter-body{font-family:monospace;font-size:11px;line-height:1.9;color:var(--mid);}
+
+
+/* ── 23. NUDGE CARD ── */
+.ncard{
+  background:var(--surface);
+  border:0.5px solid var(--border);
+  border-radius:10px;
+  box-shadow:var(--shadow-card);
+  padding:10px 12px;
+  display:flex;align-items:center;gap:10px;
+  transition:background 0.15s;
+}
+.ncard:active{background:rgba(26,22,18,0.03);}
+
+.ncard .nname{font-size:13px;font-weight:500;color:var(--ink);line-height:1.2;}
+.ncard .nsub{font-size:10px;font-style:italic;color:var(--mid);}
+.ncard .ndate{font-size:11px;font-weight:500;flex-shrink:0;}
+.ncard .ndate.overdue{color:var(--terra);}
+.ncard .ndate.due-soon{color:var(--ap-dk);}
+.ncard .ndate.neutral{color:var(--mid);}
+
+
+/* ── 24. TOAST ── */
+.toast{
+  border-radius:100px;
+  padding:9px 16px;
+  max-width:260px;
+  font-size:11px;font-weight:500;
+  display:inline-flex;align-items:center;gap:6px;
+  animation:toast-in 0.25s ease-out;
+}
+.toast.success{background:var(--sage-lt);color:var(--sage);border:0.5px solid rgba(59,109,17,0.15);}
+.toast.error{background:var(--red-lt);color:var(--red);border:0.5px solid rgba(163,45,45,0.15);}
+.toast.neutral{background:var(--cream);color:var(--ink);border:0.5px solid var(--border-md);}
+
+.toast-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+.toast.success .toast-dot{background:var(--sage);}
+.toast.error .toast-dot{background:var(--terra);}
+.toast.neutral .toast-dot{background:var(--plum);}
+
+@keyframes toast-in{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}

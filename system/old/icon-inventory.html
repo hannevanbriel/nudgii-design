@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · Icon Inventory v2.3</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+:root{
+  --cream:#F5F0E8;--ink:#1A1612;--mid:#8A8070;--mid-lt:#B0A898;
+  --border:rgba(26,22,18,0.08);--border-md:rgba(26,22,18,0.12);
+  --cta:#9B7FD4;--cta-fg:#FAF8FF;
+  --ap:#E8A87C;--ap-dk:#C8784A;--terra:#C4503A;
+  --plum:#2D1F4A;--plum-pale:#C4A8E8;
+  --ch:#C87850;--chb:rgba(200,120,80,0.12);
+  --cv:#4A82A0;--cvb:rgba(74,130,160,0.12);
+  --cg:#5A9060;--cgb:rgba(90,144,96,0.12);
+  --cs:#8060A8;--csb:rgba(128,96,168,0.12);
+  --chl:#B86478;--chlb:rgba(184,100,120,0.12);
+  --surface:#FFFFFF;
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;
+  --space-6:24px;--space-8:32px;--space-12:48px;--space-16:64px;
+  --shadow-card:none;
+  --shadow-tab-bar:0 4px 20px rgba(26,22,18,0.11);
+  --shadow-fab:0 6px 20px rgba(155,127,212,0.45);
+  --shadow-sheet:0 -2px 20px rgba(26,22,18,0.12);
+}
+body{background:var(--cream);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;color:var(--ink);}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,0.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 28px;}
+.nav-inner{max-width:1040px;margin:0 auto;display:flex;align-items:center;height:48px;gap:0;}
+.nav-brand{font-size:13px;font-weight:500;color:var(--ink);text-decoration:none;margin-right:24px;flex-shrink:0;display:flex;align-items:center;gap:7px;}
+.nav-links{display:flex;overflow-x:auto;scrollbar-width:none;flex:1;gap:0;}
+.nav-links::-webkit-scrollbar{display:none;}
+.nav-link{font-size:10px;font-weight:500;color:var(--mid);text-decoration:none;white-space:nowrap;padding:0 11px;height:48px;display:flex;align-items:center;border-bottom:2px solid transparent;transition:all 0.15s;}
+.nav-link:hover{color:var(--ink);}
+.nav-link.active{color:var(--ink);border-bottom-color:var(--cta);}
+.nav-count{font-size:9px;font-weight:500;padding:1px 6px;border-radius:100px;background:rgba(155,127,212,0.12);color:var(--cta);margin-left:4px;}
+
+/* ── PAGE ── */
+.page{max-width:1040px;margin:0 auto;padding:0 28px 100px;}
+
+/* ── HERO ── */
+.hero{padding:48px 0 36px;border-bottom:1px solid var(--border);margin-bottom:0;}
+.hero-eye{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:8px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:38px;color:var(--ink);line-height:1.0;letter-spacing:-0.6px;margin-bottom:8px;}
+.hero-sub{font-size:13px;color:var(--mid);max-width:480px;line-height:1.6;}
+.hero-stats{display:flex;gap:28px;margin-top:20px;flex-wrap:wrap;}
+.stat{display:flex;flex-direction:column;gap:2px;}
+.stat-n{font-family:'DM Serif Display',serif;font-size:28px;color:var(--ink);line-height:1;}
+.stat-l{font-size:10px;color:var(--mid);}
+
+/* ── ZONE SECTIONS ── */
+.zone{padding-top:52px;}
+.zone-header{display:flex;align-items:flex-end;gap:16px;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--border);}
+.zone-num{font-family:'DM Serif Display',serif;font-size:42px;color:rgba(26,22,18,0.06);line-height:1;flex-shrink:0;}
+.zone-meta{}
+.zone-eye{font-size:9px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:2px;}
+.zone-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);margin-bottom:2px;}
+.zone-spec{font-size:11px;color:var(--mid);}
+.zone-spec code{font-family:monospace;font-size:10px;background:rgba(26,22,18,0.06);padding:1px 5px;border-radius:3px;color:var(--ink);}
+
+/* ── ICON GRID ── */
+.icon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-bottom:16px;}
+
+/* ── ICON TILE ── */
+.icon-tile{
+  background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  padding:14px 12px 12px;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  box-shadow:0 1px 3px rgba(26,22,18,0.04);
+  transition:box-shadow 0.12s,transform 0.1s;
+  position:relative;
+  cursor:default;
+}
+.icon-tile:hover{box-shadow:0 4px 16px rgba(26,22,18,0.08);transform:translateY(-1px);}
+
+/* icon display area */
+.icon-display{
+  width:44px;height:44px;border-radius:11px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.icon-display svg{display:block;}
+
+/* icon meta */
+.icon-name{font-size:11px;font-weight:500;color:var(--ink);text-align:center;line-height:1.3;}
+.icon-ph{font-size:9px;color:var(--mid);text-align:center;font-family:monospace;margin-top:1px;}
+.icon-size{font-size:8px;font-weight:500;padding:2px 6px;border-radius:100px;background:rgba(26,22,18,0.06);color:rgba(26,22,18,0.45);margin-top:3px;}
+
+/* zone color tags */
+.ztag{position:absolute;top:8px;right:8px;width:6px;height:6px;border-radius:50%;}
+
+/* ── SPEC ROWS ── */
+.spec-bar{background:rgba(245,240,232,0.8);border:1px solid var(--border);border-radius:10px;padding:11px 14px;margin-top:10px;font-size:11px;color:var(--mid);line-height:1.65;}
+.spec-bar strong{color:var(--ink);font-weight:500;}
+.spec-bar code{font-family:monospace;font-size:10px;background:rgba(26,22,18,0.07);padding:1px 5px;border-radius:3px;color:var(--ink);}
+
+/* ── ZONE DIVIDER ── */
+.zone-rule{height:1px;background:var(--border);margin:52px 0 0;}
+
+/* ── GROUPED LAYOUT for tab bar ── */
+.tab-preview{
+  background:var(--surface);border:1px solid var(--border);border-radius:13px;
+  padding:14px 20px;
+  display:flex;justify-content:space-around;align-items:center;
+  max-width:360px;margin-bottom:12px;
+  box-shadow:0 1px 3px rgba(26,22,18,0.04);
+}
+.tab-item{display:flex;flex-direction:column;align-items:center;gap:3px;}
+.tab-label-text{font-size:9px;color:var(--mid);}
+.tab-label-text.active{color:var(--cta);font-weight:500;}
+.tab-pip{width:3px;height:3px;border-radius:50%;background:var(--cta);display:none;}
+
+/* ── STATUS GROUP ── */
+.status-grid{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;}
+.status-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:100px;font-size:11px;font-weight:500;}
+
+/* ── ACTION GROUP ── */
+.action-group{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:12px;}
+.action-item{display:flex;flex-direction:column;align-items:center;gap:6px;}
+.action-btn{display:flex;align-items:center;justify-content:center;border-radius:9px;border:none;cursor:pointer;}
+.action-label{font-size:9px;color:var(--mid);text-align:center;}
+
+/* ── FLUTTER NAMES TABLE ── */
+.flutter-table{width:100%;border-collapse:collapse;font-size:11px;margin-top:8px;}
+.flutter-table th{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--mid);padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);background:rgba(245,240,232,0.5);}
+.flutter-table td{padding:9px 12px;border-bottom:1px solid rgba(26,22,18,0.05);vertical-align:middle;}
+.flutter-table tr:last-child td{border-bottom:none;}
+.flutter-table td:first-child{display:flex;align-items:center;gap:8px;}
+.flutter-table code{font-family:monospace;font-size:10px;background:rgba(26,22,18,0.06);padding:1px 5px;border-radius:3px;color:var(--ink);}
+.flutter-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(26,22,18,0.04);}
+</style>
+<style>.nudgii-hub-nav{position:sticky;top:0;z-index:999;background:#F5F0E8;border-bottom:1px solid rgba(26,22,18,0.12);padding:0 24px;display:flex;align-items:center;gap:16px;height:44px;font-family:'DM Sans',sans-serif}.nudgii-hub-nav a{font-size:13px;color:#8A8070;text-decoration:none}.nudgii-hub-nav a:first-child::before{content:'← ';}.nudgii-hub-nav span{font-size:13px;font-weight:500;color:#1A1612}.nudgii-hub-nav .tag{margin-left:auto;font-size:10px;font-weight:500;color:#B0A898;letter-spacing:1.2px;text-transform:uppercase;font-family:monospace}</style></head>
+<body><div class="nudgii-hub-nav"><a href="../index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:#8A8070"><svg width="18" height="18" viewBox="0 0 80 80" style="border-radius:4px;flex-shrink:0"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg><span>Design hub</span></a><span>Icon inventory</span><span class="tag">System</span></div>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="#">
+      <svg width="15" height="15" viewBox="0 0 80 80"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
+      nudgii · icons
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="#tab-bar">Tab bar<span class="nav-count">3</span></a>
+      <a class="nav-link" href="#category">Category<span class="nav-count">5</span></a>
+      <a class="nav-link" href="#actions">Actions<span class="nav-count">8</span></a>
+      <a class="nav-link" href="#status">Status<span class="nav-count">4</span></a>
+      <a class="nav-link" href="#onboarding">Onboarding<span class="nav-count">5</span></a>
+      <a class="nav-link" href="#detail">Detail<span class="nav-count">6</span></a>
+      <a class="nav-link" href="#profile">Profile<span class="nav-count">5</span></a>
+      <a class="nav-link" href="#fab">FAB &amp; nav<span class="nav-count">3</span></a><a class="nav-link" href="#flutter">Flutter ref</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eye">nudgii · Icon inventory v2.3 · Phosphor regular weight · outline only · updated March 2026</div>
+    <h1 class="hero-title">Every icon.<br>Every zone.</h1>
+    <p class="hero-sub">36 icons across 7 zones. Each one has a name, a size, a color, and exactly one job. This is the reference — Figma and Flutter both start here.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-n">39</div><div class="stat-l">Total icons</div></div>
+      <div class="stat"><div class="stat-n">8</div><div class="stat-l">Zones</div></div>
+      <div class="stat"><div class="stat-n">4</div><div class="stat-l">Sizes used</div></div>
+      <div class="stat"><div class="stat-n">1</div><div class="stat-l">Library · Phosphor</div></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════
+       ZONE 1: TAB BAR
+  ══════════════════════ -->
+  <div class="zone" id="tab-bar">
+    <div class="zone-header">
+      <div class="zone-num">01</div>
+      <div class="zone-meta">
+        <div class="zone-eye">Zone 1</div>
+        <div class="zone-title">Tab bar</div>
+        <div class="zone-spec">3 icons · <code>19px</code> · active: <code>colorCta #9B7FD4</code> · inactive: <code>ink 18% opacity</code> · stroke 1.5</div>
+      </div>
+    </div>
+
+    <!-- live tab bar preview -->
+    <div class="tab-preview">
+      <div class="tab-item">
+        <svg width="22" height="22" viewBox="0 0 256 256" fill="none"><rect x="40" y="40" width="176" height="176" rx="16" stroke="var(--cta)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><line x1="176" y1="24" x2="176" y2="56" stroke="var(--cta)" stroke-width="16" stroke-linecap="round"/><line x1="80" y1="24" x2="80" y2="56" stroke="var(--cta)" stroke-width="16" stroke-linecap="round"/><line x1="40" y1="88" x2="216" y2="88" stroke="var(--cta)" stroke-width="16" stroke-linecap="round"/></svg>
+        <div class="tab-label-text active">Today</div>
+      </div>
+      <div class="tab-item">
+        <svg width="22" height="22" viewBox="0 0 256 256" fill="none" opacity="0.18"><path d="M45.15 230.11a8 8 0 0 1-9.26-9.26l9.45-42.51A96 96 0 1 1 136 224a95.23 95.23 0 0 1-45.83-11.65Z" stroke="var(--ink)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><circle cx="128" cy="132" r="12" fill="var(--ink)"/><line x1="128" y1="100" x2="128" y2="80" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/></svg>
+        <div class="tab-label-text">Ask</div>
+      </div>
+      <div class="tab-item">
+        <svg width="22" height="22" viewBox="0 0 256 256" fill="none" opacity="0.18"><circle cx="128" cy="96" r="64" stroke="var(--ink)" stroke-width="16"/><path d="M32 216c19.37-33.47 54.55-56 96-56s76.63 22.53 96 56" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/></svg>
+        <div class="tab-label-text">You</div>
+      </div>
+    </div>
+
+    <div class="icon-grid">
+
+      <div class="icon-tile">
+        <div class="icon-display" style="background:rgba(26,22,18,0.06);">
+          <svg width="22" height="22" viewBox="0 0 256 256" fill="none"><rect x="40" y="40" width="176" height="176" rx="16" stroke="var(--ink)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><line x1="176" y1="24" x2="176" y2="56" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><line x1="80" y1="24" x2="80" y2="56" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><line x1="40" y1="88" x2="216" y2="88" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/></svg>
+        </div>
+        <div class="icon-name">Today</div>
+        <div class="icon-ph">CalendarBlank</div>
+        <div class="icon-size">19px · ink</div>
+      </div>
+
+      <div class="icon-tile">
+        <div class="icon-display" style="background:rgba(26,22,18,0.06);">
+          <svg width="22" height="22" viewBox="0 0 256 256" fill="none"><path d="M45.15 230.11a8 8 0 0 1-9.26-9.26l9.45-42.51A96 96 0 1 1 136 224a95.23 95.23 0 0 1-45.83-11.65Z" stroke="var(--ink)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><circle cx="128" cy="132" r="10" fill="var(--ink)"/><line x1="128" y1="100" x2="128" y2="80" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/></svg>
+        </div>
+        <div class="icon-name">Ask</div>
+        <div class="icon-ph">ChatCircleQuestion</div>
+        <div class="icon-size">19px · ink 18%</div>
+      </div>
+
+      <div class="icon-tile">
+        <div class="icon-display" style="background:rgba(26,22,18,0.06);">
+          <svg width="22" height="22" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="96" r="64" stroke="var(--ink)" stroke-width="16"/><path d="M32 216c19.37-33.47 54.55-56 96-56s76.63 22.53 96 56" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/></svg>
+        </div>
+        <div class="icon-name">You</div>
+        <div class="icon-ph">User</div>
+        <div class="icon-size">19px · ink 18%</div>
+      </div>
+
+    </div>
+    <div class="spec-bar">
+      <strong>Active state:</strong> <code>colorCta #9B7FD4</code> on both icon stroke and label. No pip dot. <strong>Inactive:</strong> <code>ink at 18% opacity</code>, no pip · <strong>Label:</strong> 8px DM Sans, sentence case · <strong>Touch target:</strong> full 1/3 tab bar width
+    </div>
+  </div>
+
+  <div class="zone-rule"></div>
+
+  <!-- ══════════════════════
+       ZONE 2: CATEGORY CHIPS
+  ══════════════════════ -->
+  <div class="zone" id="category">
+    <div class="zone-header">
+      <div class="zone-num">02</div>
+      <div class="zone-meta">
+        <div class="zone-eye">Zone 2</div>
+        <div class="zone-title">Category chips</div>
+        <div class="zone-spec">5 icons · <code>12–13px</code> · each uses its own category color · stroke 1.8 · inside 28–30px chip</div>
+      </div>
+    </div>
+
+    <div class="icon-grid">
+
+      <div class="icon-tile">
+        <div class="icon-display" style="background:var(--chb);">
+          <svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M152 208H104V160a24 24 0 0 1 48 0Z" stroke="var(--ch)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/><path d="M208 208H48a8 8 0 0 1-8-8V99.31a8 8 0 0 1 3.76-6.8l80-48.85a8 8 0 0 1 8.48 0l80 48.85A8 8 0 0 1 216 99.31V200a8 8 0 0 1-8 8Z" stroke="var(--ch)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="icon-name">Home &amp; Appliances</div>
+        <div class="icon-ph">House</div>
+        <div class="icon-size">13px · #C87850</div>
+      </div>
+
+      <div class="icon-tile">
+        <div class="icon-display" style="background:var(--cvb);">
+          <svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M232 160H24a8 8 0 0 1-7.69-10.22l24-80A8 8 0 0 1 48 64h160a8 8 0 0 1 7.69 5.78l24 80A8 8 0 0 1 232 160Z" stroke="var(--cv)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 160v32a8 8 0 0 0 8 8h32a8 8 0 0 0 8-8v-8h128v8a8 8 0 0 0 8 8h32a8 8 0 0 0 8-8v-32" stroke="var(--cv)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/><circle cx="76" cy="182" r="11" fill="var(--cv)"/><circle cx="180" cy="182" r="11" fill="var(--cv)"/></svg>
+        </div>
+        <div class="icon-name">Vehicle</div>
+        <div class="icon-ph">Car</div>
+        <div class="icon-size">13px · #4A82A0</div>
+      </div>
+
+      <div class="icon-tile">
+        <div class="icon-display" style="background:var(--cgb);">
+          <svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M128 216s-80-56-80-136a80 80 0 0 1 160 0c0 80-80 136-80 136Z" stroke="var(--cg)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/><line x1="128" y1="216" x2="128" y2="120" stroke="var(--cg)" stroke-width="18" stroke-linecap="round"/></svg>
+        </div>
+        <div class="icon-name">Garden &amp; Plants</div>
+        <div class="icon-ph">Plant</div>
+        <div class="icon-size">13px · #5A9060</div>
+      </div>
+
+      <div class="icon-tile">
+        <div class="icon-display" style="background:var(--csb);">
+          <svg width="20" height="20" viewBox="0 0 256 256" fill="none"><rect x="24" y="56" width="208" height="144" rx="16" stroke="var(--cs)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/><line x1="24" y1="104" x2="232" y2="104" stroke="var(--cs)" stroke-width="18" stroke-linecap="round"/><rect x="48" y="128" width="56" height="14" rx="4" stroke="var(--cs)" stroke-width="12" stroke-linecap="round"/></svg>
+        </div>
+        <div class="icon-name">Subscriptions</div>
+        <div class="icon-ph">CreditCard</div>
+        <div class="icon-size">13px · #8060A8</div>
+      </div>
+
+      <div class="icon-tile">
+        <div class="icon-display" style="background:var(--chlb);">
+          <svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M178 40a48 48 0 0 1 0 96H78a48 48 0 0 1 0-96" stroke="var(--chl)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/><path d="M128 136v80" stroke="var(--chl)" stroke-width="18" stroke-linecap="round"/><path d="M96 184h64" stroke="var(--chl)" stroke-width="18" stroke-linecap="round"/></svg>
+        </div>
+        <div class="icon-name">Health</div>
+        <div class="icon-ph">Heartbeat</div>
+        <div class="icon-size">13px · #B86478 · v2</div>
+      </div>
+
+    </div>
+    <div class="spec-bar">
+      <strong>Never</strong> use category icons outside the chip. <strong>Never</strong> use category colors on any other icon. The chip background is always the category color at <code>10–12% opacity</code>. Health is future v2 — include in Figma, hide in MVP build.
+    </div>
+  </div>
+
+  <div class="zone-rule"></div>
+
+  <!-- ══════════════════════
+       ZONE 3: ACTION BUTTONS
+  ══════════════════════ -->
+  <div class="zone" id="actions">
+    <div class="zone-header">
+      <div class="zone-num">03</div>
+      <div class="zone-meta">
+        <div class="zone-eye">Zone 3</div>
+        <div class="zone-title">Action buttons</div>
+        <div class="zone-spec">8 icons · <code>14–16px</code> · color varies by button background · stroke 1.5–1.8</div>
+      </div>
+    </div>
+
+    <!-- action group preview -->
+    <div class="action-group">
+      <div class="action-item">
+        <div class="action-btn" style="width:32px;height:32px;background:var(--cta);">
+          <svg width="14" height="14" viewBox="0 0 256 256" fill="none"><line x1="40" y1="128" x2="216" y2="128" stroke="var(--cta-fg)" stroke-width="22" stroke-linecap="round"/><line x1="128" y1="40" x2="128" y2="216" stroke="var(--cta-fg)" stroke-width="22" stroke-linecap="round"/></svg>
+        </div>
+        <div class="action-label">add</div>
+      </div>
+      <div class="action-item">
+        <div class="action-btn" style="width:32px;height:32px;background:rgba(26,22,18,0.07);">
+          <svg width="14" height="14" viewBox="0 0 256 256" fill="none"><circle cx="112" cy="112" r="80" stroke="var(--mid)" stroke-width="18"/><line x1="168" y1="168" x2="224" y2="224" stroke="var(--mid)" stroke-width="18" stroke-linecap="round"/></svg>
+        </div>
+        <div class="action-label">search</div>
+      </div>
+      <div class="action-item">
+        <div class="action-btn" style="width:44px;height:44px;border-radius:50%;background:var(--cta);box-shadow:0 2px 12px rgba(155,127,212,0.3);">
+          <svg width="18" height="18" viewBox="0 0 256 256" fill="none"><rect x="88" y="24" width="80" height="128" rx="40" stroke="var(--cta-fg)" stroke-width="16"/><path d="M208 128a80 80 0 0 1-160 0" stroke="var(--cta-fg)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><line x1="128" y1="208" x2="128" y2="240" stroke="var(--cta-fg)" stroke-width="16" stroke-linecap="round"/></svg>
+        </div>
+        <div class="action-label">mic · CTA</div>
+      </div>
+      <div class="action-item">
+        <div class="action-btn" style="width:32px;height:32px;background:rgba(26,22,18,0.07);">
+          <svg width="14" height="14" viewBox="0 0 256 256" fill="none"><path d="M208 208L48 48" stroke="var(--mid)" stroke-width="18" stroke-linecap="round"/><path d="M154.18 154.18A72 72 0 0 1 57.42 57.42" stroke="var(--mid)" stroke-width="18" stroke-linecap="round"/><path d="M48 208l160-160" stroke="var(--mid)" stroke-width="18" stroke-linecap="round"/></svg>
+        </div>
+        <div class="action-label">close</div>
+      </div>
+      <div class="action-item">
+        <div class="action-btn" style="width:32px;height:32px;background:rgba(26,22,18,0.07);">
+          <svg width="14" height="14" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="40" stroke="var(--mid)" stroke-width="16"/><path d="M130.05 28.11a12 12 0 0 1 11.84 8.89l3.84 14.43a94.14 94.14 0 0 1 22.86 13.26l14.87-2.86a12 12 0 0 1 12.31 5.54l2.16 3.73a12 12 0 0 1-1.08 13.67L188 96a94.43 94.43 0 0 1 0 26.4l8.91 10.85a12 12 0 0 1 1.08 13.67l-2.16 3.73a12 12 0 0 1-12.31 5.54l-14.87-2.86a94.14 94.14 0 0 1-22.86 13.26l-3.84 14.43a12 12 0 0 1-11.84 8.89h-4.1a12 12 0 0 1-11.84-8.89l-3.84-14.43a94.14 94.14 0 0 1-22.86-13.26l-14.87 2.86a12 12 0 0 1-12.31-5.54l-2.16-3.73a12 12 0 0 1 1.08-13.67L68 122.4A94.43 94.43 0 0 1 68 96l-8.91-10.85a12 12 0 0 1-1.08-13.67l2.16-3.73a12 12 0 0 1 12.31-5.54l14.87 2.86a94.14 94.14 0 0 1 22.86-13.26l3.84-14.43a12 12 0 0 1 11.84-8.89Z" stroke="var(--mid)" stroke-width="14"/></svg>
+        </div>
+        <div class="action-label">settings</div>
+      </div>
+      <div class="action-item">
+        <div class="action-btn" style="width:32px;height:32px;background:rgba(26,22,18,0.07);">
+          <svg width="14" height="14" viewBox="0 0 256 256" fill="none"><path d="M208 128l-96 80V48l96 80Z" stroke="var(--mid)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="action-label">send</div>
+      </div>
+      <div class="action-item">
+        <div class="action-btn" style="width:32px;height:32px;background:rgba(26,22,18,0.07);">
+          <svg width="14" height="14" viewBox="0 0 256 256" fill="none"><rect x="48" y="40" width="160" height="176" rx="8" stroke="var(--mid)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><line x1="88" y1="96" x2="168" y2="96" stroke="var(--mid)" stroke-width="16" stroke-linecap="round"/><line x1="88" y1="128" x2="168" y2="128" stroke="var(--mid)" stroke-width="16" stroke-linecap="round"/><line x1="88" y1="160" x2="136" y2="160" stroke="var(--mid)" stroke-width="16" stroke-linecap="round"/></svg>
+        </div>
+        <div class="action-label">notes</div>
+      </div>
+      <div class="action-item">
+        <div class="action-btn" style="width:32px;height:32px;background:rgba(26,22,18,0.07);">
+          <svg width="14" height="14" viewBox="0 0 256 256" fill="none"><rect x="32" y="48" width="160" height="128" rx="8" stroke="var(--mid)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M32 176l44-44 32 32 28-28 20 20" stroke="var(--mid)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M192 112v96M168 184l24 24 24-24" stroke="var(--mid)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="action-label">camera/scan</div>
+      </div>
+    </div>
+
+    <div class="icon-grid">
+      <div class="icon-tile"><div class="icon-display" style="background:var(--cta);"><svg width="18" height="18" viewBox="0 0 256 256" fill="none"><line x1="40" y1="128" x2="216" y2="128" stroke="var(--cta-fg)" stroke-width="20" stroke-linecap="round"/><line x1="128" y1="40" x2="128" y2="216" stroke="var(--cta-fg)" stroke-width="20" stroke-linecap="round"/></svg></div><div class="icon-name">Add item</div><div class="icon-ph">Plus</div><div class="icon-size">14px · cta-fg</div></div>
+      <div class="icon-tile"><div class="icon-display" style="background:rgba(26,22,18,0.06);"><svg width="18" height="18" viewBox="0 0 256 256" fill="none"><circle cx="112" cy="112" r="80" stroke="var(--mid)" stroke-width="16"/><line x1="168" y1="168" x2="224" y2="224" stroke="var(--mid)" stroke-width="18" stroke-linecap="round"/></svg></div><div class="icon-name">Search</div><div class="icon-ph">MagnifyingGlass</div><div class="icon-size">14px · mid</div></div>
+      <div class="icon-tile"><div class="icon-display" style="background:var(--cta);border-radius:50%;box-shadow:0 2px 8px rgba(155,127,212,0.3);"><svg width="18" height="18" viewBox="0 0 256 256" fill="none"><rect x="88" y="24" width="80" height="128" rx="40" stroke="var(--cta-fg)" stroke-width="16"/><path d="M208 128a80 80 0 0 1-160 0" stroke="var(--cta-fg)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><line x1="128" y1="208" x2="128" y2="240" stroke="var(--cta-fg)" stroke-width="16" stroke-linecap="round"/></svg></div><div class="icon-name">Mic · CTA</div><div class="icon-ph">Microphone</div><div class="icon-size">16px · cta-fg · 1.8sw</div></div>
+      <div class="icon-tile"><div class="icon-display" style="background:rgba(26,22,18,0.06);"><svg width="18" height="18" viewBox="0 0 256 256" fill="none"><line x1="200" y1="56" x2="56" y2="200" stroke="var(--mid)" stroke-width="18" stroke-linecap="round"/><line x1="56" y1="56" x2="200" y2="200" stroke="var(--mid)" stroke-width="18" stroke-linecap="round"/></svg></div><div class="icon-name">Close</div><div class="icon-ph">X</div><div class="icon-size">14px · mid</div></div>
+      <div class="icon-tile"><div class="icon-display" style="background:rgba(26,22,18,0.06);"><svg width="18" height="18" viewBox="0 0 256 256" fill="none" stroke="var(--mid)" stroke-width="16" stroke-linecap="round"><line x1="80" y1="40" x2="80" y2="216"/><line x1="176" y1="40" x2="176" y2="216"/><line x1="56" y1="96" x2="104" y2="96"/><line x1="152" y1="152" x2="200" y2="152"/></svg></div><div class="icon-name">Settings</div><div class="icon-ph">Faders</div><div class="icon-size">14px · mid</div></div>
+      <div class="icon-tile"><div class="icon-display" style="background:rgba(26,22,18,0.06);"><svg width="18" height="18" viewBox="0 0 256 256" fill="none"><path d="M208 128l-96 80V48l96 80Z" stroke="var(--mid)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="icon-name">Send / confirm</div><div class="icon-ph">PaperPlaneRight</div><div class="icon-size">14px · mid</div></div>
+      <div class="icon-tile"><div class="icon-display" style="background:rgba(26,22,18,0.06);"><svg width="18" height="18" viewBox="0 0 256 256" fill="none"><rect x="48" y="40" width="160" height="176" rx="8" stroke="var(--mid)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><line x1="88" y1="96" x2="168" y2="96" stroke="var(--mid)" stroke-width="16" stroke-linecap="round"/><line x1="88" y1="128" x2="168" y2="128" stroke="var(--mid)" stroke-width="16" stroke-linecap="round"/><line x1="88" y1="160" x2="136" y2="160" stroke="var(--mid)" stroke-width="16" stroke-linecap="round"/></svg></div><div class="icon-name">Notes / manual</div><div class="icon-ph">FileText</div><div class="icon-size">14px · mid</div></div>
+      <div class="icon-tile"><div class="icon-display" style="background:rgba(26,22,18,0.06);"><svg width="18" height="18" viewBox="0 0 256 256" fill="none" stroke="var(--mid)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><polyline points="80,40 40,40 40,80"/><polyline points="176,40 216,40 216,80"/><polyline points="80,216 40,216 40,176"/><polyline points="176,216 216,216 216,176"/><line x1="32" y1="128" x2="224" y2="128" stroke-width="12" stroke-dasharray="18 10" opacity="0.4"/></svg></div><div class="icon-name">Camera / AI scan</div><div class="icon-ph">Scan</div><div class="icon-size">14px · mid</div></div>
+    </div>
+    <div class="spec-bar">
+      <strong>Mic button</strong> is the only circular action button — 44×44px, CTA bg, 16px icon. All others are 28–32px rounded square with ghost background. <strong>Never</strong> put a category color on an action button.
+    </div>
+  </div>
+
+  <div class="zone-rule"></div>
+
+  <!-- ══════════════════════
+       ZONE 4: STATUS
+  ══════════════════════ -->
+  <div class="zone" id="status">
+    <div class="zone-header">
+      <div class="zone-num">04</div>
+      <div class="zone-meta">
+        <div class="zone-eye">Zone 4</div>
+        <div class="zone-title">Status indicators</div>
+        <div class="zone-spec">4 icons · <code>10–12px</code> · inside status pills only · color = status color</div>
+      </div>
+    </div>
+
+    <div class="status-grid">
+      <div class="status-pill" style="background:rgba(196,80,58,0.08);color:var(--terra);">
+        <svg width="12" height="12" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="96" stroke="var(--terra)" stroke-width="18"/><line x1="128" y1="80" x2="128" y2="136" stroke="var(--terra)" stroke-width="18" stroke-linecap="round"/><circle cx="128" cy="168" r="10" fill="var(--terra)"/></svg>
+        Overdue
+      </div>
+      <div class="status-pill" style="background:rgba(90,144,96,0.10);color:var(--cg);">
+        <svg width="12" height="12" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="96" stroke="var(--cg)" stroke-width="18"/><polyline points="80,128 112,160 176,96" stroke="var(--cg)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Done
+      </div>
+      <div class="status-pill" style="background:rgba(26,22,18,0.06);color:var(--mid);">
+        <svg width="12" height="12" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="96" stroke="var(--mid)" stroke-width="18"/><polyline points="128,72 128,136 176,136" stroke="var(--mid)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Snoozed
+      </div>
+      <div class="status-pill" style="background:rgba(232,168,124,0.12);color:var(--ap-dk);">
+        <svg width="12" height="12" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="96" stroke="var(--ap-dk)" stroke-width="18"/><polyline points="128,80 128,136" stroke="var(--ap-dk)" stroke-width="18" stroke-linecap="round"/><circle cx="128" cy="164" r="8" fill="var(--ap-dk)"/></svg>
+        Due soon
+      </div>
+    </div>
+
+    <div class="icon-grid">
+      <div class="icon-tile"><div class="icon-display" style="background:rgba(196,80,58,0.08);"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="96" stroke="var(--terra)" stroke-width="16"/><line x1="128" y1="80" x2="128" y2="136" stroke="var(--terra)" stroke-width="16" stroke-linecap="round"/><circle cx="128" cy="168" r="10" fill="var(--terra)"/></svg></div><div class="icon-name">Overdue</div><div class="icon-ph">WarningCircle</div><div class="icon-size">11px · terra</div></div>
+      <div class="icon-tile"><div class="icon-display" style="background:rgba(90,144,96,0.10);"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="96" stroke="var(--cg)" stroke-width="16"/><polyline points="80,128 112,160 176,96" stroke="var(--cg)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="icon-name">Done</div><div class="icon-ph">CheckCircle</div><div class="icon-size">11px · garden</div></div>
+      <div class="icon-tile"><div class="icon-display" style="background:rgba(26,22,18,0.06);"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="96" stroke="var(--mid)" stroke-width="16"/><polyline points="128,72 128,136 176,136" stroke="var(--mid)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="icon-name">Snoozed</div><div class="icon-ph">Clock</div><div class="icon-size">11px · mid</div></div>
+      <div class="icon-tile"><div class="icon-display" style="background:rgba(232,168,124,0.12);"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><line x1="128" y1="24" x2="128" y2="56" stroke="var(--ap-dk)" stroke-width="16" stroke-linecap="round"/><line x1="220" y1="72" x2="196" y2="86" stroke="var(--ap-dk)" stroke-width="16" stroke-linecap="round"/><line x1="220" y1="184" x2="196" y2="170" stroke="var(--ap-dk)" stroke-width="16" stroke-linecap="round"/><line x1="128" y1="232" x2="128" y2="200" stroke="var(--ap-dk)" stroke-width="16" stroke-linecap="round"/><line x1="36" y1="184" x2="60" y2="170" stroke="var(--ap-dk)" stroke-width="16" stroke-linecap="round"/><line x1="36" y1="72" x2="60" y2="86" stroke="var(--ap-dk)" stroke-width="16" stroke-linecap="round"/><circle cx="128" cy="128" r="48" stroke="var(--ap-dk)" stroke-width="16"/></svg></div><div class="icon-name">Due soon</div><div class="icon-ph">Sun</div><div class="icon-size">11px · apricot-dk</div></div>
+    </div>
+    <div class="spec-bar">
+      Status icons appear only inside status pills — never standalone, never on cards directly. <strong>Status is communicated primarily through date label color</strong> — these icons are secondary reinforcement in the detail view and pill labels only.
+    </div>
+  </div>
+
+  <div class="zone-rule"></div>
+
+  <!-- ══════════════════════
+       ZONE 5: ONBOARDING
+  ══════════════════════ -->
+  <div class="zone" id="onboarding">
+    <div class="zone-header">
+      <div class="zone-num">05</div>
+      <div class="zone-meta">
+        <div class="zone-eye">Zone 5</div>
+        <div class="zone-title">Onboarding</div>
+        <div class="zone-spec">5 icons · <code>14–20px</code> · specific to onboarding flow screens only</div>
+      </div>
+    </div>
+
+    <div class="icon-grid">
+      <div class="icon-tile"><div class="icon-display" style="background:var(--cta);border-radius:50%;box-shadow:0 2px 10px rgba(155,127,212,0.3);"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><rect x="88" y="24" width="80" height="128" rx="40" stroke="var(--cta-fg)" stroke-width="16"/><path d="M208 128a80 80 0 0 1-160 0" stroke="var(--cta-fg)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><line x1="128" y1="208" x2="128" y2="240" stroke="var(--cta-fg)" stroke-width="16" stroke-linecap="round"/></svg></div><div class="icon-name">Mic · Path A CTA</div><div class="icon-ph">Microphone</div><div class="icon-size">16px · cta-fg · circular</div></div>
+      <div class="icon-tile"><div class="icon-display" style="background:rgba(26,22,18,0.06);"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><rect x="32" y="48" width="192" height="160" rx="8" stroke="var(--mid)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><line x1="32" y1="88" x2="224" y2="88" stroke="var(--mid)" stroke-width="16" stroke-linecap="round"/><line x1="80" y1="24" x2="80" y2="56" stroke="var(--mid)" stroke-width="16" stroke-linecap="round"/><line x1="176" y1="24" x2="176" y2="56" stroke="var(--mid)" stroke-width="16" stroke-linecap="round"/></svg></div><div class="icon-name">Browse · Path B</div><div class="icon-ph">GridFour</div><div class="icon-size">16px · mid → ink</div></div>
+      <div class="icon-tile"><div class="icon-display" style="background:rgba(26,22,18,0.06);"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><circle cx="112" cy="112" r="80" stroke="var(--mid)" stroke-width="16"/><line x1="168" y1="168" x2="224" y2="224" stroke="var(--mid)" stroke-width="18" stroke-linecap="round"/></svg></div><div class="icon-name">Search · Path C</div><div class="icon-ph">MagnifyingGlass</div><div class="icon-size">14px · mid</div></div>
+      <div class="icon-tile"><div class="icon-display" style="background:rgba(90,144,96,0.10);"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><polyline points="40,128 96,184 216,64" stroke="var(--cg)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="icon-name">Confirm / done</div><div class="icon-ph">Check</div><div class="icon-size">18px · garden</div></div>
+      <div class="icon-tile"><div class="icon-display" style="background:rgba(26,22,18,0.06);"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><rect x="40" y="120" width="176" height="16" rx="4" stroke="var(--mid)" stroke-width="16" stroke-linecap="round"/><rect x="40" y="64" width="176" height="16" rx="4" stroke="var(--mid)" stroke-width="16" stroke-linecap="round"/><rect x="40" y="176" width="112" height="16" rx="4" stroke="var(--mid)" stroke-width="16" stroke-linecap="round"/></svg></div><div class="icon-name">Review list</div><div class="icon-ph">ListBullets</div><div class="icon-size">16px · mid</div></div>
+    </div>
+    <div class="spec-bar">
+      The mic icon is the only one in this zone that uses the circular CTA button treatment. Browse and Search path icons appear as button labels — they size up to <code>16px</code> for use inside 48px buttons.
+    </div>
+  </div>
+
+  <div class="zone-rule"></div>
+
+  <!-- ══════════════════════
+       ZONE 6: TASK / ITEM DETAIL
+  ══════════════════════ -->
+  <div class="zone" id="detail">
+    <div class="zone-header">
+      <div class="zone-num">06</div>
+      <div class="zone-meta">
+        <div class="zone-eye">Zone 6</div>
+        <div class="zone-title">Task &amp; item detail</div>
+        <div class="zone-spec">6 icons · <code>14–16px</code> · context: detail screen, chatbot zone, snooze sheet</div>
+      </div>
+    </div>
+
+    <div class="icon-grid">
+      <div class="icon-tile"><div class="icon-display" style="background:rgba(26,22,18,0.06);"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="96" stroke="var(--mid)" stroke-width="16"/><line x1="128" y1="88" x2="128" y2="128" stroke="var(--mid)" stroke-width="16" stroke-linecap="round"/><circle cx="128" cy="160" r="10" fill="var(--mid)"/></svg></div><div class="icon-name">Why this task</div><div class="icon-ph">Info</div><div class="icon-size">16px · mid</div></div>
+      <div class="icon-tile"><div class="icon-display" style="background:rgba(26,22,18,0.06);"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M45.15 230.11a8 8 0 0 1-9.26-9.26l9.45-42.51A96 96 0 1 1 136 224a95.23 95.23 0 0 1-45.83-11.65Z" stroke="var(--mid)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="icon-name">Chatbot / Ask</div><div class="icon-ph">ChatCircle</div><div class="icon-size">16px · mid</div></div>
+      <div class="icon-tile"><div class="icon-display" style="background:rgba(26,22,18,0.06);"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="96" stroke="var(--mid)" stroke-width="16"/><polyline points="128,72 128,136 176,136" stroke="var(--mid)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="icon-name">Snooze</div><div class="icon-ph">Clock</div><div class="icon-size">16px · mid</div></div>
+      <div class="icon-tile"><div class="icon-display" style="background:rgba(26,22,18,0.06);"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M172 40a44 44 0 0 1 44 44c0 68-88 120-88 120S40 152 40 84a44 44 0 0 1 44-44c16 0 28 8 44 28 16-20 28-28 44-28Z" stroke="var(--mid)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="icon-name">Mark favourite</div><div class="icon-ph">Heart</div><div class="icon-size">16px · mid</div></div>
+      <div class="icon-tile"><div class="icon-display" style="background:rgba(155,127,212,0.10);"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M128 232c44.18 0 80-35.82 80-80V88a80 80 0 0 0-160 0v64c0 44.18 35.82 80 80 80Z" stroke="var(--cta)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M48 152a79.93 79.93 0 0 0 80 80 79.93 79.93 0 0 0 80-80" stroke="var(--cta)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><line x1="128" y1="16" x2="128" y2="40" stroke="var(--cta)" stroke-width="16" stroke-linecap="round"/></svg></div><div class="icon-name">Voice in chatbot</div><div class="icon-ph">Microphone</div><div class="icon-size">16px · cta</div></div>
+      <div class="icon-tile"><div class="icon-display" style="background:rgba(196,80,58,0.08);"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><polyline points="216,48 40,48" stroke="var(--terra)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M104 104v56M152 104v56" stroke="var(--terra)" stroke-width="16" stroke-linecap="round"/><path d="M200 48l-16 160a8 8 0 0 1-8 8H80a8 8 0 0 1-8-8L56 48" stroke="var(--terra)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M96 48V32a8 8 0 0 1 8-8h48a8 8 0 0 1 8 8v16" stroke="var(--terra)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="icon-name">Delete item</div><div class="icon-ph">Trash</div><div class="icon-size">16px · terra</div></div>
+    </div>
+    <div class="spec-bar">
+      The chatbot mic icon uses <code>cta #9B7FD4</code> color to connect it to the main mic CTA. Delete uses <code>terra</code> — it's a destructive action. All others use <code>mid</code> and sit quietly in the detail layout.
+    </div>
+  </div>
+
+  <div class="zone-rule"></div>
+
+  <!-- ══════════════════════
+       ZONE 7: PROFILE / SETTINGS
+  ══════════════════════ -->
+  <div class="zone" id="profile">
+    <div class="zone-header">
+      <div class="zone-num">07</div>
+      <div class="zone-meta">
+        <div class="zone-eye">Zone 7</div>
+        <div class="zone-title">Profile &amp; settings</div>
+        <div class="zone-spec">5 icons · <code>14px</code> · inside settings list rows · all mid color</div>
+      </div>
+    </div>
+
+    <div class="icon-grid">
+      <div class="icon-tile"><div class="icon-display" style="background:rgba(26,22,18,0.06);"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="96" r="64" stroke="var(--mid)" stroke-width="16"/><path d="M32 216c19.37-33.47 54.55-56 96-56s76.63 22.53 96 56" stroke="var(--mid)" stroke-width="16" stroke-linecap="round"/></svg></div><div class="icon-name">Edit profile</div><div class="icon-ph">User</div><div class="icon-size">14px · mid</div></div>
+      <div class="icon-tile"><div class="icon-display" style="background:rgba(26,22,18,0.06);"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M224 72H32a8 8 0 0 0-8 8v128a8 8 0 0 0 8 8h192a8 8 0 0 0 8-8V80a8 8 0 0 0-8-8Z" stroke="var(--mid)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M168 72V56a16 16 0 0 0-16-16h-48a16 16 0 0 0-16 16v16" stroke="var(--mid)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="icon-name">App icon switcher</div><div class="icon-ph">AppWindow</div><div class="icon-size">14px · ch (home tint)</div></div>
+      <div class="icon-tile"><div class="icon-display" style="background:rgba(26,22,18,0.06);"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M221.8 175.94C216.25 166.38 208 139.5 208 104a80 80 0 1 0-160 0c0 35.5-8.25 62.38-13.8 71.94A16 16 0 0 0 48 200h160a16 16 0 0 0 13.8-24.06Z" stroke="var(--mid)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M96 200a32 32 0 0 0 64 0" stroke="var(--mid)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="icon-name">Notifications</div><div class="icon-ph">Bell</div><div class="icon-size">14px · mid</div></div>
+      <div class="icon-tile"><div class="icon-display" style="background:rgba(155,127,212,0.12);"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><polygon points="128,24 158,90 232,100 180,150 192,224 128,192 64,224 76,150 24,100 98,90" stroke="var(--cta)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="icon-name">Pro subscription</div><div class="icon-ph">Star</div><div class="icon-size">14px · cta (plum-lt)</div></div>
+      <div class="icon-tile"><div class="icon-display" style="background:rgba(26,22,18,0.06);"><svg width="20" height="20" viewBox="0 0 256 256" fill="none" stroke="var(--mid)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><path d="M200 40l16 16-96 96-32 16 16-32Z"/><line x1="32" y1="216" x2="224" y2="216"/></svg></div><div class="icon-name">Edit / rename</div><div class="icon-ph">PencilLine</div><div class="icon-size">14px · mid</div></div>
+    </div>
+    <div class="spec-bar">
+      Pro icon uses <code>cta #9B7FD4</code> — the only non-mid icon in this zone, connecting the Pro concept to the CTA color thread. App icon switcher row uses the home category tint as its icon background — a small detail that makes the row feel premium.
+    </div>
+  </div>
+
+  <div class="zone-rule"></div>
+
+
+  <div class="zone-rule"></div>
+
+  <!-- ZONE 8: FAB + NAVIGATION -->
+  <div class="zone" id="fab">
+    <div class="zone-header">
+      <div class="zone-num">08</div>
+      <div class="zone-meta">
+        <div class="zone-eye">Zone 8 · updated v2.3</div>
+        <div class="zone-title">FAB &amp; floating tab bar</div>
+        <div class="zone-spec">3 icons · FAB uses <code>Plus → X (rotate 45°)</code> · floating pill · external rounded-square FAB</div>
+      </div>
+    </div>
+
+    <!-- Tab bar live preview -->
+    <div style="display:flex;gap:12px;align-items:flex-end;margin-bottom:16px;flex-wrap:wrap;">
+      <div style="background:var(--surface);border-radius:22px;padding:10px 8px 12px;display:flex;gap:0;justify-content:space-around;align-items:center;width:200px;box-shadow:0 4px 20px rgba(26,22,18,0.11),0 1px 4px rgba(26,22,18,0.06);border:1px solid rgba(26,22,18,0.07);">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:0 5px;">
+          <svg width="19" height="19" viewBox="0 0 256 256" fill="none"><rect x="40" y="40" width="176" height="176" rx="16" stroke="var(--cta)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><line x1="176" y1="24" x2="176" y2="56" stroke="var(--cta)" stroke-width="16" stroke-linecap="round"/><line x1="80" y1="24" x2="80" y2="56" stroke="var(--cta)" stroke-width="16" stroke-linecap="round"/><line x1="40" y1="88" x2="216" y2="88" stroke="var(--cta)" stroke-width="16" stroke-linecap="round"/></svg>
+          <div style="font-size:7px;color:var(--cta);font-weight:500;">Today</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:0 5px;opacity:0.2;">
+          <svg width="19" height="19" viewBox="0 0 256 256" fill="none"><path d="M45.15 230.11a8 8 0 0 1-9.26-9.26l9.45-42.51A96 96 0 1 1 136 224a95.23 95.23 0 0 1-45.83-11.65Z" stroke="var(--ink)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div style="font-size:7px;color:rgba(26,22,18,0.2);">Ask</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:0 5px;opacity:0.2;">
+          <svg width="19" height="19" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="96" r="64" stroke="var(--ink)" stroke-width="16"/><path d="M32 216c19.37-33.47 54.55-56 96-56s76.63 22.53 96 56" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/></svg>
+          <div style="font-size:7px;color:rgba(26,22,18,0.2);">You</div>
+        </div>
+      </div>
+      <!-- FAB -->
+      <div style="width:46px;height:46px;border-radius:15px;background:var(--cta);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(155,127,212,0.45);">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--cta-fg)" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </div>
+      <div style="font-size:11px;color:rgba(26,22,18,0.4);max-width:180px;line-height:1.6;">Floating pill + rounded-square FAB. They sit at <code style="font-family:monospace;font-size:10px;background:rgba(26,22,18,0.07);padding:1px 4px;border-radius:3px;">bottom: 14px</code>, pill left, FAB right.</div>
+    </div>
+
+    <div class="icon-grid">
+      <div class="icon-tile">
+        <div class="icon-display" style="background:var(--cta);border-radius:15px;">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--cta-fg)" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="icon-name">FAB · default</div>
+        <div class="icon-ph">Plus</div>
+        <div class="icon-size">17px · cta-fg · in CTA</div>
+      </div>
+      <div class="icon-tile">
+        <div class="icon-display" style="background:var(--cta);border-radius:15px;">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--cta-fg)" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </div>
+        <div class="icon-name">FAB · open state</div>
+        <div class="icon-ph">X (Plus rotated 45°)</div>
+        <div class="icon-size">17px · cta-fg · rotated</div>
+      </div>
+      <div class="icon-tile">
+        <div class="icon-display" style="background:rgba(26,22,18,0.06);">
+          <svg width="19" height="19" viewBox="0 0 256 256" fill="none"><rect x="40" y="40" width="176" height="176" rx="16" stroke="var(--ink)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><line x1="176" y1="24" x2="176" y2="56" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><line x1="80" y1="24" x2="80" y2="56" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><line x1="40" y1="88" x2="216" y2="88" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/></svg>
+        </div>
+        <div class="icon-name">Tab · Today (active)</div>
+        <div class="icon-ph">CalendarBlank</div>
+        <div class="icon-size">19px · colorCta</div>
+      </div>
+    </div>
+
+    <div class="spec-bar">
+      <strong>FAB shape:</strong> rounded square <code>46×46px</code>, border-radius <code>15px</code> — never a circle. <strong>FAB action sheet order (ergonomics):</strong> voice at bottom (nearest thumb · primary), browse in middle, search at top (furthest reach · power users). <strong>Tab bar:</strong> floating white pill, no hard border-top, shadow <code>0 4px 20px rgba(26,22,18,0.11)</code>, bottom <code>14px</code> from screen edge.
+    </div>
+  </div>
+
+  <div class="zone-rule"></div>
+
+  <!-- ══════════════════════
+       FLUTTER REFERENCE
+  ══════════════════════ -->
+  <div class="zone" id="flutter">
+    <div class="zone-header">
+      <div class="zone-num">→</div>
+      <div class="zone-meta">
+        <div class="zone-eye">Flutter reference</div>
+        <div class="zone-title">All icons · Phosphor names</div>
+        <div class="zone-spec">Copy these directly into Flutter. Package: <code>flutter_phosphor_icons: ^2.0.0</code></div>
+      </div>
+    </div>
+
+    <div class="flutter-wrap">
+      <table class="flutter-table">
+        <thead>
+          <tr><th>Icon</th><th>Zone</th><th>Phosphor name</th><th>Flutter constant</th><th>Size</th><th>Color token</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><svg width="14" height="14" viewBox="0 0 256 256" fill="none"><rect x="40" y="40" width="176" height="176" rx="16" stroke="var(--ink)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><line x1="40" y1="88" x2="216" y2="88" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/></svg> Today</td><td>Tab bar</td><td>CalendarBlank</td><td><code>PhosphorIcons.calendarBlank</code></td><td>19</td><td>colorInk</td></tr>
+          <tr><td><svg width="14" height="14" viewBox="0 0 256 256" fill="none"><path d="M45.15 230.11a8 8 0 0 1-9.26-9.26l9.45-42.51A96 96 0 1 1 136 224a95.23 95.23 0 0 1-45.83-11.65Z" stroke="var(--ink)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/></svg> Ask</td><td>Tab bar</td><td>ChatCircleQuestion</td><td><code>PhosphorIcons.chatCircleQuestion</code></td><td>19</td><td>colorInk18</td></tr>
+          <tr><td><svg width="14" height="14" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="96" r="64" stroke="var(--ink)" stroke-width="16"/><path d="M32 216c19.37-33.47 54.55-56 96-56s76.63 22.53 96 56" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/></svg> You</td><td>Tab bar</td><td>User</td><td><code>PhosphorIcons.user</code></td><td>19</td><td>colorInk18</td></tr>
+          <tr style="background:rgba(200,120,80,0.04);"><td><svg width="14" height="14" viewBox="0 0 256 256" fill="none"><path d="M152 208H104V160a24 24 0 0 1 48 0Z" stroke="var(--ch)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M208 208H48a8 8 0 0 1-8-8V99.31l80-48.85 80 48.85V200a8 8 0 0 1-8 8Z" stroke="var(--ch)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/></svg> Home</td><td>Category</td><td>House</td><td><code>PhosphorIcons.house</code></td><td>13</td><td>catHome</td></tr>
+          <tr style="background:rgba(74,130,160,0.04);"><td><svg width="14" height="14" viewBox="0 0 256 256" fill="none"><path d="M232 160H24l24-80h160Z" stroke="var(--cv)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 160v32h32v-8h128v8h32v-32" stroke="var(--cv)" stroke-width="16" stroke-linecap="round"/></svg> Vehicle</td><td>Category</td><td>Car</td><td><code>PhosphorIcons.car</code></td><td>13</td><td>catVehicle</td></tr>
+          <tr style="background:rgba(90,144,96,0.04);"><td><svg width="14" height="14" viewBox="0 0 256 256" fill="none"><path d="M128 216S48 160 48 80a80 80 0 0 1 160 0c0 80-80 136-80 136Z" stroke="var(--cg)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/></svg> Garden</td><td>Category</td><td>Plant</td><td><code>PhosphorIcons.plant</code></td><td>13</td><td>catGarden</td></tr>
+          <tr style="background:rgba(128,96,168,0.04);"><td><svg width="14" height="14" viewBox="0 0 256 256" fill="none"><rect x="24" y="56" width="208" height="144" rx="16" stroke="var(--cs)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><line x1="24" y1="104" x2="232" y2="104" stroke="var(--cs)" stroke-width="14" stroke-linecap="round"/></svg> Subs</td><td>Category</td><td>CreditCard</td><td><code>PhosphorIcons.creditCard</code></td><td>13</td><td>catSubscriptions</td></tr>
+          <tr><td><svg width="14" height="14" viewBox="0 0 256 256" fill="none"><line x1="40" y1="128" x2="216" y2="128" stroke="var(--ink)" stroke-width="20" stroke-linecap="round"/><line x1="128" y1="40" x2="128" y2="216" stroke="var(--ink)" stroke-width="20" stroke-linecap="round"/></svg> Add</td><td>Actions</td><td>Plus</td><td><code>PhosphorIcons.plus</code></td><td>14</td><td>colorCtaFg</td></tr>
+          <tr><td><svg width="14" height="14" viewBox="0 0 256 256" fill="none"><circle cx="112" cy="112" r="80" stroke="var(--mid)" stroke-width="16"/><line x1="168" y1="168" x2="224" y2="224" stroke="var(--mid)" stroke-width="18" stroke-linecap="round"/></svg> Search</td><td>Actions</td><td>MagnifyingGlass</td><td><code>PhosphorIcons.magnifyingGlass</code></td><td>14</td><td>colorMid</td></tr>
+          <tr><td><svg width="14" height="14" viewBox="0 0 256 256" fill="none"><rect x="88" y="24" width="80" height="128" rx="40" stroke="var(--cta)" stroke-width="16"/><path d="M208 128a80 80 0 0 1-160 0" stroke="var(--cta)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"/><line x1="128" y1="208" x2="128" y2="240" stroke="var(--cta)" stroke-width="16" stroke-linecap="round"/></svg> Mic</td><td>Actions</td><td>Microphone</td><td><code>PhosphorIcons.microphone</code></td><td>16</td><td>colorCtaFg</td></tr>
+          <tr><td><svg width="14" height="14" viewBox="0 0 256 256" fill="none"><line x1="200" y1="56" x2="56" y2="200" stroke="var(--mid)" stroke-width="18" stroke-linecap="round"/><line x1="56" y1="56" x2="200" y2="200" stroke="var(--mid)" stroke-width="18" stroke-linecap="round"/></svg> Close</td><td>Actions</td><td>X</td><td><code>PhosphorIcons.x</code></td><td>14</td><td>colorMid</td></tr>
+          <tr><td><svg width="14" height="14" viewBox="0 0 256 256" fill="none" stroke="var(--mid)" stroke-width="18" stroke-linecap="round"><line x1="80" y1="40" x2="80" y2="216"/><line x1="176" y1="40" x2="176" y2="216"/><line x1="56" y1="96" x2="104" y2="96"/><line x1="152" y1="152" x2="200" y2="152"/></svg> Settings</td><td>Actions</td><td>Faders</td><td><code>PhosphorIcons.faders</code></td><td>14</td><td>colorMid</td></tr>
+          <tr><td><svg width="14" height="14" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="96" stroke="var(--terra)" stroke-width="16"/><line x1="128" y1="80" x2="128" y2="136" stroke="var(--terra)" stroke-width="16" stroke-linecap="round"/><circle cx="128" cy="168" r="8" fill="var(--terra)"/></svg> Overdue</td><td>Status</td><td>WarningCircle</td><td><code>PhosphorIcons.warningCircle</code></td><td>11</td><td>colorTerra</td></tr>
+          <tr><td><svg width="14" height="14" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="96" stroke="var(--cg)" stroke-width="16"/><polyline points="80,128 112,160 176,96" stroke="var(--cg)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/></svg> Done</td><td>Status</td><td>CheckCircle</td><td><code>PhosphorIcons.checkCircle</code></td><td>11</td><td>catGarden</td></tr>
+          <tr><td><svg width="14" height="14" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="96" stroke="var(--mid)" stroke-width="16"/><polyline points="128,72 128,136 176,136" stroke="var(--mid)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/></svg> Snoozed</td><td>Status</td><td>Clock</td><td><code>PhosphorIcons.clock</code></td><td>11</td><td>colorMid</td></tr>
+          <tr><td><svg width="14" height="14" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="96" stroke="var(--ap-dk)" stroke-width="16"/><line x1="128" y1="80" x2="128" y2="136" stroke="var(--ap-dk)" stroke-width="16" stroke-linecap="round"/><circle cx="128" cy="164" r="8" fill="var(--ap-dk)"/></svg> Due soon</td><td>Status</td><td>Sun</td><td><code>PhosphorIcons.sun</code></td><td>11</td><td>colorApricotDk</td></tr>
+          <tr><td><svg width="14" height="14" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="96" stroke="var(--mid)" stroke-width="16"/><line x1="128" y1="88" x2="128" y2="128" stroke="var(--mid)" stroke-width="16" stroke-linecap="round"/><circle cx="128" cy="160" r="8" fill="var(--mid)"/></svg> Why/Info</td><td>Detail</td><td>Info</td><td><code>PhosphorIcons.info</code></td><td>16</td><td>colorMid</td></tr>
+          <tr><td><svg width="14" height="14" viewBox="0 0 256 256" fill="none"><path d="M45 230a8 8 0 0 1-9-9l9-43A96 96 0 1 1 136 224a95 95 0 0 1-46-12Z" stroke="var(--mid)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/></svg> Chatbot</td><td>Detail</td><td>ChatCircle</td><td><code>PhosphorIcons.chatCircle</code></td><td>16</td><td>colorMid</td></tr>
+          <tr><td><svg width="14" height="14" viewBox="0 0 256 256" fill="none"><polyline points="216,48 40,48" stroke="var(--terra)" stroke-width="16" stroke-linecap="round"/><path d="M200 48l-16 160a8 8 0 0 1-8 8H80a8 8 0 0 1-8-8L56 48" stroke="var(--terra)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M96 48V32a8 8 0 0 1 8-8h48a8 8 0 0 1 8 8v16" stroke="var(--terra)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/></svg> Delete</td><td>Detail</td><td>Trash</td><td><code>PhosphorIcons.trash</code></td><td>16</td><td>colorTerra</td></tr>
+          <tr><td><svg width="14" height="14" viewBox="0 0 256 256" fill="none"><polygon points="128,24 158,90 232,100 180,150 192,224 128,192 64,224 76,150 24,100 98,90" stroke="var(--cta)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/></svg> Pro</td><td>Profile</td><td>Star</td><td><code>PhosphorIcons.star</code></td><td>14</td><td>colorCta</td></tr>
+          <tr><td><svg width="14" height="14" viewBox="0 0 256 256" fill="none"><path d="M221 176C216 166 208 139 208 104a80 80 0 0 0-160 0c0 35-8 62-13 72A16 16 0 0 0 48 200h160a16 16 0 0 0 13-24Z" stroke="var(--mid)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M96 200a32 32 0 0 0 64 0" stroke="var(--mid)" stroke-width="16" stroke-linecap="round"/></svg> Notifications</td><td>Profile</td><td>Bell</td><td><code>PhosphorIcons.bell</code></td><td>14</td><td>colorMid</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="height:1px;background:var(--border);margin:52px 0 0;"></div>
+  <div style="padding:24px 0 16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <svg width="16" height="16" viewBox="0 0 80 80"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
+      <span style="font-size:12px;font-weight:500;color:var(--ink);">nudgii · Icon inventory · 36 icons · 7 zones</span>
+    </div>
+    <div style="font-size:11px;color:var(--mid);">Phosphor regular · outline only · v2.3 · March 2026 · Elf Consult</div>
+  </div>
+
+</div>
+
+<script>
+const zones=document.querySelectorAll('.zone[id]');
+const links=document.querySelectorAll('.nav-link');
+const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){links.forEach(l=>l.classList.remove('active'));const a=document.querySelector(`.nav-link[href="#${en.target.id}"]`);if(a)a.classList.add('active');}});},{rootMargin:'-20% 0px -65% 0px'});
+zones.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>

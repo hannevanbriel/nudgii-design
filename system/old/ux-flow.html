@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · UX Flow overview</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:    #F5F0E8;
+  --cream-2:  #EDE6D4;
+  --ink:      #1A1612;
+  --mid:      #8A8070;
+  --mid-lt:   #B0A898;
+  --border:   rgba(26,22,18,0.08);
+  --border-md:rgba(26,22,18,0.12);
+  --ap:       #E8A87C;
+  --ap-dk:    #C8784A;
+  --cta:      #9B7FD4;
+  --cta-fg:   #FAF8FF;
+  --terra:    #C4503A;
+  --plum:     #2D1F4A;
+  --plum-lt:  #9B7FD4;
+  --surface:  #FFFFFF;
+
+  /* flow colors */
+  --f-ob:   #9B7FD4;   --f-ob-bg:  rgba(155,127,212,0.08);  --f-ob-bd: rgba(155,127,212,0.20);
+  --f-db:   #C8784A;   --f-db-bg:  rgba(200,120,74,0.08);   --f-db-bd: rgba(200,120,74,0.20);
+  --f-tk:   #C4503A;   --f-tk-bg:  rgba(196,80,58,0.07);    --f-tk-bd: rgba(196,80,58,0.18);
+  --f-it:   #5A9060;   --f-it-bg:  rgba(90,144,96,0.08);    --f-it-bd: rgba(90,144,96,0.20);
+  --f-ask:  #4A82A0;   --f-ask-bg: rgba(74,130,160,0.08);   --f-ask-bd: rgba(74,130,160,0.20);
+  --f-pr:   #2D1F4A;   --f-pr-bg:  rgba(45,31,74,0.07);     --f-pr-bd: rgba(45,31,74,0.16);
+  --f-sys:  #8A8070;   --f-sys-bg: rgba(138,128,112,0.08);  --f-sys-bd: rgba(138,128,112,0.18);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;color:var(--ink);line-height:1.5;}
+
+/* ── HUB NAV ── */
+.hub-nav{position:sticky;top:0;z-index:999;background:var(--cream);border-bottom:1px solid var(--border-md);padding:0 24px;display:flex;align-items:center;gap:16px;height:44px;}
+.hub-back{font-size:13px;color:var(--mid);text-decoration:none;display:flex;align-items:center;gap:8px;}
+.hub-back:hover{color:var(--ink);}
+.hub-title{font-size:13px;font-weight:500;color:var(--ink);}
+.hub-tag{margin-left:auto;font-size:10px;font-weight:500;color:var(--mid-lt);letter-spacing:1.2px;text-transform:uppercase;font-family:monospace;}
+
+/* ── PAGE ── */
+.page{max-width:1100px;margin:0 auto;padding:0 32px 100px;}
+
+/* ── HERO ── */
+.hero{padding:52px 0 36px;border-bottom:1px solid var(--border);}
+.hero-eye{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:8px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:36px;color:var(--ink);line-height:1.05;letter-spacing:-0.5px;margin-bottom:8px;}
+.hero-sub{font-size:13px;color:var(--mid);max-width:520px;line-height:1.6;margin-bottom:24px;}
+
+/* ── STATS ── */
+.stats{display:flex;gap:10px;flex-wrap:wrap;}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:11px 16px;min-width:120px;}
+.stat-n{font-family:'DM Serif Display',serif;font-size:28px;color:var(--ink);line-height:1;}
+.stat-l{font-size:11px;color:var(--mid);margin-top:3px;}
+.stat.s-ready{border-color:rgba(90,144,96,0.25);background:rgba(90,144,96,0.04);}
+.stat.s-ready .stat-n{color:#3A6E40;}
+.stat.s-wip{border-color:rgba(155,127,212,0.25);background:rgba(155,127,212,0.04);}
+.stat.s-wip .stat-n{color:#5C3E8A;}
+.stat.s-dec{border-color:rgba(196,80,58,0.22);background:rgba(196,80,58,0.04);}
+.stat.s-dec .stat-n{color:#8B3020;}
+.stat.s-todo .stat-n{color:var(--mid);}
+
+/* ── LEGEND ── */
+.legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px;}
+.leg{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:500;padding:4px 10px;border-radius:100px;border:1px solid;}
+.leg.ob{color:#5C3E8A;background:var(--f-ob-bg);border-color:var(--f-ob-bd);}
+.leg.db{color:#7A4A1A;background:var(--f-db-bg);border-color:var(--f-db-bd);}
+.leg.tk{color:#7A2A1A;background:var(--f-tk-bg);border-color:var(--f-tk-bd);}
+.leg.it{color:#2A5A30;background:var(--f-it-bg);border-color:var(--f-it-bd);}
+.leg.ask{color:#1A4A60;background:var(--f-ask-bg);border-color:var(--f-ask-bd);}
+.leg.pr{color:#2D1F4A;background:var(--f-pr-bg);border-color:var(--f-pr-bd);}
+.leg.sys{color:#5A5040;background:var(--f-sys-bg);border-color:var(--f-sys-bd);}
+.leg-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.leg.ob .leg-dot{background:var(--f-ob);}
+.leg.db .leg-dot{background:var(--f-db);}
+.leg.tk .leg-dot{background:var(--f-tk);}
+.leg.it .leg-dot{background:var(--f-it);}
+.leg.ask .leg-dot{background:var(--f-ask);}
+.leg.pr .leg-dot{background:var(--f-pr);}
+.leg.sys .leg-dot{background:var(--f-sys);}
+
+/* ── FLOW SECTIONS ── */
+section{padding-top:48px;}
+.flow-head{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
+.flow-num{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--mid);}
+.flow-name{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);}
+.flow-desc{font-size:12px;color:var(--mid);margin-bottom:20px;max-width:560px;line-height:1.6;}
+.flow-sep{flex:1;height:1px;background:var(--border);}
+
+/* ── FLOW DIAGRAM ROWS ── */
+.flow-row{display:flex;align-items:flex-start;gap:0;flex-wrap:wrap;position:relative;}
+
+/* screen node */
+.node{position:relative;display:flex;flex-direction:column;align-items:center;}
+.node-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 12px;width:120px;cursor:default;transition:all .15s;text-decoration:none;color:var(--ink);display:block;}
+.node-card:hover{transform:translateY(-2px);border-color:var(--border-md);}
+.node-id{font-size:9px;font-weight:500;letter-spacing:1px;color:var(--mid-lt);font-family:monospace;margin-bottom:3px;}
+.node-name{font-size:11px;font-weight:500;color:var(--ink);line-height:1.3;margin-bottom:7px;}
+.node-badges{display:flex;gap:4px;flex-wrap:wrap;}
+.nb{display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:500;padding:2px 6px;border-radius:100px;}
+.nb-lo{background:rgba(138,128,112,0.10);color:var(--mid);}
+.nb-lo.done{background:rgba(90,144,96,0.10);color:#2A5A30;}
+.nb-hi{background:rgba(155,127,212,0.10);color:#5C3E8A;}
+.nb-hi.done{background:rgba(155,127,212,0.15);color:#5C3E8A;}
+.nb-dot{width:4px;height:4px;border-radius:50%;flex-shrink:0;}
+
+/* status strip at bottom of card */
+.node-status{width:100%;height:3px;border-radius:0 0 9px 9px;margin-top:4px;}
+.ns-ready{background:#5A9060;}
+.ns-wip{background:var(--cta);}
+.ns-todo{background:var(--border-md);}
+.ns-dec{background:var(--terra);}
+
+/* arrow connector */
+.arrow{display:flex;align-items:center;padding:0 4px;padding-top:20px;flex-shrink:0;}
+.arr-line{height:1.5px;width:22px;background:var(--border-md);position:relative;}
+.arr-line::after{content:'▶';position:absolute;right:-6px;top:50%;transform:translateY(-50%);font-size:7px;color:var(--mid);line-height:1;}
+
+/* branch group */
+.branch{display:flex;flex-direction:column;gap:8px;align-items:flex-start;position:relative;}
+.branch-label{font-size:9px;font-weight:500;color:var(--mid-lt);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;}
+.branch::before{content:'';position:absolute;left:-13px;top:16px;bottom:16px;width:1.5px;background:var(--border-md);}
+
+/* merge arrow */
+.merge-arrow{display:flex;align-items:center;padding:0 4px;padding-top:20px;}
+.merge-line{height:1.5px;width:18px;background:var(--border-md);position:relative;}
+.merge-line::after{content:'▶';position:absolute;right:-6px;top:50%;transform:translateY(-50%);font-size:7px;color:var(--mid);line-height:1;}
+
+/* secondary connection labels */
+.conn-group{display:flex;flex-direction:column;gap:10px;}
+.conn-row{display:flex;align-items:center;gap:0;}
+.conn-label{font-size:9px;color:var(--mid);padding:0 6px;white-space:nowrap;writing-mode:initial;}
+
+/* hub node (Dashboard) */
+.hub-node .node-card{border-color:rgba(200,120,74,0.30);background:rgba(200,120,74,0.04);}
+
+/* vertical stack */
+.vstack{display:flex;flex-direction:column;gap:10px;}
+.varrow{display:flex;flex-direction:column;align-items:center;padding:2px 0;flex-shrink:0;}
+.varrow-line{width:1.5px;height:16px;background:var(--border-md);position:relative;}
+.varrow-line::after{content:'▼';position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);font-size:7px;color:var(--mid);line-height:1;}
+
+/* fork line — visual connector for branches */
+.fork-wrap{display:flex;align-items:flex-start;gap:0;}
+.fork-line{width:1.5px;background:var(--border-md);margin-right:10px;align-self:stretch;margin-top:16px;margin-bottom:16px;flex-shrink:0;}
+
+/* system note */
+.flow-note{font-size:11px;color:var(--mid);background:rgba(26,22,18,0.04);border-radius:8px;padding:10px 14px;margin-top:12px;max-width:560px;line-height:1.6;}
+.flow-note strong{color:var(--ink);font-weight:500;}
+
+/* status badges (text) */
+.s-badge{font-size:9px;font-weight:500;padding:2px 7px;border-radius:100px;display:inline-block;margin-top:5px;}
+.s-ready{background:rgba(90,144,96,0.10);color:#2A5A30;}
+.s-wip{background:rgba(155,127,212,0.10);color:#5C3E8A;}
+.s-todo{background:rgba(138,128,112,0.08);color:var(--mid);}
+.s-dec{background:rgba(196,80,58,0.07);color:#8B3020;}
+
+/* ── COLOURED FLOW LABELS on nodes ── */
+.tag-ob{border-top:3px solid var(--f-ob);border-radius:9px 9px 10px 10px !important;}
+.tag-db{border-top:3px solid var(--f-db);border-radius:9px 9px 10px 10px !important;}
+.tag-tk{border-top:3px solid var(--f-tk);border-radius:9px 9px 10px 10px !important;}
+.tag-it{border-top:3px solid var(--f-it);border-radius:9px 9px 10px 10px !important;}
+.tag-ask{border-top:3px solid var(--f-ask);border-radius:9px 9px 10px 10px !important;}
+.tag-pr{border-top:3px solid var(--f-pr);border-radius:9px 9px 10px 10px !important;}
+.tag-sys{border-top:3px solid var(--f-sys);border-radius:9px 9px 10px 10px !important;}
+
+/* ── RULE ── */
+.rule{height:1px;background:var(--border);margin-top:52px;}
+
+/* full flow container */
+.flow-canvas{overflow-x:auto;padding-bottom:8px;}
+.flow-inner{display:flex;align-items:flex-start;gap:0;min-width:max-content;padding:4px 0 12px;}
+
+/* ── NODE LINK ROW (lo / hi quick links below card) ── */
+.node-links{display:flex;gap:4px;margin-top:4px;justify-content:center;}
+.nl-btn{font-size:9px;font-weight:500;padding:2px 8px;border-radius:100px;text-decoration:none;transition:opacity .15s;}
+.nl-btn.lo{background:rgba(90,144,96,0.10);color:#2A5A30;border:1px solid rgba(90,144,96,0.20);}
+.nl-btn.hi{background:rgba(155,127,212,0.10);color:#5C3E8A;border:1px solid rgba(155,127,212,0.22);}
+.nl-btn:hover{opacity:.7;}
+</style>
+</head>
+<body>
+
+<!-- Hub nav -->
+<div class="hub-nav">
+  <a class="hub-back" href="../index.html">
+    <svg width="18" height="18" viewBox="0 0 80 80" style="border-radius:4px;flex-shrink:0"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
+    Design hub
+  </a>
+  <span class="hub-title">UX Flow overview</span>
+  <span class="hub-tag">Flow</span>
+</div>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eye">nudgii · UX Flow · v0.3 · March 2026</div>
+    <h1 class="hero-title">Every screen.<br>Every connection.</h1>
+    <p class="hero-sub">Complete UX flow for nudgii — 28 screens across 6 flows. Use this as the build order reference. Each flow is built lo-fi first, hi-fi second. No hi-fi starts before lo-fi is approved.</p>
+
+    <div class="stats">
+      <div class="stat s-ready"><div class="stat-n">8</div><div class="stat-l">Ready for dev</div></div>
+      <div class="stat s-wip"><div class="stat-n">7</div><div class="stat-l">In progress</div></div>
+      <div class="stat s-dec"><div class="stat-n">4</div><div class="stat-l">Decision needed</div></div>
+      <div class="stat s-todo"><div class="stat-n">9</div><div class="stat-l">To do</div></div>
+    </div>
+
+    <div class="legend">
+      <span class="leg ob"><span class="leg-dot"></span>Onboarding</span>
+      <span class="leg db"><span class="leg-dot"></span>Dashboard</span>
+      <span class="leg tk"><span class="leg-dot"></span>Task detail</span>
+      <span class="leg it"><span class="leg-dot"></span>Item detail</span>
+      <span class="leg ask"><span class="leg-dot"></span>Ask tab</span>
+      <span class="leg pr"><span class="leg-dot"></span>Profile</span>
+      <span class="leg sys"><span class="leg-dot"></span>System / edge</span>
+    </div>
+
+    <!-- v0.3 changes callout -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px;">
+      <div style="background:#F7F3FF;border:1px solid rgba(155,127,212,0.22);border-radius:12px;padding:16px 18px;grid-column:1/-1;">
+        <div style="font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:#5C3E8A;margin-bottom:10px;">v0.3 changes — 2026-03-21</div>
+        <ul style="font-size:11px;color:#4A2E78;line-height:1.85;padding-left:16px;">
+          <li><strong style="color:#2D1F4A;">Path A = voice OR text — same engine.</strong> "Vertel het me" opens the conversational AI interface. "Liever typen?" is a first-class equal alternative — same Claude API call, same review outcome. Not a fallback, not secondary.</li>
+          <li><strong style="color:#2D1F4A;">Last maintenance chip default locked.</strong> Always "6 maanden geleden" (amber chip). Never "Recent", never "Unknown". Locked on S-03 and S-04. User can update on S-05.</li>
+          <li><strong style="color:#2D1F4A;">S-07 auto-advance removed.</strong> Completion screen never auto-advances to dashboard. User must tap "Open mijn schema" consciously. No timer, no countdown.</li>
+          <li><strong style="color:#2D1F4A;">S-05 confirm-only.</strong> No inline editing on review screen. Delete (×) per item only. Scan icon (Phosphor Camera) per item row for richer AI output. Deep edits belong post-dashboard.</li>
+          <li><strong style="color:#2D1F4A;">Location screen removed.</strong> Region detected silently from device locale. No permission screen, no user decision required at onboarding.</li>
+          <li><strong style="color:#2D1F4A;">OD-01 resolved.</strong> Done overlay fires from dashboard swipe only (>40% threshold). Task detail "mark done" = quiet in-screen banner only. S-07 completion = sage check circle — no plum overlay.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       FLOW 1 — FIRST LAUNCH (ONBOARDING)
+  ═══════════════════════════════════════════ -->
+  <section>
+    <div class="flow-head">
+      <span class="flow-num">01</span>
+      <span class="flow-name" style="color:var(--f-ob);">First launch · Onboarding</span>
+      <span class="flow-sep"></span>
+    </div>
+    <p class="flow-desc">User opens app for the first time. Three paths to populate their home — voice, browse, or search. All paths converge at review → auth → completion → push permission → dashboard.</p>
+
+    <div class="flow-canvas">
+      <div class="flow-inner">
+
+        <!-- S-01 Welcome -->
+        <div class="node">
+          <div class="node-card tag-ob" style="cursor:default;width:140px;">
+            <div class="node-id">S-01</div>
+            <div class="node-name">Welcome screen</div>
+            <div class="node-badges">
+              <span class="nb nb-lo done">lo ✓</span>
+              <span class="nb nb-hi done">hi ✓</span>
+            </div>
+            <div class="node-status ns-ready"></div>
+          </div>
+          <div class="node-links">
+            <a class="nl-btn lo" href="../screens/s01-welcome-lofi.html" target="_blank">lo-fi</a>
+            <a class="nl-btn hi" href="../screens/s01-welcome-hifi.html" target="_blank">hi-fi</a>
+          </div>
+          <span class="s-badge s-ready">Ready</span>
+          <div class="flow-note" style="width:140px;margin-top:6px;font-size:10px;padding:8px 10px;">
+            <strong>Layout zones (locked):</strong><br>
+            A · ii mark + Gratis starten badge<br>
+            B · 3 progress dots right-aligned<br>
+            C · DM Serif 22px headline + italic lead<br>
+            D · 3 nudge-cards — never carousel<br>
+            E · "Hoe wil je starten?" divider<br>
+            F · Path A — fill 50px (primary)<br>
+            G · Path B — border-only 46px<br>
+            H · Path C — ghost link 36px<br><br>
+            <strong>Preview cards by locale:</strong><br>
+            nl-BE: Vaatwasser / Winterbanden / Olijfboom<br>
+            nl-NL: Cv-ketel / Winterbanden / Tuin<br>
+            fr-BE: Lave-vaisselle / Pneus hiver / Olivier
+          </div>
+        </div>
+
+        <div class="arrow"><div class="arr-line"></div></div>
+
+        <!-- Branch A/B/C -->
+        <div class="fork-wrap">
+          <div class="fork-line"></div>
+          <div class="branch" style="padding-top:0;">
+            <!-- Path A -->
+            <div class="node">
+              <div class="node-card tag-ob" style="width:130px;cursor:default;">
+                <div class="node-id" style="color:#5C3E8A;">S-02 · Path A</div>
+                <div class="node-name">Voice onboarding</div>
+                <div class="node-badges">
+                  <span class="nb nb-lo done">lo ✓</span>
+                  <span class="nb nb-hi">hi</span>
+                </div>
+                <div class="node-status ns-wip"></div>
+              </div>
+              <div class="node-links">
+                <a class="nl-btn lo" href="../screens/s02-voice-onboarding-lofi.html" target="_blank">lo-fi</a>
+              </div>
+              <span class="s-badge s-wip">In progress</span>
+              <div class="flow-note" style="width:130px;margin-top:6px;font-size:10px;padding:8px 10px;">
+                <strong>Voice OR text — same engine.</strong><br>
+                "Liever typen?" always visible.<br>
+                Both → identical Claude API call.<br><br>
+                <strong>Voice flow:</strong><br>
+                1. Mic opens → chat bubble<br>
+                2. User speaks → chips fade out<br>
+                3. Live transcript &lt;500ms<br>
+                4. Claude API call<br>
+                5. "Goed. 4 items, 17 taken."<br>
+                6. → S-05 review<br><br>
+                <strong>Example chips:</strong><br>
+                cv-ketel · vaatwasser · auto · olijfboom · zonnepanelen<br><br>
+                <strong>S-26 edge:</strong> mic fails → text fallback<br>
+                <strong>S-27 edge:</strong> parse fail → redirect S-03
+              </div>
+            </div>
+            <!-- Path B -->
+            <div class="node" style="margin-top:2px;">
+              <div class="node-card tag-ob" style="width:130px;cursor:default;">
+                <div class="node-id" style="color:#5C3E8A;">S-03 · Path B</div>
+                <div class="node-name">Browse categories</div>
+                <div class="node-badges">
+                  <span class="nb nb-lo done">lo ✓</span>
+                  <span class="nb nb-hi">hi</span>
+                </div>
+                <div class="node-status ns-wip"></div>
+              </div>
+              <div class="node-links">
+                <a class="nl-btn lo" href="../screens/s03-browse-categories-lofi.html" target="_blank">lo-fi</a>
+              </div>
+              <span class="s-badge s-wip">In progress</span>
+            </div>
+            <!-- Path C -->
+            <div class="node" style="margin-top:2px;">
+              <div class="node-card tag-ob" style="width:130px;cursor:default;">
+                <div class="node-id" style="color:#5C3E8A;">S-04 · Path C</div>
+                <div class="node-name">Direct search</div>
+                <div class="node-badges">
+                  <span class="nb nb-lo done">lo ✓</span>
+                  <span class="nb nb-hi">hi</span>
+                </div>
+                <div class="node-status ns-wip"></div>
+              </div>
+              <div class="node-links">
+                <a class="nl-btn lo" href="../screens/s04-direct-search-lofi.html" target="_blank">lo-fi</a>
+              </div>
+              <span class="s-badge s-wip">In progress</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="arrow" style="padding-top:46px;"><div class="arr-line"></div></div>
+
+        <!-- S-05 Review -->
+        <div class="node" style="padding-top:26px;">
+          <div class="node-card tag-ob" style="cursor:default;width:140px;">
+            <div class="node-id">S-05</div>
+            <div class="node-name">Onboarding review</div>
+            <div class="node-badges">
+              <span class="nb nb-lo">lo</span>
+              <span class="nb nb-hi done">hi ✓</span>
+            </div>
+            <div class="node-status ns-wip"></div>
+          </div>
+          <div class="node-links">
+            <a class="nl-btn hi" href="../screens/s05-onboarding-review-hifi.html" target="_blank">hi-fi</a>
+          </div>
+          <span class="s-badge s-wip">In progress</span>
+          <div class="flow-note" style="width:140px;margin-top:6px;font-size:10px;padding:8px 10px;">
+            <strong>Confirm-only.</strong> No inline editing.<br>
+            Delete (×) per item row only.<br>
+            Scan icon per row (Phosphor Camera).<br><br>
+            Item counter: "3 van 10 gratis · Pro = onbeperkt" (plum-lt text, right-aligned)<br><br>
+            11+ items: amber callout "2 items bewaard voor Pro."<br><br>
+            CTA: "Opslaan en doorgaan"<br>
+            Secondary: "Later verdergaan" ghost link
+          </div>
+        </div>
+
+        <div class="arrow" style="padding-top:46px;"><div class="arr-line"></div></div>
+
+        <!-- S-06 Auth -->
+        <div class="node" style="padding-top:26px;">
+          <div class="node-card tag-ob">
+            <div class="node-id">S-06</div>
+            <div class="node-name">Auth screen</div>
+            <div class="node-badges">
+              <span class="nb nb-lo">lo</span>
+              <span class="nb nb-hi done">hi ✓</span>
+            </div>
+            <div class="node-status ns-wip"></div>
+          </div>
+          <span class="s-badge s-wip">In progress</span>
+        </div>
+
+        <div class="arrow" style="padding-top:46px;"><div class="arr-line"></div></div>
+
+        <!-- S-07 Completion -->
+        <div class="node" style="padding-top:26px;">
+          <div class="node-card tag-ob" style="width:140px;">
+            <div class="node-id">S-07</div>
+            <div class="node-name">Onboarding complete</div>
+            <div class="node-badges">
+              <span class="nb nb-lo">lo</span>
+              <span class="nb nb-hi done">hi ✓</span>
+            </div>
+            <div class="node-status ns-wip"></div>
+          </div>
+          <span class="s-badge s-wip">In progress</span>
+          <div class="flow-note" style="width:140px;margin-top:6px;font-size:10px;padding:8px 10px;">
+            <strong>No auto-advance.</strong> User taps CTA consciously.<br><br>
+            Check circle: sage-lt bg + sage border + sage checkmark — NOT plum.<br><br>
+            Headline: "Je bent klaar. Echt klaar." DM Serif 20px<br>
+            Sub: "Je eerste nudge komt maandag." italic mid<br><br>
+            Preview card: real tasks shown (terra overdue, apricot-dk upcoming)<br><br>
+            CTA: "Open mijn schema" — no timer, plum-lt fill
+          </div>
+        </div>
+
+        <div class="arrow" style="padding-top:46px;"><div class="arr-line"></div></div>
+
+        <!-- S-08 Push -->
+        <div class="node" style="padding-top:26px;">
+          <div class="node-card tag-ob" style="cursor:default;">
+            <div class="node-id">S-08</div>
+            <div class="node-name">Push permission</div>
+            <div class="node-badges">
+              <span class="nb nb-lo done">lo ✓</span>
+              <span class="nb nb-hi">hi</span>
+            </div>
+            <div class="node-status ns-wip"></div>
+          </div>
+          <div class="node-links">
+            <a class="nl-btn lo" href="../screens/s08-push-permission-lofi.html" target="_blank">lo-fi</a>
+          </div>
+          <span class="s-badge s-wip">In progress</span>
+        </div>
+
+        <div class="arrow" style="padding-top:46px;"><div class="arr-line" style="width:28px;border-style:dashed;"></div></div>
+
+        <!-- Dashboard entry point -->
+        <div class="node" style="padding-top:26px;">
+          <div class="node-card" style="border-color:var(--f-db-bd);background:var(--f-db-bg);width:90px;">
+            <div class="node-id" style="color:var(--f-db);">→ S-09</div>
+            <div class="node-name">Dashboard</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="flow-note"><strong>OD-03 resolved 2026-03-21:</strong> nudgii never speaks. Voice = user input only, max 1 min/turn. nudgii always responds in text. S-02 lo-fi is done and unblocked. Paths B and C are also in progress.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       ONBOARDING FLOW DETAIL · v2.0
+  ═══════════════════════════════════════════ -->
+  <section style="padding-top:40px;">
+    <div class="flow-head">
+      <span class="flow-num" style="color:var(--f-ob);">Detail</span>
+      <span class="flow-name" style="color:var(--f-ob);font-size:18px;">Onboarding flow detail · v2.0 · 5 fixes verwerkt</span>
+      <span class="flow-sep"></span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+
+      <!-- 5 fixes -->
+      <div style="background:#FFFBF0;border:1px solid rgba(200,120,74,0.22);border-radius:12px;padding:16px 18px;">
+        <div style="font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:#7A4A1A;margin-bottom:10px;">5 fixes verwerkt</div>
+        <ol style="font-size:11px;color:#5A3A10;line-height:1.7;padding-left:16px;">
+          <li>Visuele hiërarchie S-01 — Path A dominant (fill), B secundair (border), C ghost</li>
+          <li>Voice cold-start — voorbeeld chips tonen voor microfoon opent (cv-ketel · vaatwasser · auto · olijfboom)</li>
+          <li>Last-maintenance default — altijd "6 mnd geleden", nooit "recent"</li>
+          <li>Review confirm-only — alleen delete (×), geen inline editor op S-05</li>
+          <li>Completion auto-advance verwijderd — CTA "Open mijn schema" vereist</li>
+        </ol>
+      </div>
+
+      <!-- 4 edge cases -->
+      <div style="background:#FFF5F5;border:1px solid rgba(163,45,45,0.18);border-radius:12px;padding:16px 18px;">
+        <div style="font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:#A32D2D;margin-bottom:10px;">4 edge cases</div>
+        <ul style="font-size:11px;color:#7A2A2A;line-height:1.7;padding-left:14px;">
+          <li>S-26 Mic fout → inline tekst fallback "Liever typen?", nooit dead-end</li>
+          <li>S-27 Parse fail → fallback naar browse, toast "Probeer anders"</li>
+          <li>Auth mislukt → retry, onboarding state NOOIT verloren</li>
+          <li>11+ items → amber callout "2 items wacht op Pro", nooit stilletjes kappen</li>
+        </ul>
+      </div>
+
+      <!-- 2 monetization moments -->
+      <div style="background:#F7F3FF;border:1px solid rgba(155,127,212,0.22);border-radius:12px;padding:16px 18px;">
+        <div style="font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:#5C3E8A;margin-bottom:10px;">2 monetisatie-momenten</div>
+        <ul style="font-size:11px;color:#4A2E78;line-height:1.7;padding-left:14px;">
+          <li>S-05 item teller: "x van 10 gratis · Pro = onbeperkt" (plum-lt text, not a banner)</li>
+          <li>S-09 overdue zichtbaar: terra urgency → engagement → conversion (helpful first)</li>
+        </ul>
+      </div>
+
+      <!-- 6 strong points -->
+      <div style="background:#F2FAF0;border:1px solid rgba(90,144,96,0.20);border-radius:12px;padding:16px 18px;">
+        <div style="font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:#2A5A30;margin-bottom:10px;">6 sterke punten — niet aanpassen</div>
+        <ul style="font-size:11px;color:#1E4228;line-height:1.7;padding-left:14px;">
+          <li>Deferred auth</li>
+          <li>Zeigarnik completion loop</li>
+          <li>1-tap login</li>
+          <li>Silent locale detection</li>
+          <li>Dashboard never empty</li>
+          <li>3-path self-select</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       v0.3 — SCREEN SPECS + EDGE CASES
+  ═══════════════════════════════════════════ -->
+  <section style="padding-top:36px;">
+    <div class="flow-head">
+      <span class="flow-num" style="color:var(--f-sys);">v0.3</span>
+      <span class="flow-name" style="color:var(--f-sys);font-size:18px;">Screen specs · Edge cases · Notifications</span>
+      <span class="flow-sep"></span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+
+      <!-- S-06 Auth spec -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;">
+        <div style="font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--mid);margin-bottom:8px;">S-06 — Auth (deferred)</div>
+        <div style="font-size:11px;color:var(--ink);line-height:1.7;">
+          User has 60+ seconds invested by S-06 — conversion higher here than at the door.<br><br>
+          <strong>Layout:</strong> ii mark 22px centred · Headline "Bijna klaar." DM Serif 18px · Subline about saving schedule<br><br>
+          <strong>Auth options:</strong> Apple SSO (first — iOS HIG) · Google SSO (second) · Magic link (inline "Check je e-mail" on tap — no new screen)<br><br>
+          <strong>Auth failure:</strong> Retry visible immediately · session state preserved · items never lost
+        </div>
+      </div>
+
+      <!-- S-08 Push spec -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;">
+        <div style="font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--mid);margin-bottom:8px;">S-08 — Push permission</div>
+        <div style="font-size:11px;color:var(--ink);line-height:1.7;">
+          Shown after S-07, before dashboard. Context is given first — explaining why push matters.<br><br>
+          If declined: user continues to dashboard regardless. Not a blocker.<br><br>
+          Restore path: S-23 Settings → Notifications
+        </div>
+      </div>
+
+      <!-- Edge cases S-26, S-27 -->
+      <div style="background:#FFF5F5;border:1px solid rgba(163,45,45,0.18);border-radius:12px;padding:16px 18px;">
+        <div style="font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:#A32D2D;margin-bottom:8px;">Edge cases — S-26 · S-27</div>
+        <div style="font-size:11px;color:#7A2A2A;line-height:1.7;">
+          <strong>S-26 Mic fails:</strong><br>
+          Message: "Microfoon werkt niet. Tik hieronder om te typen."<br>
+          Action: redirect to text input — never a dead-end.<br><br>
+          <strong>S-27 Claude parse fails:</strong><br>
+          Message: "Dat was lastig te begrijpen. Laten we het anders proberen."<br>
+          Action: redirect to S-03 Browse categories.<br><br>
+          <strong>Both edge states:</strong> calm tone, clear action, never alarming.
+        </div>
+      </div>
+
+      <!-- Notifications spec -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;">
+        <div style="font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--mid);margin-bottom:8px;">Notification rules</div>
+        <table style="width:100%;border-collapse:collapse;font-size:10px;color:var(--ink);line-height:1.6;">
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:4px 6px;font-weight:500;">Weekly digest email</td>
+            <td style="padding:4px 6px;color:var(--mid);">Mon 08:00 (user-configurable). Subject must reference specific item.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:4px 6px;font-weight:500;">Due date push</td>
+            <td style="padding:4px 6px;color:var(--mid);">Day of due_date at configured time. One nudge — never repeat same day.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:4px 6px;font-weight:500;">Overdue push</td>
+            <td style="padding:4px 6px;color:var(--mid);">1 day after due_date if not done. Terra urgency, honest tone.</td>
+          </tr>
+          <tr>
+            <td style="padding:4px 6px;font-weight:500;">Return notification</td>
+            <td style="padding:4px 6px;color:var(--mid);">First open after away_mode_until. "Welcome back — here's what piled up."</td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- ═══════════════════════════════════════════
+       FLOW 2 — DASHBOARD & DAILY LOOP
+  ═══════════════════════════════════════════ -->
+  <section>
+    <div class="flow-head">
+      <span class="flow-num">02</span>
+      <span class="flow-name" style="color:var(--f-db);">Dashboard · Daily loop</span>
+      <span class="flow-sep"></span>
+    </div>
+    <p class="flow-desc">The core experience. User sees their overdue + upcoming nudges. Can complete (swipe), snooze, or add new tasks via FAB. Done state fires the plum overlay.</p>
+
+    <div class="flow-canvas">
+      <div class="flow-inner" style="align-items:center;">
+
+        <!-- S-09 Dashboard default -->
+        <div class="node">
+          <a class="node-card tag-db hub-node" href="../system/design-system.html" target="_blank">
+            <div class="node-id">S-09</div>
+            <div class="node-name">Dashboard — default</div>
+            <div class="node-badges">
+              <span class="nb nb-lo">lo</span>
+              <span class="nb nb-hi done">hi ✓</span>
+            </div>
+            <div class="node-status ns-ready"></div>
+          </a>
+          <span class="s-badge s-ready">Ready</span>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:18px;padding:0 0 0 4px;">
+
+          <!-- → S-10 Empty -->
+          <div class="conn-row">
+            <div class="arrow" style="padding-top:0;"><div class="arr-line"></div></div>
+            <div class="node">
+              <div class="node-card tag-db">
+                <div class="node-id">S-10</div>
+                <div class="node-name">Dashboard — empty</div>
+                <div class="node-badges">
+                  <span class="nb nb-lo">lo</span>
+                  <span class="nb nb-hi done">hi ✓</span>
+                </div>
+                <div class="node-status ns-ready"></div>
+              </div>
+              <span class="s-badge s-ready">Ready</span>
+            </div>
+          </div>
+
+          <!-- → S-11 Done overlay -->
+          <div class="conn-row">
+            <div class="arrow" style="padding-top:0;"><div class="arr-line"></div></div>
+            <div class="node">
+              <div class="node-card tag-db">
+                <div class="node-id">S-11</div>
+                <div class="node-name">Done overlay</div>
+                <div class="node-badges">
+                  <span class="nb nb-lo">lo</span>
+                  <span class="nb nb-hi">hi</span>
+                </div>
+                <div class="node-status ns-dec"></div>
+              </div>
+              <span class="s-badge s-dec">Decision</span>
+            </div>
+          </div>
+
+          <!-- → S-12 FAB sheet -->
+          <div class="conn-row">
+            <div class="arrow" style="padding-top:0;"><div class="arr-line"></div></div>
+            <div class="node">
+              <div class="node-card tag-db" style="cursor:default;">
+                <div class="node-id">S-12</div>
+                <div class="node-name">FAB action sheet</div>
+                <div class="node-badges">
+                  <span class="nb nb-lo done">lo ✓</span>
+                  <span class="nb nb-hi done">hi ✓</span>
+                </div>
+                <div class="node-status ns-ready"></div>
+              </div>
+              <div class="node-links">
+                <a class="nl-btn lo" href="../screens/s12-fab-smart-lofi.html" target="_blank">lo-fi</a>
+                <a class="nl-btn hi" href="../screens/s12-fab-action-sheet-hifi.html" target="_blank">hi-fi</a>
+              </div>
+              <span class="s-badge s-ready">Ready</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="flow-note"><strong>OD-01 resolved 2026-03-18:</strong> Done overlay fires from dashboard swipe only (>40% threshold). Task detail "mark done" = quiet in-screen completion banner — no full-screen overlay. S-07 completion uses sage check circle, not plum. These are locked — no longer a decision item.</div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- ═══════════════════════════════════════════
+       FLOW 3 — TASK DETAIL
+  ═══════════════════════════════════════════ -->
+  <section>
+    <div class="flow-head">
+      <span class="flow-num">03</span>
+      <span class="flow-name" style="color:var(--f-tk);">Task detail</span>
+      <span class="flow-sep"></span>
+    </div>
+    <p class="flow-desc">User taps a nudge card on the dashboard. Full task detail — description, history, snooze, complete. Done state here uses the quieter in-screen banner (not plum overlay).</p>
+
+    <div class="flow-canvas">
+      <div class="flow-inner" style="align-items:flex-start;">
+
+        <!-- S-09 entry -->
+        <div class="node">
+          <div class="node-card" style="border-color:var(--f-db-bd);background:var(--f-db-bg);width:90px;">
+            <div class="node-id" style="color:var(--f-db);">S-09</div>
+            <div class="node-name">Dashboard</div>
+          </div>
+        </div>
+
+        <div class="arrow"><div class="arr-line"></div></div>
+
+        <!-- S-13 Task detail -->
+        <div class="node">
+          <div class="node-card tag-tk" style="cursor:default;">
+            <div class="node-id">S-13</div>
+            <div class="node-name">Task detail — default</div>
+            <div class="node-badges">
+              <span class="nb nb-lo done">lo ✓</span>
+              <span class="nb nb-hi">hi</span>
+            </div>
+            <div class="node-status ns-wip"></div>
+          </div>
+          <div class="node-links">
+            <a class="nl-btn lo" href="../screens/s13-task-detail-lofi.html" target="_blank">lo-fi</a>
+          </div>
+          <span class="s-badge s-wip">In progress</span>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:18px;padding:0 0 0 4px;">
+
+          <!-- → S-14 Done state -->
+          <div class="conn-row">
+            <div class="arrow" style="padding-top:0;"><div class="arr-line"></div></div>
+            <div class="node">
+              <div class="node-card tag-tk" style="cursor:default;">
+                <div class="node-id">S-14</div>
+                <div class="node-name">Task detail — done</div>
+                <div class="node-badges">
+                  <span class="nb nb-lo done">lo ✓</span>
+                  <span class="nb nb-hi">hi</span>
+                </div>
+                <div class="node-status ns-wip"></div>
+              </div>
+              <div class="node-links">
+                <a class="nl-btn lo" href="../screens/s13-task-detail-lofi.html" target="_blank">lo-fi</a>
+              </div>
+              <span class="s-badge s-wip">In progress</span>
+            </div>
+          </div>
+
+          <!-- → S-15 Snooze -->
+          <div class="conn-row">
+            <div class="arrow" style="padding-top:0;"><div class="arr-line"></div></div>
+            <div class="node">
+              <div class="node-card tag-tk" style="cursor:default;">
+                <div class="node-id">S-15</div>
+                <div class="node-name">Snooze bottom sheet</div>
+                <div class="node-badges">
+                  <span class="nb nb-lo done">lo ✓</span>
+                  <span class="nb nb-hi">hi</span>
+                </div>
+                <div class="node-status ns-wip"></div>
+              </div>
+              <div class="node-links">
+                <a class="nl-btn lo" href="../screens/s15-snooze-lofi.html" target="_blank">lo-fi</a>
+              </div>
+              <span class="s-badge s-wip">In progress</span>
+            </div>
+          </div>
+
+          <!-- → S-16 History -->
+          <div class="conn-row">
+            <div class="arrow" style="padding-top:0;"><div class="arr-line"></div></div>
+            <div class="node">
+              <div class="node-card tag-tk">
+                <div class="node-id">S-16</div>
+                <div class="node-name">Completion history</div>
+                <div class="node-badges">
+                  <span class="nb nb-lo">lo</span>
+                  <span class="nb nb-hi">hi</span>
+                </div>
+                <div class="node-status ns-todo"></div>
+              </div>
+              <span class="s-badge s-todo">To do</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="flow-note">S-16 lives inline on the task detail sheet — it's an expandable section, not a separate screen. Build alongside S-13 hi-fi.</div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- ═══════════════════════════════════════════
+       FLOW 4 — ITEM DETAIL
+  ═══════════════════════════════════════════ -->
+  <section>
+    <div class="flow-head">
+      <span class="flow-num">04</span>
+      <span class="flow-name" style="color:var(--f-it);">Item detail</span>
+      <span class="flow-sep"></span>
+    </div>
+    <p class="flow-desc">User taps the item name/category (e.g. "Vaatwasser") to see all tasks belonging to that item. Entry from dashboard nudge cards.</p>
+
+    <div class="flow-canvas">
+      <div class="flow-inner" style="align-items:center;">
+
+        <div class="node">
+          <div class="node-card" style="border-color:var(--f-db-bd);background:var(--f-db-bg);width:90px;">
+            <div class="node-id" style="color:var(--f-db);">S-09</div>
+            <div class="node-name">Dashboard</div>
+          </div>
+        </div>
+
+        <div class="arrow"><div class="arr-line"></div></div>
+
+        <div class="node">
+          <div class="node-card tag-it">
+            <div class="node-id">S-17</div>
+            <div class="node-name">Item detail</div>
+            <div class="node-badges">
+              <span class="nb nb-lo">lo</span>
+              <span class="nb nb-hi">hi</span>
+            </div>
+            <div class="node-status ns-todo"></div>
+          </div>
+          <span class="s-badge s-todo">To do</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- ═══════════════════════════════════════════
+       FLOW 5 — ASK TAB
+  ═══════════════════════════════════════════ -->
+  <section>
+    <div class="flow-head">
+      <span class="flow-num">05</span>
+      <span class="flow-name" style="color:var(--f-ask);">Ask tab</span>
+      <span class="flow-sep"></span>
+    </div>
+    <p class="flow-desc">Conversational interface for adding tasks by voice or text. Accesible via tab bar from any screen. First-load state is a product decision.</p>
+
+    <div class="flow-canvas">
+      <div class="flow-inner" style="align-items:center;">
+
+        <div class="node">
+          <div class="node-card tag-ask">
+            <div class="node-id">S-18</div>
+            <div class="node-name">Ask tab — first load</div>
+            <div class="node-badges">
+              <span class="nb nb-lo">lo</span>
+              <span class="nb nb-hi">hi</span>
+            </div>
+            <div class="node-status ns-dec"></div>
+          </div>
+          <span class="s-badge s-dec">Decision</span>
+        </div>
+
+        <div class="arrow"><div class="arr-line"></div></div>
+
+        <div class="node">
+          <div class="node-card tag-ask">
+            <div class="node-id">S-19</div>
+            <div class="node-name">Ask tab — conversation</div>
+            <div class="node-badges">
+              <span class="nb nb-lo">lo</span>
+              <span class="nb nb-hi">hi</span>
+            </div>
+            <div class="node-status ns-todo"></div>
+          </div>
+          <span class="s-badge s-todo">To do</span>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="flow-note"><strong>Product decision needed:</strong> What does a first-time user see in the Ask tab? (A) empty state with prompt suggestions · (B) voice input opens immediately · (C) contextual suggestions based on upcoming tasks. S-18 and S-19 cannot be designed until this is answered.</div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- ═══════════════════════════════════════════
+       FLOW 6 — PROFILE / YOU TAB
+  ═══════════════════════════════════════════ -->
+  <section>
+    <div class="flow-head">
+      <span class="flow-num">06</span>
+      <span class="flow-name" style="color:var(--f-pr);">Profile · You tab</span>
+      <span class="flow-sep"></span>
+    </div>
+    <p class="flow-desc">Account management, Pro upgrade, notification settings, and locale correction. Two states: free tier and Pro tier.</p>
+
+    <div class="flow-canvas">
+      <div class="flow-inner" style="align-items:flex-start;">
+
+        <!-- S-20 Free -->
+        <div class="node">
+          <div class="node-card tag-pr" style="cursor:default;">
+            <div class="node-id">S-20</div>
+            <div class="node-name">Profile — free tier</div>
+            <div class="node-badges">
+              <span class="nb nb-lo">lo</span>
+              <span class="nb nb-hi done">hi ✓</span>
+            </div>
+            <div class="node-status ns-ready"></div>
+          </div>
+          <div class="node-links">
+            <a class="nl-btn hi" href="../screens/s20-profile-free-hifi.html" target="_blank">hi-fi</a>
+          </div>
+          <span class="s-badge s-ready">Ready</span>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:18px;padding:0 0 0 4px;">
+          <!-- → S-22 Pro upgrade -->
+          <div class="conn-row">
+            <div class="arrow" style="padding-top:0;"><div class="arr-line"></div></div>
+            <div class="node">
+              <div class="node-card tag-pr">
+                <div class="node-id">S-22</div>
+                <div class="node-name">Pro upgrade / paywall</div>
+                <div class="node-badges">
+                  <span class="nb nb-lo">lo</span>
+                  <span class="nb nb-hi">hi</span>
+                </div>
+                <div class="node-status ns-todo"></div>
+              </div>
+              <span class="s-badge s-todo">To do</span>
+            </div>
+          </div>
+          <!-- → S-23 Notifications -->
+          <div class="conn-row">
+            <div class="arrow" style="padding-top:0;"><div class="arr-line"></div></div>
+            <div class="node">
+              <div class="node-card tag-pr">
+                <div class="node-id">S-23</div>
+                <div class="node-name">Notification preferences</div>
+                <div class="node-badges">
+                  <span class="nb nb-lo">lo</span>
+                  <span class="nb nb-hi">hi</span>
+                </div>
+                <div class="node-status ns-todo"></div>
+              </div>
+              <span class="s-badge s-todo">To do</span>
+            </div>
+          </div>
+          <!-- → S-24 Locale -->
+          <div class="conn-row">
+            <div class="arrow" style="padding-top:0;"><div class="arr-line"></div></div>
+            <div class="node">
+              <div class="node-card tag-pr">
+                <div class="node-id">S-24</div>
+                <div class="node-name">Region / locale</div>
+                <div class="node-badges">
+                  <span class="nb nb-lo">lo</span>
+                  <span class="nb nb-hi">hi</span>
+                </div>
+                <div class="node-status ns-todo"></div>
+              </div>
+              <span class="s-badge s-todo">To do</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="width:32px;"></div>
+
+        <!-- S-21 Pro -->
+        <div class="node">
+          <div class="node-card tag-pr" style="cursor:default;">
+            <div class="node-id">S-21</div>
+            <div class="node-name">Profile — Pro tier</div>
+            <div class="node-badges">
+              <span class="nb nb-lo">lo</span>
+              <span class="nb nb-hi done">hi ✓</span>
+            </div>
+            <div class="node-status ns-ready"></div>
+          </div>
+          <div class="node-links">
+            <a class="nl-btn hi" href="../screens/s21-profile-pro-hifi.html" target="_blank">hi-fi</a>
+          </div>
+          <span class="s-badge s-ready">Ready</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- ═══════════════════════════════════════════
+       FLOW 7 — SYSTEM / EDGE STATES
+  ═══════════════════════════════════════════ -->
+  <section>
+    <div class="flow-head">
+      <span class="flow-num">07</span>
+      <span class="flow-name" style="color:var(--f-sys);">System · edge states</span>
+      <span class="flow-sep"></span>
+    </div>
+    <p class="flow-desc">Error, offline, and returning-user states. Design after all happy-path flows are complete. Tone: calm, helpful, never alarming.</p>
+
+    <div class="flow-canvas">
+      <div class="flow-inner" style="align-items:flex-start;gap:10px;flex-wrap:wrap;">
+
+        <div class="node">
+          <div class="node-card tag-sys">
+            <div class="node-id">S-25</div>
+            <div class="node-name">No internet state</div>
+            <div class="node-badges"><span class="nb nb-lo">lo</span><span class="nb nb-hi">hi</span></div>
+            <div class="node-status ns-todo"></div>
+          </div>
+          <span class="s-badge s-todo">To do</span>
+        </div>
+
+        <div class="node">
+          <div class="node-card tag-sys">
+            <div class="node-id">S-26</div>
+            <div class="node-name">Voice API error</div>
+            <div class="node-badges"><span class="nb nb-lo">lo</span><span class="nb nb-hi">hi</span></div>
+            <div class="node-status ns-todo"></div>
+          </div>
+          <span class="s-badge s-todo">To do</span>
+        </div>
+
+        <div class="node">
+          <div class="node-card tag-sys">
+            <div class="node-id">S-27</div>
+            <div class="node-name">Claude parse failure</div>
+            <div class="node-badges"><span class="nb nb-lo">lo</span><span class="nb nb-hi">hi</span></div>
+            <div class="node-status ns-todo"></div>
+          </div>
+          <span class="s-badge s-todo">To do</span>
+        </div>
+
+        <div class="node">
+          <div class="node-card tag-sys">
+            <div class="node-id">S-28</div>
+            <div class="node-name">Returning user launch</div>
+            <div class="node-badges"><span class="nb nb-lo">lo</span><span class="nb nb-hi">hi</span></div>
+            <div class="node-status ns-todo"></div>
+          </div>
+          <span class="s-badge s-todo">To do</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="rule" style="margin-top:60px;"></div>
+
+  <!-- BUILD ORDER -->
+  <section style="padding-top:40px;padding-bottom:60px;">
+    <div class="flow-head">
+      <span class="flow-num"></span>
+      <span class="flow-name">Recommended build order</span>
+      <span class="flow-sep"></span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;">
+        <div style="font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:8px;">Sprint 1 — lo-fi foundation</div>
+        <div style="font-size:12px;color:var(--ink);line-height:1.8;">S-02 Voice onboarding <em style="color:var(--terra);font-style:normal;font-size:10px;">(after TTS decision)</em><br>S-03 Browse categories<br>S-04 Direct search<br>S-05 Onboarding review<br>S-09 Dashboard lo-fi</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;">
+        <div style="font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:8px;">Sprint 2 — task &amp; item lo-fi</div>
+        <div style="font-size:12px;color:var(--ink);line-height:1.8;">S-13 Task detail hi-fi<br>S-14 Task done state hi-fi<br>S-15 Snooze sheet hi-fi<br>S-16 Completion history<br>S-17 Item detail lo-fi + hi-fi</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;">
+        <div style="font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:8px;">Sprint 3 — ask &amp; profile</div>
+        <div style="font-size:12px;color:var(--ink);line-height:1.8;">S-18 Ask tab <em style="color:var(--terra);font-style:normal;font-size:10px;">(after product decision)</em><br>S-19 Ask conversation<br>S-22 Pro paywall<br>S-23 Notification prefs<br>S-24 Region / locale</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;">
+        <div style="font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:8px;">Sprint 4 — system states</div>
+        <div style="font-size:12px;color:var(--ink);line-height:1.8;">S-25 No internet<br>S-26 Voice API error<br>S-27 Claude parse failure<br>S-28 Returning user</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+</body>
+</html>

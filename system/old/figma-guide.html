@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · Figma Setup Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+:root{
+  --cream:#F5F0E8;--ink:#1A1612;--mid:#8A8070;--mid-lt:#B0A898;
+  --border:rgba(26,22,18,0.08);--border-md:rgba(26,22,18,0.12);
+  --ap:#E8A87C;--ap-dk:#C8784A;--terra:#C4503A;
+  --plum:#2D1F4A;--plum-lt:#9B7FD4;
+  --garden:#5A9060;
+  --surface:#FFFFFF;
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;
+  --space-6:24px;--space-8:32px;--space-12:48px;--space-16:64px;
+  --shadow-card:none;
+  --shadow-tab-bar:0 4px 20px rgba(26,22,18,0.11);
+  --shadow-fab:0 4px 16px rgba(155,127,212,0.35);
+  --shadow-sheet:0 -2px 20px rgba(26,22,18,0.12);
+}
+body{background:var(--cream);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;color:var(--ink);line-height:1.55;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 28px;}
+.nav-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;height:48px;gap:0;}
+.nav-brand{font-size:13px;font-weight:500;color:var(--ink);text-decoration:none;margin-right:24px;flex-shrink:0;display:flex;align-items:center;gap:6px;}
+.nav-links{display:flex;overflow-x:auto;scrollbar-width:none;flex:1;}
+.nav-links::-webkit-scrollbar{display:none;}
+.nav-link{font-size:11px;font-weight:500;color:var(--mid);text-decoration:none;white-space:nowrap;padding:0 11px;height:48px;display:flex;align-items:center;border-bottom:2px solid transparent;transition:all 0.15s;}
+.nav-link:hover{color:var(--ink);}
+.nav-link.active{color:var(--ink);border-bottom-color:var(--ap-dk);}
+
+/* PAGE */
+.page{max-width:900px;margin:0 auto;padding:0 28px 100px;}
+
+/* HERO */
+.hero{padding:52px 0 40px;border-bottom:1px solid var(--border);}
+.hero-eye{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:10px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:42px;color:var(--ink);line-height:1.05;letter-spacing:-0.7px;margin-bottom:10px;}
+.hero-sub{font-size:14px;color:var(--mid);max-width:480px;line-height:1.6;}
+
+/* PHASE HEADER */
+.phase{padding-top:56px;}
+.phase-num{font-family:'DM Serif Display',serif;font-size:52px;color:rgba(26,22,18,0.06);line-height:1;margin-bottom:-10px;}
+.phase-title{font-family:'DM Serif Display',serif;font-size:26px;color:var(--ink);margin-bottom:6px;}
+.phase-desc{font-size:13px;color:var(--mid);max-width:520px;line-height:1.6;margin-bottom:24px;}
+.phase-time{display:inline-flex;align-items:center;gap:5px;background:rgba(26,22,18,0.06);border-radius:100px;padding:4px 11px;font-size:11px;font-weight:500;color:rgba(26,22,18,0.5);margin-bottom:24px;}
+
+.rule{height:1px;background:var(--border);margin:48px 0 0;}
+
+/* STEPS */
+.step{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:18px 20px;margin-bottom:10px;box-shadow:0 1px 3px rgba(26,22,18,0.04);}
+.step-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px;}
+.step-num{width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--cream);font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.step-num.done{background:rgba(90,144,96,0.15);color:#3A6E40;}
+.step-title{font-size:13px;font-weight:500;color:var(--ink);flex:1;}
+.step-tag{font-size:9px;font-weight:500;padding:2px 7px;border-radius:100px;margin-left:6px;}
+.st-fast{background:rgba(90,144,96,0.10);color:#3A6E40;}
+.st-important{background:rgba(200,120,74,0.10);color:#8A4A20;}
+.st-plugin{background:rgba(74,130,160,0.10);color:#2A6080;}
+
+.step-body{font-size:12px;color:var(--mid);line-height:1.7;padding-left:36px;}
+.step-body strong{color:var(--ink);font-weight:500;}
+.step-body code{font-family:monospace;font-size:11px;background:rgba(26,22,18,0.06);padding:1px 5px;border-radius:3px;color:var(--ink);}
+.step-body ul{padding-left:16px;margin-top:6px;}
+.step-body li{margin-bottom:3px;}
+
+/* TOKEN TABLE */
+.token-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:10px;}
+.token-table th{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--mid);padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);}
+.token-table td{padding:9px 12px;border-bottom:1px solid rgba(26,22,18,0.05);vertical-align:top;}
+.token-table tr:last-child td{border-bottom:none;}
+.token-table td:first-child{font-weight:500;color:var(--ink);font-family:monospace;font-size:11px;}
+.token-table td:nth-child(2){color:var(--mid);}
+.token-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(26,22,18,0.04);margin-top:10px;}
+
+.swatch{width:16px;height:16px;border-radius:4px;display:inline-block;vertical-align:middle;margin-right:6px;border:1px solid rgba(26,22,18,0.08);}
+
+/* FILE STRUCTURE */
+.file-tree{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:18px 20px;box-shadow:0 1px 3px rgba(26,22,18,0.04);}
+.file-row{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid rgba(26,22,18,0.05);}
+.file-row:last-child{border-bottom:none;}
+.file-icon{font-size:14px;flex-shrink:0;margin-top:1px;}
+.file-name{font-size:13px;font-weight:500;color:var(--ink);}
+.file-desc{font-size:11px;color:var(--mid);margin-top:2px;line-height:1.5;}
+.file-frames{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px;}
+.frame-pill{font-size:9px;font-weight:500;background:rgba(26,22,18,0.06);color:rgba(26,22,18,0.5);padding:2px 7px;border-radius:100px;font-family:monospace;}
+
+/* COMPONENT LIST */
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+@media(max-width:600px){.comp-grid{grid-template-columns:1fr;}}
+.comp-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:13px 15px;box-shadow:0 1px 3px rgba(26,22,18,0.04);}
+.comp-name{font-size:12px;font-weight:500;color:var(--ink);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.comp-props{font-size:11px;color:var(--mid);line-height:1.6;}
+.comp-props code{font-family:monospace;font-size:10px;background:rgba(26,22,18,0.06);padding:1px 4px;border-radius:3px;color:var(--ink);}
+
+/* PROTOTYPE FLOWS */
+.flow{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:16px 18px;margin-bottom:9px;box-shadow:0 1px 3px rgba(26,22,18,0.04);}
+.flow-title{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.flow-steps{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.flow-frame{font-size:10px;font-weight:500;background:rgba(26,22,18,0.06);color:var(--ink);padding:4px 10px;border-radius:6px;font-family:monospace;}
+.flow-arrow{font-size:12px;color:var(--mid-lt);}
+.flow-note{font-size:11px;color:var(--mid);margin-top:8px;line-height:1.55;}
+.flow-note strong{color:var(--ink);font-weight:500;}
+
+/* CHECKLIST */
+.checklist{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:16px 18px;box-shadow:0 1px 3px rgba(26,22,18,0.04);}
+.check-row{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid rgba(26,22,18,0.05);font-size:12px;color:var(--mid);line-height:1.5;}
+.check-row:last-child{border-bottom:none;}
+.check-box{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--border-md);flex-shrink:0;margin-top:1px;}
+.check-row strong{color:var(--ink);font-weight:500;}
+
+/* JSON BOX */
+.json-box{background:#1A1F1D;border-radius:12px;padding:16px 18px;font-family:monospace;font-size:11px;color:#96A89C;line-height:1.7;overflow-x:auto;}
+.json-key{color:#C4A8E8;}
+.json-val{color:#E8A87C;}
+.json-str{color:#A8D0A8;}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-thumb{background:var(--border-md);border-radius:2px;}
+</style>
+<style>.nudgii-hub-nav{position:sticky;top:0;z-index:999;background:#F5F0E8;border-bottom:1px solid rgba(26,22,18,0.12);padding:0 24px;display:flex;align-items:center;gap:16px;height:44px;font-family:'DM Sans',sans-serif}.nudgii-hub-nav a{font-size:13px;color:#8A8070;text-decoration:none}.nudgii-hub-nav a:first-child::before{content:'← ';}.nudgii-hub-nav span{font-size:13px;font-weight:500;color:#1A1612}.nudgii-hub-nav .tag{margin-left:auto;font-size:10px;font-weight:500;color:#B0A898;letter-spacing:1.2px;text-transform:uppercase;font-family:monospace}</style></head>
+<body><div class="nudgii-hub-nav"><a href="../index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:#8A8070"><svg width="18" height="18" viewBox="0 0 80 80" style="border-radius:4px;flex-shrink:0"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg><span>Design hub</span></a><span>Figma setup guide</span><span class="tag">System</span></div>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="#">
+      <svg width="16" height="16" viewBox="0 0 80 80"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
+      nudgii · Figma Setup
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="#phase1">Phase 1 · Tokens</a>
+      <a class="nav-link" href="#phase2">Phase 2 · Files</a>
+      <a class="nav-link" href="#phase3">Phase 3 · Components</a>
+      <a class="nav-link" href="#phase4">Phase 4 · Screens</a>
+      <a class="nav-link" href="#phase5">Phase 5 · Prototype</a>
+      <a class="nav-link" href="#checklist">Checklist</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-eye">nudgii · Figma setup guide · March 2026</div>
+    <h1 class="hero-title">From zero to<br>handoff-ready.</h1>
+    <p class="hero-sub">Five phases. Each one builds on the last. Follow in order — skipping Phase 1 makes everything else harder. Total time: roughly 4–5 hours for a solo developer starting from scratch.</p>
+  </div>
+
+  <!-- ── PHASE 1: TOKENS ── -->
+  <div class="phase" id="phase1">
+    <div class="phase-num">01</div>
+    <div class="phase-title">Set up tokens</div>
+    <div class="phase-desc">Before any frames. This is the foundation — every component and screen references these tokens. Change a token here and it updates everywhere automatically.</div>
+    <div class="phase-time">⏱ ~45 minutes · do this first, never skip it</div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">1</div>
+        <div class="step-title">Install Tokens Studio plugin <span class="step-tag st-plugin">plugin</span></div>
+      </div>
+      <div class="step-body">
+        In Figma: <strong>Main menu → Plugins → Browse plugins</strong> → search "Tokens Studio for Figma" → Install.<br><br>
+        Free tier is sufficient for nudgii. You don't need the Pro tier unless you want GitHub sync (useful later when you have a repo set up).
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">2</div>
+        <div class="step-title">Import the nudgii tokens JSON <span class="step-tag st-fast">2 minutes</span></div>
+      </div>
+      <div class="step-body">
+        Open Tokens Studio → click the <strong>Settings</strong> tab → <strong>Import</strong> → paste the contents of <code>nudgii-tokens.json</code> (the file included alongside this guide).<br><br>
+        This imports all color, spacing, radius, and typography tokens in one step. You should see four token sets appear: <code>nudgii/color</code>, <code>nudgii/category</code>, <code>nudgii/dark</code>, <code>nudgii/spacing</code>, <code>nudgii/radius</code>, <code>nudgii/typography</code>.<br><br>
+        <strong>Enable the light mode tokens</strong> as active: click the checkbox next to <code>nudgii/color</code>, <code>nudgii/category</code>, <code>nudgii/spacing</code>, <code>nudgii/radius</code>. Leave <code>nudgii/dark</code> unchecked for now — you'll enable it when working on dark mode screens.
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">3</div>
+        <div class="step-title">Convert tokens to Figma Variables</div>
+      </div>
+      <div class="step-body">
+        In Tokens Studio → <strong>Sync → Export to Figma Variables</strong>. This creates native Figma Variables collections that components can reference directly — no plugin required for other designers reading the file.<br><br>
+        After export, open <strong>Local Variables</strong> (top right in Figma, or Edit → Variables). You should see:<br>
+        <ul>
+          <li><code>nudgii/color</code> — 13 color variables</li>
+          <li><code>nudgii/category</code> — 10 category variables</li>
+          <li><code>nudgii/dark</code> — 8 dark mode variables</li>
+          <li><code>nudgii/spacing</code> — 8 number variables</li>
+          <li><code>nudgii/radius</code> — 5 number variables</li>
+        </ul>
+        <br>
+        Set up <strong>modes</strong> on the color collection: rename "Default" to "Light", then duplicate it and name it "Dark". In the Dark mode column, update each variable value to the equivalent from <code>nudgii/dark</code> tokens.
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">4</div>
+        <div class="step-title">Add text styles manually</div>
+      </div>
+      <div class="step-body">
+        Tokens Studio doesn't import text styles perfectly — do these 8 manually.<br><br>
+        <strong>In Figma: right sidebar → Text → + → name exactly as shown:</strong>
+        <div class="token-wrap" style="margin-top:12px;">
+          <table class="token-table">
+            <tr><th>Style name</th><th>Font / Size / Weight</th><th>Line height / Tracking</th></tr>
+            <tr><td>nudgii/display/welcome</td><td>DM Serif Display · 33px · Regular</td><td>lh 0.97 · ls -0.55px</td></tr>
+            <tr><td>nudgii/display/greeting</td><td>DM Serif Display · 26px · Regular</td><td>lh 0.95 · ls -0.4px</td></tr>
+            <tr><td>nudgii/display/overlay</td><td>DM Serif Display · 28px · Regular</td><td>lh 1.1 · ls -0.3px</td></tr>
+            <tr><td>nudgii/display/empty</td><td>DM Serif Display · 22px · Regular</td><td>lh 1.2 · ls 0</td></tr>
+            <tr><td>nudgii/body/task-name</td><td>DM Sans · 14px · Medium (500)</td><td>lh 1.3 · ls -0.2px</td></tr>
+            <tr><td>nudgii/body/subtitle</td><td>DM Sans · 11px · Regular · Italic</td><td>lh 1.4 · ls 0</td></tr>
+            <tr><td>nudgii/body/section-label</td><td>DM Sans · 9px · Medium (500) · ALL CAPS</td><td>lh 1.2 · ls 1.8px</td></tr>
+            <tr><td>nudgii/body/body</td><td>DM Sans · 15px · Regular</td><td>lh 1.55 · ls 0</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ── PHASE 2: FILES ── -->
+  <div class="phase" id="phase2">
+    <div class="phase-num">02</div>
+    <div class="phase-title">Create the file structure</div>
+    <div class="phase-desc">Four design files plus one component library. Never put everything in one file — Figma gets slow past 40 frames and the performance degrades noticeably on an M-series Mac.</div>
+    <div class="phase-time">⏱ ~15 minutes · naming is the whole point here</div>
+
+    <div class="file-tree">
+      <div class="file-row">
+        <div class="file-icon">📚</div>
+        <div>
+          <div class="file-name">nudgii · Components</div>
+          <div class="file-desc">The component library. Publish as Team Library. Every other file imports from here. This is the only file where components are built — never build components inside a screen file.</div>
+          <div class="file-frames">
+            <span class="frame-pill">colors</span>
+            <span class="frame-pill">typography</span>
+            <span class="frame-pill">buttons</span>
+            <span class="frame-pill">nudge-card</span>
+            <span class="frame-pill">category-icon</span>
+            <span class="frame-pill">filter-chip</span>
+            <span class="frame-pill">tab-bar</span>
+            <span class="frame-pill">done-overlay</span>
+            <span class="frame-pill">pro-badge</span>
+            <span class="frame-pill">streak-row</span>
+          </div>
+        </div>
+      </div>
+      <div class="file-row">
+        <div class="file-icon">🚀</div>
+        <div>
+          <div class="file-name">nudgii · Onboarding</div>
+          <div class="file-desc">Welcome screen through to dashboard first load. Three paths (A/B/C), voice screen, AI response screen, review screen, completion screen.</div>
+          <div class="file-frames">
+            <span class="frame-pill">welcome</span>
+            <span class="frame-pill">path-a/voice</span>
+            <span class="frame-pill">path-a/transcript</span>
+            <span class="frame-pill">path-a/ai-response</span>
+            <span class="frame-pill">path-b/browse</span>
+            <span class="frame-pill">path-c/search</span>
+            <span class="frame-pill">review</span>
+            <span class="frame-pill">completion</span>
+          </div>
+        </div>
+      </div>
+      <div class="file-row">
+        <div class="file-icon">📋</div>
+        <div>
+          <div class="file-name">nudgii · Dashboard</div>
+          <div class="file-desc">The daily use screen. Active state, empty state, category filter, done overlay. Light mode and dark mode frames side by side.</div>
+          <div class="file-frames">
+            <span class="frame-pill">dashboard/active-light</span>
+            <span class="frame-pill">dashboard/active-dark</span>
+            <span class="frame-pill">dashboard/empty-light</span>
+            <span class="frame-pill">dashboard/empty-dark</span>
+            <span class="frame-pill">dashboard/done-overlay</span>
+            <span class="frame-pill">dashboard/filtered</span>
+          </div>
+        </div>
+      </div>
+      <div class="file-row">
+        <div class="file-icon">📄</div>
+        <div>
+          <div class="file-name">nudgii · Item & Task detail</div>
+          <div class="file-desc">Item detail (all nudges for one item), task detail (why/how/when), chatbot zone, snooze flow, mark complete confirmation.</div>
+          <div class="file-frames">
+            <span class="frame-pill">item-detail</span>
+            <span class="frame-pill">task-detail</span>
+            <span class="frame-pill">task-detail/chatbot</span>
+            <span class="frame-pill">snooze-sheet</span>
+            <span class="frame-pill">complete-confirm</span>
+          </div>
+        </div>
+      </div>
+      <div class="file-row">
+        <div class="file-icon">👤</div>
+        <div>
+          <div class="file-name">nudgii · Profile & Settings</div>
+          <div class="file-desc">Profile screen (free user + Pro user), settings, notifications, icon switcher, Pro upgrade flow.</div>
+          <div class="file-frames">
+            <span class="frame-pill">profile/free</span>
+            <span class="frame-pill">profile/pro</span>
+            <span class="frame-pill">settings</span>
+            <span class="frame-pill">notifications</span>
+            <span class="frame-pill">icon-switcher</span>
+            <span class="frame-pill">pro-upgrade</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" style="margin-top:14px;">
+      <div class="step-header">
+        <div class="step-num">5</div>
+        <div class="step-title">Frame naming convention — use this exactly</div>
+      </div>
+      <div class="step-body">
+        Frame names become Flutter route names. Name them as paths:<br><br>
+        <code>welcome</code> → <code>path-a/voice</code> → <code>path-a/transcript</code> → <code>path-a/review</code> → <code>dashboard/active</code><br><br>
+        Inside each frame, layer naming matters too. Use: <code>component/variant/state</code><br>
+        Example: <code>nudge-card/home/overdue</code> · <code>button/cta/default</code> · <code>tab-bar/today-active</code><br><br>
+        <strong>Never leave a layer called "Frame 47" or "Rectangle 3".</strong> Name every layer before moving to the next frame. This sounds tedious — it saves hours when you're searching for something in a 30-frame file.
+      </div>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ── PHASE 3: COMPONENTS ── -->
+  <div class="phase" id="phase3">
+    <div class="phase-num">03</div>
+    <div class="phase-title">Build the component library</div>
+    <div class="phase-desc">Build in nudgii · Components. Publish. Then never touch them inside a screen file. Each component spec below tells you exactly what variants and properties to create.</div>
+    <div class="phase-time">⏱ ~2–3 hours · this is the most valuable time you'll spend</div>
+
+    <div class="comp-grid">
+
+      <div class="comp-card">
+        <div class="comp-name">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ap-dk)" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Nudge card
+        </div>
+        <div class="comp-props">
+          <strong>Properties:</strong><br>
+          · <code>category</code> — home / vehicle / garden / subscriptions / health<br>
+          · <code>status</code> — overdue / today / upcoming / ok<br>
+          · <code>done</code> — boolean (strikethrough + opacity)<br><br>
+          <strong>Auto-layout:</strong> horizontal, 10px gap, 10px 12px padding.<br>
+          Status changes only the date label color token — no other changes. Category changes the icon and its bg token.
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-name">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ap-dk)" stroke-width="2" stroke-linecap="round"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg>
+          Button
+        </div>
+        <div class="comp-props">
+          <strong>Variants:</strong> primary / secondary / ghost<br>
+          <strong>Size:</strong> default (50px) / sm (40px)<br>
+          <strong>With icon:</strong> boolean — shows mic icon slot<br><br>
+          Primary: <code>apricot-dk</code> fill, <code>cream</code> text, pill radius.<br>
+          Secondary: transparent, <code>border-md</code> stroke.<br>
+          Ghost: transparent, no border, <code>mid</code> text.
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-name">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ap-dk)" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          Category icon chip
+        </div>
+        <div class="comp-props">
+          <strong>Property:</strong> <code>category</code> — home / vehicle / garden / subscriptions / health<br><br>
+          Fixed 30×30px, radius 9px. Uses <code>cat/[name]</code> token for stroke and <code>cat/[name]-bg</code> token for fill. Icon SVG swaps per variant.
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-name">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ap-dk)" stroke-width="2" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="14" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+          Filter chip
+        </div>
+        <div class="comp-props">
+          <strong>State:</strong> default / active<br>
+          <strong>Category:</strong> all / home / vehicle / garden / subscriptions<br><br>
+          Default: transparent bg, <code>border-md</code>. Active: <code>ink</code> bg, <code>cream</code> text. Category chips show a 4px dot in category color when not "All".
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-name">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ap-dk)" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+          Tab bar
+        </div>
+        <div class="comp-props">
+          <strong>Active tab:</strong> today / ask / you<br><br>
+          Fixed height: 52px (+ bottom safe area). Three items, space-around. Active: <code>ink</code> icon + label + 3px apricot-dk pip below. Inactive: <code>border</code> color 22% opacity.
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-name">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--plum-lt)" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Done overlay
+        </div>
+        <div class="comp-props">
+          <strong>Text:</strong> <code>title</code> (string) and <code>sub</code> (string) as properties<br><br>
+          Full screen, <code>plum</code> bg. Center column: ii mark (40px) → serif title → italic sub → undo button. In Figma prototype: use Smart Animate, scale + opacity, 400ms, spring easing. This is the only theatrical animation.
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-name">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--plum-lt)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          Pro badge
+        </div>
+        <div class="comp-props">
+          Full pill: <code>plum-lt</code> dot + "nudgii Pro" text, 10% opacity bg, 20% border. 10px font, 500 weight.<br><br>
+          Used only on the profile screen header. Never on task cards, filter chips, or navigation.
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-name">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ap-dk)" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Streak row
+        </div>
+        <div class="comp-props">
+          <strong>Property:</strong> <code>count</code> (number)<br><br>
+          Horizontal card, white bg. Left: star icon in <code>apricot-dk</code>. Center: "n-week streak" (500) + "your stuff is quietly grateful" (italic, mid). Right: DM Serif Display number in <code>apricot-dk</code>.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="step" style="margin-top:14px;">
+      <div class="step-header">
+        <div class="step-num">6</div>
+        <div class="step-title">Publish the library <span class="step-tag st-important">do this before Phase 4</span></div>
+      </div>
+      <div class="step-body">
+        In nudgii · Components file: <strong>Main menu → Libraries → Publish</strong>. Add a description: "nudgii component library v1 · March 2026".<br><br>
+        In each of the four screen files: <strong>Main menu → Libraries → nudgii · Components → Enable</strong>.<br><br>
+        <strong>Important:</strong> whenever you update a component in the library, re-publish. Screen files will show an "Update available" notification — accept it. Never edit a component instance inside a screen file — always go to the source component.
+      </div>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ── PHASE 4: SCREENS ── -->
+  <div class="phase" id="phase4">
+    <div class="phase-num">04</div>
+    <div class="phase-title">Build the screens</div>
+    <div class="phase-desc">Now that tokens and components exist, each screen is mostly assembly. Use the HTML reference files — screenshot at 2x, place as a locked reference layer, build on top.</div>
+    <div class="phase-time">⏱ ~20–30 min per screen · do welcome and dashboard first</div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">7</div>
+        <div class="step-title">Frame setup for every screen</div>
+      </div>
+      <div class="step-body">
+        Use iPhone 16 Pro frame preset (393 × 852px) or iPhone 14 (390 × 844px) — pick one and use it for all screens. Never mix frame sizes in the same file.<br><br>
+        <strong>Layer order in every frame (top to bottom in the layers panel):</strong>
+        <ul>
+          <li>Status bar (auto-layout, always topmost)</li>
+          <li>Header zone (screen-specific)</li>
+          <li>Scrollable content (auto-layout, vertical, stretches)</li>
+          <li>Tab bar (pinned to bottom with constraints)</li>
+          <li>Done overlay (hidden by default, shown in prototype)</li>
+          <li>Reference (locked image, lowest layer)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">8</div>
+        <div class="step-title">Welcome screen — build this first</div>
+      </div>
+      <div class="step-body">
+        Frame name: <code>welcome</code><br><br>
+        <strong>Layer structure:</strong>
+        <ul>
+          <li><code>status-bar</code> — time left, battery right, 11px DM Sans 500, <code>ink</code> 36% opacity</li>
+          <li><code>header</code> — auto-layout vertical, 13px gap, 14px 20px padding
+            <ul>
+              <li><code>top-row</code> — ii mark (20px) left, free badge right, space-between</li>
+              <li><code>headline</code> — text style <code>nudgii/display/welcome</code>, <code>ink</code></li>
+              <li><code>subline</code> — 12px DM Sans 300 italic, <code>mid</code></li>
+            </ul>
+          </li>
+          <li><code>preview-cards</code> — 3 instances of nudge-card component, status overridden per locale</li>
+          <li><code>path-divider</code> — line + "Hoe wil je starten?" label</li>
+          <li><code>paths</code> — button/primary (Path A) + hint + button/secondary (Path B) + hint + button/ghost (Path C)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">9</div>
+        <div class="step-title">Dashboard — two frames (active + empty)</div>
+      </div>
+      <div class="step-body">
+        Frame names: <code>dashboard/active-light</code> and <code>dashboard/empty-light</code><br><br>
+        <strong>Header zone — no gradient, flat cream:</strong>
+        <ul>
+          <li><code>eye</code> — 9px DM Sans 500 uppercase, <code>mid</code></li>
+          <li><code>greeting</code> — text style <code>nudgii/display/greeting</code>. Name text is italic em in <code>apricot</code> (not apricot-dk here)</li>
+          <li><code>context</code> — 11px italic, <code>mid</code> 32% opacity</li>
+          <li><code>actions</code> — search button (28×28, mid-opacity bg) + add button (28×28, <code>ink</code> bg)</li>
+        </ul>
+        <br>
+        <strong>Filter chips row</strong> — horizontal auto-layout, 6px gap, 14px top padding.<br><br>
+        <strong>Content sections</strong> — "Overdue" section label + overdue cards. "This week" section label + cards. "Coming up" label + cards.<br><br>
+        <strong>Empty state</strong> — center the ii mark (tiny, 14% opacity) + DM Serif Display 22px "Nothing overdue. Suspicious." + 12px italic subtext. Below: "Done this week" section with 30% opacity done cards.
+      </div>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ── PHASE 5: PROTOTYPE ── -->
+  <div class="phase" id="phase5">
+    <div class="phase-num">05</div>
+    <div class="phase-title">Wire the prototype</div>
+    <div class="phase-desc">Connect the onboarding flow first — that's what you'll user test. Get 2–3 people to tap through it before building any Flutter code.</div>
+    <div class="phase-time">⏱ ~1 hour for onboarding flow · 30 min for daily use</div>
+
+    <div class="flow">
+      <div class="flow-title">
+        <span style="width:20px;height:20px;border-radius:50%;background:rgba(200,120,74,0.15);color:var(--ap-dk);font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;">A</span>
+        Onboarding · Path A (voice) — the primary flow
+      </div>
+      <div class="flow-steps">
+        <span class="flow-frame">welcome</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-frame">path-a/voice</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-frame">path-a/transcript</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-frame">path-a/ai-response</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-frame">review</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-frame">completion</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-frame">dashboard/active-light</span>
+      </div>
+      <div class="flow-note"><strong>Trigger:</strong> tap Path A button on welcome. <strong>Transition:</strong> push right (300ms ease-in-out) for all except completion → dashboard which uses a custom fade (250ms).</div>
+    </div>
+
+    <div class="flow">
+      <div class="flow-title">
+        <span style="width:20px;height:20px;border-radius:50%;background:rgba(74,130,160,0.12);color:#2A6080;font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;">B</span>
+        Onboarding · Path B (browse) — secondary flow
+      </div>
+      <div class="flow-steps">
+        <span class="flow-frame">welcome</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-frame">path-b/browse</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-frame">review</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-frame">completion</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-frame">dashboard/active-light</span>
+      </div>
+      <div class="flow-note"><strong>Trigger:</strong> tap Path B button on welcome. Same transitions as Path A from review onward.</div>
+    </div>
+
+    <div class="flow">
+      <div class="flow-title">
+        <span style="width:20px;height:20px;border-radius:50%;background:rgba(26,22,18,0.06);color:var(--mid);font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;">C</span>
+        Onboarding · Path C (direct search)
+      </div>
+      <div class="flow-steps">
+        <span class="flow-frame">welcome</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-frame">path-c/search</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-frame">review</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-frame">dashboard/active-light</span>
+      </div>
+      <div class="flow-note"><strong>Trigger:</strong> tap ghost link on welcome.</div>
+    </div>
+
+    <div class="flow">
+      <div class="flow-title">
+        <span style="width:20px;height:20px;border-radius:50%;background:rgba(45,31,74,0.10);color:var(--plum-lt);font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;">✓</span>
+        Daily use · Done overlay — the key moment
+      </div>
+      <div class="flow-steps">
+        <span class="flow-frame">dashboard/active-light</span>
+        <span class="flow-arrow">tap card →</span>
+        <span class="flow-frame">dashboard/done-overlay</span>
+        <span class="flow-arrow">4s or undo →</span>
+        <span class="flow-frame">dashboard/active-light</span>
+      </div>
+      <div class="flow-note"><strong>Transition:</strong> Smart Animate, 400ms, spring easing <code>cubic-bezier(0.34, 1.56, 0.64, 1)</code>. The overlay must scale from 0.65 to 1 — set the overlay frame to 65% scale in the default state, 100% in the triggered state. Figma Smart Animate handles the interpolation. <strong>This animation is the most important thing in the prototype to get right.</strong></div>
+    </div>
+
+    <div class="step" style="margin-top:14px;">
+      <div class="step-header">
+        <div class="step-num">10</div>
+        <div class="step-title">Share and test before building Flutter <span class="step-tag st-important">critical</span></div>
+      </div>
+      <div class="step-body">
+        Share the prototype link (Present mode → Share) with 2–3 people who haven't seen nudgii before. Watch them tap through the onboarding. Don't explain anything — observe silently.<br><br>
+        <strong>What to watch for:</strong>
+        <ul>
+          <li>Do they tap Path A without hesitation? If they pause, the button hierarchy isn't clear enough.</li>
+          <li>Do they understand the three locale preview cards are examples, not interactive? If they tap them expecting something, add a subtle label.</li>
+          <li>Does the done overlay feel earned or startling? Startling means the transition is too fast.</li>
+          <li>Do they find the Path C ghost link? They shouldn't need to — but they should be able to if they look.</li>
+        </ul>
+        <br>
+        Fix what you see <em>in Figma</em> before writing a line of Flutter code. Changes in Figma take minutes. Changes in Flutter take hours.
+      </div>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- CHECKLIST -->
+  <div class="phase" id="checklist" style="padding-top:52px;">
+    <div class="phase-num">✓</div>
+    <div class="phase-title">Setup checklist</div>
+    <div class="phase-desc">Print this or keep it open. Check off each item in order.</div>
+
+    <div class="checklist">
+      <div class="check-row"><div class="check-box"></div><strong>Tokens Studio installed</strong></div>
+      <div class="check-row"><div class="check-box"></div><strong>nudgii-tokens.json imported</strong> — all 6 token sets visible</div>
+      <div class="check-row"><div class="check-box"></div><strong>Figma Variables exported</strong> — light + dark mode collections visible</div>
+      <div class="check-row"><div class="check-box"></div><strong>8 text styles created</strong> — all named nudgii/display/* and nudgii/body/*</div>
+      <div class="check-row"><div class="check-box"></div><strong>5 Figma files created</strong> — Components + 4 flow files</div>
+      <div class="check-row"><div class="check-box"></div><strong>Components library published</strong> — enabled in all 4 screen files</div>
+      <div class="check-row"><div class="check-box"></div><strong>8 components built</strong> — nudge card, button, cat icon, filter chip, tab bar, done overlay, pro badge, streak row</div>
+      <div class="check-row"><div class="check-box"></div><strong>Welcome screen built</strong> — all layers named, all tokens applied</div>
+      <div class="check-row"><div class="check-box"></div><strong>Dashboard built</strong> — active + empty, light + dark</div>
+      <div class="check-row"><div class="check-box"></div><strong>3 onboarding paths wired</strong> in prototype</div>
+      <div class="check-row"><div class="check-box"></div><strong>Done overlay wired</strong> with Smart Animate spring transition</div>
+      <div class="check-row"><div class="check-box"></div><strong>Tested with 2–3 people</strong> before opening Flutter</div>
+      <div class="check-row"><div class="check-box"></div><strong>Stark accessibility plugin run</strong> on welcome + dashboard</div>
+    </div>
+  </div>
+
+  <div class="rule" style="margin-top:52px;"></div>
+  <div style="padding:28px 0 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;">
+    <span style="font-size:13px;font-weight:500;color:var(--ink);">nudgii · Figma Setup Guide</span>
+    <span style="font-size:12px;color:var(--mid);">Elf Consult · March 2026</span>
+  </div>
+
+</div>
+
+<script>
+const secs=document.querySelectorAll('.phase[id]');
+const links=document.querySelectorAll('.nav-link');
+const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){links.forEach(l=>l.classList.remove('active'));const a=document.querySelector(`.nav-link[href="#${en.target.id}"]`);if(a)a.classList.add('active');}});},{rootMargin:'-20% 0px -70% 0px'});
+secs.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>

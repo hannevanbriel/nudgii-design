@@ -1,0 +1,2280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · Design system</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+
+:root{
+  --cream:    #F5F0E8;
+  --cream-2:  #EDE6D4;
+  --ink:      #1A1612;
+  --mid:      #8A8070;
+  --mid-lt:   #B0A898;
+  --border:   rgba(26,22,18,0.08);
+  --border-md:rgba(26,22,18,0.12);
+  --ap:       #E8A87C;
+  --ap-dk:    #C8784A;   /* due-soon status dates ONLY — no longer CTA */
+  --cta:      #9B7FD4;   /* PRIMARY CTA — light plum, locked */
+  --terra:    #C4503A;
+  --plum:     #2D1F4A;
+  --plum-lt:  #9B7FD4;
+  --plum-pale:#C4A8E8;
+  --ch:#C87850;--chb:rgba(200,120,80,0.10);
+  --cv:#4A82A0;--cvb:rgba(74,130,160,0.10);
+  --cg:#5A9060;--cgb:rgba(90,144,96,0.10);
+  --cs:#8060A8;--csb:rgba(128,96,168,0.10);
+  --chl:#B86478;--chlb:rgba(184,100,120,0.10);
+
+  /* Surface token — all cards, sheets, inputs, nav bars */
+  --surface:  #FFFFFF;
+
+  /* Spacing scale — never use arbitrary values (13px, 22px, 7px etc.) */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* Shadow hierarchy — elevation, not decoration */
+  --shadow-card:    none;                              /* cards use border, not shadow */
+  --shadow-tab-bar: 0 4px 20px rgba(26,22,18,0.11);
+  --shadow-fab:     0 6px 20px rgba(155,127,212,0.45);
+  --shadow-sheet:   0 -2px 20px rgba(26,22,18,0.12);
+
+  /* Accessible mid — WCAG AA 4.6:1 on cream — use for ALL functional text */
+  --mid-a:    #6B6358;
+
+  /* Semantic feedback tokens */
+  --sage:     #3B6D11;   /* success text */
+  --sage-lt:  #EAF3DE;   /* success background */
+  --red:      #A32D2D;   /* error text */
+  --red-lt:   #FCEBEB;   /* error background */
+  --amber:    #854F0B;   /* warning text */
+  --amber-lt: #FAEEDA;   /* warning background */
+}
+
+body{background:var(--cream);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;color:var(--ink);line-height:1.55;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 32px;}
+.nav-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;height:50px;gap:0;}
+.nav-brand{font-family:'DM Serif Display',serif;font-size:15px;color:var(--ink);text-decoration:none;margin-right:28px;flex-shrink:0;display:flex;align-items:center;gap:7px;}
+.nav-dot{width:5px;height:5px;border-radius:50%;background:#9B7FD4;margin-top:1px;}
+.nav-links{display:flex;overflow-x:auto;scrollbar-width:none;flex:1;}
+.nav-links::-webkit-scrollbar{display:none;}
+.nav-link{font-size:11px;font-weight:500;color:var(--mid);text-decoration:none;white-space:nowrap;padding:0 12px;height:50px;display:flex;align-items:center;border-bottom:2px solid transparent;transition:all 0.15s;}
+.nav-link:hover{color:var(--ink);}
+.nav-link.active{color:var(--ink);border-bottom-color:#9B7FD4;}
+.v-tag{font-size:10px;font-weight:500;padding:2px 8px;border-radius:100px;background:rgba(155,127,212,0.12);color:#7040C0;}
+
+/* PAGE */
+.page{max-width:980px;margin:0 auto;padding:0 32px 100px;}
+
+/* HERO */
+.hero{padding:60px 0 44px;border-bottom:1px solid var(--border);}
+.hero-eye{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:10px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:46px;color:var(--ink);line-height:1.05;letter-spacing:-0.7px;margin-bottom:10px;}
+.hero-sub{font-size:14px;color:var(--mid);max-width:500px;line-height:1.6;}
+.hero-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;}
+.hero-pill{font-size:11px;font-weight:500;padding:4px 12px;border-radius:100px;background:rgba(26,22,18,0.06);color:rgba(26,22,18,0.55);}
+.hero-pill.locked{background:rgba(90,144,96,0.10);color:#3A6E40;}
+
+/* TOC */
+.toc{background:var(--cream-2);border-radius:12px;padding:18px 22px;margin-top:28px;border:1px solid var(--border);}
+.toc-lbl{font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:12px;}
+.toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:4px;}
+.toc-a{font-size:12px;color:var(--ink);text-decoration:none;padding:3px 0;display:block;}
+.toc-a:hover{color:var(--ap-dk);}
+.toc-n{color:var(--mid);margin-right:5px;font-size:11px;}
+
+/* SECTIONS */
+section{padding-top:60px;}
+.sec-eye{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:5px;}
+.sec-title{font-family:'DM Serif Display',serif;font-size:28px;color:var(--ink);margin-bottom:7px;}
+.sec-desc{font-size:13px;color:var(--mid);max-width:540px;margin-bottom:28px;line-height:1.6;}
+.rule{height:1px;background:var(--border);margin:52px 0 0;}
+
+/* RULE CARDS */
+.rcard{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:16px 18px;margin-bottom:9px;box-shadow:0 1px 3px rgba(26,22,18,0.04);}
+.rcard-title{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:5px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+.rcard-body{font-size:12px;color:var(--mid);line-height:1.65;}
+.rcard-body strong{color:var(--ink);font-weight:500;}
+.rcard-body code{font-family:monospace;font-size:11px;background:rgba(26,22,18,0.06);padding:1px 5px;border-radius:3px;}
+
+/* TAGS */
+.tag{font-size:9px;font-weight:500;padding:2px 7px;border-radius:100px;}
+.tag-lock{background:rgba(90,144,96,0.12);color:#3A6E40;}
+.tag-new{background:rgba(200,120,74,0.12);color:#8A4A20;}
+.tag-never{background:rgba(196,80,58,0.10);color:#993C1D;}
+.tag-pro{background:rgba(155,127,212,0.12);color:#7040C0;}
+
+/* TOKENS */
+.token-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(136px,1fr));gap:9px;margin-bottom:16px;}
+.ttile{border-radius:10px;overflow:hidden;border:1px solid var(--border);}
+.tsw{height:58px;}
+.tbody{padding:8px 10px;background:var(--surface);}
+.tname{font-size:12px;font-weight:500;color:var(--ink);}
+.thex{font-size:10px;color:var(--mid);font-family:monospace;margin-top:1px;}
+.trole{font-size:10px;color:var(--mid);margin-top:2px;line-height:1.4;}
+.tnote{font-size:9px;font-style:italic;color:rgba(26,22,18,0.3);margin-top:2px;}
+
+/* DARK PANEL */
+.dark-panel{background:#111614;border-radius:14px;padding:22px 24px;margin-top:16px;}
+.dark-lbl{font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:rgba(239,240,232,0.3);margin-bottom:14px;}
+.dark-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(136px,1fr));gap:9px;}
+.dark-tile{border-radius:10px;overflow:hidden;border:1px solid rgba(239,240,232,0.08);}
+.dark-body{padding:8px 10px;background:#1A1F1D;}
+.dark-name{font-size:12px;font-weight:500;color:#EFF0E8;}
+.dark-hex{font-size:10px;color:rgba(239,240,232,0.4);font-family:monospace;margin-top:1px;}
+.dark-role{font-size:10px;color:rgba(239,240,232,0.3);margin-top:2px;line-height:1.4;}
+
+/* CATEGORY */
+.cat-row{display:flex;gap:9px;flex-wrap:wrap;}
+.ctile{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:9px;min-width:150px;}
+.cicon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cicon svg{width:12px;height:12px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.cname{font-size:11px;font-weight:500;color:var(--ink);}
+.chex{font-size:10px;color:var(--mid);font-family:monospace;}
+.cnote{font-size:9px;color:var(--mid);font-style:italic;}
+
+/* TYPE ROWS */
+.type-row{padding:16px 0;border-bottom:1px solid var(--border);display:grid;grid-template-columns:170px 1fr;gap:18px;align-items:center;}
+.type-row:first-of-type{border-top:1px solid var(--border);}
+.trole{font-size:11px;font-weight:500;color:var(--ink);}
+.tspec{font-size:10px;color:var(--mid);margin-top:2px;line-height:1.5;}
+@media(max-width:600px){.type-row{grid-template-columns:1fr;}}
+
+/* COMPONENT DEMOS */
+.cgroup{margin-bottom:36px;}
+.cgroup-title{font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--mid);padding-bottom:9px;border-bottom:1px solid var(--border);margin-bottom:16px;}
+.cgroup-row{display:flex;gap:9px;flex-wrap:wrap;align-items:flex-start;}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:7px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;padding:13px 22px;border-radius:100px;border:none;cursor:pointer;letter-spacing:-0.1px;transition:opacity 0.12s;}
+.btn:active{opacity:0.8;}
+.btn-cta{background:#9B7FD4;color:#FAF8FF;}  /* PRIMARY CTA */
+.btn-secondary{background:transparent;color:var(--ink);border:1.5px solid var(--border-md);}
+.btn-ghost{background:transparent;color:var(--mid);border:none;font-size:13px;}
+.btn-sm{font-size:12px;padding:9px 16px;}
+.mic-btn{width:22px;height:22px;border-radius:50%;background:rgba(250,248,255,0.15);display:flex;align-items:center;justify-content:center;}
+.mic-btn svg{width:11px;height:11px;stroke:#FAF8FF;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+
+/* nudge card demo */
+.ncard{background:var(--surface);border-radius:11px;border:1px solid var(--border);padding:10px 12px;display:flex;align-items:center;gap:10px;max-width:300px;width:100%;box-shadow:0 1px 3px rgba(26,22,18,0.04);}
+.nci{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.nci svg{width:12px;height:12px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.nb{flex:1;min-width:0;}
+.nn{font-size:13px;font-weight:500;color:var(--ink);letter-spacing:-0.1px;}
+.nn-ov{color:var(--terra);}
+.ns{font-size:10px;font-style:italic;color:var(--mid);margin-top:1px;}
+.nd{font-size:11px;font-weight:500;flex-shrink:0;}
+
+/* done overlay mini */
+.done-mini{width:180px;border-radius:18px;background:var(--plum);padding:20px 18px;display:flex;flex-direction:column;align-items:center;text-align:center;}
+.dm-ii{display:flex;align-items:flex-start;gap:4px;margin-bottom:12px;}
+.dm-l{width:8px;height:24px;border-radius:100px;background:var(--plum-pale);}
+.dm-r{width:8px;height:24px;border-radius:100px;background:rgba(196,168,232,0.28);position:relative;}
+.dm-dot{width:6px;height:6px;border-radius:50%;background:var(--ap);position:absolute;top:2px;right:-2px;}
+.dm-title{font-family:'DM Serif Display',serif;font-size:14px;color:#EDE8FF;line-height:1.2;margin-bottom:3px;}
+.dm-title em{font-style:italic;color:var(--ap);}
+.dm-sub{font-size:9px;color:rgba(196,168,232,0.4);font-style:italic;}
+
+/* pro badge demo */
+.pro-pill{display:inline-flex;align-items:center;gap:5px;background:rgba(155,127,212,0.12);border:1px solid rgba(155,127,212,0.20);border-radius:100px;padding:4px 10px 4px 7px;font-size:10px;font-weight:500;color:var(--plum-lt);}
+.pro-dot{width:5px;height:5px;border-radius:50%;background:var(--plum-lt);}
+
+/* SPACING */
+.sp-row{display:flex;align-items:center;gap:13px;padding:7px 0;border-bottom:1px solid var(--border);}
+.sp-bar{background:#9B7FD4;border-radius:2px;height:7px;flex-shrink:0;}
+.sp-tok{font-size:11px;font-weight:500;color:var(--ink);font-family:monospace;width:54px;}
+.sp-px{font-size:11px;color:var(--mid);width:40px;}
+.sp-use{font-size:11px;color:var(--mid);}
+
+/* FIGMA STEPS */
+.figma-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;}
+.fstep{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:16px 18px;box-shadow:0 1px 3px rgba(26,22,18,0.04);}
+.fstep-num{font-family:'DM Serif Display',serif;font-size:28px;color:rgba(26,22,18,0.07);line-height:1;margin-bottom:8px;}
+.fstep-title{font-size:12px;font-weight:500;color:var(--ink);margin-bottom:7px;}
+.fstep-body{font-size:11px;color:var(--mid);line-height:1.65;}
+.fstep-body strong{color:var(--ink);font-weight:500;}
+.fstep-body code{font-family:monospace;font-size:10px;background:rgba(26,22,18,0.06);padding:1px 4px;border-radius:3px;}
+
+/* LOCKED RULES */
+.locked-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+@media(max-width:600px){.locked-grid{grid-template-columns:1fr;}}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-thumb{background:var(--border-md);border-radius:2px;}
+
+/* COMPONENT CARDS */
+.comp-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(26,22,18,0.04);}
+.comp-header{padding:14px 18px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:9px;flex-wrap:wrap;background:rgba(26,22,18,0.015);}
+.comp-name{font-size:13px;font-weight:500;color:var(--ink);}
+.comp-body{padding:18px;}
+
+/* SPEC TABLES */
+.spec-grid{border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.spec-row{display:grid;grid-template-columns:140px 1fr;gap:0;border-bottom:1px solid var(--border);}
+.spec-l{font-size:11px;font-weight:500;color:var(--ink);padding:9px 12px;background:rgba(26,22,18,0.025);border-right:1px solid var(--border);}
+.spec-r{font-size:11px;color:var(--mid);padding:9px 13px;line-height:1.55;}
+.spec-r code{font-family:monospace;font-size:10px;background:rgba(26,22,18,0.06);padding:1px 5px;border-radius:3px;color:var(--ink);}
+@media(max-width:600px){.spec-row{grid-template-columns:1fr;}.spec-l{border-right:none;border-bottom:1px solid var(--border);}}
+</style>
+<style>.nudgii-hub-nav{position:sticky;top:0;z-index:999;background:#F5F0E8;border-bottom:1px solid rgba(26,22,18,0.12);padding:0 24px;display:flex;align-items:center;gap:16px;height:44px;font-family:'DM Sans',sans-serif}.nudgii-hub-nav a{font-size:13px;color:#8A8070;text-decoration:none}.nudgii-hub-nav a:first-child::before{content:'← ';}.nudgii-hub-nav span{font-size:13px;font-weight:500;color:#1A1612}.nudgii-hub-nav .tag{margin-left:auto;font-size:10px;font-weight:500;color:#B0A898;letter-spacing:1.2px;text-transform:uppercase;font-family:monospace}</style></head>
+<body><div class="nudgii-hub-nav"><a href="../index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:#8A8070"><svg width="18" height="18" viewBox="0 0 80 80" style="border-radius:4px;flex-shrink:0"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg><span>Design hub</span></a><span>Design system</span><span class="tag">System</span></div>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="#">
+      <svg width="16" height="16" viewBox="0 0 80 80"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
+      nudgii<div class="nav-dot"></div>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="#brand">Brand</a>
+      <a class="nav-link" href="#color">Color</a>
+      <a class="nav-link" href="#dark">Dark mode</a>
+      <a class="nav-link" href="#category">Categories</a>
+      <a class="nav-link" href="#typography">Typography</a>
+      <a class="nav-link" href="#spacing">Spacing</a>
+      <a class="nav-link" href="#layout">Layout</a>
+      <a class="nav-link" href="#components">Components</a>
+      <a class="nav-link" href="#icons">App icons</a>
+      <a class="nav-link" href="#motion">Motion</a>
+      <a class="nav-link" href="#icons-system">Icon system</a>
+      <a class="nav-link" href="#figma">Figma</a>
+      <a class="nav-link" href="#rules">Rules</a>
+      <a class="nav-link" href="#copy">Copy</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eye">nudgii Design system · March 2026</div>
+    <h1 class="hero-title">Everything decided.<br>Nothing open.</h1>
+    <p class="hero-sub">All tokens, rules, components, and Figma workflow for nudgii. If it's not in here it's not decided. If it's in here it doesn't get questioned in a design review.</p>
+    <div class="hero-pills">
+      <span class="hero-pill locked">CTA → light plum #9B7FD4</span>
+      <span class="hero-pill locked">Pro badge → plum-lt full pill</span>
+      <span class="hero-pill locked">Dark base → deep sage #111614</span>
+      <span class="hero-pill locked">nudgii always lowercase</span>
+      <span class="hero-pill locked">No gradients anywhere</span>
+      <span class="hero-pill locked">Icons → Phosphor outline only</span>
+      <span class="hero-pill locked">Plum sacred → done overlay only</span>
+      <span class="hero-pill locked">Tab bar → floating pill</span>
+      <span class="hero-pill locked">FAB → rounded square, bottom-right</span>
+      <span class="hero-pill locked">Settings → Faders · Scan → Scan · Edit → PencilLine</span>
+    </div>
+
+    <div class="toc">
+      <div class="toc-lbl">Contents</div>
+      <div class="toc-grid">
+        <a class="toc-a" href="#brand"><span class="toc-n">01</span>Brand & logo</a>
+        <a class="toc-a" href="#color"><span class="toc-n">02</span>Color tokens</a>
+        <a class="toc-a" href="#dark"><span class="toc-n">03</span>Dark mode</a>
+        <a class="toc-a" href="#category"><span class="toc-n">04</span>Categories, items &amp; tasks</a>
+        <a class="toc-a" href="#typography"><span class="toc-n">05</span>Typography</a>
+        <a class="toc-a" href="#spacing"><span class="toc-n">06</span>Spacing</a>
+        <a class="toc-a" href="#layout"><span class="toc-n">07</span>Layout & shell</a>
+        <a class="toc-a" href="#components"><span class="toc-n">08</span>Component library</a>
+        <a class="toc-a" href="#icons"><span class="toc-n">09</span>App icons</a>
+        <a class="toc-a" href="#motion"><span class="toc-n">10</span>Motion</a>
+        <a class="toc-a" href="#icons-system"><span class="toc-n">11</span>Icon system</a>
+        <a class="toc-a" href="#figma"><span class="toc-n">12</span>Figma workflow</a>
+        <a class="toc-a" href="#rules"><span class="toc-n">13</span>Locked rules</a>
+        <a class="toc-a" href="#copy"><span class="toc-n">14</span>Copy library</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 01 BRAND -->
+  <section id="brand">
+    <div class="sec-eye">01</div>
+    <h2 class="sec-title">Brand & logo</h2>
+    <p class="sec-desc">nudgii is always lowercase. The ii lettermark is the icon. These rules do not bend.</p>
+
+    <div class="rcard">
+      <div class="rcard-title">Brand name <span class="tag tag-lock">locked forever</span></div>
+      <div class="rcard-body"><strong>nudgii</strong> — always all lowercase, everywhere. App UI, marketing, code comments, this document. Never "Nudgii." Never "NUDGII." The double-i is the brand's typographic signature — capitalising it erases the point.<br><br>Only exception: OS-forced capitalisation in system fields (App Store title field etc.) — this is a system constraint, not a brand choice.</div>
+    </div>
+
+    <div class="rcard">
+      <div class="rcard-title">ii lettermark — welcome screen spec <span class="tag tag-lock">locked</span></div>
+      <div class="rcard-body"><strong>20px height. Left-aligned. Inline with the free badge.</strong> Not centered. Not a hero.<br><br>The mark mirrors the icon exactly — same three colors in miniature:<br><br>Left pill: <code>cream #F5F0E8</code> with ink outline (mirrors icon left cream pill)<br>Right pill: <code>plum-lt #9B7FD4 at 55% opacity</code> (mirrors icon right pill — also the CTA color)<br>Dot: <code>apricot #E8A87C</code> top-right (mirrors icon dot — warm accent)<br><br>This is why the welcome screen now coheres with the homescreen icon. The ii mark, the CTA button, and the icon right pill are all <code>#9B7FD4</code> — one color, three moments.</div>
+    </div>
+
+    <!-- ii mark sizes -->
+    <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-end;margin-top:10px;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:5px;"><svg width="20" height="20" viewBox="0 0 80 80" style="border-radius:5px;"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg><div style="font-size:9px;color:var(--mid);">20px · welcome</div></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:5px;"><svg width="40" height="40" viewBox="0 0 80 80" style="border-radius:10px;"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg><div style="font-size:9px;color:var(--mid);">40px · done overlay</div></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:5px;"><svg width="72" height="72" viewBox="0 0 80 80" style="border-radius:18px;box-shadow:0 8px 24px rgba(45,31,74,0.35);"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg><div style="font-size:9px;color:var(--mid);">72px · homescreen</div></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:5px;"><svg width="112" height="112" viewBox="0 0 80 80" style="border-radius:26px;box-shadow:0 14px 40px rgba(45,31,74,0.40);"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg><div style="font-size:9px;color:var(--mid);">112px · App Store</div></div>
+    </div>
+
+    <!-- ii mark color versions -->
+    <div class="rcard" style="margin-top:18px;">
+      <div class="rcard-title">ii mark — 4 color versions <span class="tag" style="background:#EAF3DE;color:#3B6D11;">ClickUp 869ck812u</span></div>
+      <div class="rcard-body" style="margin-bottom:16px;">Four production-ready versions of the ii mark. Each has a defined surface it lives on. Never mix versions on the same surface.<br><br>
+      <strong>Two SVG structures:</strong><br>
+      <strong>Dark-on-light bg (Versions A only):</strong> plum square background + cream left pill + CTA purple right pill + apricot dot. Used as the app icon — the bg square is part of the asset.<br>
+      <strong>Light-on-dark bg (Versions B, C, D):</strong> no bg square — pills float naked on their surface. Left pill adapts to surface (cream outline on light, cream fill on plum, near-white on dark sage). Right pill is always CTA purple. Apricot dot unchanged. Never use the square-bg version inline on a screen — the floating pill version is always correct for in-app use.</div>
+
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;">
+
+        <!-- Version A: App icon / dark bg -->
+        <div style="border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+          <div style="background:#2D1F4A;padding:20px;display:flex;flex-direction:column;align-items:center;gap:12px;">
+            <svg width="52" height="52" viewBox="0 0 80 80" style="border-radius:13px;box-shadow:0 6px 20px rgba(0,0,0,0.4);">
+              <rect width="80" height="80" fill="#2D1F4A" rx="18"/>
+              <rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/>
+              <rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/>
+              <circle cx="57" cy="22" r="7" fill="#E8A87C"/>
+            </svg>
+            <div style="font-size:8.5px;color:rgba(245,240,232,0.55);letter-spacing:0.8px;text-transform:uppercase;">Version A</div>
+          </div>
+          <div style="padding:12px 14px;background:var(--surface);">
+            <div style="font-size:11px;font-weight:500;color:var(--ink);margin-bottom:3px;">App icon</div>
+            <div style="font-size:10px;color:var(--mid);line-height:1.55;margin-bottom:8px;">Plum square bg · cream left pill · CTA purple right pill · apricot dot. The ground truth version — everything else derives from this.</div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px;">
+              <span style="font-size:8px;background:var(--bg);border:0.5px solid var(--border);border-radius:100px;padding:2px 6px;color:var(--mid);">iOS homescreen</span>
+              <span style="font-size:8px;background:var(--bg);border:0.5px solid var(--border);border-radius:100px;padding:2px 6px;color:var(--mid);">App Store</span>
+              <span style="font-size:8px;background:var(--bg);border:0.5px solid var(--border);border-radius:100px;padding:2px 6px;color:var(--mid);">Splash screen</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Version B: Inline on cream -->
+        <div style="border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+          <div style="background:#F5F0E8;padding:20px;display:flex;flex-direction:column;align-items:center;gap:12px;">
+            <!-- Naked mark, no bg square — pills float on cream -->
+            <div style="width:52px;height:52px;display:flex;align-items:center;justify-content:center;position:relative;">
+              <svg width="44" height="50" viewBox="199 162 626 700" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#F5F0E8" stroke="#1A1612" stroke-width="28" d="M324.2,161.93h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87v-442.39c0-71.17,56.05-128.87,125.18-128.87Z"/>
+                <path fill="#9B7FD4" d="M649.98,161.93h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87v-442.39c0-71.17,56.05-128.87,125.18-128.87Z"/>
+                <circle fill="#E8A87C" cx="734.98" cy="281.22" r="90"/>
+              </svg>
+            </div>
+            <div style="font-size:8.5px;color:rgba(26,22,18,0.35);letter-spacing:0.8px;text-transform:uppercase;">Version B</div>
+          </div>
+          <div style="padding:12px 14px;background:var(--surface);">
+            <div style="font-size:11px;font-weight:500;color:var(--ink);margin-bottom:3px;">Inline on cream</div>
+            <div style="font-size:10px;color:var(--mid);line-height:1.55;margin-bottom:8px;">No bg square. Left pill: cream with thin ink outline. Right pill: CTA purple. Apricot dot. Pills float directly on the cream app background.</div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px;">
+              <span style="font-size:8px;background:var(--bg);border:0.5px solid var(--border);border-radius:100px;padding:2px 6px;color:var(--mid);">S-01 welcome top-left</span>
+              <span style="font-size:8px;background:var(--bg);border:0.5px solid var(--border);border-radius:100px;padding:2px 6px;color:var(--mid);">Email digest header</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Version C: On plum (done overlay) -->
+        <div style="border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+          <div style="background:#2D1F4A;padding:20px;display:flex;flex-direction:column;align-items:center;gap:12px;">
+            <!-- Naked mark on plum — no square bg, cream pill + softened purple + apricot -->
+            <div style="width:52px;height:52px;display:flex;align-items:center;justify-content:center;position:relative;">
+              <svg width="44" height="50" viewBox="199 162 626 700" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#F2EDE4" d="M324.2,161.93h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87v-442.39c0-71.17,56.05-128.87,125.18-128.87Z"/>
+                <path fill="#9B7FD4" d="M649.98,161.93h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87v-442.39c0-71.17,56.05-128.87,125.18-128.87Z"/>
+                <circle fill="#E8A87C" cx="734.98" cy="281.22" r="90"/>
+              </svg>
+            </div>
+            <div style="font-size:8.5px;color:rgba(245,240,232,0.35);letter-spacing:0.8px;text-transform:uppercase;">Version C</div>
+          </div>
+          <div style="padding:12px 14px;background:var(--surface);">
+            <div style="font-size:11px;font-weight:500;color:var(--ink);margin-bottom:3px;">On plum surface</div>
+            <div style="font-size:10px;color:var(--mid);line-height:1.55;margin-bottom:8px;">No bg square. Left pill: off-white cream (#F2EDE4). Right pill: CTA purple — pops against plum. Apricot dot. Used inside the done overlay — the mark floats in the celebration moment.</div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px;">
+              <span style="font-size:8px;background:var(--bg);border:0.5px solid var(--border);border-radius:100px;padding:2px 6px;color:var(--mid);">S-06 celebration state</span>
+              <span style="font-size:8px;background:var(--bg);border:0.5px solid var(--border);border-radius:100px;padding:2px 6px;color:var(--mid);">S-11 done overlay card</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Version D: Dark mode -->
+        <div style="border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+          <div style="background:#111614;padding:20px;display:flex;flex-direction:column;align-items:center;gap:12px;">
+            <!-- Naked mark on dark sage bg — cream pill glows, CTA purple softened slightly -->
+            <div style="width:52px;height:52px;display:flex;align-items:center;justify-content:center;position:relative;">
+              <svg width="44" height="50" viewBox="199 162 626 700" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#EFF0E8" d="M324.2,161.93h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87v-442.39c0-71.17,56.05-128.87,125.18-128.87Z"/>
+                <path fill="#9B7FD4" d="M649.98,161.93h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87v-442.39c0-71.17,56.05-128.87,125.18-128.87Z"/>
+                <circle fill="#E8A87C" cx="734.98" cy="281.22" r="90"/>
+              </svg>
+            </div>
+            <div style="font-size:8.5px;color:rgba(239,240,232,0.30);letter-spacing:0.8px;text-transform:uppercase;">Version D</div>
+          </div>
+          <div style="padding:12px 14px;background:var(--surface);">
+            <div style="font-size:11px;font-weight:500;color:var(--ink);margin-bottom:3px;">Dark mode inline</div>
+            <div style="font-size:10px;color:var(--mid);line-height:1.55;margin-bottom:8px;">No bg square. Left pill: dark-mode primary text (#EFF0E8). Right pill: CTA purple — unchanged in dark mode. Apricot dot — unchanged. Floats on deep sage dark bg.</div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px;">
+              <span style="font-size:8px;background:var(--bg);border:0.5px solid var(--border);border-radius:100px;padding:2px 6px;color:var(--mid);">Dark mode welcome</span>
+              <span style="font-size:8px;background:var(--bg);border:0.5px solid var(--border);border-radius:100px;padding:2px 6px;color:var(--mid);">Dark mode profile</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Usage rule summary -->
+      <div style="margin-top:12px;background:var(--bg);border:0.5px solid var(--border);border-radius:9px;padding:10px 13px;">
+        <div style="font-size:9.5px;font-weight:500;color:var(--ink);margin-bottom:5px;">Which version where</div>
+        <div style="font-size:9px;color:var(--mid);line-height:1.8;">
+          <strong style="color:var(--ink);font-weight:500;">A</strong> — App icon, splash, App Store, any marketing asset with a white/neutral bg<br>
+          <strong style="color:var(--ink);font-weight:500;">B</strong> — Inline on cream (light mode UI) — S-01 top-left, email header<br>
+          <strong style="color:var(--ink);font-weight:500;">C</strong> — On plum surface only — S-06 celebration state, S-11 done overlay<br>
+          <strong style="color:var(--ink);font-weight:500;">D</strong> — Dark mode inline — same positions as B, but on dark sage background
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- 02 COLOR -->
+  <section id="color">
+    <div class="sec-eye">02</div>
+    <h2 class="sec-title">Color tokens · light mode</h2>
+    <p class="sec-desc">Seven semantic tokens. Every color has one job. Color is information, not decoration.</p>
+
+    <div class="token-grid">
+      <div class="ttile"><div class="tsw" style="background:#F5F0E8;"></div><div class="tbody"><div class="tname">Cream</div><div class="thex">#F5F0E8</div><div class="trole">App background</div></div></div>
+      <div class="ttile"><div class="tsw" style="background:#1A1612;"></div><div class="tbody"><div class="tname">Ink</div><div class="thex">#1A1612</div><div class="trole">All body text. Warm charcoal — no blue hue.</div><div class="tnote">Changed from #1E2832 (too blue)</div></div></div>
+      <div class="ttile" style="outline:2px solid #9B7FD4;outline-offset:2px;border-radius:11px;"><div class="tsw" style="background:#9B7FD4;"></div><div class="tbody"><div class="tname">CTA · plum-lt <span style="font-size:9px;color:#7040C0;font-weight:500;"></span></div><div class="thex">#9B7FD4</div><div class="trole">Primary CTA button. Active filter chip. Active tab icon + label. Also Pro badge.</div><div class="tnote">Replaces apricot-dk as CTA</div></div></div>
+      <div class="ttile"><div class="tsw" style="background:#E8A87C;"></div><div class="tbody"><div class="tname">Apricot</div><div class="thex">#E8A87C</div><div class="trole">ii dot · greeting name em · streak number · done overlay dot.</div><div class="tnote">Warm accent only — never buttons</div></div></div>
+      <div class="ttile"><div class="tsw" style="background:#C8784A;"></div><div class="tbody"><div class="tname">Apricot-dk</div><div class="thex">#C8784A</div><div class="trole">Due-soon date labels only. No longer CTA.</div><div class="tnote">Due-soon labels only — not buttons</div></div></div>
+      <div class="ttile"><div class="tsw" style="background:#C4503A;"></div><div class="tbody"><div class="tname">Terra</div><div class="thex">#C4503A</div><div class="trole">Overdue status — date label + task name. Nothing else.</div></div></div>
+      <div class="ttile"><div class="tsw" style="background:#2D1F4A;"></div><div class="tbody"><div class="tname">Plum</div><div class="thex">#2D1F4A</div><div class="trole">Done overlay background. Sacred. Appears nowhere else.</div></div></div>
+      <div class="ttile"><div class="tsw" style="background:#9B7FD4;"></div><div class="tbody"><div class="tname">Plum-lt</div><div class="thex">#9B7FD4</div><div class="trole">Pro badge only. No other use.</div><div class="tnote">Pro badge, profile screen only</div></div></div>
+      <div class="ttile"><div class="tsw" style="background:#8A8070;"></div><div class="tbody"><div class="tname">Mid</div><div class="thex">#8A8070</div><div class="trole">Italic subtitles. Hint text. Section labels.</div></div></div>
+    </div>
+
+    <!-- COLOR THREAD -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:18px 20px;margin-bottom:9px;box-shadow:0 1px 3px rgba(26,22,18,0.04);">
+      <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:5px;display:flex;align-items:center;gap:7px;">The color thread <span class="tag tag-lock">locked</span></div>
+      <div style="font-size:12px;color:var(--mid);line-height:1.65;margin-bottom:16px;">One color family connects the entire user journey — homescreen to first tap to reward moment. The welcome screen ii mark, the CTA button, and the done overlay all share the same two plum hues.</div>
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <svg width="52" height="52" viewBox="0 0 80 80" style="border-radius:13px;box-shadow:0 6px 18px rgba(45,31,74,0.3);"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
+          <div style="font-size:9px;color:var(--mid);text-align:center;line-height:1.4;">Homescreen icon<br><strong style="color:var(--ink);font-weight:500;">deep plum</strong> bg<br><strong style="color:var(--ink);font-weight:500;">light plum</strong> right pill<br>apricot dot</div>
+        </div>
+        <div style="font-size:16px;color:rgba(26,22,18,0.15);">→</div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:52px;height:52px;border-radius:100px;background:#9B7FD4;box-shadow:0 4px 14px rgba(155,127,212,0.3);display:flex;align-items:center;justify-content:center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(250,248,255,0.8)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg>
+          </div>
+          <div style="font-size:9px;color:var(--mid);text-align:center;line-height:1.4;">CTA button<br><strong style="color:var(--ink);font-weight:500;">#9B7FD4</strong><br>= icon right pill</div>
+        </div>
+        <div style="font-size:16px;color:rgba(26,22,18,0.15);">→</div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:52px;height:52px;border-radius:13px;background:#2D1F4A;box-shadow:0 6px 18px rgba(45,31,74,0.3);display:flex;align-items:center;justify-content:center;">
+            <div style="display:flex;align-items:flex-start;gap:3px;"><div style="width:7px;height:20px;border-radius:100px;background:#C4A8E8;"></div><div style="width:7px;height:20px;border-radius:100px;background:rgba(196,168,232,0.3);position:relative;"><div style="width:5px;height:5px;border-radius:50%;background:#E8A87C;position:absolute;top:2px;right:-2px;"></div></div></div>
+          </div>
+          <div style="font-size:9px;color:var(--mid);text-align:center;line-height:1.4;">Done overlay<br><strong style="color:var(--ink);font-weight:500;">#2D1F4A</strong><br>= icon bg · 3× deeper</div>
+        </div>
+        <div style="font-size:16px;color:rgba(26,22,18,0.15);">+</div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:22px;height:22px;border-radius:50%;background:#E8A87C;box-shadow:0 3px 8px rgba(232,168,124,0.35);"></div>
+          <div style="font-size:9px;color:var(--mid);text-align:center;line-height:1.4;">Apricot<br><strong style="color:var(--ink);font-weight:500;">#E8A87C</strong><br>warm accent throughout</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="rcard-title">Primary CTA — light plum <span class="tag tag-new"></span></div>
+      <div class="rcard-body"><strong>All primary action buttons use <code>#9B7FD4</code> background with <code>#FAF8FF</code> lavender-cream text.</strong> This applies to: welcome screen Path A button, onboarding confirm buttons, dashboard add button, active filter chip, tab bar active pip.<br><br>Contrast ratio: 4.7:1 on cream (passes WCAG AA). Box shadow: <code>0 2px 12px rgba(155,127,212,0.28)</code> — subtle plum glow that ties the button to the icon.<br><br><strong>Why light plum:</strong> the icon right pill, the CTA button, and the Pro badge are all <code>#9B7FD4</code>. The done overlay is <code>#2D1F4A</code> — same family, 3× deeper. Tapping the button feels like a preview of the reward. The color thread: icon → CTA → overlay.<br><br>Apricot-dk <code>#C8784A</code> is now status-only — due-soon date labels. Never used on interactive elements.</div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- 03 DARK MODE -->
+  <section id="dark">
+    <div class="sec-eye">03</div>
+    <h2 class="sec-title">Dark mode tokens</h2>
+    <p class="sec-desc">Deep sage base — a very subtle cool-green tint, like old paper in dim light. Not blue, not neutral. Warm in a different register than the light mode.</p>
+
+    <div class="dark-panel">
+      <div class="dark-lbl">Dark mode · follows system preference · deep sage base</div>
+      <div class="dark-grid">
+        <div class="dark-tile"><div class="tsw" style="background:#111614;"></div><div class="dark-body"><div class="dark-name">App bg</div><div class="dark-hex">#111614</div><div class="dark-role">Deep sage. No blue.</div></div></div>
+        <div class="dark-tile"><div class="tsw" style="background:#1A1F1D;"></div><div class="dark-body"><div class="dark-name">Card</div><div class="dark-hex">#1A1F1D</div><div class="dark-role">White cards → this in dark.</div></div></div>
+        <div class="dark-tile"><div class="tsw" style="background:#252E28;"></div><div class="dark-body"><div class="dark-name">Card hover</div><div class="dark-hex">#252E28</div><div class="dark-role">Pressed / active state.</div></div></div>
+        <div class="dark-tile"><div class="tsw" style="background:#EFF0E8;"></div><div class="dark-body"><div class="dark-name">Cream-dark</div><div class="dark-hex">#EFF0E8</div><div class="dark-role">Primary text on dark.</div></div></div>
+        <div class="dark-tile"><div class="tsw" style="background:#96A89C;"></div><div class="dark-body"><div class="dark-name">Mid-dark</div><div class="dark-hex">#96A89C</div><div class="dark-role">Secondary text, subtitles.</div></div></div>
+        <div class="dark-tile"><div class="tsw" style="background:#9B7FD4;"></div><div class="dark-body"><div class="dark-name">CTA</div><div class="dark-hex">#9B7FD4</div><div class="dark-role">CTA unchanged in dark — light plum works on both.</div></div></div>
+        <div class="dark-tile"><div class="tsw" style="background:#D4623C;"></div><div class="dark-body"><div class="dark-name">Terra-dark</div><div class="dark-hex">#D4623C</div><div class="dark-role">Overdue on dark bg.</div></div></div>
+        <div class="dark-tile"><div class="tsw" style="background:#9B7FD4;"></div><div class="dark-body"><div class="dark-name">Plum-lt</div><div class="dark-hex">#9B7FD4</div><div class="dark-role">Pro badge — same as light.</div></div></div>
+      </div>
+      <div style="margin-top:14px;font-size:11px;color:rgba(239,240,232,0.3);line-height:1.6;">Border: <code style="font-family:monospace;font-size:10px;background:rgba(255,255,255,0.07);padding:1px 5px;border-radius:3px;">rgba(220,240,225,0.07)</code> — green-tinted hairline, consistent with the base hue · Card shadow: none in dark mode — elevation is communicated by the bg/card color difference alone</div>
+    </div>
+
+    <div style="margin-top:14px;">
+    <div class="rcard">
+      <div class="rcard-title">Dark mode rules</div>
+      <div class="rcard-body"><strong>Default is light.</strong> Dark follows system preference (iOS dark mode toggle). Both modes must be fully designed — "just invert" is not acceptable.<br><br>
+      The profile/settings screen uses an ink band header in both modes. The done overlay uses <code>plum #2D1F4A</code> in both modes — it's already dark enough to read as a mode shift in light mode, and stays consistent in dark.<br><br>
+      <strong>CTA button color is identical in both modes</strong> — <code>#9B7FD4</code>. Light plum works against both cream and dark-card backgrounds.</div>
+    </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- 04 CATEGORY -->
+  <section id="category">
+    <div class="sec-eye">04</div>
+    <h2 class="sec-title">Categories, items &amp; tasks</h2>
+    <p class="sec-desc">nudgii organises everything into a three-level hierarchy: categories contain items, items contain tasks. Every visual element in the app reflects this structure.</p>
+
+    <div class="cat-row">
+      <div class="ctile"><div class="cicon" style="background:var(--chb);"><svg viewBox="0 0 24 24" style="stroke:var(--ch);"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div><div class="cname">Home</div><div class="chex">#C87850</div><div class="cnote">Warm · apricot family</div></div></div>
+      <div class="ctile"><div class="cicon" style="background:var(--cvb);"><svg viewBox="0 0 24 24" style="stroke:var(--cv);"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg></div><div><div class="cname">Vehicle</div><div class="chex">#4A82A0</div><div class="cnote">Cool slate</div></div></div>
+      <div class="ctile"><div class="cicon" style="background:var(--cgb);"><svg viewBox="0 0 24 24" style="stroke:var(--cg);"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1 1.1 2.8.8 5.3-.6 7.4"/></svg></div><div><div class="cname">Garden</div><div class="chex">#5A9060</div><div class="cnote">Muted green</div></div></div>
+      <div class="ctile"><div class="cicon" style="background:var(--csb);"><svg viewBox="0 0 24 24" style="stroke:var(--cs);"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div><div><div class="cname">Subscriptions</div><div class="chex">#8060A8</div><div class="cnote">Muted plum tint</div></div></div>
+      <div class="ctile"><div class="cicon" style="background:var(--chlb);"><svg viewBox="0 0 24 24" style="stroke:var(--chl);"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="cname">Health</div><div class="chex">#B86478</div><div class="cnote">Dusty rose · v2</div></div></div>
+    </div>
+
+    <div style="margin-top:12px;">
+    <div class="rcard">
+      <div class="rcard-title">Category color rules <span class="tag tag-lock">locked</span></div>
+      <div class="rcard-body">Category colors appear <strong>only in the icon chip</strong> (30–34px rounded square). Never in: date labels, section headers, card backgrounds, tab bar, filter chip backgrounds, or anywhere carrying status meaning.<br><br><strong>Adding a new category:</strong> pick one muted hue not already in the system. Add <code>--c-name: #hex</code> and <code>--c-name-bg: rgba(r,g,b,0.10)</code>. One icon SVG. Done — the system absorbs it without redesign.</div>
+    </div>
+    </div>
+
+    <!-- ── HIERARCHY OVERVIEW ── -->
+    <div style="margin-top:28px;">
+    <div class="rcard">
+      <div class="rcard-title">Category → Item → Task</div>
+      <div class="rcard-body" style="margin-bottom:14px;">nudgii has a strict three-level hierarchy. <strong>Categories</strong> group related items. <strong>Items</strong> are things the user owns. <strong>Tasks</strong> are scheduled maintenance actions on an item.</div>
+      <!-- Visual hierarchy diagram -->
+      <div style="background:var(--cream);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;">
+        <!-- Level 1: Category -->
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:10px;height:10px;border-radius:50%;background:var(--ch);flex-shrink:0;"></div>
+          <span style="font-size:12px;font-weight:500;color:var(--ink);">Home</span>
+          <span style="font-size:10px;color:var(--mid);font-style:italic;">category — groups related items. 4 in MVP.</span>
+        </div>
+        <!-- Level 2: Item -->
+        <div style="display:flex;align-items:center;gap:8px;padding-left:22px;">
+          <div style="width:22px;height:22px;border-radius:6px;background:var(--chb);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--ch)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <span style="font-size:12px;font-weight:500;color:var(--ink);">Dishwasher</span>
+          <span style="font-size:10px;color:var(--mid);font-style:italic;">item — something the user owns. Has a name, optional brand/model, and tasks.</span>
+        </div>
+        <!-- Level 3: Task -->
+        <div style="display:flex;align-items:center;gap:8px;padding-left:52px;">
+          <div style="width:5px;height:5px;border-radius:50%;background:var(--mid);flex-shrink:0;"></div>
+          <span style="font-size:11px;color:var(--ink);">Add dishwasher salt</span>
+          <span style="font-size:10px;color:var(--mid);font-style:italic;">task — a specific maintenance action with a schedule and due date.</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding-left:52px;">
+          <div style="width:5px;height:5px;border-radius:50%;background:var(--mid);flex-shrink:0;"></div>
+          <span style="font-size:11px;color:var(--ink);">Clean filter</span>
+          <span style="font-size:10px;color:var(--mid);font-style:italic;">task</span>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- ── CATEGORY CHIP COMPONENT ── -->
+    <div style="margin-top:16px;">
+    <div class="comp-card">
+      <div class="comp-header">
+        <div class="comp-name">Category chip</div>
+        <span class="tag tag-lock">icon container only</span>
+      </div>
+      <div class="comp-body">
+        <!-- Visual demo -->
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px;">
+          <!-- Home -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+            <div style="width:28px;height:28px;border-radius:8px;background:var(--chb);display:flex;align-items:center;justify-content:center;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ch)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            </div>
+            <span style="font-size:9px;color:var(--mid);">Home</span>
+          </div>
+          <!-- Vehicle -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+            <div style="width:28px;height:28px;border-radius:8px;background:var(--cvb);display:flex;align-items:center;justify-content:center;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--cv)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg>
+            </div>
+            <span style="font-size:9px;color:var(--mid);">Vehicle</span>
+          </div>
+          <!-- Garden -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+            <div style="width:28px;height:28px;border-radius:8px;background:var(--cgb);display:flex;align-items:center;justify-content:center;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--cg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1"/><path d="M11.88 11.88C10 14 9 16 9 20"/></svg>
+            </div>
+            <span style="font-size:9px;color:var(--mid);">Garden</span>
+          </div>
+          <!-- Subscriptions -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+            <div style="width:28px;height:28px;border-radius:8px;background:var(--csb);display:flex;align-items:center;justify-content:center;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--cs)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </div>
+            <span style="font-size:9px;color:var(--mid);">Subscriptions</span>
+          </div>
+        </div>
+        <!-- Spec table -->
+        <div class="spec-grid">
+          <div class="spec-row"><div class="spec-l">Size</div><div class="spec-r">28×28px</div></div>
+          <div class="spec-row"><div class="spec-l">Border-radius</div><div class="spec-r">8px (rounded square)</div></div>
+          <div class="spec-row"><div class="spec-l">Background</div><div class="spec-r">Category color at 10% opacity</div></div>
+          <div class="spec-row"><div class="spec-l">Icon</div><div class="spec-r">Phosphor outline · 12px · stroke-width 1.5 · category color at full opacity</div></div>
+          <div class="spec-row"><div class="spec-l">Usage</div><div class="spec-r">Inside item rows and nudge cards only — never standalone, never on buttons or labels</div></div>
+          <div class="spec-row" style="border-bottom:none;"><div class="spec-l">Never</div><div class="spec-r">Filled icons · category color at full opacity background · mixing categories</div></div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- ── CATEGORY STRIP ── -->
+    <div style="margin-top:16px;">
+    <div class="comp-card">
+      <div class="comp-header">
+        <div class="comp-name">Category strip</div>
+        <span class="tag tag-new">S-01 only · decorative</span>
+      </div>
+      <div class="comp-body">
+        <!-- Visual demo -->
+        <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin-bottom:18px;">
+          <div style="display:inline-flex;align-items:center;gap:5px;background:var(--surface);border:0.5px solid rgba(26,22,18,0.10);border-radius:100px;padding:4px 9px 4px 7px;">
+            <div style="width:7px;height:7px;border-radius:50%;background:var(--ch);flex-shrink:0;"></div>
+            <span style="font-size:10px;font-weight:500;color:var(--ink);">Home</span>
+          </div>
+          <div style="display:inline-flex;align-items:center;gap:5px;background:var(--surface);border:0.5px solid rgba(26,22,18,0.10);border-radius:100px;padding:4px 9px 4px 7px;">
+            <div style="width:7px;height:7px;border-radius:50%;background:var(--cv);flex-shrink:0;"></div>
+            <span style="font-size:10px;font-weight:500;color:var(--ink);">Vehicle</span>
+          </div>
+          <div style="display:inline-flex;align-items:center;gap:5px;background:var(--surface);border:0.5px solid rgba(26,22,18,0.10);border-radius:100px;padding:4px 9px 4px 7px;">
+            <div style="width:7px;height:7px;border-radius:50%;background:var(--cg);flex-shrink:0;"></div>
+            <span style="font-size:10px;font-weight:500;color:var(--ink);">Garden</span>
+          </div>
+          <div style="display:inline-flex;align-items:center;gap:5px;background:var(--surface);border:0.5px solid rgba(26,22,18,0.10);border-radius:100px;padding:4px 9px 4px 7px;">
+            <div style="width:7px;height:7px;border-radius:50%;background:var(--cs);flex-shrink:0;"></div>
+            <span style="font-size:10px;font-weight:500;color:var(--ink);">Subscriptions</span>
+          </div>
+        </div>
+        <!-- Spec table -->
+        <div class="spec-grid">
+          <div class="spec-row"><div class="spec-l">Purpose</div><div class="spec-r">Shows users the breadth of what nudgii covers before they commit. Answers "is this only for boilers?" without a word of explanation.</div></div>
+          <div class="spec-row"><div class="spec-l">Background</div><div class="spec-r">white / <code>--surface</code></div></div>
+          <div class="spec-row"><div class="spec-l">Border</div><div class="spec-r">0.5px solid <code>rgba(26,22,18,0.10)</code></div></div>
+          <div class="spec-row"><div class="spec-l">Border-radius</div><div class="spec-r">100px (full pill)</div></div>
+          <div class="spec-row"><div class="spec-l">Padding</div><div class="spec-r">4px 9px 4px 7px</div></div>
+          <div class="spec-row"><div class="spec-l">Dot</div><div class="spec-r">7px circle · category color at full opacity · left of label</div></div>
+          <div class="spec-row"><div class="spec-l">Label</div><div class="spec-r">DM Sans 500 · 10px · <code>--ink</code></div></div>
+          <div class="spec-row"><div class="spec-l">Gap between pills</div><div class="spec-r">5px</div></div>
+          <div class="spec-row"><div class="spec-l">Behaviour on S-01</div><div class="spec-r">Decorative only — static, not tappable</div></div>
+          <div class="spec-row" style="border-bottom:none;"><div class="spec-l">Flutter</div><div class="spec-r"><code>Wrap</code> widget — not <code>Row</code>, not <code>ListView</code></div></div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- ── ITEM ROW CARD ── -->
+    <div style="margin-top:16px;">
+    <div class="comp-card">
+      <div class="comp-header">
+        <div class="comp-name">Item row</div>
+        <span class="tag tag-lock">dashboard · review · onboarding</span>
+      </div>
+      <div class="comp-body">
+        <!-- Visual demo: cards on cream -->
+        <div style="background:var(--cream);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:6px;margin-bottom:18px;">
+          <!-- Item 1 -->
+          <div style="background:var(--surface);border-radius:10px;border:0.5px solid rgba(26,22,18,0.08);box-shadow:0 1px 3px rgba(26,22,18,0.04);padding:10px 12px;display:flex;align-items:center;gap:10px;">
+            <div style="width:28px;height:28px;border-radius:8px;background:var(--chb);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ch)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            </div>
+            <span style="font-size:13px;font-weight:500;color:var(--ink);letter-spacing:-0.1px;flex:1;">Dishwasher</span>
+            <span style="font-size:10px;color:var(--mid-a);">3 tasks</span>
+          </div>
+          <!-- Item 2 -->
+          <div style="background:var(--surface);border-radius:10px;border:0.5px solid rgba(26,22,18,0.08);box-shadow:0 1px 3px rgba(26,22,18,0.04);padding:10px 12px;display:flex;align-items:center;gap:10px;">
+            <div style="width:28px;height:28px;border-radius:8px;background:var(--cvb);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--cv)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg>
+            </div>
+            <span style="font-size:13px;font-weight:500;color:var(--ink);letter-spacing:-0.1px;flex:1;">Winter tyres</span>
+            <span style="font-size:10px;color:var(--mid-a);">1 task</span>
+          </div>
+          <!-- Item 3 -->
+          <div style="background:var(--surface);border-radius:10px;border:0.5px solid rgba(26,22,18,0.08);box-shadow:0 1px 3px rgba(26,22,18,0.04);padding:10px 12px;display:flex;align-items:center;gap:10px;">
+            <div style="width:28px;height:28px;border-radius:8px;background:var(--cgb);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--cg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1"/><path d="M11.88 11.88C10 14 9 16 9 20"/></svg>
+            </div>
+            <span style="font-size:13px;font-weight:500;color:var(--ink);letter-spacing:-0.1px;flex:1;">Olive tree</span>
+            <span style="font-size:10px;color:var(--mid-a);">2 tasks</span>
+          </div>
+        </div>
+        <!-- Spec table -->
+        <div class="spec-grid">
+          <div class="spec-row"><div class="spec-l">Background</div><div class="spec-r">white / <code>--surface</code></div></div>
+          <div class="spec-row"><div class="spec-l">Border-radius</div><div class="spec-r">10px</div></div>
+          <div class="spec-row"><div class="spec-l">Border</div><div class="spec-r">0.5px solid <code>rgba(26,22,18,0.08)</code></div></div>
+          <div class="spec-row"><div class="spec-l">Shadow</div><div class="spec-r"><code>0 1px 3px rgba(26,22,18,0.04)</code></div></div>
+          <div class="spec-row"><div class="spec-l">Padding</div><div class="spec-r">10px 12px</div></div>
+          <div class="spec-row"><div class="spec-l">Gap between cards</div><div class="spec-r">6px (onboarding / review) · 8px (dashboard)</div></div>
+          <div class="spec-row"><div class="spec-l">Item name</div><div class="spec-r">DM Sans 500 · 13–14px · <code>--ink</code> · ls -0.1px</div></div>
+          <div class="spec-row"><div class="spec-l">Category chip</div><div class="spec-r">28×28px — see Category chip above</div></div>
+          <div class="spec-row" style="border-bottom:none;"><div class="spec-l">Tap behaviour</div><div class="spec-r">Opens Item detail (S-17)</div></div>
+        </div>
+        <div style="margin-top:12px;">
+          <div class="rcard" style="background:rgba(196,80,58,0.04);border-color:rgba(196,80,58,0.12);">
+            <div class="rcard-title" style="color:var(--terra);">Rules <span class="tag tag-never">never</span></div>
+            <div class="rcard-body">Never border-bottom separators between items — the cream gap IS the separator.<br>Never wrap multiple items in one container card.<br>Category color never bleeds outside the icon chip.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- ── TASK / NUDGE CARD REFERENCE ── -->
+    <div style="margin-top:16px;">
+    <div class="comp-card">
+      <div class="comp-header">
+        <div class="comp-name">Task (nudge card)</div>
+        <span class="tag tag-lock">dashboard</span>
+        <a href="#components" style="font-size:11px;color:var(--cta);text-decoration:none;margin-left:auto;">Full spec in Section 08 ↓</a>
+      </div>
+      <div class="comp-body">
+        <div class="rcard" style="margin-bottom:14px;">
+          <div class="rcard-title">Where task cards appear</div>
+          <div class="rcard-body">
+            <strong>Dashboard (S-09):</strong> full nudge card with swipe-to-complete gesture.<br>
+            <strong>Item detail (S-17, not yet designed):</strong> simpler row listed below the item header.<br>
+            <strong>Onboarding review (S-05):</strong> collapsed under the item row, expandable on tap.
+          </div>
+        </div>
+        <!-- Status color reference -->
+        <div style="font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:10px;">Status colours</div>
+        <div class="spec-grid">
+          <div class="spec-row"><div class="spec-l">Overdue</div><div class="spec-r">Task name + date label both in <code style="color:var(--terra);">#C4503A colorTerra</code></div></div>
+          <div class="spec-row"><div class="spec-l">Due soon (≤ 7 d)</div><div class="spec-r">Date label in <code style="color:var(--ap-dk);">#C8784A colorApricotDk</code></div></div>
+          <div class="spec-row" style="border-bottom:none;"><div class="spec-l">Future (&gt; 7 days)</div><div class="spec-r">Date label <code>rgba(26,22,18,0.20)</code> — muted, not prominent</div></div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- ── BEHAVIOUR ACROSS SCREENS ── -->
+    <div style="margin-top:16px;">
+    <div class="rcard">
+      <div class="rcard-title">How categories, items and tasks appear across the flow</div>
+      <div style="margin-top:12px;border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+        <!-- Table header -->
+        <div style="display:grid;grid-template-columns:110px 170px 1fr;background:rgba(26,22,18,0.025);border-bottom:1px solid var(--border);">
+          <div style="font-size:10px;font-weight:500;letter-spacing:0.5px;color:var(--ink);padding:8px 12px;">Screen</div>
+          <div style="font-size:10px;font-weight:500;letter-spacing:0.5px;color:var(--ink);padding:8px 12px;border-left:1px solid var(--border);">Element visible</div>
+          <div style="font-size:10px;font-weight:500;letter-spacing:0.5px;color:var(--ink);padding:8px 12px;border-left:1px solid var(--border);">Behaviour</div>
+        </div>
+        <!-- Rows -->
+        <div style="display:grid;grid-template-columns:110px 170px 1fr;border-bottom:1px solid var(--border);">
+          <div style="font-size:11px;font-weight:500;color:var(--ink);padding:8px 12px;">S-01 Welcome</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">Category strip (4 pills)</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">Decorative — shows breadth, not tappable</div>
+        </div>
+        <div style="display:grid;grid-template-columns:110px 170px 1fr;border-bottom:1px solid var(--border);">
+          <div style="font-size:11px;font-weight:500;color:var(--ink);padding:8px 12px;">S-02 Voice</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">User describes items by voice</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">nudgii maps voice input to item + category automatically</div>
+        </div>
+        <div style="display:grid;grid-template-columns:110px 170px 1fr;border-bottom:1px solid var(--border);">
+          <div style="font-size:11px;font-weight:500;color:var(--ink);padding:8px 12px;">S-03 Browse</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">Full category list with item count</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">Tap category → expands items in that category</div>
+        </div>
+        <div style="display:grid;grid-template-columns:110px 170px 1fr;border-bottom:1px solid var(--border);opacity:0.4;">
+          <div style="font-size:11px;font-weight:500;color:var(--ink);padding:8px 12px;"><s>S-04 Search</s></div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);font-style:italic;">Removed (Path C removed 2026-03-24)</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:110px 170px 1fr;border-bottom:1px solid var(--border);">
+          <div style="font-size:11px;font-weight:500;color:var(--ink);padding:8px 12px;">S-05 Review</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">Item rows + task rows below each</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">Expandable — tap item to reveal its tasks</div>
+        </div>
+        <div style="display:grid;grid-template-columns:110px 170px 1fr;border-bottom:1px solid var(--border);">
+          <div style="font-size:11px;font-weight:500;color:var(--ink);padding:8px 12px;">S-09 Dashboard</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">Nudge cards sorted by urgency</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">Swipe right → done overlay</div>
+        </div>
+        <div style="display:grid;grid-template-columns:110px 170px 1fr;">
+          <div style="font-size:11px;font-weight:500;color:var(--ink);padding:8px 12px;">S-17 Item detail</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">Item header + task list</div>
+          <div style="font-size:11px;color:var(--mid);padding:8px 12px;border-left:1px solid var(--border);">Tap task → task detail (S-13)</div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- 05 TYPOGRAPHY -->
+  <section id="typography">
+    <div class="sec-eye">05</div>
+    <h2 class="sec-title">Typography</h2>
+    <p class="sec-desc">DM Serif Display for character. DM Sans for everything daily. One serif moment per screen — not two.</p>
+
+    <div class="type-row"><div><div class="trole">Welcome headline</div><div class="tspec">DM Serif Display · 33px · lh 0.97 · ls -0.55px</div></div><div><span style="font-family:'DM Serif Display',serif;font-size:33px;color:var(--ink);line-height:0.97;letter-spacing:-0.55px;">Je huis heeft<br>aandacht nodig.</span></div></div>
+    <div class="type-row"><div><div class="trole">Dashboard greeting</div><div class="tspec">DM Serif Display · 25–27px · lh 0.95 · ls -0.4px · name em in <code>apricot</code></div></div><div><span style="font-family:'DM Serif Display',serif;font-size:26px;color:var(--ink);line-height:0.95;letter-spacing:-0.4px;">Goedemorgen, <em style="color:var(--ap);font-style:italic;">Martijn.</em></span></div></div>
+    <div class="type-row"><div><div class="trole">Done overlay</div><div class="tspec">DM Serif Display · 28–30px · lh 1.1 · on plum</div></div><div style="background:var(--plum);border-radius:9px;padding:12px 16px;display:inline-block;"><span style="font-family:'DM Serif Display',serif;font-size:26px;color:#EDE8FF;line-height:1.1;letter-spacing:-0.3px;">Done. <em style="font-style:italic;color:var(--ap);">Your dishwasher approves.</em></span></div></div>
+    <div class="type-row"><div><div class="trole">Empty state</div><div class="tspec">DM Serif Display · 22px · lh 1.2</div></div><div><span style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);line-height:1.2;">Nothing overdue.<br>Suspicious.</span></div></div>
+    <div class="type-row"><div><div class="trole">Task name</div><div class="tspec">DM Sans 500 · 13–14px · ls -0.2px</div></div><div><span style="font-size:14px;font-weight:500;letter-spacing:-0.2px;">Vaatwasser zoutbak bijvullen</span></div></div>
+    <div class="type-row"><div><div class="trole">Witty subtitle</div><div class="tspec">DM Sans 400 italic · 10–11px · colorMid</div></div><div><span style="font-size:11px;font-style:italic;color:var(--mid);">it's starting to smell</span></div></div>
+    <div class="type-row"><div><div class="trole">Section label</div><div class="tspec">DM Sans 500 · 9px · ls 1.8px · uppercase</div></div><div><span style="font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--mid-lt);">Overdue</span></div></div>
+    <div class="type-row"><div><div class="trole">Body text</div><div class="tspec">DM Sans 400 · 15px · lh 1.55</div></div><div><span style="font-size:15px;line-height:1.55;">Automatisch ingevuld, voor alles wat je bezit.</span></div></div>
+
+    <div style="margin-top:16px;">
+    <div class="rcard">
+      <div class="rcard-title">Typography rules <span class="tag tag-lock">locked</span></div>
+      <div class="rcard-body"><strong>One serif moment per screen.</strong> Never two DM Serif Display elements visible at once.<br><strong>Italic serif = personality.</strong> Witty openers, done headlines, greeting name only. Never functional labels.<br><strong>Sentence case everywhere.</strong> Buttons, chips, labels — never Title Case, never ALL CAPS.<br><strong>nudgii is always lowercase</strong> in all copy — brand rule, no exceptions.</div>
+    </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- 06 SPACING -->
+  <section id="spacing">
+    <div class="sec-eye">06</div>
+    <h2 class="sec-title">Spacing & radius</h2>
+    <p class="sec-desc">8px base grid. 16px screen margins. Cream needs room.</p>
+
+    <div class="rcard" style="margin-bottom:20px;">
+      <div class="rcard-title">Spacing rule <span class="tag tag-never">never arbitrary</span></div>
+      <div class="rcard-body">Gebruik altijd een waarde van de schaal hieronder. Nooit arbitraire waarden zoals <code>13px</code>, <code>22px</code>, of <code>7px</code>. Elke spacing-beslissing is een keuze uit de schaal — niet een schatting.</div>
+    </div>
+
+    <div class="sp-row"><div class="sp-bar" style="width:4px;"></div><div class="sp-tok">--space-1</div><div class="sp-px">4px</div><div class="sp-use">Icon-to-label gap</div></div>
+    <div class="sp-row"><div class="sp-bar" style="width:8px;"></div><div class="sp-tok">--space-2</div><div class="sp-px">8px</div><div class="sp-use">Chip padding, tight pairs</div></div>
+    <div class="sp-row"><div class="sp-bar" style="width:12px;"></div><div class="sp-tok">--space-3</div><div class="sp-px">12px</div><div class="sp-use">Between cards</div></div>
+    <div class="sp-row"><div class="sp-bar" style="width:16px;"></div><div class="sp-tok">--space-4</div><div class="sp-px">16px</div><div class="sp-use">Screen margin, card padding</div></div>
+    <div class="sp-row"><div class="sp-bar" style="width:24px;"></div><div class="sp-tok">--space-6</div><div class="sp-px">24px</div><div class="sp-use">Between screen sections</div></div>
+    <div class="sp-row"><div class="sp-bar" style="width:32px;"></div><div class="sp-tok">--space-8</div><div class="sp-px">32px</div><div class="sp-use">Large section gaps</div></div>
+    <div class="sp-row"><div class="sp-bar" style="width:48px;"></div><div class="sp-tok">--space-12</div><div class="sp-px">48px</div><div class="sp-use">Done overlay padding</div></div>
+    <div class="sp-row" style="border-bottom:none;"><div class="sp-bar" style="width:64px;"></div><div class="sp-tok">--space-16</div><div class="sp-px">64px</div><div class="sp-use">Hero / splash sections</div></div>
+
+    <div class="dark-panel" style="margin-top:20px;">
+      <div class="dark-lbl">Flutter · NudgiiSpacing class</div>
+      <pre style="font-family:monospace;font-size:11px;color:rgba(239,240,232,0.75);line-height:1.8;overflow-x:auto;">class NudgiiSpacing {
+  static const double xs   = 4;
+  static const double sm   = 8;
+  static const double md   = 12;
+  static const double base = 16;
+  static const double lg   = 24;
+  static const double xl   = 32;
+  static const double xxl  = 48;
+  static const double xxxl = 64;
+}</pre>
+    </div>
+
+    <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:22px;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:5px;"><div style="width:44px;height:44px;border-radius:4px;background:var(--cream-2);border:1px solid var(--border);"></div><div style="font-size:9px;color:var(--mid);text-align:center;">r/4<br>Tags</div></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:5px;"><div style="width:44px;height:44px;border-radius:8px;background:var(--cream-2);border:1px solid var(--border);"></div><div style="font-size:9px;color:var(--mid);text-align:center;">r/8<br>Inputs</div></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:5px;"><div style="width:44px;height:44px;border-radius:12px;background:var(--cream-2);border:1px solid var(--border);"></div><div style="font-size:9px;color:var(--mid);text-align:center;">r/12<br>Cards</div></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:5px;"><div style="width:44px;height:44px;border-radius:18px;background:var(--cream-2);border:1px solid var(--border);"></div><div style="font-size:9px;color:var(--mid);text-align:center;">r/18<br>Done overlay</div></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:5px;"><div style="width:44px;height:44px;border-radius:100px;background:var(--cream-2);border:1px solid var(--border);"></div><div style="font-size:9px;color:var(--mid);text-align:center;">r/pill<br>Buttons, chips</div></div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- 07 LAYOUT & SHELL -->
+  <section id="layout">
+    <div class="sec-eye">07</div>
+    <h2 class="sec-title">Layout &amp; shell</h2>
+    <p class="sec-desc">Every nudgii screen uses the same shell pattern. SafeArea, sticky bottom zones, progress bar positioning, and responsive scaling are non-negotiable — they must be correct on every screen without exception.</p>
+
+    <!-- Shell pattern -->
+    <div class="comp-card" style="margin-bottom:24px;">
+      <div class="comp-header">
+        <div class="comp-name">Shell pattern</div>
+        <span class="tag tag-never">always required</span>
+      </div>
+      <div class="comp-body">
+
+        <!-- Visual diagram -->
+        <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;margin-bottom:20px;">
+          <div style="width:160px;flex-shrink:0;">
+            <div style="width:160px;height:320px;background:#F5F0E8;border-radius:16px;border:1.5px solid rgba(26,22,18,0.15);overflow:hidden;display:flex;flex-direction:column;font-family:'DM Sans',sans-serif;">
+              <!-- Status bar -->
+              <div style="height:22px;background:#E8E3DA;display:flex;align-items:center;justify-content:flex-end;padding:0 10px;gap:4px;flex-shrink:0;">
+                <div style="width:14px;height:5px;background:rgba(26,22,18,0.25);border-radius:2px;"></div>
+                <div style="width:8px;height:8px;background:rgba(26,22,18,0.25);border-radius:50%;"></div>
+              </div>
+              <!-- Progress bar (outside SafeArea) -->
+              <div style="height:3px;background:rgba(26,22,18,0.08);flex-shrink:0;position:relative;">
+                <div style="position:absolute;left:0;top:0;height:3px;width:80%;background:#9B7FD4;border-radius:0 100px 100px 0;"></div>
+              </div>
+              <!-- SafeArea boundary indicator -->
+              <div style="height:1px;background:rgba(155,127,212,0.3);flex-shrink:0;"></div>
+              <!-- Content zone -->
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px;gap:6px;">
+                <div style="font-size:8px;font-weight:600;color:#9B7FD4;letter-spacing:0.5px;text-transform:uppercase;">Content zone</div>
+                <div style="font-size:7px;color:rgba(26,22,18,0.4);text-align:center;line-height:1.4;">Expanded<br>SingleChildScrollView</div>
+                <div style="width:80px;height:1px;background:rgba(26,22,18,0.08);"></div>
+                <div style="width:100%;display:flex;flex-direction:column;gap:4px;">
+                  <div style="height:20px;background:white;border-radius:6px;border:0.5px solid rgba(26,22,18,0.08);"></div>
+                  <div style="height:20px;background:white;border-radius:6px;border:0.5px solid rgba(26,22,18,0.08);"></div>
+                  <div style="height:20px;background:white;border-radius:6px;border:0.5px solid rgba(26,22,18,0.08);"></div>
+                </div>
+              </div>
+              <!-- Bottom zone -->
+              <div style="background:#EDE8DF;border-top:1px solid rgba(26,22,18,0.08);padding:8px;flex-shrink:0;">
+                <div style="font-size:7px;font-weight:600;color:#9B7FD4;text-align:center;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:5px;">Bottom zone</div>
+                <div style="height:22px;background:#9B7FD4;border-radius:100px;display:flex;align-items:center;justify-content:center;">
+                  <div style="font-size:7px;color:white;font-weight:500;">Sticky CTA or Tab bar</div>
+                </div>
+                <!-- SafeArea bottom padding -->
+                <div style="height:8px;"></div>
+              </div>
+            </div>
+            <div style="font-size:9px;color:rgba(26,22,18,0.45);text-align:center;margin-top:6px;">390×844px — iPhone 15</div>
+          </div>
+
+          <div style="flex:1;min-width:200px;">
+            <div class="dark-panel" style="margin-bottom:0;">
+              <div class="dark-lbl">Flutter shell pattern</div>
+              <pre style="font-family:monospace;font-size:10.5px;color:rgba(239,240,232,0.8);line-height:1.7;overflow-x:auto;">Scaffold(
+  body: SafeArea(
+    top: false,  // ← progress bar bleeds full-width
+    child: Column(
+      children: [
+        // Fixed: progress bar (onboarding only)
+        LinearProgressIndicator(...),
+        // Expanded: scrollable content
+        Expanded(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: screenWidth &lt; 420 ? 16 : 20,
+              ),
+              child: content,
+            ),
+          ),
+        ),
+        // Fixed: bottom zone — sticky CTAs or tab bar
+        // NEVER use Spacer inside Expanded to push down
+        bottomZone,
+      ],
+    ),
+  ),
+)</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="spec-grid">
+          <div class="spec-row"><div class="spec-l">Mockup base</div><div class="spec-r">390×844px (iPhone 15 logical pixels). All HTML mockups use this size.</div></div>
+          <div class="spec-row"><div class="spec-l">SafeArea top</div><div class="spec-r"><code>top: false</code> — progress bar and status bar must bleed full-width outside SafeArea</div></div>
+          <div class="spec-row"><div class="spec-l">SafeArea bottom</div><div class="spec-r">Always included. Never hardcode bottom padding. SafeArea absorbs Face ID (34px), Home button (0px), Android home bar (varies)</div></div>
+          <div class="spec-row"><div class="spec-l">Content zone</div><div class="spec-r"><code>Expanded(child: SingleChildScrollView(...))</code> — content scrolls, shell does not</div></div>
+          <div class="spec-row"><div class="spec-l">Bottom zone</div><div class="spec-r">Fixed Column outside Expanded. Never <code>Spacer</code>, never <code>Expanded</code> to push a button down</div></div>
+          <div class="spec-row" style="border-bottom:none;"><div class="spec-l">Never together</div><div class="spec-r">Onboarding sticky CTAs and floating tab bar never appear on the same screen</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sticky bottom zone -->
+    <div class="comp-card" style="margin-bottom:24px;">
+      <div class="comp-header">
+        <div class="comp-name">Sticky bottom zone</div>
+      </div>
+      <div class="comp-body">
+
+        <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:18px;">
+          <!-- Onboarding variant -->
+          <div style="flex:1;min-width:140px;">
+            <div style="font-size:9px;font-weight:600;color:rgba(26,22,18,0.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Onboarding S-01→S-08</div>
+            <div style="background:#EDE8DF;border:1.5px solid rgba(26,22,18,0.10);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:6px;">
+              <div style="height:30px;background:#9B7FD4;border-radius:100px;display:flex;align-items:center;justify-content:center;"><span style="font-size:9px;color:white;font-weight:500;">Primary CTA</span></div>
+              <div style="height:24px;background:white;border:1px solid rgba(26,22,18,0.15);border-radius:100px;display:flex;align-items:center;justify-content:center;"><span style="font-size:9px;color:rgba(26,22,18,0.6);">Secondary CTA</span></div>
+              <div style="height:14px;"></div><!-- SafeArea padding -->
+            </div>
+            <div style="font-size:9px;color:rgba(26,22,18,0.4);margin-top:5px;">CTAs always vertically stacked — never side by side</div>
+          </div>
+          <!-- App variant -->
+          <div style="flex:1;min-width:140px;">
+            <div style="font-size:9px;font-weight:600;color:rgba(26,22,18,0.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">App S-09+</div>
+            <div style="background:#EDE8DF;border:1.5px solid rgba(26,22,18,0.10);border-radius:12px;padding:12px;">
+              <div style="height:44px;background:white;border-radius:22px;box-shadow:0 4px 20px rgba(26,22,18,0.11);border:1px solid rgba(26,22,18,0.07);display:flex;align-items:center;justify-content:space-around;padding:0 12px;">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+                  <div style="width:16px;height:16px;background:rgba(26,22,18,0.15);border-radius:3px;"></div>
+                  <div style="width:3px;height:3px;background:#9B7FD4;border-radius:50%;"></div>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+                  <div style="width:16px;height:16px;background:rgba(26,22,18,0.06);border-radius:3px;"></div>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+                  <div style="width:16px;height:16px;background:rgba(26,22,18,0.06);border-radius:3px;"></div>
+                </div>
+              </div>
+              <div style="height:14px;"></div><!-- SafeArea -->
+            </div>
+            <div style="font-size:9px;color:rgba(26,22,18,0.4);margin-top:5px;">Floating pill tab bar — custom widget, not BottomNavigationBar</div>
+          </div>
+        </div>
+
+        <div class="spec-grid">
+          <div class="spec-row"><div class="spec-l">Onboarding</div><div class="spec-r">Sticky CTA zone · padding 12px sides · padding-bottom: 24px + SafeArea · vertically stacked CTAs</div></div>
+          <div class="spec-row"><div class="spec-l">App</div><div class="spec-r">Floating pill tab bar · 52px height · 14px from screen edge + SafeArea</div></div>
+          <div class="spec-row"><div class="spec-l">Flutter pattern</div><div class="spec-r">Fixed Column at bottom of shell — outside <code>Expanded</code>. Never use <code>Spacer</code> to push content down.</div></div>
+          <div class="spec-row" style="border-bottom:none;"><div class="spec-l">Never together</div><div class="spec-r">Onboarding sticky CTAs and app tab bar never appear on the same screen</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Responsive scaling -->
+    <div class="comp-card" style="margin-bottom:24px;">
+      <div class="comp-header">
+        <div class="comp-name">Responsive scaling</div>
+      </div>
+      <div class="comp-body">
+
+        <div style="margin-bottom:16px;">
+          <div style="font-size:9px;font-weight:600;color:rgba(26,22,18,0.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Device widths vs 390px base</div>
+          <div style="display:flex;flex-direction:column;gap:0;">
+            <div style="display:flex;align-items:center;gap:0;height:28px;border-bottom:1px solid rgba(26,22,18,0.07);">
+              <div style="width:100px;font-size:9px;color:rgba(26,22,18,0.45);flex-shrink:0;">iPhone SE</div>
+              <div style="width:90px;height:10px;background:#E8A87C;border-radius:2px;"></div>
+              <div style="font-size:9px;color:rgba(26,22,18,0.5);margin-left:8px;">375px · 0.96×</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:0;height:28px;border-bottom:1px solid rgba(26,22,18,0.07);">
+              <div style="width:100px;font-size:9px;font-weight:600;color:var(--ink);flex-shrink:0;">iPhone 15 ← base</div>
+              <div style="width:96px;height:10px;background:#9B7FD4;border-radius:2px;"></div>
+              <div style="font-size:9px;color:#9B7FD4;margin-left:8px;">390px · 1.00×</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:0;height:28px;border-bottom:1px solid rgba(26,22,18,0.07);">
+              <div style="width:100px;font-size:9px;color:rgba(26,22,18,0.45);flex-shrink:0;">iPhone 15 Pro</div>
+              <div style="width:97px;height:10px;background:#C4C0BC;border-radius:2px;"></div>
+              <div style="font-size:9px;color:rgba(26,22,18,0.5);margin-left:8px;">393px · 1.01×</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:0;height:28px;">
+              <div style="width:100px;font-size:9px;color:rgba(26,22,18,0.45);flex-shrink:0;">iPhone Pro Max</div>
+              <div style="width:107px;height:10px;background:#C4C0BC;border-radius:2px;"></div>
+              <div style="font-size:9px;color:rgba(26,22,18,0.5);margin-left:8px;">430px · 1.10×</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="spec-grid" style="margin-bottom:16px;">
+          <div class="spec-row"><div class="spec-l">Scale formula</div><div class="spec-r"><code>(screenWidth / 390).clamp(0.9, 1.15)</code> — applied to all visual elements</div></div>
+          <div class="spec-row"><div class="spec-l">Headline — default</div><div class="spec-r">Width ≥ 380px → welcome 33px · greeting 25–27px</div></div>
+          <div class="spec-row"><div class="spec-l">Headline — small</div><div class="spec-r">Width &lt; 380px (iPhone SE) → welcome 28px · greeting 22px</div></div>
+          <div class="spec-row"><div class="spec-l">Side padding</div><div class="spec-r">Width &lt; 420px → 16px · Width ≥ 420px → 20–24px</div></div>
+          <div class="spec-row" style="border-bottom:none;"><div class="spec-l">Text scale cap</div><div class="spec-r"><code>textScaleFactor.clamp(0.85, 1.3)</code> at app root — accessibility large text still fits</div></div>
+        </div>
+
+        <div class="dark-panel">
+          <div class="dark-lbl">Flutter</div>
+          <pre style="font-family:monospace;font-size:10.5px;color:rgba(239,240,232,0.8);line-height:1.7;overflow-x:auto;">// App root — text scale cap
+MaterialApp(
+  builder: (context, child) {
+    final mq = MediaQuery.of(context);
+    return MediaQuery(
+      data: mq.copyWith(
+        textScaleFactor: mq.textScaleFactor.clamp(0.85, 1.3),
+      ),
+      child: child!,
+    );
+  },
+)
+
+// Per-screen scale formula
+final scale = (MediaQuery.of(context).size.width / 390).clamp(0.9, 1.15);
+
+// Headline breakpoint
+final headlineSize = MediaQuery.of(context).size.width &lt; 380 ? 28.0 : 33.0;
+
+// Side padding
+final sidePad = MediaQuery.of(context).size.width &lt; 420 ? 16.0 : 20.0;</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Never-do rules -->
+    <div class="rcard" style="border-color:rgba(163,45,45,0.15);background:rgba(163,45,45,0.02);">
+      <div class="rcard-title" style="color:#A32D2D;">Layout rules that never bend</div>
+      <div class="rcard-body">
+        <div style="display:flex;flex-direction:column;gap:6px;margin-top:4px;">
+          <div style="display:flex;gap:8px;align-items:baseline;"><span style="color:#C4503A;font-weight:600;flex-shrink:0;">✕</span><span>Never put the progress bar inside SafeArea — it must bleed full-width, <code>top: false</code></span></div>
+          <div style="display:flex;gap:8px;align-items:baseline;"><span style="color:#C4503A;font-weight:600;flex-shrink:0;">✕</span><span>Never use <code>Spacer</code> to push a CTA to the bottom — use a fixed Column outside Expanded</span></div>
+          <div style="display:flex;gap:8px;align-items:baseline;"><span style="color:#C4503A;font-weight:600;flex-shrink:0;">✕</span><span>Never wrap the entire screen in SingleChildScrollView — only the content zone scrolls</span></div>
+          <div style="display:flex;gap:8px;align-items:baseline;"><span style="color:#C4503A;font-weight:600;flex-shrink:0;">✕</span><span>Never use a fixed-count dot or step indicator for onboarding — continuous bar only</span></div>
+          <div style="display:flex;gap:8px;align-items:baseline;"><span style="color:#C4503A;font-weight:600;flex-shrink:0;">✕</span><span>Never flatten the shell pattern into a single scrollable Column</span></div>
+          <div style="display:flex;gap:8px;align-items:baseline;"><span style="color:#C4503A;font-weight:600;flex-shrink:0;">✕</span><span>Never hardcode bottom padding for safe area — always use SafeArea widget</span></div>
+          <div style="display:flex;gap:8px;align-items:baseline;"><span style="color:#C4503A;font-weight:600;flex-shrink:0;">✕</span><span>Never place CTAs side by side on onboarding screens — always vertically stacked</span></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- 08 COMPONENT LIBRARY -->
+  <section id="components">
+    <div class="sec-eye">08</div>
+    <h2 class="sec-title">Component library</h2>
+    <p class="sec-desc">Each component is a standalone definition — visual demo, specs, rules, Flutter note. This is the source of truth. When a component changes, this definition updates in the same pass.</p>
+
+    <!-- Accessibility note -->
+    <div class="rcard" style="margin-bottom:20px;border-color:rgba(196,80,58,0.20);background:rgba(196,80,58,0.02);">
+      <div class="rcard-title">Colour accessibility — two mid tokens <span class="tag tag-never">App Store risk if violated</span></div>
+      <div class="rcard-body">
+        Two tokens exist for two jobs — never swap them:
+        <table style="width:100%;border-collapse:collapse;font-size:12px;margin-top:10px;line-height:1.8;">
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:4px 8px;font-weight:500;">--mid #8A8070</td>
+            <td style="padding:4px 8px;color:var(--terra);">2.8:1 · FAILS AA</td>
+            <td style="padding:4px 8px;">Decorative ONLY — witty italic card subtitles. Never functional.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:4px 8px;font-weight:500;">--mid-a #6B6358</td>
+            <td style="padding:4px 8px;color:#3A6E40;font-weight:500;">4.6:1 · AA PASS</td>
+            <td style="padding:4px 8px;font-weight:500;">All functional text — hints, labels, body, descriptions.</td>
+          </tr>
+          <tr>
+            <td style="padding:4px 8px;font-weight:500;">--cta #9B7FD4</td>
+            <td style="padding:4px 8px;color:#3A6E40;font-weight:500;">4.7:1 · AA PASS</td>
+            <td style="padding:4px 8px;">CTA button — passes AA with colorCtaFg (#FAF8FF) text.</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Specs overview -->
+    <div class="rcard" style="margin-bottom:20px;">
+      <div class="rcard-title">Component heights <span class="tag tag-lock">locked — never deviate</span></div>
+      <div class="rcard-body">
+        <table style="width:100%;border-collapse:collapse;font-size:12px;line-height:1.8;">
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;width:200px;">Primary CTA button</td><td style="color:var(--mid);">50px</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">Secondary button</td><td style="color:var(--mid);">46px</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">Ghost / text button</td><td style="color:var(--mid);">36px</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">Input field</td><td style="color:var(--mid);">44px — minimum touch target, Apple HIG</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">Task card min-height</td><td style="color:var(--mid);">56px</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">FAB</td><td style="color:var(--mid);">46 × 46px</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">Tab bar height</td><td style="color:var(--mid);">52px</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">Nav bar</td><td style="color:var(--mid);">44px</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">Bottom sheet handle</td><td style="color:var(--mid);">3px high · 32px wide</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 0;color:var(--ink);font-weight:500;">Settings row</td><td style="color:var(--mid);">48px</td></tr>
+            <tr><td style="padding:4px 0;color:var(--ink);font-weight:500;">Snooze option row</td><td style="color:var(--mid);">52px</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">Minimum tap target for <strong>all</strong> interactive elements: <code>44 × 44px</code>. Even when the visual element is smaller. Flutter: <code>SizedBox(width: 44, height: 44)</code> or <code>IconButton</code>.</div>
+      </div>
+    </div>
+
+    <div class="rcard" style="margin-bottom:28px;">
+      <div class="rcard-title">Shadow hierarchy <span class="tag tag-lock">locked</span></div>
+      <div class="rcard-body">
+        Shadows communicate elevation — never decoration. Never add a shadow for aesthetics.<br><br>
+        <code>--shadow-card: none</code> — cards use border, not shadow<br>
+        <code>--shadow-tab-bar: 0 4px 20px rgba(26,22,18,0.11)</code> — floating pill tab bar<br>
+        <code>--shadow-fab: 0 6px 20px rgba(155,127,212,0.45)</code> — FAB (plum glow, elevated)<br>
+        <code>--shadow-sheet: 0 -2px 20px rgba(26,22,18,0.12)</code> — bottom sheet
+      </div>
+    </div>
+
+    <!-- ── COMPONENT: CTA BUTTON ── -->
+    <div class="rcard" style="margin-bottom:20px;">
+      <div class="rcard-title" style="margin-bottom:12px;">CTA button <a href="../screens/s01-welcome-hifi.html" style="font-size:10px;color:var(--cta);text-decoration:none;margin-left:8px;">↗ S-01</a></div>
+      <!-- VISUAL DEMO -->
+      <div style="background:var(--cream-2);border-radius:10px;padding:20px;margin-bottom:16px;display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-start;">
+          <div>
+            <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Primary (Path A)</div>
+            <button class="btn btn-cta">
+              Tell me what you have
+            </button>
+          </div>
+          <div>
+            <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Primary — no mic (standard)</div>
+            <button class="btn btn-cta btn-sm">Confirm</button>
+          </div>
+          <div>
+            <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Secondary</div>
+            <button class="btn btn-secondary btn-sm">Show me what to track</button>
+          </div>
+          <div>
+            <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Ghost</div>
+            <button class="btn btn-ghost">Something else</button>
+          </div>
+        </div>
+      </div>
+      <div class="rcard-body">
+        <strong>Primary CTA:</strong> bg <code>colorCta #9B7FD4</code> · text <code>colorCtaFg #FAF8FF</code> · contrast 4.7:1 on cream (WCAG AA) · shadow <code>0 2px 12px rgba(155,127,212,0.28)</code> · border-radius pill · height 50px<br><br>
+        <strong>States:</strong><br>
+        Default — as above.<br>
+        Pressed — bg <code>#7D62B3</code>, scale 0.97, 100ms ease-out.<br>
+        Loading — text hidden, centered spinner colorCtaFg, button stays full width. Never <code>Opacity</code> widget — change colors instead.<br>
+        Disabled — bg <code>rgba(155,127,212,0.35)</code>, text <code>rgba(250,248,255,0.5)</code>.<br><br>
+        <strong>Mic button inside CTA:</strong> removed (2026-03-24). Path A covers voice, text, and scan. Mic icon was misleading (implied voice-only). CTA is text-only now.<br><br>
+        <strong>Secondary:</strong> transparent bg · border 1.5px <code>rgba(26,22,18,0.12)</code> · ink text · height 46px<br>
+        <strong>Ghost:</strong> no border · mid color text · height 36px<br>
+        <strong>All buttons:</strong> sentence case · never title case · never ALL CAPS · DM Sans 500
+      </div>
+    </div>
+
+    <!-- ── COMPONENT: ONBOARDING PROGRESS BAR ── -->
+    <div class="comp-card" style="margin-bottom:20px;">
+      <div class="comp-header">
+        <div class="comp-name">Onboarding progress bar</div>
+        <span class="tag tag-never">full-bleed · outside SafeArea</span>
+        <a href="../screens/s01-welcome-hifi.html" style="font-size:10px;color:var(--cta);text-decoration:none;margin-left:auto;">↗ S-01</a>
+      </div>
+      <div class="comp-body">
+        <!-- Visual demo -->
+        <div style="margin-bottom:18px;">
+          <div style="font-size:9px;font-weight:600;color:rgba(26,22,18,0.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">Steps S-01 → S-08</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="font-size:9px;color:rgba(26,22,18,0.45);width:60px;flex-shrink:0;">S-01</div>
+              <div style="flex:1;height:3px;background:rgba(26,22,18,0.08);border-radius:100px;position:relative;"><div style="position:absolute;left:0;top:0;height:3px;width:20%;background:#9B7FD4;border-radius:100px;"></div></div>
+              <div style="font-size:9px;color:#9B7FD4;width:28px;text-align:right;flex-shrink:0;">20%</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="font-size:9px;color:rgba(26,22,18,0.45);width:60px;flex-shrink:0;">S-02/03/04</div>
+              <div style="flex:1;height:3px;background:rgba(26,22,18,0.08);border-radius:100px;position:relative;"><div style="position:absolute;left:0;top:0;height:3px;width:40%;background:#9B7FD4;border-radius:100px;"></div></div>
+              <div style="font-size:9px;color:#9B7FD4;width:28px;text-align:right;flex-shrink:0;">40%</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="font-size:9px;color:rgba(26,22,18,0.45);width:60px;flex-shrink:0;">S-05</div>
+              <div style="flex:1;height:3px;background:rgba(26,22,18,0.08);border-radius:100px;position:relative;"><div style="position:absolute;left:0;top:0;height:3px;width:60%;background:#9B7FD4;border-radius:100px;"></div></div>
+              <div style="font-size:9px;color:#9B7FD4;width:28px;text-align:right;flex-shrink:0;">60%</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="font-size:9px;color:rgba(26,22,18,0.45);width:60px;flex-shrink:0;">S-06</div>
+              <div style="flex:1;height:3px;background:rgba(26,22,18,0.08);border-radius:100px;position:relative;"><div style="position:absolute;left:0;top:0;height:3px;width:80%;background:#9B7FD4;border-radius:100px;"></div></div>
+              <div style="font-size:9px;color:#9B7FD4;width:28px;text-align:right;flex-shrink:0;">80%</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="font-size:9px;color:rgba(26,22,18,0.45);width:60px;flex-shrink:0;">S-07</div>
+              <div style="flex:1;height:3px;background:rgba(26,22,18,0.08);border-radius:100px;position:relative;"><div style="position:absolute;left:0;top:0;height:3px;width:100%;background:#9B7FD4;border-radius:100px;"></div></div>
+              <div style="font-size:9px;color:#9B7FD4;width:28px;text-align:right;flex-shrink:0;">100%</div>
+            </div>
+          </div>
+          <div style="font-size:9px;color:rgba(26,22,18,0.4);margin-top:8px;line-height:1.5;">S-02, S-03 sit at 40% (path chosen, entering items). S-06 at 80%/85% (AHA + celebration). S-07 at 90% (push). S-08 at 95% (SSO).</div>
+        </div>
+
+        <div class="spec-grid" style="margin-bottom:16px;">
+          <div class="spec-row"><div class="spec-l">Height</div><div class="spec-r">3px</div></div>
+          <div class="spec-row"><div class="spec-l">Border-radius</div><div class="spec-r">100px</div></div>
+          <div class="spec-row"><div class="spec-l">Width</div><div class="spec-r">Full-width, edge-to-edge — zero side padding</div></div>
+          <div class="spec-row"><div class="spec-l">Position</div><div class="spec-r">Outside SafeArea (<code>top: false</code>). Full-bleed between status bar and safe content area — no horizontal inset</div></div>
+          <div class="spec-row"><div class="spec-l">Track</div><div class="spec-r"><code>rgba(26,22,18,0.08)</code> — subtle warm grey</div></div>
+          <div class="spec-row"><div class="spec-l">Fill</div><div class="spec-r"><code>colorCta #9B7FD4</code></div></div>
+          <div class="spec-row" style="border-bottom:none;"><div class="spec-l">Animation</div><div class="spec-r">300ms ease-in-out on every step change. S-06 celebration: brief <code>colorCta</code> opacity pulse 1→0.4→1</div></div>
+        </div>
+
+        <div class="dark-panel" style="margin-bottom:14px;">
+          <div class="dark-lbl">Flutter</div>
+          <pre style="font-family:monospace;font-size:10.5px;color:rgba(239,240,232,0.8);line-height:1.7;overflow-x:auto;">ClipRRect(
+  borderRadius: BorderRadius.circular(100),
+  child: AnimatedContainer(
+    duration: Duration(milliseconds: 300),
+    curve: Curves.easeInOut,
+    height: 3,
+    width: double.infinity,
+    child: LinearProgressIndicator(
+      value: 0.80, // e.g. S-06
+      backgroundColor: Color(0x141A1612), // rgba(26,22,18,0.08)
+      valueColor: AlwaysStoppedAnimation(Color(0xFF9B7FD4)),
+    ),
+  ),
+)
+// ❌ Never StepProgressIndicator — fixed count implies fixed screens</pre>
+        </div>
+
+        <div class="rcard" style="border-color:rgba(163,45,45,0.15);">
+          <div class="rcard-title">Never <span style="color:#C4503A;">dots or segmented bars</span></div>
+          <div class="rcard-body">Any fixed visual count implies a fixed step count. The onboarding flow has 5–7 screens depending on path chosen. A continuous bar makes no promise about how many steps remain.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── COMPONENT: NUDGE CARD ── -->
+    <div class="rcard" style="margin-bottom:20px;">
+      <div class="rcard-title" style="margin-bottom:12px;">Nudge card <a href="../screens/s09-dashboard-hifi.html" style="font-size:10px;color:var(--cta);text-decoration:none;margin-left:8px;">↗ S-09</a></div>
+      <!-- VISUAL DEMO -->
+      <div style="background:var(--cream-2);border-radius:10px;padding:20px;margin-bottom:16px;display:flex;flex-direction:column;gap:6px;">
+        <div class="ncard"><div class="nci" style="background:var(--chb);"><svg viewBox="0 0 24 24" style="stroke:var(--ch);width:12px;height:12px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="nb"><div class="nn nn-ov">Dishwasher salt</div><div class="ns">it's starting to smell</div></div><div class="nd" style="color:var(--terra);">5d</div></div>
+        <div class="ncard"><div class="nci" style="background:var(--cvb);"><svg viewBox="0 0 24 24" style="stroke:var(--cv);width:12px;height:12px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;"><path d="M19 17H5v2a1 1 0 001 1h12a1 1 0 001-1v-2z"/><path d="M17 12H7l2-5h6l2 5z"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg></div><div class="nb"><div class="nn">Winter tyres</div><div class="ns">giving you the look</div></div><div class="nd" style="color:var(--ap-dk);">Thu 20</div></div>
+        <div class="ncard"><div class="nci" style="background:var(--csb);"><svg viewBox="0 0 24 24" style="stroke:var(--cs);width:12px;height:12px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div><div class="nb"><div class="nn">Netflix review</div><div class="ns">quietly charging away</div></div><div class="nd" style="color:rgba(26,22,18,0.2);">Apr 2</div></div>
+      </div>
+      <div class="rcard-body">
+        White card on cream background. The cream gap between cards is the visual separator — no border-bottom, no dividers.<br><br>
+        <strong>Card:</strong> bg white · border-radius 10–11px · border 0.5px solid <code>rgba(26,22,18,0.08)</code> · shadow <code>0 1px 3px rgba(26,22,18,0.04)</code><br>
+        <strong>Category icon chip:</strong> 28×28px · border-radius 8px · category-colored bg at 10% opacity · Phosphor outline icon 12px · stroke 1.5<br>
+        <strong>Task name:</strong> DM Sans 500 · 13–14px · <code>--ink</code> · ls -0.1px<br>
+        <strong>Witty subtitle:</strong> DM Sans 400 italic · 10–11px · <code>--mid</code> (decorative, not functional)<br>
+        <strong>Date label:</strong> DM Sans 500 · 11px · overdue = <code>--terra</code> · due-soon = <code>--ap-dk</code> · future = <code>rgba(26,22,18,0.2)</code><br>
+        <strong>Gap between cards:</strong> 6px (onboarding/review) · 8px (dashboard)<br>
+        <strong>No left-border accent lines — ever.</strong> Status lives in the date label color only.<br>
+        <strong>Swipe right:</strong> completes at 40% threshold · reveals done overlay on release<br>
+        <strong>Done state:</strong> opacity 0.35 + strikethrough · <code>AnimatedOpacity</code> 250ms
+      </div>
+    </div>
+
+    <!-- ── COMPONENT: DONE OVERLAY ── -->
+    <div class="rcard" style="margin-bottom:20px;">
+      <div class="rcard-title" style="margin-bottom:12px;">Done overlay</div>
+      <!-- VISUAL DEMO -->
+      <div style="background:var(--cream-2);border-radius:10px;padding:20px;margin-bottom:16px;">
+        <div class="done-mini">
+          <div class="dm-ii"><div class="dm-l"></div><div class="dm-r"><div class="dm-dot"></div></div></div>
+          <div class="dm-title">Done. <em>Your dishwasher approves.</em></div>
+          <div class="dm-sub">Next in 6 weeks</div>
+        </div>
+      </div>
+      <div class="rcard-body">
+        Full-screen plum overlay. The only theatrical moment in the app.<br><br>
+        <strong>Background:</strong> <code>colorPlum #2D1F4A</code> — the only place this color appears in the app.<br>
+        <strong>Trigger:</strong> dashboard swipe-to-complete only. Task detail gets a quiet in-screen completion banner — not this overlay.<br>
+        <strong>ii mark:</strong> 40px · left pill plum-pale · right pill rgba(196,168,232,0.28) · dot apricot<br>
+        <strong>Headline:</strong> "Done." · DM Serif Display regular · cream · 28–30px<br>
+        <strong>Em-accent:</strong> item-specific witty line · DM Serif Display italic · apricot (#E8A87C) · max 5 words<br>
+        <strong>Sub:</strong> "Next reminder in [interval]" · DM Sans · cream 55% · 11px<br>
+        <strong>Animation:</strong> 400–450ms <code>cubic-bezier(0.34,1.56,0.64,1)</code> · ii mark scale + headline translateY · spring only here<br>
+        <strong>Copy rules:</strong> item as implicit subject ("Your dishwasher approves." not "Great job!") · dry-comic · never exclamation marks · never emojis
+      </div>
+    </div>
+
+    <!-- ── COMPONENT: TOAST ── -->
+    <div class="comp-card" style="margin-bottom:20px;">
+      <div class="comp-header">
+        <div class="comp-name">Toast</div>
+        <span class="tag" style="background:rgba(26,22,18,0.06);color:var(--mid-a);">auto-dismisses · 2.5s</span>
+      </div>
+      <div class="comp-body">
+
+        <!-- What is a toast -->
+        <p style="font-size:12px;color:var(--mid);line-height:1.65;margin-bottom:18px;">A toast is a small pill that slides up from the bottom of the screen, delivers a brief message, and disappears on its own after 2.5 seconds — no tap required. It confirms something just happened, or flags a lightweight problem. Never use a toast for errors that need a persistent action or explanation — use an error card instead.</p>
+
+        <!-- Visual demo -->
+        <div style="background:var(--cream-2);border-radius:10px;padding:24px 20px;margin-bottom:18px;">
+          <div style="font-size:9px;font-weight:600;color:rgba(26,22,18,0.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;">Three variants</div>
+          <div style="display:flex;flex-direction:column;gap:10px;align-items:center;">
+            <!-- Success -->
+            <div style="position:relative;width:100%;max-width:300px;">
+              <div style="display:inline-flex;align-items:center;gap:7px;background:#EAF3DE;border:1px solid rgba(59,109,17,0.20);border-radius:100px;padding:9px 16px;font-size:12px;font-weight:500;color:#3B6D11;box-shadow:0 2px 16px rgba(26,22,18,0.12);width:100%;">
+                <div style="width:6px;height:6px;border-radius:50%;background:#3B6D11;flex-shrink:0;"></div>
+                <span style="flex:1;">Magic link sent</span>
+                <span style="font-size:9px;font-weight:400;color:rgba(59,109,17,0.5);letter-spacing:0.5px;">SUCCESS</span>
+              </div>
+            </div>
+            <!-- Neutral with undo -->
+            <div style="position:relative;width:100%;max-width:300px;">
+              <div style="display:inline-flex;align-items:center;gap:7px;background:#F5F0E8;border:1px solid rgba(26,22,18,0.12);border-radius:100px;padding:9px 16px;font-size:12px;font-weight:500;color:#1A1612;box-shadow:0 2px 16px rgba(26,22,18,0.12);width:100%;">
+                <div style="width:6px;height:6px;border-radius:50%;background:#9B7FD4;flex-shrink:0;"></div>
+                <span style="flex:1;">Item removed</span>
+                <span style="font-size:11px;font-weight:600;color:#9B7FD4;text-decoration:underline;cursor:pointer;">Undo</span>
+                <span style="font-size:9px;font-weight:400;color:rgba(26,22,18,0.3);letter-spacing:0.5px;">NEUTRAL</span>
+              </div>
+            </div>
+            <!-- Error -->
+            <div style="position:relative;width:100%;max-width:300px;">
+              <div style="display:inline-flex;align-items:center;gap:7px;background:#FCEBEB;border:1px solid rgba(163,45,45,0.20);border-radius:100px;padding:9px 16px;font-size:12px;font-weight:500;color:#A32D2D;box-shadow:0 2px 16px rgba(26,22,18,0.12);width:100%;">
+                <div style="width:6px;height:6px;border-radius:50%;background:#C4503A;flex-shrink:0;"></div>
+                <span style="flex:1;">No connection. Try again.</span>
+                <span style="font-size:9px;font-weight:400;color:rgba(163,45,45,0.4);letter-spacing:0.5px;">ERROR</span>
+              </div>
+            </div>
+          </div>
+          <!-- Position indicator -->
+          <div style="margin-top:20px;display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <div style="font-size:9px;color:rgba(26,22,18,0.35);letter-spacing:0.5px;">POSITION — centered, 14px above tab bar</div>
+            <div style="width:200px;height:36px;background:white;border-radius:18px;border:1px dashed rgba(26,22,18,0.15);display:flex;align-items:center;justify-content:center;">
+              <div style="width:120px;height:14px;background:rgba(155,127,212,0.15);border-radius:100px;border:1px dashed rgba(155,127,212,0.4);"></div>
+            </div>
+            <div style="font-size:9px;color:rgba(26,22,18,0.25);">↑ 14px</div>
+            <div style="width:200px;height:28px;background:rgba(26,22,18,0.04);border-radius:14px;border:1px solid rgba(26,22,18,0.08);display:flex;align-items:center;justify-content:center;">
+              <div style="font-size:8px;color:rgba(26,22,18,0.3);">Tab bar</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- When to use -->
+        <div style="margin-bottom:16px;">
+          <div style="font-size:9px;font-weight:600;color:rgba(26,22,18,0.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">When nudgii uses a toast</div>
+          <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+            <div style="display:grid;grid-template-columns:1fr 80px 1fr;background:rgba(26,22,18,0.025);border-bottom:1px solid var(--border);padding:7px 12px;gap:8px;">
+              <div style="font-size:9px;font-weight:600;color:var(--mid);letter-spacing:0.5px;text-transform:uppercase;">Trigger</div>
+              <div style="font-size:9px;font-weight:600;color:var(--mid);letter-spacing:0.5px;text-transform:uppercase;">Variant</div>
+              <div style="font-size:9px;font-weight:600;color:var(--mid);letter-spacing:0.5px;text-transform:uppercase;">Message</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 80px 1fr;padding:8px 12px;gap:8px;border-bottom:1px solid var(--border);align-items:center;">
+              <div style="font-size:11px;color:var(--ink);">Task marked done (swipe)</div>
+              <div style="font-size:10px;"><span style="background:#F5F0E8;border:1px solid rgba(26,22,18,0.10);border-radius:100px;padding:2px 8px;color:var(--ink);">Neutral</span></div>
+              <div style="font-size:11px;color:var(--mid);font-style:italic;">"Done" + <strong style="color:#9B7FD4;font-style:normal;">Undo</strong></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 80px 1fr;padding:8px 12px;gap:8px;border-bottom:1px solid var(--border);align-items:center;">
+              <div style="font-size:11px;color:var(--ink);">Item added</div>
+              <div style="font-size:10px;"><span style="background:#EAF3DE;border:1px solid rgba(59,109,17,0.15);border-radius:100px;padding:2px 8px;color:#3B6D11;">Success</span></div>
+              <div style="font-size:11px;color:var(--mid);font-style:italic;">"Vaatwasser added"</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 80px 1fr;padding:8px 12px;gap:8px;border-bottom:1px solid var(--border);align-items:center;">
+              <div style="font-size:11px;color:var(--ink);">Item deleted</div>
+              <div style="font-size:10px;"><span style="background:#F5F0E8;border:1px solid rgba(26,22,18,0.10);border-radius:100px;padding:2px 8px;color:var(--ink);">Neutral</span></div>
+              <div style="font-size:11px;color:var(--mid);font-style:italic;">"Removed" + <strong style="color:#9B7FD4;font-style:normal;">Undo</strong></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 80px 1fr;padding:8px 12px;gap:8px;border-bottom:1px solid var(--border);align-items:center;">
+              <div style="font-size:11px;color:var(--ink);">Magic link email sent</div>
+              <div style="font-size:10px;"><span style="background:#EAF3DE;border:1px solid rgba(59,109,17,0.15);border-radius:100px;padding:2px 8px;color:#3B6D11;">Success</span></div>
+              <div style="font-size:11px;color:var(--mid);font-style:italic;">"Magic link sent — check your email"</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 80px 1fr;padding:8px 12px;gap:8px;align-items:center;">
+              <div style="font-size:11px;color:var(--ink);">Connection lost (transient)</div>
+              <div style="font-size:10px;"><span style="background:#FCEBEB;border:1px solid rgba(163,45,45,0.15);border-radius:100px;padding:2px 8px;color:#A32D2D;">Error</span></div>
+              <div style="font-size:11px;color:var(--mid);font-style:italic;">"No connection. Try again."</div>
+            </div>
+          </div>
+          <div style="font-size:9px;color:rgba(26,22,18,0.4);margin-top:6px;line-height:1.5;">Error toasts for <strong>transient</strong> problems only (e.g. offline). If the user needs to take a specific action to recover, use an error card instead.</div>
+        </div>
+
+        <!-- Spec table -->
+        <div class="spec-grid" style="margin-bottom:16px;">
+          <div class="spec-row"><div class="spec-l">Shape</div><div class="spec-r">Pill — border-radius 100px · padding 9px 16px · max-width 260px</div></div>
+          <div class="spec-row"><div class="spec-l">Position</div><div class="spec-r">Horizontally centered · 14px above tab bar (or 14px above bottom safe area on screens without tab bar)</div></div>
+          <div class="spec-row"><div class="spec-l">Shadow</div><div class="spec-r"><code>0 2px 16px rgba(26,22,18,0.12)</code></div></div>
+          <div class="spec-row"><div class="spec-l">Duration</div><div class="spec-r">2.5s visible · 250ms fade-out. Undo toasts stay until tapped or 4s elapsed.</div></div>
+          <div class="spec-row"><div class="spec-l">Entry</div><div class="spec-r">Slides up 12px from below + fade-in · 200ms ease-out</div></div>
+          <div class="spec-row"><div class="spec-l">Success</div><div class="spec-r">bg <code>#EAF3DE</code> · text <code>#3B6D11</code> · dot sage · border rgba(59,109,17,0.20)</div></div>
+          <div class="spec-row"><div class="spec-l">Neutral</div><div class="spec-r">bg <code>#F5F0E8</code> · text <code>--ink</code> · dot <code>--cta #9B7FD4</code> · border rgba(26,22,18,0.12)</div></div>
+          <div class="spec-row"><div class="spec-l">Error</div><div class="spec-r">bg <code>#FCEBEB</code> · text <code>#A32D2D</code> · dot terra · border rgba(163,45,45,0.20)</div></div>
+          <div class="spec-row"><div class="spec-l">Undo action</div><div class="spec-r"><code>--cta</code> color · underlined · DM Sans 600 11px · appears only on neutral toasts that reverse a destructive action</div></div>
+          <div class="spec-row" style="border-bottom:none;"><div class="spec-l">Typography</div><div class="spec-r">DM Sans 500 · 12px · sentence case · max ~4 words</div></div>
+        </div>
+
+        <div class="dark-panel" style="margin-bottom:14px;">
+          <div class="dark-lbl">Flutter — custom overlay, not SnackBar</div>
+          <pre style="font-family:monospace;font-size:10.5px;color:rgba(239,240,232,0.8);line-height:1.7;overflow-x:auto;">// ❌ Never use ScaffoldMessenger.showSnackBar — wrong position + shape
+// ✅ Use custom overlay positioned above tab bar
+
+Overlay.of(context).insert(
+  OverlayEntry(builder: (_) => NudgiiToast(
+    message: 'Item removed',
+    variant: ToastVariant.neutral,
+    undoLabel: 'Undo',         // optional — null hides undo action
+    onUndo: () => _restoreItem(),
+  )),
+);
+
+// NudgiiToast wraps content in:
+// AnimatedSlide (0→offset(0,0), 200ms easeOut) +
+// AnimatedOpacity (0→1, 200ms) +
+// Positioned(bottom: tabBarHeight + 14, left: 0, right: 0)
+// Auto-dismiss: Timer(Duration(seconds: undoLabel != null ? 4 : 2), dismiss)</pre>
+        </div>
+
+        <div class="rcard" style="border-color:rgba(163,45,45,0.15);">
+          <div class="rcard-title">Rules that never bend</div>
+          <div class="rcard-body">
+            <div style="display:flex;flex-direction:column;gap:5px;margin-top:2px;">
+              <div style="display:flex;gap:7px;"><span style="color:#C4503A;font-weight:600;flex-shrink:0;">✕</span><span>Never two toasts on screen at once — queue them, show one at a time</span></div>
+              <div style="display:flex;gap:7px;"><span style="color:#C4503A;font-weight:600;flex-shrink:0;">✕</span><span>Never dark ink background — always light semantic backgrounds</span></div>
+              <div style="display:flex;gap:7px;"><span style="color:#C4503A;font-weight:600;flex-shrink:0;">✕</span><span>Never use a toast for errors that need a persistent action — use an error card</span></div>
+              <div style="display:flex;gap:7px;"><span style="color:#C4503A;font-weight:600;flex-shrink:0;">✕</span><span>Never use the default Flutter <code>SnackBar</code> — wrong position, wrong shape</span></div>
+              <div style="display:flex;gap:7px;"><span style="color:#C4503A;font-weight:600;flex-shrink:0;">✕</span><span>Never use humor in toast copy — keep it short and calm</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── COMPONENT: ERROR CARD ── -->
+    <div class="rcard" style="margin-bottom:20px;">
+      <div class="rcard-title" style="margin-bottom:12px;">Error card <a href="../screens/s06-auth-lofi.html" style="font-size:10px;color:var(--cta);text-decoration:none;margin-left:8px;">↗ S-08 Sign-in</a></div>
+      <!-- VISUAL DEMO -->
+      <div style="background:var(--cream-2);border-radius:10px;padding:20px;margin-bottom:16px;">
+        <div style="background:#FCEBEB;border:1px solid rgba(163,45,45,0.18);border-radius:12px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;max-width:380px;">
+          <div style="width:28px;height:28px;border-radius:8px;background:rgba(196,80,58,0.15);flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C4503A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:12px;font-weight:500;color:#1A1612;margin-bottom:3px;">Microphone not working</div>
+            <div style="font-size:11px;color:#6B6358;line-height:1.5;margin-bottom:6px;">No problem. Tap below to type instead.</div>
+            <div style="font-size:11px;color:#9B7FD4;text-decoration:underline;display:inline-flex;align-items:center;gap:3px;">Type instead <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#9B7FD4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+      <div class="rcard-body">
+        Full semantic background + icon-chip. No border-left accent.<br><br>
+        <strong>Background:</strong> <code>--red-lt #FCEBEB</code><br>
+        <strong>Border:</strong> 1px solid rgba(163,45,45,0.18) — all sides. <span style="color:var(--terra);font-weight:500;">No border-left accent stripe — ever.</span><br>
+        <strong>Icon-chip:</strong> 28×28px · border-radius 8px · rgba(196,80,58,0.15) bg · Phosphor WarningCircle 14px stroke 1.8 · terra<br>
+        <strong>Title:</strong> DM Sans 500 12px · ink<br>
+        <strong>Body:</strong> DM Sans 400 11px · <code>--mid-a #6B6358</code><br>
+        <strong>Action link:</strong> <code>--cta</code> · underline · Phosphor ArrowRight 10px · always present<br>
+        <strong>Copy rules:</strong> never technical error codes · always an exit · never em-dash
+      </div>
+    </div>
+
+    <!-- ── COMPONENT: FREE BADGE ── -->
+    <div class="rcard" style="margin-bottom:20px;">
+      <div class="rcard-title" style="margin-bottom:12px;">Free badge <a href="../screens/s01-welcome-hifi.html" style="font-size:10px;color:var(--cta);text-decoration:none;margin-left:8px;">↗ S-01</a></div>
+      <!-- VISUAL DEMO -->
+      <div style="background:var(--cream-2);border-radius:10px;padding:20px;margin-bottom:16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+        <div style="display:inline-flex;align-items:center;gap:5px;background:#EAF3DE;border-radius:100px;padding:4px 10px 4px 7px;font-size:10px;font-weight:500;color:#3B6D11;">
+          <div style="width:5px;height:5px;border-radius:50%;background:#3B6D11;"></div>
+          Free · no credit card
+        </div>
+        <div style="font-size:11px;color:var(--mid);font-style:italic;">Used on S-01 and S-06</div>
+      </div>
+      <div class="rcard-body">
+        Sage-lt green — not neutral grey (which reads as "limited"). Green communicates "free = positive."<br><br>
+        <strong>Background:</strong> <code>--sage-lt #EAF3DE</code><br>
+        <strong>Text:</strong> <code>--sage #3B6D11</code> · 10px · weight 500<br>
+        <strong>Dot:</strong> 5px · border-radius 50% · <code>--sage</code><br>
+        <strong>Copy (EN):</strong> "Free · no credit card"<br>
+        <strong>Copy (NL):</strong> "Gratis · geen creditcard"<br>
+        <strong>Padding:</strong> 4px 10px 4px 7px · border-radius 100px<br>
+        <strong>Placement:</strong> S-01 top-right inline with ii mark · S-08 Sign-in screen
+      </div>
+    </div>
+
+    <!-- ── COMPONENT: PRO BADGE ── -->
+    <div class="rcard" style="margin-bottom:20px;">
+      <div class="rcard-title" style="margin-bottom:12px;">Pro badge <a href="../screens/s20-profile-free-hifi.html" style="font-size:10px;color:var(--cta);text-decoration:none;margin-left:8px;">↗ S-20</a></div>
+      <!-- VISUAL DEMO -->
+      <div style="background:var(--cream-2);border-radius:10px;padding:20px;margin-bottom:16px;">
+        <div class="pro-pill"><div class="pro-dot"></div>nudgii Pro</div>
+      </div>
+      <div class="rcard-body">
+        Full pill style. Profile screen only.<br><br>
+        <strong>Background:</strong> <code>rgba(155,127,212,0.12)</code><br>
+        <strong>Border:</strong> <code>rgba(155,127,212,0.20)</code><br>
+        <strong>Text + dot:</strong> <code>--cta #9B7FD4</code> · 10px · weight 500<br>
+        <strong>Padding:</strong> 4px 10px 4px 7px · border-radius 100px<br>
+        <strong>Rules:</strong> Never call it "Premium" (implies free is low quality). Pro = more capacity for users whose homes have more to track.
+      </div>
+    </div>
+
+    <!-- ── COMPONENT: SKELETON LOADING ── -->
+    <div class="rcard" style="margin-bottom:20px;">
+      <div class="rcard-title" style="margin-bottom:12px;">Skeleton loading</div>
+      <!-- VISUAL DEMO -->
+      <div style="background:var(--cream-2);border-radius:10px;padding:20px;margin-bottom:16px;">
+        <div style="display:flex;flex-direction:column;gap:6px;max-width:300px;">
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:10px 12px;display:flex;align-items:center;gap:10px;">
+            <div style="width:28px;height:28px;border-radius:8px;background:#E8E3D8;flex-shrink:0;position:relative;overflow:hidden;"><div style="position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.5) 50%,transparent 100%);animation:shimmer 1.4s infinite;"></div></div>
+            <div style="flex:1;"><div style="height:9px;border-radius:4px;background:#E8E3D8;width:70%;margin-bottom:6px;position:relative;overflow:hidden;"><div style="position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.5) 50%,transparent 100%);animation:shimmer 1.4s infinite;"></div></div><div style="height:7px;border-radius:4px;background:#EDE9E0;width:45%;"></div></div>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:10px 12px;display:flex;align-items:center;gap:10px;">
+            <div style="width:28px;height:28px;border-radius:8px;background:#E8E3D8;flex-shrink:0;"></div>
+            <div style="flex:1;"><div style="height:9px;border-radius:4px;background:#E8E3D8;width:55%;margin-bottom:6px;"></div><div style="height:7px;border-radius:4px;background:#EDE9E0;width:35%;"></div></div>
+          </div>
+        </div>
+      </div>
+      <style>@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(200%)}}</style>
+      <div class="rcard-body">
+        Shown while Claude processes voice/text input (2–4 seconds). Never a spinner alone for operations over 1 second.<br><br>
+        <strong>Skeleton icon:</strong> <code>#E8E3D8</code> · 28×28px · border-radius 7px<br>
+        <strong>Skeleton lines:</strong> primary <code>#E8E3D8</code> · secondary <code>#EDE9E0</code> · border-radius 4px<br>
+        <strong>Shimmer:</strong> left → right · 1400ms infinite · rgba(255,255,255,0.5) sweep<br>
+        <strong>Max:</strong> 3 skeleton cards — never more<br>
+        <strong>Flutter:</strong> Custom <code>AnimationController</code> + gradient sweep. Not the shimmer package.
+      </div>
+    </div>
+
+    <!-- ── COMPONENT: TOOLTIP / CONTEXTUAL HINT ── -->
+    <div class="rcard" style="margin-bottom:20px;" id="tooltip">
+      <div class="rcard-title" style="margin-bottom:4px;">Tooltip · contextual hint <span class="tag" style="background:#EAF3DE;color:#3B6D11;">ClickUp 869ck8142</span></div>
+      <div class="rcard-body" style="margin-bottom:18px;">One-time coach marks and persistent contextual hints. Never blocking — always dismissible. Shown max once per trigger. Part of the progressive feature discovery pattern.</div>
+
+      <!-- Live demos -->
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start;margin-bottom:20px;">
+
+        <!-- Coach mark tooltip (below anchor) -->
+        <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-start;">
+          <div style="font-size:9px;color:var(--mid);letter-spacing:0.5px;text-transform:uppercase;font-weight:500;margin-bottom:2px;">Coach mark — below anchor</div>
+          <!-- anchor button -->
+          <div style="background:#9B7FD4;border-radius:100px;padding:8px 16px;font-size:12px;font-weight:500;color:#FAF8FF;display:inline-block;">Add item</div>
+          <!-- tooltip bubble -->
+          <div style="position:relative;margin-top:4px;">
+            <div style="position:absolute;top:-6px;left:18px;width:10px;height:6px;overflow:hidden;">
+              <div style="width:8px;height:8px;background:#2D1F4A;transform:rotate(45deg);margin:3px 0 0 1px;border-radius:1px;"></div>
+            </div>
+            <div style="background:#2D1F4A;border-radius:10px;padding:9px 12px;max-width:180px;box-shadow:0 4px 16px rgba(45,31,74,0.25);">
+              <div style="font-size:11px;font-weight:500;color:#F5F0E8;margin-bottom:3px;">Tap to add your first item</div>
+              <div style="font-size:10px;color:rgba(245,240,232,0.65);line-height:1.5;margin-bottom:8px;">Voice, browse, or search — pick what feels right.</div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div style="font-size:9.5px;color:rgba(245,240,232,0.45);cursor:pointer;">Dismiss</div>
+                <div style="font-size:9.5px;font-weight:500;color:#9B7FD4;cursor:pointer;">Got it</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inline contextual hint (below a task row) -->
+        <div style="display:flex;flex-direction:column;gap:0;max-width:220px;">
+          <div style="font-size:9px;color:var(--mid);letter-spacing:0.5px;text-transform:uppercase;font-weight:500;margin-bottom:8px;">Inline hint — below task</div>
+          <!-- mock task row -->
+          <div style="background:#FFFFFF;border:0.5px solid rgba(26,22,18,0.08);border-radius:9px 9px 0 0;padding:10px 12px;border-bottom:none;">
+            <div style="font-size:12px;font-weight:500;color:#1A1612;">Clean dishwasher filter</div>
+            <div style="font-size:9px;color:#C8784A;margin-top:2px;">Due in 3 days</div>
+          </div>
+          <!-- hint attached below -->
+          <div style="background:#EAF3DE;border:0.5px solid rgba(59,109,17,0.15);border-radius:0 0 9px 9px;padding:7px 12px;display:flex;align-items:flex-start;gap:8px;">
+            <div style="width:14px;height:14px;border-radius:50%;background:#3B6D11;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
+              <svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#EAF3DE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div style="flex:1;">
+              <div style="font-size:10px;color:#3B6D11;line-height:1.5;">Swipe right to mark done, or tap to see details.</div>
+            </div>
+            <div style="font-size:9px;color:rgba(59,109,17,0.5);cursor:pointer;flex-shrink:0;">×</div>
+          </div>
+        </div>
+
+        <!-- Floating hint (top of screen) -->
+        <div style="display:flex;flex-direction:column;gap:6px;max-width:220px;">
+          <div style="font-size:9px;color:var(--mid);letter-spacing:0.5px;text-transform:uppercase;font-weight:500;margin-bottom:2px;">Floating banner hint</div>
+          <div style="background:#FAF8FF;border:1px solid rgba(155,127,212,0.25);border-radius:10px;padding:10px 13px;display:flex;align-items:flex-start;gap:10px;box-shadow:0 2px 10px rgba(155,127,212,0.12);">
+            <div style="width:28px;height:28px;border-radius:8px;background:rgba(155,127,212,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9B7FD4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div style="flex:1;">
+              <div style="font-size:11px;font-weight:500;color:#1A1612;margin-bottom:2px;">Pro tip</div>
+              <div style="font-size:10px;color:#6B6358;line-height:1.5;">You can snooze any task with a long press on the task row.</div>
+            </div>
+            <div style="font-size:11px;color:rgba(26,22,18,0.3);cursor:pointer;flex-shrink:0;margin-top:-2px;">×</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Spec table -->
+      <table style="width:100%;border-collapse:collapse;font-size:11px;margin-bottom:14px;">
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:5px 8px;font-size:9.5px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Variant</td>
+          <td style="padding:5px 8px;font-size:9.5px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Background</td>
+          <td style="padding:5px 8px;font-size:9.5px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Use case</td>
+          <td style="padding:5px 8px;font-size:9.5px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Dismiss</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:5px 8px;font-weight:500;">Coach mark</td>
+          <td style="padding:5px 8px;"><code style="font-size:10px;">#2D1F4A</code> plum · cream text</td>
+          <td style="padding:5px 8px;">First-time feature discovery. Anchored to trigger element. Arrow points at anchor.</td>
+          <td style="padding:5px 8px;">"Got it" or tap outside</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:5px 8px;font-weight:500;">Inline hint</td>
+          <td style="padding:5px 8px;"><code style="font-size:10px;">sage-lt #EAF3DE</code></td>
+          <td style="padding:5px 8px;">Contextual info attached below a specific row or card. Not blocking.</td>
+          <td style="padding:5px 8px;">× tap · shown once</td>
+        </tr>
+        <tr>
+          <td style="padding:5px 8px;font-weight:500;">Floating banner</td>
+          <td style="padding:5px 8px;"><code style="font-size:10px;">#FAF8FF</code> · CTA purple border</td>
+          <td style="padding:5px 8px;">Proactive tips. Appears at top of scroll area. Not anchored to element.</td>
+          <td style="padding:5px 8px;">× tap · auto-fade 6s</td>
+        </tr>
+      </table>
+
+      <!-- Rules -->
+      <div style="background:var(--bg);border:0.5px solid var(--border);border-radius:9px;padding:10px 13px;">
+        <div style="font-size:9.5px;font-weight:500;color:var(--ink);margin-bottom:6px;">Rules that never bend</div>
+        <div style="font-size:9.5px;color:var(--mid);line-height:1.9;">
+          ❌ Never blocking — a tooltip must never prevent the user from completing their primary task<br>
+          ❌ Never more than one hint visible at a time on any screen<br>
+          ❌ Never shown twice — once dismissed, gone forever (persisted in local storage)<br>
+          ❌ No humor on coach marks — informative only, no jokes<br>
+          ✅ Always dismissible with a single tap<br>
+          ✅ Triggered by behavior (e.g. first task added, second session) — never by a timer<br>
+          ✅ Coach mark arrow must point directly at the trigger element — never floating free<br>
+          ✅ Flutter: <code>OverlayEntry</code> for coach marks · <code>AnimatedOpacity 250ms</code> for all variants
+        </div>
+      </div>
+    </div>
+
+    <!-- ── COMPONENT: TYPOGRAPHY SCALE ── -->
+    <div class="rcard" style="margin-bottom:20px;">
+      <div class="rcard-title" style="margin-bottom:12px;">Typography scale — onboarding vs. daily</div>
+      <div class="rcard-body">
+        Same fonts, different scales. Onboarding screens have more space and a different rhythm than the daily dashboard.<br><br>
+        <table style="width:100%;border-collapse:collapse;font-size:12px;margin-top:12px;line-height:1.8;">
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Element</td>
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Onboarding (S-01→S-08)</td>
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Daily (S-09+)</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Headline</td><td style="padding:4px 8px;">DM Serif Display · 22–33px · lh 0.97 · ls -0.5px</td><td style="padding:4px 8px;">DM Serif Display · 25–27px · greeting only</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Serif em</td><td style="padding:4px 8px;">ap-dk #C8784A · italic · key word</td><td style="padding:4px 8px;">apricot #E8A87C · name highlight</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Lead / subtitle</td><td style="padding:4px 8px;">DM Sans 400 italic · 10px · mid · lh 1.45</td><td style="padding:4px 8px;">—</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Body</td><td style="padding:4px 8px;">DM Sans 400 · 10px · lh 1.5</td><td style="padding:4px 8px;">DM Sans 400 · 15px · lh 1.55</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Section label</td><td style="padding:4px 8px;">DM Sans 500 · 9px · ls 0.06em · uppercase · mid-a — ONLY uppercase element</td><td style="padding:4px 8px;">Same</td></tr>
+          <tr><td style="padding:4px 8px;font-weight:500;">Button</td><td style="padding:4px 8px;">DM Sans 500 · 11–14px · sentence case</td><td style="padding:4px 8px;">DM Sans 500 · 13–14px · sentence case</td></tr>
+        </table>
+        <br>
+        <strong>Responsive breakpoints (Flutter):</strong><br>
+        Small (&lt;380px, e.g. iPhone SE): welcome headline 28px · greeting 22px<br>
+        Default (≥380px): welcome headline 33px · greeting 25–27px<br>
+        Side padding: &lt;420px → 16px · ≥420px → 20–24px<br>
+        Text scale cap: <code>textScaleFactor.clamp(0.85, 1.3)</code> at app root
+      </div>
+    </div>
+
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- 09 APP ICONS -->
+  <section id="icons">
+    <div class="sec-eye">09</div>
+    <h2 class="sec-title">App icons</h2>
+    <p class="sec-desc">Two variants. Plum ships by default. Apricot unlocks with Pro.</p>
+
+    <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-end;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+        <svg width="88" height="88" viewBox="0 0 80 80" style="border-radius:20px;display:block;box-shadow:0 12px 32px rgba(45,31,74,0.35);"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
+        <div style="font-size:11px;color:var(--mid);">Plum · Default</div>
+        <span class="tag tag-lock">Ships with app</span>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+        <svg width="88" height="88" viewBox="0 0 80 80" style="border-radius:20px;display:block;box-shadow:0 12px 32px rgba(200,120,74,0.35);"><rect width="80" height="80" fill="#C8784A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="rgba(245,240,232,0.38)"/><circle cx="57" cy="22" r="7" fill="#1A1612"/></svg>
+        <div style="font-size:11px;color:var(--mid);">Apricot · Pro</div>
+        <span class="tag tag-pro">Pro perk</span>
+      </div>
+      <div style="max-width:280px;align-self:center;">
+        <div class="rcard">
+          <div class="rcard-title">Icon rules</div>
+          <div class="rcard-body">Slate icon is mothballed — not deleted, not shipped. Add in v1.1 if users request.<br><br>Export sizes: 40×40, 60×60, 76×76, 120×120, 1024×1024. All iOS continuous corner mask. No transparency.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- 10 MOTION -->
+  <section id="motion">
+    <div class="sec-eye">10</div>
+    <h2 class="sec-title">Motion</h2>
+    <p class="sec-desc">Purposeful. Motion communicates state change, never decorates.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;" class="motion-grid">
+      <div class="rcard"><div class="rcard-title">Fast · 150ms ease-out</div><div class="rcard-body">Button press, chip tap, checkbox fill.</div></div>
+      <div class="rcard"><div class="rcard-title">Default · 250ms ease-in-out</div><div class="rcard-body">Card appear, expand/collapse, filter switch.</div></div>
+      <div class="rcard"><div class="rcard-title">Spring · 400–450ms <code style="font-size:10px;">cubic-bezier(0.34,1.56,0.64,1)</code></div><div class="rcard-body">Done overlay ii mark scale. Done overlay headline translateY. The only theatrical motion in the app.</div></div>
+      <div class="rcard"><div class="rcard-title">Page · 300ms ease-in-out</div><div class="rcard-body">Screen transitions — slide in from right.</div></div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <div class="rule"></div>
+
+  <!-- 11 ICON SYSTEM -->
+  <section id="icons-system">
+    <div class="sec-eye">11</div>
+    <h2 class="sec-title">Icon system</h2>
+    <p class="sec-desc">Phosphor Icons · regular weight · outline only throughout. One library, one weight, no exceptions.</p>
+
+    <div class="rcard">
+      <div class="rcard-title">Library &amp; style <span class="tag tag-lock">locked</span></div>
+      <div class="rcard-body">
+        <strong>Library: Phosphor Icons</strong> — six weights available, nudgii uses regular weight only.<br>
+        <strong>Style: outline throughout</strong> — no filled icons anywhere in the app. Consistent with the restrained, editorial personality of the design system.<br><br>
+        Flutter package: <code>flutter_phosphor_icons</code>. Figma: Phosphor Icons plugin (free).
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="rcard-title">Sizes by zone <span class="tag tag-lock">locked</span></div>
+      <div class="rcard-body">
+        <code>12px</code> — inside category chip (task cards, welcome preview cards)<br>
+        <code>14px</code> — action buttons (search, settings, camera, close)<br>
+        <code>16px</code> — mic icon in voice input bar<br>
+        <code>19–20px</code> — tab bar icons<br><br>
+        Never mix sizes within the same zone. Never use an icon outside its defined zone size.
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="rcard-title">Stroke width rules</div>
+      <div class="rcard-body">
+        <code>stroke-width: 1.5</code> — all outline icons at 14–20px<br>
+        <code>stroke-width: 1.8</code> — mic icon in voice input bar<br>
+        <code>stroke-width: 1.8</code> — icons at 12px in category chips (compensates for small size on cream)<br><br>
+        Never use weight below 1.5 — disappears on cream at small sizes.
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="rcard-title">Color rules by zone</div>
+      <div class="rcard-body">
+        Tab bar active: <code>colorCta #9B7FD4</code> on both icon stroke and label. No pip dot.<br>
+        Tab bar inactive: <code>ink at 18% opacity</code><br>
+        Action button on ghost bg: <code>mid #8A8070</code><br>
+        Action button on CTA bg: <code>cta-fg #FAF8FF</code><br>
+        Category chip icons: category color token only (e.g. <code>#C87850</code> for home)<br>
+        Status icons in pills: status color token (terra / garden / mid)<br><br>
+        <strong>Never use category colors on non-category icons.</strong> The category color system is separate from the UI icon color system.
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="rcard-title">Revised icons — 3 changes <span class="tag tag-new">locked</span></div>
+      <div class="rcard-body">
+        <strong>Settings:</strong> <code>Faders</code> — three vertical sliders. Reads as preferences/personalisation, not mechanical configuration. Replaces <code>GearSix</code>.<br><br>
+        <strong>Camera / AI scan:</strong> <code>Scan</code> — four corner brackets with a dashed scan line. Universally understood as "scan this object." Replaces <code>CameraPlus</code> which implied photography.<br><br>
+        <strong>Edit / rename:</strong> <code>PencilLine</code> — pencil with a baseline. Reads as "edit text content." Replaces <code>PencilSimple</code> which was too generic.
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="rcard-title">Tab bar — floating pill <span class="tag tag-new">locked</span></div>
+      <div class="rcard-body">
+        nudgii uses a <strong>floating pill tab bar</strong> — a white rounded card that hovers above screen content with a shadow. No hard border-top edge. Content scrolls behind it.<br><br>
+        <strong>Spec:</strong> background <code>var(--surface)</code> · border-radius <code>22px</code> · padding <code>9px 4px 11px</code> · shadow <code>0 4px 20px rgba(26,22,18,0.11)</code> · border <code>1px solid rgba(26,22,18,0.07)</code> · bottom <code>14px</code> from screen edge.<br><br>
+        Active tab: icon stroke = <code>colorCta #9B7FD4</code> · label color = <code>colorCta #9B7FD4</code> · label weight <code>500</code>. No pip dot — colorCta on both icon and label is the active indicator. Inactive: icon + label at <code>ink 20% opacity</code>.<br><br>
+        <strong>Flutter note:</strong> set both <code>icon color</code> and <code>label TextStyle color</code> to <code>colorCta</code> for the active tab. No pip Container widget.<br>
+        <strong>CSS note:</strong> target <code>svg *</code> (not just <code>svg</code>) since Phosphor SVG children carry hardcoded stroke attributes that override parent stroke rules.
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="rcard-title">FAB — floating action button <span class="tag tag-new">locked</span></div>
+      <div class="rcard-body">
+        <strong>Position:</strong> bottom-right, adjacent to the tab pill. Never inside the pill.<br>
+        <strong>Shape:</strong> rounded square <code>46×46px</code>, border-radius <code>15px</code>. Not a circle — matches the pill's visual language.<br>
+        <strong>Color:</strong> <code>cta #9B7FD4</code> background, <code>cta-fg #FAF8FF</code> Plus icon. Shadow <code>0 6px 20px rgba(155,127,212,0.45)</code>.<br>
+        <strong>Elevation:</strong> <code>margin-bottom: 4px</code> — FAB floats 4px above the tab bar bottom edge. This creates a clear visual hierarchy: navigation layer (tab bar) vs action layer (FAB). Flutter: apply bottom offset so FAB clears the tab bar.<br>
+        <strong>On tap:</strong> Plus rotates to × (45° transform, spring easing). Scrim dims content to <code>rgba(26,22,18,0.18)</code>. Action sheet animates up from bottom-right.<br><br>
+        <strong>Action sheet order — ergonomics first:</strong><br>
+        ↑ Top (furthest reach) — <em>Ik weet wat ik nodig heb</em> · direct search · power users<br>
+        · Middle — <em>Laat me zien</em> · browse categories<br>
+        ↓ Bottom (nearest thumb) — <em>Vertel het me</em> · voice · primary path<br><br>
+        Voice is at the bottom because it is the primary action and the thumb naturally rests nearest the FAB after tapping it.
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="rcard-title">Voice input — listening state <span class="tag tag-new">locked · S-02</span></div>
+      <div class="rcard-body">
+        Used in S-02 (voice onboarding) whenever the microphone is active. Three parts: waveform, "Listening..." label, live transcript. The waveform appears inside the conversation thread — never overlaid on the input bar.
+
+        <div style="margin:16px 0;display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap;">
+
+          <!-- DEMO: idle/snapshot state -->
+          <div>
+            <div style="font-size:9px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:rgba(26,22,18,0.32);margin-bottom:8px;">Snapshot (static)</div>
+            <div style="background:#F5F0E8;border-radius:12px;padding:16px 20px;display:flex;flex-direction:column;align-items:center;gap:6px;">
+              <div style="display:flex;align-items:center;gap:3px;height:28px;">
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;height:6px;opacity:0.35;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;height:12px;opacity:0.55;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;height:20px;opacity:0.75;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;height:26px;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;height:16px;opacity:0.70;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;height:28px;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;height:18px;opacity:0.75;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;height:11px;opacity:0.55;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;height:5px;opacity:0.30;"></div>
+              </div>
+              <div style="font-size:10px;font-style:italic;color:#6B6358;">Listening...</div>
+            </div>
+          </div>
+
+          <!-- DEMO: animated state -->
+          <div>
+            <div style="font-size:9px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:rgba(26,22,18,0.32);margin-bottom:8px;">Animated (live)</div>
+            <style>
+              @keyframes wv1{0%,100%{height:6px;opacity:0.35;}50%{height:22px;opacity:0.9;}}
+              @keyframes wv2{0%,100%{height:12px;opacity:0.55;}50%{height:26px;opacity:1;}}
+              @keyframes wv3{0%,100%{height:20px;opacity:0.75;}50%{height:10px;opacity:0.4;}}
+              @keyframes wv4{0%,100%{height:26px;opacity:1;}50%{height:8px;opacity:0.35;}}
+              @keyframes wv5{0%,100%{height:16px;opacity:0.70;}50%{height:28px;opacity:1;}}
+              @keyframes wv6{0%,100%{height:28px;opacity:1;}50%{height:6px;opacity:0.30;}}
+              @keyframes wv7{0%,100%{height:18px;opacity:0.75;}50%{height:24px;opacity:0.95;}}
+              @keyframes wv8{0%,100%{height:11px;opacity:0.55;}50%{height:20px;opacity:0.80;}}
+              @keyframes wv9{0%,100%{height:5px;opacity:0.30;}50%{height:18px;opacity:0.70;}}
+            </style>
+            <div style="background:#F5F0E8;border-radius:12px;padding:16px 20px;display:flex;flex-direction:column;align-items:center;gap:6px;">
+              <div style="display:flex;align-items:center;gap:3px;height:28px;">
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv1 1.1s ease-in-out infinite;animation-delay:0.00s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv2 0.9s ease-in-out infinite;animation-delay:0.15s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv3 1.0s ease-in-out infinite;animation-delay:0.25s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv4 0.8s ease-in-out infinite;animation-delay:0.10s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv5 1.2s ease-in-out infinite;animation-delay:0.30s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv6 0.85s ease-in-out infinite;animation-delay:0.05s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv7 0.95s ease-in-out infinite;animation-delay:0.20s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv8 1.05s ease-in-out infinite;animation-delay:0.35s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv9 0.90s ease-in-out infinite;animation-delay:0.08s;"></div>
+              </div>
+              <div style="font-size:10px;font-style:italic;color:#6B6358;">Listening...</div>
+            </div>
+          </div>
+
+          <!-- DEMO: with live transcript -->
+          <div>
+            <div style="font-size:9px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:rgba(26,22,18,0.32);margin-bottom:8px;">With live transcript</div>
+            <div style="background:#F5F0E8;border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;min-width:180px;">
+              <div style="display:flex;align-items:center;gap:3px;height:28px;justify-content:center;">
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv1 1.1s ease-in-out infinite;animation-delay:0.00s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv2 0.9s ease-in-out infinite;animation-delay:0.15s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv3 1.0s ease-in-out infinite;animation-delay:0.25s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv4 0.8s ease-in-out infinite;animation-delay:0.10s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv5 1.2s ease-in-out infinite;animation-delay:0.30s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv6 0.85s ease-in-out infinite;animation-delay:0.05s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv7 0.95s ease-in-out infinite;animation-delay:0.20s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv8 1.05s ease-in-out infinite;animation-delay:0.35s;"></div>
+                <div style="width:3px;border-radius:100px;background:#9B7FD4;animation:wv9 0.90s ease-in-out infinite;animation-delay:0.08s;"></div>
+              </div>
+              <div style="font-size:9px;font-style:italic;color:#6B6358;text-align:center;">Listening...</div>
+              <!-- faded transcript -->
+              <div style="display:flex;justify-content:flex-end;">
+                <div style="background:#9B7FD4;border-radius:9px 9px 3px 9px;padding:6px 9px;opacity:0.65;max-width:90%;">
+                  <div style="font-size:9px;color:#FAF8FF;line-height:1.5;">A house with a garden...</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <strong>Waveform — 9 bars</strong><br>
+        <code>width: 3px</code> · <code>border-radius: 100px</code> · <code>background: colorCta #9B7FD4</code> · <code>gap: 3px</code> · container <code>height: 28px; display: flex; align-items: center</code><br><br>
+
+        Bar heights and opacities (left → right, at rest):<br>
+        <code>6px/0.35 · 12px/0.55 · 20px/0.75 · 26px/1.0 · 16px/0.70 · 28px/1.0 · 18px/0.75 · 11px/0.55 · 5px/0.30</code><br><br>
+
+        <strong>Animation — CSS</strong> (each bar gets its own keyframe so the heights feel independent and organic):<br>
+        Duration range: <code>0.8s–1.2s</code> · Easing: <code>ease-in-out</code> · Stagger delays: <code>0.00 · 0.15 · 0.25 · 0.10 · 0.30 · 0.05 · 0.20 · 0.35 · 0.08s</code><br>
+        Each keyframe: <code>0%,100% { height: [rest-height]; opacity: [rest-opacity]; } 50% { height: [peak-height]; opacity: 1.0; }</code><br><br>
+
+        <strong>"Listening..." label</strong><br>
+        <code>font-size: 10px · font-style: italic · color: colorMidAccessible #6B6358 · margin-top: 6px</code><br><br>
+
+        <strong>Live transcript</strong><br>
+        Appears as a right-aligned user bubble at <code>opacity: 0.65</code> as speech is recognized in real time. Uses the same user bubble style (colorCta bg, colorCtaFg text, border-radius 12px 12px 4px 12px). Fades in word by word as the transcript builds. On turn completion (mic tap), opacity animates to 1.0 and the bubble settles.<br><br>
+
+        <strong>Flutter implementation</strong><br>
+        <code>WaveformIndicator</code> — custom <code>StatefulWidget</code> with <code>AnimationController</code> per bar (9 controllers, each with its own duration and delay via <code>Future.delayed</code>):<br>
+        <code>AnimatedContainer(duration: Duration(milliseconds: 80), height: _barHeight[i], curve: Curves.easeInOut)</code><br>
+        Driven by a <code>Timer.periodic(Duration(milliseconds: 80))</code> that updates bar heights using a sine wave offset per bar.<br><br>
+        Alternatively: single <code>AnimationController(vsync: this, duration: Duration(milliseconds: 900))</code> + <code>CurvedAnimation</code> per bar with <code>Interval(delay, delay+0.5, curve: Curves.easeInOut)</code> for stagger.<br><br>
+        Live transcript: <code>StreamBuilder</code> on the speech recognition stream. Each recognized word appends to a <code>String</code> in state. <code>AnimatedOpacity</code> from 0 to 0.65 on first word, 0.65 to 1.0 on mic stop.<br><br>
+
+        <strong>Input bar — active listening state</strong><br>
+        Border color: <code>rgba(196,80,58,0.30)</code> (terra tint, signals recording)<br>
+        Background: <code>rgba(196,80,58,0.03)</code><br>
+        Placeholder text: <code>"Listening, tap mic to stop..."</code> in <code>rgba(196,80,58,0.55)</code><br>
+        Mic circle: <code>colorTerra #C4503A</code> background (replaces colorCta)<br>
+        Flutter: animate mic circle color with <code>AnimatedContainer</code> 150ms ease-out on recording state change.
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="rcard-title">Touch targets <span class="tag tag-never">never smaller</span></div>
+      <div class="rcard-body">
+        Minimum tap target: <strong>44×44px always</strong> — Apple HIG requirement, no exceptions.<br>
+        The visual icon can be 14–20px. The tappable area must be 44×44px minimum.<br>
+        In Flutter: wrap icon buttons in <code>SizedBox(width: 44, height: 44)</code> with centered icon, or use <code>IconButton</code> which handles this automatically.
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="rcard-title"><span class="tag tag-never">never</span> What not to do</div>
+      <div class="rcard-body">
+        Never mix Phosphor with any other icon library (SF Symbols, Material, Lucide) in the same screen.<br>
+        Never use a filled icon — outline only, always.<br>
+        Never resize icons outside the defined zone sizes.<br>
+        Never use an icon purely for decoration — every icon must carry meaning.<br>
+        Never use category colors on tab bar or action button icons.<br>
+        Never use <code>GearSix</code>, <code>CameraPlus</code>, or <code>PencilSimple</code> — replaced — do not use.
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 FIGMA WORKFLOW -->
+  <section id="figma">
+    <div class="sec-eye">11</div>
+    <h2 class="sec-title">Figma workflow</h2>
+    <p class="sec-desc">Solo developer setup. Fast, consistent, handoff-ready without becoming a second job.</p>
+
+    <div class="figma-grid">
+      <div class="fstep"><div class="fstep-num">01</div><div class="fstep-title">Set up Variables first</div><div class="fstep-body">Before any frames. Create two collections:<br><strong>Color:</strong> <code>color/cream</code>, <code>color/ink</code>, <code>color/apricot-dk</code>, <code>color/terra</code>, <code>color/plum</code>, <code>color/plum-lt</code> etc.<br><strong>Category:</strong> <code>cat/home</code>, <code>cat/home-bg</code> etc.<br><br>30 minutes once. Saves hours of find-and-replace.</div></div>
+      <div class="fstep"><div class="fstep-num">02</div><div class="fstep-title">One Components file</div><div class="fstep-body">File: <strong>nudgii · Components</strong>. Publish as Team Library. Components: nudge card, filter chip, button (3 variants), tab bar, done overlay, category icon, section label, streak row, pro badge.<br><br>Every screen file uses these — change once, updates everywhere.</div></div>
+      <div class="fstep"><div class="fstep-num">03</div><div class="fstep-title">One file per flow</div><div class="fstep-body">File 1: Onboarding · File 2: Dashboard · File 3: Item + task detail · File 4: Profile + settings.<br><br>Frame names = Flutter route names. <code>welcome/path-a-btn</code> not "Button 3".</div></div>
+      <div class="fstep"><div class="fstep-num">04</div><div class="fstep-title">HTML files as reference</div><div class="fstep-body">Screenshot each HTML file at 2x. Place as "Reference" layer in Figma. Rebuild on top using components + variables.<br><br>20–30 min per screen. Rebuilding is also a design review.</div></div>
+      <div class="fstep"><div class="fstep-num">05</div><div class="fstep-title">Dev Mode + Tokens Studio</div><div class="fstep-body">Figma Dev Mode (free) → exact spacing + properties for Flutter.<br>Tokens Studio plugin → syncs Figma variables to JSON in your repo. Variable names match Flutter token names exactly: <code>colorInk</code>, <code>colorApricotDk</code>.</div></div>
+      <div class="fstep"><div class="fstep-num">06</div><div class="fstep-title">Prototype the overlay first</div><div class="fstep-body">Wire the done overlay with Smart Animate, scale + opacity, 400ms, spring easing. Show to 2–3 people before writing any Flutter code. Watch where they hesitate — that's where the design has a question mark.</div></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;">
+      <div class="rcard" style="border-color:rgba(196,80,58,0.15);background:rgba(196,80,58,0.03);">
+        <div class="rcard-title" style="color:var(--terra);">Don't do this</div>
+        <div class="rcard-body">Don't design directly in the handoff file. Design in "Working" page, copy finished frames to "Handoff" page. Prevents accidental edits to locked screens.</div>
+      </div>
+      <div class="rcard" style="border-color:rgba(90,144,96,0.18);background:rgba(90,144,96,0.04);">
+        <div class="rcard-title" style="color:var(--cg);">The one hour that saves ten</div>
+        <div class="rcard-body">Name every layer before building the next screen. "Frame 47" is useless. <code>dashboard/nudge-card/overdue</code> is searchable, readable, and maps to Flutter.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- 12 LOCKED RULES -->
+  <section id="rules">
+    <div class="sec-eye">13</div>
+    <h2 class="sec-title">Locked rules</h2>
+    <p class="sec-desc">These don't get questioned in design reviews. They are decided.</p>
+
+    <div class="locked-grid">
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-never">never</span> Gradient anywhere</div><div class="rcard-body">No gradient backgrounds, headers, or CTAs. Warmth comes from cream + apricot accent + typography weight. Gradients read as tacky at the quality level nudgii targets.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-never">never</span> Left-border accent lines</div><div class="rcard-body">Colored left stripe on cards is the most overused pattern in AI-generated UI. Status lives in the date label color only. No exceptions.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-never">never</span> Plum outside done overlay</div><div class="rcard-body">Deep plum <code>#2D1F4A</code> appears only in the done overlay background. The moment it appears on a chip, header, or badge the overlay loses its impact.<br><br>Light plum <code>#9B7FD4</code> has two sanctioned uses only: the CTA button (and its echoes — active chip, tab pip, add button) and the Pro badge. It never appears in category icons, card backgrounds, section labels, or any status element.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-never">never</span> Category colors on status</div><div class="rcard-body">A slate vehicle icon is always slate — overdue or not. The icon tells WHAT, the date tells WHEN. Two independent systems that never overlap.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-never">never</span> Blue-tinted dark bg</div><div class="rcard-body">Old ink <code>#1E2832</code> had a blue hue — removed. Dark base is deep sage <code>#111614</code>. No blue, no cold, no developer-tool feeling.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-lock">always</span> nudgii lowercase</div><div class="rcard-body">Always nudgii — never Nudgii, never NUDGII. In all app copy, marketing, documentation, and code comments. The double-i is the brand's typographic signature.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-lock">always</span> One serif moment per screen</div><div class="rcard-body">DM Serif Display appears once per screen. Welcome: headline. Dashboard: greeting. Detail: witty opener. Done overlay: confirmation. Never two visible simultaneously.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-lock">always</span> White cards on cream</div><div class="rcard-body">Task cards and UI cards are white on cream. Subtle but essential — creates depth without contrast. Never use off-white for cards on cream — they merge.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-lock">always</span> CTA = light plum <span class="tag tag-new"></span></div><div class="rcard-body"><code>#9B7FD4</code> on all primary action buttons. Pulled directly from the icon's right pill — the color thread is icon → CTA → done overlay. Lavender-white <code>#FAF8FF</code> text. Never ink, never apricot, never green. Apricot-dk is now status dates only.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-lock">always</span> Sentence case everywhere</div><div class="rcard-body">Buttons, chips, labels, section headers — sentence case. Never Title Case. Never ALL CAPS in user-facing copy. This includes filter chip labels and tab bar labels.</div></div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+
+  <div class="rule"></div>
+
+  <!-- 14 COPY LIBRARY -->
+  <section id="copy">
+    <div class="sec-eye">14</div>
+    <h2 class="sec-title">Copy library</h2>
+    <p class="sec-desc">nudgii's voice is warm, direct, and gently funny. All copy lives here. Use this as the single source of truth — never improvise in code or Figma.</p>
+
+    <!-- VOICE & TONE RULES -->
+    <div class="rcard" style="margin-bottom:9px;">
+      <div class="rcard-title">Voice &amp; tone rules <span class="tag tag-lock">locked</span></div>
+      <div class="rcard-body">
+        <strong>nudgii speaks like a witty, competent friend — warm, direct, gently funny.</strong><br><br>
+        <ul style="padding-left:16px;line-height:1.9;margin-top:4px;">
+          <li><strong>Never nag.</strong> One nudge, clearly stated. Never follow up on the same day.</li>
+          <li><strong>Never clinical.</strong> "Your filter requires maintenance" → "Your dishwasher would like a word."</li>
+          <li><strong>Earn the joke.</strong> Humor only where it fits. Never on error states, payment screens, or anything stressful.</li>
+          <li><strong>Short sentences.</strong> Two words can be funnier than ten.</li>
+          <li><strong>Sentence case everywhere.</strong> Never Title Case. Never ALL CAPS.</li>
+          <li><strong>No brand names in copy.</strong> Use: "your car", "your dishwasher", "your subscription".</li>
+          <li><strong>No em-dashes anywhere</strong> in copy or UI text.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- DASHBOARD COPY -->
+    <div class="rcard" style="margin-bottom:9px;">
+      <div class="rcard-title">Dashboard copy</div>
+      <div class="rcard-body">
+        <table style="width:100%;border-collapse:collapse;font-size:12px;line-height:1.8;">
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:4px 8px;font-weight:500;width:180px;">All clear</td>
+            <td style="padding:4px 8px;">"Nothing overdue. Suspicious."</td>
+          </tr>
+          <tr>
+            <td style="padding:4px 8px;font-weight:500;">All clear sub</td>
+            <td style="padding:4px 8px;color:var(--mid);font-style:italic;">"Either everything's handled, or you've achieved enlightenment."</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- OVERDUE CARD SUBTITLES -->
+    <div class="rcard" style="margin-bottom:9px;">
+      <div class="rcard-title">Overdue card subtitles <span class="tag tag-new">item-specific</span></div>
+      <div class="rcard-body">
+        Used as the italic witty subtitle on overdue nudge cards. Always italic, always mid color, always 10–11px.
+        <table style="width:100%;border-collapse:collapse;font-size:12px;margin-top:10px;line-height:1.8;">
+          <tr style="border-bottom:1px solid var(--border);background:rgba(26,22,18,0.02);">
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Item</td>
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Subtitle</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Dishwasher filter</td><td style="padding:4px 8px;font-style:italic;color:var(--mid);">"it's starting to smell"</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Car service</td><td style="padding:4px 8px;font-style:italic;color:var(--mid);">"giving you the look"</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Air filter</td><td style="padding:4px 8px;font-style:italic;color:var(--mid);">"breathing heavily"</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Plant watering</td><td style="padding:4px 8px;font-style:italic;color:var(--mid);">"very much not fine"</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Subscription</td><td style="padding:4px 8px;font-style:italic;color:var(--mid);">"quietly charging away"</td></tr>
+          <tr><td style="padding:4px 8px;font-weight:500;">Boiler</td><td style="padding:4px 8px;font-style:italic;color:var(--mid);">"it remembers you forgot"</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- TASK DETAIL OPENERS -->
+    <div class="rcard" style="margin-bottom:9px;">
+      <div class="rcard-title">Task detail openers <span class="tag tag-new">witty first line</span></div>
+      <div class="rcard-body">
+        The DM Serif Display opener shown at the top of task detail (S-13). One serif moment per screen.
+        <table style="width:100%;border-collapse:collapse;font-size:12px;margin-top:10px;line-height:1.8;">
+          <tr style="border-bottom:1px solid var(--border);background:rgba(26,22,18,0.02);">
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Item</td>
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Opener</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Dishwasher</td><td style="padding:4px 8px;font-style:italic;">"Your dishwasher would like a word."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Car</td><td style="padding:4px 8px;font-style:italic;">"Your car has opinions."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Olive tree</td><td style="padding:4px 8px;font-style:italic;">"February called. It wants its pruning back."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Smoke detector</td><td style="padding:4px 8px;font-style:italic;">"It hasn't beeped yet. That's actually worse."</td></tr>
+          <tr><td style="padding:4px 8px;font-weight:500;">HVAC filter</td><td style="padding:4px 8px;font-style:italic;">"Your air conditioner is breathing through a sock."</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- DONE OVERLAY COPY -->
+    <div class="rcard" style="margin-bottom:9px;">
+      <div class="rcard-title">Done overlay copy — by category <span class="tag tag-lock">dashboard swipe only</span></div>
+      <div class="rcard-body">
+        Structure: <strong>"Done."</strong> [DM Serif cream 28–30px] + em-accent [italic apricot, max 5 words] + sub "Volgende reminder over [interval]"<br><br>
+
+        <div class="cgroup-title" style="margin-top:10px;">Home &amp; Appliances</div>
+        <table style="width:100%;border-collapse:collapse;font-size:12px;line-height:1.8;margin-bottom:16px;">
+          <tr style="border-bottom:1px solid var(--border);background:rgba(26,22,18,0.02);">
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;width:160px;">Task</td>
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Em-accent</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Dishwasher filter</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Your dishwasher approves."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Washing machine</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Clean machine. Ironic."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Oven</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Your oven forgives you."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Fridge</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"The fridge has no complaints."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Smoke detector</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Still beeping. Good sign."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">HVAC filter</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Your air conditioner can breathe again."</td></tr>
+          <tr><td style="padding:4px 8px;font-weight:500;">Boiler</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Winter kan beginnen."</td></tr>
+        </table>
+
+        <div class="cgroup-title">Vehicle</div>
+        <table style="width:100%;border-collapse:collapse;font-size:12px;line-height:1.8;margin-bottom:16px;">
+          <tr style="border-bottom:1px solid var(--border);background:rgba(26,22,18,0.02);">
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;width:160px;">Task</td>
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Em-accent</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Winter tyres</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Winter kan beginnen."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Car service</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Your car stops giving you the look."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Tyre pressure</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Your tyres feel seen."</td></tr>
+          <tr><td style="padding:4px 8px;font-weight:500;">Air filter</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Your car is breathing normally."</td></tr>
+        </table>
+
+        <div class="cgroup-title">Garden &amp; Plants</div>
+        <table style="width:100%;border-collapse:collapse;font-size:12px;line-height:1.8;margin-bottom:16px;">
+          <tr style="border-bottom:1px solid var(--border);background:rgba(26,22,18,0.02);">
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;width:160px;">Task</td>
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Em-accent</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Olive tree</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Je olijfboom is je dankbaar."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Plant watering</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"It won't say thank you but it means it."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Lawn mowing</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Your lawn is presentable again."</td></tr>
+          <tr><td style="padding:4px 8px;font-weight:500;">Winter prep</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Your garden is ready. Are you?"</td></tr>
+        </table>
+
+        <div class="cgroup-title">Subscriptions</div>
+        <table style="width:100%;border-collapse:collapse;font-size:12px;line-height:1.8;margin-bottom:16px;">
+          <tr style="border-bottom:1px solid var(--border);background:rgba(26,22,18,0.02);">
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;width:160px;">Task</td>
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Em-accent</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Subscription review</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"One less quiet charge."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Annual renewal</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Intentional spending. Rare."</td></tr>
+          <tr><td style="padding:4px 8px;font-weight:500;">Password update</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Secure. For now."</td></tr>
+        </table>
+
+        <div class="cgroup-title">Special cases</div>
+        <table style="width:100%;border-collapse:collapse;font-size:12px;line-height:1.8;">
+          <tr style="border-bottom:1px solid var(--border);background:rgba(26,22,18,0.02);">
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;width:160px;">Trigger</td>
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Copy</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Done early</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Done. {n} days early. Overachiever."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Streak</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Done. {n}-week streak. Your stuff notices."</td></tr>
+          <tr><td style="padding:4px 8px;font-weight:500;">First task ever</td><td style="padding:4px 8px;font-style:italic;color:var(--ap-dk);">"Done. That's the first one. The habit starts here."</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- SNOOZE CONFIRMATION -->
+    <div class="rcard" style="margin-bottom:9px;">
+      <div class="rcard-title">Snooze confirmation copy</div>
+      <div class="rcard-body">
+        <table style="width:100%;border-collapse:collapse;font-size:12px;line-height:1.8;">
+          <tr style="border-bottom:1px solid var(--border);background:rgba(26,22,18,0.02);">
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;width:180px;">Trigger</td>
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Copy</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Generic (1st snooze)</td><td style="padding:4px 8px;">"Snoozed until {date}. It'll wait."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">2nd snooze</td><td style="padding:4px 8px;">"Fine. But your dishwasher is taking notes."</td></tr>
+          <tr><td style="padding:4px 8px;font-weight:500;">3rd snooze+</td><td style="padding:4px 8px;">"Snooze number {n}. No judgment."</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- ONBOARDING COPY -->
+    <div class="rcard" style="margin-bottom:9px;">
+      <div class="rcard-title">Onboarding copy</div>
+      <div class="rcard-body">
+        <table style="width:100%;border-collapse:collapse;font-size:12px;line-height:1.8;">
+          <tr style="border-bottom:1px solid var(--border);background:rgba(26,22,18,0.02);">
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;width:220px;">Element</td>
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Copy</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Welcome headline (EN)</td><td style="padding:4px 8px;">"Your stuff won't maintain itself."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Welcome headline (NL)</td><td style="padding:4px 8px;">"Je huis heeft aandacht nodig."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Completion headline</td><td style="padding:4px 8px;">"Je bent klaar. Echt klaar."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Completion sub</td><td style="padding:4px 8px;font-style:italic;color:var(--mid);">"Je eerste nudge komt maandag."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">S-05 item counter</td><td style="padding:4px 8px;">"3 van 10 gratis · Pro = onbeperkt"</td></tr>
+          <tr><td style="padding:4px 8px;font-weight:500;">S-05 over-limit callout</td><td style="padding:4px 8px;">"2 items bewaard voor Pro. Upgrade om alles toe te voegen."</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- ERROR STATES -->
+    <div class="rcard" style="margin-bottom:9px;border-color:rgba(196,80,58,0.18);background:rgba(196,80,58,0.02);">
+      <div class="rcard-title">Error states <span class="tag tag-never">never funny</span></div>
+      <div class="rcard-body">
+        Error copy is always calm and clear. No humor, no em-dashes, no technical codes. Always provide an action or exit.
+        <table style="width:100%;border-collapse:collapse;font-size:12px;margin-top:10px;line-height:1.8;">
+          <tr style="border-bottom:1px solid var(--border);background:rgba(26,22,18,0.02);">
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;width:180px;">State</td>
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Copy</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">No internet</td><td style="padding:4px 8px;">"No connection. Check your network and try again."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">S-26 Mic error</td><td style="padding:4px 8px;">"Microfoon werkt niet. Tik hieronder om te typen."</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">S-27 Parse fail</td><td style="padding:4px 8px;">"Dat was lastig te begrijpen. Laten we het anders proberen."</td></tr>
+          <tr><td style="padding:4px 8px;font-weight:500;">Auth failed</td><td style="padding:4px 8px;">"Inloggen mislukt. Probeer opnieuw — je gegevens zijn bewaard."</td></tr>
+        </table>
+      </div>
+    </div>
+
+  </section>
+
+  <div class="rule" style="margin-top:60px;"></div>
+  <div style="padding:28px 0 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;">
+    <div style="display:flex;align-items:center;gap:9px;">
+      <svg width="18" height="18" viewBox="0 0 80 80" style="border-radius:4px;"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
+      <span style="font-size:13px;font-weight:500;color:var(--ink);">nudgii Design system</span>
+    </div>
+    <div style="font-size:12px;color:var(--mid);">Elf Consult · March 2026 · Next: Figma Variables →</div>
+  </div>
+
+</div>
+
+<script>
+const secs=document.querySelectorAll('section[id]');
+const links=document.querySelectorAll('.nav-link');
+const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){links.forEach(l=>l.classList.remove('active'));const a=document.querySelector(`.nav-link[href="#${en.target.id}"]`);if(a)a.classList.add('active');}});},{rootMargin:'-30% 0px -60% 0px'});
+secs.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>

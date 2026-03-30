@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · Monetization plan</title>
+<link rel="stylesheet" href="components.css">
+<style>
+/* ── Page-specific styles ── */
+body{background:var(--cream);padding:0 0 80px;}
+
+.mp-page{max-width:1080px;margin:0 auto;padding:40px 32px 80px;display:grid;grid-template-columns:1fr 220px;gap:48px;}
+.mp-main{min-width:0;}
+
+/* Hero */
+.mp-hero{padding:0 0 36px;border-bottom:1px solid var(--border);margin-bottom:48px;}
+.mp-eyebrow{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:rgba(26,22,18,0.28);margin-bottom:10px;}
+.mp-title{font-family:'DM Serif Display',Georgia,serif;font-size:40px;color:var(--ink);line-height:1.08;letter-spacing:-0.5px;margin-bottom:10px;}
+.mp-sub{font-size:14px;color:var(--mid-a);max-width:560px;line-height:1.65;margin-bottom:16px;}
+.mp-meta{display:flex;gap:8px;flex-wrap:wrap;}
+.mp-pill{font-size:10px;font-weight:500;padding:3px 10px;border-radius:100px;background:rgba(26,22,18,0.05);color:var(--mid-a);}
+.mp-pill.cta{background:rgba(155,127,212,0.12);color:#7040C0;}
+
+/* Sections */
+.mp-section{padding-top:48px;}
+.mp-section:first-of-type{padding-top:0;}
+.mp-sec-eye{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:6px;}
+.mp-sec-title{font-family:'DM Serif Display',Georgia,serif;font-size:26px;color:var(--ink);margin-bottom:6px;line-height:1.15;}
+.mp-sec-desc{font-size:13px;color:var(--mid-a);max-width:560px;margin-bottom:20px;line-height:1.65;}
+.mp-divider{height:1px;background:var(--border);margin:48px 0 0;}
+
+/* Typography */
+.mp-main h3{font-size:15px;font-weight:500;color:var(--ink);margin:24px 0 10px;}
+.mp-main p{font-size:14px;color:var(--ink);line-height:1.65;margin-bottom:14px;}
+.mp-main strong{font-weight:500;color:var(--ink);}
+.mp-main em{font-style:italic;}
+
+/* Principle callout */
+.mp-callout{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 22px;margin-bottom:20px;}
+.mp-callout-title{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:8px;}
+.mp-callout p{font-size:13px;color:var(--mid-a);line-height:1.6;margin-bottom:0;}
+
+/* Lists */
+.mp-main ul{margin:0 0 16px 0;padding-left:20px;}
+.mp-main ul li{font-size:13px;color:var(--ink);line-height:1.65;margin-bottom:5px;list-style:disc;}
+.mp-main ul li::marker{color:var(--cta);}
+
+.mp-main ol{margin:0 0 16px 0;padding-left:20px;}
+.mp-main ol li{font-size:13px;color:var(--ink);line-height:1.65;margin-bottom:5px;}
+
+/* Never list (red bullets) */
+.mp-never li::marker{color:var(--terra);}
+
+/* Tables */
+.mp-table{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:13px;border:0.5px solid rgba(26,22,18,0.08);border-radius:8px;overflow:hidden;}
+.mp-table thead th{background:rgba(26,22,18,0.04);font-weight:500;text-align:left;padding:10px 14px;border-bottom:1px solid rgba(26,22,18,0.10);color:var(--ink);font-size:12px;letter-spacing:0.2px;}
+.mp-table tbody td{padding:9px 14px;border-bottom:0.5px solid rgba(26,22,18,0.06);color:var(--ink);line-height:1.55;vertical-align:top;}
+.mp-table tbody tr:nth-child(even) td{background:rgba(26,22,18,0.015);}
+.mp-table tbody tr:last-child td{border-bottom:none;}
+.mp-table .col-feat{font-weight:500;white-space:nowrap;width:28%;}
+.mp-table .col-metric{font-weight:500;white-space:nowrap;width:35%;}
+.mp-table .col-narrow{width:22%;}
+.mp-table .col-trigger{width:25%;}
+
+/* Blockquote */
+.mp-quote{background:rgba(155,127,212,0.06);border-left:3px solid var(--cta);border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0 20px;font-size:13px;color:var(--ink);line-height:1.65;font-style:italic;}
+.mp-quote .pro-link{color:var(--cta);font-weight:500;font-style:normal;text-decoration:underline;text-decoration-color:rgba(155,127,212,0.35);}
+
+/* Badges */
+.badge{font-size:9px;font-weight:500;padding:2px 8px;border-radius:100px;display:inline-block;vertical-align:middle;margin-left:6px;}
+.badge-free{background:var(--sage-lt);color:var(--sage);}
+.badge-pro{background:rgba(155,127,212,0.12);color:#7040C0;}
+.badge-future{background:rgba(200,120,74,0.12);color:#8A4A20;}
+.badge-deferred{background:rgba(26,22,18,0.06);color:var(--mid);}
+
+/* Step list (upgrade flow) */
+.mp-steps{counter-reset:step;margin:0 0 16px;padding:0;}
+.mp-steps li{font-size:13px;color:var(--ink);line-height:1.65;margin-bottom:6px;list-style:none;padding-left:28px;position:relative;}
+.mp-steps li::before{counter-increment:step;content:counter(step);position:absolute;left:0;top:1px;width:20px;height:20px;border-radius:50%;background:rgba(155,127,212,0.12);color:#7040C0;font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center;}
+
+/* Sidebar TOC */
+.mp-toc{position:sticky;top:60px;align-self:start;}
+.mp-toc-label{font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--mid);margin-bottom:12px;}
+.mp-toc-list{list-style:none;padding:0;margin:0;}
+.mp-toc-list li{margin-bottom:2px;}
+.mp-toc-list a{font-size:11px;color:var(--mid-a);text-decoration:none;display:flex;align-items:baseline;gap:6px;padding:4px 0;border-radius:4px;transition:color 0.15s;}
+.mp-toc-list a:hover{color:var(--ink);}
+.mp-toc-list a .toc-num{font-size:10px;color:var(--mid);min-width:14px;}
+.mp-toc-list a.active{color:var(--cta);font-weight:500;}
+.mp-toc-line{height:1px;background:var(--border);margin:12px 0;}
+
+/* Footer */
+.mp-footer{max-width:1080px;margin:0 auto;padding:0 32px;text-align:center;}
+.mp-footer-inner{border-top:1px solid var(--border);padding:32px 0 0;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.mp-footer-text{font-size:11px;color:var(--mid);letter-spacing:0.2px;}
+
+/* Responsive */
+@media(max-width:860px){
+  .mp-page{grid-template-columns:1fr;gap:0;}
+  .mp-toc{position:static;margin-bottom:32px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-back" href="../index.html">
+    <svg width="16" height="18" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:2px;">
+      <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
+      <path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
+      <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
+    </svg>
+    Design hub
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">Monetization plan</span>
+</nav>
+
+<div class="mp-page">
+
+  <!-- MAIN CONTENT -->
+  <div class="mp-main">
+
+    <!-- Hero -->
+    <div class="mp-hero">
+      <div class="mp-eyebrow">Strategy document</div>
+      <h1 class="mp-title">Monetization plan</h1>
+      <p class="mp-sub">Final monetization strategy for nudgii. Covers philosophy, tier structure, conversion mechanics, revenue forecasting, and growth levers. This document is the single reference for all monetization decisions.</p>
+      <div class="mp-meta">
+        <span class="mp-pill">March 2026</span>
+        <span class="mp-pill">Hanne Van Briel</span>
+        <span class="mp-pill">ELF Consult</span>
+        <span class="mp-pill cta">Freemium model</span>
+      </div>
+    </div>
+
+    <!-- 1. Philosophy -->
+    <section class="mp-section" id="philosophy">
+      <div class="mp-sec-eye">Section 1</div>
+      <h2 class="mp-sec-title">Philosophy</h2>
+
+      <div class="mp-callout">
+        <div class="mp-callout-title">Helpful first. Commercial second. Always honest.</div>
+        <p>nudgii is built on the belief that a genuinely useful free product converts better than a crippled one. The free tier must be good enough that users recommend it to friends. The Pro tier must be compelling enough that power users and families upgrade willingly.</p>
+      </div>
+
+      <h3>Core principles</h3>
+      <ul>
+        <li>No trial. No tricks. No silent limits.</li>
+        <li>Free tier is genuinely useful. Pro is for power users and families.</li>
+        <li>Conversion comes from wanting more, not from losing what you built.</li>
+        <li>The user's data is never held hostage. Items, tasks, and history are never deleted or hidden.</li>
+        <li>Monetization never interrupts the core experience: add items, get reminders, mark tasks done.</li>
+      </ul>
+      <div class="mp-divider"></div>
+    </section>
+
+    <!-- 2. Tier structure -->
+    <section class="mp-section" id="tiers">
+      <div class="mp-sec-eye">Section 2</div>
+      <h2 class="mp-sec-title">Tier structure</h2>
+
+      <h3>Free <span class="badge badge-free">Free tier</span></h3>
+      <table class="mp-table">
+        <thead><tr><th class="col-feat">Feature</th><th>Limit</th></tr></thead>
+        <tbody>
+          <tr><td class="col-feat">Items</td><td>10</td></tr>
+          <tr><td class="col-feat">Tasks per item</td><td>Unlimited</td></tr>
+          <tr><td class="col-feat">Time reminders</td><td>Unlimited (basic)</td></tr>
+          <tr><td class="col-feat">AI scans</td><td>3/month</td></tr>
+          <tr><td class="col-feat">Voice sessions</td><td>3/month</td></tr>
+          <tr><td class="col-feat">Completion history</td><td>Last 3 per task</td></tr>
+          <tr><td class="col-feat">Weekly digest</td><td>Basic</td></tr>
+          <tr><td class="col-feat">Users</td><td>Single user</td></tr>
+          <tr><td class="col-feat">Categories</td><td>Default 4 (Home, Vehicle, Garden, Subscriptions)</td></tr>
+        </tbody>
+      </table>
+      <p>Recurring tasks keep running forever on active items. The free tier never degrades over time.</p>
+
+      <h3>Pro <span class="badge badge-pro">Pro tier</span></h3>
+      <p>Monthly: <strong>€4.99/month</strong> | Annual: <strong>€44.99/year</strong></p>
+      <table class="mp-table">
+        <thead><tr><th class="col-feat">Feature</th><th>Details</th></tr></thead>
+        <tbody>
+          <tr><td class="col-feat">Items</td><td>Unlimited</td></tr>
+          <tr><td class="col-feat">AI scans</td><td>Unlimited</td></tr>
+          <tr><td class="col-feat">Voice sessions</td><td>Unlimited</td></tr>
+          <tr><td class="col-feat">Smart nudges</td><td>Seasonal, weather-based, location-based</td></tr>
+          <tr><td class="col-feat">AI task suggestions</td><td>Proactive recommendations based on owned items</td></tr>
+          <tr><td class="col-feat">Completion history</td><td>Full history + CSV export</td></tr>
+          <tr><td class="col-feat">Weekly digest</td><td>Rich: tips, seasonal advice, personalized insights</td></tr>
+          <tr><td class="col-feat">Household sharing</td><td>Up to 3 users</td></tr>
+          <tr><td class="col-feat">Custom categories</td><td>User-defined beyond the default 4</td></tr>
+          <tr><td class="col-feat">Priority support</td><td>Faster response times</td></tr>
+        </tbody>
+      </table>
+      <p>Annual plan saves 25% vs monthly (€44.99/year vs €59.88/year).</p>
+
+      <h3>Future: Ultimate tier <span class="badge badge-future">Post-launch</span></h3>
+      <p>Planned features for a higher tier, to be validated with Pro user feedback:</p>
+      <ul>
+        <li>Calendar sync (iCal, Google Calendar, 2-way)</li>
+        <li>Budget tracker (cost of maintenance, annual savings report)</li>
+        <li>Household up to 5 users</li>
+        <li>Advanced insights ("You saved €340 this year by maintaining on time")</li>
+      </ul>
+      <p>Pricing and launch timing to be determined after Pro adoption data is available.</p>
+      <div class="mp-divider"></div>
+    </section>
+
+    <!-- 3. The item limit experience -->
+    <section class="mp-section" id="item-limit">
+      <div class="mp-sec-eye">Section 3</div>
+      <h2 class="mp-sec-title">The item limit experience</h2>
+
+      <h3>When the user hits 11 items</h3>
+      <p>Wherever it happens (during onboarding or on the dashboard), nudgii responds with a single inline message:</p>
+
+      <blockquote class="mp-quote">
+        "That's 11 items, nice collection. Free plan covers 10, but don't stop now. Add everything, you'll choose your favourites later. Or keep them all with <span class="pro-link">Pro</span>."
+      </blockquote>
+      <p>Small "Pro" link inline. Not a button. Not blocking. The user can keep adding.</p>
+
+      <h3>Paused items</h3>
+      <p>Items beyond the active 10 are not deleted or hidden. They enter a "paused" state:</p>
+      <table class="mp-table">
+        <thead><tr><th class="col-feat">Behaviour</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td class="col-feat">Visibility</td><td>Visible on dashboard, slightly muted (opacity 0.7), purple "Pro" pill</td></tr>
+          <tr><td class="col-feat">Tasks</td><td>Visible but not generating reminders</td></tr>
+          <tr><td class="col-feat">Push notifications</td><td>None for paused items</td></tr>
+          <tr><td class="col-feat">Overdue display</td><td>Tasks show in terra red when user opens the app (passive, not pushed)</td></tr>
+          <tr><td class="col-feat">Swapping</td><td>User can deactivate an active item and activate a paused one. Always 10 active.</td></tr>
+          <tr><td class="col-feat">Data retention</td><td>Items and tasks are never auto-deleted</td></tr>
+        </tbody>
+      </table>
+
+      <h3>What never happens</h3>
+      <ul class="mp-never">
+        <li>No popups, modals, or full-screen paywalls</li>
+        <li>No countdown timers or urgency language</li>
+        <li>No "you're missing out" guilt copy</li>
+        <li>No blocking the app or any core functionality</li>
+        <li>No hiding items or deleting data</li>
+        <li>No nagging more than once per week per channel</li>
+        <li>No mentioning Pro during onboarding (S-01 through S-06)</li>
+        <li>No degrading the free experience after any time period</li>
+      </ul>
+      <div class="mp-divider"></div>
+    </section>
+
+    <!-- 4. Conversion triggers -->
+    <section class="mp-section" id="conversion">
+      <div class="mp-sec-eye">Section 4</div>
+      <h2 class="mp-sec-title">Conversion triggers</h2>
+      <p class="mp-sec-desc">All triggers are passive. The user encounters them naturally during app usage. Never more than 1 conversion prompt per week per channel.</p>
+
+      <table class="mp-table">
+        <thead><tr><th class="col-trigger">Trigger</th><th>When it fires</th><th>Message</th></tr></thead>
+        <tbody>
+          <tr><td class="col-trigger"><strong>Item limit hit</strong></td><td>User adds item 11</td><td>"Free plan covers 10 items. Choose which ones matter most, or upgrade to keep them all."</td></tr>
+          <tr><td class="col-trigger"><strong>AI scan limit</strong></td><td>4th scan in a month</td><td>"You've used your 3 free scans this month. Resets in X days, or upgrade for unlimited."</td></tr>
+          <tr><td class="col-trigger"><strong>Voice limit</strong></td><td>4th voice session in a month</td><td>Similar gentle inline message</td></tr>
+          <tr><td class="col-trigger"><strong>History limit</strong></td><td>User scrolls past 3rd completion</td><td>"Full history available with Pro"</td></tr>
+          <tr><td class="col-trigger"><strong>Sharing request</strong></td><td>User looks for invite/share</td><td>"Household sharing is a Pro feature. Invite up to 3 people."</td></tr>
+          <tr><td class="col-trigger"><strong>Weekly digest</strong></td><td>Bottom of email, every week</td><td>"What nudgii Pro would have told you" section (2-3 muted smart nudges)</td></tr>
+          <tr><td class="col-trigger"><strong>Paused item overdue</strong></td><td>User opens app, sees overdue on paused item</td><td>No notification. Task visible in terra red. Banner on item: "This item isn't sending reminders."</td></tr>
+          <tr><td class="col-trigger"><strong>Monthly summary</strong></td><td>End of month</td><td>"You completed X tasks. Y smart nudges were available for your items."</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Frequency cap</h3>
+      <p>Maximum 1 conversion-related message per week per channel (in-app, email, push). Multiple triggers in the same week are queued, not stacked.</p>
+      <div class="mp-divider"></div>
+    </section>
+
+    <!-- 5. Upgrade flow -->
+    <section class="mp-section" id="upgrade-flow">
+      <div class="mp-sec-eye">Section 5</div>
+      <h2 class="mp-sec-title">Upgrade flow</h2>
+      <p>When the user taps any "Pro" badge, "See Pro" link in profile, or any conversion trigger link:</p>
+
+      <ol class="mp-steps">
+        <li><strong>Bottom sheet slides up</strong> (not a new screen, not a modal)</li>
+        <li><strong>ii mark + headline:</strong> "Unlock everything"</li>
+        <li><strong>Personalized context:</strong> "You have X paused items and Y locked scans. Pro activates them all."</li>
+        <li><strong>Pricing:</strong> €4.99/month or €44.99/year (save 25%)</li>
+        <li><strong>Payment:</strong> Apple/Google native payment via RevenueCat</li>
+        <li><strong>Dismiss:</strong> "Not now" closes the sheet cleanly, no guilt copy</li>
+        <li><strong>Post-upgrade:</strong> All items activate immediately, Pro pill changes to green check, confetti micro-celebration</li>
+      </ol>
+
+      <p>The upgrade sheet is the only place pricing is shown. No pricing on the dashboard, no pricing in notifications, no pricing in the digest email.</p>
+      <div class="mp-divider"></div>
+    </section>
+
+    <!-- 6. Referral system -->
+    <section class="mp-section" id="referrals">
+      <div class="mp-sec-eye">Section 6</div>
+      <h2 class="mp-sec-title">Referral system</h2>
+
+      <h3>Mechanics</h3>
+      <p>Each successful referral (invitee must complete onboarding with at least 1 item):</p>
+      <table class="mp-table">
+        <thead><tr><th class="col-feat">Recipient</th><th>Reward</th></tr></thead>
+        <tbody>
+          <tr><td class="col-feat">Referrer</td><td>+2 extra items on free tier (up to 20 max)</td></tr>
+          <tr><td class="col-feat">Invitee</td><td>Start with 12 items instead of 10</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Profile integration</h3>
+      <p>The profile page shows an "Invite friends" section:</p>
+      <ul>
+        <li>Progress bar: "10/20 items. Invite X more for Y extra."</li>
+        <li>Share link: <code style="font-size:12px;background:rgba(26,22,18,0.06);padding:2px 6px;border-radius:3px;">nudgii.app/invite/[username]</code></li>
+        <li>Pre-written message template: "I use nudgii to remember maintenance for my house, car, and garden. It's free. Use my link and we both get 2 extra items."</li>
+      </ul>
+
+      <h3>What we don't do</h3>
+      <ul class="mp-never">
+        <li>No "invite 10 friends to unlock Pro"</li>
+        <li>No leaderboards or social pressure</li>
+        <li>No expiring bonuses</li>
+        <li>No contact list imports</li>
+        <li>No spammy follow-up to invitees</li>
+      </ul>
+      <div class="mp-divider"></div>
+    </section>
+
+    <!-- 7. Affiliate revenue -->
+    <section class="mp-section" id="affiliate">
+      <div class="mp-sec-eye">Section 7</div>
+      <h2 class="mp-sec-title">Affiliate revenue</h2>
+      <p>Affiliate links appear at the task-due moment only. They are contextual, relevant, and never intrusive.</p>
+
+      <h3>Rules</h3>
+      <ul>
+        <li>One link per task view</li>
+        <li>Always labeled "we may earn a small fee"</li>
+        <li>Never more prominent than the task itself</li>
+        <li>No follow-up emails, push, or reminders about the affiliate offer</li>
+      </ul>
+
+      <h3>Examples</h3>
+      <ul>
+        <li>"Your boiler service is due. Book a technician near you." (affiliate link to local service platform)</li>
+        <li>"Time for winter tyres. Compare prices." (affiliate link to comparison site)</li>
+        <li>"Dishwasher salt running low? Order here." (product affiliate link)</li>
+      </ul>
+
+      <h3>Revenue estimates</h3>
+      <table class="mp-table">
+        <thead><tr><th class="col-feat">Type</th><th>Est. per conversion</th></tr></thead>
+        <tbody>
+          <tr><td class="col-feat">Service lead (technician booking)</td><td>€5-15</td></tr>
+          <tr><td class="col-feat">Product link (consumables, parts)</td><td>€0.50-2</td></tr>
+        </tbody>
+      </table>
+      <p>At scale (3,500 users, 10% click-through, 5% conversion): €200-500/month additional revenue.</p>
+      <div class="mp-divider"></div>
+    </section>
+
+    <!-- 8. Paid acquisition strategy -->
+    <section class="mp-section" id="acquisition">
+      <div class="mp-sec-eye">Section 8</div>
+      <h2 class="mp-sec-title">Paid acquisition strategy</h2>
+
+      <div class="mp-callout">
+        <p><strong>Rule:</strong> don't spend on paid acquisition until organic word-of-mouth generates 30%+ of signups. No ads inside the app. Ever.</p>
+      </div>
+
+      <table class="mp-table">
+        <thead><tr><th>Channel</th><th>Timing</th><th>Purpose</th><th>Budget</th></tr></thead>
+        <tbody>
+          <tr><td><strong>SEO/content blog</strong></td><td>Month 6+</td><td>Seasonal maintenance content driving organic signups</td><td>Time investment only</td></tr>
+          <tr><td><strong>Instagram/Facebook</strong></td><td>Month 12+</td><td>Target homeowners 28-45, BE/NL</td><td>€200-500/month</td></tr>
+          <tr><td><strong>Google App campaigns</strong></td><td>Month 12+</td><td>Dutch keywords: "home maintenance app", "onderhoud app"</td><td>€100-300/month</td></tr>
+          <tr><td><strong>Partnerships</strong></td><td>Month 18+</td><td>Home insurers, energy companies, real estate agents</td><td>Revenue share model</td></tr>
+          <tr><td><strong>Germany launch</strong></td><td>Month 12-18</td><td>5x market expansion</td><td>Localization + local marketing costs</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Partnership strategy</h3>
+      <p>The most capital-efficient growth channel. Potential partners:</p>
+      <ul>
+        <li><strong>Home insurers:</strong> Offer nudgii to policyholders (maintained homes = fewer claims)</li>
+        <li><strong>Energy companies:</strong> Boiler maintenance reminders reduce emergency callouts</li>
+        <li><strong>Real estate agents:</strong> Gift nudgii Pro to new homeowners as a closing gift</li>
+        <li><strong>DIY retailers:</strong> Co-branded seasonal maintenance guides</li>
+      </ul>
+      <div class="mp-divider"></div>
+    </section>
+
+    <!-- 9. Three-year forecast -->
+    <section class="mp-section" id="forecast">
+      <div class="mp-sec-eye">Section 9</div>
+      <h2 class="mp-sec-title">Three-year forecast</h2>
+
+      <h3>Assumptions</h3>
+      <table class="mp-table">
+        <thead><tr><th class="col-feat">Parameter</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td class="col-feat">Month 1 organic signups (BE/NL)</td><td>150</td></tr>
+          <tr><td class="col-feat">Monthly signup growth, year 1</td><td>8%</td></tr>
+          <tr><td class="col-feat">Monthly signup growth, years 2-3</td><td>5%</td></tr>
+          <tr><td class="col-feat">Month-1 retention</td><td>75%</td></tr>
+          <tr><td class="col-feat">Ongoing monthly free churn</td><td>4%</td></tr>
+          <tr><td class="col-feat">Monthly free-to-Pro conversion</td><td>1.5%</td></tr>
+          <tr><td class="col-feat">Monthly Pro churn</td><td>4%</td></tr>
+          <tr><td class="col-feat">Word-of-mouth coefficient (free)</td><td>0.02</td></tr>
+          <tr><td class="col-feat">Word-of-mouth coefficient (Pro)</td><td>0.03</td></tr>
+          <tr><td class="col-feat">Apple/Google commission</td><td>15% (small business program)</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Year 1</h3>
+      <table class="mp-table">
+        <thead><tr><th class="col-metric">Metric</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td class="col-metric">Month 12 MRR</td><td>~€600</td></tr>
+          <tr><td class="col-metric">Active users</td><td>~1,030 (910 free + 120 Pro)</td></tr>
+          <tr><td class="col-metric">Cumulative revenue</td><td>~€2,900</td></tr>
+          <tr><td class="col-metric">Status</td><td>Not profitable (building user base)</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Year 2</h3>
+      <table class="mp-table">
+        <thead><tr><th class="col-metric">Metric</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td class="col-metric">Month 24 MRR</td><td>~€1,800</td></tr>
+          <tr><td class="col-metric">Active users</td><td>~1,940 (1,580 free + 360 Pro)</td></tr>
+          <tr><td class="col-metric">Cumulative revenue (years 1+2)</td><td>~€18,350</td></tr>
+          <tr><td class="col-metric">Word-of-mouth signups</td><td>~55/month (23% of total)</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Year 3</h3>
+      <table class="mp-table">
+        <thead><tr><th class="col-metric">Metric</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td class="col-metric">Month 36 MRR</td><td>~€4,000</td></tr>
+          <tr><td class="col-metric">Active users</td><td>~3,500 (2,700 free + 800 Pro)</td></tr>
+          <tr><td class="col-metric">Cumulative revenue (all 3 years)</td><td>~€54,950</td></tr>
+          <tr><td class="col-metric">Word-of-mouth signups</td><td>~100/month (35%+ of total)</td></tr>
+          <tr><td class="col-metric">ARR</td><td>~€48,000</td></tr>
+        </tbody>
+      </table>
+
+      <h3>With Germany launch (month 18)</h3>
+      <p>Germany represents a 5x larger market than BE/NL combined.</p>
+      <table class="mp-table">
+        <thead><tr><th class="col-metric">Metric</th><th>Month 36 estimate</th></tr></thead>
+        <tbody>
+          <tr><td class="col-metric">MRR</td><td>€8,000-12,000</td></tr>
+          <tr><td class="col-metric">ARR</td><td>€96,000-144,000</td></tr>
+          <tr><td class="col-metric">Active users</td><td>7,000-10,500</td></tr>
+        </tbody>
+      </table>
+      <div class="mp-divider"></div>
+    </section>
+
+    <!-- 10. Cost structure -->
+    <section class="mp-section" id="costs">
+      <div class="mp-sec-eye">Section 10</div>
+      <h2 class="mp-sec-title">Cost structure</h2>
+
+      <table class="mp-table">
+        <thead><tr><th>Cost</th><th>Monthly estimate</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Supabase</strong></td><td>€25-75</td><td>Scales with active users</td></tr>
+          <tr><td><strong>Claude API (scans + nudges)</strong></td><td>€50-200</td><td>~€0.02/scan, ~€0.01/smart nudge</td></tr>
+          <tr><td><strong>Voice transcription</strong></td><td>€30-100</td><td>~€0.006 per 15s audio segment</td></tr>
+          <tr><td><strong>FCM (push notifications)</strong></td><td>Free</td><td>Google free tier covers projected volume</td></tr>
+          <tr><td><strong>Resend (email)</strong></td><td>€20-50</td><td>Weekly digest + transactional</td></tr>
+          <tr><td><strong>RevenueCat</strong></td><td>1% of revenue</td><td>Minimal at early scale</td></tr>
+          <tr><td><strong>Apple/Google commission</strong></td><td>15-30% of revenue</td><td>15% under small business program</td></tr>
+          <tr><td><strong>Plant.id API</strong></td><td>€10-30</td><td>Low usage, plant scans only</td></tr>
+          <tr><td style="font-weight:500;border-top:1.5px solid rgba(26,22,18,0.12);">Total</td><td style="font-weight:500;border-top:1.5px solid rgba(26,22,18,0.12);">€150-500/month</td><td style="border-top:1.5px solid rgba(26,22,18,0.12);">Breakeven projected month 10-14</td></tr>
+        </tbody>
+      </table>
+      <div class="mp-divider"></div>
+    </section>
+
+    <!-- 11. Key metrics -->
+    <section class="mp-section" id="metrics">
+      <div class="mp-sec-eye">Section 11</div>
+      <h2 class="mp-sec-title">Key metrics</h2>
+
+      <h3>Leading indicators (tracked weekly)</h3>
+      <ol>
+        <li><strong>Weekly digest open rate</strong> (North Star metric)</li>
+        <li>Items per user at Day 7</li>
+        <li>Task completion rate (tasks marked done / tasks due)</li>
+        <li>Item 11 conversion rate (users who hit limit and upgrade)</li>
+      </ol>
+
+      <h3>Danger signals</h3>
+      <table class="mp-table">
+        <thead><tr><th>Signal</th><th>Threshold</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Digest open rate</strong></td><td>Below 30%</td><td>Audit email content, send timing, subject lines</td></tr>
+          <tr><td><strong>Items per user at Day 7</strong></td><td>Stuck at 3-4</td><td>Improve onboarding, add guided item suggestions</td></tr>
+          <tr><td><strong>Pro churn</strong></td><td>Above 6%/month</td><td>Survey churned users, add retention features</td></tr>
+          <tr><td><strong>Word-of-mouth growth</strong></td><td>Zero by month 6</td><td>Rethink referral incentives, investigate NPS</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Growth levers (ranked by expected impact)</h3>
+      <ol>
+        <li><strong>Germany launch</strong> (5x market size)</li>
+        <li><strong>Household sharing</strong> (each Pro user brings 2 free users)</li>
+        <li><strong>Seasonal content marketing</strong> (organic SEO with maintenance guides)</li>
+        <li><strong>Partnerships with home insurers and energy companies</strong> (institutional distribution)</li>
+      </ol>
+      <div class="mp-divider"></div>
+    </section>
+
+    <!-- 12. Open decisions -->
+    <section class="mp-section" id="open-decisions">
+      <div class="mp-sec-eye">Section 12</div>
+      <h2 class="mp-sec-title">Open decisions <span class="badge badge-deferred">Deferred</span></h2>
+      <p>These decisions are intentionally deferred until post-launch data is available:</p>
+      <ul>
+        <li>Ultimate tier: pricing, feature set, and launch criteria</li>
+        <li>Annual vs monthly pricing split optimization (based on actual conversion data)</li>
+        <li>Affiliate partner selection per market (BE, NL, DE)</li>
+        <li>Germany launch: exact timeline and localization scope</li>
+        <li>Budget tracker and calendar sync: scope, complexity, and tier placement</li>
+      </ul>
+      <div class="mp-divider"></div>
+    </section>
+
+    <!-- 13. Risks -->
+    <section class="mp-section" id="risks">
+      <div class="mp-sec-eye">Section 13</div>
+      <h2 class="mp-sec-title">Risks</h2>
+
+      <table class="mp-table">
+        <thead><tr><th>Risk</th><th>Impact</th><th>Mitigation</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Conversion below 1%</strong></td><td>Revenue targets missed by ~40%</td><td>Test additional Pro features, experiment with 7-item limit</td></tr>
+          <tr><td><strong>High Pro churn (seasonal usage)</strong></td><td>Revenue volatility, unreliable MRR</td><td>Push annual plan incentives, build year-round value features</td></tr>
+          <tr><td><strong>Competitor enters BE/NL market</strong></td><td>User acquisition costs rise</td><td>Build brand loyalty early, word-of-mouth moat, first-mover data advantage</td></tr>
+          <tr><td><strong>AI costs spike (API pricing changes)</strong></td><td>Margins shrink or disappear</td><td>Cache common item/task lookups, reduce redundant API calls, batch processing</td></tr>
+          <tr><td><strong>Belgium/NL market too small</strong></td><td>Growth ceiling reached early</td><td>Germany launch is the primary mitigation. Plan for FR market as secondary.</td></tr>
+          <tr><td><strong>Low digest open rate</strong></td><td>North Star metric fails, retention drops</td><td>A/B test content, timing, personalization. Consider in-app digest alternative.</td></tr>
+          <tr><td><strong>RevenueCat or Supabase pricing changes</strong></td><td>Infrastructure costs increase</td><td>Evaluate alternatives quarterly, maintain vendor-agnostic architecture where possible</td></tr>
+        </tbody>
+      </table>
+      <div class="mp-divider"></div>
+    </section>
+
+    <!-- Appendix -->
+    <section class="mp-section" id="timeline">
+      <div class="mp-sec-eye">Appendix</div>
+      <h2 class="mp-sec-title">Monetization timeline</h2>
+
+      <table class="mp-table">
+        <thead><tr><th class="col-narrow">Month</th><th>Milestone</th></tr></thead>
+        <tbody>
+          <tr><td class="col-narrow"><strong>0</strong></td><td>Launch with free + Pro tiers, 10-item limit, RevenueCat integrated</td></tr>
+          <tr><td class="col-narrow"><strong>1-3</strong></td><td>Monitor conversion rate, digest open rate, items-per-user</td></tr>
+          <tr><td class="col-narrow"><strong>3-6</strong></td><td>First referral system iteration, affiliate links live</td></tr>
+          <tr><td class="col-narrow"><strong>6</strong></td><td>Evaluate: is word-of-mouth growing? Adjust if not.</td></tr>
+          <tr><td class="col-narrow"><strong>6-12</strong></td><td>SEO/content blog, seasonal marketing campaigns</td></tr>
+          <tr><td class="col-narrow"><strong>10-14</strong></td><td>Target breakeven on infrastructure costs</td></tr>
+          <tr><td class="col-narrow"><strong>12</strong></td><td>Evaluate Germany launch readiness</td></tr>
+          <tr><td class="col-narrow"><strong>12-18</strong></td><td>Paid acquisition (if word-of-mouth > 30%), partnership outreach</td></tr>
+          <tr><td class="col-narrow"><strong>18+</strong></td><td>Germany launch, Ultimate tier evaluation</td></tr>
+          <tr><td class="col-narrow"><strong>24</strong></td><td>Full monetization review: tier pricing, feature gates, growth channels</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Closing note -->
+    <div style="margin-top:48px;padding:18px 22px;background:rgba(155,127,212,0.05);border-radius:10px;border:1px solid rgba(155,127,212,0.12);">
+      <p style="font-size:12px;color:var(--mid-a);line-height:1.6;margin:0;font-style:italic;">This document governs all monetization decisions for nudgii. Any changes must be approved by Hanne and reflected here before implementation.</p>
+    </div>
+
+  </div><!-- /mp-main -->
+
+  <!-- SIDEBAR TOC -->
+  <aside class="mp-toc">
+    <div class="mp-toc-label">Contents</div>
+    <ul class="mp-toc-list">
+      <li><a href="#philosophy"><span class="toc-num">1</span> Philosophy</a></li>
+      <li><a href="#tiers"><span class="toc-num">2</span> Tier structure</a></li>
+      <li><a href="#item-limit"><span class="toc-num">3</span> Item limit experience</a></li>
+      <li><a href="#conversion"><span class="toc-num">4</span> Conversion triggers</a></li>
+      <li><a href="#upgrade-flow"><span class="toc-num">5</span> Upgrade flow</a></li>
+      <li><a href="#referrals"><span class="toc-num">6</span> Referral system</a></li>
+      <li><a href="#affiliate"><span class="toc-num">7</span> Affiliate revenue</a></li>
+      <li><a href="#acquisition"><span class="toc-num">8</span> Paid acquisition</a></li>
+      <li><a href="#forecast"><span class="toc-num">9</span> Three-year forecast</a></li>
+      <li><a href="#costs"><span class="toc-num">10</span> Cost structure</a></li>
+      <li><a href="#metrics"><span class="toc-num">11</span> Key metrics</a></li>
+      <li><a href="#open-decisions"><span class="toc-num">12</span> Open decisions</a></li>
+      <li><a href="#risks"><span class="toc-num">13</span> Risks</a></li>
+      <div class="mp-toc-line"></div>
+      <li><a href="#timeline"><span class="toc-num">A</span> Timeline</a></li>
+    </ul>
+  </aside>
+
+</div><!-- /mp-page -->
+
+<!-- FOOTER -->
+<footer class="mp-footer">
+  <div class="mp-footer-inner">
+    <svg width="22" height="24" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
+      <path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
+      <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
+    </svg>
+    <span class="mp-footer-text">nudgii design hub</span>
+  </div>
+</footer>
+
+<!-- Scroll-spy for TOC active state -->
+<script>
+(function(){
+  const links = document.querySelectorAll('.mp-toc-list a');
+  const sections = [];
+  links.forEach(a => {
+    const id = a.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if(el) sections.push({id, el, a});
+  });
+  function update(){
+    let current = sections[0];
+    for(const s of sections){
+      if(s.el.getBoundingClientRect().top <= 120) current = s;
+    }
+    links.forEach(a => a.classList.remove('active'));
+    if(current) current.a.classList.add('active');
+  }
+  window.addEventListener('scroll', update, {passive:true});
+  update();
+})();
+</script>
+
+</body>
+</html>
