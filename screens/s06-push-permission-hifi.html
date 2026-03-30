@@ -344,6 +344,14 @@ body{background:#CBC5BB;padding:0 0 80px;}
     <div class="cl-title">Changelog</div>
 
     <div class="cl-entry">
+      <div class="cl-ver">v2.1 · 2026-03-30 · BREAKING</div>
+      <div class="cl-body"><strong>colorInk token updated globally.</strong> <code>Color(0xFF1A1612)</code> → <code>Color(0xFF2C2824)</code>. Flutter: update <code>colorInk</code> constant.</div>
+      <div class="cl-body"><strong>colorApricotDk removed — dynamic date in headline.</strong> Confirmed in dev build: the italic date portion "soon." is rendering in colorApricotDk (#C8784A) orange. Replace with <code>colorCta (#9B7FD4)</code>. Flutter: update the italic date <code>TextStyle</code> color from <code>colorApricotDk</code> to <code>colorCta</code>.</div>
+      <div class="cl-body"><strong>Date fallback "soon." is incorrect.</strong> When the dynamic date is not yet available, dev shows "We'll remind you on soon." — grammatically broken. Correct fallback: omit the italic emphasis entirely and show "We'll remind you when it matters." (plain text, no date). At this point in onboarding the first reminder date is always available from schedule data — ensure the date is passed into this screen. Flutter: guard the italic date span with a null check; show full fallback string if date is null.</div>
+      <div class="cl-body"><strong>Error toast does not match error card spec.</strong> Confirmed in dev build: "Could not save your schedule." renders as a plain white card with dark text. Correct spec: <code>colorRedLt (#FCEBEB)</code> bg + <code>colorRed (#A32D2D)</code> text + <code>PhosphorIcons.warning</code> icon chip. Flutter: replace the plain Container toast with the standard error card component — full border <code>Border.all(color: colorRed.withOpacity(0.25))</code>, background <code>colorRedLt</code>, icon chip, and <code>colorRed</code> text.</div>
+    </div>
+
+    <div class="cl-entry">
       <div class="cl-ver">v2.0 · 2026-03-26 · BREAKING</div>
       <div class="cl-body"><strong>Bell icon: bare icon.</strong> Removed the 56x56 container box. Now a bare 48px Phosphor bell outline, stroke colorCta at 60% opacity, stroke-width 1.6. No background, no border. Lighter, less "permission screen."</div>
       <div class="cl-body"><strong>Headline: dynamic date.</strong> Changed from "Stay on top of things." to "We'll remind you on Oct 28." where "Oct 28" is italic in colorApricotDk (#C8784A). Flutter: pull earliest upcoming reminder date from user's schedule. Makes the value concrete and personal.</div>

@@ -951,6 +951,14 @@ body{background:#CBC5BB;padding:0 0 80px;}
     <div class="cl-title">Changelog</div>
 
     <div class="cl-entry">
+      <div class="cl-ver">v1.4 · 2026-03-30 · BREAKING</div>
+      <div class="cl-body"><strong>colorInk token updated globally.</strong> <code>Color(0xFF1A1612)</code> → <code>Color(0xFF2C2824)</code>. Flutter: update <code>colorInk</code> constant.</div>
+      <div class="cl-body"><strong>colorTerra removed — listening state colors.</strong> Mic circle and input bar border in listening state used colorTerra (#C4503A). Replace: mic circle active → <code>colorCta (#9B7FD4)</code>. Input bar border when listening → <code>rgba(155,127,212,0.30)</code>. Flutter: update <code>_listeningBorderColor</code> and mic circle decoration color.</div>
+      <div class="cl-body"><strong>colorTerra removed — error bubble tints.</strong> Error conversation bubbles (nonsense input, API failure) used colorTerra tint. Replace with <code>colorRedLt (#FCEBEB)</code> bg + <code>colorRed (#A32D2D)</code> text. Flutter: update error bubble decoration and text style color.</div>
+      <div class="cl-body"><strong>Category chip colors updated (confirmed chips).</strong> Home: <code>#C87850</code> → <code>catHomeIc #7A5A50</code>. Vehicle: <code>#4A82A0</code> → <code>catVehicleIc #4A6A82</code>. Garden: <code>#5A9060</code> → <code>catGardenIc #4A7A40</code>. Subscriptions: <code>#8060A8</code> → <code>catSubsIc #6A5085</code>. Health: <code>#B86478</code> → <code>catHealthIc #6A6858</code>. Flutter: update category color map used for chip styling.</div>
+    </div>
+
+    <div class="cl-entry">
       <div class="cl-ver">v1.3 · 2026-03-26 · ADDITIVE</div>
       <div class="cl-body"><strong>8 edge case scenarios.</strong> Nonsense input (A), duplicate item (B), ambiguous input (C), unknown item (D), empty voice/silence (E), brand mentioned (F), many items at once (G), item 11 free limit (H). Each shown as a mini phone mockup with nudgii's response and annotation below. Bubble tints: red for errors, amber for duplicates, standard for clarifications.</div>
     </div>

@@ -640,6 +640,21 @@ body{background:#CBC5BB;padding:0 0 80px;}
     <div class="cl-title">Changelog</div>
 
     <div class="cl-entry">
+      <div class="cl-ver">v1.1 · 2026-03-30 · BREAKING</div>
+      <div class="cl-body"><strong>colorInk token updated globally.</strong> <code>Color(0xFF1A1612)</code> → <code>Color(0xFF2C2824)</code>. Flutter: update <code>colorInk</code> constant.</div>
+      <div class="cl-body"><strong>All category icon colors replaced — confirmed in dev build as incorrect.</strong> Tile icon stroke, chip text, task dot, and drawer accent all use the old legacy values. Apply same updates as S-03 v2.1:<br>
+        Home: <code>#C87850</code> → <code>catHomeIc #7A5A50</code><br>
+        Vehicle: <code>#4A82A0</code> → <code>catVehicleIc #4A6A82</code><br>
+        Garden: <code>#5A9060</code> → <code>catGardenIc #4A7A40</code><br>
+        Subscriptions: <code>#8060A8</code> → <code>catSubsIc #6A5085</code><br>
+        Health: <code>#B86478</code> → <code>catHealthIc #6A6858</code><br>
+        Pets: <code>catPetsIc #8A6238</code> (new category)<br>
+        Flutter: centralised category color map update covers all of the above automatically.</div>
+      <div class="cl-body"><strong>Free tier banner warning pips: colorApricotDk removed.</strong> Warning pips at 8+ items used colorApricotDk (#C8784A). Replace with <code>colorAmber (#854F0B)</code> for warning state (aligned with semantic token system). Flutter: update pip color conditional.</div>
+      <div class="cl-body"><strong>"Remove item" link color: use colorRed.</strong> The "Remove item" text in the inline drawer currently uses an orange-ish color in dev. Correct value: <code>colorRed (#A32D2D)</code>. Flutter: set TextStyle color to <code>colorRed</code>.</div>
+    </div>
+
+    <div class="cl-entry">
       <div class="cl-ver">v1.0 · 2026-03-27 · BREAKING</div>
       <div class="cl-body"><strong>Tile grid review screen.</strong> Complete redesign from flat card list to 2-column tile grid with category-tinted tiles and inline drawers. Matches S-03 visual language.</div>
       <div class="cl-body"><strong>Category filter chips.</strong> Same chip style as S-03: tinted bg + category color text. "All" active by default. Active chip adds 1px solid outline in category color.</div>

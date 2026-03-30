@@ -509,6 +509,16 @@ body{background:#CBC5BB;padding:0 0 80px;}
     <div class="cl-title">Changelog</div>
 
     <div class="cl-entry">
+      <div class="cl-ver">v1.1 · 2026-03-30 · BREAKING</div>
+      <div class="cl-body"><strong>colorInk token updated globally.</strong> <code>Color(0xFF1A1612)</code> → <code>Color(0xFF2C2824)</code>. Flutter: update <code>colorInk</code> constant.</div>
+      <div class="cl-body"><strong>colorApricot removed — "your schedule is ready" eyebrow (State 1).</strong> Confirmed in dev build: eyebrow text is rendering in colorApricot (#E8A87C) orange. Replace with <code>colorCta (#9B7FD4)</code>. Flutter: update eyebrow <code>TextStyle</code> color to <code>colorCta</code>.</div>
+      <div class="cl-body"><strong>colorApricot removed — celebration headline (State 2, plum bg).</strong> Confirmed in dev build: "You're sorted. Really." renders in colorApricot gold/orange. Replace with <code>colorPlumPale (#C4A8E8)</code> — lavender-light, warm on plum. Flutter: update celebration headline <code>TextStyle</code> color to <code>colorPlumPale</code>.</div>
+      <div class="cl-body"><strong>colorApricot removed — first reminder date in pill (State 2).</strong> Confirmed in dev build: "Apr 2" in the reminder pill uses colorApricot. Replace with <code>colorCta (#9B7FD4)</code>. Flutter: update reminder date <code>TextStyle</code> color in the pill widget.</div>
+      <div class="cl-body"><strong>Icon container removed from "YOUR FIRST NUDGE" card (State 1).</strong> Confirmed in dev build: compost bin icon has a circle/rounded-square container bg. Remove entirely — icon sits directly on the white surface card. Flutter: remove the <code>Container</code> wrapping the icon and replace with a bare <code>SvgPicture</code> or <code>PhosphorIcon</code> widget at 20px, stroke = <code>catGardenIc</code>.</div>
+      <div class="cl-body"><strong>Email auth option removed from sign-in sheet.</strong> Confirmed in dev build: "Send me a link by email" option and its email input sub-screen are present. These are NOT designed and NOT approved. Auth sheet options are: Apple SSO (primary), Google SSO (secondary), "Not now" (ghost text). Remove the email button and the email input screen entirely. Flutter: remove email <code>TextButton</code> from auth sheet and delete the email sub-screen route.</div>
+    </div>
+
+    <div class="cl-entry">
       <div class="cl-ver">v1.0 · 2026-03-26 · NEW</div>
       <div class="cl-body"><strong>Two-state screen combining AHA reveal + celebration + sign-in.</strong> Replaces separate S-06 AHA, S-07 Celebration, and S-08 SSO screens. Reduces onboarding from 8 screens to 6 by merging three related moments into one continuous transition.</div>
       <div class="cl-body"><strong>State 1 (cream):</strong> Schedule reveal with personalized task list based on user input from S-02/S-03. Eyebrow "Your schedule is ready" + headline + 4 task cards. CTA "That's it. I'm done." triggers transition.</div>

@@ -447,6 +447,20 @@ body{background:#CBC5BB;padding:0 0 80px;}
     <div class="cl-title">Changelog</div>
 
     <div class="cl-entry">
+      <div class="cl-ver">v2.1 · 2026-03-30 · BREAKING</div>
+      <div class="cl-body"><strong>colorInk token updated globally.</strong> <code>Color(0xFF1A1612)</code> → <code>Color(0xFF2C2824)</code>. Flutter: update <code>colorInk</code> constant.</div>
+      <div class="cl-body"><strong>All category icon colors replaced — confirmed in dev build as incorrect.</strong> Dev build shows old legacy icon color values. New v10.5 values for all category chip text, tile icon stroke, and tile bg tint:<br>
+        Home: text/icon <code>#C87850</code> → <code>catHomeIc #7A5A50</code>; tile bg tint base → <code>#7A5A50</code> at 12% opacity<br>
+        Vehicle: <code>#4A82A0</code> → <code>catVehicleIc #4A6A82</code><br>
+        Garden: <code>#5A9060</code> → <code>catGardenIc #4A7A40</code><br>
+        Subscriptions: <code>#8060A8</code> → <code>catSubsIc #6A5085</code><br>
+        Health: <code>#B86478</code> (was pink) → <code>catHealthIc #6A6858</code> (now olive)<br>
+        Pets (new): icon <code>catPetsIc #8A6238</code>; tile bg tint → <code>#8A6238</code> at 12% opacity<br>
+        Flutter: update the category color map (<code>CategoryColors.forCategory()</code> or equivalent) with all new values. All downstream chip, tile, and icon styling will update automatically if color is centralised.</div>
+      <div class="cl-body"><strong>Active tile outline: use new category icon color, not old value.</strong> Selected tile border was <code>1.5px solid categoryColor</code> using old values. Update to new catXxxIc values per category. Flutter: no structural change — just update color map.</div>
+    </div>
+
+    <div class="cl-entry">
       <div class="cl-ver">v2.0 · 2026-03-27 · BREAKING</div>
       <div class="cl-body"><strong>Full redesign: tile grid replaces flat list.</strong> S-03 now uses a visual tile grid (the "bingo" pattern). Overview mode shows horizontal scroll rows per category. Single category mode shows a 3-column grid. More items visible above the fold, faster for Arne.</div>
       <div class="cl-body"><strong>New category chip style.</strong> Chips now use category-tinted background + category color text, with no dot indicator. Home chip: rgba(200,120,80,0.13) bg + #C87850 text. Active chip adds 1px solid categoryColor outline. "All" active: rgba(155,127,212,0.12) bg + colorCta text + colorCta outline.</div>

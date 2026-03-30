@@ -456,6 +456,14 @@ body{background:#BDB8AE;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:
   </style>
 
   <div class="cl-entry">
+    <div class="cl-ver">v1.3 · 2026-03-30 · BREAKING</div>
+    <div class="cl-body"><strong>colorInk token updated globally.</strong> <code>Color(0xFF1A1612)</code> → <code>Color(0xFF2C2824)</code>. Flutter: update <code>colorInk</code> constant.</div>
+    <div class="cl-body"><strong>FAB shadow corrected.</strong> v1.2 set shadow to <code>0 6px 20px rgba(155,127,212,0.45)</code> — this was too heavy. v10.5 value: <code>0 4px 14px rgba(155,127,212,0.25)</code>. Lighter elevation, more refined. Flutter: update FAB <code>BoxShadow(blurRadius: 14, spreadRadius: 0, offset: Offset(0,4), color: Color(0xFF9B7FD4).withOpacity(0.25))</code>.</div>
+    <div class="cl-body"><strong>Tab bar pip dot: confirm removed in dev build.</strong> v1.2 logged this as BREAKING. Confirmed still present in current dev screenshots. Active tab must show colorCta on icon + label ONLY — no pip, no underline dot. Flutter: remove Container pip widget, set both icon color and label TextStyle to <code>colorCta (#9B7FD4)</code>.</div>
+    <div class="cl-body"><strong>Dark mode tokens updated.</strong> Tab bar surface: <code>darkNav #28261F</code> (was <code>#1A1F1D</code>). Flutter: update dark mode nav surface color constant.</div>
+  </div>
+
+  <div class="cl-entry">
     <div class="cl-ver">v1.1 · 2026-03-22 · ADDITIVE</div>
     <div class="cl-body"><strong>Initial hi-fi.</strong> Floating pill tab bar + FAB action sheet. 3 onboarding paths (Voice / Browse / Search). Interactive toggle on State 2. Icon strip showing 3 locked icon replacements (Faders / Scan / PencilLine).</div>
   </div>
