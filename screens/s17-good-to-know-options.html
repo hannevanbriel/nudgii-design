@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · Good to know: 4 options</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --surface:#FBF9F4;--surface-low:#F5F4ED;--surface-high:#E8E9E0;--surface-lowest:#FFFFFF;
+  --ink:#31332C;--mid:#7A756D;--hint:#A09A90;
+  --plum:#9B7FD4;--plum-fg:#FAF8FF;
+  --apricot:#E8A87C;--apricot-wash:rgba(232,168,124,0.12);
+  --ch-bg:#C09088;--ch-wash:rgba(192,144,136,0.14);
+  --cg-bg:#8C9B80;--cg-wash:rgba(140,155,128,0.14);
+  --yellow:#E8B86D;--yellow-wash:rgba(232,184,109,0.14);
+  --r:12px;--rs:8px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;}
+body{font-family:'Manrope',sans-serif;background:#0E0D0B;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:14px 10px 50px;color:var(--ink);}
+.label{font-size:10px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,0.3);text-align:center;margin:30px 0 10px;max-width:390px;width:100%;}
+.phone{width:390px;background:var(--surface);border-radius:24px;padding:24px;margin-bottom:10px;}
+</style>
+</head>
+<body>
+
+<!-- OPTION A: Inline text with colored dot markers -->
+<div class="label">Option A: Dot markers, no containers</div>
+<div class="phone">
+  <div style="font-family:'Noto Serif',serif;font-size:18px;color:var(--ink);margin-bottom:20px;">Good to know</div>
+
+  <div style="display:flex;gap:10px;margin-bottom:18px;align-items:flex-start;">
+    <div style="width:6px;height:6px;border-radius:50%;background:var(--ch-bg);margin-top:6px;flex-shrink:0;"></div>
+    <div><div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:3px;">Quick facts</div><div style="font-size:11px;color:var(--mid);line-height:1.6;">Your boiler heats water and radiators. In Belgium, annual service is legally required. A well-maintained boiler lasts 15-20 years.</div></div>
+  </div>
+  <div style="display:flex;gap:10px;margin-bottom:18px;align-items:flex-start;">
+    <div style="width:6px;height:6px;border-radius:50%;background:var(--cg-bg);margin-top:6px;flex-shrink:0;"></div>
+    <div><div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:3px;">Best time to service</div><div style="font-size:11px;color:var(--mid);line-height:1.6;">Late summer or early autumn. Book in September to avoid the October rush.</div></div>
+  </div>
+  <div style="display:flex;gap:10px;margin-bottom:18px;align-items:flex-start;">
+    <div style="width:6px;height:6px;border-radius:50%;background:var(--yellow);margin-top:6px;flex-shrink:0;"></div>
+    <div><div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:3px;">Watch out for</div><div style="font-size:11px;color:var(--mid);line-height:1.6;">Yellow flame, unusual noises, pressure drops below 1 bar, cold spots on radiators.</div></div>
+  </div>
+  <div style="display:flex;gap:10px;align-items:flex-start;">
+    <div style="width:6px;height:6px;border-radius:50%;background:var(--apricot);margin-top:6px;flex-shrink:0;"></div>
+    <div><div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:3px;">Typical costs</div><div style="font-size:11px;color:var(--mid);line-height:1.6;">Annual service EUR 120-180. Filter: EUR 20-40 DIY. Emergency repair: EUR 200+.</div></div>
+  </div>
+</div>
+
+<!-- OPTION B: Full-width tonal blocks stacked, no lines, no containers -->
+<div class="label">Option B: Alternating tonal blocks</div>
+<div class="phone" style="padding:0;overflow:hidden;">
+  <div style="padding:20px 24px 0;"><div style="font-family:'Noto Serif',serif;font-size:18px;color:var(--ink);margin-bottom:16px;">Good to know</div></div>
+
+  <div style="padding:16px 24px;background:var(--surface);">
+    <div style="font-size:9px;font-weight:600;letter-spacing:0.04em;color:var(--ch-bg);margin-bottom:6px;">Quick facts</div>
+    <div style="font-size:12px;color:var(--ink);line-height:1.6;">Your boiler heats water and radiators. In Belgium, annual service is legally required. Lasts 15-20 years when maintained.</div>
+  </div>
+  <div style="padding:16px 24px;background:var(--surface-low);">
+    <div style="font-size:9px;font-weight:600;letter-spacing:0.04em;color:var(--cg-bg);margin-bottom:6px;">Best time to service</div>
+    <div style="font-size:12px;color:var(--ink);line-height:1.6;">Late summer or early autumn. Book in September to avoid the October rush.</div>
+  </div>
+  <div style="padding:16px 24px;background:var(--surface);">
+    <div style="font-size:9px;font-weight:600;letter-spacing:0.04em;color:var(--yellow);margin-bottom:6px;">Watch out for</div>
+    <div style="font-size:12px;color:var(--ink);line-height:1.6;">Yellow flame, unusual noises, pressure below 1 bar, cold radiator spots.</div>
+  </div>
+  <div style="padding:16px 24px;background:var(--surface-low);">
+    <div style="font-size:9px;font-weight:600;letter-spacing:0.04em;color:var(--apricot);margin-bottom:6px;">Typical costs</div>
+    <div style="font-size:12px;color:var(--ink);line-height:1.6;">Annual service EUR 120-180. Filter EUR 20-40 DIY. Emergency EUR 200+.</div>
+  </div>
+</div>
+
+<!-- OPTION C: Icon + serif title, single column cards with category wash bg -->
+<div class="label">Option C: Icon circles + category wash cards</div>
+<div class="phone">
+  <div style="font-family:'Noto Serif',serif;font-size:18px;color:var(--ink);margin-bottom:16px;">Good to know</div>
+
+  <div style="display:flex;align-items:flex-start;gap:12px;padding:14px;background:var(--ch-wash);border-radius:var(--r);margin-bottom:8px;">
+    <div style="width:32px;height:32px;border-radius:50%;background:rgba(192,144,136,0.20);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ch-bg)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
+    <div><div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:3px;">Quick facts</div><div style="font-size:11px;color:var(--mid);line-height:1.6;">Heats water and radiators. Annual service legally required in Belgium. Lasts 15-20 years maintained.</div></div>
+  </div>
+  <div style="display:flex;align-items:flex-start;gap:12px;padding:14px;background:var(--cg-wash);border-radius:var(--r);margin-bottom:8px;">
+    <div style="width:32px;height:32px;border-radius:50%;background:rgba(140,155,128,0.20);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cg-bg)" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+    <div><div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:3px;">Best time to service</div><div style="font-size:11px;color:var(--mid);line-height:1.6;">Late summer or early autumn. Book September to avoid the rush.</div></div>
+  </div>
+  <div style="display:flex;align-items:flex-start;gap:12px;padding:14px;background:var(--yellow-wash);border-radius:var(--r);margin-bottom:8px;">
+    <div style="width:32px;height:32px;border-radius:50%;background:rgba(232,184,109,0.20);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="1.8" stroke-linecap="round"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg></div>
+    <div><div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:3px;">Watch out for</div><div style="font-size:11px;color:var(--mid);line-height:1.6;">Yellow flame, unusual noises, pressure drops, cold radiator spots.</div></div>
+  </div>
+  <div style="display:flex;align-items:flex-start;gap:12px;padding:14px;background:var(--apricot-wash);border-radius:var(--r);">
+    <div style="width:32px;height:32px;border-radius:50%;background:rgba(232,168,124,0.20);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--apricot)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7c0-1.1-.9-2-2-2H7c-1.1 0-2 .9-2 2"/><path d="M3 11v4c0 2.2 1.8 4 4 4h10c2.2 0 4-1.8 4-4v-4c0-2.2-1.8-4-4-4H7c-2.2 0-4 1.8-4 4z"/></svg></div>
+    <div><div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:3px;">Typical costs</div><div style="font-size:11px;color:var(--mid);line-height:1.6;">Annual service EUR 120-180. Filter EUR 20-40 DIY. Emergency EUR 200+.</div></div>
+  </div>
+</div>
+
+<!-- OPTION D: Serif editorial blocks, one key stat per row -->
+<div class="label">Option D: Metric-led editorial blocks</div>
+<div class="phone">
+  <div style="font-family:'Noto Serif',serif;font-size:18px;color:var(--ink);margin-bottom:16px;">Good to know</div>
+
+  <div style="padding:16px 0;display:flex;align-items:baseline;gap:14px;">
+    <div style="font-family:'Noto Serif',serif;font-size:28px;font-weight:500;color:var(--ch-bg);line-height:1;flex-shrink:0;width:70px;text-align:right;">15-20</div>
+    <div><div style="font-size:12px;color:var(--ink);font-weight:500;">years average lifespan</div><div style="font-size:10px;color:var(--mid);margin-top:2px;">When serviced annually. Legally required in Belgium for gas installations.</div></div>
+  </div>
+  <div style="height:1px;background:var(--surface-high);margin:0 0 0 84px;"></div>
+  <div style="padding:16px 0;display:flex;align-items:baseline;gap:14px;">
+    <div style="font-family:'Noto Serif',serif;font-size:28px;font-weight:500;color:var(--cg-bg);line-height:1;flex-shrink:0;width:70px;text-align:right;">Sep</div>
+    <div><div style="font-size:12px;color:var(--ink);font-weight:500;">best month to book</div><div style="font-size:10px;color:var(--mid);margin-top:2px;">Before heating season. October slots fill fast.</div></div>
+  </div>
+  <div style="height:1px;background:var(--surface-high);margin:0 0 0 84px;"></div>
+  <div style="padding:16px 0;display:flex;align-items:baseline;gap:14px;">
+    <div style="font-family:'Noto Serif',serif;font-size:28px;font-weight:500;color:var(--yellow);line-height:1;flex-shrink:0;width:70px;text-align:right;">4</div>
+    <div><div style="font-size:12px;color:var(--ink);font-weight:500;">warning signs to watch</div><div style="font-size:10px;color:var(--mid);margin-top:2px;">Yellow flame, noises, pressure drops, cold spots.</div></div>
+  </div>
+  <div style="height:1px;background:var(--surface-high);margin:0 0 0 84px;"></div>
+  <div style="padding:16px 0;display:flex;align-items:baseline;gap:14px;">
+    <div style="font-family:'Noto Serif',serif;font-size:22px;font-weight:500;color:var(--apricot);line-height:1;flex-shrink:0;width:70px;text-align:right;">&euro;120</div>
+    <div><div style="font-size:12px;color:var(--ink);font-weight:500;">typical annual service cost</div><div style="font-size:10px;color:var(--mid);margin-top:2px;">Filter DIY EUR 20-40. Emergency repair EUR 200+.</div></div>
+  </div>
+</div>
+
+</body>
+</html>

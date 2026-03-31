@@ -345,13 +345,51 @@ MVP launches in Dutch (nl-BE and nl-NL) and French (fr). German (de) planned pos
 
 ---
 
-## 15. ClickUp structure
+## 15. Product development pipeline
 
-Space → Folder (MVP) → List (Epic) → Task (Use Case) → Subtask (User Story) → Checklist item (Dev task)
+**This is the order. Don't skip phases. Each phase feeds the next.**
 
-GitHub branch prefix: `CU-[taskID]/description`
+```
+DISCOVERY ──► DEFINE ──► DESIGN ──► BUILD ──► LAUNCH
+(why + who)   (what)     (how it    (make     (ship
+                          looks)     it work)   it)
+```
 
-Design deliverables live in a separate `Design` List in ClickUp (Figma links, no GitHub links).
+| # | Phase | Question it answers | Artifacts | ClickUp location | Template |
+|---|---|---|---|---|---|
+| 1 | **Discovery** | Who are our users? What problems do they have? How do they cope today? | User Flows / Journey Maps (UF-##), Personas, Competitive analysis | `Personas and Journey Maps`, `Competitive Analysis` | `TEMPLATE - User Flow` |
+| 2 | **Define** | What are we building and why? How does the user interact with our system? | PRD, Use Cases (UC-##), UX Flow (screen paths), Business Logic | `PRD and Use Cases`, `UX Flows and Business Logic` | `TEMPLATE - Use Case` |
+| 3 | **Design** | How does it look and feel? | Design system, Wireframes (lo-fi), Hi-fi mockups, Handoff specs, Prototypes | `Design System`, `Lo-fi Screens`, `Hi-fi Screens`, `Prototype`, `Handoff` | Hi-fi changelog format |
+| 4 | **Build** | How does engineering implement it? | Epics (E##, one per PRD section), User Stories (US-##-##), Acceptance Criteria, DB schema, Tech architecture | `MVP v1.0` folder (one List per Epic) | `TEMPLATE - Epic`, `TEMPLATE - User Story` |
+| 5 | **Launch** | How do we get it to users? | GTM plan, App Store listing, Launch checklist, Metrics dashboard, Onboarding emails | `Launch · Marketing` folder | — |
+
+**The cascade:**
+```
+User Flow (UF-##)        ← Discovery: understands the problem
+  └─► PRD section        ← Define: decides what to build
+      └─► Use Case (UC-##)  ← Define: maps user+system interaction
+          └─► Epic (E##)     ← Build: scopes engineering work
+              └─► User Story (US-##-##) ← Build: one shippable capability
+                  └─► Dev checklist     ← Build: implementation tasks
+```
+
+**Before you start any work, ask: which phase am I in?**
+- If you can't describe the user's problem and emotions → go back to Discovery (write a UF)
+- If you can't explain what the feature does and why → go back to Define (write PRD + UC)
+- If there's no wireframe or hi-fi → go back to Design
+- If there's no Epic with scoped Use Cases → go back to Build planning
+
+**ClickUp hierarchy:**
+Space (Nudgii) → Folder → List (Epic) → Task (Use Case) → Subtask (User Story) → Checklist item (Dev task)
+
+**GitHub branch prefix:** `CU-[taskID]/description`
+
+**Templates** live in `_Team > List`:
+- `TEMPLATE - User Flow` (Discovery)
+- `TEMPLATE - Use Case` (Define)
+- `TEMPLATE - Epic` (Build)
+- `TEMPLATE - User Story` (Build)
+- `TEMPLATE - Decision` (Any phase)
 
 ---
 
@@ -480,6 +518,27 @@ Update this section when open decisions are resolved.
 | S-04 item counter | Show "X of 10 free" dot meter + quiet "Go Pro" link on S-04 Review only. Not on S-03 (too early, user still in discovery mode). Soft, non-blocking — sets honest expectations before dashboard. Dots meter reads like a storage bar. "Go Pro" is a link, not a button. | ✅ Yes | 2026-03-30 |
 | S-02 edge cases | 7 conversation scenarios documented in hi-fi: nonsense input, duplicate, ambiguous, unknown item, silence, brand mentioned, many items at once. Bubble tints: red for errors, amber for duplicates, standard for clarifications. | ✅ Yes | 2026-03-26 |
 | Continue chip copy | "Show my schedule" renamed to "Continue" in S-02. Next screen is S-04 Review, not the schedule. "Ready to review what I found?" replaces "Ready to see your schedule?" | ✅ Yes | 2026-03-26 |
+| Navigation structure | 4 tabs + FAB, fixed order: Today > Plan > My Stuff > Profile. FAB floats above tab bar, right-aligned. This order is locked and applies to all screens. | ✅ Yes | 2026-03-30 |
+| Plan tab task row layout | Task title first (primary), item name below (secondary). Category label as uppercase text above each task is removed: the category icon color already signals category. Reduces visual noise. | ✅ Yes | 2026-03-30 |
+| Precision Warmth design system | Prototype at screens/s09-dashboard-precision-warmth.html. Tonal surface system (surface/surface-low/surface-high/surface-lowest), no borders, Noto Serif headlines + Manrope body, warm neutrals. | ✅ Yes | 2026-03-31 |
+| Plum + Apricot color duo | Plum (#9B7FD4) = actions (FAB, CTA, Done, active tab, Export). Apricot (#E8A87C) = warmth (greeting name, highlights, streak, "why it matters" labels). Two signature colors that define the nudgii brand. | ✅ Yes | 2026-03-31 |
+| Round icon circles on task rows | Task cards on Today use 40px round circle with category wash background + category-colored icon. No card background wash on task rows. Contextual/discovery cards keep category wash backgrounds. | ✅ Yes | 2026-03-31 |
+| Tasks-first layout | Today tab order: greeting > single metric > overdue tasks > due this week > coming up > "For you" contextual cards. Tasks visible immediately, no scrolling past chrome. | ✅ Yes | 2026-03-31 |
+| Single metric summary | "3 things need attention today" replaces progress ring + text + streak combo. Streak circle (apricot, tappable with tooltip) sits on the right of the summary line. One message, not three competing metrics. | ✅ Yes | 2026-03-31 |
+| Contextual cards all actionable | "For you" section: all cards have a category CTA button. No mixed editorial/metric/action types. Icon + title inline (horizontal), description below, category-colored pill CTA. | ✅ Yes | 2026-03-31 |
+| Category-integrated card buttons | Contextual card CTAs use the card's own category color as button fill (not plum). Plum = app-level actions only. This preserves plum's meaning as "do your task." | ✅ Yes | 2026-03-31 |
+| Overdue badge text-only | Overdue indicators use apricot text only ("12d overdue"), no filled badge. Warm warning without anxiety. | ✅ Yes | 2026-03-31 |
+| Expanded card pattern | Tap chevron to expand. Shows "Why it matters" (apricot label) + context text + right-aligned actions: Details link (left), Skip/Snooze/Done (right). Done = plum pill with checkmark. | ✅ Yes | 2026-03-31 |
+| Nav bar solid, no glassmorphism | Tab bar uses solid surface background, not semi-transparent blur. Content doesn't show through. Subtle upward shadow. | ✅ Yes | 2026-03-31 |
+| Nav active state: no container | Active tab = plum icon + plum label, no background shape. Color alone signals active state. | ✅ Yes | 2026-03-31 |
+| Streak circle with tooltip | 36-50px apricot circle, tappable. Tooltip: "You've completed tasks 4 weeks straight!" auto-dismisses after 2.5s. | ✅ Yes | 2026-03-31 |
+| Home category color | Dusty rose #C09088 replaces terracotta #C8907A. Warmer, more pink, less orange. | ✅ Yes | 2026-03-31 |
+| Vehicle category color | Warm sage-slate #8E9A94 replaces cool blue-gray #8A9BA8. All category colors now in the same warm family. | ✅ Yes | 2026-03-31 |
+| Plan tab editorial timeline | Month headers with % completion circle + serif month name. Task rows: date column (day+number) + icon circle + title + item. Seasonal quote cards between months. Editorial quote block at bottom. | ✅ Yes | 2026-03-31 |
+| My Stuff visual tile grid | 2-column grid with category-washed tiles. Each tile: large icon circle, item name, task count, status (overdue/on track/seasonal). Dashed "Add item" tile with plum accent. Replaces flat list. | ✅ Yes | 2026-03-31 |
+| Dark mode brighter colors | Plum lightened to #B8A0E8, apricot to #F0B890. Category colors lifted 15-20% for visibility. Text primary #F0EDE6 (was #E2DFD6). Category washes at 15% opacity (was 12%). | ✅ Yes | 2026-03-31 |
+| Font size hierarchy | Greeting: 24px serif. Task titles: 14px. Section labels: 10px uppercase. Body/subtitles: 10-11px. Reduced gap between personality and functional layers. | ✅ Yes | 2026-03-31 |
+| Contextual cards not collapsible (free) | Free users cannot hide the "For you" card row. Individual cards dismissible (X button), new ones rotate in. Pro gets "focus mode" toggle for task-only view. | ✅ Yes | 2026-03-31 |
 
 ---
 
