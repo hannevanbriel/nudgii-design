@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · Color direction v2 · Exploration</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#1E1C18;color:#E0DDD6;padding:48px 32px 80px;min-height:100vh;}
+
+/* PAGE HEADER */
+.page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.logo{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:500;color:rgba(224,221,214,0.55);}
+.logo svg{width:22px;height:24px;}
+.badge{font-size:10px;font-weight:500;padding:4px 12px;border-radius:100px;background:rgba(155,127,212,0.15);color:#C4A8E8;border:0.5px solid rgba(155,127,212,0.3);}
+.page-eyebrow{font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(224,221,214,0.4);margin-bottom:32px;}
+
+/* SECTION */
+.section{margin-bottom:64px;}
+.section-title{font-family:'DM Serif Display',serif;font-size:22px;color:#E0DDD6;margin-bottom:6px;}
+.section-sub{font-size:13px;color:rgba(224,221,214,0.5);margin-bottom:28px;line-height:1.5;}
+
+/* TWO-COL COMPARISON */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:12px;}
+.col-label{font-size:9px;font-weight:600;letter-spacing:1.8px;text-transform:uppercase;color:rgba(224,221,214,0.35);margin-bottom:12px;}
+.col-label.new{color:rgba(155,127,212,0.7);}
+
+/* SWATCH ROWS */
+.swatch-row{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.swatch{border-radius:12px;padding:14px 16px;min-width:80px;display:flex;flex-direction:column;gap:6px;}
+.swatch-hex{font-size:9px;font-weight:500;opacity:0.65;}
+.swatch-name{font-size:10px;font-weight:600;}
+
+/* CATEGORY TILE GRID */
+.tile-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.cat-tile{border-radius:14px;padding:16px 10px 12px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.cat-tile svg{width:28px;height:28px;}
+.cat-tile-name{font-size:10px;font-weight:500;}
+
+/* CHIP ROW */
+.chip-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
+.chip{display:inline-flex;align-items:center;gap:5px;border-radius:100px;padding:5px 12px;font-size:10px;font-weight:500;}
+
+/* PHONE MOCKUP */
+.phones{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.phone{width:320px;background:#F5F0E8;border-radius:44px;overflow:hidden;border:1.5px solid rgba(26,22,18,0.15);box-shadow:0 24px 60px rgba(0,0,0,0.5);font-family:'DM Sans',sans-serif;height:680px;display:flex;flex-direction:column;}
+.phone-status{display:flex;justify-content:space-between;align-items:center;padding:12px 20px 4px;font-size:8px;font-weight:500;color:#2C2824;}
+.phone-content{flex:1;overflow:hidden;padding:0 16px;}
+.phone-greeting{margin:12px 0 16px;}
+.phone-greeting-line1{font-size:13px;color:#8A8070;}
+.phone-greeting-name{font-family:'DM Serif Display',serif;font-style:italic;font-size:26px;line-height:1.1;}
+.phone-section-label{font-size:8px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#8A8070;margin-bottom:8px;}
+.phone-cat-strip{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;margin-bottom:12px;padding-bottom:2px;}
+.phone-cat-strip::-webkit-scrollbar{display:none;}
+.task-card{background:#fff;border-radius:12px;padding:10px 12px;margin-bottom:6px;display:flex;align-items:center;gap:10px;}
+.task-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.task-icon svg{width:14px;height:14px;}
+.task-info{flex:1;}
+.task-name{font-size:11px;font-weight:500;color:#2C2824;}
+.task-sub{font-size:9px;color:#8A8070;margin-top:1px;}
+.task-date{font-size:9px;font-weight:500;color:#8A8070;}
+.task-date.overdue-old{color:#6B4A3A;}
+.task-date.overdue-new{color:#C8784A;}
+
+/* NUDGE CARD */
+.nudge-card{border-radius:12px;padding:10px 12px;margin-bottom:6px;}
+.nudge-label{font-size:7.5px;font-weight:600;letter-spacing:1px;text-transform:uppercase;opacity:0.6;margin-bottom:3px;}
+.nudge-body{font-size:10px;font-weight:500;line-height:1.35;}
+.nudge-sub{font-size:8.5px;opacity:0.65;margin-top:2px;}
+
+/* BOTTOM CTA */
+.phone-cta-wrap{padding:8px 16px 24px;background:#F5F0E8;}
+.phone-cta{width:100%;padding:13px;border-radius:100px;border:none;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;}
+
+/* PURPLE SCALE */
+.purple-scale{display:flex;gap:8px;margin-bottom:16px;}
+.p-swatch{flex:1;border-radius:12px;padding:14px 12px;text-align:center;}
+.p-swatch-label{font-size:8.5px;font-weight:500;margin-top:6px;}
+.p-swatch-role{font-size:9px;opacity:0.55;margin-top:2px;}
+
+/* APRICOT EXAMPLES */
+.apricot-examples{display:flex;flex-wrap:wrap;gap:10px;}
+.apricot-ex{background:rgba(232,168,124,0.12);border:0.5px solid rgba(232,168,124,0.2);border-radius:12px;padding:12px 16px;font-size:11px;}
+.apricot-ex strong{display:block;font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#E8A87C;margin-bottom:4px;}
+
+/* THREE ANCHORS */
+.anchors{display:flex;gap:16px;margin-bottom:32px;}
+.anchor{flex:1;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:8px;}
+.anchor-label{font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;opacity:0.7;}
+.anchor-hex{font-size:20px;font-weight:600;letter-spacing:-0.5px;}
+.anchor-role{font-size:11px;opacity:0.7;line-height:1.4;}
+
+/* DIVIDER */
+.divider{height:0.5px;background:rgba(224,221,214,0.08);margin:48px 0;}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="logo">
+    <!-- ii mark -->
+    <svg viewBox="0 0 626 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M125,0C194,0,250,58,250,129v442c0,71-56,129-125,129S0,642,0,571V129C0,58,56,0,125,0Z" fill="#9B7FD4"/>
+      <path d="M451,0c69,0,125,58,125,129v442c0,71-56,129-125,129s-125-58-125-129V129C326,58,382,0,451,0Z" fill="#2D1F4A"/>
+      <circle cx="536" cy="119" r="90" fill="#E8A87C"/>
+    </svg>
+    nudgii · color direction v2
+  </div>
+  <div class="badge">Exploration · not committed</div>
+</div>
+<div class="page-eyebrow">Color exploration · March 2026</div>
+
+<!-- SECTION 1: THREE ANCHORS -->
+<div class="section">
+  <div class="section-title">The 3 anchors</div>
+  <div class="section-sub">Everything comes from the logo. These 3 colors define the whole system.</div>
+  <div class="anchors">
+    <div class="anchor" style="background:rgba(155,127,212,0.12);border:0.5px solid rgba(155,127,212,0.2);">
+      <div class="anchor-label" style="color:#C4A8E8;">Action</div>
+      <div class="anchor-hex" style="color:#9B7FD4;">#9B7FD4</div>
+      <div class="anchor-role" style="color:#C4A8E8;">CTA · FAB · active tab · interactive states · free tier anchor</div>
+    </div>
+    <div class="anchor" style="background:rgba(232,168,124,0.12);border:0.5px solid rgba(232,168,124,0.2);">
+      <div class="anchor-label" style="color:#E8A87C;">Warmth · Pro</div>
+      <div class="anchor-hex" style="color:#E8A87C;">#E8A87C</div>
+      <div class="anchor-role" style="color:#E8A87C;">Personality · celebration · Pro signal · the dot in the mark</div>
+    </div>
+    <div class="anchor" style="background:rgba(45,31,74,0.6);border:0.5px solid rgba(45,31,74,0.8);">
+      <div class="anchor-label" style="color:#C4A8E8;">Depth</div>
+      <div class="anchor-hex" style="color:#C4A8E8;">#2D1F4A</div>
+      <div class="anchor-role" style="color:rgba(196,168,232,0.6);">Done overlay · plum moments · never elsewhere</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 2: CATEGORY COLORS -->
+<div class="section">
+  <div class="section-title">Category colors</div>
+  <div class="section-sub">Three options. Left: current v10.5 pastels. Middle: richer solids (too heavy, icons harder to read). Right: airy — cream shows through, icon does all the work. This is what "fresh" looks like.</div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-bottom:12px;">
+    <!-- CURRENT -->
+    <div>
+      <div class="col-label">Current v10.5</div>
+      <div class="tile-grid">
+        <div class="cat-tile" style="background:#D2BEB6;">
+          <svg viewBox="0 0 256 256" fill="none"><path d="M8 144a8 8 0 0 1 8-8h224a8 8 0 0 1 8 8v64a8 8 0 0 1-8 8H16a8 8 0 0 1-8-8v-64z" stroke="#7A5A50" stroke-width="14" fill="none" stroke-linejoin="round"/><rect x="32" y="64" width="192" height="72" rx="8" stroke="#7A5A50" stroke-width="14" fill="none"/><line x1="88" y1="136" x2="88" y2="64" stroke="#7A5A50" stroke-width="14"/><line x1="168" y1="136" x2="168" y2="64" stroke="#7A5A50" stroke-width="14"/></svg>
+          <div class="cat-tile-name" style="color:#7A5A50;">Home</div>
+        </div>
+        <div class="cat-tile" style="background:#C0CDD8;">
+          <svg viewBox="0 0 256 256" fill="none"><path d="M8 144a8 8 0 0 1 8-8h16L60 80h136l28 56h16a8 8 0 0 1 8 8v32a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8v-32z" stroke="#4A6A82" stroke-width="14" fill="none" stroke-linejoin="round"/><circle cx="76" cy="192" r="24" stroke="#4A6A82" stroke-width="14" fill="none"/><circle cx="180" cy="192" r="24" stroke="#4A6A82" stroke-width="14" fill="none"/></svg>
+          <div class="cat-tile-name" style="color:#4A6A82;">Vehicle</div>
+        </div>
+        <div class="cat-tile" style="background:#C4DABE;">
+          <svg viewBox="0 0 256 256" fill="none"><line x1="128" y1="224" x2="128" y2="128" stroke="#4A7A40" stroke-width="14" stroke-linecap="round"/><path d="M128 172c0 0-36-16-52-56s20-80 52-72c32-8 68 32 52 72s-52 56-52 56z" stroke="#4A7A40" stroke-width="12" fill="none" stroke-linejoin="round"/></svg>
+          <div class="cat-tile-name" style="color:#4A7A40;">Garden</div>
+        </div>
+        <div class="cat-tile" style="background:#D0C6DC;">
+          <svg viewBox="0 0 256 256" fill="none"><path d="M128 24L32 64v72c0 56 40 96 96 112 56-16 96-56 96-112V64L128 24z" stroke="#6A5085" stroke-width="14" fill="none" stroke-linejoin="round"/><path d="M92 128l28 28 44-52" stroke="#6A5085" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="cat-tile-name" style="color:#6A5085;">Subs</div>
+        </div>
+      </div>
+      <div style="margin-top:8px;font-size:9px;color:rgba(224,221,214,0.4);line-height:1.4;">L≈80%. Safe. A little soft.</div>
+    </div>
+
+    <!-- RICHER (REJECTED) -->
+    <div>
+      <div class="col-label" style="color:rgba(224,221,214,0.2);text-decoration:line-through;">Richer — too heavy</div>
+      <div class="tile-grid" style="opacity:0.5;">
+        <div class="cat-tile" style="background:#B8A898;">
+          <svg viewBox="0 0 256 256" fill="none"><path d="M8 144a8 8 0 0 1 8-8h224a8 8 0 0 1 8 8v64a8 8 0 0 1-8 8H16a8 8 0 0 1-8-8v-64z" stroke="#6A4A3A" stroke-width="14" fill="none" stroke-linejoin="round"/><rect x="32" y="64" width="192" height="72" rx="8" stroke="#6A4A3A" stroke-width="14" fill="none"/><line x1="88" y1="136" x2="88" y2="64" stroke="#6A4A3A" stroke-width="14"/><line x1="168" y1="136" x2="168" y2="64" stroke="#6A4A3A" stroke-width="14"/></svg>
+          <div class="cat-tile-name" style="color:#6A4A3A;">Home</div>
+        </div>
+        <div class="cat-tile" style="background:#90A4B4;">
+          <svg viewBox="0 0 256 256" fill="none"><path d="M8 144a8 8 0 0 1 8-8h16L60 80h136l28 56h16a8 8 0 0 1 8 8v32a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8v-32z" stroke="#2A4A62" stroke-width="14" fill="none" stroke-linejoin="round"/><circle cx="76" cy="192" r="24" stroke="#2A4A62" stroke-width="14" fill="none"/><circle cx="180" cy="192" r="24" stroke="#2A4A62" stroke-width="14" fill="none"/></svg>
+          <div class="cat-tile-name" style="color:#2A4A62;">Vehicle</div>
+        </div>
+        <div class="cat-tile" style="background:#96A89C;">
+          <svg viewBox="0 0 256 256" fill="none"><line x1="128" y1="224" x2="128" y2="128" stroke="#2A4A38" stroke-width="14" stroke-linecap="round"/><path d="M128 172c0 0-36-16-52-56s20-80 52-72c32-8 68 32 52 72s-52 56-52 56z" stroke="#2A4A38" stroke-width="12" fill="none" stroke-linejoin="round"/></svg>
+          <div class="cat-tile-name" style="color:#2A4A38;">Garden</div>
+        </div>
+        <div class="cat-tile" style="background:#A898B8;">
+          <svg viewBox="0 0 256 256" fill="none"><path d="M128 24L32 64v72c0 56 40 96 96 112 56-16 96-56 96-112V64L128 24z" stroke="#3A2855" stroke-width="14" fill="none" stroke-linejoin="round"/><path d="M92 128l28 28 44-52" stroke="#3A2855" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="cat-tile-name" style="color:#3A2855;">Subs</div>
+        </div>
+      </div>
+      <div style="margin-top:8px;font-size:9px;color:rgba(224,221,214,0.35);line-height:1.4;">L≈63%. Icons harder to see. Too heavy.</div>
+    </div>
+
+    <!-- AIRY (PROPOSED) -->
+    <div>
+      <div class="col-label new">Proposed v2 — airy</div>
+      <div class="tile-grid" style="background:rgba(245,240,232,0.06);border-radius:12px;padding:8px;">
+        <div class="cat-tile" style="background:rgba(122,90,80,0.08);border-radius:12px;">
+          <svg viewBox="0 0 256 256" fill="none"><path d="M8 144a8 8 0 0 1 8-8h224a8 8 0 0 1 8 8v64a8 8 0 0 1-8 8H16a8 8 0 0 1-8-8v-64z" stroke="#7A5A50" stroke-width="14" fill="none" stroke-linejoin="round"/><rect x="32" y="64" width="192" height="72" rx="8" stroke="#7A5A50" stroke-width="14" fill="none"/><line x1="88" y1="136" x2="88" y2="64" stroke="#7A5A50" stroke-width="14"/><line x1="168" y1="136" x2="168" y2="64" stroke="#7A5A50" stroke-width="14"/></svg>
+          <div class="cat-tile-name" style="color:#7A5A50;">Home</div>
+        </div>
+        <div class="cat-tile" style="background:rgba(74,106,130,0.08);border-radius:12px;">
+          <svg viewBox="0 0 256 256" fill="none"><path d="M8 144a8 8 0 0 1 8-8h16L60 80h136l28 56h16a8 8 0 0 1 8 8v32a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8v-32z" stroke="#4A6A82" stroke-width="14" fill="none" stroke-linejoin="round"/><circle cx="76" cy="192" r="24" stroke="#4A6A82" stroke-width="14" fill="none"/><circle cx="180" cy="192" r="24" stroke="#4A6A82" stroke-width="14" fill="none"/></svg>
+          <div class="cat-tile-name" style="color:#4A6A82;">Vehicle</div>
+        </div>
+        <div class="cat-tile" style="background:rgba(74,122,64,0.08);border-radius:12px;">
+          <svg viewBox="0 0 256 256" fill="none"><line x1="128" y1="224" x2="128" y2="128" stroke="#4A7A40" stroke-width="14" stroke-linecap="round"/><path d="M128 172c0 0-36-16-52-56s20-80 52-72c32-8 68 32 52 72s-52 56-52 56z" stroke="#4A7A40" stroke-width="12" fill="none" stroke-linejoin="round"/></svg>
+          <div class="cat-tile-name" style="color:#4A7A40;">Garden</div>
+        </div>
+        <div class="cat-tile" style="background:rgba(106,80,133,0.08);border-radius:12px;">
+          <svg viewBox="0 0 256 256" fill="none"><path d="M128 24L32 64v72c0 56 40 96 96 112 56-16 96-56 96-112V64L128 24z" stroke="#6A5085" stroke-width="14" fill="none" stroke-linejoin="round"/><path d="M92 128l28 28 44-52" stroke="#6A5085" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="cat-tile-name" style="color:#6A5085;">Subs</div>
+        </div>
+      </div>
+      <div style="margin-top:8px;font-size:9px;color:rgba(155,127,212,0.6);line-height:1.4;">~8% opacity. Cream shows through. Icon does the work.</div>
+      <div style="margin-top:6px;font-size:9px;color:rgba(224,221,214,0.35);line-height:1.4;">Note: this grid is sitting on dark bg here — on real cream bg it will look even airier. The tile is barely there — just enough hue to tell them apart.</div>
+    </div>
+  </div>
+
+  <!-- CHIP COMPARISON — chips stay richer since they're navigation -->
+  <div style="margin-top:20px;padding:16px;background:rgba(255,255,255,0.03);border-radius:12px;border:0.5px solid rgba(224,221,214,0.08);">
+    <div style="font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(224,221,214,0.35);margin-bottom:10px;">Chips stay Option B (pastel bg) — navigation elements need more contrast than container tiles</div>
+    <div class="chip-row">
+      <div class="chip" style="background:#9B7FD4;color:#FAF8FF;">All</div>
+      <div class="chip" style="background:#D2BEB6;color:#7A5A50;">Home</div>
+      <div class="chip" style="background:#C0CDD8;color:#4A6A82;">Vehicle</div>
+      <div class="chip" style="background:#C4DABE;color:#4A7A40;">Garden</div>
+      <div class="chip" style="background:#D0C6DC;color:#6A5085;">Subscriptions</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 3: PHONE COMPARISON -->
+<div class="section">
+  <div class="section-title">Dashboard — current vs proposed</div>
+  <div class="section-sub">Same screen, same content. Left: today. Right: v2 — airy task icon tiles, apricot greeting name, apricot overdue signal. Purple stays for CTAs only.</div>
+
+  <div class="phones">
+
+    <!-- CURRENT PHONE -->
+    <div>
+      <div class="col-label" style="margin-bottom:12px;">Current</div>
+      <div class="phone">
+        <div class="phone-status">
+          <span>9:41</span>
+          <span>▐▐▐ ◼</span>
+        </div>
+        <div class="phone-content">
+          <div class="phone-greeting">
+            <div class="phone-greeting-line1" style="font-size:12px;color:#8A8070;">Good morning,</div>
+            <div class="phone-greeting-name" style="color:#9B7FD4;font-size:24px;">Martijn.</div>
+          </div>
+          <div class="phone-cat-strip">
+            <div class="chip" style="background:#9B7FD4;color:#FAF8FF;font-size:9px;padding:4px 10px;">All</div>
+            <div class="chip" style="background:#D2BEB6;color:#7A5A50;font-size:9px;padding:4px 10px;">Home</div>
+            <div class="chip" style="background:#C0CDD8;color:#4A6A82;font-size:9px;padding:4px 10px;">Vehicle</div>
+            <div class="chip" style="background:#C4DABE;color:#4A7A40;font-size:9px;padding:4px 10px;">Garden</div>
+          </div>
+          <div class="phone-section-label">Overdue</div>
+          <div class="task-card" style="border:0.5px solid rgba(26,22,18,0.07);">
+            <div class="task-icon" style="background:#D2BEB6;"><svg viewBox="0 0 256 256" fill="none" width="14" height="14"><rect x="32" y="48" width="192" height="160" rx="16" stroke="#7A5A50" stroke-width="18" fill="none"/><line x1="32" y1="100" x2="224" y2="100" stroke="#7A5A50" stroke-width="18" stroke-linecap="round"/><circle cx="128" cy="164" r="34" stroke="#7A5A50" stroke-width="14" fill="none"/><circle cx="128" cy="164" r="10" fill="#7A5A50"/></svg></div>
+            <div class="task-info">
+              <div class="task-name">Refill dishwasher salt</div>
+              <div class="task-sub">Dishwasher · every 6–8 wks</div>
+            </div>
+            <div class="task-date overdue-old">12d</div>
+          </div>
+          <div class="task-card" style="border:0.5px solid rgba(26,22,18,0.07);">
+            <div class="task-icon" style="background:#C0CDD8;"><svg viewBox="0 0 256 256" fill="none" width="14" height="14"><path d="M8 144a8 8 0 0 1 8-8h16L60 80h136l28 56h16a8 8 0 0 1 8 8v32a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8v-32z" stroke="#4A6A82" stroke-width="18" fill="none" stroke-linejoin="round"/><circle cx="76" cy="192" r="20" stroke="#4A6A82" stroke-width="18" fill="none"/><circle cx="180" cy="192" r="20" stroke="#4A6A82" stroke-width="18" fill="none"/></svg></div>
+            <div class="task-info">
+              <div class="task-name">Switch to winter tyres</div>
+              <div class="task-sub">Car · before Nov</div>
+            </div>
+            <div class="task-date overdue-old">3d</div>
+          </div>
+          <div class="phone-section-label" style="margin-top:10px;">This week</div>
+          <div class="task-card" style="border:0.5px solid rgba(26,22,18,0.07);">
+            <div class="task-icon" style="background:#C4DABE;"><svg viewBox="0 0 256 256" fill="none" width="14" height="14"><path d="M24 200c0 0 20-88 56-88s28 56 48 56 36-120 56-120 48 152 48 152" stroke="#4A7A40" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="200" x2="244" y2="200" stroke="#4A7A40" stroke-width="16" stroke-linecap="round"/></svg></div>
+            <div class="task-info">
+              <div class="task-name">Trim hedge</div>
+              <div class="task-sub">Garden · Apr + Jul</div>
+            </div>
+            <div class="task-date">Nov 8</div>
+          </div>
+        </div>
+        <div class="phone-cta-wrap">
+          <button class="phone-cta" style="background:#9B7FD4;color:#FAF8FF;">Open nudgii</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROPOSED PHONE -->
+    <div>
+      <div class="col-label new" style="margin-bottom:12px;">Proposed v2 — airy</div>
+      <div class="phone">
+        <div class="phone-status">
+          <span>9:41</span>
+          <span>▐▐▐ ◼</span>
+        </div>
+        <div class="phone-content">
+          <div class="phone-greeting">
+            <div class="phone-greeting-line1" style="font-size:12px;color:#8A8070;">Good morning,</div>
+            <!-- Apricot for personality, purple stays for action -->
+            <div class="phone-greeting-name" style="color:#C8784A;font-size:24px;">Martijn.</div>
+          </div>
+          <div class="phone-cat-strip">
+            <div class="chip" style="background:#9B7FD4;color:#FAF8FF;font-size:9px;padding:4px 10px;">All</div>
+            <div class="chip" style="background:#D2BEB6;color:#7A5A50;font-size:9px;padding:4px 10px;">Home</div>
+            <div class="chip" style="background:#C0CDD8;color:#4A6A82;font-size:9px;padding:4px 10px;">Vehicle</div>
+            <div class="chip" style="background:#C4DABE;color:#4A7A40;font-size:9px;padding:4px 10px;">Garden</div>
+          </div>
+          <div class="phone-section-label">Overdue</div>
+          <div class="task-card" style="border:0.5px solid rgba(26,22,18,0.07);">
+            <!-- Airy task icon: barely there tint, icon does the work -->
+            <div class="task-icon" style="background:rgba(122,90,80,0.10);"><svg viewBox="0 0 256 256" fill="none" width="14" height="14"><rect x="32" y="48" width="192" height="160" rx="16" stroke="#7A5A50" stroke-width="18" fill="none"/><line x1="32" y1="100" x2="224" y2="100" stroke="#7A5A50" stroke-width="18" stroke-linecap="round"/><circle cx="128" cy="164" r="34" stroke="#7A5A50" stroke-width="14" fill="none"/><circle cx="128" cy="164" r="10" fill="#7A5A50"/></svg></div>
+            <div class="task-info">
+              <div class="task-name">Refill dishwasher salt</div>
+              <div class="task-sub">Dishwasher · every 6–8 wks</div>
+            </div>
+            <!-- Apricot for overdue signal -->
+            <div class="task-date" style="color:#C8784A;font-weight:600;">12d</div>
+          </div>
+          <div class="task-card" style="border:0.5px solid rgba(26,22,18,0.07);">
+            <div class="task-icon" style="background:rgba(74,106,130,0.10);"><svg viewBox="0 0 256 256" fill="none" width="14" height="14"><path d="M8 144a8 8 0 0 1 8-8h16L60 80h136l28 56h16a8 8 0 0 1 8 8v32a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8v-32z" stroke="#4A6A82" stroke-width="18" fill="none" stroke-linejoin="round"/><circle cx="76" cy="192" r="20" stroke="#4A6A82" stroke-width="18" fill="none"/><circle cx="180" cy="192" r="20" stroke="#4A6A82" stroke-width="18" fill="none"/></svg></div>
+            <div class="task-info">
+              <div class="task-name">Switch to winter tyres</div>
+              <div class="task-sub">Car · before Nov</div>
+            </div>
+            <div class="task-date" style="color:#C8784A;font-weight:600;">3d</div>
+          </div>
+          <div class="phone-section-label" style="margin-top:10px;">This week</div>
+          <div class="task-card" style="border:0.5px solid rgba(26,22,18,0.07);">
+            <div class="task-icon" style="background:rgba(74,122,64,0.10);"><svg viewBox="0 0 256 256" fill="none" width="14" height="14"><path d="M24 200c0 0 20-88 56-88s28 56 48 56 36-120 56-120 48 152 48 152" stroke="#4A7A40" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="200" x2="244" y2="200" stroke="#4A7A40" stroke-width="16" stroke-linecap="round"/></svg></div>
+            <div class="task-info">
+              <div class="task-name">Trim hedge</div>
+              <div class="task-sub">Garden · Apr + Jul</div>
+            </div>
+            <div class="task-date">Nov 8</div>
+          </div>
+        </div>
+        <div class="phone-cta-wrap">
+          <button class="phone-cta" style="background:#9B7FD4;color:#FAF8FF;">Open nudgii</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 4: PURPLE SCALE -->
+<div class="section">
+  <div class="section-title">Purple hierarchy — 4 steps</div>
+  <div class="section-sub">Each step has one job. No more "why is this purple?" — every use is predictable.</div>
+  <div class="purple-scale">
+    <div class="p-swatch" style="background:#7B5FB4;">
+      <div style="color:#FAF8FF;font-size:13px;font-weight:700;">#7B5FB4</div>
+      <div class="p-swatch-label" style="color:#FAF8FF;">Deep CTA</div>
+      <div class="p-swatch-role" style="color:rgba(250,248,255,0.6);">Final step · "Save my schedule" · strongest commitment</div>
+    </div>
+    <div class="p-swatch" style="background:#9B7FD4;">
+      <div style="color:#FAF8FF;font-size:13px;font-weight:700;">#9B7FD4</div>
+      <div class="p-swatch-label" style="color:#FAF8FF;">Primary CTA</div>
+      <div class="p-swatch-role" style="color:rgba(250,248,255,0.6);">FAB · active tab · "Continue" · main actions</div>
+    </div>
+    <div class="p-swatch" style="background:#C4A8E8;">
+      <div style="color:#2D1F4A;font-size:13px;font-weight:700;">#C4A8E8</div>
+      <div class="p-swatch-label" style="color:#2D1F4A;">State</div>
+      <div class="p-swatch-role" style="color:rgba(45,31,74,0.6);">Selected chip bg · active filter pill bg</div>
+    </div>
+    <div class="p-swatch" style="background:#EDE8F5;">
+      <div style="color:#2D1F4A;font-size:13px;font-weight:700;">#EDE8F5</div>
+      <div class="p-swatch-label" style="color:#2D1F4A;">Tint</div>
+      <div class="p-swatch-role" style="color:rgba(45,31,74,0.5);">Hover · pressed · very subtle interactive bg</div>
+    </div>
+  </div>
+
+  <!-- Purple in context -->
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+    <button style="background:#7B5FB4;color:#FAF8FF;border:none;border-radius:100px;padding:12px 24px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;">Save my schedule</button>
+    <button style="background:#9B7FD4;color:#FAF8FF;border:none;border-radius:100px;padding:12px 24px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;">Continue</button>
+    <div style="background:#C4A8E8;border-radius:100px;padding:5px 14px;font-size:10px;font-weight:500;color:#2D1F4A;display:inline-flex;align-items:center;">All</div>
+    <div style="background:#EDE8F5;border-radius:100px;padding:5px 14px;font-size:10px;font-weight:500;color:#7B5FB4;display:inline-flex;align-items:center;">Home</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 5: APRICOT IN USE -->
+<div class="section">
+  <div class="section-title">Apricot — where it lives</div>
+  <div class="section-sub">One warm color, 5 specific roles. Always feels earned, never arbitrary.</div>
+  <div class="apricot-examples">
+    <div class="apricot-ex">
+      <strong>Greeting name</strong>
+      <span style="font-family:'DM Serif Display',serif;font-style:italic;font-size:22px;color:#C8784A;">Martijn.</span>
+    </div>
+    <div class="apricot-ex">
+      <strong>Overdue signal</strong>
+      <span style="font-size:12px;font-weight:600;color:#C8784A;">12d overdue</span>
+    </div>
+    <div class="apricot-ex">
+      <strong>Pro badge</strong>
+      <span style="background:#E8A87C;color:#fff;border-radius:100px;padding:3px 10px;font-size:10px;font-weight:700;">PRO</span>
+    </div>
+    <div class="apricot-ex">
+      <strong>Streak / celebration</strong>
+      <span style="font-size:12px;color:#E8A87C;">🔥 4-week streak</span>
+    </div>
+    <div class="apricot-ex">
+      <strong>Pro CTA background</strong>
+      <button style="background:#C8784A;color:#fff;border:none;border-radius:100px;padding:10px 20px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;">Upgrade to Pro</button>
+    </div>
+    <div class="apricot-ex">
+      <strong>The dot in the ii mark</strong>
+      <svg width="40" height="44" viewBox="0 0 626 700" fill="none"><path d="M125,0C194,0,250,58,250,129v442c0,71-56,129-125,129S0,642,0,571V129C0,58,56,0,125,0Z" fill="#9B7FD4"/><path d="M451,0c69,0,125,58,125,129v442c0,71-56,129-125,129s-125-58-125-129V129C326,58,382,0,451,0Z" fill="#2D1F4A"/><circle cx="536" cy="119" r="90" fill="#E8A87C"/></svg>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 6: FREE VS PRO ICON COMPARISON -->
+<div class="section">
+  <div class="section-title">Free vs Pro — the icon already tells the story</div>
+  <div class="section-sub">No explanation needed. One look and users feel the tier difference.</div>
+  <div style="display:flex;gap:32px;align-items:flex-start;">
+    <div style="text-align:center;">
+      <svg width="80" height="80" viewBox="0 0 625.96 700.13" fill="none" style="border-radius:18px;background:#F5F0E8;">
+        <path d="M125,0C194,0,250,58,250,129v442c0,71-56,129-125,129S0,642,0,571V129C0,58,56,0,125,0Z" fill="#9B7FD4"/>
+        <path d="M451,0c69,0,125,58,125,129v442c0,71-56,129-125,129s-125-58-125-129V129C326,58,382,0,451,0Z" fill="#2D1F4A"/>
+        <circle cx="536" cy="119" r="90" fill="#E8A87C"/>
+      </svg>
+      <div style="margin-top:8px;font-size:10px;font-weight:500;color:rgba(224,221,214,0.6);">Free</div>
+      <div style="font-size:9px;color:rgba(224,221,214,0.35);margin-top:2px;">Purple anchor</div>
+    </div>
+    <div style="text-align:center;">
+      <svg width="80" height="80" viewBox="0 0 625.96 700.13" fill="none" style="border-radius:18px;background:#C8784A;">
+        <path d="M125,0C194,0,250,58,250,129v442c0,71-56,129-125,129S0,642,0,571V129C0,58,56,0,125,0Z" fill="#F2EDE4"/>
+        <path d="M451,0c69,0,125,58,125,129v442c0,71-56,129-125,129s-125-58-125-129V129C326,58,382,0,451,0Z" fill="#E8A87C"/>
+        <circle cx="536" cy="119" r="90" fill="#2D1F4A"/>
+      </svg>
+      <div style="margin-top:8px;font-size:10px;font-weight:500;color:rgba(224,221,214,0.6);">Pro</div>
+      <div style="font-size:9px;color:rgba(224,221,214,0.35);margin-top:2px;">Apricot anchor</div>
+    </div>
+    <div style="flex:1;padding:16px;background:rgba(232,168,124,0.08);border:0.5px solid rgba(232,168,124,0.15);border-radius:12px;">
+      <div style="font-size:10px;font-weight:600;color:#E8A87C;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">What this means in the UI</div>
+      <div style="font-size:12px;color:rgba(224,221,214,0.7);line-height:1.6;">
+        Free tier: purple CTAs, purple active states, apricot accents (greeting, overdue, celebration).<br><br>
+        Pro upgrade moment: the whole screen shifts warm — apricot CTA, terracotta background, plum depth. Users feel it immediately.<br><br>
+        Pro badge on items: apricot pill. Paused tasks: apricot label, not red.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 7: INSPO ANALYSIS -->
+<div class="section">
+  <div class="section-title">Inspiration analysis — Tiimo, Wispr, Claude</div>
+  <div class="section-sub">What the best apps in this space do. What fits nudgii, and what doesn't.</div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:32px;">
+
+    <!-- TIIMO -->
+    <div style="background:rgba(155,127,212,0.08);border:0.5px solid rgba(155,127,212,0.15);border-radius:16px;padding:20px;">
+      <div style="font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#C4A8E8;margin-bottom:12px;">Tiimo</div>
+      <div style="font-family:'DM Serif Display',serif;font-size:16px;color:#E0DDD6;margin-bottom:10px;">Purple-led. Bold. Structured.</div>
+      <div style="font-size:11px;color:rgba(224,221,214,0.6);line-height:1.6;margin-bottom:14px;">
+        Tiimo owns purple fully — solid filled purple cards for key actions, white bg for content, charcoal for deep focus states. The purple is never shy. Generous white cards, clear hierarchy.<br><br>
+        Small colored dots for category coding — minimal, but you always know what's what. Works because the dots are tiny and the card content does the work.
+      </div>
+      <div style="font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(155,127,212,0.5);margin-bottom:6px;">What fits nudgii</div>
+      <div style="font-size:11px;color:rgba(224,221,214,0.5);line-height:1.5;">
+        ✓ Unashamed purple for action<br>
+        ✓ White cards on neutral bg — clean, scannable<br>
+        ✓ Minimal category coding (dot or icon, not tile color)<br>
+        ✗ No serif — nudgii's DM Serif is a differentiator, keep it<br>
+        ✗ Full-bleed purple cards feel heavy for a maintenance app
+      </div>
+    </div>
+
+    <!-- WISPR FLOW -->
+    <div style="background:rgba(224,221,214,0.04);border:0.5px solid rgba(224,221,214,0.1);border-radius:16px;padding:20px;">
+      <div style="font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(224,221,214,0.4);margin-bottom:12px;">Wispr Flow</div>
+      <div style="font-family:'DM Serif Display',serif;font-size:16px;color:#E0DDD6;margin-bottom:10px;">Ultra-clean. Premium. Serif moments.</div>
+      <div style="font-size:11px;color:rgba(224,221,214,0.6);line-height:1.6;margin-bottom:14px;">
+        Light gray background, white cards, almost no color. Purple only for links and interactive moments. A warm pale yellow for feature highlight cards — barely there, like cream. Bold serif for headlines inside cards ("Flow speaks the way you speak"). Dark pill button for primary action — confident, clean.<br><br>
+        The soft yellow feature card is very close to nudgii's cream palette. Shows that a warm tint can feel premium, not dated.
+      </div>
+      <div style="font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(224,221,214,0.3);margin-bottom:6px;">What fits nudgii</div>
+      <div style="font-size:11px;color:rgba(224,221,214,0.5);line-height:1.5;">
+        ✓ Warm neutral bg — confirms nudgii's cream direction<br>
+        ✓ Serif for personality moments inside cards<br>
+        ✓ Ultra-light tinted surfaces (validates the airy category direction)<br>
+        ✓ Restrained purple — links and key actions only<br>
+        ✓ Dark charcoal CTA pill — consider for Pro upgrade moment
+      </div>
+    </div>
+
+    <!-- CLAUDE -->
+    <div style="background:rgba(232,168,124,0.06);border:0.5px solid rgba(232,168,124,0.12);border-radius:16px;padding:20px;">
+      <div style="font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#E8A87C;margin-bottom:12px;">Claude (Anthropic)</div>
+      <div style="font-family:'DM Serif Display',serif;font-size:16px;color:#E0DDD6;margin-bottom:10px;">Warm. Restrained. Character.</div>
+      <div style="font-size:11px;color:rgba(224,221,214,0.6);line-height:1.6;margin-bottom:14px;">
+        Cream/warm sand background. Deep charcoal ink. Coral-to-lavender gradient for identity moments (not UI). Components use strong contrast — cream on dark, dark on cream. No mid tones doing decorative work.<br><br>
+        The brand voice and the visual language match each other: thoughtful, unhurried, a little literary. That alignment is the real lesson — nudgii's warm copy and its warm cream palette already do this well.
+      </div>
+      <div style="font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(232,168,124,0.4);margin-bottom:6px;">What fits nudgii</div>
+      <div style="font-size:11px;color:rgba(224,221,214,0.5);line-height:1.5;">
+        ✓ Warm cream bg — already locked in nudgii v10.5<br>
+        ✓ Deep warm ink instead of cold black — colorInk #2C2824 is this<br>
+        ✓ Personality through copy + tiny moments, not decoration<br>
+        ✓ The apricot/coral anchor in the logo connects to Claude's energy<br>
+        ✗ Claude uses gradients — nudgii doesn't, and that's right
+      </div>
+    </div>
+  </div>
+
+  <!-- SYNTHESIS -->
+  <div style="background:rgba(155,127,212,0.06);border:0.5px solid rgba(155,127,212,0.12);border-radius:16px;padding:24px;">
+    <div style="font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#C4A8E8;margin-bottom:14px;">Synthesis — what nudgii should be</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div>
+        <div style="font-size:13px;font-weight:600;color:#E0DDD6;margin-bottom:8px;">The through-line all three share</div>
+        <div style="font-size:11px;color:rgba(224,221,214,0.6);line-height:1.7;">
+          1. ONE strong action color (purple in all three, same as nudgii)<br>
+          2. Warm or neutral background — never cold white<br>
+          3. Category / tag colors are quiet — dot, chip, or barely-there tint<br>
+          4. White card surfaces on the neutral bg — standard, scannable<br>
+          5. Restraint: color signals something specific, or it stays out
+        </div>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:600;color:#E0DDD6;margin-bottom:8px;">nudgii's edge</div>
+        <div style="font-size:11px;color:rgba(224,221,214,0.6);line-height:1.7;">
+          Tiimo and Wispr both lack warmth in copy. nudgii has wit + serif personality — that's differentiating.<br><br>
+          The apricot accent is unique. None of the three use warm orange at all. It makes the logo feel distinct and gives nudgii emotional range (celebrate, warn, delight) without adding more colors.<br><br>
+          <span style="color:#C4A8E8;">Recommendation: keep cream bg, keep purple CTA, go airy on tiles, let apricot do the personality work. The system is already right — just needs the tiles to breathe.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

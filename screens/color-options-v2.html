@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · Color options v2</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#161412;color:#E0DDD6;padding:40px 32px 80px;min-width:1440px;}
+
+.page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+.logo{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:500;color:rgba(224,221,214,0.45);}
+.logo svg{width:18px;height:20px;}
+.badge{font-size:9px;font-weight:500;padding:3px 10px;border-radius:100px;background:rgba(155,127,212,0.15);color:#C4A8E8;border:0.5px solid rgba(155,127,212,0.3);}
+.eyebrow{font-size:8px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(224,221,214,0.25);margin-bottom:36px;}
+
+.options-row{display:flex;gap:20px;margin-bottom:40px;}
+.option-col{flex-shrink:0;width:210px;}
+.option-tag{font-size:8px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2px;}
+.option-name{font-family:'DM Serif Display',serif;font-size:17px;color:#E0DDD6;line-height:1.15;margin-bottom:3px;}
+.option-desc{font-size:9px;color:rgba(224,221,214,0.4);line-height:1.5;margin-bottom:12px;}
+.screen-lbl{font-size:7.5px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:rgba(224,221,214,0.25);margin-bottom:7px;}
+
+.phone{width:210px;background:#F5F0E8;border-radius:46px;overflow:hidden;border:1.5px solid rgba(26,22,18,0.14);box-shadow:0 18px 52px rgba(0,0,0,0.65);font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;}
+.phone.tall{height:490px;}
+.phone.dash{height:520px;}
+
+.pbar{height:2.5px;background:#9B7FD4;flex-shrink:0;}
+.pstatus{display:flex;justify-content:space-between;align-items:center;padding:10px 16px 3px;font-size:8px;font-weight:600;color:#2C2824;flex-shrink:0;}
+.pscroll{flex:1;overflow:hidden;}
+.pcta{padding:6px 13px 20px;flex-shrink:0;}
+.pcta-btn{width:100%;padding:10px;border-radius:100px;border:none;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;background:#9B7FD4;color:#FAF8FF;}
+
+.swatch-row{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;margin-top:8px;}
+.sw{border-radius:4px;height:14px;}
+
+.section-heading{font-family:'DM Serif Display',serif;font-size:20px;color:#E0DDD6;margin-bottom:4px;}
+.section-sub{font-size:11px;color:rgba(224,221,214,0.4);margin-bottom:24px;line-height:1.5;}
+.divider{height:0.5px;background:rgba(224,221,214,0.06);margin:36px 0;}
+.wild-tag{display:inline-block;font-size:7px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:100px;margin-bottom:4px;}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="logo">
+    <svg viewBox="0 0 626 700" fill="none"><path d="M125,0C194,0,250,58,250,129v442c0,71-56,129-125,129S0,642,0,571V129C0,58,56,0,125,0Z" fill="#9B7FD4"/><path d="M451,0c69,0,125,58,125,129v442c0,71-56,129-125,129s-125-58-125-129V129C326,58,382,0,451,0Z" fill="#2D1F4A"/><circle cx="536" cy="119" r="90" fill="#E8A87C"/></svg>
+    nudgii · color options v2
+  </div>
+  <div class="badge">6 options · S-03 + S-09 · 10 categories</div>
+</div>
+<div class="eyebrow">Category color exploration · March 2026</div>
+
+<div class="section-heading">S-03 — Browse categories</div>
+<div class="section-sub">3×3 tile grid. Category background is the key variable. Selected state adds a darker border.</div>
+<div class="options-row" id="s03-row"></div>
+
+<div class="divider"></div>
+
+<div class="section-heading">S-09 — Dashboard</div>
+<div class="section-sub">Full task cards use the category background color. Contextual nudge cards also use category tint. This is the screen users see every day.</div>
+<div class="options-row" id="dash-row"></div>
+
+<script>
+// ── Tiny SVG icons (viewBox 0 0 256 256) ────────────────────────────────────
+function svgIcon(d, color, sw) {
+  const w = sw || 14;
+  return `<svg viewBox="0 0 256 256" fill="none" style="width:${w}px;height:${w}px;">
+    <path d="${d}" stroke="${color}" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </svg>`;
+}
+
+const ICONS = {
+  dishwasher: (c) => svgIcon('M48 40h160a8 8 0 0 1 8 8v160a8 8 0 0 1-8 8H48a8 8 0 0 1-8-8V48a8 8 0 0 1 8-8zm0 60h168M128 100v116M88 130h-20M88 148h-20', c, 13),
+  boiler:     (c) => svgIcon('M96 32h64v80a32 32 0 0 1-64 0V32zM96 112H48v64h160v-64h-48M128 176v48', c, 13),
+  airco:      (c) => svgIcon('M40 80h176a8 8 0 0 1 8 8v80a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8V88a8 8 0 0 1 8-8zm0 44h176M88 176v24M168 176v24', c, 13),
+  car:        (c) => svgIcon('M8 144a8 8 0 0 1 8-8h16L60 80h136l28 56h16a8 8 0 0 1 8 8v32a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8zM76 192m-24 0a24 24 0 1 0 48 0 24 24 0 1 0-48 0M180 192m-24 0a24 24 0 1 0 48 0 24 24 0 1 0-48 0', c, 13),
+  bicycle:    (c) => svgIcon('M88 192m-48 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0M168 192m-48 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0M88 192L128 96l40 48h24M128 96l-40-56h-48', c, 13),
+  moto:       (c) => svgIcon('M80 200m-40 0a40 40 0 1 0 80 0 40 40 0 1 0-80 0M176 200m-40 0a40 40 0 1 0 80 0 40 40 0 1 0-80 0M80 200l48-104 48 40h32M128 96l16-56h48', c, 13),
+  lawn:       (c) => svgIcon('M24 200c0 0 20-80 52-80s24 56 52 56 32-120 56-120 44 144 48 144M16 200h224', c, 13),
+  hedge:      (c) => svgIcon('M48 168V96a80 80 0 0 1 160 0v72M32 168h192v24a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8v-24zM96 120h64M128 88v64', c, 13),
+  plant:      (c) => svgIcon('M128 224V128M128 168c0 0-40-16-56-60s20-80 56-72c36-8 72 28 56 72s-56 60-56 60z', c, 13),
+  home:       (c) => svgIcon('M40 216V112L128 40l88 72V216h-56v-56H96v56z', c, 14),
+  vehicle:    (c) => svgIcon('M8 144a8 8 0 0 1 8-8h16L60 80h136l28 56h16a8 8 0 0 1 8 8v32a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8z', c, 14),
+  garden:     (c) => svgIcon('M128 224V128M128 168c0 0-40-16-56-60s20-80 56-72c36-8 72 28 56 72s-56 60-56 60z', c, 14),
+  subs:       (c) => svgIcon('M128 24L32 64v72c0 56 40 96 96 112 56-16 96-56 96-112V64z', c, 14),
+  health:     (c) => `<svg viewBox="0 0 256 256" fill="none" style="width:14px;height:14px;"><line x1="128" y1="72" x2="128" y2="184" stroke="${c}" stroke-width="20" stroke-linecap="round"/><line x1="72" y1="128" x2="184" y2="128" stroke="${c}" stroke-width="20" stroke-linecap="round"/></svg>`,
+  pets:       (c) => `<svg viewBox="0 0 256 256" fill="none" style="width:14px;height:14px;"><circle cx="96" cy="80" r="24" stroke="${c}" stroke-width="16" fill="none"/><circle cx="160" cy="80" r="24" stroke="${c}" stroke-width="16" fill="none"/><path d="M64 148c0 0-16 8-16 36 0 20 24 32 80 32s80-12 80-32c0-28-16-36-16-36-12-16-36-24-64-24s-52 8-64 24z" stroke="${c}" stroke-width="16" fill="none"/></svg>`,
+};
+
+// ── Color options ─────────────────────────────────────────────────────────────
+const OPTIONS = [
+  {
+    tag: 'Current v10.5', tagColor: 'rgba(224,221,214,0.25)',
+    name: 'Soft pastels', desc: 'What\'s live. Safe and harmonious. A little flat.',
+    cta: '#9B7FD4', ctaNote: 'unchanged',
+    wild: false,
+    cats: [
+      { key:'home',   label:'Home',        bg:'#D2BEB6', ic:'#7A5A50' },
+      { key:'vehicle',label:'Vehicle',     bg:'#C0CDD8', ic:'#4A6A82' },
+      { key:'garden', label:'Garden',      bg:'#C4DABE', ic:'#4A7A40' },
+      { key:'subs',   label:'Subs',        bg:'#D0C6DC', ic:'#6A5085' },
+      { key:'health', label:'Health',      bg:'#D2D0C4', ic:'#6A6858' },
+      { key:'pets',   label:'Pets',        bg:'#DECDC0', ic:'#8A6238' },
+      { key:'finance',label:'Finance',     bg:'#C8CCC4', ic:'#586050' },
+      { key:'elec',   label:'Electronics', bg:'#C4C8D4', ic:'#505870' },
+      { key:'family', label:'Family',      bg:'#D8CCBC', ic:'#786040' },
+      { key:'outdoor',label:'Outdoor',     bg:'#C4CCC0', ic:'#4A5E48' },
+    ]
+  },
+  {
+    tag: 'Option A', tagColor: 'rgba(242,202,191,0.8)',
+    name: 'Vivid pastels', desc: 'More saturated, same lightness. Every category reads instantly.',
+    cta: '#9B7FD4', ctaNote: 'unchanged — vivid cats match existing purple perfectly',
+    wild: false,
+    cats: [
+      { key:'home',   label:'Home',        bg:'#F2CABF', ic:'#8A4A38' },
+      { key:'vehicle',label:'Vehicle',     bg:'#BAD4EC', ic:'#3A6080' },
+      { key:'garden', label:'Garden',      bg:'#B4DCA8', ic:'#3A7030' },
+      { key:'subs',   label:'Subs',        bg:'#CFC0EC', ic:'#5A3A8A' },
+      { key:'health', label:'Health',      bg:'#F5E4BC', ic:'#8A6020' },
+      { key:'pets',   label:'Pets',        bg:'#F5D0B8', ic:'#8A5020' },
+      { key:'finance',label:'Finance',     bg:'#B8F0E4', ic:'#1A7060' },
+      { key:'elec',   label:'Electronics', bg:'#C0C0EC', ic:'#3A3A8A' },
+      { key:'family', label:'Family',      bg:'#F0D8D0', ic:'#8A4848' },
+      { key:'outdoor',label:'Outdoor',     bg:'#D0ECBC', ic:'#407030' },
+    ]
+  },
+  {
+    tag: 'Option B', tagColor: 'rgba(155,127,212,0.7)',
+    name: 'Warm editorial', desc: 'Amber, steel, sage. Muted but deliberate.',
+    cta: '#9070C0', ctaNote: '#9070C0 — slightly warmer, lower sat, sits with amber + sage',
+    wild: false,
+    cats: [
+      { key:'home',   label:'Home',        bg:'#EEC8A8', ic:'#7A4828' },
+      { key:'vehicle',label:'Vehicle',     bg:'#B8C8DC', ic:'#384C64' },
+      { key:'garden', label:'Garden',      bg:'#C0D8B8', ic:'#3A6032' },
+      { key:'subs',   label:'Subs',        bg:'#D4C4E8', ic:'#5A3A80' },
+      { key:'health', label:'Health',      bg:'#E8DCC0', ic:'#6A5820' },
+      { key:'pets',   label:'Pets',        bg:'#E0D0B8', ic:'#704A20' },
+      { key:'finance',label:'Finance',     bg:'#C8DCCC', ic:'#3A5A40' },
+      { key:'elec',   label:'Electronics', bg:'#C4C8DC', ic:'#3A3E5A' },
+      { key:'family', label:'Family',      bg:'#DDD0C8', ic:'#6A4A38' },
+      { key:'outdoor',label:'Outdoor',     bg:'#C8D8C0', ic:'#3C5A38' },
+    ]
+  },
+  {
+    tag: 'Option C', tagColor: 'rgba(176,232,200,0.7)',
+    name: 'Bold brights', desc: 'Each category owns its color. Confident. Nothing boring.',
+    cta: '#7A5CE8', ctaNote: '#7A5CE8 — more vivid/electric, holds against bright cats',
+    wild: false,
+    cats: [
+      { key:'home',   label:'Home',        bg:'#FFCFB8', ic:'#8A3A1A' },
+      { key:'vehicle',label:'Vehicle',     bg:'#B8E0F8', ic:'#1A4A72' },
+      { key:'garden', label:'Garden',      bg:'#B0E8C8', ic:'#1A6038' },
+      { key:'subs',   label:'Subs',        bg:'#DCC8F8', ic:'#4A1A8A' },
+      { key:'health', label:'Health',      bg:'#FFF0B8', ic:'#7A6010' },
+      { key:'pets',   label:'Pets',        bg:'#FFCCD0', ic:'#8A1A28' },
+      { key:'finance',label:'Finance',     bg:'#B8F8E0', ic:'#1A6050' },
+      { key:'elec',   label:'Electronics', bg:'#C8C8FF', ic:'#2A2A8A' },
+      { key:'family', label:'Family',      bg:'#FFD8CC', ic:'#8A3A28' },
+      { key:'outdoor',label:'Outdoor',     bg:'#CCFFB8', ic:'#2A7010' },
+    ]
+  },
+  {
+    tag: 'Option D — wild', tagColor: '#E8A87C',
+    name: 'Earthy clay', desc: 'Terracotta, ochre, olive, stone. Natural materials palette.',
+    cta: '#7A60A8', ctaNote: '#7A60A8 — earthier/dustier purple, lower sat, matches clay tones',
+    wild: true, wildColor: '#E8A87C',
+    cats: [
+      { key:'home',   label:'Home',        bg:'#EDD6B2', ic:'#7A5018' },
+      { key:'vehicle',label:'Vehicle',     bg:'#D0CEBC', ic:'#625E40' },
+      { key:'garden', label:'Garden',      bg:'#C4D4A0', ic:'#526830' },
+      { key:'subs',   label:'Subs',        bg:'#E4CCB8', ic:'#7A4A30' },
+      { key:'health', label:'Health',      bg:'#D8C4A4', ic:'#6A4E28' },
+      { key:'pets',   label:'Pets',        bg:'#ECCCA4', ic:'#8A5018' },
+      { key:'finance',label:'Finance',     bg:'#CED8C4', ic:'#4C6038' },
+      { key:'elec',   label:'Electronics', bg:'#C4CAD8', ic:'#46505E' },
+      { key:'family', label:'Family',      bg:'#DED0BC', ic:'#6A4A28' },
+      { key:'outdoor',label:'Outdoor',     bg:'#C8D2AE', ic:'#4A5E28' },
+    ]
+  },
+  {
+    tag: 'Option E — wild', tagColor: '#9B7FD4',
+    name: 'Electric pop', desc: 'Each category gets a vivid identity. Maximum distinction.',
+    cta: '#6040E8', ctaNote: '#6040E8 — fully electric, matches vivid category energy',
+    wild: true, wildColor: '#9B7FD4',
+    cats: [
+      { key:'home',   label:'Home',        bg:'#FFD0B8', ic:'#C83A00' },
+      { key:'vehicle',label:'Vehicle',     bg:'#B4D8FF', ic:'#0040C8' },
+      { key:'garden', label:'Garden',      bg:'#AAFFD4', ic:'#007040' },
+      { key:'subs',   label:'Subs',        bg:'#E4B4FF', ic:'#7800C8' },
+      { key:'health', label:'Health',      bg:'#FFFCAA', ic:'#C89000' },
+      { key:'pets',   label:'Pets',        bg:'#FFB4D8', ic:'#C80050' },
+      { key:'finance',label:'Finance',     bg:'#AAFFF0', ic:'#006860' },
+      { key:'elec',   label:'Electronics', bg:'#C4C4FF', ic:'#2020B8' },
+      { key:'family', label:'Family',      bg:'#FFE8AA', ic:'#C86000' },
+      { key:'outdoor',label:'Outdoor',     bg:'#D0FFB8', ic:'#3A6000' },
+    ]
+  },
+];
+
+// ── S-03: Browse categories ───────────────────────────────────────────────────
+function s03Phone(opt) {
+  const home = opt.cats[0], veh = opt.cats[1], gard = opt.cats[2];
+  const cta = opt.cta;
+
+  function tile(iconFn, label, cat, selected) {
+    const check = selected ? `<div style="position:absolute;top:4px;right:4px;width:13px;height:13px;border-radius:50%;background:${cat.ic};display:flex;align-items:center;justify-content:center;">
+      <svg viewBox="0 0 256 256" fill="none" style="width:7px;height:7px;"><path d="M48 136l60 60 100-100" stroke="#FAF8FF" stroke-width="36" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+    </div>` : '';
+    return `<div style="background:${cat.bg};border-radius:9px;padding:7px 4px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;position:relative;">
+      ${check}
+      ${iconFn(cat.ic)}
+      <div style="font-size:6px;font-weight:500;color:${cat.ic};text-align:center;line-height:1.2;">${label}</div>
+    </div>`;
+  }
+
+  function catHeader(cat) {
+    return `<div style="display:flex;align-items:center;gap:4px;margin:8px 0 5px;">
+      <div style="width:5px;height:5px;border-radius:50%;background:${cat.ic};flex-shrink:0;"></div>
+      <div style="font-size:5.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#6B6358;">${cat.label}</div>
+    </div>`;
+  }
+
+  return `
+<div class="phone tall">
+  <div class="pbar" style="width:40%;background:${cta};"></div>
+  <div class="pstatus"><span>9:41</span><span style="letter-spacing:-1px;">●●● ▐</span></div>
+  <div class="pscroll" style="padding:0 13px;overflow-y:hidden;">
+    <div style="margin:6px 0 8px;">
+      <div style="font-family:'DM Serif Display',serif;font-size:16px;color:#2C2824;line-height:1.1;">What's <span style="color:${cta};font-style:italic;">yours?</span></div>
+      <div style="font-size:7px;color:#8A8070;margin-top:2px;">Tap what applies, we'll take it from there.</div>
+    </div>
+    <!-- search -->
+    <div style="background:#fff;border-radius:8px;padding:6px 9px;display:flex;align-items:center;gap:5px;margin-bottom:7px;border:0.5px solid rgba(26,22,18,0.08);">
+      <svg viewBox="0 0 256 256" fill="none" style="width:9px;height:9px;flex-shrink:0;"><circle cx="108" cy="108" r="72" stroke="#A09888" stroke-width="20" fill="none"/><line x1="160" y1="160" x2="224" y2="224" stroke="#A09888" stroke-width="20" stroke-linecap="round"/></svg>
+      <div style="font-size:7px;color:#A09888;">Search items…</div>
+    </div>
+    <!-- filter strip -->
+    <div style="display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;margin-bottom:6px;">
+      <div style="background:${cta};border-radius:100px;padding:3px 8px;font-size:6.5px;font-weight:500;color:#FAF8FF;flex-shrink:0;">All</div>
+      <div style="background:${home.bg};border-radius:100px;padding:3px 8px;font-size:6.5px;font-weight:500;color:${home.ic};flex-shrink:0;">Home</div>
+      <div style="background:${veh.bg};border-radius:100px;padding:3px 8px;font-size:6.5px;font-weight:500;color:${veh.ic};flex-shrink:0;">Vehicle</div>
+      <div style="background:${gard.bg};border-radius:100px;padding:3px 8px;font-size:6.5px;font-weight:500;color:${gard.ic};flex-shrink:0;">Garden</div>
+    </div>
+    <!-- 2 selected bar -->
+    <div style="background:${cta};border-radius:6px;padding:4px 8px;display:flex;align-items:center;gap:4px;margin-bottom:6px;">
+      <svg viewBox="0 0 256 256" fill="none" style="width:7px;height:7px;"><path d="M40 128l60 60 116-116" stroke="#FAF8FF" stroke-width="28" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      <div style="font-size:6.5px;font-weight:600;color:#FAF8FF;">2 selected</div>
+    </div>
+    <!-- HOME tiles -->
+    ${catHeader(home)}
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:2px;">
+      ${tile(ICONS.dishwasher, 'Dishwasher', home, true)}
+      ${tile(ICONS.boiler, 'Boiler', home, false)}
+      ${tile(ICONS.airco, 'Airco', home, false)}
+    </div>
+    <!-- VEHICLE tiles -->
+    ${catHeader(veh)}
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:2px;">
+      ${tile(ICONS.car, 'Car', veh, true)}
+      ${tile(ICONS.bicycle, 'Bicycle', veh, false)}
+      ${tile(ICONS.moto, 'Motorcycle', veh, false)}
+    </div>
+    <!-- GARDEN tiles -->
+    ${catHeader(gard)}
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;">
+      ${tile(ICONS.lawn, 'Lawn', gard, false)}
+      ${tile(ICONS.hedge, 'Hedge', gard, false)}
+      ${tile(ICONS.plant, 'Houseplant', gard, false)}
+    </div>
+  </div>
+  <div class="pcta">
+    <button class="pcta-btn" style="background:${cta};display:flex;align-items:center;justify-content:center;gap:6px;">
+      Good start, continue
+      <span style="background:rgba(250,248,255,0.25);border-radius:100px;padding:1px 6px;font-size:9px;">2</span>
+    </button>
+  </div>
+</div>`;
+}
+
+// ── S-09: Dashboard ───────────────────────────────────────────────────────────
+function dashPhone(opt) {
+  const home = opt.cats[0], veh = opt.cats[1], gard = opt.cats[2];
+  const cta = opt.cta;
+
+  function taskCard(iconKey, name, sub, date, overdue, cat, expanded) {
+    const dateCss = overdue ? `color:#FAF8FF;background:#6B4A3A;border-radius:100px;padding:2px 6px;font-size:5.5px;font-weight:700;` : `color:#8A8070;font-size:6.5px;`;
+    const body = expanded ? `
+      <div style="background:rgba(26,22,18,0.05);border-radius:6px;padding:5px 7px;margin:5px 0;font-size:6.5px;color:#2C2824;line-height:1.4;">Why it matters: Unserviced boilers lose up to 15% efficiency and may fail safety checks.</div>
+      <div style="display:flex;gap:4px;">
+        <div style="background:${cta};color:#FAF8FF;border-radius:100px;padding:5px;font-size:7px;font-weight:600;flex:1;text-align:center;">Done</div>
+        <div style="background:rgba(26,22,18,0.08);border-radius:100px;padding:5px;font-size:7px;flex:1;text-align:center;color:#2C2824;">Snooze</div>
+        <div style="background:rgba(26,22,18,0.08);border-radius:100px;padding:5px;font-size:7px;flex:1;text-align:center;color:#2C2824;">Skip</div>
+      </div>` : '';
+    return `
+    <div style="background:${cat.bg};border-radius:9px;padding:7px 9px;margin-bottom:5px;">
+      <div style="display:flex;align-items:center;gap:6px;">
+        <div style="width:18px;height:18px;flex-shrink:0;">${ICONS[iconKey](cat.ic)}</div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:8px;font-weight:600;color:#2C2824;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${name}</div>
+          <div style="font-size:6px;color:${cat.ic};margin-top:1px;">${sub}</div>
+        </div>
+        <div style="${dateCss}">${date}</div>
+      </div>${body}
+    </div>`;
+  }
+
+  return `
+<div class="phone dash">
+  <div class="pstatus"><span>9:41</span><span style="letter-spacing:-1px;">●●● ▐</span></div>
+  <div class="pscroll" style="padding:0 13px;overflow-y:hidden;">
+    <!-- header row -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0 6px;">
+      <div style="display:flex;align-items:center;gap:5px;">
+        <div style="width:20px;height:20px;background:#EAE5DB;border-radius:6px;display:flex;align-items:center;justify-content:center;">
+          <svg viewBox="0 0 626 700" fill="none" style="width:11px;height:12px;"><path d="M125,0C194,0,250,58,250,129v442c0,71-56,129-125,129S0,642,0,571V129C0,58,56,0,125,0Z" fill="#9B7FD4"/><path d="M451,0c69,0,125,58,125,129v442c0,71-56,129-125,129s-125-58-125-129V129C326,58,382,0,451,0Z" fill="#2D1F4A"/><circle cx="536" cy="119" r="90" fill="#E8A87C"/></svg>
+        </div>
+        <div style="font-size:7px;color:#8A8070;">Friday 28 March</div>
+      </div>
+      <div style="width:20px;height:20px;background:#EAE5DB;border-radius:6px;display:flex;align-items:center;justify-content:center;">
+        <svg viewBox="0 0 256 256" fill="none" style="width:10px;height:10px;"><line x1="40" y1="80" x2="216" y2="80" stroke="#6B6358" stroke-width="20" stroke-linecap="round"/><line x1="40" y1="128" x2="216" y2="128" stroke="#6B6358" stroke-width="20" stroke-linecap="round"/><line x1="40" y1="176" x2="216" y2="176" stroke="#6B6358" stroke-width="20" stroke-linecap="round"/></svg>
+      </div>
+    </div>
+    <!-- greeting -->
+    <div style="margin-bottom:8px;">
+      <div style="font-size:8px;color:#8A8070;">Good morning,</div>
+      <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:19px;color:${cta};line-height:1.05;">Martijn.</div>
+    </div>
+    <!-- summary card -->
+    <div style="background:#fff;border-radius:9px;padding:7px 9px;display:flex;align-items:center;gap:7px;margin-bottom:7px;border:0.5px solid rgba(26,22,18,0.06);">
+      <div style="width:26px;height:26px;border-radius:50%;border:2.5px solid ${cta};display:flex;align-items:center;justify-content:center;font-size:5.5px;font-weight:700;color:#2C2824;flex-shrink:0;">11/14</div>
+      <div style="flex:1;">
+        <div style="font-size:7.5px;font-weight:600;color:#2C2824;">3 things need attention</div>
+        <div style="font-size:6px;color:#8A8070;">11 of 14 items on track</div>
+      </div>
+      <div style="text-align:center;flex-shrink:0;">
+        <div style="font-size:10px;font-weight:700;color:${cta};line-height:1;">4</div>
+        <div style="font-size:5.5px;color:#8A8070;">week streak</div>
+      </div>
+    </div>
+    <!-- contextual cards row -->
+    <div style="display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;margin-bottom:7px;">
+      <div style="background:${home.bg};border-radius:8px;padding:6px 8px;min-width:95px;flex-shrink:0;">
+        <div style="font-size:5px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:${home.ic};margin-bottom:2px;">Did you know?</div>
+        <div style="font-size:7px;font-weight:500;color:#2C2824;line-height:1.3;">Boiler efficiency drops 15% without servicing.</div>
+        <div style="font-size:6px;color:#8A8070;font-style:italic;margin-top:2px;">Tap to learn more</div>
+      </div>
+      <div style="background:#fff;border-radius:8px;padding:6px 8px;min-width:88px;flex-shrink:0;border:0.5px solid rgba(26,22,18,0.06);">
+        <div style="font-size:5px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:#8A8070;margin-bottom:2px;">This year</div>
+        <div style="font-size:7px;font-weight:500;color:#2C2824;line-height:1.3;">Saved ~€340 catching issues early.</div>
+      </div>
+      <div style="background:${gard.bg};border-radius:8px;padding:6px 8px;min-width:80px;flex-shrink:0;">
+        <div style="font-size:5px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:${gard.ic};margin-bottom:2px;">Spring</div>
+        <div style="font-size:7px;font-weight:500;color:#2C2824;line-height:1.3;">2 of 5 garden tasks complete.</div>
+      </div>
+    </div>
+    <!-- cat filter strip -->
+    <div style="display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;margin-bottom:7px;">
+      <div style="background:${cta};color:#FAF8FF;border-radius:100px;padding:3px 8px;font-size:6.5px;font-weight:500;flex-shrink:0;">All</div>
+      <div style="display:flex;align-items:center;gap:3px;background:${home.bg};border-radius:100px;padding:3px 7px;font-size:6px;color:${home.ic};flex-shrink:0;"><span style="width:4px;height:4px;background:${home.ic};border-radius:50%;display:inline-block;"></span>Home</div>
+      <div style="display:flex;align-items:center;gap:3px;background:${veh.bg};border-radius:100px;padding:3px 7px;font-size:6px;color:${veh.ic};flex-shrink:0;"><span style="width:4px;height:4px;background:${veh.ic};border-radius:50%;display:inline-block;"></span>Vehicle</div>
+      <div style="display:flex;align-items:center;gap:3px;background:${gard.bg};border-radius:100px;padding:3px 7px;font-size:6px;color:${gard.ic};flex-shrink:0;"><span style="width:4px;height:4px;background:${gard.ic};border-radius:50%;display:inline-block;"></span>Garden</div>
+    </div>
+    <!-- tasks -->
+    ${taskCard('home', 'Annual boiler service', 'CV boiler · yearly', '12d overdue', true, home, true)}
+    ${taskCard('home', 'Refill dishwasher salt', 'Dishwasher · every 6–8 wks', '3d overdue', true, home, false)}
+    <div style="font-size:5.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8A8070;margin:6px 0 5px;">Due this week</div>
+    ${taskCard('vehicle', 'Check tyre pressure', 'Car · monthly', 'Wed 26', false, veh, false)}
+    ${taskCard('garden', 'Prune olive tree', 'Olive tree · twice yearly', 'Nov 9', false, gard, false)}
+  </div>
+  <!-- tab bar -->
+  <div style="display:flex;justify-content:space-around;align-items:center;padding:6px 16px 14px;background:#F5F0E8;border-top:0.5px solid rgba(26,22,18,0.07);flex-shrink:0;position:relative;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+      <svg viewBox="0 0 256 256" fill="none" style="width:14px;height:14px;"><rect x="32" y="48" width="192" height="176" rx="16" stroke="${cta}" stroke-width="18" fill="none"/><line x1="32" y1="96" x2="224" y2="96" stroke="${cta}" stroke-width="16" stroke-linecap="round"/></svg>
+      <div style="font-size:6px;font-weight:600;color:${cta};">Today</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+      <svg viewBox="0 0 256 256" fill="none" style="width:14px;height:14px;"><line x1="40" y1="72" x2="216" y2="72" stroke="rgba(26,22,18,0.25)" stroke-width="18" stroke-linecap="round"/><line x1="40" y1="128" x2="216" y2="128" stroke="rgba(26,22,18,0.25)" stroke-width="18" stroke-linecap="round"/><line x1="40" y1="184" x2="216" y2="184" stroke="rgba(26,22,18,0.25)" stroke-width="18" stroke-linecap="round"/></svg>
+      <div style="font-size:6px;color:rgba(26,22,18,0.25);">Plan</div>
+    </div>
+    <div style="width:32px;height:32px;"></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+      <svg viewBox="0 0 256 256" fill="none" style="width:14px;height:14px;"><path d="M32 200c0-44 24-72 96-72s96 28 96 72" stroke="rgba(26,22,18,0.25)" stroke-width="18" fill="none"/><circle cx="128" cy="88" r="40" stroke="rgba(26,22,18,0.25)" stroke-width="18" fill="none"/></svg>
+      <div style="font-size:6px;color:rgba(26,22,18,0.25);">Profile</div>
+    </div>
+    <!-- FAB -->
+    <div style="position:absolute;top:-16px;left:50%;transform:translateX(-50%);width:34px;height:34px;border-radius:100px;background:${cta};display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,0.25);">
+      <svg viewBox="0 0 256 256" fill="none" style="width:14px;height:14px;"><line x1="128" y1="40" x2="128" y2="216" stroke="#FAF8FF" stroke-width="24" stroke-linecap="round"/><line x1="40" y1="128" x2="216" y2="128" stroke="#FAF8FF" stroke-width="24" stroke-linecap="round"/></svg>
+    </div>
+  </div>
+</div>`;
+}
+
+// ── Render ────────────────────────────────────────────────────────────────────
+function renderRow(containerId, phoneFunc) {
+  const container = document.getElementById(containerId);
+  OPTIONS.forEach(opt => {
+    const col = document.createElement('div');
+    col.className = 'option-col';
+
+    let metaHTML = '';
+    if (opt.wild) {
+      metaHTML = `<div class="wild-tag" style="background:${opt.wildColor}18;color:${opt.wildColor};border:0.5px solid ${opt.wildColor}44;">Out of the ordinary</div>`;
+    }
+    metaHTML += `<div class="option-tag" style="color:${opt.tagColor};">${opt.tag}</div>
+      <div class="option-name">${opt.name}</div>
+      <div class="option-desc">${opt.desc}</div>`;
+
+    const swatches = opt.cats.map(c =>
+      `<div class="sw" style="background:${c.bg};" title="${c.label}"></div>`
+    ).join('');
+
+    col.innerHTML = metaHTML + phoneFunc(opt) + `<div class="swatch-row">${swatches}</div>`;
+    container.appendChild(col);
+  });
+}
+
+// ── Dark mode category colors (derived from light, same hue, L≈14-20%) ──────
+const DARK_CATS = {
+  'Current v10.5': [
+    { key:'home',   label:'Home',        bg:'#3A302E', ic:'#C8A898' },
+    { key:'vehicle',label:'Vehicle',     bg:'#262E34', ic:'#90AABF' },
+    { key:'garden', label:'Garden',      bg:'#283020', ic:'#8AB890' },
+    { key:'subs',   label:'Subs',        bg:'#302838', ic:'#B0A0CC' },
+    { key:'health', label:'Health',      bg:'#2E2E26', ic:'#ABA898' },
+    { key:'pets',   label:'Pets',        bg:'#342C22', ic:'#C8A070' },
+    { key:'finance',label:'Finance',     bg:'#2A2E28', ic:'#90A090' },
+    { key:'elec',   label:'Electronics', bg:'#262830', ic:'#9098B0' },
+    { key:'family', label:'Family',      bg:'#302C26', ic:'#B09870' },
+    { key:'outdoor',label:'Outdoor',     bg:'#282E26', ic:'#88A080' },
+  ],
+  'Option A': [
+    { key:'home',   label:'Home',        bg:'#39180e', ic:'#c79f94' },
+    { key:'vehicle',label:'Vehicle',     bg:'#112436', ic:'#96afc4' },
+    { key:'garden', label:'Garden',      bg:'#1c3116', ic:'#9dc695' },
+    { key:'subs',   label:'Subs',        bg:'#1e1235', ic:'#a894c6' },
+    { key:'health', label:'Health',      bg:'#392c0e', ic:'#d4b587' },
+    { key:'pets',   label:'Pets',        bg:'#391f0e', ic:'#d4aa87' },
+    { key:'finance',label:'Finance',     bg:'#0f3930', ic:'#87d4c5' },
+    { key:'elec',   label:'Electronics', bg:'#121235', ic:'#9494c6' },
+    { key:'family', label:'Family',      bg:'#341b13', ic:'#c19a9a' },
+    { key:'outdoor',label:'Outdoor',     bg:'#213612', ic:'#a1c695' },
+  ],
+  'Option B': [
+    { key:'home',   label:'Home',        bg:'#3A2410', ic:'#E8B880' },
+    { key:'vehicle',label:'Vehicle',     bg:'#182430', ic:'#8AAAC8' },
+    { key:'garden', label:'Garden',      bg:'#1A2C18', ic:'#8ABE80' },
+    { key:'subs',   label:'Subs',        bg:'#22183A', ic:'#C0A8E0' },
+    { key:'health', label:'Health',      bg:'#302A14', ic:'#D8C888' },
+    { key:'pets',   label:'Pets',        bg:'#342212', ic:'#D0A870' },
+    { key:'finance',label:'Finance',     bg:'#162A1C', ic:'#80B890' },
+    { key:'elec',   label:'Electronics', bg:'#181C2E', ic:'#8894C0' },
+    { key:'family', label:'Family',      bg:'#2E2420', ic:'#C09880' },
+    { key:'outdoor',label:'Outdoor',     bg:'#1A2818', ic:'#88B080' },
+  ],
+  'Option C': [
+    { key:'home',   label:'Home',        bg:'#391c0e', ic:'#d79b84' },
+    { key:'vehicle',label:'Vehicle',     bg:'#0e2939', ic:'#87b1d4' },
+    { key:'garden', label:'Garden',      bg:'#123521', ic:'#8ad1a8' },
+    { key:'subs',   label:'Subs',        bg:'#200e39', ic:'#a784d7' },
+    { key:'health', label:'Health',      bg:'#39300e', ic:'#dcc57e' },
+    { key:'pets',   label:'Pets',        bg:'#390e12', ic:'#d7848e' },
+    { key:'finance',label:'Finance',     bg:'#0e3929', ic:'#8ad1c0' },
+    { key:'elec',   label:'Electronics', bg:'#0e0e39', ic:'#8d8dce' },
+    { key:'family', label:'Family',      bg:'#39180e', ic:'#cf988c' },
+    { key:'outdoor',label:'Outdoor',     bg:'#1a390e', ic:'#98db80' },
+  ],
+  'Option D': [
+    { key:'home',   label:'Home',        bg:'#362A10', ic:'#D4AA60' },
+    { key:'vehicle',label:'Vehicle',     bg:'#28261A', ic:'#B0AC70' },
+    { key:'garden', label:'Garden',      bg:'#20281A', ic:'#A0B860' },
+    { key:'subs',   label:'Subs',        bg:'#342010', ic:'#C89060' },
+    { key:'health', label:'Health',      bg:'#2E2410', ic:'#C09850' },
+    { key:'pets',   label:'Pets',        bg:'#382010', ic:'#D09840' },
+    { key:'finance',label:'Finance',     bg:'#202A1C', ic:'#90B070' },
+    { key:'elec',   label:'Electronics', bg:'#1E2028', ic:'#8898B0' },
+    { key:'family', label:'Family',      bg:'#302414', ic:'#C09C60' },
+    { key:'outdoor',label:'Outdoor',     bg:'#222810', ic:'#98B050' },
+  ],
+  'Option E': [
+    { key:'home',   label:'Home',        bg:'#401400', ic:'#FF8050' },
+    { key:'vehicle',label:'Vehicle',     bg:'#001440', ic:'#5090FF' },
+    { key:'garden', label:'Garden',      bg:'#003820', ic:'#00FF90' },
+    { key:'subs',   label:'Subs',        bg:'#2C0040', ic:'#CC60FF' },
+    { key:'health', label:'Health',      bg:'#2C2800', ic:'#FFE800' },
+    { key:'pets',   label:'Pets',        bg:'#3C0028', ic:'#FF50A0' },
+    { key:'finance',label:'Finance',     bg:'#003028', ic:'#00FFD0' },
+    { key:'elec',   label:'Electronics', bg:'#0C0C3C', ic:'#7070FF' },
+    { key:'family', label:'Family',      bg:'#3C2000', ic:'#FFA830' },
+    { key:'outdoor',label:'Outdoor',     bg:'#182800', ic:'#90FF30' },
+  ],
+};
+
+// ── S-09 Dashboard — dark mode ────────────────────────────────────────────────
+function dashPhoneDark(opt) {
+  const darkKey = opt.name; // match by option name
+  const darkCatMap = { 'Soft pastels':'Current v10.5','Vivid pastels':'Option A','Warm editorial':'Option B','Bold brights':'Option C','Earthy clay':'Option D','Electric pop':'Option E' };
+  const dcats = DARK_CATS[darkCatMap[opt.name]];
+  const home = dcats[0], veh = dcats[1], gard = dcats[2];
+  const cta = opt.cta;
+  const bg = '#1E1C18', nav = '#28261F', textPrimary = '#E0DDD6', textMid = '#96908A', cardSurface = '#28261F';
+
+  function darkTask(iconKey, name, sub, date, overdue, cat, expanded) {
+    const dateCss = overdue
+      ? `color:#FAF8FF;background:#5A3A28;border-radius:100px;padding:2px 6px;font-size:5.5px;font-weight:700;`
+      : `color:${textMid};font-size:6.5px;`;
+    const body = expanded ? `
+      <div style="background:rgba(255,255,255,0.04);border-radius:6px;padding:5px 7px;margin:5px 0;font-size:6.5px;color:${textPrimary};line-height:1.4;">Why it matters: Unserviced boilers lose up to 15% efficiency.</div>
+      <div style="display:flex;gap:4px;">
+        <div style="background:${cta};color:#FAF8FF;border-radius:100px;padding:5px;font-size:7px;font-weight:600;flex:1;text-align:center;">Done</div>
+        <div style="background:rgba(255,255,255,0.08);border-radius:100px;padding:5px;font-size:7px;flex:1;text-align:center;color:${textPrimary};">Snooze</div>
+        <div style="background:rgba(255,255,255,0.08);border-radius:100px;padding:5px;font-size:7px;flex:1;text-align:center;color:${textPrimary};">Skip</div>
+      </div>` : '';
+    return `<div style="background:${cat.bg};border-radius:9px;padding:7px 9px;margin-bottom:5px;">
+      <div style="display:flex;align-items:center;gap:6px;">
+        <div style="width:18px;height:18px;flex-shrink:0;">${ICONS[iconKey](cat.ic)}</div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:8px;font-weight:600;color:${textPrimary};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${name}</div>
+          <div style="font-size:6px;color:${cat.ic};margin-top:1px;">${sub}</div>
+        </div>
+        <div style="${dateCss}">${date}</div>
+      </div>${body}</div>`;
+  }
+
+  return `
+<div class="phone dash" style="background:${bg};border-color:rgba(255,255,255,0.06);">
+  <div class="pstatus" style="color:${textPrimary};"><span>9:41</span><span style="letter-spacing:-1px;">●●● ▐</span></div>
+  <div class="pscroll" style="padding:0 13px;overflow-y:hidden;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0 6px;">
+      <div style="display:flex;align-items:center;gap:5px;">
+        <div style="width:20px;height:20px;background:${nav};border-radius:6px;display:flex;align-items:center;justify-content:center;">
+          <svg viewBox="0 0 626 700" fill="none" style="width:11px;height:12px;"><path d="M125,0C194,0,250,58,250,129v442c0,71-56,129-125,129S0,642,0,571V129C0,58,56,0,125,0Z" fill="#9B7FD4"/><path d="M451,0c69,0,125,58,125,129v442c0,71-56,129-125,129s-125-58-125-129V129C326,58,382,0,451,0Z" fill="#C4A8E8"/><circle cx="536" cy="119" r="90" fill="#E8A87C"/></svg>
+        </div>
+        <div style="font-size:7px;color:${textMid};">Friday 28 March</div>
+      </div>
+      <div style="width:20px;height:20px;background:${nav};border-radius:6px;display:flex;align-items:center;justify-content:center;">
+        <svg viewBox="0 0 256 256" fill="none" style="width:10px;height:10px;"><line x1="40" y1="80" x2="216" y2="80" stroke="${textMid}" stroke-width="20" stroke-linecap="round"/><line x1="40" y1="128" x2="216" y2="128" stroke="${textMid}" stroke-width="20" stroke-linecap="round"/><line x1="40" y1="176" x2="216" y2="176" stroke="${textMid}" stroke-width="20" stroke-linecap="round"/></svg>
+      </div>
+    </div>
+    <div style="margin-bottom:8px;">
+      <div style="font-size:8px;color:${textMid};">Good morning,</div>
+      <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:19px;color:${cta};line-height:1.05;">Martijn.</div>
+    </div>
+    <div style="background:${nav};border-radius:9px;padding:7px 9px;display:flex;align-items:center;gap:7px;margin-bottom:7px;">
+      <div style="width:26px;height:26px;border-radius:50%;border:2.5px solid ${cta};display:flex;align-items:center;justify-content:center;font-size:5.5px;font-weight:700;color:${textPrimary};flex-shrink:0;">11/14</div>
+      <div style="flex:1;">
+        <div style="font-size:7.5px;font-weight:600;color:${textPrimary};">3 things need attention</div>
+        <div style="font-size:6px;color:${textMid};">11 of 14 items on track</div>
+      </div>
+      <div style="text-align:center;flex-shrink:0;">
+        <div style="font-size:10px;font-weight:700;color:${cta};line-height:1;">4</div>
+        <div style="font-size:5.5px;color:${textMid};">week streak</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;margin-bottom:7px;">
+      <div style="background:${home.bg};border-radius:8px;padding:6px 8px;min-width:95px;flex-shrink:0;">
+        <div style="font-size:5px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:${home.ic};margin-bottom:2px;">Did you know?</div>
+        <div style="font-size:7px;font-weight:500;color:${textPrimary};line-height:1.3;">Boiler efficiency drops 15% without servicing.</div>
+        <div style="font-size:6px;color:${textMid};font-style:italic;margin-top:2px;">Tap to learn more</div>
+      </div>
+      <div style="background:${nav};border-radius:8px;padding:6px 8px;min-width:88px;flex-shrink:0;">
+        <div style="font-size:5px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:${textMid};margin-bottom:2px;">This year</div>
+        <div style="font-size:7px;font-weight:500;color:${textPrimary};line-height:1.3;">Saved ~€340 catching issues early.</div>
+      </div>
+      <div style="background:${gard.bg};border-radius:8px;padding:6px 8px;min-width:80px;flex-shrink:0;">
+        <div style="font-size:5px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:${gard.ic};margin-bottom:2px;">Spring</div>
+        <div style="font-size:7px;font-weight:500;color:${textPrimary};line-height:1.3;">2 of 5 garden tasks complete.</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;margin-bottom:7px;">
+      <div style="background:${cta};color:#FAF8FF;border-radius:100px;padding:3px 8px;font-size:6.5px;font-weight:500;flex-shrink:0;">All</div>
+      <div style="display:flex;align-items:center;gap:3px;background:${home.bg};border-radius:100px;padding:3px 7px;font-size:6px;color:${home.ic};flex-shrink:0;"><span style="width:4px;height:4px;background:${home.ic};border-radius:50%;display:inline-block;"></span>Home</div>
+      <div style="display:flex;align-items:center;gap:3px;background:${veh.bg};border-radius:100px;padding:3px 7px;font-size:6px;color:${veh.ic};flex-shrink:0;"><span style="width:4px;height:4px;background:${veh.ic};border-radius:50%;display:inline-block;"></span>Vehicle</div>
+      <div style="display:flex;align-items:center;gap:3px;background:${gard.bg};border-radius:100px;padding:3px 7px;font-size:6px;color:${gard.ic};flex-shrink:0;"><span style="width:4px;height:4px;background:${gard.ic};border-radius:50%;display:inline-block;"></span>Garden</div>
+    </div>
+    ${darkTask('home', 'Annual boiler service', 'CV boiler · yearly', '12d overdue', true, home, true)}
+    ${darkTask('home', 'Refill dishwasher salt', 'Dishwasher · every 6–8 wks', '3d overdue', true, home, false)}
+    <div style="font-size:5.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:${textMid};margin:6px 0 5px;">Due this week</div>
+    ${darkTask('vehicle', 'Check tyre pressure', 'Car · monthly', 'Wed 26', false, veh, false)}
+    ${darkTask('garden', 'Prune olive tree', 'Olive tree · twice yearly', 'Nov 9', false, gard, false)}
+  </div>
+  <div style="display:flex;justify-content:space-around;align-items:center;padding:6px 16px 14px;background:${nav};border-top:0.5px solid rgba(255,255,255,0.05);flex-shrink:0;position:relative;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+      <svg viewBox="0 0 256 256" fill="none" style="width:14px;height:14px;"><rect x="32" y="48" width="192" height="176" rx="16" stroke="${cta}" stroke-width="18" fill="none"/><line x1="32" y1="96" x2="224" y2="96" stroke="${cta}" stroke-width="16" stroke-linecap="round"/></svg>
+      <div style="font-size:6px;font-weight:600;color:${cta};">Today</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+      <svg viewBox="0 0 256 256" fill="none" style="width:14px;height:14px;"><line x1="40" y1="72" x2="216" y2="72" stroke="rgba(255,255,255,0.2)" stroke-width="18" stroke-linecap="round"/><line x1="40" y1="128" x2="216" y2="128" stroke="rgba(255,255,255,0.2)" stroke-width="18" stroke-linecap="round"/><line x1="40" y1="184" x2="216" y2="184" stroke="rgba(255,255,255,0.2)" stroke-width="18" stroke-linecap="round"/></svg>
+      <div style="font-size:6px;color:rgba(255,255,255,0.2);">Plan</div>
+    </div>
+    <div style="width:32px;height:32px;"></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+      <svg viewBox="0 0 256 256" fill="none" style="width:14px;height:14px;"><path d="M32 200c0-44 24-72 96-72s96 28 96 72" stroke="rgba(255,255,255,0.2)" stroke-width="18" fill="none"/><circle cx="128" cy="88" r="40" stroke="rgba(255,255,255,0.2)" stroke-width="18" fill="none"/></svg>
+      <div style="font-size:6px;color:rgba(255,255,255,0.2);">Profile</div>
+    </div>
+    <div style="position:absolute;top:-16px;left:50%;transform:translateX(-50%);width:34px;height:34px;border-radius:100px;background:${cta};display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,0.3);">
+      <svg viewBox="0 0 256 256" fill="none" style="width:14px;height:14px;"><line x1="128" y1="40" x2="128" y2="216" stroke="#FAF8FF" stroke-width="24" stroke-linecap="round"/><line x1="40" y1="128" x2="216" y2="128" stroke="#FAF8FF" stroke-width="24" stroke-linecap="round"/></svg>
+    </div>
+  </div>
+</div>`;
+}
+
+renderRow('s03-row', s03Phone);
+renderRow('dash-row', dashPhone);
+
+// Add dark mode section dynamically
+const darkDiv = document.createElement('div');
+darkDiv.innerHTML = `
+  <div class="divider"></div>
+  <div class="section-heading">S-09 — Dashboard · dark mode</div>
+  <div class="section-sub">Same content, warm dark background (#1E1C18). Category colors darken to same hue, much lower lightness. Purple CTA and FAB stay identical.</div>
+  <div class="options-row" id="dark-row"></div>
+`;
+document.body.appendChild(darkDiv);
+renderRow('dark-row', dashPhoneDark);
+</script>
+</body>
+</html>

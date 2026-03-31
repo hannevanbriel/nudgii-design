@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · Direction: editorial warmth</title>
+<link rel="stylesheet" href="../system/components.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#0F0E0C;color:#E0DDD6;padding:64px 56px 140px;}
+
+.page-eyebrow{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:rgba(232,168,124,0.5);margin-bottom:8px;}
+.page-title{font-family:'DM Serif Display',serif;font-size:34px;font-style:italic;color:#E0DDD6;margin-bottom:10px;line-height:1.05;}
+.page-sub{font-size:13px;color:#5A5450;line-height:1.7;max-width:580px;margin-bottom:64px;}
+
+.divider{height:1px;background:rgba(255,255,255,0.04);margin:60px 0;}
+.section-ey{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:#4A4540;margin-bottom:5px;}
+.section-h{font-family:'DM Serif Display',serif;font-size:22px;color:#E0DDD6;margin-bottom:6px;}
+.section-sub{font-size:12px;color:#4A4540;line-height:1.65;margin-bottom:36px;max-width:640px;}
+
+.phone-row{display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap;}
+.phone-col{display:flex;flex-direction:column;align-items:center;gap:9px;}
+.phone-lbl{font-size:8px;font-weight:600;text-transform:uppercase;letter-spacing:1.3px;color:#3A3530;}
+.phone-note{font-size:10px;color:#3A3530;font-style:italic;margin-top:4px;max-width:160px;text-align:center;line-height:1.5;}
+
+/* ── Phone shell 170px ── */
+.ep{width:170px;border-radius:26px;background:#F5F0E8;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.55);}
+.ep-st{display:flex;justify-content:space-between;align-items:center;padding:9px 14px 4px;}
+.ep-time{font-size:7.5px;font-weight:600;color:#2C2824;letter-spacing:0.2px;}
+.ep-batt{width:15px;height:6.5px;border:0.8px solid rgba(44,40,36,0.4);border-radius:1.5px;position:relative;}
+.ep-batt::after{content:'';position:absolute;right:-2.5px;top:50%;transform:translateY(-50%);width:1.5px;height:3px;background:rgba(44,40,36,0.3);border-radius:0 1px 1px 0;}
+.ep-prog{height:2.5px;background:rgba(0,0,0,0.06);}
+.ep-body{padding:14px 12px 4px;display:flex;flex-direction:column;gap:9px;}
+.ep-tabs{display:flex;align-items:center;justify-content:space-around;padding:7px 12px 12px;background:#F5F0E8;border-top:0.5px solid rgba(26,22,18,0.06);position:relative;margin-top:6px;}
+
+/* ── Typography ── */
+.g1{font-family:'DM Serif Display',serif;font-size:10px;color:#8A8070;letter-spacing:-0.1px;}
+.g2{font-family:'DM Serif Display',serif;font-size:17px;font-style:italic;line-height:1.05;margin-top:1px;}
+.sec-lbl{font-size:6px;font-weight:600;text-transform:uppercase;letter-spacing:1.6px;color:#A09888;padding:0 2px;}
+
+/* ── Light mode task card with soft fill ── */
+.card{border-radius:10px;padding:9px 10px 9px 9px;display:flex;align-items:center;gap:8px;border:0.5px solid transparent;}
+.ic-circle{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.tinfo{flex:1;min-width:0;}
+.tname{font-size:9px;font-weight:500;color:#2C2824;letter-spacing:-0.15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tsub{font-size:6.5px;color:rgba(44,40,36,0.45);margin-top:1.5px;}
+.tdate{font-size:7px;color:rgba(44,40,36,0.45);flex-shrink:0;white-space:nowrap;}
+
+/* Expanded card */
+.card-exp{border-radius:10px;overflow:hidden;border:0.5px solid transparent;}
+.card-exp-main{padding:9px 10px 9px 9px;display:flex;align-items:center;gap:8px;}
+.card-exp-actions{display:flex;gap:4px;padding:0 8px 9px;}
+.act-btn{flex:1;height:21px;border-radius:100px;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:500;}
+
+/* ── Filter chips ── */
+.chips{display:flex;gap:4px;overflow:hidden;}
+.chip{font-size:6.5px;font-weight:500;padding:2.5px 8px;border-radius:100px;white-space:nowrap;}
+.chip-on-a{background:rgba(155,127,212,0.1);color:#9B7FD4;border:0.5px solid rgba(155,127,212,0.28);}
+.chip-on-c{background:rgba(122,92,232,0.1);color:#7A5CE8;border:0.5px solid rgba(122,92,232,0.28);}
+.chip-off{background:rgba(26,22,18,0.04);color:#8A8070;border:0.5px solid rgba(26,22,18,0.05);}
+
+/* ── Summary stat ── */
+.stat{display:flex;align-items:center;gap:6px;padding:8px 10px;background:rgba(255,255,255,0.6);border-radius:8px;border:0.5px solid rgba(26,22,18,0.05);}
+
+/* ── Dark phone ── */
+.ep-dk{width:170px;border-radius:26px;background:#1E1C18;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.65);}
+.ep-dk .ep-st{background:#1E1C18;}
+.ep-dk .ep-prog{background:rgba(255,255,255,0.04);}
+.ep-dk .ep-body{background:#1E1C18;}
+.ep-dk .ep-tabs{background:#28261F;border-top:0.5px solid rgba(255,255,255,0.04);}
+.dk-time{font-size:7.5px;font-weight:600;color:rgba(224,221,214,0.5);letter-spacing:0.2px;}
+.dk-batt{width:15px;height:6.5px;border:0.8px solid rgba(224,221,214,0.2);border-radius:1.5px;}
+.dk-g1{font-family:'DM Serif Display',serif;font-size:10px;color:#3A3530;}
+.dk-g2{font-family:'DM Serif Display',serif;font-size:17px;font-style:italic;line-height:1.05;margin-top:1px;}
+.dk-stat{display:flex;align-items:center;gap:6px;padding:8px 10px;background:rgba(255,255,255,0.04);border-radius:8px;border:0.5px solid rgba(255,255,255,0.05);}
+.dk-sec{font-size:6px;font-weight:600;text-transform:uppercase;letter-spacing:1.6px;color:#2E2C28;padding:0 2px;}
+.dk-card{border-radius:10px;padding:9px 10px 9px 9px;display:flex;align-items:center;gap:8px;background:#28261F;}
+.dk-card-exp{border-radius:10px;overflow:hidden;background:#28261F;}
+.dk-card-exp-main{padding:9px 10px 9px 9px;display:flex;align-items:center;gap:8px;}
+.dk-tname{font-size:9px;font-weight:500;color:#E0DDD6;letter-spacing:-0.15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.dk-tsub{font-size:6.5px;color:#3A3530;margin-top:1.5px;}
+.dk-tdate{font-size:7px;color:#3A3530;flex-shrink:0;}
+/* Dark icon: small Phosphor icon, NO circle, just the icon in category color */
+.dk-ic{width:20px;height:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+/* ── S-03 list ── */
+.cat-list{display:flex;flex-direction:column;gap:1px;}
+.cat-row{display:flex;align-items:center;gap:9px;padding:7px 4px;border-bottom:0.5px solid rgba(26,22,18,0.04);}
+.cat-row:last-child{border-bottom:none;}
+.cat-ic-wrap{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cat-name{font-size:10px;font-weight:500;color:#2C2824;flex:1;}
+.cat-check-empty{width:13px;height:13px;border-radius:50%;border:1px solid rgba(26,22,18,0.15);flex-shrink:0;}
+.cat-check-full{width:13px;height:13px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+/* Nudge card (contextual) */
+.nudge{border-radius:10px;padding:9px 10px;display:flex;align-items:flex-start;gap:8px;}
+.nudge-body{flex:1;min-width:0;}
+.nudge-label{font-size:6px;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:3px;}
+.nudge-text{font-size:8px;font-weight:500;color:#2C2824;line-height:1.4;}
+.nudge-sub{font-size:6.5px;color:rgba(44,40,36,0.5);margin-top:2px;font-style:italic;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-back" href="../index.html">
+    <svg width="16" height="18" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:2px;"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/></svg>
+    Design hub
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">Direction: editorial warmth</span>
+</nav>
+
+<div class="page">
+
+<div class="page-eyebrow">Design direction · editorial warmth</div>
+<h1 class="page-title">Soft cards. Phosphor icons. Purple pops.</h1>
+<p class="page-sub">Light mode: every task card carries a soft category fill — warm, lovely, identifiable. The Phosphor icon sits in a rounded container in the card's own color. Purple and apricot are the only vivid things on screen, so they always register as action and personality.<br><br>Dark mode: the soft fills give way to a single warm dark surface. The category dot becomes the Phosphor icon — same hue, no circle. More character than a dot, less noise than a filled card.</p>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- LIGHT MODE — Option A + C                              -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="section-ey">Light mode · dashboard</div>
+<h2 class="section-h">Soft cards + icon circles</h2>
+<p class="section-sub">Cards carry the category warmth. Icons anchor the category identity. Purple wins every time as the accent.</p>
+
+<div class="phone-row">
+
+  <!-- ── Option A light ── -->
+  <div class="phone-col">
+    <div class="phone-lbl">Option A · vivid pastels</div>
+    <div class="ep">
+      <div class="ep-st"><span class="ep-time">9:41</span><div class="ep-batt"></div></div>
+      <div class="ep-prog"><div style="height:100%;background:#9B7FD4;width:100%;"></div></div>
+      <div class="ep-body">
+        <div><div class="g1">Good morning,</div><div class="g2" style="color:#9B7FD4;">Martijn.</div></div>
+        <div class="stat">
+          <div>
+            <div style="display:flex;align-items:baseline;gap:3px;"><span style="font-family:'DM Serif Display',serif;font-size:18px;color:#9B7FD4;line-height:1;">3</span><span style="font-size:7px;color:#A09888;">tasks this week</span></div>
+            <div style="font-size:6.5px;color:#A09888;margin-top:1px;font-style:italic;">Your boiler is counting on you.</div>
+          </div>
+        </div>
+        <div class="chips">
+          <div class="chip chip-on-a">All</div>
+          <div class="chip chip-off">Home</div>
+          <div class="chip chip-off">Vehicle</div>
+          <div class="chip chip-off">Garden</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div class="sec-lbl">This week</div>
+          <!-- Home task -->
+          <div class="card" style="background:#F0D8D2;border-color:rgba(138,74,56,0.08);">
+            <div class="ic-circle" style="background:#DDBBB2;">
+              <svg width="11" height="11" viewBox="0 0 256 256" fill="none" stroke="#8A4840" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8,8,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8,8,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"/></svg>
+            </div>
+            <div class="tinfo"><div class="tname">Annual boiler service</div><div class="tsub">Home · yearly</div></div>
+            <div class="tdate">Oct 28</div>
+          </div>
+          <!-- Vehicle task — expanded -->
+          <div class="card-exp" style="background:#D8E4D4;border-color:rgba(58,96,128,0.08);">
+            <div class="card-exp-main">
+              <div class="ic-circle" style="background:#BBCEB6;">
+                <svg width="11" height="11" viewBox="0 0 256 256" fill="none" stroke="#466040" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><rect x="32" y="88" width="192" height="104" rx="14"/><path d="M68,88V72a12,12,0,0,1,12-12h96a12,12,0,0,1,12,12V88"/><circle cx="80" cy="168" r="14" fill="#466040" stroke="none"/><circle cx="176" cy="168" r="14" fill="#466040" stroke="none"/></svg>
+              </div>
+              <div class="tinfo"><div class="tname">Switch to winter tyres</div><div class="tsub">Vehicle · before Nov</div></div>
+              <div class="tdate">Nov 1</div>
+            </div>
+            <div class="card-exp-actions">
+              <div class="act-btn" style="background:#9B7FD4;color:#FAF8FF;">Done</div>
+              <div class="act-btn" style="background:rgba(44,40,36,0.08);color:#6B6358;">Snooze</div>
+              <div class="act-btn" style="background:rgba(44,40,36,0.08);color:#6B6358;">Skip</div>
+            </div>
+          </div>
+          <!-- Garden task -->
+          <div class="card" style="background:#D4E2D0;border-color:rgba(58,112,48,0.08);">
+            <div class="ic-circle" style="background:#BBCEB6;">
+              <svg width="11" height="11" viewBox="0 0 256 256" fill="none" stroke="#466040" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><line x1="128" y1="232" x2="128" y2="152"/><path d="M96,192c0-40,32-88,32-88s32,48,32,88a32,32,0,0,1-64,0Z"/></svg>
+            </div>
+            <div class="tinfo"><div class="tname">Autumn pruning</div><div class="tsub">Garden · yearly</div></div>
+            <div class="tdate">Oct 5</div>
+          </div>
+        </div>
+        <!-- Nudge card — subs color -->
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div class="sec-lbl">Seasonal nudge</div>
+          <div class="nudge" style="background:#EDE4C8;border:0.5px solid rgba(114,88,24,0.08);">
+            <div class="ic-circle" style="background:#D4C490;flex-shrink:0;">
+              <svg width="11" height="11" viewBox="0 0 256 256" fill="none" stroke="#725818" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a16,16,0,1,1,16,16A16,16,0,0,1,112,84Z"/></svg>
+            </div>
+            <div class="nudge-body">
+              <div class="nudge-label" style="color:#725818;">Subscriptions</div>
+              <div class="nudge-text">Netflix raised prices last month.</div>
+              <div class="nudge-sub">Review before renewal</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;padding-bottom:4px;">
+          <div class="sec-lbl">Due later</div>
+          <div class="card" style="background:#F0D8D2;border-color:rgba(138,74,56,0.08);">
+            <div class="ic-circle" style="background:#DDBBB2;">
+              <svg width="11" height="11" viewBox="0 0 256 256" fill="none" stroke="#8A4840" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8,8,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8,8,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"/></svg>
+            </div>
+            <div class="tinfo"><div class="tname">Clean dishwasher filter</div><div class="tsub">Home · every 6 wks</div></div>
+            <div class="tdate">Nov 8</div>
+          </div>
+        </div>
+      </div>
+      <div class="ep-tabs">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 256 256" fill="none" stroke="#9B7FD4" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><rect x="40" y="40" width="72" height="72" rx="8"/><rect x="144" y="40" width="72" height="72" rx="8"/><rect x="40" y="144" width="72" height="72" rx="8"/><rect x="144" y="144" width="72" height="72" rx="8"/></svg><div style="font-size:5.5px;color:#9B7FD4;font-weight:500;">Today</div></div>
+        <div style="width:28px;"></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:2px;opacity:0.2;"><svg width="14" height="14" viewBox="0 0 256 256" fill="none" stroke="#2C2824" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><path d="M32 200c0-44 24-72 96-72s96 28 96 72"/><circle cx="128" cy="88" r="40"/></svg><div style="font-size:5.5px;color:#2C2824;">Profile</div></div>
+        <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);width:30px;height:30px;border-radius:100px;background:#9B7FD4;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(155,127,212,0.5);"><svg width="11" height="11" viewBox="0 0 256 256" fill="none"><line x1="128" y1="40" x2="128" y2="216" stroke="#FAF8FF" stroke-width="26" stroke-linecap="round"/><line x1="40" y1="128" x2="216" y2="128" stroke="#FAF8FF" stroke-width="26" stroke-linecap="round"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Option C light ── -->
+  <div class="phone-col">
+    <div class="phone-lbl">Option C · bold brights</div>
+    <div class="ep">
+      <div class="ep-st"><span class="ep-time">9:41</span><div class="ep-batt"></div></div>
+      <div class="ep-prog"><div style="height:100%;background:#7A5CE8;width:100%;"></div></div>
+      <div class="ep-body">
+        <div><div class="g1">Good morning,</div><div class="g2" style="color:#7A5CE8;">Martijn.</div></div>
+        <div class="stat">
+          <div>
+            <div style="display:flex;align-items:baseline;gap:3px;"><span style="font-family:'DM Serif Display',serif;font-size:18px;color:#7A5CE8;line-height:1;">3</span><span style="font-size:7px;color:#A09888;">tasks this week</span></div>
+            <div style="font-size:6.5px;color:#A09888;margin-top:1px;font-style:italic;">Your boiler is counting on you.</div>
+          </div>
+        </div>
+        <div class="chips">
+          <div class="chip chip-on-c">All</div>
+          <div class="chip chip-off">Home</div>
+          <div class="chip chip-off">Vehicle</div>
+          <div class="chip chip-off">Garden</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div class="sec-lbl">This week</div>
+          <!-- Home -->
+          <div class="card" style="background:#F0D8D2;border-color:rgba(138,72,64,0.08);">
+            <div class="ic-circle" style="background:#DDBBB2;">
+              <svg width="11" height="11" viewBox="0 0 256 256" fill="none" stroke="#8A4840" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8,8,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8,8,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"/></svg>
+            </div>
+            <div class="tinfo"><div class="tname">Annual boiler service</div><div class="tsub">Home · yearly</div></div>
+            <div class="tdate">Oct 28</div>
+          </div>
+          <!-- Vehicle — expanded -->
+          <div class="card-exp" style="background:#D8E4D4;border-color:rgba(70,96,64,0.08);">
+            <div class="card-exp-main">
+              <div class="ic-circle" style="background:#BBCEB6;">
+                <svg width="11" height="11" viewBox="0 0 256 256" fill="none" stroke="#466040" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><rect x="32" y="88" width="192" height="104" rx="14"/><path d="M68,88V72a12,12,0,0,1,12-12h96a12,12,0,0,1,12,12V88"/><circle cx="80" cy="168" r="14" fill="#466040" stroke="none"/><circle cx="176" cy="168" r="14" fill="#466040" stroke="none"/></svg>
+              </div>
+              <div class="tinfo"><div class="tname">Switch to winter tyres</div><div class="tsub">Vehicle · before Nov</div></div>
+              <div class="tdate">Nov 1</div>
+            </div>
+            <div class="card-exp-actions">
+              <div class="act-btn" style="background:#7A5CE8;color:#FAF8FF;">Done</div>
+              <div class="act-btn" style="background:rgba(44,40,36,0.08);color:#6B6358;">Snooze</div>
+              <div class="act-btn" style="background:rgba(44,40,36,0.08);color:#6B6358;">Skip</div>
+            </div>
+          </div>
+          <!-- Garden -->
+          <div class="card" style="background:#D4E2D0;border-color:rgba(70,96,64,0.08);">
+            <div class="ic-circle" style="background:#BBCEB6;">
+              <svg width="11" height="11" viewBox="0 0 256 256" fill="none" stroke="#466040" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><line x1="128" y1="232" x2="128" y2="152"/><path d="M96,192c0-40,32-88,32-88s32,48,32,88a32,32,0,0,1-64,0Z"/></svg>
+            </div>
+            <div class="tinfo"><div class="tname">Autumn pruning</div><div class="tsub">Garden · yearly</div></div>
+            <div class="tdate">Oct 5</div>
+          </div>
+        </div>
+        <!-- Health nudge — yellow -->
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div class="sec-lbl">Seasonal nudge</div>
+          <div class="nudge" style="background:#EDE4C8;border:0.5px solid rgba(114,88,24,0.08);">
+            <div class="ic-circle" style="background:#D4C490;flex-shrink:0;">
+              <svg width="11" height="11" viewBox="0 0 256 256" fill="none" stroke="#725818" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a16,16,0,1,1,16,16A16,16,0,0,1,112,84Z"/></svg>
+            </div>
+            <div class="nudge-body">
+              <div class="nudge-label" style="color:#725818;">Health</div>
+              <div class="nudge-text">Flu season starts soon.</div>
+              <div class="nudge-sub">Book your annual check-up</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;padding-bottom:4px;">
+          <div class="sec-lbl">Due later</div>
+          <div class="card" style="background:#F0D8D2;border-color:rgba(138,72,64,0.08);">
+            <div class="ic-circle" style="background:#DDBBB2;">
+              <svg width="11" height="11" viewBox="0 0 256 256" fill="none" stroke="#8A4840" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8,8,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8,8,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"/></svg>
+            </div>
+            <div class="tinfo"><div class="tname">Clean dishwasher filter</div><div class="tsub">Home · every 6 wks</div></div>
+            <div class="tdate">Nov 8</div>
+          </div>
+        </div>
+      </div>
+      <div class="ep-tabs">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 256 256" fill="none" stroke="#7A5CE8" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><rect x="40" y="40" width="72" height="72" rx="8"/><rect x="144" y="40" width="72" height="72" rx="8"/><rect x="40" y="144" width="72" height="72" rx="8"/><rect x="144" y="144" width="72" height="72" rx="8"/></svg><div style="font-size:5.5px;color:#7A5CE8;font-weight:500;">Today</div></div>
+        <div style="width:28px;"></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:2px;opacity:0.2;"><svg width="14" height="14" viewBox="0 0 256 256" fill="none" stroke="#2C2824" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><path d="M32 200c0-44 24-72 96-72s96 28 96 72"/><circle cx="128" cy="88" r="40"/></svg><div style="font-size:5.5px;color:#2C2824;">Profile</div></div>
+        <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);width:30px;height:30px;border-radius:100px;background:#7A5CE8;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(122,92,232,0.5);"><svg width="11" height="11" viewBox="0 0 256 256" fill="none"><line x1="128" y1="40" x2="128" y2="216" stroke="#FAF8FF" stroke-width="26" stroke-linecap="round"/><line x1="40" y1="128" x2="216" y2="128" stroke="#FAF8FF" stroke-width="26" stroke-linecap="round"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- note -->
+  <div style="padding-top:20px;max-width:190px;">
+    <div style="font-size:11px;color:#3A3530;line-height:1.75;">
+      <p style="margin-bottom:12px;">Each card is its own color family. The icon circle is a slightly more saturated version of the card background — same hue family, darker enough to anchor the icon.</p>
+      <p style="margin-bottom:12px;">The purple "Done" button is the only vivid element per card. Everything else reads as warm and soft.</p>
+      <p>Option C has more chromatic range — the orange home vs. sky vehicle vs. mint garden vs. yellow health is immediately scannable. Option A is more tonal and harmonious.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- DARK MODE — Phosphor icons, no circle, apricot         -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="divider"></div>
+<div class="section-ey">Dark mode · dashboard</div>
+<h2 class="section-h">Phosphor icon replaces the dot</h2>
+<p class="section-sub">No card fills in dark mode — one warm dark surface. The dot becomes a small Phosphor icon in the category's light color. More expressive than a dot. Apricot glows for Martijn.</p>
+
+<div class="phone-row">
+
+  <!-- ── Option A dark ── -->
+  <div class="phone-col">
+    <div class="phone-lbl">Option A · dark</div>
+    <div class="ep-dk">
+      <div class="ep-st" style="background:#1E1C18;"><span class="dk-time">9:41</span><div class="dk-batt"></div></div>
+      <div class="ep-prog" style="background:rgba(255,255,255,0.04);"><div style="height:100%;background:#9B7FD4;width:100%;"></div></div>
+      <div class="ep-body" style="background:#1E1C18;">
+        <div><div class="dk-g1">Good morning,</div><div class="dk-g2" style="color:#E8A87C;">Martijn.</div></div>
+        <div class="dk-stat">
+          <div>
+            <div style="display:flex;align-items:baseline;gap:3px;"><span style="font-family:'DM Serif Display',serif;font-size:18px;color:#9B7FD4;line-height:1;">3</span><span style="font-size:7px;color:#3A3530;">tasks this week</span></div>
+            <div style="font-size:6.5px;color:#3A3530;margin-top:1px;font-style:italic;">Your boiler is counting on you.</div>
+          </div>
+        </div>
+        <div class="chips">
+          <div class="chip" style="background:rgba(155,127,212,0.14);color:#9B7FD4;border:0.5px solid rgba(155,127,212,0.25);">All</div>
+          <div class="chip" style="background:rgba(255,255,255,0.04);color:#3A3530;border:0.5px solid rgba(255,255,255,0.04);">Home</div>
+          <div class="chip" style="background:rgba(255,255,255,0.04);color:#3A3530;border:0.5px solid rgba(255,255,255,0.04);">Vehicle</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div class="dk-sec">This week</div>
+          <!-- Home — Phosphor icon, no circle -->
+          <div class="dk-card">
+            <div class="dk-ic">
+              <svg width="12" height="12" viewBox="0 0 256 256" fill="none" stroke="#c79f94" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8,8,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8,8,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"/></svg>
+            </div>
+            <div class="tinfo"><div class="dk-tname">Annual boiler service</div><div class="dk-tsub">Home · yearly</div></div>
+            <div class="dk-tdate">Oct 28</div>
+          </div>
+          <!-- Vehicle — expanded -->
+          <div class="dk-card-exp">
+            <div class="dk-card-exp-main">
+              <div class="dk-ic">
+                <svg width="12" height="12" viewBox="0 0 256 256" fill="none" stroke="#96afc4" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><rect x="32" y="88" width="192" height="104" rx="14"/><path d="M68,88V72a12,12,0,0,1,12-12h96a12,12,0,0,1,12,12V88"/><circle cx="80" cy="168" r="12" fill="#96afc4" stroke="none"/><circle cx="176" cy="168" r="12" fill="#96afc4" stroke="none"/></svg>
+              </div>
+              <div class="tinfo"><div class="dk-tname">Switch to winter tyres</div><div class="dk-tsub">Vehicle · before Nov</div></div>
+              <div class="dk-tdate">Nov 1</div>
+            </div>
+            <div style="display:flex;gap:4px;padding:0 8px 9px;">
+              <div class="act-btn" style="background:#9B7FD4;color:#FAF8FF;">Done</div>
+              <div class="act-btn" style="background:rgba(255,255,255,0.06);color:#3A3530;">Snooze</div>
+              <div class="act-btn" style="background:rgba(255,255,255,0.06);color:#3A3530;">Skip</div>
+            </div>
+          </div>
+          <!-- Garden -->
+          <div class="dk-card">
+            <div class="dk-ic">
+              <svg width="12" height="12" viewBox="0 0 256 256" fill="none" stroke="#9dc695" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><line x1="128" y1="232" x2="128" y2="152"/><path d="M96,192c0-40,32-88,32-88s32,48,32,88a32,32,0,0,1-64,0Z"/></svg>
+            </div>
+            <div class="tinfo"><div class="dk-tname">Autumn pruning</div><div class="dk-tsub">Garden · yearly</div></div>
+            <div class="dk-tdate">Oct 5</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;padding-bottom:4px;">
+          <div class="dk-sec">Due later</div>
+          <div class="dk-card">
+            <div class="dk-ic">
+              <svg width="12" height="12" viewBox="0 0 256 256" fill="none" stroke="#c79f94" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8,8,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8,8,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"/></svg>
+            </div>
+            <div class="tinfo"><div class="dk-tname">Clean dishwasher filter</div><div class="dk-tsub">Home · every 6 wks</div></div>
+            <div class="dk-tdate">Nov 8</div>
+          </div>
+        </div>
+      </div>
+      <div class="ep-tabs" style="background:#28261F;border-top:0.5px solid rgba(255,255,255,0.04);">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 256 256" fill="none" stroke="#9B7FD4" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><rect x="40" y="40" width="72" height="72" rx="8"/><rect x="144" y="40" width="72" height="72" rx="8"/><rect x="40" y="144" width="72" height="72" rx="8"/><rect x="144" y="144" width="72" height="72" rx="8"/></svg><div style="font-size:5.5px;color:#9B7FD4;font-weight:500;">Today</div></div>
+        <div style="width:28px;"></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:2px;opacity:0.18;"><svg width="14" height="14" viewBox="0 0 256 256" fill="none" stroke="#E0DDD6" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><path d="M32 200c0-44 24-72 96-72s96 28 96 72"/><circle cx="128" cy="88" r="40"/></svg><div style="font-size:5.5px;color:#E0DDD6;">Profile</div></div>
+        <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);width:30px;height:30px;border-radius:100px;background:#9B7FD4;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,0.4);"><svg width="11" height="11" viewBox="0 0 256 256" fill="none"><line x1="128" y1="40" x2="128" y2="216" stroke="#FAF8FF" stroke-width="26" stroke-linecap="round"/><line x1="40" y1="128" x2="216" y2="128" stroke="#FAF8FF" stroke-width="26" stroke-linecap="round"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Option C dark ── -->
+  <div class="phone-col">
+    <div class="phone-lbl">Option C · dark</div>
+    <div class="ep-dk">
+      <div class="ep-st" style="background:#1E1C18;"><span class="dk-time">9:41</span><div class="dk-batt"></div></div>
+      <div class="ep-prog" style="background:rgba(255,255,255,0.04);"><div style="height:100%;background:#7A5CE8;width:100%;"></div></div>
+      <div class="ep-body" style="background:#1E1C18;">
+        <div><div class="dk-g1">Good morning,</div><div class="dk-g2" style="color:#E8A87C;">Martijn.</div></div>
+        <div class="dk-stat">
+          <div>
+            <div style="display:flex;align-items:baseline;gap:3px;"><span style="font-family:'DM Serif Display',serif;font-size:18px;color:#7A5CE8;line-height:1;">3</span><span style="font-size:7px;color:#3A3530;">tasks this week</span></div>
+            <div style="font-size:6.5px;color:#3A3530;margin-top:1px;font-style:italic;">Your boiler is counting on you.</div>
+          </div>
+        </div>
+        <div class="chips">
+          <div class="chip" style="background:rgba(122,92,232,0.16);color:#7A5CE8;border:0.5px solid rgba(122,92,232,0.28);">All</div>
+          <div class="chip" style="background:rgba(255,255,255,0.04);color:#3A3530;border:0.5px solid rgba(255,255,255,0.04);">Home</div>
+          <div class="chip" style="background:rgba(255,255,255,0.04);color:#3A3530;border:0.5px solid rgba(255,255,255,0.04);">Vehicle</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div class="dk-sec">This week</div>
+          <div class="dk-card">
+            <div class="dk-ic"><svg width="12" height="12" viewBox="0 0 256 256" fill="none" stroke="#d79b84" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8,8,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8,8,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"/></svg></div>
+            <div class="tinfo"><div class="dk-tname">Annual boiler service</div><div class="dk-tsub">Home · yearly</div></div>
+            <div class="dk-tdate">Oct 28</div>
+          </div>
+          <div class="dk-card-exp">
+            <div class="dk-card-exp-main">
+              <div class="dk-ic"><svg width="12" height="12" viewBox="0 0 256 256" fill="none" stroke="#87b1d4" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><rect x="32" y="88" width="192" height="104" rx="14"/><path d="M68,88V72a12,12,0,0,1,12-12h96a12,12,0,0,1,12,12V88"/><circle cx="80" cy="168" r="12" fill="#87b1d4" stroke="none"/><circle cx="176" cy="168" r="12" fill="#87b1d4" stroke="none"/></svg></div>
+              <div class="tinfo"><div class="dk-tname">Switch to winter tyres</div><div class="dk-tsub">Vehicle · before Nov</div></div>
+              <div class="dk-tdate">Nov 1</div>
+            </div>
+            <div style="display:flex;gap:4px;padding:0 8px 9px;">
+              <div class="act-btn" style="background:#7A5CE8;color:#FAF8FF;">Done</div>
+              <div class="act-btn" style="background:rgba(255,255,255,0.06);color:#3A3530;">Snooze</div>
+              <div class="act-btn" style="background:rgba(255,255,255,0.06);color:#3A3530;">Skip</div>
+            </div>
+          </div>
+          <div class="dk-card">
+            <div class="dk-ic"><svg width="12" height="12" viewBox="0 0 256 256" fill="none" stroke="#8ad1a8" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><line x1="128" y1="232" x2="128" y2="152"/><path d="M96,192c0-40,32-88,32-88s32,48,32,88a32,32,0,0,1-64,0Z"/></svg></div>
+            <div class="tinfo"><div class="dk-tname">Autumn pruning</div><div class="dk-tsub">Garden · yearly</div></div>
+            <div class="dk-tdate">Oct 5</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;padding-bottom:4px;">
+          <div class="dk-sec">Due later</div>
+          <div class="dk-card">
+            <div class="dk-ic"><svg width="12" height="12" viewBox="0 0 256 256" fill="none" stroke="#dcc57e" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a16,16,0,1,1,16,16A16,16,0,0,1,112,84Z"/></svg></div>
+            <div class="tinfo"><div class="dk-tname">Annual health check</div><div class="dk-tsub">Health · yearly</div></div>
+            <div class="dk-tdate">Nov 15</div>
+          </div>
+        </div>
+      </div>
+      <div class="ep-tabs" style="background:#28261F;border-top:0.5px solid rgba(255,255,255,0.04);">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 256 256" fill="none" stroke="#7A5CE8" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><rect x="40" y="40" width="72" height="72" rx="8"/><rect x="144" y="40" width="72" height="72" rx="8"/><rect x="40" y="144" width="72" height="72" rx="8"/><rect x="144" y="144" width="72" height="72" rx="8"/></svg><div style="font-size:5.5px;color:#7A5CE8;font-weight:500;">Today</div></div>
+        <div style="width:28px;"></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:2px;opacity:0.18;"><svg width="14" height="14" viewBox="0 0 256 256" fill="none" stroke="#E0DDD6" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><path d="M32 200c0-44 24-72 96-72s96 28 96 72"/><circle cx="128" cy="88" r="40"/></svg><div style="font-size:5.5px;color:#E0DDD6;">Profile</div></div>
+        <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);width:30px;height:30px;border-radius:100px;background:#7A5CE8;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,0.4);"><svg width="11" height="11" viewBox="0 0 256 256" fill="none"><line x1="128" y1="40" x2="128" y2="216" stroke="#FAF8FF" stroke-width="26" stroke-linecap="round"/><line x1="40" y1="128" x2="216" y2="128" stroke="#FAF8FF" stroke-width="26" stroke-linecap="round"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- note dark -->
+  <div style="padding-top:20px;max-width:190px;">
+    <div style="font-size:11px;color:#3A3530;line-height:1.75;">
+      <p style="margin-bottom:12px;">In dark mode the Phosphor icon carries the category identity — the house, car, plant read faster than a color alone. Same hue as the light card background, but lightened for legibility.</p>
+      <p style="margin-bottom:12px;">Option C in dark mode: the icons are more visually distinct (orange house vs. blue car vs. green plant vs. gold health) — the hue differences are wide enough to be read at 12px.</p>
+      <p>Apricot "Martijn." glows against the warm dark background. Purple is the action color on both FAB and Done.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- S-03 BROWSE                                            -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="divider"></div>
+<div class="section-ey">Browse categories · S-03</div>
+<h2 class="section-h">Icon circle in the list</h2>
+<p class="section-sub">Same list view as before — but now the dot becomes an icon circle. The category icon sits in its own soft color pill, making each row immediately recognizable.</p>
+
+<div class="phone-row">
+
+  <!-- Option A S-03 -->
+  <div class="phone-col">
+    <div class="phone-lbl">Option A</div>
+    <div class="ep" style="padding-bottom:0;">
+      <div class="ep-st"><span class="ep-time">9:41</span><div class="ep-batt"></div></div>
+      <div class="ep-prog"><div style="height:100%;background:#9B7FD4;width:60%;"></div></div>
+      <div class="ep-body">
+        <div><div style="font-family:'DM Serif Display',serif;font-size:13px;color:#2C2824;line-height:1.1;">What do you have?</div><div style="font-size:8px;font-style:italic;color:#A09888;margin-top:2px;">Tap everything that applies.</div></div>
+        <div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.8);border:0.5px solid rgba(26,22,18,0.08);border-radius:8px;padding:6px 9px;">
+          <svg width="8" height="8" viewBox="0 0 256 256" fill="none" stroke="#A09888" stroke-width="22"><circle cx="112" cy="112" r="72"/><line x1="168" y1="168" x2="224" y2="224"/></svg>
+          <span style="font-size:8px;color:#A09888;flex:1;">Search categories...</span>
+        </div>
+        <div class="cat-list">
+          <!-- selected -->
+          <div class="cat-row">
+            <div class="cat-ic-wrap" style="background:#F0D8D2;"><svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#8A4840" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8,8,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8,8,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"/></svg></div>
+            <div class="cat-name">Home</div>
+            <div class="cat-check-full" style="background:#7A4830;"><svg width="7" height="7" viewBox="0 0 256 256" fill="none"><path d="M48 136l60 60 100-100" stroke="#FAF8FF" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </div>
+          <div class="cat-row">
+            <div class="cat-ic-wrap" style="background:#D8E4D4;"><svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#466040" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><rect x="32" y="88" width="192" height="104" rx="14"/><path d="M68,88V72a12,12,0,0,1,12-12h96a12,12,0,0,1,12,12V88"/><circle cx="80" cy="168" r="12" fill="#466040" stroke="none"/><circle cx="176" cy="168" r="12" fill="#466040" stroke="none"/></svg></div>
+            <div class="cat-name">Vehicle</div>
+            <div class="cat-check-full" style="background:#2A5070;"><svg width="7" height="7" viewBox="0 0 256 256" fill="none"><path d="M48 136l60 60 100-100" stroke="#FAF8FF" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </div>
+          <div class="cat-row">
+            <div class="cat-ic-wrap" style="background:#D4E2D0;"><svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#466040" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><line x1="128" y1="232" x2="128" y2="152"/><path d="M96,192c0-40,32-88,32-88s32,48,32,88a32,32,0,0,1-64,0Z"/></svg></div>
+            <div class="cat-name">Garden</div>
+            <div class="cat-check-empty"></div>
+          </div>
+          <div class="cat-row">
+            <div class="cat-ic-wrap" style="background:#EDE4C8;"><svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#725818" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><rect x="32" y="56" width="192" height="144" rx="16"/><line x1="32" y1="104" x2="224" y2="104"/><line x1="80" y1="152" x2="96" y2="152"/><line x1="116" y1="152" x2="176" y2="152"/></svg></div>
+            <div class="cat-name">Subscriptions</div>
+            <div class="cat-check-empty"></div>
+          </div>
+          <div class="cat-row">
+            <div class="cat-ic-wrap" style="background:#EDE4C8;"><svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#725818" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><path d="M128,216S24,160,24,88a56,56,0,0,1,104-28,56,56,0,0,1,104,28C232,160,128,216,128,216Z"/></svg></div>
+            <div class="cat-name">Health</div>
+            <div class="cat-check-empty"></div>
+          </div>
+          <div class="cat-row">
+            <div class="cat-ic-wrap" style="background:#F0D8D2;"><svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#8A4840" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><path d="M92,84c0-24,20-44,36-44s36,20,36,44"/><ellipse cx="128" cy="148" rx="64" ry="52"/></svg></div>
+            <div class="cat-name">Pets</div>
+            <div class="cat-check-empty"></div>
+          </div>
+        </div>
+        <div style="padding:8px 0 14px;">
+          <div style="height:34px;background:#9B7FD4;border-radius:100px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:9px;font-weight:500;color:#FAF8FF;box-shadow:0 2px 10px rgba(155,127,212,0.3);">
+            Good start, continue
+            <svg width="9" height="9" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="96" stroke="#FAF8FF" stroke-width="20"/><line x1="88" y1="128" x2="168" y2="128" stroke="#FAF8FF" stroke-width="20" stroke-linecap="round"/><polyline points="140,100 168,128 140,156" stroke="#FAF8FF" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Option C S-03 -->
+  <div class="phone-col">
+    <div class="phone-lbl">Option C</div>
+    <div class="ep" style="padding-bottom:0;">
+      <div class="ep-st"><span class="ep-time">9:41</span><div class="ep-batt"></div></div>
+      <div class="ep-prog"><div style="height:100%;background:#7A5CE8;width:60%;"></div></div>
+      <div class="ep-body">
+        <div><div style="font-family:'DM Serif Display',serif;font-size:13px;color:#2C2824;line-height:1.1;">What do you have?</div><div style="font-size:8px;font-style:italic;color:#A09888;margin-top:2px;">Tap everything that applies.</div></div>
+        <div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.8);border:0.5px solid rgba(26,22,18,0.08);border-radius:8px;padding:6px 9px;">
+          <svg width="8" height="8" viewBox="0 0 256 256" fill="none" stroke="#A09888" stroke-width="22"><circle cx="112" cy="112" r="72"/><line x1="168" y1="168" x2="224" y2="224"/></svg>
+          <span style="font-size:8px;color:#A09888;flex:1;">Search categories...</span>
+        </div>
+        <div class="cat-list">
+          <div class="cat-row">
+            <div class="cat-ic-wrap" style="background:#F0D8D2;"><svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#8A4840" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8,8,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8,8,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"/></svg></div>
+            <div class="cat-name">Home</div>
+            <div class="cat-check-full" style="background:#8A3A1A;"><svg width="7" height="7" viewBox="0 0 256 256" fill="none"><path d="M48 136l60 60 100-100" stroke="#FAF8FF" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </div>
+          <div class="cat-row">
+            <div class="cat-ic-wrap" style="background:#D8E4D4;"><svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#466040" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><rect x="32" y="88" width="192" height="104" rx="14"/><path d="M68,88V72a12,12,0,0,1,12-12h96a12,12,0,0,1,12,12V88"/><circle cx="80" cy="168" r="12" fill="#466040" stroke="none"/><circle cx="176" cy="168" r="12" fill="#466040" stroke="none"/></svg></div>
+            <div class="cat-name">Vehicle</div>
+            <div class="cat-check-full" style="background:#1A4A72;"><svg width="7" height="7" viewBox="0 0 256 256" fill="none"><path d="M48 136l60 60 100-100" stroke="#FAF8FF" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </div>
+          <div class="cat-row">
+            <div class="cat-ic-wrap" style="background:#D4E2D0;"><svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#466040" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><line x1="128" y1="232" x2="128" y2="152"/><path d="M96,192c0-40,32-88,32-88s32,48,32,88a32,32,0,0,1-64,0Z"/></svg></div>
+            <div class="cat-name">Garden</div>
+            <div class="cat-check-empty"></div>
+          </div>
+          <div class="cat-row">
+            <div class="cat-ic-wrap" style="background:#EDE4C8;"><svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#725818" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><rect x="32" y="56" width="192" height="144" rx="16"/><line x1="32" y1="104" x2="224" y2="104"/><line x1="80" y1="152" x2="96" y2="152"/><line x1="116" y1="152" x2="176" y2="152"/></svg></div>
+            <div class="cat-name">Subscriptions</div>
+            <div class="cat-check-empty"></div>
+          </div>
+          <div class="cat-row">
+            <div class="cat-ic-wrap" style="background:#EDE4C8;"><svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#725818" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><path d="M128,216S24,160,24,88a56,56,0,0,1,104-28,56,56,0,0,1,104,28C232,160,128,216,128,216Z"/></svg></div>
+            <div class="cat-name">Health</div>
+            <div class="cat-check-empty"></div>
+          </div>
+          <div class="cat-row">
+            <div class="cat-ic-wrap" style="background:#F0D8D2;"><svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#8A4840" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><path d="M128,216S24,160,24,88a56,56,0,0,1,104-28,56,56,0,0,1,104,28C232,160,128,216,128,216Z"/></svg></div>
+            <div class="cat-name">Pets</div>
+            <div class="cat-check-empty"></div>
+          </div>
+        </div>
+        <div style="padding:8px 0 14px;">
+          <div style="height:34px;background:#7A5CE8;border-radius:100px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:9px;font-weight:500;color:#FAF8FF;box-shadow:0 2px 10px rgba(122,92,232,0.3);">
+            Good start, continue
+            <svg width="9" height="9" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="96" stroke="#FAF8FF" stroke-width="20"/><line x1="88" y1="128" x2="168" y2="128" stroke="#FAF8FF" stroke-width="20" stroke-linecap="round"/><polyline points="140,100 168,128 140,156" stroke="#FAF8FF" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding-top:16px;max-width:190px;">
+    <div style="font-size:11px;color:#3A3530;line-height:1.75;">
+      <p style="margin-bottom:12px;">The icon circle in the list gives each category a recognisable shape identity, not just a color. In Option C the hue range is wide — orange, blue, green, violet, yellow, rose — all soft enough to feel considered.</p>
+      <p>The purple CTA at the bottom stands as the only vivid action element. Everything above it is warm and calm.</p>
+    </div>
+  </div>
+
+</div>
+
+</div>
+</body>
+</html>

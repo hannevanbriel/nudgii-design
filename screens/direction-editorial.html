@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · Editorial direction</title>
+<link rel="stylesheet" href="../system/components.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#0F0E0C;color:#E0DDD6;padding:64px 56px 140px;}
+
+/* Page */
+.page-eyebrow{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:rgba(232,168,124,0.5);margin-bottom:8px;}
+.page-title{font-family:'DM Serif Display',serif;font-size:34px;font-style:italic;color:#E0DDD6;margin-bottom:10px;line-height:1.1;}
+.page-sub{font-size:13px;color:#5A5450;line-height:1.7;max-width:560px;margin-bottom:64px;}
+
+/* Principle cards */
+.principles{display:flex;gap:16px;margin-bottom:72px;flex-wrap:wrap;}
+.prin{flex:1;min-width:160px;background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.06);border-radius:12px;padding:18px 20px;}
+.prin-num{font-size:8px;font-weight:700;color:rgba(232,168,124,0.4);letter-spacing:1px;margin-bottom:6px;}
+.prin-name{font-size:13px;font-weight:500;color:#C4C0BA;margin-bottom:5px;}
+.prin-desc{font-size:11px;color:#5A5450;line-height:1.6;}
+
+.divider{height:1px;background:rgba(255,255,255,0.04);margin:64px 0;}
+.section-ey{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:#4A4540;margin-bottom:6px;}
+.section-h{font-family:'DM Serif Display',serif;font-size:22px;color:#E0DDD6;margin-bottom:6px;}
+.section-sub{font-size:12px;color:#4A4540;line-height:1.65;margin-bottom:36px;max-width:620px;}
+
+/* Phone pair */
+.phone-pair{display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap;}
+.phone-col{display:flex;flex-direction:column;align-items:center;gap:9px;}
+.phone-lbl{font-size:8px;font-weight:600;text-transform:uppercase;letter-spacing:1.3px;color:#3A3530;}
+
+/* ── Editorial mini phone (170px) ── */
+.ep{width:170px;border-radius:26px;background:#F5F0E8;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.55);}
+.ep-status{display:flex;justify-content:space-between;align-items:center;padding:9px 14px 4px;}
+.ep-time{font-size:7.5px;font-weight:600;color:#2C2824;letter-spacing:0.2px;}
+.ep-batt{width:15px;height:6.5px;border:0.8px solid rgba(44,40,36,0.4);border-radius:1.5px;position:relative;}
+.ep-batt::after{content:'';position:absolute;right:-2.5px;top:50%;transform:translateY(-50%);width:1.5px;height:3px;background:rgba(44,40,36,0.3);border-radius:0 1px 1px 0;}
+.ep-prog{height:2.5px;background:rgba(0,0,0,0.06);}
+.ep-body{padding:14px 12px 16px;display:flex;flex-direction:column;gap:10px;}
+
+/* Greeting */
+.ep-g1{font-family:'DM Serif Display',serif;font-size:10px;color:#8A8070;letter-spacing:-0.1px;}
+.ep-g2{font-family:'DM Serif Display',serif;font-size:16px;font-style:italic;line-height:1.1;margin-top:1px;}
+
+/* Summary stat */
+.ep-stat{display:flex;align-items:center;gap:6px;padding:8px 10px;background:rgba(255,255,255,0.7);border-radius:8px;border:0.5px solid rgba(26,22,18,0.05);}
+.ep-stat-num{font-family:'DM Serif Display',serif;font-size:18px;line-height:1;}
+.ep-stat-label{font-size:8px;color:#8A8070;line-height:1.4;}
+
+/* Filter strip */
+.ep-chips{display:flex;gap:4px;overflow:hidden;}
+.ep-chip{font-size:6.5px;font-weight:500;padding:2.5px 8px;border-radius:100px;white-space:nowrap;}
+.ep-chip.on{background:rgba(155,127,212,0.1);color:#9B7FD4;border:0.5px solid rgba(155,127,212,0.28);}
+.ep-chip.off{background:rgba(26,22,18,0.04);color:#8A8070;border:0.5px solid rgba(26,22,18,0.05);}
+
+/* Editorial task card — the key design element */
+.ep-tasks{display:flex;flex-direction:column;gap:5px;}
+.ep-task{background:#FFFFFF;border-radius:9px;padding:10px 11px;border:0.5px solid rgba(26,22,18,0.05);box-shadow:0 1px 3px rgba(26,22,18,0.04);display:flex;align-items:center;gap:8px;}
+.ep-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:1px;}
+.ep-tinfo{flex:1;min-width:0;}
+.ep-tname{font-size:9px;font-weight:500;color:#2C2824;letter-spacing:-0.1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ep-tsub{font-size:6.5px;color:#A09888;margin-top:1.5px;letter-spacing:0px;}
+.ep-tdate{font-size:7px;color:#A09888;flex-shrink:0;white-space:nowrap;}
+
+/* Section label in tasks */
+.ep-section-lbl{font-size:6.5px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:#A09888;padding:2px 0 0 4px;}
+
+/* CTA / done button */
+.ep-done{display:flex;align-items:center;justify-content:center;height:10px;font-size:7px;font-weight:500;color:#FAF8FF;border-radius:100px;padding:6px 10px;white-space:nowrap;}
+
+/* Tab bar */
+.ep-tabs{display:flex;align-items:center;justify-content:space-around;padding:6px 12px 10px;background:#F5F0E8;border-top:0.5px solid rgba(26,22,18,0.06);position:relative;}
+
+/* ── Dark editorial phone ── */
+.ep-dark{width:170px;border-radius:26px;background:#1E1C18;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.65);}
+.ep-dark .ep-status{background:#1E1C18;}
+.ep-dark .ep-time{color:rgba(224,221,214,0.55);}
+.ep-dark .ep-batt{border-color:rgba(224,221,214,0.22);}
+.ep-dark .ep-prog{background:rgba(255,255,255,0.04);}
+.ep-dark .ep-body{background:#1E1C18;}
+.ep-dark .ep-g1{color:#6B6358;}
+.ep-dark .ep-stat{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.06);}
+.ep-dark .ep-stat-label{color:#6B6358;}
+.ep-dark .ep-chip.off{background:rgba(255,255,255,0.04);color:#6B6358;border-color:rgba(255,255,255,0.05);}
+.ep-dark .ep-task{background:#28261F;border-color:rgba(255,255,255,0.05);box-shadow:none;}
+.ep-dark .ep-tname{color:#E0DDD6;}
+.ep-dark .ep-tsub{color:#4A4540;}
+.ep-dark .ep-tdate{color:#4A4540;}
+.ep-dark .ep-section-lbl{color:#4A4540;}
+.ep-dark .ep-tabs{background:#28261F;border-top-color:rgba(255,255,255,0.04);}
+
+/* ── S-03 editorial ── */
+.ep-s03 .ep-body{gap:8px;}
+.ep-search{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.85);border:0.5px solid rgba(26,22,18,0.08);border-radius:8px;padding:6px 9px;}
+.ep-search-icon{width:8px;height:8px;opacity:0.3;}
+.ep-search-text{font-size:8px;color:#A09888;flex:1;}
+.ep-cat-list{display:flex;flex-direction:column;gap:1px;}
+.ep-cat-row{display:flex;align-items:center;gap:8px;padding:8px 4px;border-bottom:0.5px solid rgba(26,22,18,0.04);}
+.ep-cat-row:last-child{border-bottom:none;}
+.ep-cat-name{font-size:10px;font-weight:500;color:#2C2824;flex:1;}
+.ep-cat-count{font-size:7px;color:#A09888;}
+.ep-cat-arrow{width:7px;height:7px;opacity:0.25;}
+
+/* Selected state for cat row */
+.ep-cat-row.sel .ep-cat-name{color:#2C2824;}
+
+/* Annotation sidebar */
+.anno-wrap{display:flex;gap:52px;align-items:flex-start;}
+.anno{padding-top:20px;max-width:200px;}
+.anno-item{display:flex;gap:10px;margin-bottom:18px;align-items:flex-start;}
+.anno-arrow{flex-shrink:0;margin-top:3px;}
+.anno-text{font-size:11px;color:#4A4540;line-height:1.6;}
+.anno-text strong{color:#8A8070;font-weight:500;}
+
+/* Celebration reference strip */
+.cele-ref{display:flex;gap:12px;align-items:center;background:rgba(45,31,74,0.4);border:0.5px solid rgba(155,127,212,0.12);border-radius:14px;padding:16px 20px;margin-bottom:64px;max-width:680px;}
+.cele-ref-mark{flex-shrink:0;}
+.cele-ref-text{font-size:12px;color:#5A5450;line-height:1.65;}
+.cele-ref-text strong{color:#9B7FD4;font-weight:500;}
+.cele-ref-text em{color:#E8A87C;font-style:italic;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-back" href="../index.html">
+    <svg width="16" height="18" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:2px;"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/></svg>
+    Design hub
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">Editorial direction</span>
+</nav>
+
+<div class="page">
+
+<div class="page-eyebrow">Design direction · starting point</div>
+<h1 class="page-title">What made the celebration screen work.</h1>
+<p class="page-sub">Almost nothing is on screen. What IS there is precise: the ii mark, apricot on dark, DM Serif italic, empty space. That's the app's design voice. The question is how to carry it into every screen — not by copying the plum, but by keeping the same restraint.</p>
+
+<!-- Celebration reference -->
+<div class="cele-ref">
+  <div class="cele-ref-mark">
+    <svg width="38" height="43" viewBox="0 0 625.96 700.13" fill="none">
+      <path fill="#F5F0E8" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
+      <path fill="#9B7FD4" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
+      <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
+    </svg>
+  </div>
+  <div class="cele-ref-text">The celebration screen works because <strong>one color dominates</strong> (plum), <em>one accent glows</em> (apricot), and the rest is empty. The ii mark is the whole design. Nothing competes with it. The daily app should feel the same — <strong>cream dominates, purple acts once, everything else is warm neutrals and good type.</strong></div>
+</div>
+
+<!-- Principles -->
+<div class="principles">
+  <div class="prin">
+    <div class="prin-num">01</div>
+    <div class="prin-name">Type is the design</div>
+    <div class="prin-desc">Task names, dates, and category labels do all the visual work. No colored fills needed when the hierarchy is right.</div>
+  </div>
+  <div class="prin">
+    <div class="prin-num">02</div>
+    <div class="prin-name">Color as punctuation</div>
+    <div class="prin-desc">Category color = a 6px dot. That's all. One dot, one hue per task. The cream card surface is the neutral it rests on.</div>
+  </div>
+  <div class="prin">
+    <div class="prin-num">03</div>
+    <div class="prin-name">Purple acts once</div>
+    <div class="prin-desc">CTA, FAB, active state. Nowhere else in light mode. Because it's rare, it always reads as action. It never decorates.</div>
+  </div>
+  <div class="prin">
+    <div class="prin-num">04</div>
+    <div class="prin-name">Space is generous</div>
+    <div class="prin-desc">More padding than feels comfortable. More gap between cards than expected. Apps that breathe feel considered, not rushed.</div>
+  </div>
+  <div class="prin">
+    <div class="prin-num">05</div>
+    <div class="prin-name">Apricot = warmth</div>
+    <div class="prin-desc">In dark mode "Martijn." glows apricot like a candle. In the ii mark, it's the dot of life. Nowhere functional — only warm.</div>
+  </div>
+</div>
+
+<!-- ── DASHBOARD ── -->
+<div class="section-ey">Dashboard · S-09</div>
+<h2 class="section-h">The daily screen</h2>
+<p class="section-sub">White cards on cream. Category color = one small dot next to the task name. That's the entire color system for a task. The greeting and the FAB are the only purple on screen.</p>
+
+<div class="anno-wrap">
+  <div class="phone-pair">
+
+    <!-- Option A editorial dashboard -->
+    <div class="phone-col">
+      <div class="phone-lbl">Option A · vivid pastels</div>
+      <div class="ep">
+        <div class="ep-status"><span class="ep-time">9:41</span><div class="ep-batt"></div></div>
+        <div class="ep-prog"><div style="height:100%;background:#9B7FD4;width:100%;"></div></div>
+        <div class="ep-body">
+          <!-- Greeting -->
+          <div>
+            <div class="ep-g1">Good morning,</div>
+            <div class="ep-g2" style="color:#9B7FD4;">Martijn.</div>
+          </div>
+          <!-- Summary -->
+          <div class="ep-stat">
+            <div>
+              <div style="display:flex;align-items:baseline;gap:3px;">
+                <span class="ep-stat-num" style="color:#9B7FD4;">3</span>
+                <span style="font-size:7px;color:#A09888;">tasks this week</span>
+              </div>
+              <div style="font-size:6.5px;color:#A09888;margin-top:1px;font-style:italic;">Your boiler is counting on you.</div>
+            </div>
+          </div>
+          <!-- Filter -->
+          <div class="ep-chips">
+            <div class="ep-chip on">All</div>
+            <div class="ep-chip off">Home</div>
+            <div class="ep-chip off">Vehicle</div>
+            <div class="ep-chip off">Garden</div>
+          </div>
+          <!-- Tasks: THIS WEEK -->
+          <div>
+            <div class="ep-section-lbl">This week</div>
+            <div class="ep-tasks" style="margin-top:4px;">
+              <!-- Home task -->
+              <div class="ep-task">
+                <div class="ep-dot" style="background:#8A4A38;"></div>
+                <div class="ep-tinfo">
+                  <div class="ep-tname">Annual boiler service</div>
+                  <div class="ep-tsub">Home · yearly</div>
+                </div>
+                <div class="ep-tdate">Oct 28</div>
+              </div>
+              <!-- Vehicle task — expanded with done/snooze -->
+              <div style="background:#FFFFFF;border-radius:9px;border:0.5px solid rgba(26,22,18,0.05);box-shadow:0 1px 3px rgba(26,22,18,0.04);">
+                <div style="padding:10px 11px;display:flex;align-items:center;gap:8px;">
+                  <div class="ep-dot" style="background:#3A6080;"></div>
+                  <div class="ep-tinfo">
+                    <div class="ep-tname">Switch to winter tyres</div>
+                    <div class="ep-tsub">Vehicle · before Nov</div>
+                  </div>
+                  <div class="ep-tdate">Nov 1</div>
+                </div>
+                <!-- Expanded action row -->
+                <div style="display:flex;gap:4px;padding:0 10px 9px;">
+                  <div style="flex:1;height:22px;background:#9B7FD4;border-radius:100px;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:500;color:#FAF8FF;">Done</div>
+                  <div style="flex:1;height:22px;background:rgba(26,22,18,0.05);border-radius:100px;display:flex;align-items:center;justify-content:center;font-size:7px;color:#8A8070;">Snooze</div>
+                  <div style="flex:1;height:22px;background:rgba(26,22,18,0.05);border-radius:100px;display:flex;align-items:center;justify-content:center;font-size:7px;color:#8A8070;">Skip</div>
+                </div>
+              </div>
+              <!-- Garden task -->
+              <div class="ep-task">
+                <div class="ep-dot" style="background:#3A7030;"></div>
+                <div class="ep-tinfo">
+                  <div class="ep-tname">Autumn pruning</div>
+                  <div class="ep-tsub">Garden · yearly</div>
+                </div>
+                <div class="ep-tdate">Oct 5</div>
+              </div>
+            </div>
+          </div>
+          <!-- Due later -->
+          <div>
+            <div class="ep-section-lbl">Due later</div>
+            <div class="ep-tasks" style="margin-top:4px;">
+              <div class="ep-task">
+                <div class="ep-dot" style="background:#8A4A38;"></div>
+                <div class="ep-tinfo">
+                  <div class="ep-tname">Clean dishwasher filter</div>
+                  <div class="ep-tsub">Home · every 6 wks</div>
+                </div>
+                <div class="ep-tdate">Nov 8</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Tab bar -->
+        <div class="ep-tabs">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+            <svg width="14" height="14" viewBox="0 0 256 256" fill="none" stroke="#9B7FD4" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><rect x="40" y="40" width="72" height="72" rx="8"/><rect x="144" y="40" width="72" height="72" rx="8"/><rect x="40" y="144" width="72" height="72" rx="8"/><rect x="144" y="144" width="72" height="72" rx="8"/></svg>
+            <div style="font-size:5.5px;color:#9B7FD4;font-weight:500;">Today</div>
+          </div>
+          <div style="width:28px;"></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:2px;opacity:0.25;">
+            <svg width="14" height="14" viewBox="0 0 256 256" fill="none" stroke="#2C2824" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><path d="M32 200c0-44 24-72 96-72s96 28 96 72"/><circle cx="128" cy="88" r="40"/></svg>
+            <div style="font-size:5.5px;color:#2C2824;">Profile</div>
+          </div>
+          <!-- FAB -->
+          <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);width:30px;height:30px;border-radius:100px;background:#9B7FD4;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(155,127,212,0.45);">
+            <svg width="11" height="11" viewBox="0 0 256 256" fill="none"><line x1="128" y1="40" x2="128" y2="216" stroke="#FAF8FF" stroke-width="26" stroke-linecap="round"/><line x1="40" y1="128" x2="216" y2="128" stroke="#FAF8FF" stroke-width="26" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Option C editorial dashboard -->
+    <div class="phone-col">
+      <div class="phone-lbl">Option C · bold brights</div>
+      <div class="ep">
+        <div class="ep-status"><span class="ep-time">9:41</span><div class="ep-batt"></div></div>
+        <div class="ep-prog"><div style="height:100%;background:#7A5CE8;width:100%;"></div></div>
+        <div class="ep-body">
+          <div>
+            <div class="ep-g1">Good morning,</div>
+            <div class="ep-g2" style="color:#7A5CE8;">Martijn.</div>
+          </div>
+          <div class="ep-stat">
+            <div>
+              <div style="display:flex;align-items:baseline;gap:3px;">
+                <span class="ep-stat-num" style="color:#7A5CE8;">3</span>
+                <span style="font-size:7px;color:#A09888;">tasks this week</span>
+              </div>
+              <div style="font-size:6.5px;color:#A09888;margin-top:1px;font-style:italic;">Your boiler is counting on you.</div>
+            </div>
+          </div>
+          <div class="ep-chips">
+            <div class="ep-chip" style="background:rgba(122,92,232,0.1);color:#7A5CE8;border:0.5px solid rgba(122,92,232,0.28);">All</div>
+            <div class="ep-chip off">Home</div>
+            <div class="ep-chip off">Vehicle</div>
+            <div class="ep-chip off">Garden</div>
+          </div>
+          <div>
+            <div class="ep-section-lbl">This week</div>
+            <div class="ep-tasks" style="margin-top:4px;">
+              <div class="ep-task">
+                <div class="ep-dot" style="background:#8A3A1A;"></div>
+                <div class="ep-tinfo">
+                  <div class="ep-tname">Annual boiler service</div>
+                  <div class="ep-tsub">Home · yearly</div>
+                </div>
+                <div class="ep-tdate">Oct 28</div>
+              </div>
+              <div style="background:#FFFFFF;border-radius:9px;border:0.5px solid rgba(26,22,18,0.05);box-shadow:0 1px 3px rgba(26,22,18,0.04);">
+                <div style="padding:10px 11px;display:flex;align-items:center;gap:8px;">
+                  <div class="ep-dot" style="background:#1A4A72;"></div>
+                  <div class="ep-tinfo">
+                    <div class="ep-tname">Switch to winter tyres</div>
+                    <div class="ep-tsub">Vehicle · before Nov</div>
+                  </div>
+                  <div class="ep-tdate">Nov 1</div>
+                </div>
+                <div style="display:flex;gap:4px;padding:0 10px 9px;">
+                  <div style="flex:1;height:22px;background:#7A5CE8;border-radius:100px;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:500;color:#FAF8FF;">Done</div>
+                  <div style="flex:1;height:22px;background:rgba(26,22,18,0.05);border-radius:100px;display:flex;align-items:center;justify-content:center;font-size:7px;color:#8A8070;">Snooze</div>
+                  <div style="flex:1;height:22px;background:rgba(26,22,18,0.05);border-radius:100px;display:flex;align-items:center;justify-content:center;font-size:7px;color:#8A8070;">Skip</div>
+                </div>
+              </div>
+              <div class="ep-task">
+                <div class="ep-dot" style="background:#1A6038;"></div>
+                <div class="ep-tinfo">
+                  <div class="ep-tname">Autumn pruning</div>
+                  <div class="ep-tsub">Garden · yearly</div>
+                </div>
+                <div class="ep-tdate">Oct 5</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="ep-section-lbl">Due later</div>
+            <div class="ep-tasks" style="margin-top:4px;">
+              <div class="ep-task">
+                <div class="ep-dot" style="background:#8A3A1A;"></div>
+                <div class="ep-tinfo">
+                  <div class="ep-tname">Clean dishwasher filter</div>
+                  <div class="ep-tsub">Home · every 6 wks</div>
+                </div>
+                <div class="ep-tdate">Nov 8</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ep-tabs">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+            <svg width="14" height="14" viewBox="0 0 256 256" fill="none" stroke="#7A5CE8" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><rect x="40" y="40" width="72" height="72" rx="8"/><rect x="144" y="40" width="72" height="72" rx="8"/><rect x="40" y="144" width="72" height="72" rx="8"/><rect x="144" y="144" width="72" height="72" rx="8"/></svg>
+            <div style="font-size:5.5px;color:#7A5CE8;font-weight:500;">Today</div>
+          </div>
+          <div style="width:28px;"></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:2px;opacity:0.25;">
+            <svg width="14" height="14" viewBox="0 0 256 256" fill="none" stroke="#2C2824" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><path d="M32 200c0-44 24-72 96-72s96 28 96 72"/><circle cx="128" cy="88" r="40"/></svg>
+            <div style="font-size:5.5px;color:#2C2824;">Profile</div>
+          </div>
+          <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);width:30px;height:30px;border-radius:100px;background:#7A5CE8;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(122,92,232,0.45);">
+            <svg width="11" height="11" viewBox="0 0 256 256" fill="none"><line x1="128" y1="40" x2="128" y2="216" stroke="#FAF8FF" stroke-width="26" stroke-linecap="round"/><line x1="40" y1="128" x2="216" y2="128" stroke="#FAF8FF" stroke-width="26" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dark mode with apricot -->
+    <div class="phone-col">
+      <div class="phone-lbl">Dark · apricot greeting</div>
+      <div class="ep ep-dark">
+        <div class="ep-status" style="background:#1E1C18;"><span class="ep-time" style="color:rgba(224,221,214,0.55);">9:41</span><div class="ep-batt" style="border-color:rgba(224,221,214,0.2);"></div></div>
+        <div class="ep-prog" style="background:rgba(255,255,255,0.04);"><div style="height:100%;background:#9B7FD4;width:100%;"></div></div>
+        <div class="ep-body" style="background:#1E1C18;">
+          <div>
+            <div class="ep-g1" style="color:#4A4540;">Good morning,</div>
+            <div class="ep-g2" style="color:#E8A87C;">Martijn.</div>
+          </div>
+          <div class="ep-stat" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.05);">
+            <div>
+              <div style="display:flex;align-items:baseline;gap:3px;">
+                <span class="ep-stat-num" style="color:#9B7FD4;">3</span>
+                <span style="font-size:7px;color:#4A4540;">tasks this week</span>
+              </div>
+              <div style="font-size:6.5px;color:#4A4540;margin-top:1px;font-style:italic;">Your boiler is counting on you.</div>
+            </div>
+          </div>
+          <div class="ep-chips">
+            <div class="ep-chip" style="background:rgba(155,127,212,0.14);color:#9B7FD4;border:0.5px solid rgba(155,127,212,0.25);">All</div>
+            <div class="ep-chip" style="background:rgba(255,255,255,0.04);color:#4A4540;border:0.5px solid rgba(255,255,255,0.04);">Home</div>
+            <div class="ep-chip" style="background:rgba(255,255,255,0.04);color:#4A4540;border:0.5px solid rgba(255,255,255,0.04);">Vehicle</div>
+          </div>
+          <div>
+            <div class="ep-section-lbl" style="color:#3A3530;">This week</div>
+            <div class="ep-tasks" style="margin-top:4px;">
+              <div class="ep-task" style="background:#28261F;border-color:rgba(255,255,255,0.04);box-shadow:none;">
+                <div class="ep-dot" style="background:#c79f94;"></div>
+                <div class="ep-tinfo">
+                  <div class="ep-tname" style="color:#E0DDD6;">Annual boiler service</div>
+                  <div class="ep-tsub" style="color:#3A3530;">Home · yearly</div>
+                </div>
+                <div class="ep-tdate" style="color:#3A3530;">Oct 28</div>
+              </div>
+              <div style="background:#28261F;border-radius:9px;border:0.5px solid rgba(255,255,255,0.04);">
+                <div style="padding:10px 11px;display:flex;align-items:center;gap:8px;">
+                  <div class="ep-dot" style="background:#96afc4;"></div>
+                  <div class="ep-tinfo">
+                    <div class="ep-tname" style="color:#E0DDD6;">Switch to winter tyres</div>
+                    <div class="ep-tsub" style="color:#3A3530;">Vehicle · before Nov</div>
+                  </div>
+                  <div class="ep-tdate" style="color:#3A3530;">Nov 1</div>
+                </div>
+                <div style="display:flex;gap:4px;padding:0 10px 9px;">
+                  <div style="flex:1;height:22px;background:#9B7FD4;border-radius:100px;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:500;color:#FAF8FF;">Done</div>
+                  <div style="flex:1;height:22px;background:rgba(255,255,255,0.06);border-radius:100px;display:flex;align-items:center;justify-content:center;font-size:7px;color:#4A4540;">Snooze</div>
+                  <div style="flex:1;height:22px;background:rgba(255,255,255,0.06);border-radius:100px;display:flex;align-items:center;justify-content:center;font-size:7px;color:#4A4540;">Skip</div>
+                </div>
+              </div>
+              <div class="ep-task" style="background:#28261F;border-color:rgba(255,255,255,0.04);box-shadow:none;">
+                <div class="ep-dot" style="background:#9dc695;"></div>
+                <div class="ep-tinfo">
+                  <div class="ep-tname" style="color:#E0DDD6;">Autumn pruning</div>
+                  <div class="ep-tsub" style="color:#3A3530;">Garden · yearly</div>
+                </div>
+                <div class="ep-tdate" style="color:#3A3530;">Oct 5</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ep-tabs" style="background:#28261F;border-top:0.5px solid rgba(255,255,255,0.04);">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+            <svg width="14" height="14" viewBox="0 0 256 256" fill="none" stroke="#9B7FD4" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><rect x="40" y="40" width="72" height="72" rx="8"/><rect x="144" y="40" width="72" height="72" rx="8"/><rect x="40" y="144" width="72" height="72" rx="8"/><rect x="144" y="144" width="72" height="72" rx="8"/></svg>
+            <div style="font-size:5.5px;color:#9B7FD4;font-weight:500;">Today</div>
+          </div>
+          <div style="width:28px;"></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:2px;opacity:0.2;">
+            <svg width="14" height="14" viewBox="0 0 256 256" fill="none" stroke="#E0DDD6" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><path d="M32 200c0-44 24-72 96-72s96 28 96 72"/><circle cx="128" cy="88" r="40"/></svg>
+            <div style="font-size:5.5px;color:#E0DDD6;">Profile</div>
+          </div>
+          <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);width:30px;height:30px;border-radius:100px;background:#9B7FD4;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,0.4);">
+            <svg width="11" height="11" viewBox="0 0 256 256" fill="none"><line x1="128" y1="40" x2="128" y2="216" stroke="#FAF8FF" stroke-width="26" stroke-linecap="round"/><line x1="40" y1="128" x2="216" y2="128" stroke="#FAF8FF" stroke-width="26" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Annotation -->
+  <div class="anno">
+    <div class="anno-item">
+      <svg class="anno-arrow" width="16" height="10" viewBox="0 0 16 10" fill="none"><line x1="0" y1="5" x2="12" y2="5" stroke="#3A3530" stroke-width="1"/><polyline points="9,2 12,5 9,8" stroke="#3A3530" stroke-width="1" fill="none"/></svg>
+      <div class="anno-text"><strong>The dot</strong> — 6px filled circle. This is the entire category color system for each card.</div>
+    </div>
+    <div class="anno-item">
+      <svg class="anno-arrow" width="16" height="10" viewBox="0 0 16 10" fill="none"><line x1="0" y1="5" x2="12" y2="5" stroke="#3A3530" stroke-width="1"/><polyline points="9,2 12,5 9,8" stroke="#3A3530" stroke-width="1" fill="none"/></svg>
+      <div class="anno-text"><strong>White cards on cream</strong> — the surface lifts slightly off the cream background. No fills, no tints.</div>
+    </div>
+    <div class="anno-item">
+      <svg class="anno-arrow" width="16" height="10" viewBox="0 0 16 10" fill="none"><line x1="0" y1="5" x2="12" y2="5" stroke="#3A3530" stroke-width="1"/><polyline points="9,2 12,5 9,8" stroke="#3A3530" stroke-width="1" fill="none"/></svg>
+      <div class="anno-text"><strong>Section labels</strong> — "This week" / "Due later" in 6.5px uppercase. The only uppercase text on screen.</div>
+    </div>
+    <div class="anno-item">
+      <svg class="anno-arrow" width="16" height="10" viewBox="0 0 16 10" fill="none"><line x1="0" y1="5" x2="12" y2="5" stroke="#3A3530" stroke-width="1"/><polyline points="9,2 12,5 9,8" stroke="#3A3530" stroke-width="1" fill="none"/></svg>
+      <div class="anno-text">In dark mode <strong>apricot glows</strong> for the greeting name — warm, personal. Purple stays for action.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── S-03 BROWSE ── -->
+<div class="divider"></div>
+<div class="section-ey">Browse categories · S-03</div>
+<h2 class="section-h">Selecting what you own</h2>
+<p class="section-sub">List view instead of a tile grid. Category name in strong type, colored dot on the left. Looks like a beautifully made index. Selected rows get a faint dot check — no filled backgrounds.</p>
+
+<div class="phone-pair">
+
+  <!-- Option A S-03 -->
+  <div class="phone-col">
+    <div class="phone-lbl">Option A · vivid pastels</div>
+    <div class="ep ep-s03">
+      <div class="ep-status"><span class="ep-time">9:41</span><div class="ep-batt"></div></div>
+      <div class="ep-prog"><div style="height:100%;background:#9B7FD4;width:60%;"></div></div>
+      <div class="ep-body">
+        <div>
+          <div style="font-family:'DM Serif Display',serif;font-size:13px;color:#2C2824;line-height:1.1;">What do you have?</div>
+          <div style="font-size:8px;font-style:italic;color:#A09888;margin-top:2px;">Tap everything that applies.</div>
+        </div>
+        <div class="ep-search">
+          <svg class="ep-search-icon" viewBox="0 0 256 256" fill="none" stroke="#2C2824" stroke-width="20"><circle cx="112" cy="112" r="72"/><line x1="168" y1="168" x2="224" y2="224"/></svg>
+          <span class="ep-search-text">Search categories...</span>
+        </div>
+        <div class="ep-cat-list">
+          <!-- Selected: Home -->
+          <div class="ep-cat-row sel">
+            <div style="width:6px;height:6px;border-radius:50%;background:#8A4A38;flex-shrink:0;"></div>
+            <div class="ep-cat-name">Home</div>
+            <!-- check -->
+            <div style="width:13px;height:13px;border-radius:50%;background:#8A4A38;display:flex;align-items:center;justify-content:center;">
+              <svg width="7" height="7" viewBox="0 0 256 256" fill="none"><path d="M48 136l60 60 100-100" stroke="#FAF8FF" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <!-- Selected: Vehicle -->
+          <div class="ep-cat-row sel">
+            <div style="width:6px;height:6px;border-radius:50%;background:#3A6080;flex-shrink:0;"></div>
+            <div class="ep-cat-name">Vehicle</div>
+            <div style="width:13px;height:13px;border-radius:50%;background:#3A6080;display:flex;align-items:center;justify-content:center;">
+              <svg width="7" height="7" viewBox="0 0 256 256" fill="none"><path d="M48 136l60 60 100-100" stroke="#FAF8FF" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="ep-cat-row">
+            <div style="width:6px;height:6px;border-radius:50%;background:#3A7030;flex-shrink:0;"></div>
+            <div class="ep-cat-name">Garden</div>
+            <div style="width:13px;height:13px;border-radius:50%;border:1px solid rgba(26,22,18,0.12);"></div>
+          </div>
+          <div class="ep-cat-row">
+            <div style="width:6px;height:6px;border-radius:50%;background:#5A3A8A;flex-shrink:0;"></div>
+            <div class="ep-cat-name">Subscriptions</div>
+            <div style="width:13px;height:13px;border-radius:50%;border:1px solid rgba(26,22,18,0.12);"></div>
+          </div>
+          <div class="ep-cat-row">
+            <div style="width:6px;height:6px;border-radius:50%;background:#8A6020;flex-shrink:0;"></div>
+            <div class="ep-cat-name">Health</div>
+            <div style="width:13px;height:13px;border-radius:50%;border:1px solid rgba(26,22,18,0.12);"></div>
+          </div>
+          <div class="ep-cat-row">
+            <div style="width:6px;height:6px;border-radius:50%;background:#8A5020;flex-shrink:0;"></div>
+            <div class="ep-cat-name">Pets</div>
+            <div style="width:13px;height:13px;border-radius:50%;border:1px solid rgba(26,22,18,0.12);"></div>
+          </div>
+          <div class="ep-cat-row">
+            <div style="width:6px;height:6px;border-radius:50%;background:#1A7060;flex-shrink:0;"></div>
+            <div class="ep-cat-name">Finance</div>
+            <div style="width:13px;height:13px;border-radius:50%;border:1px solid rgba(26,22,18,0.12);"></div>
+          </div>
+        </div>
+        <!-- sticky CTA -->
+        <div style="margin-top:auto;padding-top:6px;">
+          <div style="height:34px;background:#9B7FD4;border-radius:100px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:9px;font-weight:500;color:#FAF8FF;box-shadow:0 2px 10px rgba(155,127,212,0.3);">
+            Good start, continue
+            <svg width="9" height="9" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="96" stroke="#FAF8FF" stroke-width="20"/><line x1="88" y1="128" x2="168" y2="128" stroke="#FAF8FF" stroke-width="20" stroke-linecap="round"/><polyline points="140,100 168,128 140,156" stroke="#FAF8FF" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Option C S-03 -->
+  <div class="phone-col">
+    <div class="phone-lbl">Option C · bold brights</div>
+    <div class="ep ep-s03">
+      <div class="ep-status"><span class="ep-time">9:41</span><div class="ep-batt"></div></div>
+      <div class="ep-prog"><div style="height:100%;background:#7A5CE8;width:60%;"></div></div>
+      <div class="ep-body">
+        <div>
+          <div style="font-family:'DM Serif Display',serif;font-size:13px;color:#2C2824;line-height:1.1;">What do you have?</div>
+          <div style="font-size:8px;font-style:italic;color:#A09888;margin-top:2px;">Tap everything that applies.</div>
+        </div>
+        <div class="ep-search">
+          <svg class="ep-search-icon" viewBox="0 0 256 256" fill="none" stroke="#2C2824" stroke-width="20"><circle cx="112" cy="112" r="72"/><line x1="168" y1="168" x2="224" y2="224"/></svg>
+          <span class="ep-search-text">Search categories...</span>
+        </div>
+        <div class="ep-cat-list">
+          <div class="ep-cat-row sel">
+            <div style="width:6px;height:6px;border-radius:50%;background:#8A3A1A;flex-shrink:0;"></div>
+            <div class="ep-cat-name">Home</div>
+            <div style="width:13px;height:13px;border-radius:50%;background:#8A3A1A;display:flex;align-items:center;justify-content:center;">
+              <svg width="7" height="7" viewBox="0 0 256 256" fill="none"><path d="M48 136l60 60 100-100" stroke="#FAF8FF" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="ep-cat-row sel">
+            <div style="width:6px;height:6px;border-radius:50%;background:#1A4A72;flex-shrink:0;"></div>
+            <div class="ep-cat-name">Vehicle</div>
+            <div style="width:13px;height:13px;border-radius:50%;background:#1A4A72;display:flex;align-items:center;justify-content:center;">
+              <svg width="7" height="7" viewBox="0 0 256 256" fill="none"><path d="M48 136l60 60 100-100" stroke="#FAF8FF" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="ep-cat-row">
+            <div style="width:6px;height:6px;border-radius:50%;background:#1A6038;flex-shrink:0;"></div>
+            <div class="ep-cat-name">Garden</div>
+            <div style="width:13px;height:13px;border-radius:50%;border:1px solid rgba(26,22,18,0.12);"></div>
+          </div>
+          <div class="ep-cat-row">
+            <div style="width:6px;height:6px;border-radius:50%;background:#4A1A8A;flex-shrink:0;"></div>
+            <div class="ep-cat-name">Subscriptions</div>
+            <div style="width:13px;height:13px;border-radius:50%;border:1px solid rgba(26,22,18,0.12);"></div>
+          </div>
+          <div class="ep-cat-row">
+            <div style="width:6px;height:6px;border-radius:50%;background:#7A6010;flex-shrink:0;"></div>
+            <div class="ep-cat-name">Health</div>
+            <div style="width:13px;height:13px;border-radius:50%;border:1px solid rgba(26,22,18,0.12);"></div>
+          </div>
+          <div class="ep-cat-row">
+            <div style="width:6px;height:6px;border-radius:50%;background:#8A1A28;flex-shrink:0;"></div>
+            <div class="ep-cat-name">Pets</div>
+            <div style="width:13px;height:13px;border-radius:50%;border:1px solid rgba(26,22,18,0.12);"></div>
+          </div>
+          <div class="ep-cat-row">
+            <div style="width:6px;height:6px;border-radius:50%;background:#1A6050;flex-shrink:0;"></div>
+            <div class="ep-cat-name">Finance</div>
+            <div style="width:13px;height:13px;border-radius:50%;border:1px solid rgba(26,22,18,0.12);"></div>
+          </div>
+        </div>
+        <div style="margin-top:auto;padding-top:6px;">
+          <div style="height:34px;background:#7A5CE8;border-radius:100px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:9px;font-weight:500;color:#FAF8FF;box-shadow:0 2px 10px rgba(122,92,232,0.3);">
+            Good start, continue
+            <svg width="9" height="9" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="96" stroke="#FAF8FF" stroke-width="20"/><line x1="88" y1="128" x2="168" y2="128" stroke="#FAF8FF" stroke-width="20" stroke-linecap="round"/><polyline points="140,100 168,128 140,156" stroke="#FAF8FF" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S-03 note -->
+  <div style="padding-top:16px;max-width:200px;">
+    <div style="font-size:11px;color:#3A3530;line-height:1.7;">
+      <p style="margin-bottom:12px;">The list view reads like a beautiful index. Category name in strong type, dot as the sole color signal.</p>
+      <p style="margin-bottom:12px;">In option C, the dots are noticeably more distinct (deep orange vs navy vs forest vs violet) — stronger differentiation in a small space.</p>
+      <p>Both options A and C look equally clean here. The dot system works at any saturation level.</p>
+    </div>
+  </div>
+
+</div>
+
+</div><!-- end page -->
+</body>
+</html>

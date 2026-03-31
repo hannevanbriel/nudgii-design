@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · Category color options</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:#1A1714;
+  color:#E0DDD6;
+  padding:48px 32px 80px;
+  min-height:100vh;
+}
+
+.page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.logo{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:500;color:rgba(224,221,214,0.5);}
+.logo svg{width:20px;height:22px;}
+.badge{font-size:10px;font-weight:500;padding:4px 12px;border-radius:100px;background:rgba(155,127,212,0.15);color:#C4A8E8;border:0.5px solid rgba(155,127,212,0.3);}
+.eyebrow{font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(224,221,214,0.3);margin-bottom:40px;}
+
+/* OPTIONS GRID */
+.options{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;align-items:start;}
+.option{display:flex;flex-direction:column;gap:16px;}
+
+.option-label{font-size:9px;font-weight:600;letter-spacing:1.8px;text-transform:uppercase;color:rgba(224,221,214,0.35);}
+.option-label.current{color:rgba(224,221,214,0.25);}
+.option-label.a{color:rgba(240,200,180,0.7);}
+.option-label.b{color:rgba(155,127,212,0.7);}
+.option-label.c{color:rgba(100,200,150,0.6);}
+
+.option-name{font-family:'DM Serif Display',serif;font-size:18px;color:#E0DDD6;line-height:1.2;margin-top:2px;}
+.option-desc{font-size:10px;color:rgba(224,221,214,0.45);line-height:1.55;margin-top:4px;}
+
+/* PHONE */
+.phone{
+  width:100%;
+  aspect-ratio:390/844;
+  background:#F5F0E8;
+  border-radius:44px;
+  overflow:hidden;
+  border:1.5px solid rgba(26,22,18,0.12);
+  box-shadow:0 20px 60px rgba(0,0,0,0.55);
+  font-family:'DM Sans',sans-serif;
+  display:flex;
+  flex-direction:column;
+}
+.phone-status{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 22px 6px;
+  font-size:9px;font-weight:600;color:#2C2824;
+  flex-shrink:0;
+}
+.phone-scroll{flex:1;overflow:hidden;padding:0 18px;}
+.phone-greeting{margin:10px 0 14px;}
+.greeting-line{font-size:13px;color:#8A8070;}
+.greeting-name{
+  font-family:'DM Serif Display',serif;
+  font-style:italic;
+  font-size:28px;
+  line-height:1.1;
+  color:#C8784A;
+}
+.section-label{
+  font-size:8px;font-weight:600;letter-spacing:1.5px;
+  text-transform:uppercase;color:#8A8070;
+  margin:0 0 7px;
+}
+.cat-strip{display:flex;gap:5px;margin-bottom:13px;overflow:hidden;}
+.chip{
+  display:inline-flex;align-items:center;gap:4px;
+  border-radius:100px;padding:5px 11px;
+  font-size:9px;font-weight:500;
+  flex-shrink:0;
+}
+.task{
+  background:#fff;
+  border-radius:12px;
+  padding:9px 11px;
+  margin-bottom:6px;
+  display:flex;align-items:center;gap:9px;
+  border:0.5px solid rgba(26,22,18,0.06);
+}
+.task-icon{
+  width:28px;height:28px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.task-icon svg{width:13px;height:13px;}
+.task-info{flex:1;min-width:0;}
+.task-name{font-size:10px;font-weight:500;color:#2C2824;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.task-sub{font-size:8px;color:#8A8070;margin-top:1px;}
+.task-date{font-size:9px;font-weight:600;flex-shrink:0;}
+.overdue{color:#C8784A;}
+.phone-cta{padding:8px 18px 22px;flex-shrink:0;}
+.cta-btn{
+  width:100%;padding:13px;border-radius:100px;border:none;
+  font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;
+  background:#9B7FD4;color:#FAF8FF;cursor:pointer;
+}
+
+/* COLOR SWATCHES UNDER PHONE */
+.swatch-row{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:10px;}
+.swatch{border-radius:8px;height:28px;}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="logo">
+    <svg viewBox="0 0 626 700" fill="none"><path d="M125,0C194,0,250,58,250,129v442c0,71-56,129-125,129S0,642,0,571V129C0,58,56,0,125,0Z" fill="#9B7FD4"/><path d="M451,0c69,0,125,58,125,129v442c0,71-56,129-125,129s-125-58-125-129V129C326,58,382,0,451,0Z" fill="#2D1F4A"/><circle cx="536" cy="119" r="90" fill="#E8A87C"/></svg>
+    nudgii · tile color options
+  </div>
+  <div class="badge">Pick one</div>
+</div>
+<div class="eyebrow">Category color exploration · March 2026</div>
+
+<div class="options">
+
+  <!-- CURRENT -->
+  <div class="option">
+    <div>
+      <div class="option-label current">Current v10.5</div>
+      <div class="option-name" style="color:rgba(224,221,214,0.4);">Soft pastels</div>
+      <div class="option-desc">What's live today. Safe, harmonious, a little flat.</div>
+    </div>
+    <div class="phone">
+      <div class="phone-status"><span>9:41</span><span style="letter-spacing:-1px;">●●● ▐</span></div>
+      <div class="phone-scroll">
+        <div class="phone-greeting">
+          <div class="greeting-line">Good morning,</div>
+          <div class="greeting-name">Martijn.</div>
+        </div>
+        <div class="cat-strip">
+          <div class="chip" style="background:#9B7FD4;color:#FAF8FF;">All</div>
+          <div class="chip" style="background:#D2BEB6;color:#7A5A50;">Home</div>
+          <div class="chip" style="background:#C0CDD8;color:#4A6A82;">Vehicle</div>
+          <div class="chip" style="background:#C4DABE;color:#4A7A40;">Garden</div>
+        </div>
+        <div class="section-label">Overdue</div>
+        <div class="task">
+          <div class="task-icon" style="background:#D2BEB6;">
+            <svg viewBox="0 0 256 256" fill="none"><rect x="32" y="48" width="192" height="160" rx="16" stroke="#7A5A50" stroke-width="18" fill="none"/><line x1="32" y1="100" x2="224" y2="100" stroke="#7A5A50" stroke-width="16"/><line x1="128" y1="48" x2="128" y2="208" stroke="#7A5A50" stroke-width="14"/></svg>
+          </div>
+          <div class="task-info">
+            <div class="task-name">Refill dishwasher salt</div>
+            <div class="task-sub">Home · every 6–8 wks</div>
+          </div>
+          <div class="task-date overdue">12d</div>
+        </div>
+        <div class="task">
+          <div class="task-icon" style="background:#C0CDD8;">
+            <svg viewBox="0 0 256 256" fill="none"><path d="M8 144a8 8 0 0 1 8-8h16L60 80h136l28 56h16a8 8 0 0 1 8 8v32a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8z" stroke="#4A6A82" stroke-width="18" fill="none" stroke-linejoin="round"/><circle cx="76" cy="192" r="20" stroke="#4A6A82" stroke-width="16" fill="none"/><circle cx="180" cy="192" r="20" stroke="#4A6A82" stroke-width="16" fill="none"/></svg>
+          </div>
+          <div class="task-info">
+            <div class="task-name">Switch to winter tyres</div>
+            <div class="task-sub">Vehicle · before Nov</div>
+          </div>
+          <div class="task-date overdue">3d</div>
+        </div>
+        <div class="section-label" style="margin-top:10px;">This week</div>
+        <div class="task">
+          <div class="task-icon" style="background:#C4DABE;">
+            <svg viewBox="0 0 256 256" fill="none"><line x1="128" y1="224" x2="128" y2="100" stroke="#4A7A40" stroke-width="16" stroke-linecap="round"/><path d="M128 160c0 0-40-18-56-62s22-84 56-76c34-8 72 32 56 76s-56 62-56 62z" stroke="#4A7A40" stroke-width="14" fill="none"/></svg>
+          </div>
+          <div class="task-info">
+            <div class="task-name">Trim hedge</div>
+            <div class="task-sub">Garden · Apr + Jul</div>
+          </div>
+          <div class="task-date" style="color:#8A8070;">Nov 8</div>
+        </div>
+        <div class="task">
+          <div class="task-icon" style="background:#D0C6DC;">
+            <svg viewBox="0 0 256 256" fill="none"><path d="M128 24L32 64v72c0 56 40 96 96 112 56-16 96-56 96-112V64z" stroke="#6A5085" stroke-width="16" fill="none" stroke-linejoin="round"/><path d="M92 128l28 28 44-52" stroke="#6A5085" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="task-info">
+            <div class="task-name">Renew car insurance</div>
+            <div class="task-sub">Subscriptions · yearly</div>
+          </div>
+          <div class="task-date" style="color:#8A8070;">Nov 12</div>
+        </div>
+      </div>
+      <div class="phone-cta"><button class="cta-btn">Open nudgii</button></div>
+    </div>
+    <div class="swatch-row">
+      <div class="swatch" style="background:#D2BEB6;" title="Home"></div>
+      <div class="swatch" style="background:#C0CDD8;" title="Vehicle"></div>
+      <div class="swatch" style="background:#C4DABE;" title="Garden"></div>
+      <div class="swatch" style="background:#D0C6DC;" title="Subs"></div>
+    </div>
+  </div>
+
+  <!-- OPTION A: VIVID PASTELS -->
+  <div class="option">
+    <div>
+      <div class="option-label a">Option A</div>
+      <div class="option-name">Vivid pastels</div>
+      <div class="option-desc">Same concept, more life. Each category reads instantly. More saturated, same lightness.</div>
+    </div>
+    <div class="phone">
+      <div class="phone-status"><span>9:41</span><span style="letter-spacing:-1px;">●●● ▐</span></div>
+      <div class="phone-scroll">
+        <div class="phone-greeting">
+          <div class="greeting-line">Good morning,</div>
+          <div class="greeting-name">Martijn.</div>
+        </div>
+        <div class="cat-strip">
+          <div class="chip" style="background:#9B7FD4;color:#FAF8FF;">All</div>
+          <div class="chip" style="background:#F2CABF;color:#8A4A38;">Home</div>
+          <div class="chip" style="background:#BAD4EC;color:#3A6080;">Vehicle</div>
+          <div class="chip" style="background:#B4DCA8;color:#3A7030;">Garden</div>
+        </div>
+        <div class="section-label">Overdue</div>
+        <div class="task">
+          <div class="task-icon" style="background:#F2CABF;">
+            <svg viewBox="0 0 256 256" fill="none"><rect x="32" y="48" width="192" height="160" rx="16" stroke="#8A4A38" stroke-width="18" fill="none"/><line x1="32" y1="100" x2="224" y2="100" stroke="#8A4A38" stroke-width="16"/><line x1="128" y1="48" x2="128" y2="208" stroke="#8A4A38" stroke-width="14"/></svg>
+          </div>
+          <div class="task-info">
+            <div class="task-name">Refill dishwasher salt</div>
+            <div class="task-sub">Home · every 6–8 wks</div>
+          </div>
+          <div class="task-date overdue">12d</div>
+        </div>
+        <div class="task">
+          <div class="task-icon" style="background:#BAD4EC;">
+            <svg viewBox="0 0 256 256" fill="none"><path d="M8 144a8 8 0 0 1 8-8h16L60 80h136l28 56h16a8 8 0 0 1 8 8v32a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8z" stroke="#3A6080" stroke-width="18" fill="none" stroke-linejoin="round"/><circle cx="76" cy="192" r="20" stroke="#3A6080" stroke-width="16" fill="none"/><circle cx="180" cy="192" r="20" stroke="#3A6080" stroke-width="16" fill="none"/></svg>
+          </div>
+          <div class="task-info">
+            <div class="task-name">Switch to winter tyres</div>
+            <div class="task-sub">Vehicle · before Nov</div>
+          </div>
+          <div class="task-date overdue">3d</div>
+        </div>
+        <div class="section-label" style="margin-top:10px;">This week</div>
+        <div class="task">
+          <div class="task-icon" style="background:#B4DCA8;">
+            <svg viewBox="0 0 256 256" fill="none"><line x1="128" y1="224" x2="128" y2="100" stroke="#3A7030" stroke-width="16" stroke-linecap="round"/><path d="M128 160c0 0-40-18-56-62s22-84 56-76c34-8 72 32 56 76s-56 62-56 62z" stroke="#3A7030" stroke-width="14" fill="none"/></svg>
+          </div>
+          <div class="task-info">
+            <div class="task-name">Trim hedge</div>
+            <div class="task-sub">Garden · Apr + Jul</div>
+          </div>
+          <div class="task-date" style="color:#8A8070;">Nov 8</div>
+        </div>
+        <div class="task">
+          <div class="task-icon" style="background:#CFC0EC;">
+            <svg viewBox="0 0 256 256" fill="none"><path d="M128 24L32 64v72c0 56 40 96 96 112 56-16 96-56 96-112V64z" stroke="#5A3A8A" stroke-width="16" fill="none" stroke-linejoin="round"/><path d="M92 128l28 28 44-52" stroke="#5A3A8A" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="task-info">
+            <div class="task-name">Renew car insurance</div>
+            <div class="task-sub">Subscriptions · yearly</div>
+          </div>
+          <div class="task-date" style="color:#8A8070;">Nov 12</div>
+        </div>
+      </div>
+      <div class="phone-cta"><button class="cta-btn">Open nudgii</button></div>
+    </div>
+    <div class="swatch-row">
+      <div class="swatch" style="background:#F2CABF;"></div>
+      <div class="swatch" style="background:#BAD4EC;"></div>
+      <div class="swatch" style="background:#B4DCA8;"></div>
+      <div class="swatch" style="background:#CFC0EC;"></div>
+    </div>
+  </div>
+
+  <!-- OPTION B: WARM EDITORIAL -->
+  <div class="option">
+    <div>
+      <div class="option-label b">Option B</div>
+      <div class="option-name">Warm editorial</div>
+      <div class="option-desc">Muted but deliberate. Feels considered and warm. Each hue has a mood, not just a label.</div>
+    </div>
+    <div class="phone">
+      <div class="phone-status"><span>9:41</span><span style="letter-spacing:-1px;">●●● ▐</span></div>
+      <div class="phone-scroll">
+        <div class="phone-greeting">
+          <div class="greeting-line">Good morning,</div>
+          <div class="greeting-name">Martijn.</div>
+        </div>
+        <div class="cat-strip">
+          <div class="chip" style="background:#9B7FD4;color:#FAF8FF;">All</div>
+          <div class="chip" style="background:#EEC8A8;color:#7A4828;">Home</div>
+          <div class="chip" style="background:#B8C8DC;color:#384C64;">Vehicle</div>
+          <div class="chip" style="background:#C0D8B8;color:#3A6032;">Garden</div>
+        </div>
+        <div class="section-label">Overdue</div>
+        <div class="task">
+          <div class="task-icon" style="background:#EEC8A8;">
+            <svg viewBox="0 0 256 256" fill="none"><rect x="32" y="48" width="192" height="160" rx="16" stroke="#7A4828" stroke-width="18" fill="none"/><line x1="32" y1="100" x2="224" y2="100" stroke="#7A4828" stroke-width="16"/><line x1="128" y1="48" x2="128" y2="208" stroke="#7A4828" stroke-width="14"/></svg>
+          </div>
+          <div class="task-info">
+            <div class="task-name">Refill dishwasher salt</div>
+            <div class="task-sub">Home · every 6–8 wks</div>
+          </div>
+          <div class="task-date overdue">12d</div>
+        </div>
+        <div class="task">
+          <div class="task-icon" style="background:#B8C8DC;">
+            <svg viewBox="0 0 256 256" fill="none"><path d="M8 144a8 8 0 0 1 8-8h16L60 80h136l28 56h16a8 8 0 0 1 8 8v32a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8z" stroke="#384C64" stroke-width="18" fill="none" stroke-linejoin="round"/><circle cx="76" cy="192" r="20" stroke="#384C64" stroke-width="16" fill="none"/><circle cx="180" cy="192" r="20" stroke="#384C64" stroke-width="16" fill="none"/></svg>
+          </div>
+          <div class="task-info">
+            <div class="task-name">Switch to winter tyres</div>
+            <div class="task-sub">Vehicle · before Nov</div>
+          </div>
+          <div class="task-date overdue">3d</div>
+        </div>
+        <div class="section-label" style="margin-top:10px;">This week</div>
+        <div class="task">
+          <div class="task-icon" style="background:#C0D8B8;">
+            <svg viewBox="0 0 256 256" fill="none"><line x1="128" y1="224" x2="128" y2="100" stroke="#3A6032" stroke-width="16" stroke-linecap="round"/><path d="M128 160c0 0-40-18-56-62s22-84 56-76c34-8 72 32 56 76s-56 62-56 62z" stroke="#3A6032" stroke-width="14" fill="none"/></svg>
+          </div>
+          <div class="task-info">
+            <div class="task-name">Trim hedge</div>
+            <div class="task-sub">Garden · Apr + Jul</div>
+          </div>
+          <div class="task-date" style="color:#8A8070;">Nov 8</div>
+        </div>
+        <div class="task">
+          <div class="task-icon" style="background:#D4C4E8;">
+            <svg viewBox="0 0 256 256" fill="none"><path d="M128 24L32 64v72c0 56 40 96 96 112 56-16 96-56 96-112V64z" stroke="#5A3A80" stroke-width="16" fill="none" stroke-linejoin="round"/><path d="M92 128l28 28 44-52" stroke="#5A3A80" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="task-info">
+            <div class="task-name">Renew car insurance</div>
+            <div class="task-sub">Subscriptions · yearly</div>
+          </div>
+          <div class="task-date" style="color:#8A8070;">Nov 12</div>
+        </div>
+      </div>
+      <div class="phone-cta"><button class="cta-btn">Open nudgii</button></div>
+    </div>
+    <div class="swatch-row">
+      <div class="swatch" style="background:#EEC8A8;"></div>
+      <div class="swatch" style="background:#B8C8DC;"></div>
+      <div class="swatch" style="background:#C0D8B8;"></div>
+      <div class="swatch" style="background:#D4C4E8;"></div>
+    </div>
+  </div>
+
+  <!-- OPTION C: BOLD BRIGHTS -->
+  <div class="option">
+    <div>
+      <div class="option-label c">Option C</div>
+      <div class="option-name">Bold brights</div>
+      <div class="option-desc">Each category owns its color. Tiimo energy. Fresh, confident, nothing boring.</div>
+    </div>
+    <div class="phone">
+      <div class="phone-status"><span>9:41</span><span style="letter-spacing:-1px;">●●● ▐</span></div>
+      <div class="phone-scroll">
+        <div class="phone-greeting">
+          <div class="greeting-line">Good morning,</div>
+          <div class="greeting-name">Martijn.</div>
+        </div>
+        <div class="cat-strip">
+          <div class="chip" style="background:#9B7FD4;color:#FAF8FF;">All</div>
+          <div class="chip" style="background:#FFCFB8;color:#8A3A1A;">Home</div>
+          <div class="chip" style="background:#B8E0F8;color:#1A4A72;">Vehicle</div>
+          <div class="chip" style="background:#B0E8C8;color:#1A6038;">Garden</div>
+        </div>
+        <div class="section-label">Overdue</div>
+        <div class="task">
+          <div class="task-icon" style="background:#FFCFB8;">
+            <svg viewBox="0 0 256 256" fill="none"><rect x="32" y="48" width="192" height="160" rx="16" stroke="#8A3A1A" stroke-width="18" fill="none"/><line x1="32" y1="100" x2="224" y2="100" stroke="#8A3A1A" stroke-width="16"/><line x1="128" y1="48" x2="128" y2="208" stroke="#8A3A1A" stroke-width="14"/></svg>
+          </div>
+          <div class="task-info">
+            <div class="task-name">Refill dishwasher salt</div>
+            <div class="task-sub">Home · every 6–8 wks</div>
+          </div>
+          <div class="task-date overdue">12d</div>
+        </div>
+        <div class="task">
+          <div class="task-icon" style="background:#B8E0F8;">
+            <svg viewBox="0 0 256 256" fill="none"><path d="M8 144a8 8 0 0 1 8-8h16L60 80h136l28 56h16a8 8 0 0 1 8 8v32a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8z" stroke="#1A4A72" stroke-width="18" fill="none" stroke-linejoin="round"/><circle cx="76" cy="192" r="20" stroke="#1A4A72" stroke-width="16" fill="none"/><circle cx="180" cy="192" r="20" stroke="#1A4A72" stroke-width="16" fill="none"/></svg>
+          </div>
+          <div class="task-info">
+            <div class="task-name">Switch to winter tyres</div>
+            <div class="task-sub">Vehicle · before Nov</div>
+          </div>
+          <div class="task-date overdue">3d</div>
+        </div>
+        <div class="section-label" style="margin-top:10px;">This week</div>
+        <div class="task">
+          <div class="task-icon" style="background:#B0E8C8;">
+            <svg viewBox="0 0 256 256" fill="none"><line x1="128" y1="224" x2="128" y2="100" stroke="#1A6038" stroke-width="16" stroke-linecap="round"/><path d="M128 160c0 0-40-18-56-62s22-84 56-76c34-8 72 32 56 76s-56 62-56 62z" stroke="#1A6038" stroke-width="14" fill="none"/></svg>
+          </div>
+          <div class="task-info">
+            <div class="task-name">Trim hedge</div>
+            <div class="task-sub">Garden · Apr + Jul</div>
+          </div>
+          <div class="task-date" style="color:#8A8070;">Nov 8</div>
+        </div>
+        <div class="task">
+          <div class="task-icon" style="background:#DCC8F8;">
+            <svg viewBox="0 0 256 256" fill="none"><path d="M128 24L32 64v72c0 56 40 96 96 112 56-16 96-56 96-112V64z" stroke="#4A1A8A" stroke-width="16" fill="none" stroke-linejoin="round"/><path d="M92 128l28 28 44-52" stroke="#4A1A8A" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="task-info">
+            <div class="task-name">Renew car insurance</div>
+            <div class="task-sub">Subscriptions · yearly</div>
+          </div>
+          <div class="task-date" style="color:#8A8070;">Nov 12</div>
+        </div>
+      </div>
+      <div class="phone-cta"><button class="cta-btn">Open nudgii</button></div>
+    </div>
+    <div class="swatch-row">
+      <div class="swatch" style="background:#FFCFB8;"></div>
+      <div class="swatch" style="background:#B8E0F8;"></div>
+      <div class="swatch" style="background:#B0E8C8;"></div>
+      <div class="swatch" style="background:#DCC8F8;"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTNOTE -->
+<div style="margin-top:48px;padding:20px;background:rgba(224,221,214,0.04);border-radius:12px;border:0.5px solid rgba(224,221,214,0.07);max-width:600px;">
+  <div style="font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(224,221,214,0.3);margin-bottom:8px;">All options share</div>
+  <div style="font-size:11px;color:rgba(224,221,214,0.5);line-height:1.7;">
+    Cream background · white task cards · purple CTA · apricot greeting name · apricot overdue signal · same icons, same typefaces.<br>
+    The only variable is the category tile and chip color.
+  </div>
+</div>
+
+</body>
+</html>

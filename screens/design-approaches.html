@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · Design approaches</title>
+<link rel="stylesheet" href="../system/components.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#131110;color:#E0DDD6;padding:60px 52px 120px;}
+
+.page-title{font-family:'DM Serif Display',serif;font-size:30px;color:#E0DDD6;margin-bottom:6px;}
+.page-meta{font-size:11px;color:#4A4540;margin-bottom:12px;letter-spacing:0.2px;}
+.page-sub{font-size:13px;color:#6B6358;line-height:1.65;max-width:640px;margin-bottom:52px;}
+.divider{height:1px;background:rgba(255,255,255,0.05);margin:52px 0;}
+.section-eyebrow{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1.8px;color:rgba(155,127,212,0.5);margin-bottom:5px;}
+.section-h{font-family:'DM Serif Display',serif;font-size:22px;color:#E0DDD6;margin-bottom:6px;}
+.section-sub{font-size:12px;color:#6B6358;line-height:1.65;margin-bottom:36px;max-width:700px;}
+
+/* Director callout */
+.dd-box{background:rgba(155,127,212,0.06);border:0.5px solid rgba(155,127,212,0.12);border-radius:14px;padding:26px 30px;max-width:780px;margin-bottom:52px;}
+.dd-box p{font-size:13px;color:#8A8070;line-height:1.7;margin-bottom:10px;}
+.dd-box p:last-child{margin:0;}
+.dd-box strong{color:#C4C0BA;font-weight:500;}
+.dd-rule{display:flex;align-items:baseline;gap:10px;padding:6px 0;border-top:0.5px solid rgba(255,255,255,0.04);}
+.dd-rule-num{font-size:9px;font-weight:700;color:rgba(155,127,212,0.5);width:14px;flex-shrink:0;}
+.dd-rule-text{font-size:12px;color:#8A8070;line-height:1.5;}
+.dd-rule-text strong{color:#C4C0BA;}
+
+/* Approach grid */
+.approaches{display:flex;flex-direction:column;gap:44px;}
+.approach-row{display:flex;align-items:flex-start;gap:40px;}
+.approach-meta{width:160px;flex-shrink:0;padding-top:12px;}
+.approach-num{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:rgba(155,127,212,0.45);margin-bottom:4px;}
+.approach-name{font-size:16px;font-weight:500;color:#E0DDD6;margin-bottom:6px;}
+.approach-tagline{font-size:10px;font-style:italic;color:#6B6358;line-height:1.5;margin-bottom:12px;}
+.approach-verdict{display:inline-block;font-size:9px;font-weight:600;padding:2px 8px;border-radius:100px;letter-spacing:0.3px;}
+.v-best{background:rgba(59,109,17,0.15);color:#7AB840;border:0.5px solid rgba(90,160,40,0.25);}
+.v-good{background:rgba(155,127,212,0.1);color:#9B7FD4;border:0.5px solid rgba(155,127,212,0.2);}
+.v-current{background:rgba(26,22,18,0.2);color:#6B6358;border:0.5px solid rgba(255,255,255,0.06);}
+
+.approach-phones{display:flex;gap:20px;}
+.phone-col{display:flex;flex-direction:column;align-items:center;gap:7px;}
+.phone-label{font-size:8px;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:#4A4540;}
+
+/* ── Mini phone shell (155px) ── */
+.mp{width:155px;border-radius:22px;background:#F5F0E8;overflow:hidden;box-shadow:0 6px 28px rgba(0,0,0,0.45);}
+.mp-status{display:flex;justify-content:space-between;align-items:center;padding:8px 12px 3px;}
+.mp-time{font-size:7px;font-weight:600;color:#2C2824;letter-spacing:0.2px;}
+.mp-batt{width:14px;height:6px;border:0.8px solid rgba(44,40,36,0.5);border-radius:1.5px;position:relative;}
+.mp-batt::after{content:'';position:absolute;right:-2.5px;top:50%;transform:translateY(-50%);width:1.5px;height:3px;background:rgba(44,40,36,0.4);border-radius:0 1px 1px 0;}
+.mp-prog{height:2.5px;background:rgba(0,0,0,0.07);}
+.mp-body{padding:10px 10px 14px;display:flex;flex-direction:column;gap:7px;}
+.mp-greeting-sm{font-size:8px;color:#8A8070;font-family:'DM Serif Display',serif;}
+.mp-greeting-lg{font-size:11px;font-family:'DM Serif Display',serif;font-style:italic;}
+.mp-chips{display:flex;gap:3px;}
+.mp-chip{font-size:6.5px;font-weight:500;padding:2px 7px;border-radius:100px;white-space:nowrap;}
+.mp-chip.on{background:rgba(155,127,212,0.1);color:#9B7FD4;border:0.5px solid rgba(155,127,212,0.3);}
+.mp-chip.off{background:rgba(26,22,18,0.05);color:#8A8070;border:0.5px solid rgba(26,22,18,0.06);}
+.mp-tasks{display:flex;flex-direction:column;gap:4px;}
+.mp-task{border-radius:7px;padding:6px 8px;display:flex;align-items:center;gap:6px;}
+.mp-icon{width:20px;height:20px;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.mp-info{flex:1;min-width:0;}
+.mp-name{font-size:8px;font-weight:500;color:#2C2824;letter-spacing:-0.1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mp-cat{font-size:6px;color:#8A8070;margin-top:1px;}
+.mp-date{font-size:6.5px;color:#8A8070;flex-shrink:0;}
+
+/* ── Celebration phones (200px) ── */
+.cele-section{margin-top:8px;}
+.cele-pair{display:flex;gap:28px;align-items:flex-start;}
+.cele-col{display:flex;flex-direction:column;align-items:center;gap:8px;}
+.cele-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:#4A4540;}
+.cele-phone{width:200px;border-radius:28px;overflow:hidden;box-shadow:0 8px 36px rgba(0,0,0,0.55);}
+.cele-status{display:flex;justify-content:space-between;align-items:center;padding:10px 16px 4px;background:#2D1F4A;}
+.cele-time{font-size:8px;font-weight:600;color:rgba(245,240,232,0.6);}
+.cele-batt{width:16px;height:7px;border:0.8px solid rgba(245,240,232,0.35);border-radius:1.5px;}
+.cele-prog{height:2.5px;background:rgba(255,255,255,0.07);}
+.cele-body{background:#2D1F4A;display:flex;flex-direction:column;align-items:center;padding:64px 20px 36px;position:relative;min-height:380px;}
+.confetti{position:absolute;inset:0;top:40px;overflow:hidden;pointer-events:none;}
+.cdot{position:absolute;border-radius:50%;opacity:0.5;}
+.cdot.r{border-radius:1px;}
+.cele-eyebrow{font-size:8px;font-weight:600;text-transform:uppercase;letter-spacing:1.3px;color:rgba(245,240,232,0.35);margin-bottom:10px;margin-top:16px;}
+.cele-headline{font-family:'DM Serif Display',serif;font-style:italic;font-size:20px;line-height:1.1;color:#E8A87C;text-align:center;margin-bottom:6px;}
+.cele-sub{font-size:10px;font-style:italic;color:rgba(245,240,232,0.4);text-align:center;margin-bottom:24px;}
+.cele-pill{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.08);border-radius:100px;padding:6px 14px;font-size:9px;color:rgba(245,240,232,0.45);}
+.cele-pill-date{font-weight:500;}
+.cele-sub2{font-size:6.5px;font-style:italic;color:rgba(245,240,232,0.22);margin-top:4px;}
+
+/* ── Dark mode demo (155px) ── */
+.dark-pair{display:flex;gap:20px;align-items:flex-start;}
+.dark-col{display:flex;flex-direction:column;align-items:center;gap:7px;}
+.dark-phone{width:155px;border-radius:22px;background:#1E1C18;overflow:hidden;box-shadow:0 6px 28px rgba(0,0,0,0.5);}
+.dark-status{display:flex;justify-content:space-between;align-items:center;padding:8px 12px 3px;}
+.dark-time{font-size:7px;font-weight:600;color:rgba(224,221,214,0.6);}
+.dark-batt{width:14px;height:6px;border:0.8px solid rgba(224,221,214,0.25);border-radius:1.5px;}
+.dark-prog{height:2.5px;background:rgba(255,255,255,0.05);}
+.dark-body{padding:10px 10px 14px;display:flex;flex-direction:column;gap:8px;}
+.dark-greeting-sm{font-size:8px;color:#96908A;font-family:'DM Serif Display',serif;}
+.dark-greeting-lg{font-size:11px;font-family:'DM Serif Display',serif;font-style:italic;}
+.dark-tasks{display:flex;flex-direction:column;gap:4px;}
+.dark-task{border-radius:7px;padding:6px 8px;display:flex;align-items:center;gap:6px;}
+.dark-icon{width:20px;height:20px;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.dark-info{flex:1;min-width:0;}
+.dark-name{font-size:8px;font-weight:500;color:#E0DDD6;letter-spacing:-0.1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.dark-cat{font-size:6px;color:#6B6358;margin-top:1px;}
+.dark-date{font-size:6.5px;color:#6B6358;flex-shrink:0;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-back" href="../index.html">
+    <svg width="16" height="18" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:2px;"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/></svg>
+    Design hub
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">Design approaches · color + hierarchy</span>
+</nav>
+
+<div class="page">
+
+<div class="page-meta">Color exploration · March 2026</div>
+<h1 class="page-title">How much color is too much?</h1>
+<p class="page-sub">Three approaches to the category color problem. How Apple and Anthropic would each solve it. Plus: celebration screens for Options A and C, and apricot as the dark mode accent color.</p>
+
+<!-- ── DESIGN DIRECTOR PERSPECTIVE ── -->
+<div class="dd-box">
+  <p><strong>The problem in one sentence:</strong> nudgii's dashboard can show 10 differently-colored cards simultaneously. That's not a color system — it's a festival. The CTA purple loses dominance because it's competing with 9 other hues for the user's attention.</p>
+  <p><strong>What Apple would do:</strong> Ruthless restraint. The neutral surface (cream/white) dominates at 80%+ of the screen. Color lives inside icon containers, never on card backgrounds. Every card is the same material; color is a label, not a decoration. iOS Health, Reminders, and Calendar all do this. You can have 50 categories and the screen never feels loud.</p>
+  <p><strong>What Anthropic would do:</strong> Personality through copy and proportion, not color saturation. A very faint hue whisper on the card surface — 12-15% opacity — so the category reads but the card doesn't shout. The cream background still dominates. Color is atmospheric, not structural.</p>
+  <p><strong>The rule both agree on:</strong> If every element is colorful, nothing is colorful. Reserve full saturation for the one thing you want the user to act on. For nudgii, that's the CTA purple.</p>
+  <div style="height:12px;"></div>
+  <div class="dd-rule"><span class="dd-rule-num">1</span><span class="dd-rule-text"><strong>60-30-10:</strong> cream/dark bg = 60%, category color = 30%, CTA purple = 10%. Bold fills push category color to 80%. The 10% rule breaks.</span></div>
+  <div class="dd-rule"><span class="dd-rule-num">2</span><span class="dd-rule-text"><strong>Daily use penalty:</strong> You see the dashboard every day. A screen that's exciting on day 1 becomes exhausting by day 30. Calm scales; bold doesn't.</span></div>
+  <div class="dd-rule"><span class="dd-rule-num">3</span><span class="dd-rule-text"><strong>Hierarchy first:</strong> The user's job is to read task names and act. Color should support scanning, not replace hierarchy. If you removed all color, does the task name still read clearly? It should.</span></div>
+</div>
+
+<!-- ── 3 APPROACHES ── -->
+<div class="section-eyebrow">Approaches</div>
+<h2 class="section-h">Three ways to use category color</h2>
+<p class="section-sub">Same tasks, same content. Only the card background treatment changes. Option A (vivid pastels) and Option C (bold brights) shown side by side for each approach.</p>
+
+<div class="approaches">
+
+<!-- ════ APPROACH 1: CLEAN (icon-led) ════ -->
+<div class="approach-row">
+  <div class="approach-meta">
+    <div class="approach-num">Approach 01</div>
+    <div class="approach-name">Clean</div>
+    <div class="approach-tagline">White cards. Color lives on the icon only. Infinite scalability. Apple-native feel.</div>
+    <span class="approach-verdict v-best">Recommended</span>
+  </div>
+  <div class="approach-phones">
+
+    <!-- Option A clean -->
+    <div class="phone-col">
+      <div class="phone-label">Option A</div>
+      <div class="mp">
+        <div class="mp-status"><span class="mp-time">9:41</span><div class="mp-batt"></div></div>
+        <div class="mp-prog"><div style="height:100%;background:#9B7FD4;width:70%;"></div></div>
+        <div class="mp-body">
+          <div>
+            <div class="mp-greeting-sm">Good morning,</div>
+            <div class="mp-greeting-lg" style="color:#9B7FD4;">Martijn.</div>
+          </div>
+          <div class="mp-chips">
+            <div class="mp-chip on">All</div>
+            <div class="mp-chip off">Home</div>
+            <div class="mp-chip off">Vehicle</div>
+            <div class="mp-chip off">Garden</div>
+          </div>
+          <div class="mp-tasks">
+            <!-- Home task: white card, icon container with color -->
+            <div class="mp-task" style="background:#FFFFFF;border:0.5px solid rgba(26,22,18,0.06);">
+              <div class="mp-icon" style="background:#F2CABF;">
+                <svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#8A4A38" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8,8,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8,8,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"/></svg>
+              </div>
+              <div class="mp-info"><div class="mp-name">Annual boiler service</div><div class="mp-cat">Home</div></div>
+              <div class="mp-date">Oct 28</div>
+            </div>
+            <!-- Vehicle task -->
+            <div class="mp-task" style="background:#FFFFFF;border:0.5px solid rgba(26,22,18,0.06);">
+              <div class="mp-icon" style="background:#BAD4EC;">
+                <svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#3A6080" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><rect x="32" y="80" width="192" height="120" rx="16"/><path d="M64,80V64a16,16,0,0,1,16-16h96a16,16,0,0,1,16,16V80"/><circle cx="80" cy="160" r="16" fill="#3A6080" stroke="none"/><circle cx="176" cy="160" r="16" fill="#3A6080" stroke="none"/></svg>
+              </div>
+              <div class="mp-info"><div class="mp-name">Winter tyres</div><div class="mp-cat">Vehicle</div></div>
+              <div class="mp-date">Nov 1</div>
+            </div>
+            <!-- Garden task -->
+            <div class="mp-task" style="background:#FFFFFF;border:0.5px solid rgba(26,22,18,0.06);">
+              <div class="mp-icon" style="background:#B4DCA8;">
+                <svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#3A7030" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><line x1="128" y1="232" x2="128" y2="152"/><path d="M96,192c0-40,32-88,32-88s32,48,32,88a32,32,0,0,1-64,0Z"/></svg>
+              </div>
+              <div class="mp-info"><div class="mp-name">Autumn pruning</div><div class="mp-cat">Garden</div></div>
+              <div class="mp-date">Oct 5</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Option C clean -->
+    <div class="phone-col">
+      <div class="phone-label">Option C</div>
+      <div class="mp">
+        <div class="mp-status"><span class="mp-time">9:41</span><div class="mp-batt"></div></div>
+        <div class="mp-prog"><div style="height:100%;background:#7A5CE8;width:70%;"></div></div>
+        <div class="mp-body">
+          <div>
+            <div class="mp-greeting-sm">Good morning,</div>
+            <div class="mp-greeting-lg" style="color:#7A5CE8;">Martijn.</div>
+          </div>
+          <div class="mp-chips">
+            <div class="mp-chip" style="background:rgba(122,92,232,0.1);color:#7A5CE8;border:0.5px solid rgba(122,92,232,0.3);">All</div>
+            <div class="mp-chip off">Home</div>
+            <div class="mp-chip off">Vehicle</div>
+            <div class="mp-chip off">Garden</div>
+          </div>
+          <div class="mp-tasks">
+            <div class="mp-task" style="background:#FFFFFF;border:0.5px solid rgba(26,22,18,0.06);">
+              <div class="mp-icon" style="background:#FFCFB8;">
+                <svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#8A3A1A" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8,8,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8,8,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"/></svg>
+              </div>
+              <div class="mp-info"><div class="mp-name">Annual boiler service</div><div class="mp-cat">Home</div></div>
+              <div class="mp-date">Oct 28</div>
+            </div>
+            <div class="mp-task" style="background:#FFFFFF;border:0.5px solid rgba(26,22,18,0.06);">
+              <div class="mp-icon" style="background:#B8E0F8;">
+                <svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#1A4A72" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><rect x="32" y="80" width="192" height="120" rx="16"/><path d="M64,80V64a16,16,0,0,1,16-16h96a16,16,0,0,1,16,16V80"/><circle cx="80" cy="160" r="16" fill="#1A4A72" stroke="none"/><circle cx="176" cy="160" r="16" fill="#1A4A72" stroke="none"/></svg>
+              </div>
+              <div class="mp-info"><div class="mp-name">Winter tyres</div><div class="mp-cat">Vehicle</div></div>
+              <div class="mp-date">Nov 1</div>
+            </div>
+            <div class="mp-task" style="background:#FFFFFF;border:0.5px solid rgba(26,22,18,0.06);">
+              <div class="mp-icon" style="background:#B0E8C8;">
+                <svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#1A6038" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><line x1="128" y1="232" x2="128" y2="152"/><path d="M96,192c0-40,32-88,32-88s32,48,32,88a32,32,0,0,1-64,0Z"/></svg>
+              </div>
+              <div class="mp-info"><div class="mp-name">Autumn pruning</div><div class="mp-cat">Garden</div></div>
+              <div class="mp-date">Oct 5</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════ APPROACH 2: WHISPER ════ -->
+<div class="approach-row">
+  <div class="approach-meta">
+    <div class="approach-num">Approach 02</div>
+    <div class="approach-name">Whisper</div>
+    <div class="approach-tagline">Cards barely kissed by the category hue. Color is atmospheric, not structural. Warmth without noise.</div>
+    <span class="approach-verdict v-good">Strong option</span>
+  </div>
+  <div class="approach-phones">
+
+    <!-- Option A whisper -->
+    <div class="phone-col">
+      <div class="phone-label">Option A</div>
+      <div class="mp">
+        <div class="mp-status"><span class="mp-time">9:41</span><div class="mp-batt"></div></div>
+        <div class="mp-prog"><div style="height:100%;background:#9B7FD4;width:70%;"></div></div>
+        <div class="mp-body">
+          <div>
+            <div class="mp-greeting-sm">Good morning,</div>
+            <div class="mp-greeting-lg" style="color:#9B7FD4;">Martijn.</div>
+          </div>
+          <div class="mp-chips">
+            <div class="mp-chip on">All</div>
+            <div class="mp-chip off">Home</div>
+            <div class="mp-chip off">Vehicle</div>
+            <div class="mp-chip off">Garden</div>
+          </div>
+          <div class="mp-tasks">
+            <div class="mp-task" style="background:rgba(242,202,191,0.22);border:0.5px solid rgba(138,74,56,0.08);">
+              <div class="mp-icon" style="background:rgba(242,202,191,0.5);">
+                <svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#8A4A38" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8,8,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8,8,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"/></svg>
+              </div>
+              <div class="mp-info"><div class="mp-name">Annual boiler service</div><div class="mp-cat">Home</div></div>
+              <div class="mp-date">Oct 28</div>
+            </div>
+            <div class="mp-task" style="background:rgba(186,212,236,0.22);border:0.5px solid rgba(58,96,128,0.08);">
+              <div class="mp-icon" style="background:rgba(186,212,236,0.5);">
+                <svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#3A6080" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><rect x="32" y="80" width="192" height="120" rx="16"/><path d="M64,80V64a16,16,0,0,1,16-16h96a16,16,0,0,1,16,16V80"/><circle cx="80" cy="160" r="16" fill="#3A6080" stroke="none"/><circle cx="176" cy="160" r="16" fill="#3A6080" stroke="none"/></svg>
+              </div>
+              <div class="mp-info"><div class="mp-name">Winter tyres</div><div class="mp-cat">Vehicle</div></div>
+              <div class="mp-date">Nov 1</div>
+            </div>
+            <div class="mp-task" style="background:rgba(180,220,168,0.22);border:0.5px solid rgba(58,112,48,0.08);">
+              <div class="mp-icon" style="background:rgba(180,220,168,0.5);">
+                <svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#3A7030" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><line x1="128" y1="232" x2="128" y2="152"/><path d="M96,192c0-40,32-88,32-88s32,48,32,88a32,32,0,0,1-64,0Z"/></svg>
+              </div>
+              <div class="mp-info"><div class="mp-name">Autumn pruning</div><div class="mp-cat">Garden</div></div>
+              <div class="mp-date">Oct 5</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Option C whisper -->
+    <div class="phone-col">
+      <div class="phone-label">Option C</div>
+      <div class="mp">
+        <div class="mp-status"><span class="mp-time">9:41</span><div class="mp-batt"></div></div>
+        <div class="mp-prog"><div style="height:100%;background:#7A5CE8;width:70%;"></div></div>
+        <div class="mp-body">
+          <div>
+            <div class="mp-greeting-sm">Good morning,</div>
+            <div class="mp-greeting-lg" style="color:#7A5CE8;">Martijn.</div>
+          </div>
+          <div class="mp-chips">
+            <div class="mp-chip" style="background:rgba(122,92,232,0.1);color:#7A5CE8;border:0.5px solid rgba(122,92,232,0.3);">All</div>
+            <div class="mp-chip off">Home</div>
+            <div class="mp-chip off">Vehicle</div>
+            <div class="mp-chip off">Garden</div>
+          </div>
+          <div class="mp-tasks">
+            <div class="mp-task" style="background:rgba(255,207,184,0.22);border:0.5px solid rgba(138,58,26,0.08);">
+              <div class="mp-icon" style="background:rgba(255,207,184,0.5);">
+                <svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#8A3A1A" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8,8,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8,8,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"/></svg>
+              </div>
+              <div class="mp-info"><div class="mp-name">Annual boiler service</div><div class="mp-cat">Home</div></div>
+              <div class="mp-date">Oct 28</div>
+            </div>
+            <div class="mp-task" style="background:rgba(184,224,248,0.22);border:0.5px solid rgba(26,74,114,0.08);">
+              <div class="mp-icon" style="background:rgba(184,224,248,0.5);">
+                <svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#1A4A72" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><rect x="32" y="80" width="192" height="120" rx="16"/><path d="M64,80V64a16,16,0,0,1,16-16h96a16,16,0,0,1,16,16V80"/><circle cx="80" cy="160" r="16" fill="#1A4A72" stroke="none"/><circle cx="176" cy="160" r="16" fill="#1A4A72" stroke="none"/></svg>
+              </div>
+              <div class="mp-info"><div class="mp-name">Winter tyres</div><div class="mp-cat">Vehicle</div></div>
+              <div class="mp-date">Nov 1</div>
+            </div>
+            <div class="mp-task" style="background:rgba(176,232,200,0.22);border:0.5px solid rgba(26,96,56,0.08);">
+              <div class="mp-icon" style="background:rgba(176,232,200,0.5);">
+                <svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#1A6038" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><line x1="128" y1="232" x2="128" y2="152"/><path d="M96,192c0-40,32-88,32-88s32,48,32,88a32,32,0,0,1-64,0Z"/></svg>
+              </div>
+              <div class="mp-info"><div class="mp-name">Autumn pruning</div><div class="mp-cat">Garden</div></div>
+              <div class="mp-date">Oct 5</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════ APPROACH 3: BOLD (current) ════ -->
+<div class="approach-row">
+  <div class="approach-meta">
+    <div class="approach-num">Approach 03</div>
+    <div class="approach-name">Bold fills</div>
+    <div class="approach-tagline">Full pastel card backgrounds. Current v10.5 direction. Distinctive but dense at scale.</div>
+    <span class="approach-verdict v-current">Current</span>
+  </div>
+  <div class="approach-phones">
+
+    <!-- Option A bold -->
+    <div class="phone-col">
+      <div class="phone-label">Option A</div>
+      <div class="mp">
+        <div class="mp-status"><span class="mp-time">9:41</span><div class="mp-batt"></div></div>
+        <div class="mp-prog"><div style="height:100%;background:#9B7FD4;width:70%;"></div></div>
+        <div class="mp-body">
+          <div>
+            <div class="mp-greeting-sm">Good morning,</div>
+            <div class="mp-greeting-lg" style="color:#9B7FD4;">Martijn.</div>
+          </div>
+          <div class="mp-chips">
+            <div class="mp-chip on">All</div>
+            <div class="mp-chip off">Home</div>
+            <div class="mp-chip off">Vehicle</div>
+            <div class="mp-chip off">Garden</div>
+          </div>
+          <div class="mp-tasks">
+            <div class="mp-task" style="background:#F2CABF;">
+              <div class="mp-icon" style="background:rgba(138,74,56,0.14);">
+                <svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#8A4A38" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8,8,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8,8,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"/></svg>
+              </div>
+              <div class="mp-info"><div class="mp-name">Annual boiler service</div><div class="mp-cat" style="color:#8A4A38;">Home</div></div>
+              <div class="mp-date" style="color:#8A4A38;">Oct 28</div>
+            </div>
+            <div class="mp-task" style="background:#BAD4EC;">
+              <div class="mp-icon" style="background:rgba(58,96,128,0.14);">
+                <svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#3A6080" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><rect x="32" y="80" width="192" height="120" rx="16"/><path d="M64,80V64a16,16,0,0,1,16-16h96a16,16,0,0,1,16,16V80"/><circle cx="80" cy="160" r="16" fill="#3A6080" stroke="none"/><circle cx="176" cy="160" r="16" fill="#3A6080" stroke="none"/></svg>
+              </div>
+              <div class="mp-info"><div class="mp-name">Winter tyres</div><div class="mp-cat" style="color:#3A6080;">Vehicle</div></div>
+              <div class="mp-date" style="color:#3A6080;">Nov 1</div>
+            </div>
+            <div class="mp-task" style="background:#B4DCA8;">
+              <div class="mp-icon" style="background:rgba(58,112,48,0.14);">
+                <svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#3A7030" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><line x1="128" y1="232" x2="128" y2="152"/><path d="M96,192c0-40,32-88,32-88s32,48,32,88a32,32,0,0,1-64,0Z"/></svg>
+              </div>
+              <div class="mp-info"><div class="mp-name">Autumn pruning</div><div class="mp-cat" style="color:#3A7030;">Garden</div></div>
+              <div class="mp-date" style="color:#3A7030;">Oct 5</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Option C bold -->
+    <div class="phone-col">
+      <div class="phone-label">Option C</div>
+      <div class="mp">
+        <div class="mp-status"><span class="mp-time">9:41</span><div class="mp-batt"></div></div>
+        <div class="mp-prog"><div style="height:100%;background:#7A5CE8;width:70%;"></div></div>
+        <div class="mp-body">
+          <div>
+            <div class="mp-greeting-sm">Good morning,</div>
+            <div class="mp-greeting-lg" style="color:#7A5CE8;">Martijn.</div>
+          </div>
+          <div class="mp-chips">
+            <div class="mp-chip" style="background:rgba(122,92,232,0.1);color:#7A5CE8;border:0.5px solid rgba(122,92,232,0.3);">All</div>
+            <div class="mp-chip off">Home</div>
+            <div class="mp-chip off">Vehicle</div>
+            <div class="mp-chip off">Garden</div>
+          </div>
+          <div class="mp-tasks">
+            <div class="mp-task" style="background:#FFCFB8;">
+              <div class="mp-icon" style="background:rgba(138,58,26,0.14);">
+                <svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#8A3A1A" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8,8,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8,8,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"/></svg>
+              </div>
+              <div class="mp-info"><div class="mp-name">Annual boiler service</div><div class="mp-cat" style="color:#8A3A1A;">Home</div></div>
+              <div class="mp-date" style="color:#8A3A1A;">Oct 28</div>
+            </div>
+            <div class="mp-task" style="background:#B8E0F8;">
+              <div class="mp-icon" style="background:rgba(26,74,114,0.14);">
+                <svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#1A4A72" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><rect x="32" y="80" width="192" height="120" rx="16"/><path d="M64,80V64a16,16,0,0,1,16-16h96a16,16,0,0,1,16,16V80"/><circle cx="80" cy="160" r="16" fill="#1A4A72" stroke="none"/><circle cx="176" cy="160" r="16" fill="#1A4A72" stroke="none"/></svg>
+              </div>
+              <div class="mp-info"><div class="mp-name">Winter tyres</div><div class="mp-cat" style="color:#1A4A72;">Vehicle</div></div>
+              <div class="mp-date" style="color:#1A4A72;">Nov 1</div>
+            </div>
+            <div class="mp-task" style="background:#B0E8C8;">
+              <div class="mp-icon" style="background:rgba(26,96,56,0.14);">
+                <svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#1A6038" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><line x1="128" y1="232" x2="128" y2="152"/><path d="M96,192c0-40,32-88,32-88s32,48,32,88a32,32,0,0,1-64,0Z"/></svg>
+              </div>
+              <div class="mp-info"><div class="mp-name">Autumn pruning</div><div class="mp-cat" style="color:#1A6038;">Garden</div></div>
+              <div class="mp-date" style="color:#1A6038;">Oct 5</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div><!-- end approaches -->
+
+<!-- ── CELEBRATION SCREENS ── -->
+<div class="divider"></div>
+<div class="section-eyebrow">S-05 Celebration</div>
+<h2 class="section-h">State 2: celebration in your color direction</h2>
+<p class="section-sub">The plum background is fixed — it's a sacred brand moment, no category color involved. What changes: confetti uses your category palette, and the ii mark's right pill uses your tuned CTA purple.</p>
+
+<div class="cele-pair">
+
+  <!-- Option A celebration -->
+  <div class="cele-col">
+    <div class="cele-label">Option A — vivid pastels · CTA #9B7FD4</div>
+    <div class="cele-phone">
+      <div class="cele-status"><span class="cele-time">9:41</span><div class="cele-batt"></div></div>
+      <div class="cele-prog"><div style="height:100%;background:#9B7FD4;width:85%;"></div></div>
+      <div class="cele-body">
+        <!-- Confetti using Option A colors -->
+        <div class="confetti">
+          <div class="cdot" style="width:5px;height:5px;background:#F2CABF;left:10%;top:6%;"></div>
+          <div class="cdot" style="width:4px;height:4px;background:#9B7FD4;left:26%;top:3%;"></div>
+          <div class="cdot r" style="width:3px;height:7px;background:#B4DCA8;left:44%;top:10%;transform:rotate(25deg);"></div>
+          <div class="cdot" style="width:6px;height:6px;background:#CFC0EC;left:63%;top:3%;"></div>
+          <div class="cdot r" style="width:3px;height:6px;background:#BAD4EC;left:78%;top:8%;transform:rotate(-15deg);"></div>
+          <div class="cdot" style="width:4px;height:4px;background:#E8A87C;left:88%;top:5%;"></div>
+          <div class="cdot r" style="width:3px;height:8px;background:#F5F0E8;left:6%;top:16%;transform:rotate(40deg);"></div>
+          <div class="cdot" style="width:5px;height:5px;background:#8A4A38;left:33%;top:18%;"></div>
+          <div class="cdot r" style="width:3px;height:6px;background:#CFC0EC;left:54%;top:14%;transform:rotate(-30deg);"></div>
+          <div class="cdot" style="width:4px;height:4px;background:#B4DCA8;left:70%;top:20%;"></div>
+          <div class="cdot r" style="width:3px;height:7px;background:#F2CABF;left:17%;top:26%;transform:rotate(10deg);"></div>
+          <div class="cdot" style="width:5px;height:5px;background:#3A6080;left:83%;top:16%;"></div>
+          <div class="cdot" style="width:3px;height:3px;background:#F5E4BC;left:48%;top:24%;"></div>
+          <div class="cdot r" style="width:3px;height:6px;background:#9B7FD4;left:39%;top:30%;transform:rotate(-20deg);"></div>
+          <div class="cdot" style="width:4px;height:4px;background:#CFC0EC;left:21%;top:34%;"></div>
+          <div class="cdot r" style="width:3px;height:5px;background:#E8A87C;left:60%;top:28%;transform:rotate(35deg);"></div>
+          <div class="cdot" style="width:3px;height:3px;background:#3A7030;left:76%;top:32%;"></div>
+          <div class="cdot r" style="width:3px;height:7px;background:#BAD4EC;left:91%;top:27%;transform:rotate(-45deg);"></div>
+        </div>
+        <!-- ii mark: cream left, option A purple right, apricot dot -->
+        <svg width="44" height="50" viewBox="0 0 625.96 700.13" fill="none">
+          <path fill="#F5F0E8" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
+          <path fill="#9B7FD4" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
+          <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
+        </svg>
+        <div class="cele-eyebrow">you're in</div>
+        <div class="cele-headline">Your boiler is relieved.</div>
+        <div class="cele-sub">We'll remind you when it matters.</div>
+        <div class="cele-pill">First reminder <span style="margin:0 3px">·</span> <span class="cele-pill-date" style="color:#E8A87C;">Oct 28</span></div>
+        <div class="cele-sub2">Annual boiler service</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Option C celebration -->
+  <div class="cele-col">
+    <div class="cele-label">Option C — bold brights · CTA #7A5CE8</div>
+    <div class="cele-phone">
+      <div class="cele-status"><span class="cele-time">9:41</span><div class="cele-batt"></div></div>
+      <div class="cele-prog"><div style="height:100%;background:#7A5CE8;width:85%;"></div></div>
+      <div class="cele-body">
+        <!-- Confetti using Option C brighter colors -->
+        <div class="confetti">
+          <div class="cdot" style="width:5px;height:5px;background:#FFCFB8;left:10%;top:6%;"></div>
+          <div class="cdot" style="width:4px;height:4px;background:#7A5CE8;left:26%;top:3%;"></div>
+          <div class="cdot r" style="width:3px;height:7px;background:#B0E8C8;left:44%;top:10%;transform:rotate(25deg);"></div>
+          <div class="cdot" style="width:6px;height:6px;background:#DCC8F8;left:63%;top:3%;"></div>
+          <div class="cdot r" style="width:3px;height:6px;background:#B8E0F8;left:78%;top:8%;transform:rotate(-15deg);"></div>
+          <div class="cdot" style="width:4px;height:4px;background:#E8A87C;left:88%;top:5%;"></div>
+          <div class="cdot r" style="width:3px;height:8px;background:#FFF0B8;left:6%;top:16%;transform:rotate(40deg);"></div>
+          <div class="cdot" style="width:5px;height:5px;background:#8A3A1A;left:33%;top:18%;"></div>
+          <div class="cdot r" style="width:3px;height:6px;background:#DCC8F8;left:54%;top:14%;transform:rotate(-30deg);"></div>
+          <div class="cdot" style="width:4px;height:4px;background:#B0E8C8;left:70%;top:20%;"></div>
+          <div class="cdot r" style="width:3px;height:7px;background:#FFCFB8;left:17%;top:26%;transform:rotate(10deg);"></div>
+          <div class="cdot" style="width:5px;height:5px;background:#1A4A72;left:83%;top:16%;"></div>
+          <div class="cdot" style="width:3px;height:3px;background:#FFF0B8;left:48%;top:24%;"></div>
+          <div class="cdot r" style="width:3px;height:6px;background:#7A5CE8;left:39%;top:30%;transform:rotate(-20deg);"></div>
+          <div class="cdot" style="width:4px;height:4px;background:#DCC8F8;left:21%;top:34%;"></div>
+          <div class="cdot r" style="width:3px;height:5px;background:#E8A87C;left:60%;top:28%;transform:rotate(35deg);"></div>
+          <div class="cdot" style="width:3px;height:3px;background:#1A6038;left:76%;top:32%;"></div>
+          <div class="cdot r" style="width:3px;height:7px;background:#FFCCD0;left:91%;top:27%;transform:rotate(-45deg);"></div>
+        </div>
+        <!-- ii mark: cream left, option C purple right, apricot dot -->
+        <svg width="44" height="50" viewBox="0 0 625.96 700.13" fill="none">
+          <path fill="#F5F0E8" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
+          <path fill="#7A5CE8" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
+          <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
+        </svg>
+        <div class="cele-eyebrow">you're in</div>
+        <div class="cele-headline">Your boiler is relieved.</div>
+        <div class="cele-sub">We'll remind you when it matters.</div>
+        <div class="cele-pill">First reminder <span style="margin:0 3px">·</span> <span class="cele-pill-date" style="color:#E8A87C;">Oct 28</span></div>
+        <div class="cele-sub2">Annual boiler service</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end cele-pair -->
+
+<!-- ── DARK MODE: APRICOT ACCENT ── -->
+<div class="divider"></div>
+<div class="section-eyebrow">Dark mode · accent color</div>
+<h2 class="section-h">Purple vs apricot for "Martijn."</h2>
+<p class="section-sub">The action color (CTA, FAB, filter pills, progress bar) stays purple in dark mode — it's the functional system color. The question is only for the greeting name: a decorative, serif, italic moment. Apricot reads warmer and more personal against the warm dark background.</p>
+
+<div class="dark-pair">
+
+  <!-- Current: purple greeting -->
+  <div class="dark-col">
+    <div class="phone-label">Current — purple greeting</div>
+    <div class="dark-phone">
+      <div class="dark-status"><span class="dark-time">9:41</span><div class="dark-batt"></div></div>
+      <div class="dark-prog"><div style="height:100%;background:#9B7FD4;width:70%;"></div></div>
+      <div class="dark-body">
+        <div>
+          <div class="dark-greeting-sm" style="color:#96908A;">Good morning,</div>
+          <div class="dark-greeting-lg" style="color:#9B7FD4;">Martijn.</div>
+        </div>
+        <div class="mp-chips">
+          <div class="mp-chip" style="background:rgba(155,127,212,0.14);color:#9B7FD4;border:0.5px solid rgba(155,127,212,0.28);font-size:6.5px;">All</div>
+          <div class="mp-chip off" style="background:rgba(255,255,255,0.05);color:#6B6358;">Home</div>
+          <div class="mp-chip off" style="background:rgba(255,255,255,0.05);color:#6B6358;">Vehicle</div>
+        </div>
+        <div class="dark-tasks">
+          <div class="dark-task" style="background:#39180e;">
+            <div class="dark-icon" style="background:rgba(199,159,148,0.15);">
+              <svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#c79f94" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8,8,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8,8,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"/></svg>
+            </div>
+            <div class="dark-info"><div class="dark-name">Annual boiler service</div><div class="dark-cat">Home</div></div>
+            <div class="dark-date">Oct 28</div>
+          </div>
+          <div class="dark-task" style="background:#112436;">
+            <div class="dark-icon" style="background:rgba(150,175,196,0.15);">
+              <svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#96afc4" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><rect x="32" y="80" width="192" height="120" rx="16"/><path d="M64,80V64a16,16,0,0,1,16-16h96a16,16,0,0,1,16,16V80"/><circle cx="80" cy="160" r="16" fill="#96afc4" stroke="none"/><circle cx="176" cy="160" r="16" fill="#96afc4" stroke="none"/></svg>
+            </div>
+            <div class="dark-info"><div class="dark-name">Winter tyres</div><div class="dark-cat">Vehicle</div></div>
+            <div class="dark-date">Nov 1</div>
+          </div>
+          <div class="dark-task" style="background:#1c3116;">
+            <div class="dark-icon" style="background:rgba(157,198,149,0.15);">
+              <svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#9dc695" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><line x1="128" y1="232" x2="128" y2="152"/><path d="M96,192c0-40,32-88,32-88s32,48,32,88a32,32,0,0,1-64,0Z"/></svg>
+            </div>
+            <div class="dark-info"><div class="dark-name">Autumn pruning</div><div class="dark-cat">Garden</div></div>
+            <div class="dark-date">Oct 5</div>
+          </div>
+        </div>
+        <!-- FAB stub -->
+        <div style="display:flex;justify-content:center;margin-top:4px;">
+          <div style="width:28px;height:28px;border-radius:100px;background:#9B7FD4;display:flex;align-items:center;justify-content:center;">
+            <svg width="10" height="10" viewBox="0 0 256 256" fill="none"><line x1="128" y1="40" x2="128" y2="216" stroke="#FAF8FF" stroke-width="28" stroke-linecap="round"/><line x1="40" y1="128" x2="216" y2="128" stroke="#FAF8FF" stroke-width="28" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Proposed: apricot greeting -->
+  <div class="dark-col">
+    <div class="phone-label">Proposed — apricot greeting</div>
+    <div class="dark-phone">
+      <div class="dark-status"><span class="dark-time">9:41</span><div class="dark-batt"></div></div>
+      <div class="dark-prog"><div style="height:100%;background:#9B7FD4;width:70%;"></div></div>
+      <div class="dark-body">
+        <div>
+          <div class="dark-greeting-sm" style="color:#96908A;">Good morning,</div>
+          <div class="dark-greeting-lg" style="color:#E8A87C;">Martijn.</div>
+        </div>
+        <div class="mp-chips">
+          <div class="mp-chip" style="background:rgba(155,127,212,0.14);color:#9B7FD4;border:0.5px solid rgba(155,127,212,0.28);font-size:6.5px;">All</div>
+          <div class="mp-chip off" style="background:rgba(255,255,255,0.05);color:#6B6358;">Home</div>
+          <div class="mp-chip off" style="background:rgba(255,255,255,0.05);color:#6B6358;">Vehicle</div>
+        </div>
+        <div class="dark-tasks">
+          <div class="dark-task" style="background:#39180e;">
+            <div class="dark-icon" style="background:rgba(199,159,148,0.15);">
+              <svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#c79f94" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8,8,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8,8,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"/></svg>
+            </div>
+            <div class="dark-info"><div class="dark-name">Annual boiler service</div><div class="dark-cat">Home</div></div>
+            <div class="dark-date">Oct 28</div>
+          </div>
+          <div class="dark-task" style="background:#112436;">
+            <div class="dark-icon" style="background:rgba(150,175,196,0.15);">
+              <svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#96afc4" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><rect x="32" y="80" width="192" height="120" rx="16"/><path d="M64,80V64a16,16,0,0,1,16-16h96a16,16,0,0,1,16,16V80"/><circle cx="80" cy="160" r="16" fill="#96afc4" stroke="none"/><circle cx="176" cy="160" r="16" fill="#96afc4" stroke="none"/></svg>
+            </div>
+            <div class="dark-info"><div class="dark-name">Winter tyres</div><div class="dark-cat">Vehicle</div></div>
+            <div class="dark-date">Nov 1</div>
+          </div>
+          <div class="dark-task" style="background:#1c3116;">
+            <div class="dark-icon" style="background:rgba(157,198,149,0.15);">
+              <svg width="10" height="10" viewBox="0 0 256 256" fill="none" stroke="#9dc695" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><line x1="128" y1="232" x2="128" y2="152"/><path d="M96,192c0-40,32-88,32-88s32,48,32,88a32,32,0,0,1-64,0Z"/></svg>
+            </div>
+            <div class="dark-info"><div class="dark-name">Autumn pruning</div><div class="dark-cat">Garden</div></div>
+            <div class="dark-date">Oct 5</div>
+          </div>
+        </div>
+        <!-- FAB stub (purple stays) -->
+        <div style="display:flex;justify-content:center;margin-top:4px;">
+          <div style="width:28px;height:28px;border-radius:100px;background:#9B7FD4;display:flex;align-items:center;justify-content:center;">
+            <svg width="10" height="10" viewBox="0 0 256 256" fill="none"><line x1="128" y1="40" x2="128" y2="216" stroke="#FAF8FF" stroke-width="28" stroke-linecap="round"/><line x1="40" y1="128" x2="216" y2="128" stroke="#FAF8FF" stroke-width="28" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Note -->
+  <div style="padding-top:48px;max-width:220px;">
+    <div style="font-size:11px;color:#6B6358;line-height:1.65;">
+      <p style="margin-bottom:10px;">FAB, filter pills, and progress bar stay purple in both. Purple = action. Apricot = personal warmth.</p>
+      <p style="margin-bottom:10px;">In light mode, "Martijn." also stays purple (it reads as action-adjacent: the app is greeting <em>you</em>). In dark mode the apricot reads like candlelight — warmer, more alive.</p>
+      <p>This is a one-line Flutter change per mode: <code style="font-size:10px;background:rgba(255,255,255,0.04);padding:1px 5px;border-radius:4px;">colorInk == dark ? colorApricot : colorCta</code></p>
+    </div>
+  </div>
+
+</div>
+
+</div><!-- end page -->
+</body>
+</html>
