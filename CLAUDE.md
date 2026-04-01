@@ -6,6 +6,7 @@
 > - `CLAUDE-components.md` — all component specs: tab bar, FAB, ii mark, CTA button, cards, toast, error card, icon container, progress indicator (Section 10)
 > - `CLAUDE-layout.md` — shell pattern, responsive scaling, SafeArea rules, hi-fi changelog format (Sections 16, 20)
 > - `CLAUDE-screen-specs.md` — personas, onboarding micro-improvements, S-02 conversation UI spec (Sections 13, 17, 22)
+> - `CLAUDE-tab-design-brief.md` — per-tab design brief for Today, Plan, My Stuff, Profile (content zones, component patterns, design tasks, output requirements)
 
 ---
 
