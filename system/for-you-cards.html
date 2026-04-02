@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · For You: Card System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --surface: #FBF9F4;
+  --surface-low: #F5F4ED;
+  --surface-high: #E8E9E0;
+  --ink: #31332C;
+  --mid: #7A756D;
+  --hint: #A09A90;
+  --plum: #9B7FD4;
+  --plum-fg: #FAF8FF;
+  --plum-wash: rgba(155,127,212,0.10);
+  --apricot: #E8A87C;
+  --apricot-wash: rgba(232,168,124,0.12);
+  --ch-bg: #C09088; --ch-wash: rgba(192,144,136,0.14);
+  --cg-bg: #8C9B80; --cg-wash: rgba(140,155,128,0.14);
+  --cv-bg: #8E9A94; --cv-wash: rgba(142,154,148,0.14);
+  --cs-bg: #A69BBF; --cs-wash: rgba(166,155,191,0.14);
+  --yellow: #E8B86D; --yellow-wash: rgba(232,184,109,0.14);
+  --sage: #3B6D11; --sage-lt: #EAF3DE;
+  --amber: #854F0B; --amber-lt: #FAEEDA;
+  --r: 12px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+body { font-family: 'Manrope', sans-serif; background: #E8E6E0; color: var(--ink); }
+
+/* Hub nav */
+.hub-nav {
+  background: #F5F0E8; border-bottom: 1px solid rgba(26,22,18,0.12);
+  padding: 0 32px; display: flex; align-items: center; gap: 16px;
+  height: 48px; position: sticky; top: 0; z-index: 200;
+}
+.hub-nav a { font-size: 13px; color: #8A8070; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+.hub-nav a:hover { color: #2C2824; }
+.hub-nav .sep { color: rgba(26,22,18,0.20); }
+.hub-nav .title { font-size: 13px; font-weight: 500; color: var(--ink); }
+.hub-nav .status { margin-left: auto; font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 100px; background: rgba(59,109,17,0.10); color: #3B6D11; border: 1px solid rgba(59,109,17,0.20); }
+
+/* Page layout */
+.page { max-width: 1200px; margin: 0 auto; padding: 48px 40px 80px; }
+
+/* Page header */
+.page-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: #8A8070; margin-bottom: 8px; }
+.page-h1 { font-family: 'Noto Serif', serif; font-size: 36px; font-weight: 400; color: #2C2824; margin-bottom: 10px; letter-spacing: -0.02em; }
+.page-sub { font-size: 15px; color: var(--mid); line-height: 1.6; max-width: 620px; margin-bottom: 20px; }
+.page-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 48px; }
+.pill { font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 100px; background: var(--plum-wash); color: var(--plum); }
+
+/* Section headers */
+.section-label { font-size: 10px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: #8A8070; margin-bottom: 20px; margin-top: 56px; padding-bottom: 8px; border-bottom: 1px solid rgba(26,22,18,0.08); }
+.section-label:first-of-type { margin-top: 0; }
+
+/* Card grid */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-bottom: 8px; }
+
+/* Spec cards */
+.spec-card { background: #FFFFFF; border-radius: 14px; padding: 20px; border: 1px solid rgba(26,22,18,0.06); }
+.spec-card-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; gap: 12px; }
+.spec-card-title { font-size: 14px; font-weight: 600; color: var(--ink); }
+.spec-card-sub { font-size: 11px; color: var(--mid); margin-top: 2px; line-height: 1.4; }
+.spec-card-body { font-size: 12px; color: #6B6358; line-height: 1.7; }
+.spec-card-body strong { color: var(--ink); }
+.spec-card-body code { background: rgba(26,22,18,0.06); padding: 1px 5px; border-radius: 3px; font-size: 10px; font-family: 'SF Mono', monospace; }
+
+/* Tier badges */
+.tier { display: inline-flex; align-items: center; gap: 4px; font-size: 9px; font-weight: 600; letter-spacing: 0.4px; padding: 3px 8px; border-radius: 100px; flex-shrink: 0; }
+.tier-free { background: var(--sage-lt); color: var(--sage); }
+.tier-pro { background: var(--plum-wash); color: var(--plum); }
+.tier-both { background: var(--amber-lt); color: var(--amber); }
+.tier-ultimate { background: rgba(49,51,44,0.06); color: var(--ink); }
+
+/* Card preview (mini mockup of the actual card) */
+.card-preview { border-radius: 10px; padding: 14px; margin-bottom: 14px; position: relative; }
+.cp-dismiss { position: absolute; top: 8px; right: 8px; width: 18px; height: 18px; border-radius: 50%; background: rgba(49,51,44,0.07); display: flex; align-items: center; justify-content: center; }
+.cp-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.cp-icon { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.cp-title { font-family: 'Noto Serif', serif; font-size: 13px; color: var(--ink); line-height: 1.25; }
+.cp-body { font-size: 10px; color: var(--mid); line-height: 1.5; margin-bottom: 10px; padding-right: 12px; }
+.cp-cta { display: inline-block; font-size: 9px; font-weight: 500; color: white; padding: 5px 12px; border-radius: 100px; cursor: pointer; }
+
+/* Priority table */
+.priority-table { width: 100%; border-collapse: collapse; background: white; border-radius: 14px; overflow: hidden; border: 1px solid rgba(26,22,18,0.06); }
+.priority-table th { text-align: left; font-size: 9px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; color: var(--hint); padding: 12px 16px; background: var(--surface-low); border-bottom: 1px solid rgba(26,22,18,0.06); }
+.priority-table td { padding: 14px 16px; font-size: 12px; color: #6B6358; line-height: 1.5; border-bottom: 1px solid rgba(26,22,18,0.04); vertical-align: top; }
+.priority-table tr:last-child td { border-bottom: none; }
+.priority-table .rank { font-size: 18px; font-weight: 700; color: var(--surface-high); font-family: 'Noto Serif', serif; }
+.priority-table .card-name { font-weight: 600; color: var(--ink); font-size: 13px; }
+.priority-table .example { font-style: italic; color: var(--mid); font-size: 11px; margin-top: 4px; }
+.priority-table tr:hover td { background: rgba(26,22,18,0.01); }
+
+/* Tier matrix */
+.matrix { background: white; border-radius: 14px; overflow: hidden; border: 1px solid rgba(26,22,18,0.06); }
+.matrix-header { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 0; }
+.matrix-header .mh-cell { padding: 14px 16px; font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--hint); background: var(--surface-low); border-bottom: 1px solid rgba(26,22,18,0.06); }
+.matrix-header .mh-cell.free { color: var(--sage); background: rgba(59,109,17,0.04); }
+.matrix-header .mh-cell.pro { color: var(--plum); background: var(--plum-wash); }
+.matrix-header .mh-cell.ultimate { color: var(--ink); background: rgba(49,51,44,0.04); }
+.matrix-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; border-bottom: 1px solid rgba(26,22,18,0.04); }
+.matrix-row:last-child { border-bottom: none; }
+.matrix-row:hover { background: rgba(26,22,18,0.01); }
+.matrix-cell { padding: 12px 16px; font-size: 12px; color: #6B6358; display: flex; align-items: center; }
+.matrix-cell.feature { font-weight: 500; color: var(--ink); flex-direction: column; align-items: flex-start; gap: 2px; }
+.matrix-cell.feature span { font-size: 10px; font-weight: 400; color: var(--mid); }
+.check { color: var(--sage); font-size: 14px; }
+.check-pro { color: var(--plum); font-size: 14px; }
+.dash { color: var(--hint); font-size: 12px; }
+.badge-new { font-size: 8px; font-weight: 600; background: var(--plum-wash); color: var(--plum); padding: 1px 6px; border-radius: 100px; margin-left: 6px; }
+
+/* Rules list */
+.rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.rule-card { background: white; border-radius: 12px; padding: 18px; border: 1px solid rgba(26,22,18,0.06); }
+.rule-title { font-size: 12px; font-weight: 600; color: var(--ink); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.rule-body { font-size: 11px; color: #6B6358; line-height: 1.7; }
+.rule-body strong { color: var(--ink); }
+.rule-body em { color: var(--mid); }
+.rule-icon { width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+/* Quiet day callout */
+.callout { border-radius: 12px; padding: 18px 20px; margin-bottom: 24px; display: flex; gap: 14px; align-items: flex-start; }
+.callout.plum { background: var(--plum-wash); border-left: 3px solid var(--plum); }
+.callout.apricot { background: var(--apricot-wash); border-left: 3px solid var(--apricot); }
+.callout-title { font-size: 12px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.callout-body { font-size: 11px; color: #6B6358; line-height: 1.6; }
+
+/* Divider */
+.divider { height: 1px; background: rgba(26,22,18,0.08); margin: 48px 0; }
+
+@media (max-width: 800px) {
+  .card-grid { grid-template-columns: 1fr; }
+  .rules-grid { grid-template-columns: 1fr; }
+  .matrix-header, .matrix-row { grid-template-columns: 2fr 1fr 1fr; }
+  .matrix-header .mh-cell:last-child, .matrix-row .matrix-cell:last-child { display: none; }
+}
+</style>
+</head>
+<body>
+
+<nav class="hub-nav">
+  <a href="../index.html">
+    <svg width="16" height="18" viewBox="0 0 626 700" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:2px;"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0C56.05,700.13,0,642.43,0,571.26V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#C4A8E8" cx="535.96" cy="119.29" r="90"/></svg>
+    Design hub
+  </a>
+  <span class="sep">/</span>
+  <span class="title">For You: Card System</span>
+  <span class="status">Live spec</span>
+</nav>
+
+<div class="page">
+
+  <div class="page-eyebrow">Feature spec · Today tab</div>
+  <h1 class="page-h1">For You: Card System</h1>
+  <p class="page-sub">The discovery and engagement surface at the bottom of the Today tab. Cards are contextual, data-driven, and actionable. This is what makes nudgii feel alive rather than a static checklist — and it's the main reason to keep opening the app on a quiet day.</p>
+  <div class="page-pills">
+    <span class="pill">6 card types</span>
+    <span class="pill">Priority algorithm</span>
+    <span class="pill">Free · Pro · Ultimate</span>
+    <span class="pill">Rotation + dismissal rules</span>
+  </div>
+
+  <!-- ═══ CARD TYPES ═══ -->
+  <div class="section-label">Card types</div>
+
+  <div class="card-grid">
+
+    <!-- 1. Savings summary -->
+    <div class="spec-card">
+      <div class="spec-card-head">
+        <div>
+          <div class="spec-card-title">Savings summary</div>
+          <div class="spec-card-sub">Estimated repair costs avoided</div>
+        </div>
+        <span class="tier tier-free">Free</span>
+      </div>
+      <div class="card-preview" style="background:var(--apricot-wash);text-align:center;padding:16px;">
+        <div style="font-size:7px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--hint);margin-bottom:4px;">saved this year</div>
+        <div style="font-family:'Noto Serif',serif;font-size:28px;color:var(--apricot);line-height:1;letter-spacing:-0.02em;margin-bottom:4px;">~€340</div>
+        <div style="font-size:9px;color:var(--mid);margin-bottom:8px;">Estimated repair costs you've avoided.</div>
+        <span style="font-size:9px;font-weight:500;color:var(--apricot);">See breakdown ›</span>
+      </div>
+      <div class="spec-card-body">
+        <strong>No X button</strong> — permanent card, always in the row. Cannot be dismissed.<br><br>
+        <strong>Position:</strong> Always first in the row. Sets the emotional tone and reinforces the value of maintaining tasks.<br><br>
+        <strong>Pro upgrade:</strong> Pro users see a breakdown by category (Home: €180, Car: €110, Garden: €50) and a year-over-year comparison.
+      </div>
+    </div>
+
+    <!-- 2. Item suggestion -->
+    <div class="spec-card">
+      <div class="spec-card-head">
+        <div>
+          <div class="spec-card-title">Item suggestion</div>
+          <div class="spec-card-sub">Items the user probably owns but hasn't added</div>
+        </div>
+        <span class="tier tier-free">Free</span>
+      </div>
+      <div class="card-preview" style="background:var(--ch-wash);">
+        <button class="cp-dismiss"><svg width="7" height="7" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button>
+        <div class="cp-head">
+          <div class="cp-icon" style="background:var(--ch-wash);"><svg width="14" height="14" viewBox="0 0 256 256" fill="none"><path d="M208,224H48a8,8,0,0,1-8-8V104a8,8,0,0,1,3.2-6.4l80-60a8,8,0,0,1,9.6,0l80,60A8,8,0,0,1,216,104V216A8,8,0,0,1,208,224Z" stroke="var(--ch-bg)" stroke-width="20" fill="none" stroke-linecap="round"/></svg></div>
+          <div class="cp-title">Gutters need cleaning</div>
+        </div>
+        <div class="cp-body">Twice a year in Belgium. Yours haven't been added yet.</div>
+        <span class="cp-cta" style="background:var(--ch-bg);">Add gutters</span>
+      </div>
+      <div class="spec-card-body">
+        <strong>Trigger:</strong> User has a House item but no "gutters" → suggest gutters. User has a car but no "wiper fluid" → suggest wiper fluid check.<br><br>
+        <strong>Source:</strong> Derived from item taxonomy. nudgii knows what items typically belong together.<br><br>
+        <strong>Priority:</strong> Highest relevance. Shown first when schedule is empty (quiet day). Dismissed for 30 days, then eligible again.
+      </div>
+    </div>
+
+    <!-- 3. Seasonal tip -->
+    <div class="spec-card">
+      <div class="spec-card-head">
+        <div>
+          <div class="spec-card-title">Seasonal tip</div>
+          <div class="spec-card-sub">Time-sensitive advice based on month + region</div>
+        </div>
+        <span class="tier tier-free">Free</span>
+      </div>
+      <div class="card-preview" style="background:var(--cg-wash);">
+        <button class="cp-dismiss"><svg width="7" height="7" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button>
+        <div class="cp-head">
+          <div class="cp-icon" style="background:var(--cg-wash);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cg-bg)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/></svg></div>
+          <div class="cp-title">Spring is here</div>
+        </div>
+        <div class="cp-body">March in Belgium: prune roses before April or skip a full growing season.</div>
+        <span class="cp-cta" style="background:var(--cg-bg);">Add rose bush</span>
+      </div>
+      <div class="spec-card-body">
+        <strong>Trigger:</strong> Based on current month + user's country (nl-BE, nl-NL, fr).<br><br>
+        <strong>Time decay:</strong> Card relevance drops after 2 weeks. A March tip that wasn't dismissed by April 15 is hidden automatically.<br><br>
+        <strong>Pro upgrade:</strong> Cards are personalised to items the user actually owns, not generic region tips.
+      </div>
+    </div>
+
+    <!-- 4. Progress checklist -->
+    <div class="spec-card">
+      <div class="spec-card-head">
+        <div>
+          <div class="spec-card-title">Progress checklist</div>
+          <div class="spec-card-sub">Completion toward a seasonal goal</div>
+        </div>
+        <span class="tier tier-free">Free</span>
+      </div>
+      <div class="card-preview" style="background:var(--cg-wash);">
+        <button class="cp-dismiss"><svg width="7" height="7" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button>
+        <div class="cp-head">
+          <div class="cp-icon" style="background:var(--cg-wash);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cg-bg)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+          <div class="cp-title">Spring garden</div>
+        </div>
+        <div class="cp-body">3 of 5 tasks done. Almost there.</div>
+        <div style="display:flex;gap:3px;margin-top:2px;">
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--cg-bg);"></div>
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--cg-bg);"></div>
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--cg-bg);"></div>
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--surface-high);"></div>
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--surface-high);"></div>
+        </div>
+      </div>
+      <div class="spec-card-body">
+        <strong>Trigger:</strong> User has a seasonal goal in progress (at least 1 task done, not all done).<br><br>
+        <strong>Motivational.</strong> Shows how close they are. Disappears when goal is 100% complete — replaced by a completion moment.<br><br>
+        <strong>Not dismissable</strong> while goal is active (in progress). Can be dismissed once complete.
+      </div>
+    </div>
+
+    <!-- 5. Did you know -->
+    <div class="spec-card">
+      <div class="spec-card-head">
+        <div>
+          <div class="spec-card-title">Did you know</div>
+          <div class="spec-card-sub">Educational tip, bite-sized</div>
+        </div>
+        <span class="tier tier-free">Free</span>
+      </div>
+      <div class="card-preview" style="background:var(--yellow-wash);">
+        <button class="cp-dismiss"><svg width="7" height="7" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button>
+        <div class="cp-head">
+          <div class="cp-icon" style="background:rgba(232,184,109,0.20);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="1.8" stroke-linecap="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></div>
+          <div class="cp-title">Did you know?</div>
+        </div>
+        <div class="cp-body">Boilers last 2-3 years longer with an annual service. Worth the call.</div>
+        <span class="cp-cta" style="background:var(--yellow);">Find a technician</span>
+      </div>
+      <div class="spec-card-body">
+        <strong>Lowest urgency.</strong> Educational, filler when higher-priority cards aren't available.<br><br>
+        <strong>Free:</strong> Generic tips related to categories the user has.<br><br>
+        <strong>Pro:</strong> Tips are specific to the user's actual items (boiler brand, car make, garden type). Sourced from Claude API based on item context.<br><br>
+        Dismissed for 30 days. Can optionally have a CTA (e.g. "Find a technician") or none.
+      </div>
+    </div>
+
+    <!-- 6. Affiliate suggestion -->
+    <div class="spec-card">
+      <div class="spec-card-head">
+        <div>
+          <div class="spec-card-title">Affiliate suggestion</div>
+          <div class="spec-card-sub">Product recommendation, clearly labeled</div>
+        </div>
+        <span class="tier tier-free">Free</span>
+      </div>
+      <div class="card-preview" style="background:var(--cv-wash);">
+        <button class="cp-dismiss"><svg width="7" height="7" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button>
+        <div style="font-size:7px;font-weight:500;color:var(--hint);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:6px;">affiliate · we may earn a small fee</div>
+        <div class="cp-head">
+          <div class="cp-icon" style="background:var(--cv-wash);"><svg width="14" height="14" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="96" stroke="var(--cv-bg)" stroke-width="18" fill="none"/><circle cx="128" cy="128" r="36" stroke="var(--cv-bg)" stroke-width="18" fill="none"/></svg></div>
+          <div class="cp-title">Tyre pressure gauge</div>
+        </div>
+        <div class="cp-body">You check your tyres monthly. A good gauge makes it a 2-minute job.</div>
+        <span class="cp-cta" style="background:var(--cv-bg);">View on bol.com ↗</span>
+      </div>
+      <div class="spec-card-body">
+        <strong>Strict rules:</strong><br>
+        — Only shown at the moment a relevant task is due or overdue<br>
+        — Max 1 affiliate card per session<br>
+        — Label always visible: "affiliate · we may earn a small fee"<br>
+        — Never more prominent than the task itself<br>
+        — Never shown as schedule filler<br><br>
+        Dismissed for 7 days (shorter — product links decay fast).
+      </div>
+    </div>
+
+  </div><!-- /card-grid -->
+
+  <!-- PRO-ONLY CARDS -->
+  <div style="margin-top:24px;">
+    <div style="font-size:11px;font-weight:600;color:var(--plum);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:12px;">Pro-only card types</div>
+    <div class="card-grid">
+
+      <div class="spec-card" style="border-color:rgba(155,127,212,0.20);">
+        <div class="spec-card-head">
+          <div>
+            <div class="spec-card-title">AI recommendation</div>
+            <div class="spec-card-sub">Pattern-driven insight from completion history</div>
+          </div>
+          <span class="tier tier-pro">Pro</span>
+        </div>
+        <div class="spec-card-body">
+          <strong>Source:</strong> Claude API analyses completion patterns. "You always do your car check on Saturday mornings — here's what else tends to need attention then."<br><br>
+          <strong>Trigger:</strong> After 4+ weeks of usage, when enough history exists to make a confident suggestion.<br><br>
+          Not available on free tier. Requires completion history that free users may not have yet.
+        </div>
+      </div>
+
+      <div class="spec-card" style="border-color:rgba(155,127,212,0.20);">
+        <div class="spec-card-head">
+          <div>
+            <div class="spec-card-title">Weather-aware nudge</div>
+            <div class="spec-card-sub">Task adjustment based on forecast</div>
+          </div>
+          <span class="tier tier-pro">Pro</span>
+        </div>
+        <div class="spec-card-body">
+          <strong>Example:</strong> "Rain forecast this weekend — your olive tree pruning works better in dry weather. Plan for next week instead."<br><br>
+          <strong>Source:</strong> Weather API + task schedule. Proactively adjusts timing suggestions.<br><br>
+          This is the kind of nudge that makes users say "how did it know that."
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══ FREE VS PRO VS ULTIMATE ═══ -->
+  <div class="section-label">Free vs Pro vs Ultimate</div>
+
+  <p style="font-size:13px;color:var(--mid);line-height:1.6;margin-bottom:24px;max-width:680px;">Ultimate is a future tier — post-launch, v2. Not designed yet, but the direction is household-level intelligence and multi-user insights. Included here so decisions made now don't close that door.</p>
+
+  <div class="matrix">
+    <div class="matrix-header">
+      <div class="mh-cell">Feature</div>
+      <div class="mh-cell free">Free</div>
+      <div class="mh-cell pro">Pro €4.99/mo</div>
+      <div class="mh-cell ultimate">Ultimate (v2)</div>
+    </div>
+
+    <div class="matrix-row">
+      <div class="matrix-cell feature">Savings summary card<span>Total estimated savings</span></div>
+      <div class="matrix-cell"><span class="check">✓</span></div>
+      <div class="matrix-cell"><span class="check-pro">✓</span> + breakdown by category + year-over-year</div>
+      <div class="matrix-cell"><span class="check">✓</span> + household total</div>
+    </div>
+
+    <div class="matrix-row">
+      <div class="matrix-cell feature">Item suggestion cards<span>Based on items owned</span></div>
+      <div class="matrix-cell"><span class="check">✓</span> Generic (owns house → gutters)</div>
+      <div class="matrix-cell"><span class="check-pro">✓</span> Personalised (your Vaillant boiler → specific filter)</div>
+      <div class="matrix-cell"><span class="check">✓</span></div>
+    </div>
+
+    <div class="matrix-row">
+      <div class="matrix-cell feature">Seasonal tips<span>Month + region based</span></div>
+      <div class="matrix-cell"><span class="check">✓</span> Generic (Belgium, March)</div>
+      <div class="matrix-cell"><span class="check-pro">✓</span> Specific to owned items</div>
+      <div class="matrix-cell"><span class="check">✓</span></div>
+    </div>
+
+    <div class="matrix-row">
+      <div class="matrix-cell feature">Progress checklist<span>Seasonal goal tracking</span></div>
+      <div class="matrix-cell"><span class="check">✓</span></div>
+      <div class="matrix-cell"><span class="check-pro">✓</span></div>
+      <div class="matrix-cell"><span class="check">✓</span></div>
+    </div>
+
+    <div class="matrix-row">
+      <div class="matrix-cell feature">Did you know<span>Educational tips</span></div>
+      <div class="matrix-cell"><span class="check">✓</span> Category-level tips</div>
+      <div class="matrix-cell"><span class="check-pro">✓</span> Item-specific (Claude API)</div>
+      <div class="matrix-cell"><span class="check">✓</span></div>
+    </div>
+
+    <div class="matrix-row">
+      <div class="matrix-cell feature">Affiliate suggestions<span>Labeled product recs</span></div>
+      <div class="matrix-cell"><span class="check">✓</span> Max 1/session, task-due only</div>
+      <div class="matrix-cell"><span class="check-pro">✓</span> Same rules, better matching</div>
+      <div class="matrix-cell"><span class="check">✓</span></div>
+    </div>
+
+    <div class="matrix-row">
+      <div class="matrix-cell feature">AI recommendation<span>Completion pattern analysis</span></div>
+      <div class="matrix-cell"><span class="dash">—</span></div>
+      <div class="matrix-cell"><span class="check-pro">✓</span> After 4+ weeks history <span class="badge-new">Pro</span></div>
+      <div class="matrix-cell"><span class="check">✓</span> + household patterns</div>
+    </div>
+
+    <div class="matrix-row">
+      <div class="matrix-cell feature">Weather-aware nudge<span>Forecast-based adjustment</span></div>
+      <div class="matrix-cell"><span class="dash">—</span></div>
+      <div class="matrix-cell"><span class="check-pro">✓</span> <span class="badge-new">Pro</span></div>
+      <div class="matrix-cell"><span class="check">✓</span></div>
+    </div>
+
+    <div class="matrix-row">
+      <div class="matrix-cell feature">Household insights<span>Multi-user patterns</span></div>
+      <div class="matrix-cell"><span class="dash">—</span></div>
+      <div class="matrix-cell"><span class="dash">—</span></div>
+      <div class="matrix-cell"><span class="check">✓</span> v2 only</div>
+    </div>
+
+    <div class="matrix-row">
+      <div class="matrix-cell feature">Predictive maintenance calendar<span>AI-generated year plan</span></div>
+      <div class="matrix-cell"><span class="dash">—</span></div>
+      <div class="matrix-cell"><span class="dash">—</span></div>
+      <div class="matrix-cell"><span class="check">✓</span> v2 only</div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══ PRIORITY ALGORITHM ═══ -->
+  <div class="section-label">Priority algorithm — what shows and when</div>
+
+  <div class="callout plum" style="margin-bottom:24px;">
+    <div>
+      <div class="callout-title">When the schedule is quiet (TODAY + THIS WEEK empty)</div>
+      <div class="callout-body">Item suggestion cards jump to position 2 (after savings). These are the most tangible and actionable — they fill the void naturally without feeling like a system message. On a quiet day, FOR YOU is the main reason to keep the app open.</div>
+    </div>
+  </div>
+
+  <table class="priority-table">
+    <thead>
+      <tr>
+        <th style="width:40px;">#</th>
+        <th style="width:160px;">Card type</th>
+        <th>Trigger condition</th>
+        <th>Real example</th>
+        <th style="width:80px;">Dismissal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="rank">0</div></td>
+        <td><div class="card-name">Savings summary</div></td>
+        <td style="font-size:11px;color:#6B6358;">Always. First in row. Permanent.</td>
+        <td><div class="example">"~€340 saved this year. Estimated repair costs you've avoided."</div></td>
+        <td style="font-size:11px;color:var(--hint);">Never</td>
+      </tr>
+      <tr>
+        <td><div class="rank">1</div></td>
+        <td><div class="card-name">Item suggestion</div></td>
+        <td style="font-size:11px;color:#6B6358;">User has House item but no gutters entry. User has Car but no wiper fluid task. Derived from item taxonomy gaps.</td>
+        <td><div class="example">"Gutters need cleaning — twice a year in Belgium. Yours haven't been added yet." → Add gutters</div></td>
+        <td style="font-size:11px;color:var(--hint);">30 days</td>
+      </tr>
+      <tr>
+        <td><div class="rank">2</div></td>
+        <td><div class="card-name">Seasonal tip</div></td>
+        <td style="font-size:11px;color:#6B6358;">Month is March + user country is BE/NL + user has Garden category. Decays after 2 weeks.</td>
+        <td><div class="example">"March in Belgium: prune roses before April or skip a full growing season." → Add rose bush</div></td>
+        <td style="font-size:11px;color:var(--hint);">30 days</td>
+      </tr>
+      <tr>
+        <td><div class="rank">3</div></td>
+        <td><div class="card-name">Progress checklist</div></td>
+        <td style="font-size:11px;color:#6B6358;">User has a seasonal checklist with at least 1 task done and at least 1 remaining.</td>
+        <td><div class="example">"Spring garden: 3 of 5 tasks done. Almost there." → View checklist (dots progress indicator)</div></td>
+        <td style="font-size:11px;color:var(--hint);">Not while in progress</td>
+      </tr>
+      <tr>
+        <td><div class="rank">4</div></td>
+        <td><div class="card-name">AI recommendation</div></td>
+        <td style="font-size:11px;color:#6B6358;">Pro only. 4+ weeks of history. Claude detects a pattern or an item that keeps getting snoozed.</td>
+        <td><div class="example">"You snooze the boiler service every time. It's been 16 days — want nudgii to find a technician near you?" → Find technician</div></td>
+        <td style="font-size:11px;color:var(--hint);">7 days</td>
+      </tr>
+      <tr>
+        <td><div class="rank">5</div></td>
+        <td><div class="card-name">Did you know</div></td>
+        <td style="font-size:11px;color:#6B6358;">Filler. Always available when higher-priority slots are empty. Rotates weekly.</td>
+        <td><div class="example">"Boilers last 2-3 years longer with an annual service. Worth the call." → Find a technician</div></td>
+        <td style="font-size:11px;color:var(--hint);">30 days</td>
+      </tr>
+      <tr>
+        <td><div class="rank">6</div></td>
+        <td><div class="card-name">Affiliate</div></td>
+        <td style="font-size:11px;color:#6B6358;">Task is due or overdue AND a relevant product exists. Max 1 per session. Never as filler.</td>
+        <td><div class="example">"Tyre pressure is due. A good gauge makes it a 2-minute job." → View on bol.com (labeled: affiliate)</div></td>
+        <td style="font-size:11px;color:var(--hint);">7 days</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="divider"></div>
+
+  <!-- ═══ DISPLAY + ROTATION RULES ═══ -->
+  <div class="section-label">Display + rotation rules</div>
+
+  <div class="rules-grid">
+
+    <div class="rule-card">
+      <div class="rule-title">
+        <div class="rule-icon" style="background:var(--plum-wash);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--plum)" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div>
+        How many cards show at once
+      </div>
+      <div class="rule-body">
+        Max <strong>4 cards</strong> in the row at any time. Min <strong>2 cards</strong> always present (savings summary + 1 other).<br><br>
+        If the pool drops below 2 eligible cards, a generic "Did you know" fills the gap. The row never shows fewer than 2 cards.
+      </div>
+    </div>
+
+    <div class="rule-card">
+      <div class="rule-title">
+        <div class="rule-icon" style="background:var(--apricot-wash);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--apricot)" stroke-width="2" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></div>
+        Rotation + refresh
+      </div>
+      <div class="rule-body">
+        <strong>Weekly rotation</strong> for seasonal and editorial content, even if not dismissed.<br><br>
+        <strong>On app open</strong> after 7+ days: rotate in fresh cards regardless of dismissal state.<br><br>
+        Dismissed cards return after their timeout (7 or 30 days depending on type).
+      </div>
+    </div>
+
+    <div class="rule-card">
+      <div class="rule-title">
+        <div class="rule-icon" style="background:var(--cg-wash);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--cg-bg)" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+        Dismissal behaviour
+      </div>
+      <div class="rule-body">
+        Tapping X dismisses a card immediately. It slides out of the row and the next eligible card slides in.<br><br>
+        <strong>Dismissed duration:</strong> affiliate = 7 days, AI rec = 7 days, all others = 30 days.<br><br>
+        Savings summary: <strong>no X button.</strong> Cannot be dismissed, ever.
+      </div>
+    </div>
+
+    <div class="rule-card">
+      <div class="rule-title">
+        <div class="rule-icon" style="background:var(--yellow-wash);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        Too empty — all sections empty
+      </div>
+      <div class="rule-body">
+        If TODAY + THIS WEEK + COMING UP are all empty: inject a persistent <strong>"Your schedule is quiet"</strong> card into FOR YOU. No X button. Body: <em>"Add more items and nudgii will figure out the rest."</em> CTA: <strong>+ Add items</strong>.<br><br>
+        This card disappears as soon as any task section has content.
+      </div>
+    </div>
+
+    <div class="rule-card">
+      <div class="rule-title">
+        <div class="rule-icon" style="background:var(--cs-wash);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--cs-bg)" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        Free vs Pro card quality
+      </div>
+      <div class="rule-body">
+        Free users see all 6 base card types. The <strong>type</strong> is the same, the <strong>intelligence</strong> is not.<br><br>
+        Free: "Your boiler might need a service" (generic category tip).<br>
+        Pro: "Your Vaillant ecoTEC Plus hasn't been serviced in 14 months — book before the warranty check window closes" (item-specific, Claude API).
+      </div>
+    </div>
+
+    <div class="rule-card">
+      <div class="rule-title">
+        <div class="rule-icon" style="background:rgba(49,51,44,0.06);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+        Savings card — always first
+      </div>
+      <div class="rule-body">
+        Savings summary is always the <strong>first card</strong> in the row. It sets the emotional tone before the user sees suggestions.<br><br>
+        On a quiet day: seeing "€340 saved" first makes the empty schedule feel like a reward, not a failure. It answers "why am I even using this?" without the user having to ask.
+      </div>
+    </div>
+
+  </div>
+
+</div><!-- /page -->
+</body>
+</html>

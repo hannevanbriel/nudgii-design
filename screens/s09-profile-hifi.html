@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · S-09 Profile · hi-fi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   S-09 Profile tab · hi-fi · Precision Warmth design system
+   Noto Serif + Manrope, plum + apricot, tonal surfaces
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Tokens ── */
+:root {
+  /* Surface tiers */
+  --surface: #FBF9F4;
+  --surface-low: #F5F4ED;
+  --surface-high: #E8E9E0;
+  --surface-lowest: #FFFFFF;
+
+  /* Text */
+  --ink: #31332C;
+  --mid: #7A756D;
+  --hint: #A09A90;
+  --outline-var: #B1B3A9;
+
+  /* Plum: actions */
+  --plum: #9B7FD4;
+  --plum-fg: #FAF8FF;
+  --plum-wash: rgba(155,127,212,0.10);
+  --plum-container: rgba(155,127,212,0.08);
+
+  /* Apricot: warmth */
+  --apricot: #E8A87C;
+  --apricot-wash: rgba(232,168,124,0.12);
+
+  /* Semantic */
+  --sage: #3B6D11;
+  --sage-lt: #EAF3DE;
+  --red: #A32D2D;
+  --red-lt: #FCEBEB;
+
+  /* Primary mapped to plum */
+  --primary: #9B7FD4;
+  --primary-fg: #FAF8FF;
+
+  --r: 12px; --rs: 8px;
+}
+
+[data-theme="dark"] {
+  --surface: #1C1B18;
+  --surface-low: #24231F;
+  --surface-high: #2E2D28;
+  --surface-lowest: #181714;
+  --ink: #F0EDE6;
+  --mid: #A8A29A;
+  --hint: #787068;
+  --outline-var: rgba(177,179,169,0.15);
+  --plum: #B8A0E8;
+  --plum-fg: #1C1B18;
+  --apricot: #F0B890;
+  --primary: #B8A0E8;
+  --primary-fg: #1C1B18;
+  --plum-wash: rgba(184,160,232,0.12);
+  --apricot-wash: rgba(240,184,144,0.15);
+  --sage: #6ABD2A;
+  --sage-lt: rgba(106,189,42,0.12);
+  --red: #D46060;
+  --red-lt: rgba(212,96,96,0.12);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100vh; color: var(--ink); }
+
+/* ── Design hub nav ── */
+.hub-nav {
+  background: #F5F0E8; border-bottom: 1px solid rgba(26,22,18,0.12);
+  padding: 0 32px; display: flex; align-items: center; gap: 16px;
+  height: 48px; position: sticky; top: 0; z-index: 200;
+}
+.hub-nav a { font-size: 13px; color: #8A8070; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+.hub-nav a:hover { color: #2C2824; }
+.hub-nav .sep { color: rgba(26,22,18,0.12); }
+.hub-nav .title { font-size: 13px; font-weight: 500; }
+.hub-nav .status { margin-left: auto; font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 100px; }
+.status-progress { background: rgba(133,79,11,0.10); color: #854F0B; border: 1px solid rgba(133,79,11,0.20); }
+
+/* ── Page header ── */
+.page-header { max-width: 1200px; margin: 0 auto; padding: 40px 40px 0; }
+.page-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: #8A8070; margin-bottom: 8px; }
+.page-h1 { font-family: 'Noto Serif', serif; font-size: 32px; font-weight: 400; color: #2C2824; margin-bottom: 6px; letter-spacing: -0.02em; }
+.page-subtitle { font-size: 14px; color: #8A8070; margin-bottom: 16px; }
+.page-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+.page-pill { font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 100px; background: rgba(155,127,212,0.10); color: #9B7FD4; }
+
+/* ── Controls ── */
+.controls { max-width: 1200px; margin: 0 auto; padding: 20px 40px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.ctrl-group { display: flex; gap: 4px; align-items: center; }
+.ctrl-label { font-size: 9px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: #A09888; margin-right: 4px; }
+.ctrl-btn { font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 500; padding: 5px 14px; border-radius: 6px; border: 1px solid rgba(26,22,18,0.12); background: transparent; color: #8A8070; cursor: pointer; transition: all 120ms; }
+.ctrl-btn:hover { border-color: rgba(26,22,18,0.20); }
+.ctrl-btn.on { background: #9B7FD4; color: #FAF8FF; border-color: #9B7FD4; }
+
+/* ── Content row (phone + annotations) ── */
+.content-row { max-width: 1200px; margin: 0 auto; padding: 0 40px 40px; display: flex; gap: 40px; align-items: flex-start; }
+
+/* ── Phone shell ── */
+.phone-col { flex-shrink: 0; position: sticky; top: 68px; }
+.ph { width: 390px; height: 844px; border-radius: 50px; overflow: hidden; position: relative; background: var(--surface); box-shadow: 0 0 0 1px rgba(255,255,255,0.03), 0 24px 80px rgba(49,51,44,0.25); transition: background 250ms; }
+.notch { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 102px; height: 8px; border-radius: 100px; background: rgba(49,51,44,0.06); z-index: 60; }
+[data-theme="dark"] .notch { background: rgba(255,255,255,0.08); }
+.sb { height: 54px; padding: 14px 30px 0; display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 600; color: var(--ink); letter-spacing: 0.01em; }
+
+/* ── Tab content area ── */
+.tc { position: absolute; inset: 54px 0 84px 0; overflow: hidden; }
+.tp { position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden; padding: 0 20px 24px; opacity: 0; pointer-events: none; transition: opacity 250ms; scrollbar-width: none; }
+.tp::-webkit-scrollbar { display: none; }
+.tp.active { opacity: 1; pointer-events: auto; }
+
+/* ── User header ── */
+.prof-header { display: flex; flex-direction: column; align-items: center; padding: 20px 0 16px; }
+.prof-avatar { width: 72px; height: 72px; border-radius: 50%; background: var(--surface-low); display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+.prof-name { font-family: 'Noto Serif', serif; font-size: 24px; font-weight: 400; color: var(--ink); letter-spacing: -0.02em; margin-bottom: 3px; }
+.prof-since { font-size: 12px; color: var(--mid); margin-bottom: 8px; }
+.prof-badge { display: inline-flex; align-items: center; font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 100px; }
+.prof-badge.free { background: var(--sage-lt); color: var(--sage); }
+.prof-badge.pro { background: var(--plum-wash); color: var(--plum); }
+
+/* ── Stats row ── */
+.stats-row { display: flex; gap: 8px; margin: 4px 0 6px; }
+.stat-circle { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--surface-low); border-radius: 50px; padding: 12px 6px; min-height: 64px; }
+.stat-num { font-family: 'Noto Serif', serif; font-size: 20px; font-weight: 400; color: var(--apricot); line-height: 1; letter-spacing: -0.02em; }
+.stat-lbl { font-size: 8px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--hint); margin-top: 3px; }
+.stats-wit { font-family: 'Noto Serif', serif; font-style: italic; font-size: 11px; color: var(--hint); text-align: center; padding: 4px 0 14px; opacity: 0.65; }
+
+/* ── Upgrade banner (Free only) ── */
+.upgrade-banner { background: var(--surface-low); border: 1px solid rgba(155,127,212,0.20); border-radius: var(--r); padding: 14px; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+.upgrade-icon { width: 32px; height: 32px; border-radius: 8px; background: var(--plum-wash); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.upgrade-copy { flex: 1; min-width: 0; }
+.upgrade-title { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+.upgrade-sub { font-size: 11px; color: var(--mid); line-height: 1.4; }
+.upgrade-cta { font-size: 10px; font-weight: 500; color: var(--plum-fg); background: var(--plum); padding: 6px 14px; border-radius: 100px; white-space: nowrap; cursor: pointer; flex-shrink: 0; }
+
+/* ── Item progress bar (Free only) ── */
+.item-progress-card { background: var(--surface-low); border-radius: var(--r); padding: 14px 16px; margin-bottom: 14px; }
+.item-progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.item-progress-label { font-size: 11px; font-weight: 500; color: var(--ink); }
+.item-progress-link { font-size: 11px; font-weight: 500; color: var(--plum); cursor: pointer; }
+.item-progress-bar { height: 4px; background: var(--surface-high); border-radius: 100px; overflow: hidden; }
+.item-progress-fill { height: 100%; background: var(--plum); border-radius: 100px; }
+
+/* ── Section label ── */
+.sec-lbl { font-size: 9px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--hint); margin: 16px 0 8px; }
+.sec-lbl:first-child { margin-top: 0; }
+
+/* ── List cards (surface-low sections) ── */
+.list-card { background: var(--surface-low); border-radius: var(--r); overflow: hidden; margin-bottom: 14px; }
+.list-row { display: flex; align-items: center; gap: 12px; padding: 12px 14px; min-height: 44px; cursor: pointer; transition: background 150ms; }
+.list-row:active { background: rgba(49,51,44,0.03); }
+.list-row + .list-row { border-top: 1px solid var(--surface-high); }
+.list-row-label { flex: 1; font-size: 13px; font-weight: 400; color: var(--ink); }
+.list-row-value { font-size: 11px; color: var(--mid); margin-right: 6px; }
+.list-row-chev { flex-shrink: 0; }
+
+/* Plum action row */
+.list-row.plum-action .list-row-label { color: var(--plum); font-weight: 500; }
+/* Red action row */
+.list-row.red-action .list-row-label { color: var(--red); }
+
+/* ── Notification option cards ── */
+.notif-options { display: flex; gap: 8px; margin-bottom: 14px; }
+.notif-opt { flex: 1; background: var(--surface-high); border-radius: 10px; padding: 12px 8px; display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; border: 1px solid transparent; transition: all 150ms; text-align: center; }
+.notif-opt.active { background: var(--plum-wash); border-color: var(--plum); }
+.notif-opt-icon { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; }
+.notif-opt-title { font-size: 11px; font-weight: 500; color: var(--ink); line-height: 1.2; }
+.notif-opt-desc { font-size: 9px; color: var(--mid); line-height: 1.4; }
+
+/* ── Sign out ── */
+.sign-out { text-align: center; padding: 20px 0 8px; cursor: pointer; font-size: 13px; font-weight: 400; color: var(--red); }
+
+/* ── Nav bar ── */
+.nz { position: absolute; bottom: 0; left: 0; right: 0; height: 84px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 14px; pointer-events: none; z-index: 40; }
+.nb { background: var(--surface); border-radius: 20px; padding: 9px 6px 11px; display: flex; align-items: center; box-shadow: 0 -2px 12px rgba(49,51,44,0.04); pointer-events: auto; }
+[data-theme="dark"] .nb { background: var(--surface-low); box-shadow: 0 -2px 12px rgba(0,0,0,0.15); }
+.nt { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 14px; cursor: pointer; border: none; background: none; font-family: 'Manrope', sans-serif; border-radius: 10px; transition: background 150ms; }
+.nt svg * { stroke: var(--hint); }
+.nt .nl { font-size: 8px; font-weight: 500; color: var(--hint); }
+.nt.on svg * { stroke: var(--primary); }
+.nt.on .nl { color: var(--primary); font-weight: 600; }
+
+/* ── Annotation sidebar ── */
+.annot-col { flex: 1; min-width: 280px; max-width: 420px; }
+.annot-section { font-size: 10px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: #8A8070; margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid rgba(26,22,18,0.08); }
+.annot-section:first-child { margin-top: 0; }
+.annot-card { background: #FFFFFF; border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; border: 1px solid rgba(26,22,18,0.06); }
+.annot-card.decision { border-left: 3px solid #9B7FD4; }
+.annot-head { font-size: 12px; font-weight: 600; color: #2C2824; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.annot-body { font-size: 11px; color: #6B6358; line-height: 1.6; }
+.annot-body code { background: rgba(26,22,18,0.06); padding: 1px 5px; border-radius: 3px; font-size: 10px; font-family: 'SF Mono', 'Fira Code', monospace; }
+.annot-body strong { color: #2C2824; }
+.badge-rule { font-size: 8px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; background: rgba(59,109,17,0.10); color: #3B6D11; }
+.badge-note { font-size: 8px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; background: rgba(133,79,11,0.10); color: #854F0B; }
+.badge-decision { font-size: 8px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; background: rgba(155,127,212,0.12); color: #9B7FD4; }
+.badge-state { font-size: 8px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; background: rgba(232,168,124,0.12); color: #C08060; }
+
+/* ── Divider ── */
+.page-divider { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+.page-divider::after { content: ''; display: block; height: 1px; background: rgba(26,22,18,0.08); }
+
+/* ── Changelog ── */
+.changelog { max-width: 1200px; margin: 0 auto; padding: 32px 40px 60px; }
+.cl-title { font-family: 'Noto Serif', serif; font-size: 20px; color: #2C2824; margin-bottom: 20px; }
+.cl-entry { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid rgba(26,22,18,0.06); }
+.cl-entry:last-child { border-bottom: none; }
+.cl-ver { font-size: 10px; font-weight: 600; letter-spacing: 0.5px; color: #8A8070; margin-bottom: 6px; }
+.cl-body { font-size: 12px; color: #6B6358; line-height: 1.6; }
+.cl-body strong { color: #2C2824; }
+.cl-body code { background: rgba(26,22,18,0.06); padding: 1px 5px; border-radius: 3px; font-size: 10px; font-family: 'SF Mono', 'Fira Code', monospace; }
+.cl-flutter { margin-top: 8px; padding: 10px 12px; background: rgba(155,127,212,0.06); border-radius: 6px; font-size: 11px; color: #6B6358; line-height: 1.5; }
+.cl-flutter strong { color: #9B7FD4; font-size: 10px; letter-spacing: 0.3px; }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .content-row { flex-direction: column; align-items: center; }
+  .phone-col { position: static; }
+  .annot-col { max-width: 600px; width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="hub-nav">
+  <a href="../index.html">
+    <svg width="16" height="18" viewBox="0 0 626 700" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:2px;"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0C56.05,700.13,0,642.43,0,571.26V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#C4A8E8" cx="535.96" cy="119.29" r="90"/></svg>
+    Design hub
+  </a>
+  <span class="sep">/</span>
+  <span class="title">S-09 Profile tab</span>
+  <span class="status status-progress">In progress</span>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-eyebrow">S-09 · Profile tab</div>
+  <h1 class="page-h1">Profile</h1>
+  <p class="page-subtitle">User account, stats, notification preferences, settings, and support. Free and Pro states.</p>
+  <div class="page-meta">
+    <span class="page-pill">Noto Serif + Manrope</span>
+    <span class="page-pill">Plum + Apricot</span>
+    <span class="page-pill">Free vs Pro</span>
+  </div>
+</div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <div class="ctrl-group">
+    <span class="ctrl-label">Theme</span>
+    <button class="ctrl-btn on" id="ctl" onclick="setTheme('light')">Light</button>
+    <button class="ctrl-btn" id="ctd" onclick="setTheme('dark')">Dark</button>
+  </div>
+  <div class="ctrl-group" style="margin-left: 16px;">
+    <span class="ctrl-label">Plan</span>
+    <button class="ctrl-btn on" id="cs-free" onclick="setPlan('free')">Free</button>
+    <button class="ctrl-btn" id="cs-pro" onclick="setPlan('pro')">Pro</button>
+  </div>
+</div>
+
+<!-- CONTENT ROW: phone + annotations -->
+<div class="content-row">
+
+  <!-- PHONE -->
+  <div class="phone-col">
+    <div class="ph" id="phone" data-theme="light">
+      <div class="notch"></div>
+      <div class="sb"><span>9:41</span><span style="font-size:10px;color:var(--mid);">Profile</span></div>
+
+      <div class="tc">
+
+        <!-- ═══ FREE STATE ═══ -->
+        <div class="tp active" id="plan-free">
+          <!-- User header -->
+          <div class="prof-header">
+            <div class="prof-avatar">
+              <!-- ii mark SVG: dark-on-light variant -->
+              <svg width="28" height="40" viewBox="0 0 40 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11,5 C7,5 5,8.5 5,11.5 L5,34.5 C5,37.5 7,41 11,41 C15,41 17,37.5 17,34.5 L17,11.5 C17,8.5 15,5 11,5Z" fill="var(--plum)" opacity="0.5"/>
+                <path d="M29,15 C25,15 23,18.5 23,21.5 L23,44.5 C23,47.5 25,51 29,51 C33,51 35,47.5 35,44.5 L35,21.5 C35,18.5 33,15 29,15Z" fill="var(--plum)" opacity="0.8"/>
+                <circle cx="35" cy="10" r="5" fill="var(--apricot)"/>
+              </svg>
+            </div>
+            <div class="prof-name">Martijn</div>
+            <div class="prof-since">martijn@example.com</div>
+            <span class="prof-badge free">Free</span>
+          </div>
+
+          <!-- Stats row -->
+          <div class="stats-row">
+            <div class="stat-circle">
+              <div class="stat-num">7</div>
+              <div class="stat-lbl">active</div>
+            </div>
+            <div class="stat-circle">
+              <div class="stat-num">43</div>
+              <div class="stat-lbl">completed</div>
+            </div>
+            <div class="stat-circle">
+              <div class="stat-num">4</div>
+              <div class="stat-lbl">streak</div>
+            </div>
+          </div>
+          <div class="stats-wit">Your boiler has had 6 check-ups.</div>
+
+          <!-- Item progress bar (Free only) -->
+          <div class="item-progress-card">
+            <div class="item-progress-header">
+              <span class="item-progress-label">5 of 10 items free</span>
+              <span class="item-progress-link">Go Pro</span>
+            </div>
+            <div class="item-progress-bar">
+              <div class="item-progress-fill" style="width:50%;"></div>
+            </div>
+          </div>
+
+          <!-- Notifications section -->
+          <div class="sec-lbl">Notifications</div>
+          <div class="notif-options">
+            <!-- Calm -->
+            <div class="notif-opt">
+              <div class="notif-opt-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18,8A6,6,0,0,0,6,8c0,7-3,9-3,9H21s-3-2-3-9"/>
+                  <path d="M13.73,21a2,2,0,0,1-3.46,0"/>
+                  <line x1="4" y1="4" x2="20" y2="20"/>
+                </svg>
+              </div>
+              <div class="notif-opt-title">Calm</div>
+              <div class="notif-opt-desc">One email per week</div>
+            </div>
+            <!-- Regular (active) -->
+            <div class="notif-opt active">
+              <div class="notif-opt-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--plum)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18,8A6,6,0,0,0,6,8c0,7-3,9-3,9H21s-3-2-3-9"/>
+                  <path d="M13.73,21a2,2,0,0,1-3.46,0"/>
+                </svg>
+              </div>
+              <div class="notif-opt-title">Regular</div>
+              <div class="notif-opt-desc">Email + push on due date</div>
+            </div>
+            <!-- Proactive -->
+            <div class="notif-opt">
+              <div class="notif-opt-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18,8A6,6,0,0,0,6,8c0,7-3,9-3,9H21s-3-2-3-9"/>
+                  <path d="M13.73,21a2,2,0,0,1-3.46,0"/>
+                  <line x1="12" y1="2" x2="12" y2="1"/>
+                  <line x1="16.24" y1="3.76" x2="16.95" y2="3.05"/>
+                  <line x1="7.76" y1="3.76" x2="7.05" y2="3.05"/>
+                </svg>
+              </div>
+              <div class="notif-opt-title">Proactive</div>
+              <div class="notif-opt-desc">Day before, on the day, if missed</div>
+            </div>
+          </div>
+
+          <!-- Account section -->
+          <div class="sec-lbl">Account</div>
+          <div class="list-card">
+            <div class="list-row">
+              <div class="list-row-label">Email</div>
+              <div class="list-row-value">martijn@example.com</div>
+              <svg class="list-row-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+            </div>
+            <div class="list-row">
+              <div class="list-row-label">Plan</div>
+              <div class="list-row-value">Free</div>
+              <svg class="list-row-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+            </div>
+            <div class="list-row plum-action">
+              <div class="list-row-label">Upgrade to Pro</div>
+              <!-- Arrow right (no chevron, inline) -->
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--plum)" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </div>
+          </div>
+
+          <!-- Settings section -->
+          <div class="sec-lbl">Settings</div>
+          <div class="list-card">
+            <div class="list-row" style="cursor:default;">
+              <div class="list-row-label">Dark mode</div>
+              <!-- Toggle OFF -->
+              <svg width="40" height="24" viewBox="0 0 40 24" fill="none">
+                <rect width="40" height="24" rx="12" fill="var(--surface-high)"/>
+                <circle cx="12" cy="12" r="9" fill="white"/>
+              </svg>
+            </div>
+            <div class="list-row">
+              <div class="list-row-label">Language</div>
+              <div class="list-row-value">English</div>
+              <svg class="list-row-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+            </div>
+            <div class="list-row">
+              <div class="list-row-label">Region</div>
+              <div class="list-row-value">Belgium</div>
+              <svg class="list-row-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+            </div>
+            <div class="list-row plum-action">
+              <div class="list-row-label">Export my data</div>
+              <!-- Download icon -->
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--plum)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <svg class="list-row-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--plum)" stroke-width="1.8" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+            </div>
+          </div>
+
+          <!-- Support section -->
+          <div class="sec-lbl">Support</div>
+          <div class="list-card">
+            <div class="list-row">
+              <div class="list-row-label">Help</div>
+              <svg class="list-row-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+            </div>
+            <div class="list-row">
+              <div class="list-row-label">Privacy policy</div>
+              <svg class="list-row-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+            </div>
+            <div class="list-row">
+              <div class="list-row-label">Terms</div>
+              <svg class="list-row-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+            </div>
+            <div class="list-row" style="cursor:default;">
+              <div class="list-row-label" style="color:var(--mid);font-size:12px;">Version 1.0.0 (42)</div>
+            </div>
+          </div>
+
+          <!-- Sign out -->
+          <div class="sign-out">Sign out</div>
+
+        </div><!-- /plan-free -->
+
+        <!-- ═══ PRO STATE ═══ -->
+        <div class="tp" id="plan-pro">
+          <!-- User header -->
+          <div class="prof-header">
+            <div class="prof-avatar">
+              <!-- ii mark SVG: dark-on-light variant -->
+              <svg width="28" height="40" viewBox="0 0 40 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11,5 C7,5 5,8.5 5,11.5 L5,34.5 C5,37.5 7,41 11,41 C15,41 17,37.5 17,34.5 L17,11.5 C17,8.5 15,5 11,5Z" fill="var(--plum)" opacity="0.5"/>
+                <path d="M29,15 C25,15 23,18.5 23,21.5 L23,44.5 C23,47.5 25,51 29,51 C33,51 35,47.5 35,44.5 L35,21.5 C35,18.5 33,15 29,15Z" fill="var(--plum)" opacity="0.8"/>
+                <circle cx="35" cy="10" r="5" fill="var(--apricot)"/>
+              </svg>
+            </div>
+            <div class="prof-name">Martijn</div>
+            <div class="prof-since">martijn@example.com</div>
+            <span class="prof-badge pro">Pro</span>
+          </div>
+
+          <!-- Stats row -->
+          <div class="stats-row">
+            <div class="stat-circle">
+              <div class="stat-num">14</div>
+              <div class="stat-lbl">active</div>
+            </div>
+            <div class="stat-circle">
+              <div class="stat-num">91</div>
+              <div class="stat-lbl">completed</div>
+            </div>
+            <div class="stat-circle">
+              <div class="stat-num">11</div>
+              <div class="stat-lbl">streak</div>
+            </div>
+          </div>
+          <div class="stats-wit">Your boiler has had 6 check-ups.</div>
+
+          <!-- Notifications section (no upgrade banner on Pro, no item progress bar) -->
+          <div class="sec-lbl">Notifications</div>
+          <div class="notif-options">
+            <!-- Calm -->
+            <div class="notif-opt">
+              <div class="notif-opt-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18,8A6,6,0,0,0,6,8c0,7-3,9-3,9H21s-3-2-3-9"/>
+                  <path d="M13.73,21a2,2,0,0,1-3.46,0"/>
+                  <line x1="4" y1="4" x2="20" y2="20"/>
+                </svg>
+              </div>
+              <div class="notif-opt-title">Calm</div>
+              <div class="notif-opt-desc">One email per week</div>
+            </div>
+            <!-- Regular (active) -->
+            <div class="notif-opt active">
+              <div class="notif-opt-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--plum)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18,8A6,6,0,0,0,6,8c0,7-3,9-3,9H21s-3-2-3-9"/>
+                  <path d="M13.73,21a2,2,0,0,1-3.46,0"/>
+                </svg>
+              </div>
+              <div class="notif-opt-title">Regular</div>
+              <div class="notif-opt-desc">Email + push on due date</div>
+            </div>
+            <!-- Proactive -->
+            <div class="notif-opt">
+              <div class="notif-opt-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18,8A6,6,0,0,0,6,8c0,7-3,9-3,9H21s-3-2-3-9"/>
+                  <path d="M13.73,21a2,2,0,0,1-3.46,0"/>
+                  <line x1="12" y1="2" x2="12" y2="1"/>
+                  <line x1="16.24" y1="3.76" x2="16.95" y2="3.05"/>
+                  <line x1="7.76" y1="3.76" x2="7.05" y2="3.05"/>
+                </svg>
+              </div>
+              <div class="notif-opt-title">Proactive</div>
+              <div class="notif-opt-desc">Day before, on the day, if missed</div>
+            </div>
+          </div>
+
+          <!-- Account section (Pro variant) -->
+          <div class="sec-lbl">Account</div>
+          <div class="list-card">
+            <div class="list-row">
+              <div class="list-row-label">Email</div>
+              <div class="list-row-value">martijn@example.com</div>
+              <svg class="list-row-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+            </div>
+            <div class="list-row">
+              <div class="list-row-label">Plan</div>
+              <div class="list-row-value">Pro · €4.99/mo</div>
+              <svg class="list-row-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+            </div>
+            <div class="list-row">
+              <div class="list-row-label">Manage subscription</div>
+              <svg class="list-row-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+            </div>
+            <div class="list-row">
+              <div class="list-row-label">Household sharing</div>
+              <div class="list-row-value">1 of 3 users</div>
+              <svg class="list-row-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+            </div>
+          </div>
+
+          <!-- Settings section -->
+          <div class="sec-lbl">Settings</div>
+          <div class="list-card">
+            <div class="list-row" style="cursor:default;">
+              <div class="list-row-label">Dark mode</div>
+              <svg width="40" height="24" viewBox="0 0 40 24" fill="none">
+                <rect width="40" height="24" rx="12" fill="var(--surface-high)"/>
+                <circle cx="12" cy="12" r="9" fill="white"/>
+              </svg>
+            </div>
+            <div class="list-row">
+              <div class="list-row-label">Language</div>
+              <div class="list-row-value">English</div>
+              <svg class="list-row-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+            </div>
+            <div class="list-row">
+              <div class="list-row-label">Region</div>
+              <div class="list-row-value">Belgium</div>
+              <svg class="list-row-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+            </div>
+            <div class="list-row plum-action">
+              <div class="list-row-label">Export my data</div>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--plum)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <svg class="list-row-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--plum)" stroke-width="1.8" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+            </div>
+          </div>
+
+          <!-- Support section -->
+          <div class="sec-lbl">Support</div>
+          <div class="list-card">
+            <div class="list-row">
+              <div class="list-row-label">Help</div>
+              <svg class="list-row-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+            </div>
+            <div class="list-row">
+              <div class="list-row-label">Privacy policy</div>
+              <svg class="list-row-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+            </div>
+            <div class="list-row">
+              <div class="list-row-label">Terms</div>
+              <svg class="list-row-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+            </div>
+            <div class="list-row" style="cursor:default;">
+              <div class="list-row-label" style="color:var(--mid);font-size:12px;">Version 1.0.0 (42)</div>
+            </div>
+          </div>
+
+          <!-- Sign out -->
+          <div class="sign-out">Sign out</div>
+
+        </div><!-- /plan-pro -->
+
+      </div><!-- /tc -->
+
+      <!-- Nav bar: Profile tab active. No FAB on Profile. -->
+      <div class="nz">
+        <div class="nb">
+          <!-- Today: calendar blank -->
+          <button class="nt" onclick="">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <span class="nl">Today</span>
+          </button>
+          <!-- Plan: list bullets -->
+          <button class="nt" onclick="">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round">
+              <line x1="8" y1="6" x2="21" y2="6"/>
+              <line x1="8" y1="12" x2="21" y2="12"/>
+              <line x1="8" y1="18" x2="21" y2="18"/>
+              <circle cx="4" cy="6" r="1" fill="var(--hint)"/>
+              <circle cx="4" cy="12" r="1" fill="var(--hint)"/>
+              <circle cx="4" cy="18" r="1" fill="var(--hint)"/>
+            </svg>
+            <span class="nl">Plan</span>
+          </button>
+          <!-- My Stuff: 2x2 grid squares -->
+          <button class="nt" onclick="">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1"/>
+              <rect x="14" y="3" width="7" height="7" rx="1"/>
+              <rect x="3" y="14" width="7" height="7" rx="1"/>
+              <rect x="14" y="14" width="7" height="7" rx="1"/>
+            </svg>
+            <span class="nl">My stuff</span>
+          </button>
+          <!-- Profile: user circle (active) -->
+          <button class="nt on" onclick="">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <circle cx="12" cy="8" r="3"/>
+              <path d="M6.5 20c0-3 2.5-5 5.5-5s5.5 2 5.5 5"/>
+            </svg>
+            <span class="nl">Profile</span>
+          </button>
+        </div>
+      </div>
+
+    </div><!-- /ph -->
+  </div><!-- /phone-col -->
+
+  <!-- ANNOTATIONS -->
+  <div class="annot-col">
+
+    <div class="annot-section">Nav bar + shell</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-rule">Rule</span> No FAB on Profile</div>
+      <div class="annot-body">
+        The FAB (add item/task) is not shown on the Profile tab. It is only relevant on Today, Plan, and My Stuff. Removing it reduces cognitive noise on a settings-focused screen. Flutter: FAB is conditionally rendered based on <code>currentTab != TabIndex.profile</code>.
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-rule">Rule</span> Nav bar: Profile active</div>
+      <div class="annot-body">
+        Profile icon (user circle) and label "Profile" both use <code>var(--primary)</code> (plum) for active state. No background shape behind active tab. Inactive tabs: <code>var(--hint)</code> stroke. Tab order is fixed: Today / Plan / My stuff / Profile. Nav bar: solid <code>var(--surface)</code> bg, no glassmorphism. Subtle upward shadow.
+      </div>
+    </div>
+
+    <div class="annot-section">User header</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Avatar</span> Initials circle</div>
+      <div class="annot-body">
+        56px circle, <code>var(--apricot-wash)</code> bg, 2px apricot border at 25% opacity. Single initial letter: Noto Serif italic, 22px, <code>var(--apricot)</code>. Name from SSO profile (first name only). Flutter: <code>CircleAvatar</code> with <code>backgroundColor</code> + <code>Text</code> child using <code>GoogleFonts.notoSerif(fontStyle: FontStyle.italic)</code>. If user has a profile photo (future), swap initial for <code>NetworkImage</code>.
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Plan badge</span> Free vs Pro</div>
+      <div class="annot-body">
+        <strong>Free:</strong> <code>var(--sage-lt)</code> bg + <code>var(--sage)</code> text. Pill shape, 10px 500.<br><br>
+        <strong>Pro:</strong> <code>var(--plum-wash)</code> bg + <code>var(--plum)</code> text. Same dimensions.<br><br>
+        Flutter: badge color driven by <code>UserPlan.isPro</code>. Use <code>Container</code> with <code>BoxDecoration</code> + <code>BorderRadius.circular(100)</code>. No border needed.
+      </div>
+    </div>
+
+    <div class="annot-section">Stats circles</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Stats</span> Three equal circles</div>
+      <div class="annot-body">
+        3 equal-flex tiles in a <code>Row</code>, gap 8px. Each: <code>surface-low</code> bg, 50px border-radius (pill-shaped horizontally), min-height 64px, centered content. Number: Noto Serif 20px, <code>var(--apricot)</code>. Label: 8px 500 uppercase, <code>var(--hint)</code>, letter-spacing 0.07em. Stats shown: items owned, tasks completed all time, current streak in weeks.<br><br>
+        Flutter: <code>Row</code> + 3x <code>Expanded</code> children. Number from Supabase user stats query.
+      </div>
+    </div>
+
+    <div class="annot-card decision">
+      <div class="annot-head"><span class="badge-decision">Copy</span> Personality line (rotates)</div>
+      <div class="annot-body">
+        Noto Serif italic 11px, <code>var(--hint)</code>, 0.65 opacity. Rotates randomly on each app open. Examples:<br><br>
+        1. <em>"Your boiler has had 6 check-ups."</em><br>
+        2. <em>"You've completed 43 tasks. Not bad."</em><br>
+        3. <em>"Your house is in good hands."</em><br>
+        4. <em>"4 weeks in a row. Impressive."</em><br><br>
+        Store rotation pool in database. Select by hash of user ID + current week number for consistent display within the same week.
+      </div>
+    </div>
+
+    <div class="annot-section">Upgrade to Pro banner</div>
+
+    <div class="annot-card decision">
+      <div class="annot-head"><span class="badge-decision">Placement</span> Below stats, above notifications</div>
+      <div class="annot-body">
+        Banner is placed after stats and personality line, before the first utility section. Rationale: stats create context (user sees what they have achieved), then the upgrade banner feels like a natural next step rather than a gate. Not the very first thing on screen (that would feel pushy). Visible on first scroll without needing to scroll far.<br><br>
+        <strong>Free state only.</strong> Banner is removed entirely on Pro state. No "downgrade" or "manage" equivalent in this position.
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Banner</span> Style</div>
+      <div class="annot-body">
+        <code>surface-low</code> bg, 1px solid <code>rgba(155,127,212,0.20)</code> border, 12px radius, 14px padding. Three-column flex: icon left (32px, 8px radius, <code>plum-wash</code> bg + ii mark) + copy center (title 13px 500 ink, sub 11px mid) + "See Pro" pill right (10px 500 <code>plum-fg</code> on <code>plum</code> bg). Flutter: <code>InkWell</code> wrapping a <code>Container</code>. Taps entire banner area.
+      </div>
+    </div>
+
+    <div class="annot-section">Notification preferences</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Weekly digest</span> Row</div>
+      <div class="annot-body">
+        Label left + day/time value right ("Monday 8:00", 11px mid) + pencil icon (12px, 0.5 opacity). Tap opens a bottom sheet with day picker (Mon–Sun) + time picker. Flutter: <code>showModalBottomSheet</code> with <code>ListWheelScrollView</code> or custom picker. Value is stored per-user in Supabase (default: Monday 8:00 in user's local timezone).
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Toggles</span> iOS-style SVG</div>
+      <div class="annot-body">
+        Push reminders: ON by default (plum bg, circle at cx=28).<br>
+        Dark mode: OFF by default (surface-high bg, circle at cx=12).<br>
+        Smart nudges: Pro only row, ON by default for Pro users.<br><br>
+        SVG toggle spec: <code>width="40" height="24" rx="12"</code>. ON: fill <code>var(--plum)</code> + white circle cx=28. OFF: fill <code>var(--surface-high)</code> + white circle cx=12. Flutter: use <code>Switch</code> widget with custom <code>activeColor: colorCta</code> + <code>activeTrackColor: colorCta.withOpacity(0.5)</code>. Or custom <code>AnimatedContainer</code> for full fidelity.
+      </div>
+    </div>
+
+    <div class="annot-section">Account section</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">List rows</span> Pattern</div>
+      <div class="annot-body">
+        Each row: 44px min-height (tap target rule), flex row, 14px padding. Label left (13px, ink). Optional value right (11px, mid). Chevron far right (10px hint, <code>var(--hint)</code>) where row navigates. 1px <code>var(--surface-high)</code> divider between rows inside the same card — never between cards (gap pattern).<br><br>
+        Flutter: <code>ListView</code> children inside a <code>ClipRRect</code> container. Dividers are <code>Divider(height: 1, color: colorSurfaceHigh)</code> between items, not on the card itself.
+      </div>
+    </div>
+
+    <div class="annot-card decision">
+      <div class="annot-head"><span class="badge-decision">Decision</span> Upgrade CTA in account section</div>
+      <div class="annot-body">
+        "Upgrade to Pro" row in the Account section (Free only) uses plum text + right arrow, no chevron. This is the second upgrade touchpoint on the screen (after the banner). Placement in "Account" makes it feel like a natural account action, not advertising. The banner is the primary CTA. This row is the secondary, for users who scroll past the banner or dismiss it (future behavior).<br><br>
+        Pro state: "Upgrade to Pro" row is replaced by "Manage subscription" (mid text + chevron) and "Household sharing" (mid text + value + chevron).
+      </div>
+    </div>
+
+    <div class="annot-section">Settings section</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Export my data</span> Plum action</div>
+      <div class="annot-body">
+        "Export my data" label uses <code>var(--plum)</code> text and a download icon (also plum). This is an app-level action (exporting data), so plum is correct here. Chevron also plum. Tap triggers: confirmation sheet ("Export all your data as CSV?") + export action via Supabase function.
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Dark mode toggle</span> Live preview</div>
+      <div class="annot-body">
+        Toggling dark mode applies the theme immediately (no confirmation, no delay). Flutter: update <code>ThemeMode</code> in <code>Provider</code> or <code>Riverpod</code> state. Persist to Supabase user preferences. The toggle in this UI is visually OFF by default (light mode active). When user taps, circle animates from left to right, bg transitions from <code>surface-high</code> to <code>plum</code>.
+      </div>
+    </div>
+
+    <div class="annot-section">Support section</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Version row</span> No chevron, no tap</div>
+      <div class="annot-body">
+        "Version 1.0.0 (42)" row: label only (mid, 12px), no chevron, no <code>InkWell</code>. Value is app version string from <code>package_info_plus</code> plugin. <code>cursor: default</code> in HTML. Easter egg: tap 7x opens debug info sheet (standard mobile pattern). Not shown in hi-fi.
+      </div>
+    </div>
+
+    <div class="annot-section">Sign out</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Sign out</span> Red text, centered</div>
+      <div class="annot-body">
+        13px, <code>var(--red)</code>, centered, 20px top padding. No button shape, no icon. Tap opens a confirmation bottom sheet: "Sign out?" + "You'll need to sign back in to access your data." + "Sign out" (red pill) + "Cancel" (ghost). No confirmation needed at this tap — confirmation is in the sheet. Flutter: <code>TextButton</code> with <code>style: TextButton.styleFrom(foregroundColor: colorRed)</code>.
+      </div>
+    </div>
+
+    <div class="annot-section">Free vs Pro differences</div>
+
+    <div class="annot-card decision">
+      <div class="annot-head"><span class="badge-decision">Visual diff</span> Free vs Pro</div>
+      <div class="annot-body">
+        <strong>Free:</strong> Plan badge = sage green. Stats show lower numbers (fewer items). Upgrade banner visible between stats and notifications. Account section includes "Upgrade to Pro" plum row. No "Household sharing" row. No "Smart nudges" toggle.<br><br>
+        <strong>Pro:</strong> Plan badge = plum. Stats reflect full usage (14 items vs 7). No upgrade banner. Account section: "Plan · Pro · €4.99/mo" + "Manage subscription" + "Household sharing (1 of 3)". Notifications card gains "Smart nudges" toggle (ON). Everything else is identical.
+      </div>
+    </div>
+
+    <div class="annot-section">Dark mode</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-rule">Tokens</span> Dark mode values</div>
+      <div class="annot-body">
+        Surface: <code>#1C1B18</code>. Surface-low: <code>#24231F</code>. Surface-high: <code>#2E2D28</code>. Plum lightens to <code>#B8A0E8</code>. Apricot to <code>#F0B890</code>. Text primary: <code>#F0EDE6</code>. Mid: <code>#A8A29A</code>. Nav bar: <code>surface-low</code>. No blue or cool-green tints. Plum-wash updates to <code>rgba(184,160,232,0.12)</code>. Sage and red semantic colors lighten for dark bg contrast.
+      </div>
+    </div>
+
+    <div class="annot-section">Flutter implementation</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-rule">Flutter</span> Screen structure</div>
+      <div class="annot-body">
+        Shell: <code>SafeArea</code> + <code>Column</code>. Content: <code>Expanded</code> wrapping <code>ListView</code> (the only scrolling element). Bottom: fixed nav bar (84px).<br><br>
+        Sections: use <code>ListView</code> with custom section widgets. Not <code>SingleChildScrollView</code> + <code>Column</code>. Stat circles: <code>Row</code> + 3x <code>Expanded</code> + custom <code>Container</code>. Toggles: <code>Switch</code> widget with custom colors or full custom painter. Avatar: <code>CircleAvatar</code>. Sign out: <code>TextButton</code>.<br><br>
+        Data: all profile data from Supabase. Plan state from RevenueCat <code>CustomerInfo</code>. Version from <code>package_info_plus</code>. Stats from aggregate query on tasks + items tables.
+      </div>
+    </div>
+
+  </div><!-- /annot-col -->
+
+</div><!-- /content-row -->
+
+<div class="page-divider"></div>
+
+<!-- CHANGELOG -->
+<div class="changelog">
+  <div class="cl-title">Changelog</div>
+
+  <div class="cl-entry">
+    <div class="cl-ver">v1.1 · 2026-04-02 · BREAKING</div>
+    <div class="cl-body">
+      <strong>Aligned with Precision Warmth prototype.</strong><br><br>
+      <strong>Avatar:</strong> Replaced "M" Noto Serif italic initial with ii mark SVG (two pill shapes + apricot dot). Avatar circle enlarged from 56px to 72px, background changed from apricot-wash to surface-low. Apricot border removed.<br><br>
+      <strong>User subtitle:</strong> "Member since April 2024" replaced with email address "martijn@example.com" (12px, var(--mid)). Plan badge remains below email.<br><br>
+      <strong>Stats labels:</strong> "ITEMS" renamed to "ACTIVE". "DONE" renamed to "COMPLETED". "WK STREAK" renamed to "STREAK". All uppercase 8px, letter-spacing 1.3px, var(--hint).<br><br>
+      <strong>Item progress bar (Free only):</strong> New surface-low card inserted below stats row and above Notifications section. Shows "5 of 10 items free" left + "Go Pro" link right. 4px progress bar at 50% fill (plum). Hidden entirely in Pro state. Replaces "Upgrade to Pro" banner card.<br><br>
+      <strong>Notification section:</strong> Toggle rows (Weekly digest + Push reminders) replaced with 3 option cards side by side: Calm (bell-slash, "One email per week"), Regular (bell, "Email + push on due date", active by default with plum border + plum-wash bg), Proactive (bell with motion lines, "Day before, on the day, if missed"). Pattern matches prototype. Applied to both Free and Pro states.
+    </div>
+    <div class="cl-flutter">
+      <strong>Flutter notes:</strong><br>
+      Avatar: Replace <code>CircleAvatar</code> initial text with <code>SvgPicture</code> of ii mark (from assets). Size 72px. Background: <code>colorSurfaceLow</code>. Email: show <code>user.email</code> from Supabase auth instead of join date. Stats labels: update strings to "ACTIVE", "COMPLETED", "STREAK". Item progress bar: <code>LinearProgressIndicator</code> with <code>value: activeItems / 10</code>, height 4px, <code>color: colorCta</code>, <code>backgroundColor: colorSurfaceHigh</code>. Wrap in <code>Visibility(visible: !isPro)</code>. "Go Pro" link: <code>TextButton</code> with <code>foregroundColor: colorCta</code>. Notification options: custom <code>Row</code> of 3 <code>Expanded</code> <code>InkWell</code> containers. Active state: <code>Border.all(color: colorCta)</code> + <code>colorCta.withOpacity(0.10)</code> fill. Selection persists to Supabase user preferences.
+    </div>
+  </div>
+
+  <div class="cl-entry">
+    <div class="cl-ver">v1.0 · 2026-04-02 · ADDITIVE</div>
+    <div class="cl-body">
+      <strong>Initial hi-fi for Profile tab.</strong> New file. Two plan states: Free and Pro.<br><br>
+      <strong>User header:</strong> 56px avatar circle with Noto Serif italic apricot initial. Name (Noto Serif 24px). "Member since" date (10px mid). Plan badge: sage-lt/sage for Free, plum-wash/plum for Pro.<br><br>
+      <strong>Stats row:</strong> 3 equal-flex pill tiles, Noto Serif 20px apricot number, 8px uppercase hint label. Personality line below (Noto Serif italic 11px, rotates).<br><br>
+      <strong>Upgrade to Pro banner (Free only):</strong> surface-low bg, 1px plum-wash border, 32px icon container + copy + "See Pro" plum pill. Placed between stats and notifications. Removed entirely on Pro.<br><br>
+      <strong>Notification preferences:</strong> surface-low card with 1px surface-high dividers between rows. Weekly digest row (label + day/time + pencil edit icon). Push reminders row (label + iOS toggle). Smart nudges row: Pro only, shown in Pro state.<br><br>
+      <strong>Account section:</strong> Free: email + plan (Free) + "Upgrade to Pro" plum arrow row. Pro: email + plan (Pro, €4.99/mo) + "Manage subscription" + "Household sharing (1 of 3)".<br><br>
+      <strong>Settings section:</strong> Dark mode toggle (off default) + Language + Region + Export my data (plum action). Same across Free/Pro.<br><br>
+      <strong>Support section:</strong> Help, Privacy policy, Terms, Version (no chevron, no tap). Same across Free/Pro.<br><br>
+      <strong>Sign out:</strong> Red centered text, no button shape. Confirmation in a bottom sheet (not shown in hi-fi).<br><br>
+      <strong>No FAB on Profile tab.</strong> FAB conditionally hidden. Nav bar: Profile icon + label active in plum.
+    </div>
+    <div class="cl-flutter">
+      <strong>Flutter notes:</strong><br>
+      Shell: <code>SafeArea</code> + <code>Column</code> + <code>Expanded(child: ListView)</code> + fixed nav 84px. Avatar: <code>CircleAvatar</code> with <code>GoogleFonts.notoSerif(fontStyle: FontStyle.italic)</code> child. Plan state: <code>UserPlan.isPro</code> from RevenueCat <code>CustomerInfo</code> drives badge color, banner visibility, account row content, and smart nudges toggle. Toggles: <code>Switch(activeColor: colorCta)</code> or custom animated <code>Container</code>. Stats: aggregate query from Supabase. Version string: <code>package_info_plus</code> <code>PackageInfo.fromPlatform()</code>. Sign out: <code>TextButton</code> + <code>showModalBottomSheet</code> for confirmation. Export: Supabase function call + share sheet. Personality line: Supabase rotation pool, selected by <code>userId.hashCode ^ weekNumber</code> for weekly consistency. FAB: hidden via <code>currentTab != TabIndex.profile</code> in the shell scaffold.
+    </div>
+  </div>
+</div>
+
+<script>
+function setTheme(t) {
+  document.getElementById('phone').setAttribute('data-theme', t);
+  document.getElementById('ctl').classList.toggle('on', t === 'light');
+  document.getElementById('ctd').classList.toggle('on', t === 'dark');
+}
+function setPlan(p) {
+  ['free','pro'].forEach(id => {
+    document.getElementById('plan-' + id).classList.remove('active');
+    document.getElementById('cs-' + id).classList.remove('on');
+  });
+  document.getElementById('plan-' + p).classList.add('active');
+  document.getElementById('cs-' + p).classList.add('on');
+}
+</script>
+</body>
+</html>
