@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · S-09 Plan · hi-fi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   S-09 Plan tab · hi-fi · Precision Warmth design system
+   Noto Serif + Manrope, plum + apricot, tonal surfaces
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Tokens ── */
+:root {
+  /* Surface tiers */
+  --surface: #FBF9F4;
+  --surface-low: #F5F4ED;
+  --surface-high: #E8E9E0;
+  --surface-lowest: #FFFFFF;
+
+  /* Text */
+  --ink: #31332C;
+  --mid: #7A756D;
+  --hint: #A09A90;
+  --outline-var: #B1B3A9;
+
+  /* Plum: actions */
+  --plum: #9B7FD4;
+  --plum-fg: #FAF8FF;
+  --plum-wash: rgba(155,127,212,0.10);
+  --plum-container: rgba(155,127,212,0.08);
+
+  /* Apricot: warmth */
+  --apricot: #E8A87C;
+  --apricot-wash: rgba(232,168,124,0.12);
+
+  /* Primary mapped to plum */
+  --primary: #9B7FD4;
+  --primary-fg: #FAF8FF;
+  --primary-container: rgba(155,127,212,0.08);
+
+  /* Category highlights */
+  --ch-bg: #C09088; --ch-wash: rgba(192,144,136,0.14);
+  --cg-bg: #8C9B80; --cg-wash: rgba(140,155,128,0.14);
+  --cv-bg: #8E9A94; --cv-wash: rgba(142,154,148,0.14);
+  --cs-bg: #A69BBF; --cs-wash: rgba(166,155,191,0.14);
+  --cx-bg: #C29494; --cx-wash: rgba(194,148,148,0.14);
+  --cp-bg: #C7B7A3; --cp-wash: rgba(199,183,163,0.14);
+
+  /* Overdue */
+  --overdue-bg: #6B4A3A;
+  --overdue-fg: #FBF9F4;
+
+  --r: 12px; --rs: 8px;
+}
+[data-theme="dark"] {
+  --surface: #1C1B18;
+  --surface-low: #24231F;
+  --surface-high: #2E2D28;
+  --surface-lowest: #181714;
+  --ink: #F0EDE6;
+  --mid: #A8A29A;
+  --hint: #787068;
+  --outline-var: rgba(177,179,169,0.15);
+  --plum: #B8A0E8;
+  --plum-fg: #1C1B18;
+  --apricot: #F0B890;
+  --primary: #B8A0E8;
+  --primary-fg: #1C1B18;
+  --primary-container: rgba(184,160,232,0.12);
+  --ch-bg: #E0A898; --ch-wash: rgba(224,168,152,0.15);
+  --cg-bg: #A8B89C; --cg-wash: rgba(168,184,156,0.15);
+  --cv-bg: #A8B0AA; --cv-wash: rgba(168,176,170,0.15);
+  --cs-bg: #C0B4D6; --cs-wash: rgba(192,180,214,0.15);
+  --cx-bg: #D4AAAA; --cx-wash: rgba(212,170,170,0.15);
+  --cp-bg: #D6C8B6; --cp-wash: rgba(214,200,182,0.15);
+  --overdue-bg: #C88860;
+  --overdue-fg: #1C1B18;
+  --apricot-wash: rgba(240,184,144,0.15);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100vh; color: var(--ink); }
+
+/* ── Design hub nav ── */
+.hub-nav {
+  background: #F5F0E8; border-bottom: 1px solid rgba(26,22,18,0.12);
+  padding: 0 32px; display: flex; align-items: center; gap: 16px;
+  height: 48px; position: sticky; top: 0; z-index: 200;
+}
+.hub-nav a { font-size: 13px; color: #8A8070; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+.hub-nav a:hover { color: #2C2824; }
+.hub-nav .sep { color: rgba(26,22,18,0.12); }
+.hub-nav .title { font-size: 13px; font-weight: 500; }
+.hub-nav .status { margin-left: auto; font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 100px; }
+.status-progress { background: rgba(133,79,11,0.10); color: #854F0B; border: 1px solid rgba(133,79,11,0.20); }
+
+/* ── Page header ── */
+.page-header { max-width: 1200px; margin: 0 auto; padding: 40px 40px 0; }
+.page-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: #8A8070; margin-bottom: 8px; }
+.page-h1 { font-family: 'Noto Serif', serif; font-size: 32px; font-weight: 400; color: #2C2824; margin-bottom: 6px; letter-spacing: -0.02em; }
+.page-subtitle { font-size: 14px; color: #8A8070; margin-bottom: 16px; }
+.page-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+.page-pill { font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 100px; background: rgba(155,127,212,0.10); color: #9B7FD4; }
+
+/* ── Controls ── */
+.controls { max-width: 1200px; margin: 0 auto; padding: 20px 40px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.ctrl-group { display: flex; gap: 4px; align-items: center; }
+.ctrl-label { font-size: 9px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: #A09888; margin-right: 4px; }
+.ctrl-btn { font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 500; padding: 5px 14px; border-radius: 6px; border: 1px solid rgba(26,22,18,0.12); background: transparent; color: #8A8070; cursor: pointer; transition: all 120ms; }
+.ctrl-btn:hover { border-color: rgba(26,22,18,0.20); }
+.ctrl-btn.on { background: #9B7FD4; color: #FAF8FF; border-color: #9B7FD4; }
+
+/* ── Content row (phone + annotations) ── */
+.content-row { max-width: 1200px; margin: 0 auto; padding: 0 40px 40px; display: flex; gap: 40px; align-items: flex-start; }
+
+/* ── Phone shell ── */
+.phone-col { flex-shrink: 0; position: sticky; top: 68px; }
+.ph { width: 390px; height: 844px; border-radius: 50px; overflow: hidden; position: relative; background: var(--surface); box-shadow: 0 0 0 1px rgba(255,255,255,0.03), 0 24px 80px rgba(49,51,44,0.25); transition: background 250ms; }
+.notch { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 102px; height: 8px; border-radius: 100px; background: rgba(49,51,44,0.06); z-index: 60; }
+[data-theme="dark"] .notch { background: rgba(255,255,255,0.08); }
+.sb { height: 54px; padding: 14px 30px 0; display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 600; color: var(--ink); letter-spacing: 0.01em; }
+
+/* ── Tab content area ── */
+.tc { position: absolute; inset: 54px 0 84px 0; overflow: hidden; }
+.tp { position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden; padding: 0 0 24px; opacity: 0; pointer-events: none; transition: opacity 250ms; scrollbar-width: none; }
+.tp::-webkit-scrollbar { display: none; }
+.tp.active { opacity: 1; pointer-events: auto; }
+
+/* ── Plan screen header ── */
+.plan-header { padding: 10px 24px 0; display: flex; align-items: center; justify-content: space-between; }
+.plan-title { font-family: 'Noto Serif', serif; font-size: 24px; font-weight: 400; color: var(--ink); letter-spacing: -0.02em; }
+.plan-filter-icon { width: 32px; height: 32px; border-radius: 8px; background: none; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid var(--surface-high); }
+
+/* ── Plan Export button ── */
+.plan-export { display: inline-flex; align-items: center; gap: 5px; background: var(--plum); color: var(--plum-fg); font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 500; padding: 7px 14px; border-radius: 100px; border: none; cursor: pointer; flex-shrink: 0; }
+
+/* ── "EDITORIAL TIMELINE" subtitle ── */
+.plan-eyebrow { font-size: 9px; font-weight: 500; letter-spacing: 1.3px; text-transform: uppercase; color: var(--hint); padding: 6px 24px 0; }
+
+/* ── Filter chips row ── */
+.chips-row { display: flex; gap: 6px; overflow-x: auto; padding: 10px 24px 4px; scrollbar-width: none; white-space: nowrap; }
+.chips-row::-webkit-scrollbar { display: none; }
+.chip { font-size: 11px; font-weight: 500; padding: 5px 12px; border-radius: 100px; border: 1px solid var(--outline-var); color: var(--ink); background: transparent; cursor: pointer; white-space: nowrap; flex-shrink: 0; transition: all 120ms; font-family: 'Manrope', sans-serif; }
+.chip.active { border-color: var(--ink); color: var(--plum-fg); background: var(--ink); }
+
+/* ── Month divider line ── */
+.month-divider { height: 1px; background: var(--surface-high); margin: 14px 24px 0; }
+
+/* ── Month section header ── */
+.month-head { display: flex; align-items: center; gap: 10px; padding: 14px 24px 8px; }
+.month-name { font-family: 'Noto Serif', serif; font-size: 18px; font-weight: 400; color: var(--ink); letter-spacing: -0.01em; flex: 1; }
+.month-circle { width: 36px; height: 36px; position: relative; flex-shrink: 0; }
+.month-circle svg { position: absolute; inset: 0; transform: rotate(-90deg); }
+.month-pct { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 600; color: var(--plum); }
+
+/* ── Plan task rows ── */
+.plan-tasks { display: flex; flex-direction: column; gap: 2px; padding: 0 16px; }
+.plan-row { display: flex; align-items: center; gap: 10px; padding: 9px 8px; border-radius: 10px; cursor: pointer; transition: background 120ms; }
+.plan-row:hover { background: rgba(49,51,44,0.03); }
+.pr-date { width: 40px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; }
+.pr-day { font-size: 9px; font-weight: 500; color: var(--hint); text-transform: uppercase; letter-spacing: 0.04em; line-height: 1; margin-bottom: 2px; }
+.pr-num { font-size: 16px; font-weight: 600; color: var(--mid); line-height: 1; }
+.pr-icon { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.pr-body { flex: 1; min-width: 0; }
+.pr-title { font-size: 13px; font-weight: 500; color: var(--ink); line-height: 1.3; letter-spacing: -0.01em; }
+.pr-item { font-size: 10px; color: var(--mid); margin-top: 2px; }
+.pr-menu { flex-shrink: 0; }
+
+/* ── Seasonal quote card ── */
+.season-card { margin: 16px 24px; padding: 14px 16px; background: var(--surface-low); border-radius: var(--r); }
+.season-quote { font-family: 'Noto Serif', serif; font-style: italic; font-size: 13px; color: var(--ink); line-height: 1.55; margin-bottom: 6px; }
+.season-attr { font-size: 9px; font-weight: 500; color: var(--apricot); letter-spacing: 0.04em; text-transform: uppercase; }
+
+/* ── Editorial closer ── */
+.editorial { text-align: center; padding: 20px 24px 8px; }
+.editorial-text { font-family: 'Noto Serif', serif; font-style: italic; font-size: 12px; color: var(--hint); opacity: 0.55; line-height: 1.55; }
+
+/* ── Empty state ── */
+.empty-state { text-align: center; padding: 80px 32px 40px; }
+.empty-icon { width: 64px; height: 64px; border-radius: 50%; background: var(--surface-low); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+.empty-h { font-family: 'Noto Serif', serif; font-size: 22px; color: var(--ink); margin-bottom: 8px; line-height: 1.2; }
+.empty-sub { font-size: 13px; color: var(--mid); line-height: 1.5; margin-bottom: 28px; }
+.empty-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--plum); color: var(--plum-fg); font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 500; padding: 12px 24px; border-radius: 100px; cursor: pointer; border: none; }
+
+/* ── Nav bar ── */
+.nz { position: absolute; bottom: 0; left: 0; right: 0; height: 84px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 14px; pointer-events: none; z-index: 40; }
+.nb { background: var(--surface); border-radius: 20px; padding: 9px 6px 11px; display: flex; align-items: center; box-shadow: 0 -2px 12px rgba(49,51,44,0.04); pointer-events: auto; }
+[data-theme="dark"] .nb { background: var(--surface-low); box-shadow: 0 -2px 12px rgba(0,0,0,0.15); }
+.nt { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 14px; cursor: pointer; border: none; background: none; font-family: 'Manrope', sans-serif; border-radius: 10px; transition: background 150ms; }
+.nt svg * { stroke: var(--hint); }
+.nt .nl { font-size: 8px; font-weight: 500; color: var(--hint); }
+.nt.on svg * { stroke: var(--primary); }
+.nt.on .nl { color: var(--primary); font-weight: 600; }
+
+/* FAB */
+.fab { width: 46px; height: 46px; border-radius: 14px; background: var(--plum); display: flex; align-items: center; justify-content: center; cursor: pointer; pointer-events: auto; position: absolute; right: 24px; bottom: 18px; z-index: 45; box-shadow: 0 6px 20px rgba(155,127,212,0.45); border: none; margin-bottom: 4px; }
+
+/* ── Annotation sidebar ── */
+.annot-col { flex: 1; min-width: 280px; max-width: 420px; }
+.annot-section { font-size: 10px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: #8A8070; margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid rgba(26,22,18,0.08); }
+.annot-section:first-child { margin-top: 0; }
+.annot-card { background: #FFFFFF; border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; border: 1px solid rgba(26,22,18,0.06); }
+.annot-card.decision { border-left: 3px solid #9B7FD4; }
+.annot-head { font-size: 12px; font-weight: 600; color: #2C2824; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.annot-body { font-size: 11px; color: #6B6358; line-height: 1.6; }
+.annot-body code { background: rgba(26,22,18,0.06); padding: 1px 5px; border-radius: 3px; font-size: 10px; font-family: 'SF Mono', 'Fira Code', monospace; }
+.annot-body strong { color: #2C2824; }
+.badge-rule { font-size: 8px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; background: rgba(59,109,17,0.10); color: #3B6D11; }
+.badge-note { font-size: 8px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; background: rgba(133,79,11,0.10); color: #854F0B; }
+.badge-decision { font-size: 8px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; background: rgba(155,127,212,0.12); color: #9B7FD4; }
+.badge-state { font-size: 8px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; background: rgba(232,168,124,0.12); color: #C08060; }
+
+/* ── Divider ── */
+.page-divider { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+.page-divider::after { content: ''; display: block; height: 1px; background: rgba(26,22,18,0.08); }
+
+/* ── Changelog ── */
+.changelog { max-width: 1200px; margin: 0 auto; padding: 32px 40px 60px; }
+.cl-title { font-family: 'Noto Serif', serif; font-size: 20px; color: #2C2824; margin-bottom: 20px; }
+.cl-entry { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid rgba(26,22,18,0.06); }
+.cl-entry:last-child { border-bottom: none; }
+.cl-ver { font-size: 10px; font-weight: 600; letter-spacing: 0.5px; color: #8A8070; margin-bottom: 6px; }
+.cl-body { font-size: 12px; color: #6B6358; line-height: 1.6; }
+.cl-body strong { color: #2C2824; }
+.cl-body code { background: rgba(26,22,18,0.06); padding: 1px 5px; border-radius: 3px; font-size: 10px; font-family: 'SF Mono', 'Fira Code', monospace; }
+.cl-flutter { margin-top: 8px; padding: 10px 12px; background: rgba(155,127,212,0.06); border-radius: 6px; font-size: 11px; color: #6B6358; line-height: 1.5; }
+.cl-flutter strong { color: #9B7FD4; font-size: 10px; letter-spacing: 0.3px; }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .content-row { flex-direction: column; align-items: center; }
+  .phone-col { position: static; }
+  .annot-col { max-width: 600px; width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="hub-nav">
+  <a href="../index.html">
+    <svg width="16" height="18" viewBox="0 0 626 700" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:2px;"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0C56.05,700.13,0,642.43,0,571.26V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#C4A8E8" cx="535.96" cy="119.29" r="90"/></svg>
+    Design hub
+  </a>
+  <span class="sep">/</span>
+  <span class="title">S-09 Plan tab</span>
+  <span class="status status-progress">In progress</span>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-eyebrow">S-09 · Plan tab</div>
+  <h1 class="page-h1">Plan</h1>
+  <p class="page-subtitle">The full task timeline. All tasks, all months, organized by date. Tap a task to go to its detail.</p>
+  <div class="page-meta">
+    <span class="page-pill">Noto Serif + Manrope</span>
+    <span class="page-pill">Plum + Apricot</span>
+    <span class="page-pill">Tonal surfaces</span>
+  </div>
+</div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <div class="ctrl-group">
+    <span class="ctrl-label">Theme</span>
+    <button class="ctrl-btn on" id="ctl" onclick="setTheme('light')">Light</button>
+    <button class="ctrl-btn" id="ctd" onclick="setTheme('dark')">Dark</button>
+  </div>
+  <div class="ctrl-group" style="margin-left: 16px;">
+    <span class="ctrl-label">State</span>
+    <button class="ctrl-btn on" id="cs-default" onclick="setState('default')">Default</button>
+    <button class="ctrl-btn" id="cs-empty" onclick="setState('empty')">Empty</button>
+  </div>
+</div>
+
+<!-- CONTENT ROW: phone + annotations -->
+<div class="content-row">
+
+  <!-- PHONE -->
+  <div class="phone-col">
+    <div class="ph" id="phone" data-theme="light">
+      <div class="notch"></div>
+      <div class="sb"><span>9:41</span><span style="font-size:10px;color:var(--mid);">Plan</span></div>
+
+      <div class="tc">
+
+        <!-- ═══ DEFAULT STATE ═══ -->
+        <div class="tp active" id="state-default">
+
+          <!-- Plan header + export button -->
+          <div class="plan-header">
+            <div class="plan-title">Plan</div>
+            <button class="plan-export">
+              <!-- Download icon -->
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3v12M7 10l5 5 5-5"/>
+                <path d="M3 19h18"/>
+              </svg>
+              Export
+            </button>
+          </div>
+
+          <!-- EDITORIAL TIMELINE subtitle -->
+          <div class="plan-eyebrow">Editorial timeline</div>
+
+          <!-- Filter chips -->
+          <div class="chips-row">
+            <button class="chip active" onclick="setChip(this)">All</button>
+            <button class="chip" onclick="setChip(this)">Home</button>
+            <button class="chip" onclick="setChip(this)">Garden</button>
+            <button class="chip" onclick="setChip(this)">Vehicle</button>
+            <button class="chip" onclick="setChip(this)">Subscriptions</button>
+          </div>
+
+          <!-- ─── APRIL ─── -->
+          <div class="month-head">
+            <!-- Completion circle LEFT: 2 of 5 tasks done = 40% -->
+            <div class="month-circle">
+              <svg width="36" height="36" viewBox="0 0 36 36">
+                <!-- Track -->
+                <circle cx="18" cy="18" r="14" fill="none" stroke="var(--surface-high)" stroke-width="2.5"/>
+                <!-- Progress arc: circumference = 2*pi*14 = 87.96. 40% = 35.18 -->
+                <circle cx="18" cy="18" r="14" fill="none" stroke="var(--plum)" stroke-width="2.5" stroke-dasharray="35.18 87.96" stroke-linecap="round"/>
+              </svg>
+              <div class="month-pct">40%</div>
+            </div>
+            <div class="month-name">April</div>
+          </div>
+
+          <div class="plan-tasks">
+            <!-- Row: Apr 4 — Home -->
+            <div class="plan-row">
+              <div class="pr-date"><div class="pr-day">Fri</div><div class="pr-num">4</div></div>
+              <div class="pr-icon" style="background:var(--ch-wash);">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 6.5L7 2l6 4.5V13a.5.5 0 0 1-.5.5h-3.5v-3H5v3H1.5A.5.5 0 0 1 1 13V6.5z"/>
+                </svg>
+              </div>
+              <div class="pr-body"><div class="pr-title">Refill dishwasher salt</div><div class="pr-item">Dishwasher · Home</div></div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="5" r="1" fill="var(--hint)"/><circle cx="12" cy="12" r="1" fill="var(--hint)"/><circle cx="12" cy="19" r="1" fill="var(--hint)"/></svg>
+            </div>
+
+            <!-- Row: Apr 7 — Garden -->
+            <div class="plan-row">
+              <div class="pr-date"><div class="pr-day">Mon</div><div class="pr-num">7</div></div>
+              <div class="pr-icon" style="background:var(--cg-wash);">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cg-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 13V6"/>
+                  <path d="M7 6C7 6 4 4.5 2 2c3 0 5 1 5 4z"/>
+                  <path d="M7 6C7 6 10 4.5 12 2c-3 0-5 1-5 4z"/>
+                </svg>
+              </div>
+              <div class="pr-body"><div class="pr-title">Start tomato seedlings</div><div class="pr-item">Tomatoes · Garden</div></div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="5" r="1" fill="var(--hint)"/><circle cx="12" cy="12" r="1" fill="var(--hint)"/><circle cx="12" cy="19" r="1" fill="var(--hint)"/></svg>
+            </div>
+
+            <!-- Row: Apr 14 — Vehicle -->
+            <div class="plan-row">
+              <div class="pr-date"><div class="pr-day">Mon</div><div class="pr-num">14</div></div>
+              <div class="pr-icon" style="background:var(--cv-wash);">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cv-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="1" y="4" width="12" height="6" rx="1.5"/>
+                  <path d="M3 10v2M11 10v2"/>
+                  <path d="M3 4l1.5-2h5L11 4"/>
+                </svg>
+              </div>
+              <div class="pr-body"><div class="pr-title">Check tyre pressure</div><div class="pr-item">Car · Vehicle</div></div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="5" r="1" fill="var(--hint)"/><circle cx="12" cy="12" r="1" fill="var(--hint)"/><circle cx="12" cy="19" r="1" fill="var(--hint)"/></svg>
+            </div>
+
+            <!-- Row: Apr 18 — Home -->
+            <div class="plan-row">
+              <div class="pr-date"><div class="pr-day">Fri</div><div class="pr-num">18</div></div>
+              <div class="pr-icon" style="background:var(--ch-wash);">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 6.5L7 2l6 4.5V13a.5.5 0 0 1-.5.5h-3.5v-3H5v3H1.5A.5.5 0 0 1 1 13V6.5z"/>
+                </svg>
+              </div>
+              <div class="pr-body"><div class="pr-title">Clean gutters</div><div class="pr-item">House · Home</div></div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="5" r="1" fill="var(--hint)"/><circle cx="12" cy="12" r="1" fill="var(--hint)"/><circle cx="12" cy="19" r="1" fill="var(--hint)"/></svg>
+            </div>
+
+            <!-- Row: Apr 28 — Subscriptions -->
+            <div class="plan-row">
+              <div class="pr-date"><div class="pr-day">Mon</div><div class="pr-num">28</div></div>
+              <div class="pr-icon" style="background:var(--cs-wash);">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cs-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="1" y="2.5" width="12" height="9" rx="1.5"/>
+                  <line x1="1" y1="5.5" x2="13" y2="5.5"/>
+                  <line x1="3.5" y1="8.5" x2="5" y2="8.5"/>
+                </svg>
+              </div>
+              <div class="pr-body"><div class="pr-title">Renew home insurance</div><div class="pr-item">Allianz Home · Subscriptions</div></div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="5" r="1" fill="var(--hint)"/><circle cx="12" cy="12" r="1" fill="var(--hint)"/><circle cx="12" cy="19" r="1" fill="var(--hint)"/></svg>
+            </div>
+          </div>
+
+          <!-- Seasonal quote card between April and May -->
+          <div class="season-card">
+            <div class="season-quote">"Spring is the season your garden bills come due. Your olive tree is not impressed you waited."</div>
+            <div class="season-attr">April · Garden season</div>
+          </div>
+
+          <!-- ─── MAY ─── -->
+          <div class="month-divider"></div>
+          <div class="month-head">
+            <!-- Completion circle LEFT: 0 of 4 done = 0% — track only, no fill -->
+            <div class="month-circle">
+              <svg width="36" height="36" viewBox="0 0 36 36">
+                <circle cx="18" cy="18" r="14" fill="none" stroke="var(--surface-high)" stroke-width="2.5"/>
+              </svg>
+              <div class="month-pct" style="color:var(--hint);">0%</div>
+            </div>
+            <div class="month-name">May</div>
+          </div>
+
+          <div class="plan-tasks">
+            <!-- Row: May 1 — Garden -->
+            <div class="plan-row">
+              <div class="pr-date"><div class="pr-day">Thu</div><div class="pr-num">1</div></div>
+              <div class="pr-icon" style="background:var(--cg-wash);">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cg-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 13V6"/>
+                  <path d="M7 6C7 6 4 4.5 2 2c3 0 5 1 5 4z"/>
+                  <path d="M7 6C7 6 10 4.5 12 2c-3 0-5 1-5 4z"/>
+                </svg>
+              </div>
+              <div class="pr-body"><div class="pr-title">Prune olive tree</div><div class="pr-item">Olive tree · Garden</div></div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="5" r="1" fill="var(--hint)"/><circle cx="12" cy="12" r="1" fill="var(--hint)"/><circle cx="12" cy="19" r="1" fill="var(--hint)"/></svg>
+            </div>
+
+            <!-- Row: May 6 — Home -->
+            <div class="plan-row">
+              <div class="pr-date"><div class="pr-day">Tue</div><div class="pr-num">6</div></div>
+              <div class="pr-icon" style="background:var(--ch-wash);">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 6.5L7 2l6 4.5V13a.5.5 0 0 1-.5.5h-3.5v-3H5v3H1.5A.5.5 0 0 1 1 13V6.5z"/>
+                </svg>
+              </div>
+              <div class="pr-body"><div class="pr-title">Annual boiler service</div><div class="pr-item">Boiler · Home</div></div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="5" r="1" fill="var(--hint)"/><circle cx="12" cy="12" r="1" fill="var(--hint)"/><circle cx="12" cy="19" r="1" fill="var(--hint)"/></svg>
+            </div>
+
+            <!-- Row: May 14 — Home -->
+            <div class="plan-row">
+              <div class="pr-date"><div class="pr-day">Wed</div><div class="pr-num">14</div></div>
+              <div class="pr-icon" style="background:var(--ch-wash);">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="1" y="2.5" width="12" height="9" rx="1.5"/>
+                  <path d="M4 6.5h6M4 8.5h4"/>
+                </svg>
+              </div>
+              <div class="pr-body"><div class="pr-title">Refill dishwasher salt</div><div class="pr-item">Dishwasher · Home</div></div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="5" r="1" fill="var(--hint)"/><circle cx="12" cy="12" r="1" fill="var(--hint)"/><circle cx="12" cy="19" r="1" fill="var(--hint)"/></svg>
+            </div>
+
+            <!-- Row: May 26 — Vehicle -->
+            <div class="plan-row">
+              <div class="pr-date"><div class="pr-day">Mon</div><div class="pr-num">26</div></div>
+              <div class="pr-icon" style="background:var(--cv-wash);">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cv-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="1" y="4" width="12" height="6" rx="1.5"/>
+                  <path d="M3 10v2M11 10v2"/>
+                  <path d="M3 4l1.5-2h5L11 4"/>
+                </svg>
+              </div>
+              <div class="pr-body"><div class="pr-title">Replace windscreen wipers</div><div class="pr-item">Car · Vehicle</div></div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="5" r="1" fill="var(--hint)"/><circle cx="12" cy="12" r="1" fill="var(--hint)"/><circle cx="12" cy="19" r="1" fill="var(--hint)"/></svg>
+            </div>
+          </div>
+
+          <!-- Seasonal quote card between May and June -->
+          <div class="season-card">
+            <div class="season-quote">"May: when your garden starts winning the argument that you should have planted earlier."</div>
+            <div class="season-attr">May · Planting season</div>
+          </div>
+
+          <!-- ─── JUNE ─── -->
+          <div class="month-divider"></div>
+          <div class="month-head">
+            <!-- Completion circle LEFT: 0 of 2 done = 0% — track only, no fill -->
+            <div class="month-circle">
+              <svg width="36" height="36" viewBox="0 0 36 36">
+                <circle cx="18" cy="18" r="14" fill="none" stroke="var(--surface-high)" stroke-width="2.5"/>
+              </svg>
+              <div class="month-pct" style="color:var(--hint);">0%</div>
+            </div>
+            <div class="month-name">June</div>
+          </div>
+
+          <div class="plan-tasks">
+            <!-- Row: Jun 4 — Subscriptions -->
+            <div class="plan-row">
+              <div class="pr-date"><div class="pr-day">Wed</div><div class="pr-num">4</div></div>
+              <div class="pr-icon" style="background:var(--cs-wash);">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cs-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="1" y="2.5" width="12" height="9" rx="1.5"/>
+                  <line x1="1" y1="5.5" x2="13" y2="5.5"/>
+                  <line x1="3.5" y1="8.5" x2="5" y2="8.5"/>
+                </svg>
+              </div>
+              <div class="pr-body"><div class="pr-title">Review streaming subscriptions</div><div class="pr-item">Netflix, Spotify · Subscriptions</div></div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="5" r="1" fill="var(--hint)"/><circle cx="12" cy="12" r="1" fill="var(--hint)"/><circle cx="12" cy="19" r="1" fill="var(--hint)"/></svg>
+            </div>
+
+            <!-- Row: Jun 16 — Garden -->
+            <div class="plan-row">
+              <div class="pr-date"><div class="pr-day">Mon</div><div class="pr-num">16</div></div>
+              <div class="pr-icon" style="background:var(--cg-wash);">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cg-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 13V6"/>
+                  <path d="M7 6C7 6 4 4.5 2 2c3 0 5 1 5 4z"/>
+                  <path d="M7 6C7 6 10 4.5 12 2c-3 0-5 1-5 4z"/>
+                </svg>
+              </div>
+              <div class="pr-body"><div class="pr-title">Water tomato seedlings</div><div class="pr-item">Tomatoes · Garden</div></div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="5" r="1" fill="var(--hint)"/><circle cx="12" cy="12" r="1" fill="var(--hint)"/><circle cx="12" cy="19" r="1" fill="var(--hint)"/></svg>
+            </div>
+          </div>
+
+          <!-- Editorial closer -->
+          <div class="editorial">
+            <div class="editorial-text">A house maintained is a house loved.</div>
+          </div>
+
+        </div><!-- /state-default -->
+
+        <!-- ═══ EMPTY STATE ═══ -->
+        <div class="tp" id="state-empty">
+          <!-- Plan header still visible in empty state -->
+          <div class="plan-header">
+            <div class="plan-title">Plan</div>
+            <div class="plan-filter-icon" style="opacity:0.4;pointer-events:none;">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round">
+                <line x1="1" y1="4" x2="13" y2="4"/>
+                <line x1="1" y1="10" x2="13" y2="10"/>
+                <circle cx="4" cy="4" r="1.5" fill="var(--surface)" stroke="var(--mid)" stroke-width="1.5"/>
+                <circle cx="10" cy="10" r="1.5" fill="var(--surface)" stroke="var(--mid)" stroke-width="1.5"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Empty state centered -->
+          <div class="empty-state">
+            <div class="empty-icon">
+              <!-- Calendar blank icon -->
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+            </div>
+            <div class="empty-h">Nothing planned yet.</div>
+            <div class="empty-sub">Add your first item and I'll fill in the schedule.</div>
+            <button class="empty-cta">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add an item
+            </button>
+          </div>
+        </div><!-- /state-empty -->
+
+      </div><!-- /tc -->
+
+      <!-- NAV BAR -->
+      <div class="nz">
+        <div class="nb">
+          <!-- Today tab -->
+          <button class="nt" onclick="">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+              <line x1="8" y1="15" x2="8" y2="15" stroke-width="2.2" stroke-linecap="round"/>
+            </svg>
+            <span class="nl">Today</span>
+          </button>
+          <!-- Plan tab — active -->
+          <button class="nt on" onclick="">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="8" y1="6" x2="21" y2="6"/>
+              <line x1="8" y1="12" x2="21" y2="12"/>
+              <line x1="8" y1="18" x2="21" y2="18"/>
+              <line x1="3" y1="6" x2="3.01" y2="6" stroke-width="2.2"/>
+              <line x1="3" y1="12" x2="3.01" y2="12" stroke-width="2.2"/>
+              <line x1="3" y1="18" x2="3.01" y2="18" stroke-width="2.2"/>
+            </svg>
+            <span class="nl">Plan</span>
+          </button>
+          <!-- My Stuff tab -->
+          <button class="nt" onclick="">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+            <span class="nl">My stuff</span>
+          </button>
+          <!-- Profile tab -->
+          <button class="nt" onclick="">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+            <span class="nl">Profile</span>
+          </button>
+        </div>
+        <!-- FAB -->
+        <button class="fab">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--plum-fg)" stroke-width="2.2" stroke-linecap="round">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </button>
+      </div>
+
+    </div><!-- /ph -->
+  </div><!-- /phone-col -->
+
+  <!-- ANNOTATIONS -->
+  <div class="annot-col">
+
+    <div class="annot-section">Screen structure</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-rule">Layout</span> Plan tab shell</div>
+      <div class="annot-body">
+        Fixed header zone (title + filter icon + chip row), then a scrollable content area with monthly sections. Title: Noto Serif 24px, <code>letter-spacing: -0.02em</code>. Filter icon (sliders) top-right: 32x32px, 8px radius, surface-high border. Chip row: horizontal scroll, <code>nowrap</code>, 24px horizontal padding, 6px gap. No second line of chips ever.
+      </div>
+    </div>
+
+    <div class="annot-section">Filter chips</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Chips</span> Active state</div>
+      <div class="annot-body">
+        Active chip: <code>background: var(--ink)</code>, <code>color: var(--plum-fg)</code>, no border. Dark filled pill. Inactive chip: <code>outline-var</code> border, ink text, transparent bg. Tap toggles filter — only one active at a time. "All" is always the first chip and is the default active state. No second line of chips, ever.<br><br>
+        <strong>Flutter:</strong> Use custom chip widget. Active state sets <code>backgroundColor: colorInk</code> and <code>foregroundColor: colorPlumFg</code>. Inactive sets transparent bg with <code>BorderSide(color: outlineVar)</code> and ink label color.
+      </div>
+    </div>
+
+    <div class="annot-section">Month header</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Month header</span> Serif name + completion circle</div>
+      <div class="annot-body">
+        Layout: [circle] [month name]. Circle is 36x36px and sits on the LEFT. Month name: Noto Serif 18px, ink, takes remaining width via <code>flex: 1</code>. Circle: SVG with two concentric rings. Track: <code>surface-high</code> stroke, 2.5px. Progress arc: <code>var(--plum)</code> stroke, 2.5px, <code>stroke-linecap: round</code>, rotated -90deg (starts at top). Center label: 9px 600 plum showing % complete. When 0%, circle shows only the track and the % label uses hint color.
+      </div>
+    </div>
+
+    <div class="annot-card decision">
+      <div class="annot-head"><span class="badge-decision">Spec</span> Completion % calculation</div>
+      <div class="annot-body">
+        Completion circle shows the % of tasks in that calendar month that are marked Done or Skipped out of the total tasks in that month. Formula: <code>completedTasks / totalTasks * 100</code>. Rounded to nearest integer. SVG arc: <code>stroke-dasharray="[circumference * pct] [circumference]"</code>. Circumference for r=14: <code>2 * pi * 14 = 87.96</code>.<br><br>
+        <strong>Flutter:</strong> Use <code>CustomPaint</code> with two <code>drawArc</code> calls. Do not use <code>CircularProgressIndicator</code> (limited styling). Wrap in <code>Stack</code> with centered <code>Text</code> for the % number.
+      </div>
+    </div>
+
+    <div class="annot-section">Task rows</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Task row</span> Layout</div>
+      <div class="annot-body">
+        Row height: natural (min ~44px). Flex row, 10px gap. No background on the row itself. On tap: navigate to task detail (S-13). No in-place expand on Plan tab. <strong>3-dot vertical menu</strong> on the right edge, 16px, hint stroke + filled circles, signals contextual action not navigation.<br><br>
+        Date column: 40px fixed width, flex-shrink 0. Day abbreviation (Mon/Tue etc): 9px 500 hint, uppercase, 0.04em letter-spacing. Date number: 16px 600 mid. Icon circle: 32px, category wash bg, category-colored SVG 14px, no border, flex-shrink 0. Body: flex 1, min-width 0. Title: 13px 500 ink, natural wrap. Item + category: 10px mid.
+      </div>
+    </div>
+
+    <div class="annot-card decision">
+      <div class="annot-head"><span class="badge-decision">Decision</span> No expand on Plan</div>
+      <div class="annot-body">
+        Plan tab task rows do <strong>not</strong> expand in place. Tapping a row navigates to S-13 Task detail. This is intentional: Plan is a timeline overview, not a task action surface. Users come to Plan to see the full schedule, not to act on tasks.<br><br>
+        <strong>Flutter:</strong> Wrap each row in <code>InkWell</code> with <code>onTap: () => Navigator.push(TaskDetailRoute(taskId))</code>. No <code>ExpansionTile</code>. No <code>AnimatedContainer</code> for expand logic.
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Row spacing</span> Gap, not borders</div>
+      <div class="annot-body">
+        Rows sit in a <code>Column</code> with <code>gap: 2px</code>. No dividers, no border-bottom between rows. The surface color between rows acts as the visual separator. Each row has a subtle hover/pressed background: <code>rgba(49,51,44,0.03)</code>. Never wrap multiple rows in a single card container.
+      </div>
+    </div>
+
+    <div class="annot-section">Seasonal quote card</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Quote card</span> Style</div>
+      <div class="annot-body">
+        Appears between month sections (after the last row of a month, before the next month divider). Background: <code>surface-low</code>. Border-radius: 12px. Padding: 14px 16px. Quote text: Noto Serif italic, 13px, ink, <code>line-height: 1.55</code>. Attribution line below: 9px 500 apricot, uppercase, <code>letter-spacing: 0.04em</code>. Not dismissible. Content is seasonal and month-specific, stored server-side, rotated per locale.
+      </div>
+    </div>
+
+    <div class="annot-section">Month divider</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-rule">Divider</span> Between months</div>
+      <div class="annot-body">
+        1px horizontal line using <code>var(--surface-high)</code> color. 24px horizontal margin (matches screen padding). Appears above each month header (not above the first month). Creates clear visual grouping between months without heavy borders.
+      </div>
+    </div>
+
+    <div class="annot-section">States</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-state">State 1</span> Default (has tasks)</div>
+      <div class="annot-body">
+        <strong>When:</strong> user has items with tasks across upcoming months.<br><br>
+        Full timeline rendered: month headers, task rows, seasonal quote cards, editorial closer. Filter chips active. Filter icon available. Completion circles show real progress per month.
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-state">State 2</span> Empty (no tasks)</div>
+      <div class="annot-body">
+        <strong>When:</strong> user has no items, or items with no tasks scheduled.<br><br>
+        Screen title still visible. Filter icon grayed out, non-interactive. Chips hidden. Centered empty state: calendar icon (64px circle, surface-low bg) + Noto Serif headline "Nothing planned yet." + 13px mid sub + plum pill CTA "Add an item". CTA opens FAB action sheet.
+      </div>
+    </div>
+
+    <div class="annot-section">Editorial closer</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Editorial</span> Bottom personality line</div>
+      <div class="annot-body">
+        Centered. Noto Serif italic, 12px, hint color, 0.55 opacity. Appears after the last month section. Rotates from a set of brand voice one-liners: "A house maintained is a house loved." / "Your future self will thank you." / "Still here. Always watching your gutters." Never shown in empty state.
+      </div>
+    </div>
+
+    <div class="annot-section">Nav bar</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-rule">Nav bar</span> Plan tab active</div>
+      <div class="annot-body">
+        Solid <code>surface</code> background, no glassmorphism. Slight upward shadow: <code>0 -2px 12px rgba(49,51,44,0.04)</code>. Active tab (Plan): <code>var(--primary)</code> on both SVG stroke and label text. No background shape behind the active tab. Inactive tabs: <code>var(--hint)</code> color. FAB: right-aligned, 46x46px, 14px radius, plum bg.
+      </div>
+    </div>
+
+    <div class="annot-section">Flutter implementation</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-rule">Flutter</span> List structure</div>
+      <div class="annot-body">
+        Use <code>ListView</code> (not <code>SingleChildScrollView</code>) for the Plan content area. Build month sections as groups: use a <code>SliverList</code> + <code>SliverPersistentHeader</code> if sticky month headers are desired (v1.1 enhancement, not required for v1.0). Month data model: group tasks by <code>DateTime(year, month)</code>. Compute completion % per group: <code>tasks.where((t) => t.isDone || t.isSkipped).length / tasks.length</code>.<br><br>
+        Task rows: <code>InkWell</code> + <code>Padding</code> + <code>Row</code>. No <code>ListTile</code> (limited layout control). Date column: fixed 40px <code>SizedBox</code>. Category icon: 32px <code>Container</code> with <code>BoxDecoration(shape: BoxShape.circle, color: categoryWash)</code>.<br><br>
+        SVG arc (completion circle): <code>CustomPaint</code>, two <code>drawArc</code> calls. Circumference for radius 14 logical px: <code>2 * pi * 14</code>. Scale to physical px via <code>MediaQuery.devicePixelRatio</code> if needed. Center label: <code>Stack</code> + <code>Center</code>.<br><br>
+        Filter chips: <code>SingleChildScrollView(scrollDirection: Axis.horizontal)</code> wrapping a <code>Row</code> of custom chip widgets. Active state stored in <code>selectedCategory</code> state variable. Chips filter the task list in place, no screen navigation.
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-rule">Flutter</span> Standard block</div>
+      <div class="annot-body">
+        <strong>Mockup base:</strong> 390x844 (iPhone 15).<br>
+        <strong>SafeArea:</strong> yes, wraps content area.<br>
+        <strong>Scroll:</strong> <code>ListView</code> for Plan content zone only (inset 54px top for status bar, 84px bottom for nav).<br>
+        <strong>Bottom zone:</strong> nav bar 84px, fixed, outside scroll.<br>
+        <strong>FAB:</strong> <code>Positioned</code>, right: 24, bottom: 18.<br>
+        <strong>Theme:</strong> <code>[data-theme]</code> maps to <code>ThemeData</code>. Category washes: <code>Color.withOpacity(0.14)</code> on category base color.<br>
+        <strong>Month sections:</strong> use <code>GroupedListView</code> package or manual <code>SliverList</code> with header widgets.<br>
+        <strong>Completion arc:</strong> <code>CustomPainter</code> with two <code>drawArc</code> calls. No <code>CircularProgressIndicator</code>.
+      </div>
+    </div>
+
+  </div><!-- /annot-col -->
+
+</div><!-- /content-row -->
+
+<div class="page-divider"></div>
+
+<!-- CHANGELOG -->
+<div class="changelog">
+  <div class="cl-title">Changelog</div>
+
+  <div class="cl-entry">
+    <div class="cl-ver">v1.1 · 2026-04-02 · BREAKING</div>
+    <div class="cl-body">
+      <strong>Aligned with Precision Warmth prototype.</strong> Five visual changes applied in one pass.<br><br>
+      <strong>Export button:</strong> Plum pill button added top-right of the Plan title row. Download SVG icon (11px) + "Export" label. Replaces the filter icon (sliders) which moved to a separate future control.<br><br>
+      <strong>"EDITORIAL TIMELINE" subtitle:</strong> 9px uppercase, letter-spacing 1.3px, hint color. Sits between the title row and the filter chips row. Anchors the editorial identity of the tab.<br><br>
+      <strong>Completion circle moved to left:</strong> Previously right-aligned in the month header. Now left of the month name. Layout: [circle] [month name]. The <code>.month-head</code> flex container changed from <code>justify-content: space-between</code> to <code>gap: 10px</code> with the name taking <code>flex: 1</code>.<br><br>
+      <strong>Task rows: 3-dot menu instead of chevron:</strong> All task row trailing icons changed from chevron-right (12px, 30% opacity) to vertical 3-dot menu (16px, hint stroke + filled circles). Signals contextual action, not navigation. Tap behavior unchanged (navigates to task detail S-13).<br><br>
+      <strong>Filter chip active state: dark ink fill:</strong> Active chip now uses <code>background: var(--ink)</code>, <code>color: var(--plum-fg)</code>, no border. Inactive chips: <code>outline-var</code> border, ink text, transparent bg. Replaces the previous plum outline + plum text style. Matches the Precision Warmth prototype dark "All tasks" pill.
+    </div>
+    <div class="cl-flutter">
+      <strong>Flutter notes:</strong><br>
+      Export button: <code>TextButton</code> or custom <code>ElevatedButton</code> with <code>backgroundColor: colorPlum</code>, <code>foregroundColor: colorPlumFg</code>, pill radius, row with <code>PhosphorIcons.downloadSimple</code> (11px) + "Export" label. Chip active state: active chip sets <code>backgroundColor: colorInk</code>, <code>labelStyle: TextStyle(color: colorPlumFg)</code>, no border. Inactive: transparent bg, <code>side: BorderSide(color: outlineVar)</code>, ink text. Month header: change <code>Row</code> child order so <code>CustomPaint</code> (circle) is first, then <code>Expanded(child: Text(monthName))</code>. Task row trailing: replace <code>Icon(PhosphorIcons.caretRight)</code> with <code>Icon(PhosphorIcons.dotsThreeVertical, color: colorHint, size: 16)</code>.
+    </div>
+  </div>
+
+  <div class="cl-entry">
+    <div class="cl-ver">v1.0 · 2026-04-02 · ADDITIVE</div>
+    <div class="cl-body">
+      <strong>Initial hi-fi for Plan tab.</strong> New standalone file: <code>screens/s09-plan-hifi.html</code>. Extracted pattern from Precision Warmth design system into full hi-fi with annotation sidebar.<br><br>
+      <strong>Content:</strong> Three month sections (April, May, June) with serif month names, SVG completion circles, task rows using date column + 32px category icon circle + title + item. Seasonal quote cards between months. Editorial closer at bottom.<br><br>
+      <strong>Filter chips:</strong> All (default active), Home, Garden, Vehicle, Subscriptions. Horizontal scroll row. Active state: plum border + plum text + plum-wash bg. Single active chip at a time.<br><br>
+      <strong>No expand on task rows:</strong> Plan tab task rows navigate to task detail (S-13). Chevron-right signals navigation, not expansion. This is a deliberate departure from Today tab where rows expand in place.<br><br>
+      <strong>Two states:</strong> Default (has tasks across months) and Empty (no items or tasks). Empty state shows centered calendar icon + headline + sub + plum pill CTA.<br><br>
+      <strong>Dark mode:</strong> Supported via <code>[data-theme="dark"]</code> on phone element. All tokens update. Category washes lift to 15% opacity.
+    </div>
+    <div class="cl-flutter">
+      <strong>Flutter notes:</strong><br>
+      Use <code>ListView</code> for scrollable content zone, not <code>SingleChildScrollView</code>. Group tasks by month: <code>Map&lt;DateTime, List&lt;Task&gt;&gt;</code> keyed by <code>DateTime(year, month)</code>. Completion circle: <code>CustomPainter</code> with two <code>drawArc</code> calls (track + progress), not <code>CircularProgressIndicator</code>. Task row: <code>InkWell</code> + <code>Row</code> + <code>Navigator.push(TaskDetailRoute)</code>. No <code>ExpansionTile</code>. Filter chips: <code>SingleChildScrollView(Axis.horizontal)</code> + custom chip widgets with <code>selectedCategory</code> state. Category icon circle: 32px <code>Container</code> with <code>BoxDecoration(shape: BoxShape.circle)</code>.
+    </div>
+  </div>
+</div>
+
+<script>
+function setTheme(t) {
+  document.getElementById('phone').setAttribute('data-theme', t);
+  document.getElementById('ctl').classList.toggle('on', t === 'light');
+  document.getElementById('ctd').classList.toggle('on', t === 'dark');
+}
+function setState(s) {
+  ['default','empty'].forEach(function(id) {
+    document.getElementById('state-' + id).classList.remove('active');
+    document.getElementById('cs-' + id).classList.remove('on');
+  });
+  document.getElementById('state-' + s).classList.add('active');
+  document.getElementById('cs-' + s).classList.add('on');
+}
+function setChip(el) {
+  var row = el.closest('.chips-row');
+  row.querySelectorAll('.chip').forEach(function(c) { c.classList.remove('active'); });
+  el.classList.add('active');
+}
+</script>
+</body>
+</html>

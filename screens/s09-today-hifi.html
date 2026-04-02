@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · S-09 Today · hi-fi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   S-09 Today tab · hi-fi · Precision Warmth design system
+   Noto Serif + Manrope, plum + apricot, tonal surfaces
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Tokens ── */
+:root {
+  /* Surface tiers */
+  --surface: #FBF9F4;
+  --surface-low: #F5F4ED;
+  --surface-high: #E8E9E0;
+  --surface-lowest: #FFFFFF;
+
+  /* Text */
+  --ink: #31332C;
+  --mid: #7A756D;
+  --hint: #A09A90;
+  --outline-var: #B1B3A9;
+
+  /* Plum: actions */
+  --plum: #9B7FD4;
+  --plum-fg: #FAF8FF;
+  --plum-wash: rgba(155,127,212,0.10);
+  --plum-container: rgba(155,127,212,0.08);
+
+  /* Apricot: warmth */
+  --apricot: #E8A87C;
+  --apricot-wash: rgba(232,168,124,0.12);
+
+  /* Primary mapped to plum */
+  --primary: #9B7FD4;
+  --primary-fg: #FAF8FF;
+  --primary-container: rgba(155,127,212,0.08);
+
+  /* Category highlights */
+  --ch-bg: #C09088; --ch-wash: rgba(192,144,136,0.14);
+  --cg-bg: #8C9B80; --cg-wash: rgba(140,155,128,0.14);
+  --cv-bg: #8E9A94; --cv-wash: rgba(142,154,148,0.14);
+  --cs-bg: #A69BBF; --cs-wash: rgba(166,155,191,0.14);
+  --cx-bg: #C29494; --cx-wash: rgba(194,148,148,0.14);
+  --cp-bg: #C7B7A3; --cp-wash: rgba(199,183,163,0.14);
+
+  /* Soft yellow */
+  --yellow: #E8B86D; --yellow-wash: rgba(232,184,109,0.14);
+
+  /* Overdue */
+  --overdue-bg: #6B4A3A;
+  --overdue-fg: #FBF9F4;
+
+  --r: 12px; --rs: 8px;
+}
+[data-theme="dark"] {
+  --surface: #1C1B18;
+  --surface-low: #24231F;
+  --surface-high: #2E2D28;
+  --surface-lowest: #181714;
+  --ink: #F0EDE6;
+  --mid: #A8A29A;
+  --hint: #787068;
+  --outline-var: rgba(177,179,169,0.15);
+  --plum: #B8A0E8;
+  --plum-fg: #1C1B18;
+  --apricot: #F0B890;
+  --primary: #B8A0E8;
+  --primary-fg: #1C1B18;
+  --primary-container: rgba(184,160,232,0.12);
+  --ch-bg: #E0A898; --ch-wash: rgba(224,168,152,0.15);
+  --cg-bg: #A8B89C; --cg-wash: rgba(168,184,156,0.15);
+  --cv-bg: #A8B0AA; --cv-wash: rgba(168,176,170,0.15);
+  --cs-bg: #C0B4D6; --cs-wash: rgba(192,180,214,0.15);
+  --cx-bg: #D4AAAA; --cx-wash: rgba(212,170,170,0.15);
+  --cp-bg: #D6C8B6; --cp-wash: rgba(214,200,182,0.15);
+  --overdue-bg: #C88860;
+  --overdue-fg: #1C1B18;
+  --yellow: #E0C880; --yellow-wash: rgba(224,200,128,0.15);
+  --apricot-wash: rgba(240,184,144,0.15);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100vh; color: var(--ink); }
+
+/* ── Design hub nav ── */
+.hub-nav {
+  background: #F5F0E8; border-bottom: 1px solid rgba(26,22,18,0.12);
+  padding: 0 32px; display: flex; align-items: center; gap: 16px;
+  height: 48px; position: sticky; top: 0; z-index: 200;
+}
+.hub-nav a { font-size: 13px; color: #8A8070; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+.hub-nav a:hover { color: #2C2824; }
+.hub-nav .sep { color: rgba(26,22,18,0.12); }
+.hub-nav .title { font-size: 13px; font-weight: 500; }
+.hub-nav .status { margin-left: auto; font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 100px; }
+.status-progress { background: rgba(133,79,11,0.10); color: #854F0B; border: 1px solid rgba(133,79,11,0.20); }
+
+/* ── Page header ── */
+.page-header { max-width: 1200px; margin: 0 auto; padding: 40px 40px 0; }
+.page-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: #8A8070; margin-bottom: 8px; }
+.page-h1 { font-family: 'Noto Serif', serif; font-size: 32px; font-weight: 400; color: #2C2824; margin-bottom: 6px; letter-spacing: -0.02em; }
+.page-subtitle { font-size: 14px; color: #8A8070; margin-bottom: 16px; }
+.page-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+.page-pill { font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 100px; background: rgba(155,127,212,0.10); color: #9B7FD4; }
+
+/* ── Controls (light/dark + state toggle) ── */
+.controls { max-width: 1200px; margin: 0 auto; padding: 20px 40px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.ctrl-group { display: flex; gap: 4px; align-items: center; }
+.ctrl-label { font-size: 9px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: #A09888; margin-right: 4px; }
+.ctrl-btn { font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 500; padding: 5px 14px; border-radius: 6px; border: 1px solid rgba(26,22,18,0.12); background: transparent; color: #8A8070; cursor: pointer; transition: all 120ms; }
+.ctrl-btn:hover { border-color: rgba(26,22,18,0.20); }
+.ctrl-btn.on { background: #9B7FD4; color: #FAF8FF; border-color: #9B7FD4; }
+
+/* ── Content row (phone + annotations) ── */
+.content-row { max-width: 1200px; margin: 0 auto; padding: 0 40px 40px; display: flex; gap: 40px; align-items: flex-start; }
+
+/* ── Phone shell ── */
+.phone-col { flex-shrink: 0; position: sticky; top: 68px; }
+.ph { width: 390px; height: 844px; border-radius: 50px; overflow: hidden; position: relative; background: var(--surface); box-shadow: 0 0 0 1px rgba(255,255,255,0.03), 0 24px 80px rgba(49,51,44,0.25); transition: background 250ms; }
+.notch { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 102px; height: 8px; border-radius: 100px; background: rgba(49,51,44,0.06); z-index: 60; }
+[data-theme="dark"] .notch { background: rgba(255,255,255,0.08); }
+.sb { height: 54px; padding: 14px 30px 0; display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 600; color: var(--ink); letter-spacing: 0.01em; }
+
+/* ── Tab content area ── */
+.tc { position: absolute; inset: 54px 0 84px 0; overflow: hidden; }
+.tp { position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden; padding: 0 24px 24px; opacity: 0; pointer-events: none; transition: opacity 250ms; scrollbar-width: none; }
+.tp::-webkit-scrollbar { display: none; }
+.tp.active { opacity: 1; pointer-events: auto; }
+
+/* ── Greeting ── */
+.greeting { padding: 6px 0 2px; display: flex; align-items: center; gap: 14px; }
+.g-av { width: 44px; height: 44px; border-radius: 50%; background: var(--surface-low); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-bottom: 4px; }
+.g-lines { flex: 1; }
+.g-line { font-family: 'Noto Serif', serif; font-size: 24px; color: var(--ink); line-height: 1.12; letter-spacing: -0.02em; }
+.g-name { font-style: italic; color: var(--apricot); }
+.g-date { font-size: 12px; color: var(--mid); margin: -2px 0 6px; padding-left: 58px; }
+
+/* ── Summary line (inline, no card) ── */
+.ss { display: flex; align-items: center; justify-content: space-between; margin: 4px 0 14px; padding-left: 58px; }
+.sm { font-size: 13px; color: var(--mid); flex: 1; }
+.sp { width: 36px; height: 36px; background: var(--apricot-wash); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer; position: relative; }
+.spn { font-size: 14px; font-weight: 600; color: var(--apricot); line-height: 1; }
+.spl { font-size: 6px; color: var(--apricot); line-height: 1.2; letter-spacing: 0.03em; margin-top: 1px; }
+.sp-tip { position: absolute; bottom: 44px; left: 50%; transform: translateX(-50%); background: var(--ink); color: var(--surface); font-size: 10px; font-weight: 500; padding: 6px 12px; border-radius: 8px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 150ms; z-index: 20; }
+.sp-tip::before { content: ''; position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%); width: 8px; height: 8px; background: var(--ink); border-radius: 1px; rotate: 45deg; }
+.sp.show-tip .sp-tip { opacity: 1; }
+
+/* ── Section labels ── */
+.sec { margin: 4px 0 10px; }
+.st { font-size: 9px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--hint); }
+
+/* ── Task cards (expandable) ── */
+.nc { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+.feat { border-radius: var(--r); padding: 10px 4px; margin-bottom: 0; cursor: pointer; transition: all 200ms; background: none !important; }
+.feat-top { display: flex; align-items: center; gap: 14px; }
+.feat-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.feat-body { flex: 1; min-width: 0; }
+.feat-ti { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.3; letter-spacing: -0.01em; }
+.feat-m { font-size: 11px; color: var(--mid); margin-top: 2px; }
+.feat-expand { max-height: 0; overflow: hidden; transition: max-height 300ms ease; }
+.feat.expanded .feat-expand { max-height: 260px; }
+.feat-expand-inner { padding-top: 12px; }
+.feat-why { background: var(--surface-low); border-radius: var(--rs); padding: 12px 14px; margin-bottom: 12px; }
+[data-theme="dark"] .feat-why { background: rgba(255,255,255,0.04); }
+.feat-wl { font-size: 9px; font-weight: 600; letter-spacing: 0.04em; margin-bottom: 4px; /* color set per category via data-cat */ }
+.feat-wt { font-size: 11px; color: var(--mid); line-height: 1.5; }
+.feat-chev { transition: transform 200ms; flex-shrink: 0; opacity: 0.35; }
+.feat.expanded .feat-chev { transform: rotate(180deg); }
+
+/* Badges */
+.badge { font-size: 11px; font-weight: 500; flex-shrink: 0; padding: 3px 0; border-radius: 0; letter-spacing: 0.01em; }
+.badge.ov { color: var(--apricot); background: none; font-weight: 600; }
+.badge.due { color: var(--mid); background: none; font-weight: 500; }
+
+/* Action row inside expanded task */
+.feat-actions { display: flex; align-items: center; gap: 8px; margin-top: 0; justify-content: space-between; }
+.feat-detail { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 500; color: var(--mid); cursor: pointer; }
+.feat-btns { display: flex; align-items: center; gap: 8px; }
+.feat-skip { font-size: 11px; font-weight: 500; color: var(--hint); padding: 7px 6px; cursor: pointer; }
+.feat-snooze { display: inline-flex; font-size: 11px; font-weight: 500; color: var(--ink); background: var(--surface-low); padding: 7px 14px; border-radius: 100px; cursor: pointer; }
+/* Done button: color set inline per card using category color */
+.feat-done { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 500; color: var(--surface); padding: 7px 16px; border-radius: 100px; cursor: pointer; }
+
+/* ── Coming up rows ── */
+.cc { display: flex; align-items: center; gap: 12px; border-radius: var(--r); padding: 14px 16px; cursor: pointer; transition: transform 100ms, background 150ms; }
+.cc:active { transform: scale(0.98); }
+.cn { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.25; letter-spacing: -0.01em; }
+.cs2 { font-size: 10px; color: var(--mid); margin-top: 2px; }
+
+/* ── Discovery cards (For you) ── */
+.dcr { display: flex; gap: 12px; overflow-x: auto; margin-bottom: 24px; padding: 2px 0; scrollbar-width: none; }
+.dcr::-webkit-scrollbar { display: none; }
+.dc { min-width: 175px; max-width: 200px; border-radius: var(--r); padding: 16px; flex-shrink: 0; position: relative; background: var(--surface-low); }
+.dc-x { position: absolute; top: 10px; right: 10px; width: 22px; height: 22px; border-radius: 50%; background: rgba(49,51,44,0.05); display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; transition: background 150ms; }
+.dc-x:hover { background: rgba(49,51,44,0.10); }
+[data-theme="dark"] .dc-x { background: rgba(255,255,255,0.08); }
+.dc-h { display: flex; align-items: center; gap: 5px; margin-bottom: 4px; }
+.dc-t { font-size: 10px; font-weight: 600; }
+.dc-b { font-size: 11px; color: var(--mid); line-height: 1.5; margin-bottom: 6px; padding-right: 16px; }
+.dc-dots { display: flex; gap: 3px; }
+.dc-dot { width: 8px; height: 8px; border-radius: 50%; }
+.dc-dot.f { background: var(--ink); }
+.dc-dot.e { background: var(--surface-high); }
+[data-theme="dark"] .dc-dot.f { background: var(--apricot); }
+
+/* ── Empty section hint ── */
+.sec-empty { padding: 6px 0 4px 14px; }
+.sec-empty-t { font-size: 11px; color: var(--hint); font-style: italic; margin-bottom: 8px; }
+.sec-empty-a { font-size: 10px; font-weight: 500; color: var(--plum); cursor: pointer; display: inline-block; }
+
+/* ── Witty text ── */
+.wit { font-family: 'Noto Serif', serif; font-style: italic; font-size: 13px; color: var(--hint); text-align: center; padding: 6px 0 14px; opacity: 0.55; }
+
+/* ── Nav bar ── */
+.nz { position: absolute; bottom: 0; left: 0; right: 0; height: 84px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 14px; pointer-events: none; z-index: 40; }
+.nb { background: var(--surface); border-radius: 20px; padding: 9px 6px 11px; display: flex; align-items: center; box-shadow: 0 -2px 12px rgba(49,51,44,0.04); pointer-events: auto; }
+[data-theme="dark"] .nb { background: var(--surface-low); box-shadow: 0 -2px 12px rgba(0,0,0,0.15); }
+.nt { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 14px; cursor: pointer; border: none; background: none; font-family: 'Manrope', sans-serif; border-radius: 10px; transition: background 150ms; }
+.nt svg * { stroke: var(--hint); }
+.nt .nl { font-size: 8px; font-weight: 500; color: var(--hint); }
+.nt.on svg * { stroke: var(--primary); }
+.nt.on .nl { color: var(--primary); font-weight: 600; }
+
+/* FAB */
+.fab { width: 46px; height: 46px; border-radius: 14px; background: var(--plum); display: flex; align-items: center; justify-content: center; cursor: pointer; pointer-events: auto; position: absolute; right: 24px; bottom: 18px; z-index: 45; box-shadow: 0 6px 20px rgba(155,127,212,0.45); border: none; margin-bottom: 4px; }
+
+/* ── Empty state ── */
+.empty-state { text-align: center; padding: 80px 20px 40px; }
+.empty-icon { width: 64px; height: 64px; border-radius: 50%; background: var(--surface-low); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+.empty-h { font-family: 'Noto Serif', serif; font-size: 22px; color: var(--ink); margin-bottom: 8px; line-height: 1.2; }
+.empty-sub { font-size: 13px; color: var(--mid); line-height: 1.5; }
+
+/* ── All done state ── */
+.done-state { text-align: center; padding: 60px 20px 40px; }
+.done-icon { width: 72px; height: 72px; border-radius: 50%; background: var(--apricot-wash); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+.done-h { font-family: 'Noto Serif', serif; font-size: 22px; color: var(--ink); margin-bottom: 6px; line-height: 1.2; }
+.done-sub { font-size: 13px; color: var(--mid); line-height: 1.5; margin-bottom: 4px; }
+.done-wit { font-family: 'Noto Serif', serif; font-style: italic; font-size: 13px; color: var(--hint); margin-top: 16px; opacity: 0.55; }
+
+/* ── Annotation sidebar ── */
+.annot-col { flex: 1; min-width: 280px; max-width: 420px; }
+.annot-section { font-size: 10px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: #8A8070; margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid rgba(26,22,18,0.08); }
+.annot-section:first-child { margin-top: 0; }
+.annot-card { background: #FFFFFF; border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; border: 1px solid rgba(26,22,18,0.06); }
+.annot-card.decision { border-left: 3px solid #9B7FD4; }
+.annot-head { font-size: 12px; font-weight: 600; color: #2C2824; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.annot-body { font-size: 11px; color: #6B6358; line-height: 1.6; }
+.annot-body code { background: rgba(26,22,18,0.06); padding: 1px 5px; border-radius: 3px; font-size: 10px; font-family: 'SF Mono', 'Fira Code', monospace; }
+.annot-body strong { color: #2C2824; }
+.badge-rule { font-size: 8px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; background: rgba(59,109,17,0.10); color: #3B6D11; }
+.badge-note { font-size: 8px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; background: rgba(133,79,11,0.10); color: #854F0B; }
+.badge-decision { font-size: 8px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; background: rgba(155,127,212,0.12); color: #9B7FD4; }
+.badge-state { font-size: 8px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; background: rgba(232,168,124,0.12); color: #C08060; }
+
+/* ── Divider ── */
+.page-divider { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+.page-divider::after { content: ''; display: block; height: 1px; background: rgba(26,22,18,0.08); }
+
+/* ── Changelog ── */
+.changelog { max-width: 1200px; margin: 0 auto; padding: 32px 40px 60px; }
+.cl-title { font-family: 'Noto Serif', serif; font-size: 20px; color: #2C2824; margin-bottom: 20px; }
+.cl-entry { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid rgba(26,22,18,0.06); }
+.cl-entry:last-child { border-bottom: none; }
+.cl-ver { font-size: 10px; font-weight: 600; letter-spacing: 0.5px; color: #8A8070; margin-bottom: 6px; }
+.cl-body { font-size: 12px; color: #6B6358; line-height: 1.6; }
+.cl-body strong { color: #2C2824; }
+.cl-body code { background: rgba(26,22,18,0.06); padding: 1px 5px; border-radius: 3px; font-size: 10px; font-family: 'SF Mono', 'Fira Code', monospace; }
+.cl-flutter { margin-top: 8px; padding: 10px 12px; background: rgba(155,127,212,0.06); border-radius: 6px; font-size: 11px; color: #6B6358; line-height: 1.5; }
+.cl-flutter strong { color: #9B7FD4; font-size: 10px; letter-spacing: 0.3px; }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .content-row { flex-direction: column; align-items: center; }
+  .phone-col { position: static; }
+  .annot-col { max-width: 600px; width: 100%; }
+}
+
+/* ── Snooze bottom sheet ── */
+#snooze-sheet {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: var(--surface); border-radius: 20px 20px 0 0;
+  padding-bottom: 28px; z-index: 120;
+  transform: translateY(100%);
+  transition: transform 380ms cubic-bezier(0.32, 0.72, 0, 1);
+  box-shadow: 0 -4px 32px rgba(49,51,44,0.14);
+}
+#snooze-sheet.open { transform: translateY(0); }
+.sheet-handle { width: 36px; height: 4px; border-radius: 2px; background: var(--surface-high); margin: 14px auto 18px; }
+.sheet-title { font-size: 13px; font-weight: 500; color: var(--ink); padding: 0 20px 10px; }
+.snooze-opt {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 20px; cursor: pointer; transition: background 100ms;
+}
+.snooze-opt:active { background: rgba(49,51,44,0.04); }
+.snooze-opt-l { font-size: 13px; font-weight: 500; color: var(--ink); }
+.snooze-opt-r { font-size: 11px; color: var(--mid); }
+.snooze-sep { height: 1px; background: var(--surface-high); margin: 0 20px; }
+.snooze-custom { display: flex; align-items: center; justify-content: space-between; padding: 13px 20px; cursor: pointer; }
+.snooze-custom-l { font-size: 13px; color: var(--mid); }
+#snooze-backdrop {
+  position: absolute; inset: 0; z-index: 119;
+  background: rgba(49,51,44,0); display: none;
+}
+#snooze-backdrop.open { display: block; }
+
+/* ── Action toast ── */
+#action-toast {
+  position: absolute; bottom: 92px; left: 16px; right: 16px;
+  background: var(--ink); color: var(--surface);
+  font-size: 12px; font-weight: 400; line-height: 1.4;
+  padding: 11px 14px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  z-index: 130; pointer-events: none;
+  opacity: 0; transform: translateY(6px);
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+#action-toast.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+#toast-undo { font-size: 11px; font-weight: 600; color: var(--plum); background: none; border: none; font-family: inherit; cursor: pointer; white-space: nowrap; flex-shrink: 0; padding: 0; }
+
+/* ── Skip inline preview ── */
+.skip-preview { font-size: 11px; font-style: italic; color: var(--mid); padding: 6px 0 2px; opacity: 0; transition: opacity 200ms; }
+
+/* ── Card: done-in-place state ── */
+.feat.task-done .feat-ti { opacity: 0.4; }
+.feat.task-done .feat-m  { opacity: 0.4; }
+.feat.task-done .feat-icon { position: relative; }
+.feat.task-done .feat-chev { opacity: 0.2; }
+.feat-done-badge { font-size: 10px; font-weight: 500; color: var(--hint); display: flex; align-items: center; gap: 3px; }
+/* Edit-only action row (shown after done) */
+.feat-edit-row { padding-top: 8px; }
+.feat-edit-btn { font-size: 11px; font-weight: 500; color: var(--mid); background: var(--surface-low); padding: 6px 14px; border-radius: 100px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
+/* Snoozed-later-today state */
+.feat.task-snoozed .feat-ti { opacity: 0.55; }
+.feat.task-snoozed .feat-m  { opacity: 0.55; }
+.feat.task-snoozed .feat-chev { opacity: 0.2; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="hub-nav">
+  <a href="../index.html">
+    <svg width="16" height="18" viewBox="0 0 626 700" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:2px;"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0C56.05,700.13,0,642.43,0,571.26V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#C4A8E8" cx="535.96" cy="119.29" r="90"/></svg>
+    Design hub
+  </a>
+  <span class="sep">/</span>
+  <span class="title">S-09 Today tab</span>
+  <span class="status status-progress">In progress</span>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-eyebrow">S-09 · Today tab</div>
+  <h1 class="page-h1">Today</h1>
+  <p class="page-subtitle">The daily dashboard. Tasks that need attention now, this week, and coming up.</p>
+  <div class="page-meta">
+    <span class="page-pill">Noto Serif + Manrope</span>
+    <span class="page-pill">Plum + Apricot</span>
+    <span class="page-pill">Tonal surfaces</span>
+  </div>
+</div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <div class="ctrl-group">
+    <span class="ctrl-label">Theme</span>
+    <button class="ctrl-btn on" id="ctl" onclick="setTheme('light')">Light</button>
+    <button class="ctrl-btn" id="ctd" onclick="setTheme('dark')">Dark</button>
+  </div>
+  <div class="ctrl-group" style="margin-left: 16px;">
+    <span class="ctrl-label">State</span>
+    <button class="ctrl-btn on" id="cs-default" onclick="setState('default')">Default</button>
+    <button class="ctrl-btn" id="cs-quiet" onclick="setState('quiet')">Quiet day</button>
+    <button class="ctrl-btn" id="cs-overdue" onclick="setState('overdue')">Overdue only</button>
+    <button class="ctrl-btn" id="cs-done" onclick="setState('done')">All done</button>
+    <button class="ctrl-btn" id="cs-empty" onclick="setState('empty')">No items</button>
+  </div>
+</div>
+
+<!-- CONTENT ROW: phone + annotations -->
+<div class="content-row">
+
+  <!-- PHONE -->
+  <div class="phone-col">
+    <div class="ph" id="phone" data-theme="light">
+      <div class="notch"></div>
+      <div class="sb"><span>9:41</span><span style="font-size:10px;color:var(--mid);">Today</span></div>
+
+      <div class="tc">
+        <!-- ═══ DEFAULT STATE ═══ -->
+        <div class="tp active" id="state-default">
+          <!-- Greeting -->
+          <div class="greeting">
+            <div class="g-av"><svg width="22" height="30" viewBox="0 0 40 56" fill="none"><path d="M11,5 C7,5 5,8.5 5,11.5 L5,34.5 C5,37.5 7,41 11,41 C15,41 17,37.5 17,34.5 L17,11.5 C17,8.5 15,5 11,5Z" fill="none" stroke="var(--ink)" stroke-width="2.8" stroke-linecap="round" opacity="0.2"/><path d="M29,15 C25,15 23,18.5 23,21.5 L23,44.5 C23,47.5 25,51 29,51 C33,51 35,47.5 35,44.5 L35,21.5 C35,18.5 33,15 29,15Z" fill="var(--plum)" opacity="0.3"/><circle cx="35" cy="10" r="3.5" fill="var(--plum)" opacity="0.3"/></svg></div>
+            <div class="g-lines"><div class="g-line">Good morning,</div><div class="g-line"><span class="g-name">Martijn.</span></div></div>
+          </div>
+          <div class="g-date">Friday 28 March</div>
+
+          <!-- Summary line (inline, no card) -->
+          <div class="ss">
+            <div class="sm">3 things need attention today</div>
+            <div class="sp" onclick="this.classList.toggle('show-tip');setTimeout(()=>this.classList.remove('show-tip'),2500)"><div class="spn">4</div><div class="spl">week<br>streak</div><div class="sp-tip">You've completed tasks 4 weeks straight!</div></div>
+          </div>
+
+          <!-- TODAY: overdue + due today merged -->
+          <div class="sec"><div style="display:flex;align-items:center;gap:6px;"><div class="st">today</div><div style="font-size:10px;color:var(--mid);font-weight:400;">· 3 tasks</div></div></div>
+          <div class="nc">
+            <div class="feat" onclick="this.classList.toggle('expanded')">
+              <div class="feat-top">
+                <div class="feat-icon" style="background:var(--ch-wash);"><svg width="18" height="18" viewBox="0 0 256 256" fill="none"><path d="M208,224H48a8,8,0,0,1-8-8V104a8,8,0,0,1,3.2-6.4l80-60a8,8,0,0,1,9.6,0l80,60A8,8,0,0,1,216,104V216A8,8,0,0,1,208,224Z" stroke="var(--ch-bg)" stroke-width="18" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="feat-body"><div class="feat-ti">Annual boiler service</div><div class="feat-m">Boiler · schedule a technician</div></div>
+                <div class="badge ov">12d late</div>
+                <svg class="feat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="feat-expand"><div class="feat-expand-inner">
+                <div class="feat-why"><div class="feat-wl" style="color:var(--ch-bg);">Why it matters</div><div class="feat-wt">The annual check validates your warranty and catches carbon monoxide risks. Book 2-3 weeks in advance.</div></div>
+                <div class="feat-actions"><span class="feat-detail">Details <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg></span><div class="feat-btns"><span class="feat-skip">Skip</span><span class="feat-snooze">Snooze</span><span class="feat-done" style="background:var(--ch-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span></div></div>
+              </div></div>
+            </div>
+            <div class="feat" onclick="this.classList.toggle('expanded')">
+              <div class="feat-top">
+                <div class="feat-icon" style="background:var(--ch-wash);"><svg width="18" height="18" viewBox="0 0 256 256" fill="none"><rect x="32" y="56" width="192" height="144" rx="8" stroke="var(--ch-bg)" stroke-width="18" fill="none" stroke-linecap="round"/><line x1="32" y1="104" x2="224" y2="104" stroke="var(--ch-bg)" stroke-width="18" stroke-linecap="round"/></svg></div>
+                <div class="feat-body"><div class="feat-ti">Refill dishwasher salt</div><div class="feat-m">Dishwasher · every 2 months</div></div>
+                <div class="badge ov">3d late</div>
+                <svg class="feat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="feat-expand"><div class="feat-expand-inner">
+                <div class="feat-why"><div class="feat-wl" style="color:var(--ch-bg);">Why it matters</div><div class="feat-wt">Without salt, limescale builds up and shortens your dishwasher's lifespan.</div></div>
+                <div class="feat-actions"><span class="feat-detail">Details <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg></span><div class="feat-btns"><span class="feat-skip">Skip</span><span class="feat-snooze">Snooze</span><span class="feat-done" style="background:var(--ch-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span></div></div>
+              </div></div>
+            </div>
+            <div class="feat" onclick="this.classList.toggle('expanded')">
+              <div class="feat-top">
+                <div class="feat-icon" style="background:var(--cv-wash);"><svg width="18" height="18" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="96" stroke="var(--cv-bg)" stroke-width="18" fill="none"/><circle cx="128" cy="128" r="36" stroke="var(--cv-bg)" stroke-width="18" fill="none"/></svg></div>
+                <div class="feat-body"><div class="feat-ti">Check tyre pressure</div><div class="feat-m">Car · monthly</div></div>
+                <div class="badge due">today</div>
+                <svg class="feat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="feat-expand"><div class="feat-expand-inner">
+                <div class="feat-why"><div class="feat-wl" style="color:var(--cv-bg);">Why it matters</div><div class="feat-wt">Under-inflated tyres increase fuel use by 3% and wear significantly faster.</div></div>
+                <div class="feat-actions"><span class="feat-detail">Details <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg></span><div class="feat-btns"><span class="feat-skip">Skip</span><span class="feat-snooze">Snooze</span><span class="feat-done" style="background:var(--cv-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span></div></div>
+              </div></div>
+            </div>
+          </div>
+
+          <!-- THIS WEEK: rest of the week -->
+          <div style="height:16px;"></div>
+          <div class="sec"><div style="display:flex;align-items:center;gap:6px;"><div class="st">this week</div><div style="font-size:10px;color:var(--mid);font-weight:400;">· rest of the week · 1 task</div></div></div>
+          <div class="nc">
+            <div class="feat" onclick="this.classList.toggle('expanded')">
+              <div class="feat-top">
+                <div class="feat-icon" style="background:var(--cg-wash);"><svg width="18" height="18" viewBox="0 0 256 256" fill="none"><path d="M128,24C128,24,48,80,48,128a80,80,0,0,0,160,0C208,80,128,24,128,24Z" stroke="var(--cg-bg)" stroke-width="18" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="128" y1="208" x2="128" y2="128" stroke="var(--cg-bg)" stroke-width="18" stroke-linecap="round"/></svg></div>
+                <div class="feat-body"><div class="feat-ti">Prune olive tree</div><div class="feat-m">Olive tree · seasonal</div></div>
+                <div class="badge due">Sat 29</div>
+                <svg class="feat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="feat-expand"><div class="feat-expand-inner">
+                <div class="feat-why"><div class="feat-wl" style="color:var(--cg-bg);">Why it matters</div><div class="feat-wt">Late March pruning promotes new fruiting wood and prevents disease before growing season.</div></div>
+                <div class="feat-actions"><span class="feat-detail">Details <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg></span><div class="feat-btns"><span class="feat-skip">Skip</span><span class="feat-snooze">Snooze</span><span class="feat-done" style="background:var(--cg-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span></div></div>
+              </div></div>
+            </div>
+          </div>
+
+          <!-- Coming up -->
+          <div style="display:flex;align-items:center;gap:6px;margin:4px 0 8px;cursor:pointer;" onclick="var el=this.nextElementSibling;el.style.display=el.style.display==='none'?'flex':'none';this.querySelector('.cu-chev').style.transform=el.style.display==='none'?'':'rotate(180deg)'">
+            <div class="st">coming up</div>
+            <div style="font-size:10px;color:var(--mid);font-weight:400;">· next 30 days · 2 tasks</div>
+            <svg class="cu-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round" style="margin-left:auto;transition:transform 200ms;"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="nc" style="display:none;flex-direction:column;gap:0;margin-bottom:18px;">
+            <div class="feat" style="cursor:pointer;">
+              <div class="feat-top">
+                <div class="feat-icon" style="background:var(--cg-wash);"><svg width="18" height="18" viewBox="0 0 256 256" fill="none"><path d="M128,24C128,24,48,80,48,128a80,80,0,0,0,160,0C208,80,128,24,128,24Z" stroke="var(--cg-bg)" stroke-width="18" fill="none" stroke-linecap="round"/></svg></div>
+                <div class="feat-body"><div class="feat-ti">Start tomato seedlings</div><div class="feat-m">Tomatoes · seasonal</div></div>
+                <div class="badge due">Wed 8 Apr</div>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.6" stroke-linecap="round" style="flex-shrink:0;opacity:0.5;"><polyline points="9 6 15 12 9 18"/></svg>
+              </div>
+            </div>
+            <div class="feat" style="cursor:pointer;">
+              <div class="feat-top">
+                <div class="feat-icon" style="background:var(--ch-wash);"><svg width="18" height="18" viewBox="0 0 256 256" fill="none"><path d="M208,224H48a8,8,0,0,1-8-8V104a8,8,0,0,1,3.2-6.4l80-60a8,8,0,0,1,9.6,0l80,60A8,8,0,0,1,216,104V216A8,8,0,0,1,208,224Z" stroke="var(--ch-bg)" stroke-width="18" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="feat-body"><div class="feat-ti">Clean gutters</div><div class="feat-m">House · twice a year</div></div>
+                <div class="badge due">Sat 18 Apr</div>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.6" stroke-linecap="round" style="flex-shrink:0;opacity:0.5;"><polyline points="9 6 15 12 9 18"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- For you cards (bottom) -->
+          <div style="height:24px;"></div>
+          <div class="sec"><div class="st">for you</div></div>
+          <div class="dcr">
+            <!-- Savings — always first, no X, permanent -->
+            <div class="dc" style="background:var(--apricot-wash);padding:18px 16px 16px;min-width:185px;text-align:center;"><div style="font-size:8px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--hint);margin-bottom:6px;">saved this year</div><div style="font-family:'Noto Serif',serif;font-size:36px;font-weight:400;color:var(--apricot);line-height:1;letter-spacing:-0.02em;margin-bottom:6px;">~&euro;340</div><div style="font-size:11px;color:var(--mid);line-height:1.4;margin-bottom:12px;">Estimated repair costs<br>you've avoided.</div><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--apricot);cursor:pointer;">See breakdown &rsaquo;</span></div>
+            <!-- Gutters — item suggestion, home dusty rose -->
+            <div class="dc" style="background:var(--ch-wash);padding:16px 16px 18px;min-width:185px;"><button class="dc-x" onclick="event.stopPropagation();this.parentElement.style.display='none'"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:38px;height:38px;border-radius:50%;background:var(--ch-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 256 256" fill="none"><path d="M208,224H48a8,8,0,0,1-8-8V104a8,8,0,0,1,3.2-6.4l80-60a8,8,0,0,1,9.6,0l80,60A8,8,0,0,1,216,104V216A8,8,0,0,1,208,224Z" stroke="var(--ch-bg)" stroke-width="20" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div style="font-family:'Noto Serif',serif;font-size:14px;color:var(--ink);line-height:1.25;">Gutters need cleaning</div></div><div class="dc-b">Twice a year in Belgium. Yours haven't been added yet.</div><div style="margin-top:10px;"><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--surface);background:var(--ch-bg);padding:6px 14px;border-radius:100px;cursor:pointer;">Add gutters</span></div></div>
+            <!-- Spring garden — progress checklist, sage green -->
+            <div class="dc" style="background:var(--cg-wash);padding:16px 16px 18px;min-width:185px;"><button class="dc-x" onclick="event.stopPropagation();this.parentElement.style.display='none'"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:38px;height:38px;border-radius:50%;background:var(--cg-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cg-bg)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div style="font-family:'Noto Serif',serif;font-size:14px;color:var(--ink);line-height:1.25;">Spring garden checklist</div></div><div class="dc-b">5 tasks to get your garden ready. You've done 2.</div><div style="margin-top:10px;"><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--surface);background:var(--cg-bg);padding:6px 14px;border-radius:100px;cursor:pointer;">View checklist</span></div></div>
+            <!-- Did you know — soft yellow -->
+            <div class="dc" style="background:var(--yellow-wash);padding:16px 16px 18px;min-width:185px;"><button class="dc-x" onclick="event.stopPropagation();this.parentElement.style.display='none'"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:38px;height:38px;border-radius:50%;background:rgba(232,184,109,0.20);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></div><div style="font-family:'Noto Serif',serif;font-size:14px;color:var(--ink);line-height:1.25;">Did you know?</div></div><div class="dc-b">Drying herbs upside down preserves the natural oils.</div><div style="margin-top:10px;"><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--surface);background:var(--yellow);padding:6px 14px;border-radius:100px;cursor:pointer;">Add herb garden</span></div></div>
+          </div>
+
+          <div class="wit">Your house called. It says thank you.</div>
+        </div>
+
+        <!-- ═══ QUIET DAY STATE ═══ -->
+        <!-- WHEN: user has items + tasks, but nothing is due today or overdue. Next task is later this week or further. -->
+        <div class="tp" id="state-quiet">
+          <div class="greeting">
+            <div class="g-av"><svg width="22" height="30" viewBox="0 0 40 56" fill="none"><path d="M11,5 C7,5 5,8.5 5,11.5 L5,34.5 C5,37.5 7,41 11,41 C15,41 17,37.5 17,34.5 L17,11.5 C17,8.5 15,5 11,5Z" fill="none" stroke="var(--ink)" stroke-width="2.8" stroke-linecap="round" opacity="0.2"/><path d="M29,15 C25,15 23,18.5 23,21.5 L23,44.5 C23,47.5 25,51 29,51 C33,51 35,47.5 35,44.5 L35,21.5 C35,18.5 33,15 29,15Z" fill="var(--plum)" opacity="0.3"/><circle cx="35" cy="10" r="3.5" fill="var(--plum)" opacity="0.3"/></svg></div>
+            <div class="g-lines"><div class="g-line">Good morning,</div><div class="g-line"><span class="g-name">Martijn.</span></div></div>
+          </div>
+          <div class="g-date">Wednesday 2 April</div>
+
+          <!-- Summary: forward-looking, not repeating TODAY empty hint -->
+          <div class="ss">
+            <div class="sm" style="color:var(--mid);">Next up: <span style="color:var(--ink);font-weight:500;">Prune olive tree</span> · Sat 5</div>
+            <div class="sp" onclick="this.classList.toggle('show-tip');setTimeout(()=>this.classList.remove('show-tip'),2500)"><div class="spn">4</div><div class="spl">week<br>streak</div><div class="sp-tip">You've completed tasks 4 weeks straight!</div></div>
+          </div>
+
+          <!-- TODAY: always shown. Empty hint is the only "nothing today" message. -->
+          <div class="sec"><div style="display:flex;align-items:center;gap:6px;"><div class="st">today</div></div></div>
+          <div class="sec-empty" style="margin-bottom:18px;">
+            <div class="sec-empty-t">Nothing due today. Enjoy it.</div>
+          </div>
+
+          <!-- THIS WEEK: has a task -->
+          <div class="sec"><div style="display:flex;align-items:center;gap:6px;"><div class="st">this week</div><div style="font-size:10px;color:var(--mid);font-weight:400;">· until Sunday · 1 task</div></div></div>
+          <div class="nc">
+            <div class="feat" onclick="this.classList.toggle('expanded')">
+              <div class="feat-top">
+                <div class="feat-icon" style="background:var(--cg-wash);"><svg width="18" height="18" viewBox="0 0 256 256" fill="none"><path d="M128,24C128,24,48,80,48,128a80,80,0,0,0,160,0C208,80,128,24,128,24Z" stroke="var(--cg-bg)" stroke-width="18" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="128" y1="208" x2="128" y2="128" stroke="var(--cg-bg)" stroke-width="18" stroke-linecap="round"/></svg></div>
+                <div class="feat-body"><div class="feat-ti">Prune olive tree</div><div class="feat-m">Olive tree · seasonal</div></div>
+                <div class="badge due">Sat 5</div>
+                <svg class="feat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="feat-expand"><div class="feat-expand-inner">
+                <div class="feat-why"><div class="feat-wl" style="color:var(--cg-bg);">Why it matters</div><div class="feat-wt">Late March pruning promotes new fruiting wood and prevents disease before growing season.</div></div>
+                <div class="feat-actions"><span class="feat-detail">Details <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg></span><div class="feat-btns"><span class="feat-skip">Skip</span><span class="feat-snooze">Snooze</span><span class="feat-done" style="background:var(--cg-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span></div></div>
+              </div></div>
+            </div>
+          </div>
+
+          <!-- COMING UP -->
+          <div style="height:8px;"></div>
+          <div style="display:flex;align-items:center;gap:6px;margin:4px 0 8px;cursor:pointer;" onclick="var el=this.nextElementSibling;el.style.display=el.style.display==='none'?'flex':'none';this.querySelector('.cu-chev3').style.transform=el.style.display==='none'?'':'rotate(180deg)'">
+            <div class="st">coming up</div>
+            <div style="font-size:10px;color:var(--mid);font-weight:400;">· next 30 days · 2 tasks</div>
+            <svg class="cu-chev3" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round" style="margin-left:auto;transition:transform 200ms;"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="nc" style="display:none;flex-direction:column;gap:0;margin-bottom:18px;">
+            <div class="feat" style="cursor:pointer;">
+              <div class="feat-top">
+                <div class="feat-icon" style="background:var(--cg-wash);"><svg width="18" height="18" viewBox="0 0 256 256" fill="none"><path d="M128,24C128,24,48,80,48,128a80,80,0,0,0,160,0C208,80,128,24,128,24Z" stroke="var(--cg-bg)" stroke-width="18" fill="none" stroke-linecap="round"/></svg></div>
+                <div class="feat-body"><div class="feat-ti">Start tomato seedlings</div><div class="feat-m">Tomatoes · seasonal</div></div>
+                <div class="badge due">Wed 8 Apr</div>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.6" stroke-linecap="round" style="flex-shrink:0;opacity:0.5;"><polyline points="9 6 15 12 9 18"/></svg>
+              </div>
+            </div>
+            <div class="feat" style="cursor:pointer;">
+              <div class="feat-top">
+                <div class="feat-icon" style="background:var(--ch-wash);"><svg width="18" height="18" viewBox="0 0 256 256" fill="none"><path d="M208,224H48a8,8,0,0,1-8-8V104a8,8,0,0,1,3.2-6.4l80-60a8,8,0,0,1,9.6,0l80,60A8,8,0,0,1,216,104V216A8,8,0,0,1,208,224Z" stroke="var(--ch-bg)" stroke-width="18" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="feat-body"><div class="feat-ti">Clean gutters</div><div class="feat-m">House · twice a year</div></div>
+                <div class="badge due">Sat 18 Apr</div>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.6" stroke-linecap="round" style="flex-shrink:0;opacity:0.5;"><polyline points="9 6 15 12 9 18"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- FOR YOU -->
+          <div style="height:16px;"></div>
+          <div class="sec"><div class="st">for you</div></div>
+          <div class="dcr">
+            <div class="dc" style="background:var(--yellow-wash);padding:16px 16px 18px;min-width:185px;"><button class="dc-x" onclick="event.stopPropagation();this.parentElement.style.display='none'"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:38px;height:38px;border-radius:50%;background:rgba(232,184,109,0.20);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></div><div style="font-family:'Noto Serif',serif;font-size:14px;color:var(--ink);line-height:1.25;">Did you know?</div></div><div class="dc-b">Drying herbs upside down preserves the natural oils.</div><div style="margin-top:10px;"><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--surface);background:var(--yellow);padding:6px 14px;border-radius:100px;cursor:pointer;">Add herb garden</span></div></div>
+            <div class="dc" style="background:var(--apricot-wash);padding:18px 16px 16px;min-width:185px;text-align:center;"><div style="font-size:8px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--hint);margin-bottom:6px;">saved this year</div><div style="font-family:'Noto Serif',serif;font-size:36px;font-weight:400;color:var(--apricot);line-height:1;letter-spacing:-0.02em;margin-bottom:6px;">~&euro;340</div><div style="font-size:11px;color:var(--mid);line-height:1.4;margin-bottom:12px;">Estimated repair costs<br>you've avoided.</div><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--apricot);cursor:pointer;">See breakdown &rsaquo;</span></div>
+          </div>
+          <div class="wit">Your house called. It says enjoy the quiet.</div>
+        </div>
+
+        <!-- ═══ EMPTY STATE ═══ -->
+        <div class="tp" id="state-empty">
+          <div class="greeting">
+            <div class="g-av"><svg width="22" height="30" viewBox="0 0 40 56" fill="none"><path d="M11,5 C7,5 5,8.5 5,11.5 L5,34.5 C5,37.5 7,41 11,41 C15,41 17,37.5 17,34.5 L17,11.5 C17,8.5 15,5 11,5Z" fill="none" stroke="var(--ink)" stroke-width="2.8" stroke-linecap="round" opacity="0.2"/><path d="M29,15 C25,15 23,18.5 23,21.5 L23,44.5 C23,47.5 25,51 29,51 C33,51 35,47.5 35,44.5 L35,21.5 C35,18.5 33,15 29,15Z" fill="var(--plum)" opacity="0.3"/><circle cx="35" cy="10" r="3.5" fill="var(--plum)" opacity="0.3"/></svg></div>
+            <div class="g-lines"><div class="g-line">Good morning,</div><div class="g-line"><span class="g-name">there.</span></div></div>
+          </div>
+          <div class="g-date">Friday 28 March</div>
+          <div class="empty-state">
+            <div class="empty-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+            <div class="empty-h">Nothing here yet</div>
+            <div class="empty-sub">Add your first item and nudgii will fill this page with tasks that actually matter.</div>
+            <div style="margin-top:24px;"><span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--plum-fg);background:var(--plum);padding:10px 24px;border-radius:100px;cursor:pointer;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add your first item</span></div>
+          </div>
+        </div>
+
+        <!-- ═══ OVERDUE ONLY STATE ═══ -->
+        <!-- WHEN: user has items + tasks, but every task due today or earlier is still pending. Nothing due later this week. -->
+        <div class="tp" id="state-overdue">
+          <div class="greeting">
+            <div class="g-av"><svg width="22" height="30" viewBox="0 0 40 56" fill="none"><path d="M11,5 C7,5 5,8.5 5,11.5 L5,34.5 C5,37.5 7,41 11,41 C15,41 17,37.5 17,34.5 L17,11.5 C17,8.5 15,5 11,5Z" fill="none" stroke="var(--ink)" stroke-width="2.8" stroke-linecap="round" opacity="0.2"/><path d="M29,15 C25,15 23,18.5 23,21.5 L23,44.5 C23,47.5 25,51 29,51 C33,51 35,47.5 35,44.5 L35,21.5 C35,18.5 33,15 29,15Z" fill="var(--plum)" opacity="0.3"/><circle cx="35" cy="10" r="3.5" fill="var(--plum)" opacity="0.3"/></svg></div>
+            <div class="g-lines"><div class="g-line">Good afternoon,</div><div class="g-line"><span class="g-name">Martijn.</span></div></div>
+          </div>
+          <div class="g-date">Tuesday 1 April</div>
+
+          <!-- Summary: apricot color signals overdue state. Streak shows 0 (broke it). -->
+          <div class="ss">
+            <div class="sm" style="color:var(--apricot);">3 things are a little late</div>
+            <div class="sp" style="opacity:0.5;cursor:default;"><div class="spn">0</div><div class="spl">week<br>streak</div></div>
+          </div>
+
+          <!-- TODAY: only overdue tasks. Badge reads "Xd late". No "today" task. -->
+          <div class="sec"><div style="display:flex;align-items:center;gap:6px;"><div class="st">today</div><div style="font-size:10px;color:var(--mid);font-weight:400;">· 3 things are waiting</div></div></div>
+          <div class="nc">
+            <div class="feat" onclick="this.classList.toggle('expanded')">
+              <div class="feat-top">
+                <div class="feat-icon" style="background:var(--ch-wash);"><svg width="18" height="18" viewBox="0 0 256 256" fill="none"><path d="M208,224H48a8,8,0,0,1-8-8V104a8,8,0,0,1,3.2-6.4l80-60a8,8,0,0,1,9.6,0l80,60A8,8,0,0,1,216,104V216A8,8,0,0,1,208,224Z" stroke="var(--ch-bg)" stroke-width="18" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="feat-body"><div class="feat-ti">Annual boiler service</div><div class="feat-m">Boiler · schedule a technician</div></div>
+                <div class="badge ov">16d late</div>
+                <svg class="feat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="feat-expand"><div class="feat-expand-inner">
+                <div class="feat-why"><div class="feat-wl" style="color:var(--ch-bg);">Why it matters</div><div class="feat-wt">The annual check validates your warranty and catches carbon monoxide risks. Book 2-3 weeks in advance.</div></div>
+                <div class="feat-actions"><span class="feat-detail">Details <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg></span><div class="feat-btns"><span class="feat-skip">Skip</span><span class="feat-snooze">Snooze</span><span class="feat-done" style="background:var(--ch-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span></div></div>
+              </div></div>
+            </div>
+            <div class="feat" onclick="this.classList.toggle('expanded')">
+              <div class="feat-top">
+                <div class="feat-icon" style="background:var(--ch-wash);"><svg width="18" height="18" viewBox="0 0 256 256" fill="none"><rect x="32" y="56" width="192" height="144" rx="8" stroke="var(--ch-bg)" stroke-width="18" fill="none" stroke-linecap="round"/><line x1="32" y1="104" x2="224" y2="104" stroke="var(--ch-bg)" stroke-width="18" stroke-linecap="round"/></svg></div>
+                <div class="feat-body"><div class="feat-ti">Refill dishwasher salt</div><div class="feat-m">Dishwasher · every 2 months</div></div>
+                <div class="badge ov">7d late</div>
+                <svg class="feat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="feat-expand"><div class="feat-expand-inner">
+                <div class="feat-why"><div class="feat-wl" style="color:var(--ch-bg);">Why it matters</div><div class="feat-wt">Without salt, limescale builds up and shortens your dishwasher's lifespan.</div></div>
+                <div class="feat-actions"><span class="feat-detail">Details <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg></span><div class="feat-btns"><span class="feat-skip">Skip</span><span class="feat-snooze">Snooze</span><span class="feat-done" style="background:var(--ch-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span></div></div>
+              </div></div>
+            </div>
+            <div class="feat" onclick="this.classList.toggle('expanded')">
+              <div class="feat-top">
+                <div class="feat-icon" style="background:var(--cv-wash);"><svg width="18" height="18" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="96" stroke="var(--cv-bg)" stroke-width="18" fill="none"/><circle cx="128" cy="128" r="36" stroke="var(--cv-bg)" stroke-width="18" fill="none"/></svg></div>
+                <div class="feat-body"><div class="feat-ti">Check tyre pressure</div><div class="feat-m">Car · monthly</div></div>
+                <div class="badge ov">5d late</div>
+                <svg class="feat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="feat-expand"><div class="feat-expand-inner">
+                <div class="feat-why"><div class="feat-wl" style="color:var(--cv-bg);">Why it matters</div><div class="feat-wt">Under-inflated tyres increase fuel use by 3% and wear significantly faster.</div></div>
+                <div class="feat-actions"><span class="feat-detail">Details <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg></span><div class="feat-btns"><span class="feat-skip">Skip</span><span class="feat-snooze">Snooze</span><span class="feat-done" style="background:var(--cv-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span></div></div>
+              </div></div>
+            </div>
+          </div>
+
+          <!-- THIS WEEK: always visible. Empty state shown when nothing due until Sunday. -->
+          <div style="height:16px;"></div>
+          <div class="sec"><div style="display:flex;align-items:center;gap:6px;"><div class="st">this week</div><div style="font-size:10px;color:var(--mid);font-weight:400;">· until Sunday</div></div></div>
+          <div class="sec-empty">
+            <div class="sec-empty-t">Coast is clear until Sunday.</div>
+          </div>
+          <div style="height:14px;"></div>
+
+          <!-- COMING UP: always visible -->
+          <div style="height:0px;"></div>
+          <div style="display:flex;align-items:center;gap:6px;margin:4px 0 8px;cursor:pointer;" onclick="var el=this.nextElementSibling;el.style.display=el.style.display==='none'?'flex':'none';this.querySelector('.cu-chev2').style.transform=el.style.display==='none'?'':'rotate(180deg)'">
+            <div class="st">coming up</div>
+            <div style="font-size:10px;color:var(--mid);font-weight:400;">· next 30 days · 1 task</div>
+            <svg class="cu-chev2" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round" style="margin-left:auto;transition:transform 200ms;"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="nc" style="display:none;flex-direction:column;gap:0;margin-bottom:18px;">
+            <div class="feat" style="cursor:pointer;">
+              <div class="feat-top">
+                <div class="feat-icon" style="background:var(--cg-wash);"><svg width="18" height="18" viewBox="0 0 256 256" fill="none"><path d="M128,24C128,24,48,80,48,128a80,80,0,0,0,160,0C208,80,128,24,128,24Z" stroke="var(--cg-bg)" stroke-width="18" fill="none" stroke-linecap="round"/></svg></div>
+                <div class="feat-body"><div class="feat-ti">Start tomato seedlings</div><div class="feat-m">Tomatoes · seasonal</div></div>
+                <div class="badge due">Wed 8 Apr</div>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.6" stroke-linecap="round" style="flex-shrink:0;opacity:0.5;"><polyline points="9 6 15 12 9 18"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- FOR YOU: always visible regardless of overdue state -->
+          <div style="height:16px;"></div>
+          <div class="sec"><div class="st">for you</div></div>
+          <div class="dcr">
+            <div class="dc" style="background:var(--yellow-wash);padding:16px 16px 18px;min-width:185px;"><button class="dc-x" onclick="event.stopPropagation();this.parentElement.style.display='none'"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:38px;height:38px;border-radius:50%;background:rgba(232,184,109,0.20);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></div><div style="font-family:'Noto Serif',serif;font-size:14px;color:var(--ink);line-height:1.25;">Did you know?</div></div><div class="dc-b">Boilers last 2-3 years longer with an annual service. Worth the call.</div><div style="margin-top:10px;"><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--surface);background:var(--yellow);padding:6px 14px;border-radius:100px;cursor:pointer;">Find a technician</span></div></div>
+            <div class="dc" style="background:var(--ch-wash);padding:16px 16px 18px;min-width:185px;"><button class="dc-x" onclick="event.stopPropagation();this.parentElement.style.display='none'"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:38px;height:38px;border-radius:50%;background:var(--ch-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 256 256" fill="none"><path d="M208,224H48a8,8,0,0,1-8-8V104a8,8,0,0,1,3.2-6.4l80-60a8,8,0,0,1,9.6,0l80,60A8,8,0,0,1,216,104V216A8,8,0,0,1,208,224Z" stroke="var(--ch-bg)" stroke-width="20" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div style="font-family:'Noto Serif',serif;font-size:14px;color:var(--ink);line-height:1.25;">Gutters need cleaning</div></div><div class="dc-b">Twice a year in Belgium. Yours haven't been added yet.</div><div style="margin-top:10px;"><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--surface);background:var(--ch-bg);padding:6px 14px;border-radius:100px;cursor:pointer;">Add gutters</span></div></div>
+          </div>
+
+          <div class="wit">Not judging. Much.</div>
+        </div>
+
+        <!-- ═══ ALL DONE STATE ═══ -->
+        <div class="tp" id="state-done">
+          <div class="greeting">
+            <div class="g-av"><svg width="22" height="30" viewBox="0 0 40 56" fill="none"><path d="M11,5 C7,5 5,8.5 5,11.5 L5,34.5 C5,37.5 7,41 11,41 C15,41 17,37.5 17,34.5 L17,11.5 C17,8.5 15,5 11,5Z" fill="none" stroke="var(--ink)" stroke-width="2.8" stroke-linecap="round" opacity="0.2"/><path d="M29,15 C25,15 23,18.5 23,21.5 L23,44.5 C23,47.5 25,51 29,51 C33,51 35,47.5 35,44.5 L35,21.5 C35,18.5 33,15 29,15Z" fill="var(--plum)" opacity="0.3"/><circle cx="35" cy="10" r="3.5" fill="var(--plum)" opacity="0.3"/></svg></div>
+            <div class="g-lines"><div class="g-line">Good morning,</div><div class="g-line"><span class="g-name">Martijn.</span></div></div>
+          </div>
+          <div class="g-date">Friday 28 March</div>
+
+          <div class="ss">
+            <div class="sm">Nothing due. Suspicious.</div>
+            <div class="sp" onclick="this.classList.toggle('show-tip');setTimeout(()=>this.classList.remove('show-tip'),2500)"><div class="spn">5</div><div class="spl">week<br>streak</div><div class="sp-tip">You've completed tasks 5 weeks straight!</div></div>
+          </div>
+
+          <div class="done-state">
+            <div class="done-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--apricot)" stroke-width="1.8" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="done-h">All caught up</div>
+            <div class="done-sub">Every task is done or scheduled. Your next task is due Wednesday.</div>
+            <div class="done-wit">Your house approves of this behaviour.</div>
+          </div>
+
+          <div class="sec"><div class="st">for you</div></div>
+          <div class="dcr">
+            <!-- Savings card — big serif number, apricot wash -->
+            <div class="dc" style="background:var(--apricot-wash);padding:18px 16px 16px;min-width:185px;text-align:center;"><div style="font-size:8px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--hint);margin-bottom:6px;">saved this year</div><div style="font-family:'Noto Serif',serif;font-size:36px;font-weight:400;color:var(--apricot);line-height:1;letter-spacing:-0.02em;margin-bottom:6px;">~&euro;340</div><div style="font-size:11px;color:var(--mid);line-height:1.4;margin-bottom:12px;">Estimated repair costs<br>you've avoided.</div><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--apricot);cursor:pointer;">See breakdown &rsaquo;</span></div>
+            <!-- Spring ready — garden wash, 38px icon inline -->
+            <div class="dc" style="background:var(--cg-wash);padding:16px 16px 18px;min-width:185px;"><button class="dc-x" onclick="event.stopPropagation();this.parentElement.style.display='none'"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:38px;height:38px;border-radius:50%;background:var(--cg-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cg-bg)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div style="font-family:'Noto Serif',serif;font-size:14px;color:var(--ink);line-height:1.25;">Spring garden done</div></div><div class="dc-b">All 5 spring tasks completed. Your garden is ready.</div><div class="dc-dots" style="margin-top:10px;"><div class="dc-dot f"></div><div class="dc-dot f"></div><div class="dc-dot f"></div><div class="dc-dot f"></div><div class="dc-dot f"></div></div></div>
+            <!-- Did you know — soft yellow -->
+            <div class="dc" style="background:var(--yellow-wash);padding:16px 16px 18px;min-width:185px;"><button class="dc-x" onclick="event.stopPropagation();this.parentElement.style.display='none'"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:38px;height:38px;border-radius:50%;background:rgba(232,184,109,0.20);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></div><div style="font-family:'Noto Serif',serif;font-size:14px;color:var(--ink);line-height:1.25;">Did you know?</div></div><div class="dc-b">Cars parked outside need wiper fluid checks more often in spring.</div><div style="margin-top:10px;"><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--surface);background:var(--yellow);padding:6px 14px;border-radius:100px;cursor:pointer;">Add wiper fluid task</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nav bar -->
+      <div class="nz"><div class="nb">
+        <button class="nt on"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="nl">Today</span></button>
+        <button class="nt"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span class="nl">Plan</span></button>
+        <button class="nt"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a4 4 0 0 0-8 0v2"/></svg><span class="nl">My stuff</span></button>
+        <button class="nt"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="nl">Profile</span></button>
+      </div>
+      <button class="fab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--plum-fg)" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      </div>
+
+      <!-- SNOOZE SHEET -->
+      <div id="snooze-sheet">
+        <div class="sheet-handle"></div>
+        <div class="sheet-title">Snooze until...</div>
+        <div class="snooze-opt" onclick="selectSnooze('Later today','3:00 PM')">
+          <span class="snooze-opt-l">Later today</span><span class="snooze-opt-r">3:00 PM</span>
+        </div>
+        <div class="snooze-sep"></div>
+        <div class="snooze-opt" onclick="selectSnooze('Tomorrow','8:00 AM')">
+          <span class="snooze-opt-l">Tomorrow</span><span class="snooze-opt-r">8:00 AM</span>
+        </div>
+        <div class="snooze-sep"></div>
+        <div class="snooze-opt" onclick="selectSnooze('This weekend','Sat 8:00 AM')">
+          <span class="snooze-opt-l">This weekend</span><span class="snooze-opt-r">Sat 8:00 AM</span>
+        </div>
+        <div class="snooze-sep"></div>
+        <div class="snooze-opt" onclick="selectSnooze('Next week','Mon 8:00 AM')">
+          <span class="snooze-opt-l">Next week</span><span class="snooze-opt-r">Mon 8:00 AM</span>
+        </div>
+        <div class="snooze-sep" style="margin-bottom:4px;"></div>
+        <div class="snooze-custom" onclick="closeSnoozeSheet()">
+          <span class="snooze-custom-l">Pick a date...</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+        </div>
+      </div>
+      <div id="snooze-backdrop" onclick="closeSnoozeSheet()"></div>
+
+      <!-- TOAST -->
+      <div id="action-toast">
+        <span id="toast-msg">Done.</span>
+        <button id="toast-undo">Undo</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ANNOTATION SIDEBAR -->
+  <div class="annot-col">
+
+    <div class="annot-section">Layout + shell</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-rule">Rule</span> Shell pattern</div>
+      <div class="annot-body">
+        SafeArea + Column + Expanded. Nav bar (84px) and FAB are outside scroll area. Content zone: <code>inset: 54px 0 84px 0</code>. Padding: 24px horizontal. Scrollbar hidden. Status bar: 54px total.
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-rule">Rule</span> Nav bar</div>
+      <div class="annot-body">
+        Solid <code>var(--surface)</code> background, no glassmorphism. Active tab: plum icon + plum label, no background shape/container. Inactive: <code>var(--hint)</code>. Tab order: Today, Plan, My stuff, Profile. Fixed, never scrolls. <code>border-radius: 20px</code>, subtle upward shadow.
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-rule">Rule</span> FAB</div>
+      <div class="annot-body">
+        46x46px, <code>border-radius: 14px</code>, plum bg. Plus icon 17px, rotates 45deg to X on open. <code>box-shadow: 0 6px 20px rgba(155,127,212,0.45)</code>. Position: <code>right: 24px; bottom: 18px</code>, z-index 45, <code>margin-bottom: 4px</code>.
+      </div>
+    </div>
+
+    <div class="annot-section">Greeting</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Greeting</span> Variants</div>
+      <div class="annot-body">
+        Noto Serif 24px, <code>line-height: 1.12</code>, <code>letter-spacing: -0.02em</code>. Two lines: "Good morning," then name on second line. Greeting word varies by time of day: "Good morning," / "Good afternoon," / "Good evening,". Name in apricot italic. Signed-in: first name from SSO profile. Skipped auth: "there." ii mark avatar (44x44, surface-low circle) sits left. Date line: Manrope 12px, <code>var(--mid)</code>, left-aligned under greeting with 58px left padding.
+      </div>
+    </div>
+
+    <div class="annot-section">Summary line</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Summary</span> Inline text + streak</div>
+      <div class="annot-body">
+        <strong>No card, no progress ring.</strong> Flex row, items centered. Left: summary text (13px 500 ink, flex 1), e.g. "3 things need attention today". Right: streak circle (46px, apricot-wash bg, apricot number 17px 600, "week/streak" 6px). Streak is tappable: tooltip auto-dismisses after 2.5s. When all overdue: summary text uses apricot color instead of ink.
+      </div>
+    </div>
+
+    <div class="annot-section">Task cards</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Task card</span> Collapsed</div>
+      <div class="annot-body">
+        40px round icon circle with category wash bg + category-colored icon SVG (18px). No card background wash on the row itself. Title: 13px 500 ink. Subtitle: 10px mid (item name + frequency). Right side: date badge ("Wed 26" in mid) or overdue text ("12d overdue" in apricot 600). Chevron: 12px, 0.35 opacity, rotates 180deg on expand.
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Task card</span> Expanded</div>
+      <div class="annot-body">
+        Chevron rotates. "Why it matters" block appears: <code>surface-lowest</code> bg, 8px radius, apricot label (9px 600), body text (11px mid). Below: action row, space-between layout. Left: "Details" link (10px 500 mid) with chevron. Right: Skip (hint, no bg) + Snooze (ink text, surface-low pill) + Done (category color pill with checkmark). <code>max-height</code> transition 300ms ease.
+      </div>
+    </div>
+
+    <div class="annot-card decision">
+      <div class="annot-head"><span class="badge-decision">Decision</span> Done button color</div>
+      <div class="annot-body">
+        Done button uses the <strong>category color</strong> as its fill (e.g. <code>var(--ch-bg)</code> for Home tasks). Not plum. Plum is reserved for app-level actions only (FAB, CTA, active tab). Category color on the Done button reinforces which category the task belongs to and keeps plum meaningful. Skip = no bg, hint text. Snooze = surface-low pill.
+      </div>
+    </div>
+
+    <div class="annot-card decision">
+      <div class="annot-head"><span class="badge-decision">Decision</span> Done: moves to "Done today" section</div>
+      <div class="annot-body">
+        Tapping Done does <strong>not remove the task from the list</strong>. Instead, it animates down (spring, 350ms) to a <strong>"Done today"</strong> section at the bottom of the Today panel. This gives users a same-day memory log: "Did I already do that?" is answerable without opening history.<br><br>
+        Done today row: checkmark circle (category color) + muted title (55% opacity) + time or "just now". Section label: "Done today" (9px uppercase hint). Resets at midnight — items move to S-16 completion history.<br><br>
+        When all tasks are done: Done today section is the only content. Summary line updates to "All done for today." Witty line appears below the Done today list.<br><br>
+        Undo toast (5s) still available: task springs back to its original position in the list and is removed from Done today.<br><br>
+        Tapping "Done today" section label or any done item navigates to S-16 (completion history). Flutter: animate with <code>AnimatedList</code>, remove from source list, insert into done list. Use <code>task.completed_at</code> timestamp for "just now" logic.
+      </div>
+    </div>
+
+    <div class="annot-card decision">
+      <div class="annot-head"><span class="badge-decision">Decision</span> Skip: this occurrence only</div>
+      <div class="annot-body">
+        Skip = this occurrence only. The recurring schedule is never affected. The task returns on its next due date.<br><br>
+        <strong>Data model:</strong> <code>task.last_completed_at</code> is never updated by skip. <code>task.last_skipped_at</code> is set. <code>task.next_due_at</code> recalculates as <code>last_skipped_at + interval</code>.<br><br>
+        <strong>Inline preview before collapse (not a toast):</strong> When Skip is tapped, a brief line appears inside the expanded card for 800ms: "Skipping this time. Back on May 24." Then card collapses (spring out). Feedback is in context, not at screen bottom.<br><br>
+        Copy variants: recurring with date = "Skipping this time. Back on [date]." Recurring no fixed date = "Skipping this time. Next one in 6 weeks." Non-recurring = "Skipped. This task won't repeat."<br><br>
+        On 2nd skip of same task within 30 days: "Skipping again. Still counting from March 1." (honest, non-naggy). On 3rd skip in a row: For You section surfaces a gentle suggestion: "You've skipped this 3 times. Want to reschedule it?"<br><br>
+        Flutter: <code>task.skipCount</code> field, increment on skip. Check against threshold in For You card algorithm.
+      </div>
+    </div>
+
+    <div class="annot-card decision">
+      <div class="annot-head"><span class="badge-decision">Decision</span> Snooze: half-height bottom sheet</div>
+      <div class="annot-body">
+        Tap Snooze: half-height bottom sheet slides up (280px, surface bg, 20px top radius, drag handle). 4 preset options:<br><br>
+        "Later today" (3h from now), "Tomorrow" (8:00 AM), "This weekend" (Sat 8:00), "Next week" (Mon 8:00).<br><br>
+        Plus secondary row: "Pick a date..." with chevron (opens date picker). Tap any preset: sheet dismisses instantly, task disappears from list, toast "Snoozed until Saturday."<br><br>
+        Escalating copy on repeat snooze: 1st = neutral, 2nd = "Fine. But your dishwasher is taking notes.", 3rd = "Your boiler forgives you. For now." Flutter: <code>task.snoozeCount</code> field, check in copy resolver.
+      </div>
+    </div>
+
+    <div class="annot-section">For you (discovery cards)</div>
+
+    <div class="annot-card" style="background:var(--plum-wash);border-color:rgba(155,127,212,0.20);">
+      <div class="annot-head"><span class="badge-decision">Spec</span> Full card system documented</div>
+      <div class="annot-body">
+        Card types, priority algorithm, Free/Pro/Ultimate matrix, rotation + dismissal rules are all defined in a dedicated spec page.<br><br>
+        <a href="../system/for-you-cards.html" target="_blank" style="font-size:11px;font-weight:600;color:#9B7FD4;">Open For You: Card System →</a>
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Cards</span> Horizontal scroll row</div>
+      <div class="annot-body">
+        Horizontally scrollable, 12px gap. Cards: min 175px, max 200px, <code>surface-low</code> or category wash bg, 12px radius, 16px padding. Dismiss X: 22px circle, ink 5% bg. Types: "Did you know?" (category wash, CTA button), "Saved this year" (surface-low, Noto Serif 26px apricot number), "Spring ready" (garden wash, progress dots), seasonal tips. Free users cannot hide the row. Individual cards dismissible, new ones rotate in.
+      </div>
+    </div>
+
+    <div class="annot-section">Section: THIS WEEK</div>
+
+    <div class="annot-card decision">
+      <div class="annot-head"><span class="badge-decision">Decision</span> Calendar week boundary</div>
+      <div class="annot-body">
+        THIS WEEK shows tasks from <strong>tomorrow until Sunday</strong> (ISO calendar week, Mon–Sun — standard in NL/BE). <strong>Not</strong> a rolling 7-day window.<br><br>
+        <strong>Why:</strong> home maintenance tasks cluster on weekends. "This week" maps to how users actually plan ("I'll do that this weekend").<br><br>
+        <strong>Sunday exception:</strong> on Sunday, THIS WEEK would be empty (week ends today). Instead, on Sundays the section looks ahead to the <strong>full coming week</strong> (Mon–Sun of next week). Label descriptor changes to "coming week · X tasks". Sunday becomes a natural planning day. Section never goes empty because of the day of the week.<br><br>
+        <strong>Flutter:</strong> <code>isSunday</code> branch in section builder. Mon–Sat: query <code>dueDate > today AND dueDate &lt;= thisSunday</code>. Sunday: query <code>dueDate >= nextMonday AND dueDate &lt;= nextSunday</code>. <strong>Section is always rendered</strong> — never hidden. If query returns empty, show italic hint text "All clear until Sunday." (or "All clear next week." on Sundays). Use <code>tasks.isEmpty ? EmptyWeekHint() : TaskList(tasks)</code>.
+      </div>
+    </div>
+
+    <div class="annot-section">Section: COMING UP</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Section</span> Collapsible</div>
+      <div class="annot-body">
+        Label: "coming up" + " · next 30 days · X tasks" (10px mid). Chevron right, rotates 180deg on expand. Tasks inside use <code>.feat</code> style (same as TODAY tasks) but without expand — tap goes to task detail. Collapsed by default. Section visible in Default state and Overdue only state (future tasks are not affected by today's overdue tasks).
+      </div>
+    </div>
+
+    <div class="annot-section">States — when each one fires</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-state">State 1</span> Default</div>
+      <div class="annot-body">
+        <strong>When:</strong> mix of tasks — some overdue, some due today, some later this week or coming up.<br><br>
+        Summary: "X things need attention today" (ink). Streak tappable. Sections: TODAY (overdue + due today merged) → THIS WEEK → COMING UP (collapsible) → FOR YOU.
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-state">State 2</span> Quiet day</div>
+      <div class="annot-body">
+        <strong>When:</strong> user has items and tasks, but nothing is due today or overdue. Next task is later this week or further out.<br><br>
+        Summary: "Nothing due today." (ink — this is a good state, no apricot). Streak intact. TODAY section shows empty hint (rotates). THIS WEEK shows upcoming tasks normally. COMING UP collapsible. FOR YOU visible.
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-state">State 3</span> Overdue only</div>
+      <div class="annot-body">
+        <strong>When:</strong> every task due today or earlier is still pending. Nothing due later this week.<br><br>
+        Summary turns apricot: "X things are a little late". Streak dimmed at 0 (broken). TODAY shows only overdue tasks. THIS WEEK always visible — empty hint + "Review your items →" action. COMING UP visible collapsed. FOR YOU visible. Witty closer: "Not judging. Much."
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-state">State 4</span> All done</div>
+      <div class="annot-body">
+        <strong>When:</strong> all tasks due today and earlier marked Done or Skipped. Nothing pending.<br><br>
+        Summary: "Nothing due. Suspicious." Streak incremented. Celebration block: apricot-wash circle + checkmark + "All caught up" + next task preview. FOR YOU visible — reward for completion. Fires after plum done overlay dismisses.
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-state">State 5</span> No items</div>
+      <div class="annot-body">
+        <strong>When:</strong> user has not added any items yet (brand new account, or all items deleted).<br><br>
+        Greeting: "Good morning, there." (no name). No summary, no task sections. Centered: calendar icon + "Nothing here yet" + body copy + plum pill CTA "Add your first item". No FOR YOU (nothing to base suggestions on).
+      </div>
+    </div>
+
+    <div class="annot-section">Empty state copy — rotation lists</div>
+
+    <div class="annot-card decision">
+      <div class="annot-head"><span class="badge-decision">Copy</span> TODAY empty (quiet day)</div>
+      <div class="annot-body">
+        Shown when nothing is due or overdue today. Rotates randomly on each app open.<br><br>
+        1. <em>"Nothing due today. Enjoy it."</em><br>
+        2. <em>"Quiet day. Make the most of it."</em><br>
+        3. <em>"Nothing today. Your house is behaving."</em><br>
+        4. <em>"All clear today."</em><br><br>
+        <strong>No CTA</strong> when TODAY alone is empty — user is on top of things. CTA only appears when TODAY + THIS WEEK are both empty (see "too empty" rule below).
+      </div>
+    </div>
+
+    <div class="annot-card decision">
+      <div class="annot-head"><span class="badge-decision">Copy</span> THIS WEEK empty</div>
+      <div class="annot-body">
+        Shown when nothing is due between tomorrow and Sunday (or next week on Sundays). Always includes a soft action link.<br><br>
+        1. <em>"Coast is clear until Sunday."</em><br>
+        2. <em>"All quiet until Sunday."</em><br>
+        3. <em>"Nothing on the radar until Sunday."</em><br>
+        4. <em>"Your weekend is yours."</em> (Mon–Thu only, not Fri–Sat)<br><br>
+        <strong>No CTA.</strong> An empty THIS WEEK is not a problem — nothing is wrong, nothing needs fixing. A link would imply otherwise. Italic hint text only.
+      </div>
+    </div>
+
+    <div class="annot-card decision">
+      <div class="annot-head"><span class="badge-decision">Copy</span> COMING UP empty</div>
+      <div class="annot-body">
+        Shown when nothing is due in the next 30 days. Strongest signal that user needs more items.<br><br>
+        1. <em>"Nothing in the next 30 days."</em> + sub: <em>"Add more items and nudgii will fill this in."</em><br>
+        2. <em>"Clear horizon."</em> + sub: <em>"You might be missing some items."</em><br>
+        3. <em>"Your future self has no complaints."</em> + sub: <em>"Though nudgii might have some suggestions."</em><br><br>
+        <strong>Action:</strong> <code>+ Add items</code> (plum text link, opens FAB or My stuff). More prominent than THIS WEEK action — this is a real gap signal.
+      </div>
+    </div>
+
+    <div class="annot-card decision">
+      <div class="annot-head"><span class="badge-decision">Rule</span> Too empty — all three empty</div>
+      <div class="annot-body">
+        <strong>When:</strong> TODAY + THIS WEEK + COMING UP are all empty simultaneously. This means the user has very few items or tasks aren't set up correctly.<br><br>
+        <strong>Action:</strong> FOR YOU section gets a persistent fallback card that cannot be dismissed (no X button). Card: surface-low bg, nudgii icon, <em>"Your schedule is looking quiet."</em> body copy + <em>"Add more items and nudgii will figure out the rest."</em> + <code>+ Add items</code> plum pill CTA.<br><br>
+        <strong>Flutter:</strong> <code>bool isAllEmpty = todayTasks.isEmpty && weekTasks.isEmpty && comingUpTasks.isEmpty</code>. If true, inject persistent card as first item in FOR YOU list. <code>isDismissable: false</code>.
+      </div>
+    </div>
+
+    <div class="annot-section">Dark mode</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-rule">Rule</span> Dark tokens</div>
+      <div class="annot-body">
+        Surface: <code>#1C1B18</code> (warm dark). Plum lightens to <code>#B8A0E8</code>, apricot to <code>#F0B890</code>. Category washes at 15% opacity (was 14% light). Text primary: <code>#F0EDE6</code>. Mid: <code>#A8A29A</code>. Nav bar: <code>surface-low</code> (#24231F). No blue or cool-green tints. Toggle with <code>[data-theme="dark"]</code>.
+      </div>
+    </div>
+
+    <div class="annot-section">Typography</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-rule">Rule</span> Hierarchy</div>
+      <div class="annot-body">
+        Greeting: Noto Serif 28px. Summary text: Manrope 13px 500. Section labels: Manrope 10px 600, uppercase, <code>letter-spacing: 0.05rem</code>. Task title: 13px 500. Task subtitle: 10px. Badges: 9px. Witty closer: Noto Serif italic 13px, hint color, 0.55 opacity.
+      </div>
+    </div>
+
+    <div class="annot-section">Responsive notes</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Long titles</span></div>
+      <div class="annot-body">
+        Task titles: <code>min-width: 0</code> on flex child, natural text wrap at 2 lines max. Badge and chevron never shrink (<code>flex-shrink: 0</code>). Icon circle never shrinks. On very long titles, the second line wraps naturally. No ellipsis truncation.
+      </div>
+    </div>
+
+  </div><!-- /annot-col -->
+
+</div><!-- /content-row -->
+
+<div class="page-divider"></div>
+
+<!-- CHANGELOG -->
+<div class="changelog">
+  <div class="cl-title">Changelog</div>
+
+  <div class="cl-entry">
+    <div class="cl-ver">v1.3 · 2026-04-02 · ADDITIVE</div>
+    <div class="cl-body">
+      <strong>Skip / Snooze / Done interaction spec added to annotation sidebar.</strong><br><br>
+      <strong>Done:</strong> Task does not disappear from list. Animates (spring 350ms) to a "Done today" section at bottom of Today panel. Shows checkmark circle (category color) + muted title + timestamp. Resets midnight, moves to S-16 history. Undo toast (5s) returns task to original position. Tapping "Done today" header or any item navigates to S-16.<br><br>
+      <strong>Skip:</strong> This occurrence only. <code>last_completed_at</code> never updated. <code>next_due_at</code> = <code>last_skipped_at + interval</code>. Inline preview line appears in card for 800ms before collapse: "Skipping this time. Back on [date]." 3 skips in a row triggers a For You suggestion card.<br><br>
+      <strong>Snooze:</strong> Half-height bottom sheet (280px), 4 presets + custom date. Toast on confirm. Escalating witty copy on repeat snooze (snoozeCount field).<br><br>
+      Annotation at line 735 corrected: removed stale reference to "Done button uses plum."
+    </div>
+    <div class="cl-flutter">
+      <strong>Flutter notes:</strong><br>
+      Done: use <code>AnimatedList</code> — remove from task list, insert into done list. <code>task.completed_at</code> for "just now" vs timestamp. Undo: reverse both operations within 5s window using a <code>Timer</code>. Done today section: <code>ListView</code> section with <code>SliverList</code> or simple <code>Column</code> in scroll view. Skip: <code>task.skipCount++</code>, <code>task.last_skipped_at = DateTime.now()</code>, recalculate <code>next_due_at</code>. Inline preview: show <code>AnimatedOpacity</code> text for 800ms then <code>AnimatedSize</code> collapse. Snooze: <code>showModalBottomSheet</code> with <code>DraggableScrollableSheet</code>, presets as <code>ListTile</code> rows, custom date via <code>showDatePicker</code>.
+    </div>
+  </div>
+
+  <div class="cl-entry">
+    <div class="cl-ver">v1.2 · 2026-04-02 · ADDITIVE + BREAKING</div>
+    <div class="cl-body">
+      <strong>All 4 states fully built out for dev handoff.</strong> Changes per state:<br><br>
+      <strong>Default:</strong> 3-section layout locked — TODAY (overdue + due today merged), THIS WEEK (until Sunday, ISO week), COMING UP (collapsible). Section labels soft/lowercase with task count descriptor. "Xd late" badge replaces "Xd overdue" (friendlier tone).<br><br>
+      <strong>Overdue only:</strong> Full rebuild. Summary text turns apricot: "X things are a little late". Streak circle dimmed at 0. THIS WEEK always visible — shows "All clear until Sunday." when nothing due (section never hidden). COMING UP shown collapsed. FOR YOU present. Witty closer: "Not judging. Much."<br><br>
+      <strong>All done:</strong> FOR YOU cards updated to match default state card style (38px icon circle + Noto Serif title inline, body copy, pill CTA). Old flat card style removed.<br><br>
+      <strong>BREAKING — Done button:</strong> Annotation corrected. Done button uses <strong>category color</strong> as fill (e.g. ch-bg for Home), not plum. Plum is app-level actions only. Annotation and in-screen cards now match.<br><br>
+      <strong>THIS WEEK logic:</strong> Calendar week boundary (ISO Mon–Sun). Sunday exception: section shows coming week (Mon–Sun of next week) instead of going empty. Documented in annotation sidebar with Flutter query logic.<br><br>
+      <strong>State trigger documentation:</strong> All 4 states annotated with "WHEN this fires" description for dev clarity. HTML comments added inside each state pane.
+    </div>
+    <div class="cl-flutter">
+      <strong>Flutter notes:</strong><br>
+      Done button: use <code>categoryColor</code> from task object, not <code>colorCta</code>. Summary text: use <code>colorCta</code> (apricot) when all tasks are overdue, else <code>colorInk</code>. Streak circle: opacity 0.5 + no tap action when streak is 0. THIS WEEK query: <code>DateTime.now().weekday == DateTime.sunday</code> → show next Mon–Sun, else show tomorrow–this Sunday. Section hides if query returns empty (use <code>Visibility</code> widget, not <code>SizedBox.shrink</code> — keeps scroll physics clean).
+    </div>
+  </div>
+
+  <div class="cl-entry">
+    <div class="cl-ver">v1.1 · 2026-04-01 · BREAKING</div>
+    <div class="cl-body"><strong>Layout corrected to match prototype.</strong> Three changes: (1) Summary strip removed — replaced with inline text + streak circle, no <code>surface-low</code> card, no progress ring. (2) "For you" section moved from top to bottom, after Coming up. (3) Task title font size corrected to 14px (was 13px). Flutter: no <code>Card</code> widget for summary line, use <code>Row</code> directly. Progress ring removed entirely.</div>
+  </div>
+
+  <div class="cl-entry">
+    <div class="cl-ver">v1.0 · 2026-04-01 · ADDITIVE</div>
+    <div class="cl-body"><strong>Initial hi-fi for Today tab.</strong> Extracted from Precision Warmth prototype (s09-dashboard-precision-warmth.html) into standalone hi-fi with annotation sidebar. All 4 states: default (overdue + due this week + coming up + for you), empty (new user), overdue only, all done. Dark mode via data-theme toggle. "Why it matters" expanded block with apricot label. Done button uses plum consistently (not category color). Nav bar: solid surface, no glassmorphism.</div>
+    <div class="cl-flutter">
+      <strong>Flutter notes:</strong><br>
+      Mockup base: 390x844 (iPhone 15). SafeArea: yes. Scroll: SingleChildScrollView for content zone only (inset 54px top, 84px bottom for nav). Bottom zone: nav bar 84px, fixed. FAB: Positioned, right: 24, bottom: 18. Progress ring: CustomPainter with arc. Streak tooltip: Tooltip or custom overlay, auto-dismiss 2.5s. Task expand: AnimatedContainer with max-height. Theme: [data-theme] maps to ThemeData. Category washes: use Color.withOpacity(0.14) on category base. "For you" row: horizontal ListView.builder. Coming up: ExpansionTile pattern.
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── Theme + state toggles ── */
+function setTheme(t) {
+  document.getElementById('phone').setAttribute('data-theme', t);
+  document.getElementById('ctl').classList.toggle('on', t === 'light');
+  document.getElementById('ctd').classList.toggle('on', t === 'dark');
+}
+function setState(s) {
+  ['default','quiet','overdue','done','empty'].forEach(id => {
+    document.getElementById('state-' + id).classList.remove('active');
+    document.getElementById('cs-' + id).classList.remove('on');
+  });
+  document.getElementById('state-' + s).classList.add('active');
+  document.getElementById('cs-' + s).classList.add('on');
+}
+
+/* ── Event delegation for task buttons ── */
+document.addEventListener('DOMContentLoaded', () => {
+  /* Store original badge text + done color on each feat for undo */
+  document.querySelectorAll('.feat').forEach(feat => {
+    const badge = feat.querySelector('.badge');
+    const done  = feat.querySelector('.feat-done');
+    if (badge) feat.dataset.originalBadge = badge.textContent.trim();
+    if (done)  feat.dataset.doneBg = done.style.background;
+  });
+
+  document.querySelectorAll('.tc').forEach(tc => {
+    tc.addEventListener('click', e => {
+      const skip   = e.target.closest('.feat-skip');
+      const snooze = e.target.closest('.feat-snooze');
+      const done   = e.target.closest('.feat-done');
+      if (skip)   { e.stopPropagation(); handleSkip(skip); }
+      if (snooze) { e.stopPropagation(); handleSnooze(snooze); }
+      if (done)   { e.stopPropagation(); handleDone(done); }
+    });
+  });
+});
+
+/* ═══════════════════════════════════════
+   DONE
+   Card stays in place, transforms to done state.
+   Icon gets checkmark overlay, badge shows "✓ done",
+   action buttons hidden, edit button shown.
+═══════════════════════════════════════ */
+function handleDone(btn) {
+  const feat    = btn.closest('.feat');
+  const iconEl  = feat.querySelector('.feat-icon');
+  const doneBg  = btn.style.background;
+  const badgeEl = feat.querySelector('.badge');
+  const actions = feat.querySelector('.feat-actions');
+  const itemName = (feat.querySelector('.feat-m').textContent.split('·')[0] || 'it').trim().toLowerCase();
+
+  /* 1. Collapse expanded state */
+  feat.classList.remove('expanded');
+
+  /* 2. Add done class for visual muting */
+  feat.classList.add('task-done');
+
+  /* 3. Overlay checkmark on icon circle */
+  iconEl.style.position = 'relative';
+  const check = document.createElement('div');
+  check.style.cssText = `position:absolute;inset:0;border-radius:50%;background:${doneBg};display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 250ms ease;`;
+  check.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+  iconEl.appendChild(check);
+  requestAnimationFrame(() => { check.style.opacity = '1'; });
+
+  /* 4. Update badge to "✓ done" */
+  if (badgeEl) {
+    badgeEl.className = 'badge';
+    badgeEl.style.color = 'var(--hint)';
+    badgeEl.innerHTML = `<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> done`;
+    badgeEl.style.display = 'flex';
+    badgeEl.style.alignItems = 'center';
+    badgeEl.style.gap = '3px';
+  }
+
+  /* 5. Replace action buttons with edit-only row */
+  actions.innerHTML = `
+    <span class="feat-edit-btn" onclick="undoDone(this)">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
+      Undo
+    </span>`;
+
+  /* 6. Witty toast */
+  const witty = [
+    `Done. Your ${itemName} approves.`,
+    `Done. One less thing to think about.`,
+    `Done. You're on a roll.`,
+    `Done. ${itemName.charAt(0).toUpperCase() + itemName.slice(1)} says thank you.`
+  ];
+  showToast(witty[Math.floor(Math.random() * witty.length)], () => undoDone(feat.querySelector('.feat-edit-btn')));
+}
+
+function undoDone(editBtn) {
+  const feat    = editBtn.closest('.feat');
+  const iconEl  = feat.querySelector('.feat-icon');
+  const badgeEl = feat.querySelector('.badge');
+
+  /* Remove done class */
+  feat.classList.remove('task-done');
+
+  /* Remove checkmark overlay */
+  const overlay = iconEl.querySelector('div');
+  if (overlay) overlay.remove();
+  iconEl.style.position = '';
+
+  /* Restore badge — figure out original state from task */
+  if (badgeEl) {
+    badgeEl.style.cssText = '';
+    badgeEl.innerHTML = feat.dataset.originalBadge || 'due';
+  }
+
+  /* Restore action buttons — rebuild from original feat structure */
+  const iconBg  = iconEl.style.background;
+  const doneBg  = feat.dataset.doneBg || 'var(--hint)';
+  const actions = feat.querySelector('.feat-actions');
+  actions.innerHTML = `
+    <span class="feat-detail">Details <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg></span>
+    <div class="feat-btns">
+      <span class="feat-skip">Skip</span>
+      <span class="feat-snooze">Snooze</span>
+      <span class="feat-done" style="background:${doneBg};">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done
+      </span>
+    </div>`;
+
+  hideToast();
+}
+
+/* ═══════════════════════════════════════
+   SKIP
+   Inline preview text, then card slides out.
+   No toast — feedback is in-context.
+═══════════════════════════════════════ */
+const nextDates = ['May 12', 'May 19', 'May 24', 'Jun 2', 'Jun 9', 'Jun 16'];
+
+function handleSkip(btn) {
+  const feat    = btn.closest('.feat');
+  const actions = feat.querySelector('.feat-actions');
+
+  /* Remove any existing preview */
+  const existing = feat.querySelector('.skip-preview');
+  if (existing) existing.remove();
+
+  /* Pick next date */
+  const nextDate = nextDates[Math.floor(Math.random() * nextDates.length)];
+
+  /* Insert inline preview below action row */
+  const preview = document.createElement('div');
+  preview.className = 'skip-preview';
+  preview.textContent = `Skipping this time. Back on ${nextDate}.`;
+  actions.after(preview);
+  requestAnimationFrame(() => { preview.style.opacity = '1'; });
+
+  /* After 950ms: slide card out */
+  setTimeout(() => {
+    feat.style.transition = 'opacity 220ms ease, transform 220ms ease';
+    feat.style.opacity    = '0';
+    feat.style.transform  = 'translateX(-10px)';
+    setTimeout(() => {
+      feat.style.transition = 'max-height 280ms ease, padding 280ms ease, margin 280ms ease';
+      feat.style.overflow   = 'hidden';
+      feat.style.maxHeight  = feat.scrollHeight + 'px';
+      requestAnimationFrame(() => {
+        feat.style.maxHeight = '0';
+        feat.style.padding   = '0';
+        feat.style.margin    = '0';
+      });
+      setTimeout(() => { feat.style.display = 'none'; }, 290);
+    }, 220);
+  }, 950);
+}
+
+/* ═══════════════════════════════════════
+   SNOOZE
+   Half-height bottom sheet, 4 presets.
+   Card collapses on selection, toast confirms.
+═══════════════════════════════════════ */
+let _snoozeFeat = null;
+
+function handleSnooze(btn) {
+  _snoozeFeat = btn.closest('.feat');
+  document.getElementById('snooze-sheet').classList.add('open');
+  document.getElementById('snooze-backdrop').classList.add('open');
+}
+
+function selectSnooze(label, time) {
+  closeSnoozeSheet();
+  if (!_snoozeFeat) return;
+  const feat = _snoozeFeat;
+  _snoozeFeat = null;
+
+  const isLaterToday = label === 'Later today';
+
+  if (isLaterToday) {
+    /* Card stays — update badge to show the time, mute slightly */
+    feat.classList.remove('expanded');
+    feat.classList.add('task-snoozed');
+    const badgeEl = feat.querySelector('.badge');
+    if (badgeEl) {
+      badgeEl.className = 'badge due';
+      badgeEl.textContent = time; /* e.g. "3:00 PM" */
+    }
+    showToast(`Reminder set for ${time}. Still on your list.`, () => {
+      feat.classList.remove('task-snoozed');
+      if (badgeEl) {
+        badgeEl.className = 'badge ov';
+        badgeEl.textContent = feat.dataset.originalBadge || 'late';
+      }
+    });
+  } else {
+    /* Card disappears — due on a future date */
+    feat.classList.remove('expanded');
+    feat.style.transition = 'opacity 200ms ease, transform 200ms ease';
+    feat.style.opacity    = '0';
+    feat.style.transform  = 'translateY(-4px)';
+    setTimeout(() => {
+      feat.style.transition = 'max-height 260ms ease, padding 260ms ease, margin 260ms ease';
+      feat.style.overflow   = 'hidden';
+      feat.style.maxHeight  = feat.scrollHeight + 'px';
+      requestAnimationFrame(() => {
+        feat.style.maxHeight = '0';
+        feat.style.padding   = '0';
+        feat.style.margin    = '0';
+      });
+      setTimeout(() => { feat.style.display = 'none'; }, 270);
+    }, 200);
+    showToast(`Back on ${label.toLowerCase()}. Enjoy the break.`, null);
+  }
+}
+
+function closeSnoozeSheet() {
+  document.getElementById('snooze-sheet').classList.remove('open');
+  document.getElementById('snooze-backdrop').classList.remove('open');
+}
+
+/* ═══════════════════════════════════════
+   TOAST
+   Auto-dismisses in 5s. Optional undo action.
+═══════════════════════════════════════ */
+let _toastTimer = null;
+
+function showToast(msg, undoFn) {
+  const toast = document.getElementById('action-toast');
+  const label = document.getElementById('toast-msg');
+  const undo  = document.getElementById('toast-undo');
+
+  label.textContent  = msg;
+  undo.style.display = undoFn ? 'inline' : 'none';
+  undo.onclick = () => { if (undoFn) undoFn(); hideToast(); };
+
+  toast.classList.add('show');
+  if (_toastTimer) clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(hideToast, 5000);
+}
+
+function hideToast() {
+  document.getElementById('action-toast').classList.remove('show');
+}
+</script>
+</body>
+</html>

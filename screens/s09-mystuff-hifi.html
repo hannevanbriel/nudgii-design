@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · S-09 My stuff · hi-fi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   S-09 My stuff tab · hi-fi · Precision Warmth design system
+   Noto Serif + Manrope, plum + apricot, tonal surfaces
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Tokens ── */
+:root {
+  /* Surface tiers */
+  --surface: #FBF9F4;
+  --surface-low: #F5F4ED;
+  --surface-high: #E8E9E0;
+  --surface-lowest: #FFFFFF;
+
+  /* Text */
+  --ink: #31332C;
+  --mid: #7A756D;
+  --hint: #A09A90;
+  --outline-var: #B1B3A9;
+
+  /* Plum: actions */
+  --plum: #9B7FD4;
+  --plum-fg: #FAF8FF;
+  --plum-wash: rgba(155,127,212,0.10);
+  --plum-container: rgba(155,127,212,0.08);
+
+  /* Apricot: warmth */
+  --apricot: #E8A87C;
+  --apricot-wash: rgba(232,168,124,0.12);
+
+  /* Primary mapped to plum */
+  --primary: #9B7FD4;
+  --primary-fg: #FAF8FF;
+  --primary-container: rgba(155,127,212,0.08);
+
+  /* Sage: success/on track */
+  --sage: #3B6D11;
+  --sage-lt: #EAF3DE;
+
+  /* Category highlights */
+  --ch-bg: #C09088; --ch-wash: rgba(192,144,136,0.14);
+  --cg-bg: #8C9B80; --cg-wash: rgba(140,155,128,0.14);
+  --cv-bg: #8E9A94; --cv-wash: rgba(142,154,148,0.14);
+  --cs-bg: #A69BBF; --cs-wash: rgba(166,155,191,0.14);
+  --cx-bg: #9A9A88; --cx-wash: rgba(154,154,136,0.14);
+  --cp-bg: #C7B7A3; --cp-wash: rgba(199,183,163,0.14);
+
+  --r: 12px; --rs: 8px;
+}
+[data-theme="dark"] {
+  --surface: #1C1B18;
+  --surface-low: #24231F;
+  --surface-high: #2E2D28;
+  --surface-lowest: #181714;
+  --ink: #F0EDE6;
+  --mid: #A8A29A;
+  --hint: #787068;
+  --outline-var: rgba(177,179,169,0.15);
+  --plum: #B8A0E8;
+  --plum-fg: #1C1B18;
+  --apricot: #F0B890;
+  --primary: #B8A0E8;
+  --primary-fg: #1C1B18;
+  --primary-container: rgba(184,160,232,0.12);
+  --sage: #6AAF40;
+  --sage-lt: rgba(106,175,64,0.15);
+  --ch-bg: #E0A898; --ch-wash: rgba(224,168,152,0.15);
+  --cg-bg: #A8B89C; --cg-wash: rgba(168,184,156,0.15);
+  --cv-bg: #A8B0AA; --cv-wash: rgba(168,176,170,0.15);
+  --cs-bg: #C0B4D6; --cs-wash: rgba(192,180,214,0.15);
+  --cx-bg: #B0B09E; --cx-wash: rgba(176,176,158,0.15);
+  --cp-bg: #D6C8B6; --cp-wash: rgba(214,200,182,0.15);
+  --apricot-wash: rgba(240,184,144,0.15);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100vh; color: var(--ink); }
+
+/* ── Design hub nav ── */
+.hub-nav {
+  background: #F5F0E8; border-bottom: 1px solid rgba(26,22,18,0.12);
+  padding: 0 32px; display: flex; align-items: center; gap: 16px;
+  height: 48px; position: sticky; top: 0; z-index: 200;
+}
+.hub-nav a { font-size: 13px; color: #8A8070; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+.hub-nav a:hover { color: #2C2824; }
+.hub-nav .sep { color: rgba(26,22,18,0.12); }
+.hub-nav .title { font-size: 13px; font-weight: 500; }
+.hub-nav .status { margin-left: auto; font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 100px; }
+.status-progress { background: rgba(133,79,11,0.10); color: #854F0B; border: 1px solid rgba(133,79,11,0.20); }
+
+/* ── Page header ── */
+.page-header { max-width: 1200px; margin: 0 auto; padding: 40px 40px 0; }
+.page-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: #8A8070; margin-bottom: 8px; }
+.page-h1 { font-family: 'Noto Serif', serif; font-size: 32px; font-weight: 400; color: #2C2824; margin-bottom: 6px; letter-spacing: -0.02em; }
+.page-subtitle { font-size: 14px; color: #8A8070; margin-bottom: 16px; }
+.page-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+.page-pill { font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 100px; background: rgba(155,127,212,0.10); color: #9B7FD4; }
+
+/* ── Controls ── */
+.controls { max-width: 1200px; margin: 0 auto; padding: 20px 40px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.ctrl-group { display: flex; gap: 4px; align-items: center; }
+.ctrl-label { font-size: 9px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: #A09888; margin-right: 4px; }
+.ctrl-btn { font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 500; padding: 5px 14px; border-radius: 6px; border: 1px solid rgba(26,22,18,0.12); background: transparent; color: #8A8070; cursor: pointer; transition: all 120ms; }
+.ctrl-btn:hover { border-color: rgba(26,22,18,0.20); }
+.ctrl-btn.on { background: #9B7FD4; color: #FAF8FF; border-color: #9B7FD4; }
+
+/* ── Content row (phone + annotations) ── */
+.content-row { max-width: 1200px; margin: 0 auto; padding: 0 40px 40px; display: flex; gap: 40px; align-items: flex-start; }
+
+/* ── Phone shell ── */
+.phone-col { flex-shrink: 0; position: sticky; top: 68px; }
+.ph { width: 390px; height: 844px; border-radius: 50px; overflow: hidden; position: relative; background: var(--surface); box-shadow: 0 0 0 1px rgba(255,255,255,0.03), 0 24px 80px rgba(49,51,44,0.25); transition: background 250ms; }
+.notch { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 102px; height: 8px; border-radius: 100px; background: rgba(49,51,44,0.06); z-index: 60; }
+[data-theme="dark"] .notch { background: rgba(255,255,255,0.08); }
+.sb { height: 54px; padding: 14px 30px 0; display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 600; color: var(--ink); letter-spacing: 0.01em; }
+
+/* ── Tab content area ── */
+.tc { position: absolute; inset: 54px 0 84px 0; overflow: hidden; }
+.tp { position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden; opacity: 0; pointer-events: none; transition: opacity 250ms; scrollbar-width: none; }
+.tp::-webkit-scrollbar { display: none; }
+.tp.active { opacity: 1; pointer-events: auto; }
+
+/* ── Screen title ── */
+.screen-title { padding: 8px 24px 0; display: flex; align-items: baseline; justify-content: space-between; }
+.screen-title h2 { font-family: 'Noto Serif', serif; font-size: 24px; font-weight: 400; color: var(--ink); letter-spacing: -0.02em; line-height: 1.2; }
+.screen-title-count { font-size: 11px; color: var(--mid); font-family: 'Manrope', sans-serif; font-weight: 400; flex-shrink: 0; }
+
+/* ── Filter chips ── */
+.filter-row { display: flex; gap: 6px; overflow-x: auto; padding: 12px 24px 0; scrollbar-width: none; }
+.filter-row::-webkit-scrollbar { display: none; }
+.fc { flex-shrink: 0; font-size: 11px; font-weight: 500; padding: 5px 12px; border-radius: 100px; cursor: pointer; border: 1px solid rgba(49,51,44,0.12); background: transparent; color: var(--ink); transition: all 150ms; }
+.fc.active { border-color: transparent; color: var(--plum-fg); background: var(--ink); font-weight: 600; }
+
+/* ── Items list ── */
+.items-list { display: flex; flex-direction: column; gap: 8px; padding: 12px 16px 0; }
+
+/* ── Item card ── */
+.ic { background: var(--surface-low); border-radius: var(--r); padding: 14px 16px; cursor: pointer; transition: background 150ms; }
+.ic:active { background: var(--surface-high); }
+.ic-top { display: flex; align-items: flex-start; gap: 12px; }
+.ic-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.ic-body { flex: 1; min-width: 0; }
+.ic-head { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+.ic-name { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.25; letter-spacing: -0.01em; }
+.ic-meta { font-size: 10px; color: var(--mid); margin-top: 3px; line-height: 1.3; }
+.ic-functional { font-family: 'Noto Serif', serif; font-style: italic; font-size: 10px; color: var(--mid); margin-top: 4px; line-height: 1.4; }
+
+/* Status badges */
+.sb-ontrack { font-size: 10px; font-weight: 500; color: var(--sage); }
+.sb-overdue { font-size: 10px; font-weight: 600; color: var(--apricot); }
+.sb-seasonal { font-size: 10px; font-weight: 500; }
+.sb-paused { font-size: 10px; font-weight: 500; color: var(--hint); }
+
+/* Pro pill */
+.pro-pill { font-size: 8px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; background: var(--plum-wash); color: var(--plum); border: 1px solid rgba(155,127,212,0.25); flex-shrink: 0; }
+
+/* Mini progress bar */
+.ic-progress { margin-top: 10px; height: 3px; border-radius: 100px; background: var(--surface-high); overflow: hidden; }
+.ic-progress-fill { height: 100%; border-radius: 100px; background: var(--sage); }
+
+/* Paused item: muted */
+.ic.paused { opacity: 0.60; }
+.ic.paused .ic-name { color: var(--mid); }
+
+/* ── Add item card ── */
+.add-card { margin: 0 16px; border: 1.5px dashed var(--plum); border-radius: var(--r); padding: 20px 16px; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; transition: background 150ms; }
+.add-card:active { background: var(--plum-wash); }
+.add-icon { width: 32px; height: 32px; border-radius: 50%; background: var(--plum-wash); display: flex; align-items: center; justify-content: center; margin-bottom: 4px; }
+.add-label { font-size: 14px; font-weight: 500; color: var(--plum); }
+.add-sub { font-size: 10px; color: var(--hint); }
+
+/* ── Go Pro meter (free state only, fixed between scroll + nav) ── */
+.pro-meter {
+  position: absolute;
+  bottom: 84px;
+  left: 0; right: 0;
+  background: var(--surface-low);
+  border-top: 1px solid var(--surface-high);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 30;
+}
+.pm-label { font-size: 11px; font-weight: 500; color: var(--ink); flex-shrink: 0; }
+.pm-dots { display: flex; gap: 3px; align-items: center; flex: 1; }
+.pm-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.pm-dot.f { background: var(--plum); }
+.pm-dot.e { background: var(--surface-high); }
+.pm-link { font-size: 11px; font-weight: 500; color: var(--plum); cursor: pointer; flex-shrink: 0; }
+
+/* ── Empty state ── */
+.empty-state { text-align: center; padding: 80px 24px 40px; }
+.empty-icon { width: 64px; height: 64px; border-radius: 50%; background: var(--surface-low); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+.empty-h { font-family: 'Noto Serif', serif; font-size: 22px; color: var(--ink); margin-bottom: 8px; line-height: 1.2; }
+.empty-sub { font-size: 13px; color: var(--mid); line-height: 1.55; margin-bottom: 24px; }
+
+/* ── Nav bar ── */
+.nz { position: absolute; bottom: 0; left: 0; right: 0; height: 84px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 14px; pointer-events: none; z-index: 40; }
+.nb { background: var(--surface); border-radius: 20px; padding: 9px 6px 11px; display: flex; align-items: center; box-shadow: 0 -2px 12px rgba(49,51,44,0.04); pointer-events: auto; }
+[data-theme="dark"] .nb { background: var(--surface-low); box-shadow: 0 -2px 12px rgba(0,0,0,0.15); }
+.nt { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 14px; cursor: pointer; border: none; background: none; font-family: 'Manrope', sans-serif; border-radius: 10px; transition: background 150ms; }
+.nt svg * { stroke: var(--hint); }
+.nt .nl { font-size: 8px; font-weight: 500; color: var(--hint); }
+.nt.on svg * { stroke: var(--primary); }
+.nt.on .nl { color: var(--primary); font-weight: 600; }
+
+/* FAB */
+.fab { width: 46px; height: 46px; border-radius: 14px; background: var(--plum); display: flex; align-items: center; justify-content: center; cursor: pointer; pointer-events: auto; position: absolute; right: 24px; bottom: 18px; z-index: 45; box-shadow: 0 6px 20px rgba(155,127,212,0.45); border: none; margin-bottom: 4px; }
+
+/* ── Annotation sidebar ── */
+.annot-col { flex: 1; min-width: 280px; max-width: 420px; }
+.annot-section { font-size: 10px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: #8A8070; margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid rgba(26,22,18,0.08); }
+.annot-section:first-child { margin-top: 0; }
+.annot-card { background: #FFFFFF; border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; border: 1px solid rgba(26,22,18,0.06); }
+.annot-card.decision { border-left: 3px solid #9B7FD4; }
+.annot-head { font-size: 12px; font-weight: 600; color: #2C2824; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.annot-body { font-size: 11px; color: #6B6358; line-height: 1.6; }
+.annot-body code { background: rgba(26,22,18,0.06); padding: 1px 5px; border-radius: 3px; font-size: 10px; font-family: 'SF Mono', 'Fira Code', monospace; }
+.annot-body strong { color: #2C2824; }
+.badge-rule { font-size: 8px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; background: rgba(59,109,17,0.10); color: #3B6D11; }
+.badge-note { font-size: 8px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; background: rgba(133,79,11,0.10); color: #854F0B; }
+.badge-decision { font-size: 8px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; background: rgba(155,127,212,0.12); color: #9B7FD4; }
+.badge-state { font-size: 8px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; background: rgba(232,168,124,0.12); color: #C08060; }
+
+/* ── Divider ── */
+.page-divider { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+.page-divider::after { content: ''; display: block; height: 1px; background: rgba(26,22,18,0.08); }
+
+/* ── Changelog ── */
+.changelog { max-width: 1200px; margin: 0 auto; padding: 32px 40px 60px; }
+.cl-title { font-family: 'Noto Serif', serif; font-size: 20px; color: #2C2824; margin-bottom: 20px; }
+.cl-entry { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid rgba(26,22,18,0.06); }
+.cl-entry:last-child { border-bottom: none; }
+.cl-ver { font-size: 10px; font-weight: 600; letter-spacing: 0.5px; color: #8A8070; margin-bottom: 6px; }
+.cl-body { font-size: 12px; color: #6B6358; line-height: 1.6; }
+.cl-body strong { color: #2C2824; }
+.cl-body code { background: rgba(26,22,18,0.06); padding: 1px 5px; border-radius: 3px; font-size: 10px; font-family: 'SF Mono', 'Fira Code', monospace; }
+.cl-flutter { margin-top: 8px; padding: 10px 12px; background: rgba(155,127,212,0.06); border-radius: 6px; font-size: 11px; color: #6B6358; line-height: 1.5; }
+.cl-flutter strong { color: #9B7FD4; font-size: 10px; letter-spacing: 0.3px; }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .content-row { flex-direction: column; align-items: center; }
+  .phone-col { position: static; }
+  .annot-col { max-width: 600px; width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="hub-nav">
+  <a href="../index.html">
+    <svg width="16" height="18" viewBox="0 0 626 700" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:2px;"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0C56.05,700.13,0,642.43,0,571.26V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#C4A8E8" cx="535.96" cy="119.29" r="90"/></svg>
+    Design hub
+  </a>
+  <span class="sep">/</span>
+  <span class="title">S-09 My stuff tab</span>
+  <span class="status status-progress">In progress</span>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-eyebrow">S-09 · My stuff tab</div>
+  <h1 class="page-h1">My stuff</h1>
+  <p class="page-subtitle">Item inventory. Everything the user owns, with status, personality, and progress at a glance.</p>
+  <div class="page-meta">
+    <span class="page-pill">Noto Serif + Manrope</span>
+    <span class="page-pill">Plum + Apricot</span>
+    <span class="page-pill">Tonal surfaces</span>
+  </div>
+</div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <div class="ctrl-group">
+    <span class="ctrl-label">Theme</span>
+    <button class="ctrl-btn on" id="ctl" onclick="setTheme('light')">Light</button>
+    <button class="ctrl-btn" id="ctd" onclick="setTheme('dark')">Dark</button>
+  </div>
+  <div class="ctrl-group" style="margin-left: 16px;">
+    <span class="ctrl-label">State</span>
+    <button class="ctrl-btn on" id="cs-free" onclick="setState('free')">Free (default)</button>
+    <button class="ctrl-btn" id="cs-pro" onclick="setState('pro')">Pro</button>
+    <button class="ctrl-btn" id="cs-empty" onclick="setState('empty')">Empty</button>
+  </div>
+</div>
+
+<!-- CONTENT ROW: phone + annotations -->
+<div class="content-row">
+
+  <!-- PHONE -->
+  <div class="phone-col">
+    <div class="ph" id="phone" data-theme="light">
+      <div class="notch"></div>
+      <div class="sb"><span>9:41</span><span style="font-size:10px;color:var(--mid);">My stuff</span></div>
+
+      <div class="tc">
+
+        <!-- ═══ FREE STATE (DEFAULT) ═══ -->
+        <!-- WHEN: user on free plan, 7 of 10 items used. 1 paused Pro item shown muted. Go Pro meter visible. -->
+        <div class="tp active" id="state-free">
+
+          <!-- Screen title -->
+          <div class="screen-title" style="padding-top:10px;">
+            <h2>My stuff</h2>
+            <span class="screen-title-count">7 items · 24 tasks</span>
+          </div>
+
+          <!-- Filter chips -->
+          <div class="filter-row">
+            <div class="fc active">All</div>
+            <div class="fc">Home</div>
+            <div class="fc">Garden</div>
+            <div class="fc">Vehicle</div>
+            <div class="fc">Subscriptions</div>
+            <div class="fc">Pets</div>
+          </div>
+
+          <!-- Items -->
+          <div class="items-list">
+
+            <!-- 1: Boiler, Home, On track -->
+            <div class="ic">
+              <div class="ic-top">
+                <div class="ic-icon" style="background:var(--ch-wash);">
+                  <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
+                    <rect x="64" y="32" width="128" height="192" rx="16" stroke="var(--ch-bg)" stroke-width="18" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="128" cy="144" r="28" stroke="var(--ch-bg)" stroke-width="18" fill="none"/>
+                    <line x1="128" y1="72" x2="128" y2="88" stroke="var(--ch-bg)" stroke-width="18" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="ic-body">
+                  <div class="ic-head">
+                    <span class="ic-name">Boiler</span>
+                    <span class="sb-ontrack">On track</span>
+                  </div>
+                  <div class="ic-meta">Home · 4 tasks</div>
+                  <div class="ic-functional">Last done: annual service, 6 months ago</div>
+                  <div class="ic-progress"><div class="ic-progress-fill" style="width:75%;"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2: Dishwasher, Home, 1 overdue -->
+            <div class="ic">
+              <div class="ic-top">
+                <div class="ic-icon" style="background:var(--ch-wash);">
+                  <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
+                    <rect x="32" y="56" width="192" height="144" rx="8" stroke="var(--ch-bg)" stroke-width="18" fill="none" stroke-linecap="round"/>
+                    <line x1="32" y1="104" x2="224" y2="104" stroke="var(--ch-bg)" stroke-width="18" stroke-linecap="round"/>
+                    <circle cx="80" cy="80" r="10" stroke="var(--ch-bg)" stroke-width="14" fill="none"/>
+                  </svg>
+                </div>
+                <div class="ic-body">
+                  <div class="ic-head">
+                    <span class="ic-name">Dishwasher</span>
+                    <span class="sb-overdue">1 overdue</span>
+                  </div>
+                  <div class="ic-meta">Home · 3 tasks</div>
+                  <div class="ic-functional">Last done: salt refilled, 2 months ago</div>
+                  <div class="ic-progress"><div class="ic-progress-fill" style="width:40%;background:var(--apricot);"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3: Volkswagen Golf, Vehicle, On track -->
+            <div class="ic">
+              <div class="ic-top">
+                <div class="ic-icon" style="background:var(--cv-wash);">
+                  <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
+                    <path d="M224,168H208V128L176,80H80L48,128V168H32a8,8,0,0,0,0,16H48v8a16,16,0,0,0,32,0v-8h96v8a16,16,0,0,0,32,0v-8h16a8,8,0,0,0,0-16Z" stroke="var(--cv-bg)" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M80,96h96l24,40H56Z" stroke="var(--cv-bg)" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="ic-body">
+                  <div class="ic-head">
+                    <span class="ic-name">Volkswagen Golf</span>
+                    <span class="sb-ontrack">On track</span>
+                  </div>
+                  <div class="ic-meta">Vehicle · 5 tasks</div>
+                  <div class="ic-functional">Next: check tyre pressure, Wed 26</div>
+                  <div class="ic-progress"><div class="ic-progress-fill" style="width:80%;"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4: Netflix, Subscriptions, On track -->
+            <div class="ic">
+              <div class="ic-top">
+                <div class="ic-icon" style="background:var(--cs-wash);">
+                  <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
+                    <rect x="40" y="40" width="176" height="176" rx="16" stroke="var(--cs-bg)" stroke-width="18" fill="none"/>
+                    <line x1="96" y1="88" x2="96" y2="168" stroke="var(--cs-bg)" stroke-width="18" stroke-linecap="round"/>
+                    <line x1="160" y1="88" x2="160" y2="168" stroke="var(--cs-bg)" stroke-width="18" stroke-linecap="round"/>
+                    <line x1="96" y1="128" x2="160" y2="128" stroke="var(--cs-bg)" stroke-width="14" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="ic-body">
+                  <div class="ic-head">
+                    <span class="ic-name">Netflix</span>
+                    <span class="sb-ontrack">On track</span>
+                  </div>
+                  <div class="ic-meta">Subscriptions · 2 tasks</div>
+                  <div class="ic-functional">Renews: May 12</div>
+                  <div class="ic-progress"><div class="ic-progress-fill" style="width:100%;"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 5: Olive tree, Garden, Seasonal -->
+            <div class="ic">
+              <div class="ic-top">
+                <div class="ic-icon" style="background:var(--cg-wash);">
+                  <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
+                    <path d="M128,24C128,24,48,80,48,128a80,80,0,0,0,160,0C208,80,128,24,128,24Z" stroke="var(--cg-bg)" stroke-width="18" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <line x1="128" y1="208" x2="128" y2="128" stroke="var(--cg-bg)" stroke-width="18" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="ic-body">
+                  <div class="ic-head">
+                    <span class="ic-name">Olive tree</span>
+                    <span class="sb-seasonal" style="color:var(--cg-bg);">Seasonal</span>
+                  </div>
+                  <div class="ic-meta">Garden · 3 tasks</div>
+                  <div class="ic-functional">Spring pruning window now open</div>
+                  <div class="ic-progress"><div class="ic-progress-fill" style="width:60%;background:var(--cg-bg);"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 6: Cat, Pets, On track -->
+            <div class="ic">
+              <div class="ic-top">
+                <div class="ic-icon" style="background:var(--cp-wash);">
+                  <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
+                    <path d="M200,40l-24,40" stroke="var(--cp-bg)" stroke-width="18" fill="none" stroke-linecap="round"/>
+                    <path d="M56,40l24,40" stroke="var(--cp-bg)" stroke-width="18" fill="none" stroke-linecap="round"/>
+                    <path d="M80,80C48,80,32,104,32,128c0,48,40,80,96,80s96-32,96-80c0-24-16-48-48-48C160,80,128,56,80,80Z" stroke="var(--cp-bg)" stroke-width="18" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="100" cy="140" r="10" fill="var(--cp-bg)"/>
+                    <circle cx="156" cy="140" r="10" fill="var(--cp-bg)"/>
+                  </svg>
+                </div>
+                <div class="ic-body">
+                  <div class="ic-head">
+                    <span class="ic-name">Cat</span>
+                    <span class="sb-ontrack">On track</span>
+                  </div>
+                  <div class="ic-meta">Pets · 4 tasks</div>
+                  <div class="ic-functional">Next: annual vet check, Jun 3</div>
+                  <div class="ic-progress"><div class="ic-progress-fill" style="width:90%;"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 7: Robotic lawn mower, Garden, Paused/Pro -->
+            <div class="ic paused">
+              <div class="ic-top">
+                <div class="ic-icon" style="background:var(--cg-wash);opacity:0.7;">
+                  <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
+                    <rect x="32" y="96" width="192" height="112" rx="32" stroke="var(--cg-bg)" stroke-width="18" fill="none" stroke-linecap="round"/>
+                    <circle cx="80" cy="192" r="20" stroke="var(--cg-bg)" stroke-width="14" fill="none"/>
+                    <circle cx="176" cy="192" r="20" stroke="var(--cg-bg)" stroke-width="14" fill="none"/>
+                    <line x1="128" y1="96" x2="128" y2="48" stroke="var(--cg-bg)" stroke-width="14" stroke-linecap="round"/>
+                    <line x1="100" y1="60" x2="156" y2="60" stroke="var(--cg-bg)" stroke-width="14" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="ic-body">
+                  <div class="ic-head">
+                    <span class="ic-name">Robotic lawn mower</span>
+                    <span class="pro-pill">Pro</span>
+                  </div>
+                  <div class="ic-meta" style="display:flex;align-items:center;gap:6px;">
+                    <span>Garden · 3 tasks</span>
+                    <span class="sb-paused">· Paused</span>
+                  </div>
+                  <div class="ic-functional">Last done: winter storage, Nov 23</div>
+                  <div class="ic-progress"><div class="ic-progress-fill" style="width:0%;"></div></div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /items-list -->
+
+          <!-- Spacer before add card -->
+          <div style="height:8px;"></div>
+
+          <!-- Add item card -->
+          <div class="add-card">
+            <div class="add-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--plum)" stroke-width="2.2" stroke-linecap="round">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </div>
+            <div class="add-label">Add an item</div>
+            <div class="add-sub">or scan something</div>
+          </div>
+
+          <!-- Bottom padding so last item isn't hidden behind meter -->
+          <div style="height:52px;"></div>
+
+          <!-- Go Pro meter: fixed above nav bar, inside .tc so it's inside the phone -->
+          <div class="pro-meter">
+            <span class="pm-label">7 of 10 free</span>
+            <div class="pm-dots">
+              <div class="pm-dot f"></div>
+              <div class="pm-dot f"></div>
+              <div class="pm-dot f"></div>
+              <div class="pm-dot f"></div>
+              <div class="pm-dot f"></div>
+              <div class="pm-dot f"></div>
+              <div class="pm-dot f"></div>
+              <div class="pm-dot e"></div>
+              <div class="pm-dot e"></div>
+              <div class="pm-dot e"></div>
+            </div>
+            <span class="pm-link">Go Pro</span>
+          </div>
+
+        </div><!-- /state-free -->
+
+        <!-- ═══ PRO STATE ═══ -->
+        <!-- WHEN: user on Pro plan. No item limit meter. All 7 items active. No paused state. -->
+        <div class="tp" id="state-pro">
+
+          <!-- Screen title -->
+          <div class="screen-title" style="padding-top:10px;">
+            <h2>My stuff</h2>
+            <span class="screen-title-count">7 items · 24 tasks</span>
+          </div>
+
+          <!-- Filter chips -->
+          <div class="filter-row">
+            <div class="fc active">All</div>
+            <div class="fc">Home</div>
+            <div class="fc">Garden</div>
+            <div class="fc">Vehicle</div>
+            <div class="fc">Subscriptions</div>
+            <div class="fc">Pets</div>
+          </div>
+
+          <!-- Items: all 7 active, no paused item, no Go Pro meter -->
+          <div class="items-list">
+
+            <!-- 1: Boiler -->
+            <div class="ic">
+              <div class="ic-top">
+                <div class="ic-icon" style="background:var(--ch-wash);">
+                  <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
+                    <rect x="64" y="32" width="128" height="192" rx="16" stroke="var(--ch-bg)" stroke-width="18" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="128" cy="144" r="28" stroke="var(--ch-bg)" stroke-width="18" fill="none"/>
+                    <line x1="128" y1="72" x2="128" y2="88" stroke="var(--ch-bg)" stroke-width="18" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="ic-body">
+                  <div class="ic-head">
+                    <span class="ic-name">Boiler</span>
+                    <span class="sb-ontrack">On track</span>
+                  </div>
+                  <div class="ic-meta">Home · 4 tasks</div>
+                  <div class="ic-functional">Last done: annual service, 6 months ago</div>
+                  <div class="ic-progress"><div class="ic-progress-fill" style="width:75%;"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2: Dishwasher -->
+            <div class="ic">
+              <div class="ic-top">
+                <div class="ic-icon" style="background:var(--ch-wash);">
+                  <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
+                    <rect x="32" y="56" width="192" height="144" rx="8" stroke="var(--ch-bg)" stroke-width="18" fill="none" stroke-linecap="round"/>
+                    <line x1="32" y1="104" x2="224" y2="104" stroke="var(--ch-bg)" stroke-width="18" stroke-linecap="round"/>
+                    <circle cx="80" cy="80" r="10" stroke="var(--ch-bg)" stroke-width="14" fill="none"/>
+                  </svg>
+                </div>
+                <div class="ic-body">
+                  <div class="ic-head">
+                    <span class="ic-name">Dishwasher</span>
+                    <span class="sb-overdue">1 overdue</span>
+                  </div>
+                  <div class="ic-meta">Home · 3 tasks</div>
+                  <div class="ic-functional">Last done: salt refilled, 2 months ago</div>
+                  <div class="ic-progress"><div class="ic-progress-fill" style="width:40%;background:var(--apricot);"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3: Volkswagen Golf -->
+            <div class="ic">
+              <div class="ic-top">
+                <div class="ic-icon" style="background:var(--cv-wash);">
+                  <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
+                    <path d="M224,168H208V128L176,80H80L48,128V168H32a8,8,0,0,0,0,16H48v8a16,16,0,0,0,32,0v-8h96v8a16,16,0,0,0,32,0v-8h16a8,8,0,0,0,0-16Z" stroke="var(--cv-bg)" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M80,96h96l24,40H56Z" stroke="var(--cv-bg)" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="ic-body">
+                  <div class="ic-head">
+                    <span class="ic-name">Volkswagen Golf</span>
+                    <span class="sb-ontrack">On track</span>
+                  </div>
+                  <div class="ic-meta">Vehicle · 5 tasks</div>
+                  <div class="ic-functional">Next: check tyre pressure, Wed 26</div>
+                  <div class="ic-progress"><div class="ic-progress-fill" style="width:80%;"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4: Netflix -->
+            <div class="ic">
+              <div class="ic-top">
+                <div class="ic-icon" style="background:var(--cs-wash);">
+                  <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
+                    <rect x="40" y="40" width="176" height="176" rx="16" stroke="var(--cs-bg)" stroke-width="18" fill="none"/>
+                    <line x1="96" y1="88" x2="96" y2="168" stroke="var(--cs-bg)" stroke-width="18" stroke-linecap="round"/>
+                    <line x1="160" y1="88" x2="160" y2="168" stroke="var(--cs-bg)" stroke-width="18" stroke-linecap="round"/>
+                    <line x1="96" y1="128" x2="160" y2="128" stroke="var(--cs-bg)" stroke-width="14" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="ic-body">
+                  <div class="ic-head">
+                    <span class="ic-name">Netflix</span>
+                    <span class="sb-ontrack">On track</span>
+                  </div>
+                  <div class="ic-meta">Subscriptions · 2 tasks</div>
+                  <div class="ic-functional">Renews: May 12</div>
+                  <div class="ic-progress"><div class="ic-progress-fill" style="width:100%;"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 5: Olive tree -->
+            <div class="ic">
+              <div class="ic-top">
+                <div class="ic-icon" style="background:var(--cg-wash);">
+                  <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
+                    <path d="M128,24C128,24,48,80,48,128a80,80,0,0,0,160,0C208,80,128,24,128,24Z" stroke="var(--cg-bg)" stroke-width="18" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <line x1="128" y1="208" x2="128" y2="128" stroke="var(--cg-bg)" stroke-width="18" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="ic-body">
+                  <div class="ic-head">
+                    <span class="ic-name">Olive tree</span>
+                    <span class="sb-seasonal" style="color:var(--cg-bg);">Seasonal</span>
+                  </div>
+                  <div class="ic-meta">Garden · 3 tasks</div>
+                  <div class="ic-functional">Spring pruning window now open</div>
+                  <div class="ic-progress"><div class="ic-progress-fill" style="width:60%;background:var(--cg-bg);"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 6: Cat -->
+            <div class="ic">
+              <div class="ic-top">
+                <div class="ic-icon" style="background:var(--cp-wash);">
+                  <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
+                    <path d="M200,40l-24,40" stroke="var(--cp-bg)" stroke-width="18" fill="none" stroke-linecap="round"/>
+                    <path d="M56,40l24,40" stroke="var(--cp-bg)" stroke-width="18" fill="none" stroke-linecap="round"/>
+                    <path d="M80,80C48,80,32,104,32,128c0,48,40,80,96,80s96-32,96-80c0-24-16-48-48-48C160,80,128,56,80,80Z" stroke="var(--cp-bg)" stroke-width="18" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="100" cy="140" r="10" fill="var(--cp-bg)"/>
+                    <circle cx="156" cy="140" r="10" fill="var(--cp-bg)"/>
+                  </svg>
+                </div>
+                <div class="ic-body">
+                  <div class="ic-head">
+                    <span class="ic-name">Cat</span>
+                    <span class="sb-ontrack">On track</span>
+                  </div>
+                  <div class="ic-meta">Pets · 4 tasks</div>
+                  <div class="ic-functional">Next: annual vet check, Jun 3</div>
+                  <div class="ic-progress"><div class="ic-progress-fill" style="width:90%;"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 7: Robotic lawn mower, fully active on Pro -->
+            <div class="ic">
+              <div class="ic-top">
+                <div class="ic-icon" style="background:var(--cg-wash);">
+                  <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
+                    <rect x="32" y="96" width="192" height="112" rx="32" stroke="var(--cg-bg)" stroke-width="18" fill="none" stroke-linecap="round"/>
+                    <circle cx="80" cy="192" r="20" stroke="var(--cg-bg)" stroke-width="14" fill="none"/>
+                    <circle cx="176" cy="192" r="20" stroke="var(--cg-bg)" stroke-width="14" fill="none"/>
+                    <line x1="128" y1="96" x2="128" y2="48" stroke="var(--cg-bg)" stroke-width="14" stroke-linecap="round"/>
+                    <line x1="100" y1="60" x2="156" y2="60" stroke="var(--cg-bg)" stroke-width="14" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="ic-body">
+                  <div class="ic-head">
+                    <span class="ic-name">Robotic lawn mower</span>
+                    <span class="sb-ontrack">On track</span>
+                  </div>
+                  <div class="ic-meta">Garden · 3 tasks</div>
+                  <div class="ic-functional">Last done: winter storage, Nov 23</div>
+                  <div class="ic-progress"><div class="ic-progress-fill" style="width:65%;background:var(--cg-bg);"></div></div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /items-list -->
+
+          <div style="height:8px;"></div>
+
+          <div class="add-card">
+            <div class="add-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--plum)" stroke-width="2.2" stroke-linecap="round">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </div>
+            <div class="add-label">Add an item</div>
+            <div class="add-sub">or scan something</div>
+          </div>
+
+          <div style="height:24px;"></div>
+
+        </div><!-- /state-pro -->
+
+        <!-- ═══ EMPTY STATE ═══ -->
+        <!-- WHEN: user has no items yet. Brand new account or all items deleted. -->
+        <div class="tp" id="state-empty">
+
+          <!-- Screen title -->
+          <div class="screen-title" style="padding-top:10px;">
+            <h2>My stuff</h2>
+          </div>
+
+          <div class="empty-state">
+            <div class="empty-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="7" width="20" height="14" rx="2"/>
+                <path d="M16 7V5a4 4 0 0 0-8 0v2"/>
+              </svg>
+            </div>
+            <div class="empty-h">No items yet.</div>
+            <div class="empty-sub">Add what you own. I'll figure out what needs maintenance.</div>
+            <div>
+              <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--plum-fg);background:var(--plum);padding:11px 24px;border-radius:100px;cursor:pointer;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                  <line x1="12" y1="5" x2="12" y2="19"/>
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+                Add my first item
+              </span>
+            </div>
+          </div>
+
+        </div><!-- /state-empty -->
+
+      </div><!-- /tc -->
+
+      <!-- Nav bar -->
+      <div class="nz"><div class="nb">
+        <button class="nt">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          <span class="nl">Today</span>
+        </button>
+        <button class="nt">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
+            <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+          </svg>
+          <span class="nl">Plan</span>
+        </button>
+        <button class="nt on">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="14" rx="2"/>
+            <path d="M16 7V5a4 4 0 0 0-8 0v2"/>
+          </svg>
+          <span class="nl">My stuff</span>
+        </button>
+        <button class="nt">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+          <span class="nl">Profile</span>
+        </button>
+      </div>
+      <button class="fab">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--plum-fg)" stroke-width="2.2" stroke-linecap="round">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+      </button>
+      </div>
+
+    </div><!-- /ph -->
+  </div><!-- /phone-col -->
+
+  <!-- ANNOTATION SIDEBAR -->
+  <div class="annot-col">
+
+    <div class="annot-section">Layout + shell</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-rule">Rule</span> Shell pattern</div>
+      <div class="annot-body">
+        SafeArea + Column + Expanded. Nav bar (84px) fixed at bottom, never scrolls. Content zone: <code>inset: 54px 0 84px 0</code>. Free state adds Go Pro meter (36px) pinned above nav bar, reducing effective scroll area. Padding: 16px horizontal on items list. Scrollbar hidden.
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-rule">Rule</span> Nav bar</div>
+      <div class="annot-body">
+        Solid <code>var(--surface)</code> background, no glassmorphism. Active tab: plum icon + plum label, no background shape. Inactive: <code>var(--hint)</code>. Tab order: Today, Plan, My stuff, Profile. My stuff = third tab. Icon: shopping bag (Phosphor <code>Bag</code> or equivalent briefcase/bag outline). <code>border-radius: 20px</code>, subtle upward shadow.
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-rule">Rule</span> FAB</div>
+      <div class="annot-body">
+        46x46px, <code>border-radius: 14px</code>, plum bg. Plus icon 17px, rotates 45 degrees to X on open. <code>box-shadow: 0 6px 20px rgba(155,127,212,0.45)</code>. Position: <code>right: 24px; bottom: 18px</code>, z-index 45, <code>margin-bottom: 4px</code>.
+      </div>
+    </div>
+
+    <div class="annot-section">Screen title</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Title</span> "My stuff"</div>
+      <div class="annot-body">
+        Noto Serif, 24px, weight 400, <code>letter-spacing: -0.02em</code>. Note the lowercase 's' in "stuff". Sentence case everywhere. Title row is a flex row (<code>align-items: baseline; justify-content: space-between</code>). Right side: item and task count in Manrope 11px <code>var(--mid)</code> — e.g. "7 items · 24 tasks". Count updates dynamically from item and task queries. Title sits above filter chips with 10px top padding from status bar.
+      </div>
+    </div>
+
+    <div class="annot-section">Filter chips</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-rule">Rule</span> Category filter strip</div>
+      <div class="annot-body">
+        Horizontally scrollable row, no wrap. "All" always first and active by default. Category pills follow: Home, Garden, Vehicle, Subscriptions, Pets. Active state: <code>var(--ink)</code> background, <code>var(--plum-fg)</code> text, no border, weight 600 — dark ink filled pill. Inactive: transparent bg, ink text, 1px <code>rgba(49,51,44,0.12)</code> border. Chip padding: 5px 12px, 100px radius. No second line ever.
+      </div>
+    </div>
+
+    <div class="annot-section">Item card anatomy</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Card</span> Layout</div>
+      <div class="annot-body">
+        <strong>Background:</strong> <code>var(--surface-low)</code>, 12px radius, 14px 16px padding. Each card is its own block with 8px gap between cards. Never border-bottom separators, never multiple items in one container.<br><br>
+        <strong>Left:</strong> 40px round icon circle, category wash bg, category icon SVG 18px.<br><br>
+        <strong>Right body (flex 1):</strong> Header row (<code>justify-content: space-between</code>) — item name 14px 500 ink on the LEFT, status badge text on the RIGHT. Meta line (10px mid, "Category · X tasks"). Functional info line (Noto Serif italic 10px mid, "Last done / Next / Renews"). Mini progress bar (3px height).
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Card</span> Mini progress bar</div>
+      <div class="annot-body">
+        3px height, full card width, <code>border-radius: 100px</code>, <code>overflow: hidden</code>. Track: <code>var(--surface-high)</code>. Fill: <code>var(--sage)</code> for on-track items, <code>var(--apricot)</code> for items with overdue tasks, category color for seasonal items. Represents tasks completed this maintenance cycle as a percentage. No label or number.
+      </div>
+    </div>
+
+    <div class="annot-section">Status badge variants</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-state">Status</span> On track</div>
+      <div class="annot-body">
+        Text only, no background. Color: <code>var(--sage)</code> (#3B6D11). Font: 10px 500. Shown when all tasks for this item are on schedule with no overdue tasks. Progress bar fill: sage.
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-state">Status</span> 1 overdue (or N overdue)</div>
+      <div class="annot-body">
+        Text only, no background. Color: <code>var(--apricot)</code>. Font: 10px 600. Shown when one or more tasks for this item are past due. Progress bar fill: apricot instead of sage. Warm warning, not red anxiety.
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-state">Status</span> Seasonal</div>
+      <div class="annot-body">
+        Text only, no background. Color: category color (e.g. <code>var(--cg-bg)</code> for garden). Font: 10px 500. Shown when item has no tasks due right now because it's in an off-season window (e.g. garden in winter). Progress bar fill: category color. Tapping goes to item detail where seasonal schedule is explained.
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-state">Status</span> Paused (free plan, Pro item)</div>
+      <div class="annot-body">
+        Item card opacity: 0.60. "Pro" pill in plum (see spec below). Status text: "Paused" in hint color. No reminders sent, no push for this item. Progress bar at 0%. Tapping the card opens an upgrade bottom sheet explaining the limit and offering to set one of the 10 active items as paused instead. Item is never hidden or deleted.
+      </div>
+    </div>
+
+    <div class="annot-card decision">
+      <div class="annot-head"><span class="badge-decision">Spec</span> Pro pill</div>
+      <div class="annot-body">
+        8px font, weight 700, uppercase, letter-spacing 0.04em. Padding: 2px 6px, 4px radius. Background: <code>var(--plum-wash)</code>. Text: <code>var(--plum)</code>. Border: 1px solid <code>rgba(155,127,212,0.25)</code>. Sits inline in the item name row, right of the name. Flutter: <code>Badge</code> widget or <code>Container</code> with decoration.
+      </div>
+    </div>
+
+    <div class="annot-section">Add item card</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Card</span> Dashed border</div>
+      <div class="annot-body">
+        Full-width card, margin 0 16px. Border: 1.5px dashed <code>var(--plum)</code>, 12px radius. No background fill (transparent). Centered content: 32px plum-wash circle with plus icon (14px plum) + "Add an item" (14px 500 plum) + "or scan something" (10px hint). Padding 20px vertical. Tap: opens FAB action sheet or adds item flow. Active state: plum-wash background tint.
+      </div>
+    </div>
+
+    <div class="annot-section">Go Pro meter</div>
+
+    <div class="annot-card decision">
+      <div class="annot-head"><span class="badge-decision">Spec</span> Free state meter</div>
+      <div class="annot-body">
+        <strong>Position:</strong> Fixed strip between scroll content and nav bar. <code>position: absolute; bottom: 84px</code> (above nav). Full width. Surface-low background, surface-high top border.<br><br>
+        <strong>Content:</strong> Left: "7 of 10 free" (11px 500 ink). Center: 10-dot meter (6px circles, 3px gap) — plum filled dots for active items, surface-high empty dots for remaining slots. Right: "Go Pro" link (11px 500 plum).<br><br>
+        <strong>Visibility:</strong> Free plan only. Completely hidden on Pro state. No animation on hide/show.<br><br>
+        <strong>Flutter:</strong> <code>Column</code> with fixed bottom widget outside <code>Expanded</code> scroll area. Not inside <code>SafeArea</code>. Update dot count from <code>activeItemCount</code> provider.
+      </div>
+    </div>
+
+    <div class="annot-section">Functional info line</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Copy</span> Last done / Next / Renews</div>
+      <div class="annot-body">
+        Noto Serif italic, 10px, <code>var(--mid)</code>. One line only. Shows actionable info derived from task history and upcoming schedule. Three variants:<br><br>
+        <strong>Last done:</strong> "Last done: [task name], [relative time]" — for items where the most recent signal is a completed task. Source: <code>lastCompletedTask</code> from Supabase.<br><br>
+        <strong>Next:</strong> "Next: [task name], [day date]" — for items with an upcoming task soon. Source: <code>nextTask.dueDate</code>.<br><br>
+        <strong>Renews:</strong> "Renews: [Month DD]" — for subscription items. Source: <code>subscriptionRenewalDate</code>.<br><br>
+        <strong>Seasonal:</strong> "[Season] [action] window now open" — for seasonal items. Source: seasonal schedule engine.<br><br>
+        Per item: Boiler "Last done: annual service, 6 months ago", Dishwasher "Last done: salt refilled, 2 months ago", Volkswagen Golf "Next: check tyre pressure, Wed 26", Netflix "Renews: May 12", Olive tree "Spring pruning window now open", Cat "Next: annual vet check, Jun 3", Robotic lawn mower "Last done: winter storage, Nov 23".
+      </div>
+    </div>
+
+    <div class="annot-section">States</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-state">State 1</span> Free (default)</div>
+      <div class="annot-body">
+        <strong>When:</strong> User has items and is on the free plan with 7 active items. 1 paused item (item 11+) shown muted. Go Pro meter visible above nav bar. Items 1-7 are active, item 7 (paused Pro item) is muted at 0.60 opacity with Pro pill and no reminders.
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-state">State 2</span> Pro</div>
+      <div class="annot-body">
+        <strong>When:</strong> User is on Pro plan. No item count limit. All items fully active, no paused state, no Pro pills. Go Pro meter completely hidden. Otherwise identical layout and item card anatomy.
+      </div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-state">State 3</span> Empty</div>
+      <div class="annot-body">
+        <strong>When:</strong> No items added yet (new user or all items deleted). No filter chips shown. Centered content: shopping bag icon (64px surface-low circle), Noto Serif "No items yet." (22px), Manrope body copy (13px mid), plum pill CTA "Add my first item". Copy consistent with nudgii voice: direct, not salesy.
+      </div>
+    </div>
+
+    <div class="annot-section">Item tap behavior</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-note">Tap</span> Goes to S-17 item detail</div>
+      <div class="annot-body">
+        Tapping any active item card navigates to S-17 item detail. Transition: slide from right (300ms ease-in-out). Tapping a paused item on free plan opens upgrade bottom sheet instead (not item detail). Add item card opens FAB action sheet or scanner flow.
+      </div>
+    </div>
+
+    <div class="annot-section">Dark mode</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-rule">Rule</span> Dark tokens</div>
+      <div class="annot-body">
+        Surface: <code>#1C1B18</code> (warm dark). Plum lightens to <code>#B8A0E8</code>, apricot to <code>#F0B890</code>. Category washes at 15% opacity (was 14% light). Text primary: <code>#F0EDE6</code>. Mid: <code>#A8A29A</code>. Nav bar: surface-low (<code>#24231F</code>). Surface-high: <code>#2E2D28</code>. Item cards: surface-low background. No blue or cool-green tints. Toggle with <code>[data-theme="dark"]</code>.
+      </div>
+    </div>
+
+    <div class="annot-section">Flutter notes</div>
+
+    <div class="annot-card">
+      <div class="annot-head"><span class="badge-rule">Flutter</span> Implementation</div>
+      <div class="annot-body">
+        <strong>List:</strong> <code>SliverList</code> inside <code>CustomScrollView</code> for performance with many items. Each item card: <code>GestureDetector</code> wrapping <code>Container</code> with category wash background. No <code>Card</code> widget (adds unwanted elevation).<br><br>
+        <strong>Progress bar:</strong> <code>ClipRRect + LinearProgressIndicator</code>, height 3px, <code>borderRadius: BorderRadius.circular(100)</code>. Color from task completion ratio.<br><br>
+        <strong>Go Pro meter:</strong> Fixed <code>Column</code> child below <code>Expanded</code> scroll area, outside <code>SafeArea</code>. Visibility: <code>Consumer</code> watching plan status from RevenueCat provider. Dot count: <code>activeItemCount</code> from Supabase items query.<br><br>
+        <strong>Filter chips:</strong> <code>SingleChildScrollView(scrollDirection: Axis.horizontal)</code> with <code>Row</code> of <code>FilterChip</code>. State: local <code>StatefulWidget</code>, notify parent for filter query.<br><br>
+        <strong>Paused item:</strong> <code>Opacity(opacity: 0.60)</code> wrapping item card. Tap opens <code>showModalBottomSheet</code> with upgrade content instead of navigating to item detail.
+      </div>
+    </div>
+
+  </div><!-- /annot-col -->
+
+</div><!-- /content-row -->
+
+<div class="page-divider"></div>
+
+<!-- CHANGELOG -->
+<div class="changelog">
+  <div class="cl-title">Changelog</div>
+
+  <div class="cl-entry">
+    <div class="cl-ver">v1.1 · 2026-04-02 · BREAKING</div>
+    <div class="cl-body">
+      <strong>Aligned with Precision Warmth prototype.</strong> Four breaking changes from v1.0:<br><br>
+      <strong>Item and task count in title:</strong> "7 items · 24 tasks" added as a small right-aligned secondary text (11px, <code>var(--mid)</code>) next to the "My stuff" serif headline. Screen title row is now a flex row with space-between.<br><br>
+      <strong>Status badge moved to right side of card:</strong> Previously inline next to item name (e.g. "Boiler On track"). Now right-aligned in the header row using <code>justify-content: space-between</code> on <code>.ic-head</code>. Item name is left, status badge is right. The badge was never a background pill, it remains text-only — only its layout position changed.<br><br>
+      <strong>Personality line replaced with functional info:</strong> The Noto Serif italic "personality" line (e.g. "Reliable since 2021") is replaced with a functional info line (class <code>.ic-functional</code>, same styling: Noto Serif italic, 10px, <code>var(--mid)</code>). Content is now actionable: "Last done: [task], [time ago]", "Next: [task], [date]", or "Renews: [date]" depending on item type and status. Personality lines archived — content comes from task history and schedule data, not a static string.<br><br>
+      <strong>Filter chip active state changed:</strong> Active "All" chip changed from plum outline (border + text + wash bg) to dark ink filled pill (background <code>var(--ink)</code>, text <code>var(--plum-fg)</code>, no border). Inactive chips: transparent bg, ink text, 1px ink-12 border. Matches the prototype's stronger visual anchor for the active filter.
+    </div>
+    <div class="cl-flutter">
+      <strong>Flutter notes:</strong><br>
+      Title row: <code>Row(mainAxisAlignment: MainAxisAlignment.spaceBetween)</code> with serif heading left and Manrope 11px mid text right. Count derived from item query result count + summed task count.<br>
+      Status badge position: item card header uses <code>Row(mainAxisAlignment: MainAxisAlignment.spaceBetween)</code>. Badge text widget stays the same (no background Container), only layout changes.<br>
+      Functional info line: source from <code>lastCompletedTask?.completedAt</code> (for "Last done") or <code>nextTask?.dueDate</code> (for "Next") or <code>subscriptionRenewalDate</code> (for "Renews"). Format relative dates with <code>timeago</code> package for completed tasks, absolute day names for upcoming tasks.<br>
+      Filter chip active state: use <code>FilterChip</code> with <code>selectedColor: colorInk</code>, <code>labelStyle: TextStyle(color: colorCtaFg)</code>, <code>side: BorderSide.none</code> when selected. Inactive: <code>backgroundColor: Colors.transparent</code>, <code>side: BorderSide(color: colorInk.withOpacity(0.12))</code>, <code>labelStyle: TextStyle(color: colorInk)</code>.
+    </div>
+  </div>
+
+  <div class="cl-entry">
+    <div class="cl-ver">v1.0 · 2026-04-02 · ADDITIVE</div>
+    <div class="cl-body">
+      <strong>Initial hi-fi for My stuff tab.</strong> New file. Three states: Free (default), Pro, Empty.<br><br>
+      <strong>Item cards:</strong> Full-width surface-low cards with 8px gap. Each card: 40px category icon circle + item name with status badge + "Category · X tasks" meta + Noto Serif italic personality line + 3px mini progress bar. No border-bottom separators. No grouped containers.<br><br>
+      <strong>Status badges:</strong> Text-only, no background. On track: sage. Overdue: apricot. Seasonal: category color. Paused: hint text + Pro pill. Progress bar fill matches status color.<br><br>
+      <strong>Go Pro meter:</strong> Fixed strip above nav bar (free state only). "7 of 10 free" label + 10-dot meter (7 plum filled, 3 empty) + "Go Pro" link. Completely hidden on Pro state.<br><br>
+      <strong>Add item card:</strong> Dashed plum border, centered plus + "Add an item" + "or scan something" sub. Transparent background, 12px radius. Sits after all items in the list.<br><br>
+      <strong>Paused item (free):</strong> Item 7 (robotic lawn mower) shown at 0.60 opacity with Pro pill, no reminders, progress at 0%. Tapping opens upgrade sheet.<br><br>
+      <strong>Empty state:</strong> Centered icon + Noto Serif "No items yet." + body copy + plum pill CTA. No filter chips shown when empty.<br><br>
+      <strong>Dark mode:</strong> Full token set applied via <code>[data-theme="dark"]</code>. Warm dark surfaces, brightened plum and apricot. No blue tints.
+    </div>
+    <div class="cl-flutter">
+      <strong>Flutter notes:</strong><br>
+      Mockup base: 390x844 (iPhone 15). SafeArea: yes on content, not on Go Pro meter strip. Scroll: <code>CustomScrollView + SliverList</code> for item list. Bottom zone: nav bar 84px fixed, Go Pro meter 36px fixed above nav (free only). Item cards: <code>GestureDetector + Container</code>, no Card widget. Progress bar: <code>ClipRRect + LinearProgressIndicator</code> at 3px height. Paused item: <code>Opacity(0.60)</code> wrapper. Filter chips: <code>SingleChildScrollView(horizontal)</code>. Plan status: <code>RevenueCat.purchaserInfo</code> to derive free/pro. Go Pro meter visibility: conditional on plan status. Add item card: dashed border via <code>ShapeDecoration + DashedBorder</code> or custom painter.
+    </div>
+  </div>
+
+</div>
+
+<script>
+function setTheme(t) {
+  document.getElementById('phone').setAttribute('data-theme', t);
+  document.getElementById('ctl').classList.toggle('on', t === 'light');
+  document.getElementById('ctd').classList.toggle('on', t === 'dark');
+}
+function setState(s) {
+  ['free','pro','empty'].forEach(id => {
+    document.getElementById('state-' + id).classList.remove('active');
+    document.getElementById('cs-' + id).classList.remove('on');
+  });
+  document.getElementById('state-' + s).classList.add('active');
+  document.getElementById('cs-' + s).classList.add('on');
+}
+</script>
+</body>
+</html>

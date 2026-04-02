@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · Free / Pro / Ultimate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --surface: #FBF9F4;
+  --surface-low: #F5F4ED;
+  --surface-high: #E8E9E0;
+  --ink: #31332C;
+  --mid: #7A756D;
+  --hint: #A09A90;
+  --plum: #9B7FD4;
+  --plum-fg: #FAF8FF;
+  --plum-wash: rgba(155,127,212,0.10);
+  --apricot: #E8A87C;
+  --apricot-wash: rgba(232,168,124,0.12);
+  --sage: #3B6D11; --sage-lt: #EAF3DE;
+  --amber: #854F0B; --amber-lt: #FAEEDA;
+  --red: #A32D2D; --red-lt: #FCEBEB;
+  --r: 12px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+body { font-family: 'Manrope', sans-serif; background: #E8E6E0; color: var(--ink); }
+
+/* Hub nav */
+.hub-nav {
+  background: #F5F0E8; border-bottom: 1px solid rgba(26,22,18,0.12);
+  padding: 0 32px; display: flex; align-items: center; gap: 16px;
+  height: 48px; position: sticky; top: 0; z-index: 200;
+}
+.hub-nav a { font-size: 13px; color: #8A8070; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+.hub-nav a:hover { color: #2C2824; }
+.hub-nav .sep { color: rgba(26,22,18,0.20); }
+.hub-nav .title { font-size: 13px; font-weight: 500; color: var(--ink); }
+.hub-nav .status { margin-left: auto; font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 100px; background: rgba(133,79,11,0.10); color: #854F0B; border: 1px solid rgba(133,79,11,0.20); }
+
+.page { max-width: 1200px; margin: 0 auto; padding: 48px 40px 80px; }
+.page-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: #8A8070; margin-bottom: 8px; }
+.page-h1 { font-family: 'Noto Serif', serif; font-size: 36px; font-weight: 400; color: #2C2824; margin-bottom: 10px; letter-spacing: -0.02em; }
+.page-sub { font-size: 15px; color: var(--mid); line-height: 1.6; max-width: 640px; margin-bottom: 40px; }
+
+.section-label { font-size: 10px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: #8A8070; margin-bottom: 24px; margin-top: 56px; padding-bottom: 8px; border-bottom: 1px solid rgba(26,22,18,0.08); }
+.divider { height: 1px; background: rgba(26,22,18,0.08); margin: 56px 0; }
+
+/* ─── SIMPLE VIEW: tier cards ─── */
+.tier-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 12px; }
+.tier-card { background: white; border-radius: 16px; padding: 28px 24px 24px; border: 1px solid rgba(26,22,18,0.06); display: flex; flex-direction: column; }
+.tier-card.pro { border-color: rgba(155,127,212,0.30); box-shadow: 0 0 0 3px rgba(155,127,212,0.08); }
+.tier-card.ultimate { border-color: rgba(26,22,18,0.12); background: var(--surface); }
+
+.tier-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; margin-bottom: 16px; align-self: flex-start; }
+.badge-free { background: var(--sage-lt); color: var(--sage); }
+.badge-pro { background: var(--plum-wash); color: var(--plum); }
+.badge-ultimate { background: rgba(49,51,44,0.06); color: var(--ink); }
+
+.tier-price { font-family: 'Noto Serif', serif; font-size: 28px; color: var(--ink); letter-spacing: -0.02em; margin-bottom: 4px; line-height: 1; }
+.tier-price-sub { font-size: 11px; color: var(--hint); margin-bottom: 20px; }
+.tier-tagline { font-family: 'Noto Serif', serif; font-style: italic; font-size: 16px; color: var(--mid); margin-bottom: 20px; line-height: 1.4; }
+
+.tier-benefits { list-style: none; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.tier-benefits li { font-size: 13px; color: #4A4740; line-height: 1.5; display: flex; gap: 10px; align-items: flex-start; }
+.tier-benefits li::before { content: ''; width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; }
+.tier-benefits.free li::before { background: var(--sage-lt); }
+.tier-benefits.pro li::before { background: var(--plum-wash); }
+.tier-benefits.ultimate li::before { background: rgba(49,51,44,0.06); }
+.check-icon { width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; }
+.ci-free { background: var(--sage-lt); }
+.ci-pro { background: var(--plum-wash); }
+.ci-ult { background: rgba(49,51,44,0.06); }
+
+.tier-cta { margin-top: 24px; padding: 10px 0; text-align: center; border-radius: 100px; font-size: 12px; font-weight: 600; cursor: pointer; }
+.cta-free { background: var(--surface-low); color: var(--mid); }
+.cta-pro { background: var(--plum); color: var(--plum-fg); }
+.cta-ultimate { background: var(--ink); color: white; }
+
+.tier-note { font-size: 10px; color: var(--hint); text-align: center; margin-top: 8px; }
+
+/* ─── DETAILED MATRIX ─── */
+.matrix-wrap { background: white; border-radius: 16px; overflow: hidden; border: 1px solid rgba(26,22,18,0.06); }
+.matrix-head { display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr; }
+.mh { padding: 14px 16px; font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; background: var(--surface-low); border-bottom: 1px solid rgba(26,22,18,0.06); }
+.mh.free { color: var(--sage); background: rgba(59,109,17,0.04); }
+.mh.pro { color: var(--plum); background: rgba(155,127,212,0.06); }
+.mh.ult { color: var(--ink); background: rgba(49,51,44,0.04); }
+
+.matrix-group { border-bottom: 2px solid rgba(26,22,18,0.06); }
+.matrix-group:last-child { border-bottom: none; }
+.matrix-group-label { padding: 10px 16px; font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--hint); background: var(--surface-low); }
+
+.matrix-row { display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr; border-bottom: 1px solid rgba(26,22,18,0.04); }
+.matrix-row:last-child { border-bottom: none; }
+.matrix-row:hover { background: rgba(26,22,18,0.01); }
+
+.mc { padding: 13px 16px; font-size: 12px; color: #6B6358; display: flex; align-items: flex-start; flex-direction: column; gap: 2px; }
+.mc.feat { font-weight: 500; color: var(--ink); font-size: 13px; }
+.mc.feat span { font-size: 10px; font-weight: 400; color: var(--mid); }
+.mc.center { align-items: center; justify-content: center; text-align: center; font-size: 11px; }
+
+.yes { color: var(--sage); font-weight: 600; font-size: 13px; }
+.yes-pro { color: var(--plum); font-weight: 600; font-size: 13px; }
+.no { color: var(--hint); font-size: 12px; }
+.v2 { font-size: 9px; font-weight: 600; background: rgba(49,51,44,0.06); color: var(--ink); padding: 2px 6px; border-radius: 4px; margin-top: 2px; }
+.pro-badge { font-size: 9px; font-weight: 600; background: var(--plum-wash); color: var(--plum); padding: 2px 6px; border-radius: 4px; margin-top: 2px; display: inline-block; }
+
+/* Comparison note */
+.comp-note { background: var(--apricot-wash); border-radius: 12px; padding: 16px 20px; margin-bottom: 24px; font-size: 12px; color: #6B6358; line-height: 1.6; }
+.comp-note strong { color: var(--ink); }
+
+@media (max-width: 900px) {
+  .tier-cards { grid-template-columns: 1fr; }
+  .matrix-head, .matrix-row { grid-template-columns: 2fr 1fr 1fr; }
+  .matrix-head .mh:last-child, .matrix-row .mc:last-child { display: none; }
+}
+</style>
+</head>
+<body>
+
+<nav class="hub-nav">
+  <a href="../index.html">
+    <svg width="16" height="18" viewBox="0 0 626 700" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:2px;"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0C56.05,700.13,0,642.43,0,571.26V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#C4A8E8" cx="535.96" cy="119.29" r="90"/></svg>
+    Design hub
+  </a>
+  <span class="sep">/</span>
+  <span class="title">Free / Pro / Ultimate</span>
+  <span class="status">In progress</span>
+</nav>
+
+<div class="page">
+
+  <div class="page-eyebrow">Product · Tiers</div>
+  <h1 class="page-h1">Free / Pro / Ultimate</h1>
+  <p class="page-sub">Two views of the same information: what users see when choosing a plan, and what the full feature matrix looks like internally. Ultimate is a future tier, not yet priced or designed — included here so decisions made now stay compatible.</p>
+
+  <!-- ═══ SIMPLE VIEW ═══ -->
+  <div class="section-label" style="margin-top:0;">What users see — simple benefits</div>
+
+  <div class="tier-cards">
+
+    <!-- FREE -->
+    <div class="tier-card">
+      <span class="tier-badge badge-free">Free</span>
+      <div class="tier-price">€0</div>
+      <div class="tier-price-sub">Always free. No credit card.</div>
+      <div class="tier-tagline">"The smart reminder list for your home."</div>
+      <ul class="tier-benefits free">
+        <li>
+          <div class="check-icon ci-free"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--sage)" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+          Up to <strong>10 items</strong> — your car, boiler, garden, subscriptions
+        </li>
+        <li>
+          <div class="check-icon ci-free"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--sage)" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+          Unlimited tasks per item — nudgii fills in the schedule
+        </li>
+        <li>
+          <div class="check-icon ci-free"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--sage)" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+          <strong>3 AI scans per month</strong> — photograph an item, nudgii identifies it
+        </li>
+        <li>
+          <div class="check-icon ci-free"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--sage)" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+          Weekly digest — a summary of what's coming up
+        </li>
+        <li>
+          <div class="check-icon ci-free"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--sage)" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+          For You cards — seasonal tips + item suggestions
+        </li>
+        <li>
+          <div class="check-icon ci-free"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--sage)" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+          <strong>+2 free items</strong> for every friend you invite (up to 20)
+        </li>
+      </ul>
+      <div class="tier-cta cta-free">Current plan</div>
+    </div>
+
+    <!-- PRO -->
+    <div class="tier-card pro">
+      <span class="tier-badge badge-pro">Pro</span>
+      <div class="tier-price">€4.99<span style="font-family:'Manrope',sans-serif;font-size:14px;font-weight:400;color:var(--mid);">/mo</span></div>
+      <div class="tier-price-sub">or €44.99/year · save 25%</div>
+      <div class="tier-tagline">"Everything Free, plus the smart layer."</div>
+      <ul class="tier-benefits pro">
+        <li>
+          <div class="check-icon ci-pro"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--plum)" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+          <strong>Unlimited items</strong> — your whole house, no limits
+        </li>
+        <li>
+          <div class="check-icon ci-pro"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--plum)" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+          <strong>Unlimited AI scans</strong> — photograph anything, anytime
+        </li>
+        <li>
+          <div class="check-icon ci-pro"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--plum)" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+          Smart nudges — seasonal, weather-aware, location-specific
+        </li>
+        <li>
+          <div class="check-icon ci-pro"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--plum)" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+          <strong>Household sharing</strong> — up to 3 people, one shared schedule
+        </li>
+        <li>
+          <div class="check-icon ci-pro"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--plum)" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+          Full history + export — every task, every completion, yours to keep
+        </li>
+        <li>
+          <div class="check-icon ci-pro"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--plum)" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+          Rich weekly digest — personalised, item-specific summaries
+        </li>
+        <li>
+          <div class="check-icon ci-pro"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--plum)" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+          Custom categories + priority support
+        </li>
+      </ul>
+      <div class="tier-cta cta-pro">Upgrade to Pro</div>
+      <div class="tier-note">Cancel anytime. No hidden fees.</div>
+    </div>
+
+    <!-- ULTIMATE -->
+    <div class="tier-card ultimate">
+      <span class="tier-badge badge-ultimate">Ultimate <span style="font-size:8px;opacity:0.6;margin-left:2px;">v2</span></span>
+      <div class="tier-price" style="color:var(--hint);">TBD</div>
+      <div class="tier-price-sub">Post-launch · not yet priced</div>
+      <div class="tier-tagline" style="color:var(--hint);">"nudgii for the whole household. Predictive, not reactive."</div>
+      <ul class="tier-benefits ultimate">
+        <li>
+          <div class="check-icon ci-ult"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+          Everything in Pro
+        </li>
+        <li>
+          <div class="check-icon ci-ult"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+          <strong>Up to 6 household members</strong> — full shared visibility
+        </li>
+        <li>
+          <div class="check-icon ci-ult"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+          Predictive maintenance calendar — AI-generated year plan
+        </li>
+        <li>
+          <div class="check-icon ci-ult"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+          Household-level insights — patterns across all members
+        </li>
+        <li>
+          <div class="check-icon ci-ult"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+          Priority onboarding + dedicated support
+        </li>
+      </ul>
+      <div class="tier-cta cta-ultimate" style="opacity:0.4;cursor:default;">Coming in v2</div>
+    </div>
+
+  </div>
+
+  <div class="comp-note">
+    <strong>Free tier is genuinely useful.</strong> nudgii works well with 10 items — most households have fewer. Pro is for people who want the full picture: unlimited items, AI that knows their specific boiler and car, and a shared schedule with their partner. The free tier is not a demo — it's the product.
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══ DETAILED MATRIX ═══ -->
+  <div class="section-label">Internal feature matrix — full detail</div>
+
+  <div class="matrix-wrap">
+    <div class="matrix-head">
+      <div class="mh">Feature</div>
+      <div class="mh free">Free</div>
+      <div class="mh pro">Pro</div>
+      <div class="mh ult">Ultimate (v2)</div>
+    </div>
+
+    <!-- ITEMS + TASKS -->
+    <div class="matrix-group">
+      <div class="matrix-group-label">Items + tasks</div>
+      <div class="matrix-row">
+        <div class="mc feat">Item limit<span>How many things you can track</span></div>
+        <div class="mc center">10 items</div>
+        <div class="mc center" style="color:var(--plum);font-weight:600;">Unlimited</div>
+        <div class="mc center" style="color:var(--ink);font-weight:600;">Unlimited</div>
+      </div>
+      <div class="matrix-row">
+        <div class="mc feat">Tasks per item<span>Reminders and maintenance steps</span></div>
+        <div class="mc center"><span class="yes">Unlimited</span></div>
+        <div class="mc center"><span class="yes-pro">Unlimited</span></div>
+        <div class="mc center"><span class="yes">Unlimited</span></div>
+      </div>
+      <div class="matrix-row">
+        <div class="mc feat">Paused items<span>Items 11+ on free tier — visible but no reminders</span></div>
+        <div class="mc center" style="font-size:11px;color:var(--mid);">Items 11+ paused, no push</div>
+        <div class="mc center"><span class="no">N/A</span></div>
+        <div class="mc center"><span class="no">N/A</span></div>
+      </div>
+      <div class="matrix-row">
+        <div class="mc feat">Custom categories<span>Beyond Home, Garden, Vehicle, Subscriptions, Health, Pets</span></div>
+        <div class="mc center"><span class="no">No</span></div>
+        <div class="mc center"><span class="yes-pro">Yes</span></div>
+        <div class="mc center"><span class="yes">Yes</span></div>
+      </div>
+    </div>
+
+    <!-- AI + SCANNING -->
+    <div class="matrix-group">
+      <div class="matrix-group-label">AI + scanning</div>
+      <div class="matrix-row">
+        <div class="mc feat">AI scans per month<span>Photograph item, nudgii identifies + schedules</span></div>
+        <div class="mc center">3 / month</div>
+        <div class="mc center"><span class="yes-pro">Unlimited</span></div>
+        <div class="mc center"><span class="yes">Unlimited</span></div>
+      </div>
+      <div class="matrix-row">
+        <div class="mc feat">Voice sessions per month<span>Speak to add items or tasks</span></div>
+        <div class="mc center">3 / month</div>
+        <div class="mc center"><span class="yes-pro">Unlimited</span></div>
+        <div class="mc center"><span class="yes">Unlimited</span></div>
+      </div>
+      <div class="matrix-row">
+        <div class="mc feat">AI task suggestions<span>Claude suggests what maintenance your item needs</span></div>
+        <div class="mc center" style="font-size:11px;">Generic, category-level</div>
+        <div class="mc center"><span class="yes-pro" style="font-size:11px;">Item-specific (brand + model)</span></div>
+        <div class="mc center"><span class="yes" style="font-size:11px;">Item-specific + household patterns</span></div>
+      </div>
+      <div class="matrix-row">
+        <div class="mc feat">Smart nudges<span>Seasonal, weather-aware, location-specific</span></div>
+        <div class="mc center"><span class="no">No</span></div>
+        <div class="mc center"><span class="yes-pro">Yes</span><div class="pro-badge">Pro</div></div>
+        <div class="mc center"><span class="yes">Yes</span></div>
+      </div>
+      <div class="matrix-row">
+        <div class="mc feat">Weather-aware reminders<span>Adjust tasks based on forecast (e.g. don't prune in rain)</span></div>
+        <div class="mc center"><span class="no">No</span></div>
+        <div class="mc center"><span class="yes-pro">Yes</span><div class="pro-badge">Pro</div></div>
+        <div class="mc center"><span class="yes">Yes</span></div>
+      </div>
+      <div class="matrix-row">
+        <div class="mc feat">Plant identification<span>Plant.id API — identify plants by photo</span></div>
+        <div class="mc center">3 / month</div>
+        <div class="mc center"><span class="yes-pro">Unlimited</span></div>
+        <div class="mc center"><span class="yes">Unlimited</span></div>
+      </div>
+    </div>
+
+    <!-- FOR YOU CARDS -->
+    <div class="matrix-group">
+      <div class="matrix-group-label">For You cards</div>
+      <div class="matrix-row">
+        <div class="mc feat">Item suggestion cards<span>Suggest items user likely owns but hasn't added</span></div>
+        <div class="mc center" style="font-size:11px;">Generic (owns house → gutters)</div>
+        <div class="mc center" style="font-size:11px;color:var(--plum);">Specific (your Vaillant boiler → filter)</div>
+        <div class="mc center" style="font-size:11px;">Household-level gaps</div>
+      </div>
+      <div class="matrix-row">
+        <div class="mc feat">Seasonal tips<span>Time-sensitive, region-aware advice</span></div>
+        <div class="mc center" style="font-size:11px;">Generic (Belgium, March)</div>
+        <div class="mc center" style="font-size:11px;color:var(--plum);">Specific to owned items</div>
+        <div class="mc center"><span class="yes">Yes</span></div>
+      </div>
+      <div class="matrix-row">
+        <div class="mc feat">AI recommendation cards<span>Pattern-driven insights from completion history</span></div>
+        <div class="mc center"><span class="no">No</span></div>
+        <div class="mc center"><span class="yes-pro">Yes</span><div class="pro-badge">Pro</div></div>
+        <div class="mc center"><span class="yes">Yes</span></div>
+      </div>
+      <div class="matrix-row">
+        <div class="mc feat">Savings summary<span>Estimated repair costs avoided</span></div>
+        <div class="mc center" style="font-size:11px;">Total only</div>
+        <div class="mc center" style="font-size:11px;color:var(--plum);">By category + year-over-year</div>
+        <div class="mc center" style="font-size:11px;">Household total</div>
+      </div>
+    </div>
+
+    <!-- NOTIFICATIONS + DIGEST -->
+    <div class="matrix-group">
+      <div class="matrix-group-label">Notifications + digest</div>
+      <div class="matrix-row">
+        <div class="mc feat">Push notifications<span>Reminders at the right time</span></div>
+        <div class="mc center"><span class="yes">Yes</span></div>
+        <div class="mc center"><span class="yes-pro">Yes</span></div>
+        <div class="mc center"><span class="yes">Yes</span></div>
+      </div>
+      <div class="matrix-row">
+        <div class="mc feat">Weekly digest email<span>Summary of upcoming and overdue tasks</span></div>
+        <div class="mc center" style="font-size:11px;">Basic summary</div>
+        <div class="mc center" style="font-size:11px;color:var(--plum);">Rich, personalised, item-specific</div>
+        <div class="mc center" style="font-size:11px;">Household digest</div>
+      </div>
+    </div>
+
+    <!-- HISTORY + DATA -->
+    <div class="matrix-group">
+      <div class="matrix-group-label">History + data</div>
+      <div class="matrix-row">
+        <div class="mc feat">Completion history<span>How far back you can see completed tasks</span></div>
+        <div class="mc center" style="font-size:11px;">Last 3 completions</div>
+        <div class="mc center" style="font-size:11px;color:var(--plum);">Full history, unlimited</div>
+        <div class="mc center" style="font-size:11px;">Full history + household</div>
+      </div>
+      <div class="matrix-row">
+        <div class="mc feat">Export data<span>Download your full task history</span></div>
+        <div class="mc center"><span class="no">No</span></div>
+        <div class="mc center"><span class="yes-pro">Yes</span></div>
+        <div class="mc center"><span class="yes">Yes</span></div>
+      </div>
+    </div>
+
+    <!-- SHARING + HOUSEHOLD -->
+    <div class="matrix-group">
+      <div class="matrix-group-label">Sharing + household</div>
+      <div class="matrix-row">
+        <div class="mc feat">Household sharing<span>Shared schedule, multiple users</span></div>
+        <div class="mc center"><span class="no">No</span></div>
+        <div class="mc center" style="font-size:11px;color:var(--plum);">Up to 3 members</div>
+        <div class="mc center" style="font-size:11px;">Up to 6 members</div>
+      </div>
+      <div class="matrix-row">
+        <div class="mc feat">Referral bonus<span>Extra items for inviting friends</span></div>
+        <div class="mc center" style="font-size:11px;">+2 items per invite<br>(max 20 free)</div>
+        <div class="mc center"><span class="no">N/A (unlimited)</span></div>
+        <div class="mc center"><span class="no">N/A</span></div>
+      </div>
+      <div class="matrix-row">
+        <div class="mc feat">Household insights<span>Patterns + stats across all household members</span></div>
+        <div class="mc center"><span class="no">No</span></div>
+        <div class="mc center"><span class="no">No</span></div>
+        <div class="mc center"><span class="yes">Yes</span><div class="v2">v2</div></div>
+      </div>
+    </div>
+
+    <!-- FUTURE: ULTIMATE ONLY -->
+    <div class="matrix-group">
+      <div class="matrix-group-label">Future: Ultimate only</div>
+      <div class="matrix-row">
+        <div class="mc feat">Predictive maintenance calendar<span>AI-generated full-year plan based on items + history</span></div>
+        <div class="mc center"><span class="no">No</span></div>
+        <div class="mc center"><span class="no">No</span></div>
+        <div class="mc center"><span class="yes">Yes</span><div class="v2">v2</div></div>
+      </div>
+      <div class="matrix-row">
+        <div class="mc feat">Cost forecasting<span>Predict upcoming maintenance costs for the year</span></div>
+        <div class="mc center"><span class="no">No</span></div>
+        <div class="mc center"><span class="no">No</span></div>
+        <div class="mc center"><span class="yes">Yes</span><div class="v2">v2</div></div>
+      </div>
+    </div>
+
+    <!-- SUPPORT -->
+    <div class="matrix-group">
+      <div class="matrix-group-label">Support</div>
+      <div class="matrix-row">
+        <div class="mc feat">Support channel</div>
+        <div class="mc center" style="font-size:11px;">Community + email</div>
+        <div class="mc center" style="font-size:11px;color:var(--plum);">Priority email support</div>
+        <div class="mc center" style="font-size:11px;">Priority + onboarding call</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:16px;font-size:11px;color:var(--hint);line-height:1.6;">
+    Pricing and Ultimate tier subject to change. Free tier is intentionally useful — never crippled. All user data is retained regardless of tier. nudgii never auto-deletes items or blocks access to data.
+  </div>
+
+</div>
+</body>
+</html>
