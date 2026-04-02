@@ -460,8 +460,8 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 
           <!-- THIS WEEK: rest of the week -->
           <div style="height:16px;"></div>
-          <div class="sec"><div style="display:flex;align-items:center;gap:6px;"><div class="st">this week</div><div style="font-size:10px;color:var(--mid);font-weight:400;">· rest of the week · 1 task</div></div></div>
-          <div class="nc">
+          <div class="sec" id="default-week-label"><div style="display:flex;align-items:center;gap:6px;"><div class="st">this week</div><div class="week-count" style="font-size:10px;color:var(--mid);font-weight:400;">· rest of the week · 1 task</div></div></div>
+          <div class="nc" data-section="week">
             <div class="feat" onclick="this.classList.toggle('expanded')">
               <div class="feat-top">
                 <div class="feat-icon" style="background:var(--cg-wash);"><svg width="18" height="18" viewBox="0 0 256 256" fill="none"><path d="M128,24C128,24,48,80,48,128a80,80,0,0,0,160,0C208,80,128,24,128,24Z" stroke="var(--cg-bg)" stroke-width="18" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="128" y1="208" x2="128" y2="128" stroke="var(--cg-bg)" stroke-width="18" stroke-linecap="round"/></svg></div>
@@ -477,12 +477,12 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
           </div>
 
           <!-- Coming up -->
-          <div style="display:flex;align-items:center;gap:6px;margin:4px 0 8px;cursor:pointer;" onclick="var el=this.nextElementSibling;el.style.display=el.style.display==='none'?'flex':'none';this.querySelector('.cu-chev').style.transform=el.style.display==='none'?'':'rotate(180deg)'">
+          <div id="default-coming-toggle" style="display:flex;align-items:center;gap:6px;margin:4px 0 8px;cursor:pointer;" onclick="(function(toggle){var el=toggle.nextElementSibling;var open=el.style.display!=='none';el.style.display=open?'none':'flex';toggle.querySelector('.cu-chev').style.transform=open?'':'rotate(180deg)';})(this)">
             <div class="st">coming up</div>
-            <div style="font-size:10px;color:var(--mid);font-weight:400;">· next 30 days · 2 tasks</div>
+            <div class="coming-count" style="font-size:10px;color:var(--mid);font-weight:400;">· next 30 days · 2 tasks</div>
             <svg class="cu-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round" style="margin-left:auto;transition:transform 200ms;"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
-          <div class="nc" style="display:none;flex-direction:column;gap:0;margin-bottom:18px;">
+          <div class="nc" data-section="coming" style="display:none;flex-direction:column;gap:0;margin-bottom:18px;">
             <div class="feat" style="cursor:pointer;">
               <div class="feat-top">
                 <div class="feat-icon" style="background:var(--cg-wash);"><svg width="18" height="18" viewBox="0 0 256 256" fill="none"><path d="M128,24C128,24,48,80,48,128a80,80,0,0,0,160,0C208,80,128,24,128,24Z" stroke="var(--cg-bg)" stroke-width="18" fill="none" stroke-linecap="round"/></svg></div>
@@ -746,19 +746,19 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
       <div id="snooze-sheet">
         <div class="sheet-handle"></div>
         <div class="sheet-title">Snooze until...</div>
-        <div class="snooze-opt" onclick="selectSnooze('Later today','3:00 PM')">
+        <div class="snooze-opt" onclick="selectSnooze('Later today','3:00 PM','3:00 PM','today')">
           <span class="snooze-opt-l">Later today</span><span class="snooze-opt-r">3:00 PM</span>
         </div>
         <div class="snooze-sep"></div>
-        <div class="snooze-opt" onclick="selectSnooze('Tomorrow','8:00 AM')">
+        <div class="snooze-opt" onclick="selectSnooze('Tomorrow','8:00 AM','Sat 29','week')">
           <span class="snooze-opt-l">Tomorrow</span><span class="snooze-opt-r">8:00 AM</span>
         </div>
         <div class="snooze-sep"></div>
-        <div class="snooze-opt" onclick="selectSnooze('This weekend','Sat 8:00 AM')">
+        <div class="snooze-opt" onclick="selectSnooze('This weekend','Sat 8:00 AM','Sat 29','week')">
           <span class="snooze-opt-l">This weekend</span><span class="snooze-opt-r">Sat 8:00 AM</span>
         </div>
         <div class="snooze-sep"></div>
-        <div class="snooze-opt" onclick="selectSnooze('Next week','Mon 8:00 AM')">
+        <div class="snooze-opt" onclick="selectSnooze('Next week','Mon 8:00 AM','Mon 31','coming')">
           <span class="snooze-opt-l">Next week</span><span class="snooze-opt-r">Mon 8:00 AM</span>
         </div>
         <div class="snooze-sep" style="margin-bottom:4px;"></div>
@@ -1274,49 +1274,93 @@ function handleSnooze(btn) {
   document.getElementById('snooze-backdrop').classList.add('open');
 }
 
-function selectSnooze(label, time) {
+function selectSnooze(label, time, dateLabel, targetSection) {
   closeSnoozeSheet();
   if (!_snoozeFeat) return;
   const feat = _snoozeFeat;
   _snoozeFeat = null;
 
-  const isLaterToday = label === 'Later today';
+  feat.classList.remove('expanded');
 
-  if (isLaterToday) {
-    /* Card stays — update badge to show the time, mute slightly */
-    feat.classList.remove('expanded');
+  if (targetSection === 'today') {
+    /* Later today — card stays, badge updates to time */
     feat.classList.add('task-snoozed');
     const badgeEl = feat.querySelector('.badge');
     if (badgeEl) {
       badgeEl.className = 'badge due';
-      badgeEl.textContent = time; /* e.g. "3:00 PM" */
+      badgeEl.textContent = time;
     }
-    showToast(`Reminder set for ${time}. Still on your list.`, () => {
+    showToast('Reminder set for ' + time + '. Still on your list.', function() {
       feat.classList.remove('task-snoozed');
       if (badgeEl) {
         badgeEl.className = 'badge ov';
         badgeEl.textContent = feat.dataset.originalBadge || 'late';
       }
     });
-  } else {
-    /* Card disappears — due on a future date */
-    feat.classList.remove('expanded');
-    feat.style.transition = 'opacity 200ms ease, transform 200ms ease';
-    feat.style.opacity    = '0';
-    feat.style.transform  = 'translateY(-4px)';
-    setTimeout(() => {
-      feat.style.transition = 'max-height 260ms ease, padding 260ms ease, margin 260ms ease';
-      feat.style.overflow   = 'hidden';
-      feat.style.maxHeight  = feat.scrollHeight + 'px';
-      requestAnimationFrame(() => {
-        feat.style.maxHeight = '0';
-        feat.style.padding   = '0';
-        feat.style.margin    = '0';
-      });
-      setTimeout(() => { feat.style.display = 'none'; }, 270);
-    }, 200);
-    showToast(`Back on ${label.toLowerCase()}. Enjoy the break.`, null);
+    return;
   }
+
+  /* Tomorrow / This weekend / Next week — move card to target section */
+  const activeState = document.querySelector('.tp.active');
+  if (!activeState) return;
+  const targetContainer = activeState.querySelector('[data-section="' + targetSection + '"]');
+
+  if (targetContainer) {
+    /* Clone the card, reset state, update badge */
+    const clone = feat.cloneNode(true);
+    clone.classList.remove('task-done', 'task-snoozed', 'expanded');
+    clone.removeAttribute('style');
+    /* Re-wire event delegation — onclick on feat for toggle */
+    clone.setAttribute('onclick', 'this.classList.toggle(\'expanded\')');
+    const cloneBadge = clone.querySelector('.badge');
+    if (cloneBadge) {
+      cloneBadge.className = 'badge due';
+      cloneBadge.textContent = dateLabel || label;
+    }
+    /* Restore done button dataset for undo support */
+    const cloneDone = clone.querySelector('.feat-done');
+    if (cloneDone) { cloneDone.dataset.doneBg = cloneDone.style.background || ''; }
+
+    /* Animate clone in */
+    clone.style.opacity   = '0';
+    clone.style.transform = 'translateY(-8px)';
+    clone.style.transition = 'opacity 300ms ease 220ms, transform 300ms ease 220ms';
+    targetContainer.appendChild(clone);
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      clone.style.opacity   = '1';
+      clone.style.transform = 'translateY(0)';
+      setTimeout(() => { clone.style.transition = ''; }, 340);
+    }));
+
+    /* If COMING UP is collapsed, expand it */
+    if (targetSection === 'coming' && targetContainer.style.display === 'none') {
+      targetContainer.style.display = 'flex';
+      const toggle = document.getElementById('default-coming-toggle');
+      if (toggle) {
+        const chev = toggle.querySelector('.cu-chev');
+        if (chev) chev.style.transform = 'rotate(180deg)';
+      }
+    }
+  }
+
+  /* Collapse and remove original */
+  feat.style.transition = 'opacity 200ms ease, transform 200ms ease';
+  feat.style.opacity    = '0';
+  feat.style.transform  = 'translateY(-4px)';
+  setTimeout(function() {
+    feat.style.transition = 'max-height 260ms ease, padding 260ms ease, margin 260ms ease';
+    feat.style.overflow   = 'hidden';
+    feat.style.maxHeight  = feat.scrollHeight + 'px';
+    requestAnimationFrame(function() {
+      feat.style.maxHeight = '0';
+      feat.style.padding   = '0';
+      feat.style.margin    = '0';
+    });
+    setTimeout(function() { feat.style.display = 'none'; }, 270);
+  }, 200);
+
+  const sectionLabel = targetSection === 'week' ? 'this week' : 'coming up';
+  showToast('Moved to ' + sectionLabel + '. Back on ' + dateLabel + '.', null);
 }
 
 function closeSnoozeSheet() {
