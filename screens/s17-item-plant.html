@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · S-17 Olive tree (Plant)</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --surface:#FBF9F4;--surface-low:#F5F4ED;--surface-high:#E8E9E0;--surface-lowest:#FFFFFF;
+  --ink:#31332C;--mid:#7A756D;--hint:#A09A90;
+  --plum:#9B7FD4;--plum-fg:#FAF8FF;--plum-wash:rgba(155,127,212,0.10);
+  --apricot:#E8A87C;--apricot-wash:rgba(232,168,124,0.12);
+  --cat-bg:#8C9B80;--cat-wash:rgba(140,155,128,0.14);--cat-ic:#4A7A40;
+  --sage:#8C9B80;--sage-wash:rgba(140,155,128,0.14);
+  --r:12px;--rs:8px;
+}
+[data-theme="dark"]{
+  --surface:#1C1B18;--surface-low:#252420;--surface-high:#33322C;--surface-lowest:#161512;
+  --ink:#F0EDE6;--mid:#A8A29A;--hint:#787068;
+  --plum:#B8A0E8;--plum-fg:#1C1B18;--apricot:#F0B890;
+  --cat-bg:#A8B89C;--cat-wash:rgba(168,184,156,0.15);--cat-ic:#A8B89C;
+  --sage:#A8B89C;--sage-wash:rgba(168,184,156,0.15);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;}
+body{font-family:'Manrope',sans-serif;background:#0E0D0B;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:14px 10px 50px;color:var(--ink);}
+.ctrls{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:14px;position:sticky;top:0;z-index:200;background:rgba(14,13,11,0.92);backdrop-filter:blur(10px);padding:8px 14px;border-radius:12px;max-width:480px;width:100%;}
+.cb{font-family:'Manrope',sans-serif;font-size:10px;font-weight:500;padding:4px 12px;border-radius:6px;border:1px solid rgba(255,255,255,0.08);background:transparent;color:rgba(255,255,255,0.35);cursor:pointer;transition:all 150ms;}
+.cb.on{background:var(--plum);color:var(--plum-fg);border-color:var(--plum);}
+.cl{font-size:8px;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,0.15);padding:3px 3px 0;font-weight:500;}
+.ph{width:390px;height:844px;border-radius:50px;overflow:hidden;position:relative;background:var(--surface);box-shadow:0 0 0 1px rgba(255,255,255,0.03),0 24px 80px rgba(49,51,44,0.45);}
+.notch{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:102px;height:8px;border-radius:100px;background:rgba(49,51,44,0.06);z-index:60;}
+[data-theme="dark"] .notch{background:rgba(255,255,255,0.08);}
+.scroll{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;}
+.scroll::-webkit-scrollbar{display:none;}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.section-title{font-family:'Noto Serif',serif;font-size:18px;color:var(--ink);}
+.add-link{display:flex;align-items:center;gap:4px;font-size:10px;font-weight:500;color:var(--plum);cursor:pointer;}
+.expand{max-height:0;overflow:hidden;transition:max-height 350ms ease;}
+.chevron{opacity:0.35;transition:transform 200ms;flex-shrink:0;}
+.task-card{background:var(--surface);border-radius:var(--r);padding:14px;margin-bottom:8px;cursor:pointer;}
+.task-row{display:flex;align-items:center;gap:12px;}
+.icon-circle{width:40px;height:40px;border-radius:50%;background:var(--cat-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.actions{display:flex;align-items:center;gap:8px;margin-top:14px;justify-content:flex-end;}
+.btn-skip{font-size:11px;font-weight:500;color:var(--hint);padding:7px 6px;cursor:pointer;background:none;border:none;}
+.btn-snooze{display:inline-flex;font-size:11px;font-weight:500;color:var(--ink);background:var(--surface-low);padding:7px 14px;border-radius:100px;cursor:pointer;border:none;}
+.btn-done{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;color:var(--surface);background:var(--cat-bg);padding:7px 16px;border-radius:100px;cursor:pointer;border:none;}
+.detail-row{display:flex;justify-content:space-between;padding:13px 16px;background:var(--surface);}
+.nav-pill{position:absolute;top:52px;border-radius:50%;background:rgba(251,249,244,0.85);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;width:36px;height:36px;}
+[data-theme="dark"] .nav-pill{background:rgba(28,27,24,0.85);}
+
+/* Taller photo hero for plants */
+.hero-photo{position:relative;height:260px;background:var(--cat-wash);overflow:hidden;display:flex;align-items:center;justify-content:center;}
+
+/* Health badge overlay */
+.health-badge{position:absolute;bottom:16px;left:24px;background:rgba(251,249,244,0.92);backdrop-filter:blur(8px);border-radius:100px;padding:6px 14px;display:flex;align-items:center;gap:8px;z-index:5;}
+[data-theme="dark"] .health-badge{background:rgba(28,27,24,0.88);}
+
+/* Seasonal calendar strip */
+.season-strip{display:flex;gap:2px;margin-top:14px;}
+.season-month{flex:1;text-align:center;padding:8px 0;border-radius:6px;font-size:8px;font-weight:500;letter-spacing:0.02em;cursor:default;}
+.season-month.active{background:var(--cat-wash);color:var(--cat-bg);font-weight:600;}
+.season-month.current{outline:1.5px solid var(--apricot);outline-offset:-1px;}
+
+/* Scan CTA */
+.scan-cta{margin-top:12px;padding:14px;background:var(--cat-wash);border-radius:var(--rs);display:flex;align-items:center;gap:12px;cursor:pointer;transition:background 150ms;}
+.scan-cta:active{background:rgba(140,155,128,0.22);}
+
+/* Photo gallery */
+.photo-grid{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px;}
+.photo-grid::-webkit-scrollbar{display:none;}
+.photo-thumb{width:72px;height:72px;border-radius:var(--rs);background:var(--surface-high);flex-shrink:0;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;overflow:hidden;}
+.photo-thumb:active{opacity:0.85;}
+.photo-add{border:1.5px dashed var(--hint);background:transparent;}
+.photo-date{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(49,51,44,0.6),transparent);padding:3px 6px;font-size:7px;color:#fff;font-weight:500;text-align:center;}
+
+/* Health timeline */
+.health-entry{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--surface-low);cursor:pointer;}
+.health-entry:last-child{border-bottom:none;}
+.health-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:3px;}
+.health-score{font-size:12px;font-weight:600;}
+.scan-credit{font-size:9px;color:var(--hint);font-style:italic;}
+</style>
+</head>
+<body>
+
+<nav style="background:#F5F0E8;border-bottom:1px solid rgba(26,22,18,0.12);padding:0 32px;display:flex;align-items:center;gap:16px;height:48px;position:sticky;top:0;z-index:200;font-family:'Manrope',sans-serif;">
+  <a href="../index.html" style="font-size:13px;color:#8A8070;text-decoration:none;display:flex;align-items:center;gap:8px;">
+    <svg width="16" height="18" viewBox="0 0 626 700" xmlns="http://www.w3.org/2000/svg"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0C56.05,700.13,0,642.43,0,571.26V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#C4A8E8" cx="535.96" cy="119.29" r="90"/></svg>
+    Design hub</a>
+  <span style="color:rgba(26,22,18,0.12);">/</span>
+  <a href="s17-item-detail-prototype.html" style="font-size:13px;color:#8A8070;text-decoration:none;">S-17</a>
+  <span style="color:rgba(26,22,18,0.12);">/</span>
+  <span style="font-size:13px;font-weight:500;">Olive tree</span>
+  <span style="margin-left:auto;font-size:10px;font-weight:500;padding:3px 10px;border-radius:100px;background:rgba(133,79,11,0.10);color:#854F0B;border:1px solid rgba(133,79,11,0.20);">Prototype</span>
+</nav>
+
+<div class="ctrls"><span class="cl">Garden / Plant</span><button class="cb on" onclick="theme('light')" id="tl">Light</button><button class="cb" onclick="theme('dark')" id="td">Dark</button></div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:14px;max-width:480px;width:100%;">
+  <a href="s17-item-home-appliance.html" style="font-size:10px;font-weight:500;padding:4px 12px;border-radius:6px;color:rgba(255,255,255,0.25);text-decoration:none;">Boiler</a>
+  <a href="s17-item-vehicle.html" style="font-size:10px;font-weight:500;padding:4px 12px;border-radius:6px;color:rgba(255,255,255,0.25);text-decoration:none;">Car</a>
+  <a href="s17-item-plant.html" style="font-size:10px;font-weight:600;padding:4px 12px;border-radius:6px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);text-decoration:none;">Olive tree</a>
+  <a href="s17-item-subscription.html" style="font-size:10px;font-weight:500;padding:4px 12px;border-radius:6px;color:rgba(255,255,255,0.25);text-decoration:none;">Insurance</a>
+  <a href="s17-item-small-appliance.html" style="font-size:10px;font-weight:500;padding:4px 12px;border-radius:6px;color:rgba(255,255,255,0.25);text-decoration:none;">Dishwasher</a>
+  <a href="s17-item-garden-tool.html" style="font-size:10px;font-weight:500;padding:4px 12px;border-radius:6px;color:rgba(255,255,255,0.25);text-decoration:none;">Lawn</a>
+</div>
+
+<div class="ph" id="phone" data-theme="light">
+<div class="notch"></div>
+<div class="scroll">
+
+  <!-- ZONE 1: Taller photo hero (photo-first for plants) -->
+  <div class="hero-photo">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+      <div style="width:72px;height:72px;border-radius:50%;background:rgba(140,155,128,0.20);display:flex;align-items:center;justify-content:center;">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--cat-bg)" stroke-width="1.3" stroke-linecap="round"><path d="M7 20h10"/><path d="M12 20v-6"/><path d="M12 14c-3 0-6-2-6-6 3 0 6 2 6 6z"/><path d="M12 10c2.5-1 5-4 5-7-3 0-5.5 2.5-5 7z"/></svg>
+      </div>
+      <div style="font-size:10px;color:var(--cat-bg);font-weight:500;">Tap to add photo</div>
+    </div>
+    <div style="position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(to top,var(--surface),transparent);"></div>
+
+    <!-- Health badge on photo -->
+    <div class="health-badge">
+      <div style="width:10px;height:10px;border-radius:50%;background:var(--cat-bg);"></div>
+      <div style="font-size:11px;font-weight:500;color:var(--ink);">Healthy</div>
+      <div style="font-size:9px;color:var(--mid);">Last scan 2w ago</div>
+    </div>
+
+    <div class="nav-pill" style="left:20px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg></div>
+    <div class="nav-pill" style="right:60px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"><path d="M11 4H4v14h14v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg></div>
+    <div class="nav-pill" style="right:20px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="var(--ink)"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></div>
+  </div>
+
+  <!-- ZONE 2: Identity + seasonal calendar -->
+  <div style="padding:0 24px 20px;">
+    <div style="margin-top:-4px;">
+      <div style="font-family:'Noto Serif',serif;font-size:26px;color:var(--ink);letter-spacing:-0.03em;">Olive tree</div>
+      <div style="font-size:10px;color:var(--mid);margin-top:4px;">Garden · Terrace, south-facing</div>
+    </div>
+
+    <!-- Stats -->
+    <div style="display:flex;gap:10px;margin-top:14px;">
+      <div style="flex:1;background:var(--surface-low);border-radius:var(--rs);padding:10px;text-align:center;">
+        <div style="font-family:'Noto Serif',serif;font-size:18px;font-weight:500;color:var(--ink);">3y</div>
+        <div style="font-size:8px;color:var(--mid);margin-top:2px;letter-spacing:0.03em;text-transform:uppercase;">owned</div>
+      </div>
+      <div style="flex:1;background:var(--sage-wash);border-radius:var(--rs);padding:10px;text-align:center;">
+        <div style="font-family:'Noto Serif',serif;font-size:18px;font-weight:500;color:var(--cat-bg);">8</div>
+        <div style="font-size:8px;color:var(--mid);margin-top:2px;letter-spacing:0.03em;text-transform:uppercase;">completed</div>
+      </div>
+      <div style="flex:1;background:var(--cat-wash);border-radius:var(--rs);padding:10px;text-align:center;cursor:pointer;" onclick="document.getElementById('photo-section').scrollIntoView({behavior:'smooth'})">
+        <div style="font-family:'Noto Serif',serif;font-size:18px;font-weight:500;color:var(--cat-bg);">7</div>
+        <div style="font-size:8px;color:var(--mid);margin-top:2px;letter-spacing:0.03em;text-transform:uppercase;">photos</div>
+      </div>
+    </div>
+
+    <!-- Seasonal calendar (unique to plants) -->
+    <div style="margin-top:16px;">
+      <div style="font-size:9px;font-weight:600;letter-spacing:0.04em;color:var(--cat-bg);margin-bottom:8px;text-transform:uppercase;">Care calendar</div>
+      <div class="season-strip">
+        <div class="season-month" style="color:var(--hint);">J</div>
+        <div class="season-month" style="color:var(--hint);">F</div>
+        <div class="season-month active">M</div>
+        <div class="season-month active current">A</div>
+        <div class="season-month active">M</div>
+        <div class="season-month active">J</div>
+        <div class="season-month" style="color:var(--hint);">J</div>
+        <div class="season-month" style="color:var(--hint);">A</div>
+        <div class="season-month active">S</div>
+        <div class="season-month active">O</div>
+        <div class="season-month" style="color:var(--hint);">N</div>
+        <div class="season-month" style="color:var(--hint);">D</div>
+      </div>
+      <div style="font-size:10px;color:var(--mid);margin-top:6px;font-style:italic;">Active care: March to June, September to October</div>
+    </div>
+
+    <!-- Status strip -->
+    <div style="display:flex;align-items:center;gap:8px;margin-top:12px;padding:10px 14px;background:var(--surface-low);border-radius:var(--rs);">
+      <div style="width:8px;height:8px;border-radius:50%;background:var(--cat-bg);flex-shrink:0;"></div>
+      <div style="font-size:12px;color:var(--ink);flex:1;">In season, 1 task coming up</div>
+      <div style="font-size:10px;color:var(--mid);">Next due Apr 15</div>
+    </div>
+  </div>
+
+  <!-- ZONE 3: Tasks (seasonal) -->
+  <div style="background:var(--surface-low);padding:20px 24px 24px;">
+    <div class="section-head">
+      <div class="section-title">Tasks</div>
+      <div class="add-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--plum)" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add task</div>
+    </div>
+
+    <!-- Spring pruning -->
+    <div class="task-card" onclick="toggleExpand(this)">
+      <div class="task-row">
+        <div class="icon-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cat-bg)" stroke-width="1.5" stroke-linecap="round"><path d="M7 20h10"/><path d="M12 20v-6"/><path d="M12 14c-3 0-6-2-6-6 3 0 6 2 6 6z"/><path d="M12 10c2.5-1 5-4 5-7-3 0-5.5 2.5-5 7z"/></svg></div>
+        <div style="flex:1;"><div style="font-size:14px;font-weight:500;color:var(--ink);">Spring pruning</div><div style="font-size:10px;color:var(--mid);margin-top:2px;">Shape and thin · March to April</div></div>
+        <div style="font-size:9px;color:var(--apricot);font-weight:600;">due now</div>
+        <svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="expand">
+        <div style="margin-top:14px;background:var(--cat-wash);border-radius:var(--rs);padding:14px;">
+          <div style="font-size:9px;font-weight:600;letter-spacing:0.04em;color:var(--cat-bg);margin-bottom:6px;">Why it matters</div>
+          <div style="font-size:11px;color:var(--ink);line-height:1.6;">Pruning in spring encourages new growth and better fruit set. Remove crossing branches and open the centre for airflow.</div>
+        </div>
+        <div style="margin-top:8px;background:var(--surface-low);border-radius:var(--rs);padding:14px;">
+          <div style="font-size:9px;font-weight:600;letter-spacing:0.04em;color:var(--cat-bg);margin-bottom:12px;">How to complete this</div>
+          <div style="display:flex;gap:10px;margin-bottom:12px;"><div style="width:22px;height:22px;border-radius:50%;background:var(--cat-wash);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--cat-bg);flex-shrink:0;">1</div><div style="font-size:11px;color:var(--ink);line-height:1.5;">Use clean, sharp secateurs or loppers</div></div>
+          <div style="display:flex;gap:10px;margin-bottom:12px;"><div style="width:22px;height:22px;border-radius:50%;background:var(--cat-wash);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--cat-bg);flex-shrink:0;">2</div><div style="font-size:11px;color:var(--ink);line-height:1.5;">Remove dead, damaged, or inward-growing branches</div></div>
+          <div style="display:flex;gap:10px;"><div style="width:22px;height:22px;border-radius:50%;background:var(--cat-wash);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--cat-bg);flex-shrink:0;">3</div><div style="font-size:11px;color:var(--ink);line-height:1.5;">Aim for an open vase shape with good light penetration</div></div>
+        </div>
+        <div class="actions">
+          <button class="btn-skip">Skip</button>
+          <button class="btn-snooze">Snooze</button>
+          <button class="btn-done"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fertilize -->
+    <div class="task-card" onclick="toggleExpand(this)">
+      <div class="task-row">
+        <div class="icon-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cat-bg)" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div style="flex:1;"><div style="font-size:14px;font-weight:500;color:var(--ink);">Fertilize</div><div style="font-size:10px;color:var(--mid);margin-top:2px;">Slow-release · April</div></div>
+        <div style="font-size:9px;color:var(--mid);">Apr 15</div>
+        <svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="expand">
+        <div style="margin-top:8px;background:var(--surface-low);border-radius:var(--rs);padding:14px;">
+          <div style="font-size:9px;font-weight:600;letter-spacing:0.04em;color:var(--cat-bg);margin-bottom:12px;">How to complete this</div>
+          <div style="display:flex;gap:10px;margin-bottom:12px;"><div style="width:22px;height:22px;border-radius:50%;background:var(--cat-wash);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--cat-bg);flex-shrink:0;">1</div><div style="font-size:11px;color:var(--ink);line-height:1.5;">Use a balanced slow-release fertilizer (NPK 10-10-10)</div></div>
+          <div style="display:flex;gap:10px;"><div style="width:22px;height:22px;border-radius:50%;background:var(--cat-wash);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--cat-bg);flex-shrink:0;">2</div><div style="font-size:11px;color:var(--ink);line-height:1.5;">Scatter around the base, not touching the trunk. Water in well.</div></div>
+        </div>
+        <div class="actions">
+          <button class="btn-skip">Skip</button>
+          <button class="btn-snooze">Snooze</button>
+          <button class="btn-done"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Frost protection (off-season, greyed) -->
+    <div class="task-card" style="opacity:0.6;">
+      <div class="task-row">
+        <div class="icon-circle" style="background:var(--surface-high);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.6" stroke-linecap="round"><path d="M12 2v20"/><path d="M2 12h20"/><path d="M12 2l4 4"/><path d="M12 2l-4 4"/><path d="M12 22l4-4"/><path d="M12 22l-4-4"/></svg></div>
+        <div style="flex:1;"><div style="font-size:14px;font-weight:500;color:var(--mid);">Protect from frost</div><div style="font-size:10px;color:var(--hint);margin-top:2px;">November · off season</div></div>
+        <div style="font-size:9px;color:var(--hint);">Nov</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- ZONE: Photos + Health scans (unique to plants) -->
+  <!-- ══════════════════════════════════════════ -->
+  <div style="padding:20px 24px;" id="photo-section">
+    <div class="section-head">
+      <div class="section-title">Photos</div>
+      <div class="add-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--plum)" stroke-width="2" stroke-linecap="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/></svg> Add photo</div>
+    </div>
+
+    <!-- Photo gallery (horizontal scroll, free, unlimited) -->
+    <div class="photo-grid">
+      <div class="photo-thumb" style="background:var(--cat-wash);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cat-bg)" stroke-width="1.3" stroke-linecap="round"><path d="M7 20h10"/><path d="M12 20v-6"/><path d="M12 14c-3 0-6-2-6-6 3 0 6 2 6 6z"/><path d="M12 10c2.5-1 5-4 5-7-3 0-5.5 2.5-5 7z"/></svg><div class="photo-date">Apr 2</div></div>
+      <div class="photo-thumb" style="background:var(--sage-wash);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="1.3" stroke-linecap="round"><path d="M7 20h10"/><path d="M12 20v-6"/><path d="M12 14c-3 0-6-2-6-6 3 0 6 2 6 6z"/></svg><div class="photo-date">Mar 15</div></div>
+      <div class="photo-thumb" style="background:var(--sage-wash);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="1.3" stroke-linecap="round"><path d="M7 20h10"/><path d="M12 20v-6"/><path d="M12 14c-3 0-6-2-6-6 3 0 6 2 6 6z"/></svg><div class="photo-date">Mar 15</div></div>
+      <div class="photo-thumb" style="background:var(--apricot-wash);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--apricot)" stroke-width="1.3" stroke-linecap="round"><path d="M7 20h10"/><path d="M12 20v-6"/><path d="M12 14c-3 0-6-2-6-6 3 0 6 2 6 6z"/></svg><div class="photo-date">Jul 25</div></div>
+      <div class="photo-thumb" style="background:var(--cat-wash);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cat-bg)" stroke-width="1.3" stroke-linecap="round"><path d="M7 20h10"/><path d="M12 20v-6"/><path d="M12 14c-3 0-6-2-6-6 3 0 6 2 6 6z"/></svg><div class="photo-date">Apr 25</div></div>
+      <div class="photo-thumb" style="background:var(--cat-wash);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cat-bg)" stroke-width="1.3" stroke-linecap="round"><path d="M7 20h10"/><path d="M12 20v-6"/><path d="M12 14c-3 0-6-2-6-6 3 0 6 2 6 6z"/></svg><div class="photo-date">Apr 25</div></div>
+      <div class="photo-thumb" style="background:var(--surface-low);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cat-bg)" stroke-width="1.3" stroke-linecap="round"><path d="M7 20h10"/><path d="M12 20v-6"/><path d="M12 14c-3 0-6-2-6-6 3 0 6 2 6 6z"/></svg><div class="photo-date">Mar 25</div></div>
+      <div class="photo-thumb photo-add"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.6" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+    </div>
+
+    <!-- Health scan timeline -->
+    <div style="margin-top:20px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <div style="font-size:13px;font-weight:600;color:var(--ink);">Health scans</div>
+        <div style="font-size:9px;color:var(--hint);">2 of 3 scans used this month</div>
+      </div>
+
+      <!-- Scan entry: healthy -->
+      <div class="health-entry">
+        <div class="health-dot" style="background:var(--cat-bg);"></div>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:baseline;gap:6px;">
+            <div class="health-score" style="color:var(--cat-bg);">Healthy</div>
+            <div style="font-size:9px;color:var(--hint);">Mar 15, 2026 · 2 photos</div>
+          </div>
+          <div style="font-size:10px;color:var(--mid);margin-top:3px;line-height:1.5;">New growth visible, good leaf colour. No pests or disease detected.</div>
+        </div>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.6" stroke-linecap="round" style="flex-shrink:0;margin-top:3px;"><polyline points="9 6 15 12 9 18"/></svg>
+      </div>
+
+      <!-- Scan entry: minor issue -->
+      <div class="health-entry">
+        <div class="health-dot" style="background:var(--apricot);"></div>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:baseline;gap:6px;">
+            <div class="health-score" style="color:var(--apricot);">Minor issue</div>
+            <div style="font-size:9px;color:var(--hint);">Jul 25, 2025 · 3 photos</div>
+          </div>
+          <div style="font-size:10px;color:var(--mid);margin-top:3px;line-height:1.5;">Leaf yellowing on lower branches. Likely overwatering. Reduce to once a week.</div>
+        </div>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.6" stroke-linecap="round" style="flex-shrink:0;margin-top:3px;"><polyline points="9 6 15 12 9 18"/></svg>
+      </div>
+
+      <!-- Scan entry: healthy (older) -->
+      <div class="health-entry">
+        <div class="health-dot" style="background:var(--cat-bg);"></div>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:baseline;gap:6px;">
+            <div class="health-score" style="color:var(--cat-bg);">Healthy</div>
+            <div style="font-size:9px;color:var(--hint);">Apr 20, 2025 · 2 photos</div>
+          </div>
+          <div style="font-size:10px;color:var(--mid);margin-top:3px;line-height:1.5;">Strong spring growth. Good leaf density after pruning.</div>
+        </div>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.6" stroke-linecap="round" style="flex-shrink:0;margin-top:3px;"><polyline points="9 6 15 12 9 18"/></svg>
+      </div>
+    </div>
+
+    <!-- Scan health CTA (metered, uses 1 credit) -->
+    <div class="scan-cta" style="margin-top:16px;">
+      <div style="width:32px;height:32px;border-radius:50%;background:rgba(140,155,128,0.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cat-bg)" stroke-width="1.8" stroke-linecap="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3"/></svg>
+      </div>
+      <div style="flex:1;"><div style="font-size:12px;font-weight:500;color:var(--ink);">Run health scan</div><div style="font-size:10px;color:var(--mid);margin-top:2px;">Select photos for AI analysis</div></div>
+      <div style="font-size:9px;color:var(--cat-bg);font-weight:500;background:var(--cat-wash);padding:3px 8px;border-radius:100px;">1 credit</div>
+    </div>
+  </div>
+
+  <!-- ZONE 4: History -->
+  <div style="padding:20px 24px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;cursor:pointer;" onclick="toggleSection(this)">
+      <div class="section-title">History</div>
+      <div style="display:flex;align-items:center;gap:6px;"><span style="font-size:10px;color:var(--mid);">8 completions</span><svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+    </div>
+    <div class="expand">
+      <div style="display:flex;align-items:center;gap:10px;padding:14px 0;border-bottom:1px solid var(--surface-low);cursor:pointer;">
+        <div style="width:24px;height:24px;border-radius:50%;background:var(--sage-wash);display:flex;align-items:center;justify-content:center;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div style="flex:1;"><div style="font-size:12px;color:var(--ink);">Autumn pruning</div><div style="font-size:10px;color:var(--hint);">Oct 8, 2025</div></div>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.6" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:14px 0;cursor:pointer;">
+        <div style="width:24px;height:24px;border-radius:50%;background:var(--sage-wash);display:flex;align-items:center;justify-content:center;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div style="flex:1;"><div style="font-size:12px;color:var(--ink);">Fertilize (spring)</div><div style="font-size:10px;color:var(--hint);">Apr 20, 2025</div></div>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.6" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONE 5: Good to know (seasonal care guide) -->
+  <div style="background:var(--surface-low);padding:24px;">
+    <div class="section-title" style="margin-bottom:20px;">Good to know</div>
+    <div style="display:flex;gap:16px;margin-bottom:20px;">
+      <div style="flex-shrink:0;width:64px;text-align:right;font-family:'Noto Serif',serif;font-size:20px;font-weight:500;color:var(--cat-bg);line-height:1;">-5&deg;C</div>
+      <div style="flex:1;padding-top:2px;"><div style="font-size:12px;font-weight:500;color:var(--ink);">frost tolerance</div><div style="font-size:10px;color:var(--mid);margin-top:3px;line-height:1.5;">Wrap or shelter when temperatures drop below minus 5. Young trees are more vulnerable.</div></div>
+    </div>
+    <div style="display:flex;gap:16px;margin-bottom:20px;">
+      <div style="flex-shrink:0;width:64px;text-align:right;font-family:'Noto Serif',serif;font-size:20px;font-weight:500;color:var(--apricot);line-height:1;">2&times;</div>
+      <div style="flex:1;padding-top:2px;"><div style="font-size:12px;font-weight:500;color:var(--ink);">pruning per year</div><div style="font-size:10px;color:var(--mid);margin-top:3px;line-height:1.5;">Spring for shaping, autumn for cleanup. Never prune in winter when the tree is dormant.</div></div>
+    </div>
+    <div style="display:flex;gap:16px;">
+      <div style="flex-shrink:0;width:64px;text-align:right;font-family:'Noto Serif',serif;font-size:20px;font-weight:500;color:var(--sage);line-height:1;">6h+</div>
+      <div style="flex:1;padding-top:2px;"><div style="font-size:12px;font-weight:500;color:var(--ink);">sun per day</div><div style="font-size:10px;color:var(--mid);margin-top:3px;line-height:1.5;">Full sun produces the best growth and fruit. South-facing exposure is ideal in Belgium.</div></div>
+    </div>
+  </div>
+
+  <!-- NO DOCUMENTS ZONE (plants don't have warranties) -->
+
+  <!-- ZONE 7: Details -->
+  <div style="padding:24px;">
+    <div class="section-head">
+      <div class="section-title">Details</div>
+      <div style="font-size:10px;font-weight:500;color:var(--plum);cursor:pointer;">Edit</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1px;background:var(--surface-low);border-radius:var(--r);overflow:hidden;">
+      <div class="detail-row"><span style="font-size:11px;color:var(--mid);">Species</span><span style="font-size:11px;color:var(--ink);font-weight:500;">Olea europaea</span></div>
+      <div class="detail-row"><span style="font-size:11px;color:var(--mid);">Location</span><span style="font-size:11px;color:var(--ink);font-weight:500;">Terrace, south-facing</span></div>
+      <div class="detail-row"><span style="font-size:11px;color:var(--mid);">Pot or ground</span><span style="font-size:11px;color:var(--ink);font-weight:500;">Pot (55cm)</span></div>
+      <div class="detail-row"><span style="font-size:11px;color:var(--mid);">Added</span><span style="font-size:11px;color:var(--ink);font-weight:500;">Apr 2023</span></div>
+      <div class="detail-row"><span style="font-size:11px;color:var(--mid);">Source</span><span style="font-size:11px;color:var(--ink);font-weight:500;">AI scan</span></div>
+    </div>
+  </div>
+
+  <div style="height:40px;"></div>
+</div>
+</div>
+
+<script>
+function theme(t){document.getElementById('phone').setAttribute('data-theme',t);document.getElementById('tl').classList.toggle('on',t==='light');document.getElementById('td').classList.toggle('on',t==='dark');}
+function toggleExpand(card){var e=card.querySelector('.expand');var c=card.querySelector('.chevron');if(e.style.maxHeight&&e.style.maxHeight!=='0px'){e.style.maxHeight='0';c.style.transform='';}else{e.style.maxHeight=e.scrollHeight+'px';c.style.transform='rotate(180deg)';}}
+function toggleSection(header){var e=header.nextElementSibling;var c=header.querySelector('.chevron');if(e.style.maxHeight&&e.style.maxHeight!=='0px'){e.style.maxHeight='0';c.style.transform='';}else{e.style.maxHeight=e.scrollHeight+'px';c.style.transform='rotate(180deg)';}}
+</script>
+</body>
+</html>
