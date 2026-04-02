@@ -149,6 +149,35 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 /* ── Item card ── */
 .ic { background: var(--surface-low); border-radius: var(--r); padding: 14px 16px; cursor: pointer; transition: background 150ms; }
 .ic:active { background: var(--surface-high); }
+
+/* Category card solid backgrounds — v10.5 tokens */
+.ic.cat-home    { background: #D2BEB6; }
+.ic.cat-home:active  { background: #C4ADA4; }
+.ic.cat-garden  { background: #C4DABE; }
+.ic.cat-garden:active { background: #B4CCAD; }
+.ic.cat-vehicle { background: #C0CDD8; }
+.ic.cat-vehicle:active { background: #B0BECA; }
+.ic.cat-subs    { background: #D0C6DC; }
+.ic.cat-subs:active { background: #C1B6CE; }
+.ic.cat-health  { background: #D2D0C4; }
+.ic.cat-health:active { background: #C4C2B6; }
+.ic.cat-pets    { background: #DECDC0; }
+.ic.cat-pets:active { background: #D0BEB0; }
+/* Icon circle on category bg: semi-transparent white */
+.ic[class*="cat-"] .ic-icon { background: rgba(255,255,255,0.45) !important; }
+/* Dark mode */
+[data-theme="dark"] .ic.cat-home    { background: #3A302E; }
+[data-theme="dark"] .ic.cat-home:active { background: #443835; }
+[data-theme="dark"] .ic.cat-garden  { background: #283020; }
+[data-theme="dark"] .ic.cat-garden:active { background: #303A28; }
+[data-theme="dark"] .ic.cat-vehicle { background: #262E34; }
+[data-theme="dark"] .ic.cat-vehicle:active { background: #2E383E; }
+[data-theme="dark"] .ic.cat-subs    { background: #302838; }
+[data-theme="dark"] .ic.cat-subs:active { background: #3A3242; }
+[data-theme="dark"] .ic.cat-health  { background: #2E2E26; }
+[data-theme="dark"] .ic.cat-health:active { background: #383830; }
+[data-theme="dark"] .ic.cat-pets    { background: #342C22; }
+[data-theme="dark"] .ic.cat-pets:active { background: #3E362C; }
 .ic-top { display: flex; align-items: flex-start; gap: 12px; }
 .ic-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
 .ic-body { flex: 1; min-width: 0; }
@@ -338,7 +367,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
           <div class="items-list">
 
             <!-- 1: Boiler, Home, On track -->
-            <div class="ic">
+            <div class="ic cat-home">
               <div class="ic-top">
                 <div class="ic-icon" style="background:var(--ch-wash);">
                   <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
@@ -360,7 +389,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
             </div>
 
             <!-- 2: Dishwasher, Home, 1 overdue -->
-            <div class="ic">
+            <div class="ic cat-home">
               <div class="ic-top">
                 <div class="ic-icon" style="background:var(--ch-wash);">
                   <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
@@ -382,7 +411,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
             </div>
 
             <!-- 3: Volkswagen Golf, Vehicle, On track -->
-            <div class="ic">
+            <div class="ic cat-vehicle">
               <div class="ic-top">
                 <div class="ic-icon" style="background:var(--cv-wash);">
                   <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
@@ -403,7 +432,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
             </div>
 
             <!-- 4: Netflix, Subscriptions, On track -->
-            <div class="ic">
+            <div class="ic cat-subs">
               <div class="ic-top">
                 <div class="ic-icon" style="background:var(--cs-wash);">
                   <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
@@ -426,7 +455,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
             </div>
 
             <!-- 5: Olive tree, Garden, Seasonal -->
-            <div class="ic">
+            <div class="ic cat-garden">
               <div class="ic-top">
                 <div class="ic-icon" style="background:var(--cg-wash);">
                   <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
@@ -447,7 +476,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
             </div>
 
             <!-- 6: Cat, Pets, On track -->
-            <div class="ic">
+            <div class="ic cat-pets">
               <div class="ic-top">
                 <div class="ic-icon" style="background:var(--cp-wash);">
                   <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
@@ -471,7 +500,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
             </div>
 
             <!-- 7: Robotic lawn mower, Garden, Paused/Pro -->
-            <div class="ic paused">
+            <div class="ic cat-garden paused">
               <div class="ic-top">
                 <div class="ic-icon" style="background:var(--cg-wash);opacity:0.7;">
                   <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
@@ -561,7 +590,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
           <div class="items-list">
 
             <!-- 1: Boiler -->
-            <div class="ic">
+            <div class="ic cat-home">
               <div class="ic-top">
                 <div class="ic-icon" style="background:var(--ch-wash);">
                   <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
@@ -583,7 +612,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
             </div>
 
             <!-- 2: Dishwasher -->
-            <div class="ic">
+            <div class="ic cat-home">
               <div class="ic-top">
                 <div class="ic-icon" style="background:var(--ch-wash);">
                   <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
@@ -605,7 +634,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
             </div>
 
             <!-- 3: Volkswagen Golf -->
-            <div class="ic">
+            <div class="ic cat-vehicle">
               <div class="ic-top">
                 <div class="ic-icon" style="background:var(--cv-wash);">
                   <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
@@ -626,7 +655,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
             </div>
 
             <!-- 4: Netflix -->
-            <div class="ic">
+            <div class="ic cat-subs">
               <div class="ic-top">
                 <div class="ic-icon" style="background:var(--cs-wash);">
                   <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
@@ -649,7 +678,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
             </div>
 
             <!-- 5: Olive tree -->
-            <div class="ic">
+            <div class="ic cat-garden">
               <div class="ic-top">
                 <div class="ic-icon" style="background:var(--cg-wash);">
                   <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
@@ -670,7 +699,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
             </div>
 
             <!-- 6: Cat -->
-            <div class="ic">
+            <div class="ic cat-pets">
               <div class="ic-top">
                 <div class="ic-icon" style="background:var(--cp-wash);">
                   <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
@@ -694,7 +723,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
             </div>
 
             <!-- 7: Robotic lawn mower, fully active on Pro -->
-            <div class="ic">
+            <div class="ic cat-garden">
               <div class="ic-top">
                 <div class="ic-icon" style="background:var(--cg-wash);">
                   <svg width="18" height="18" viewBox="0 0 256 256" fill="none">
@@ -1006,6 +1035,20 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 <!-- CHANGELOG -->
 <div class="changelog">
   <div class="cl-title">Changelog</div>
+
+  <div class="cl-entry">
+    <div class="cl-ver">v1.2 · 2026-04-02 · BREAKING</div>
+    <div class="cl-body">
+      <strong>Category-colored card backgrounds applied to all My Stuff item cards.</strong> Each card now uses the solid v10.5 category token as its background (catHomeBg #D2BEB6, catGardenBg #C4DABE, catVehicleBg #C0CDD8, catSubsBg #D0C6DC, catPetsBg #DECDC0). Previously all item cards used the neutral <code>var(--surface-low)</code> background.<br><br>
+      Icon circles on category cards use <code>rgba(255,255,255,0.45)</code> background instead of the category wash — the solid card color provides enough category context without the wash. Applied via <code>.ic[class*="cat-"] .ic-icon</code> selector with <code>!important</code> to override inline styles.<br><br>
+      Dark mode uses the dark category tokens (#3A302E Home, #283020 Garden, #262E34 Vehicle, #302838 Subs, #2E2E26 Health, #342C22 Pets). Dark mode selectors use <code>[data-theme="dark"]</code> to match this file's dark mode pattern.<br><br>
+      The paused Robotic lawn mower card retains both <code>cat-garden</code> and <code>paused</code> classes: category background visible through the 0.60 opacity, consistent with all active garden items.
+    </div>
+    <div class="cl-flutter">
+      <strong>Flutter notes:</strong><br>
+      Item cards in <code>ListView</code> use a <code>Container</code> with the category-specific background color. Use a color switch on <code>item.category</code> to select the correct catXxxBg token. Set <code>decoration: BoxDecoration(color: catXxxBg, borderRadius: BorderRadius.circular(12))</code> per card, not via global <code>CardTheme</code>. Icon circle: replace category wash with <code>rgba(255,255,255,0.45)</code> — use <code>Colors.white.withOpacity(0.45)</code>. Example: <code>switch(item.category) { case 'home': return catHomeBg; case 'garden': return catGardenBg; ... }</code>
+    </div>
+  </div>
 
   <div class="cl-entry">
     <div class="cl-ver">v1.1 · 2026-04-02 · BREAKING</div>
