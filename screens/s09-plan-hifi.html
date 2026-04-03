@@ -240,6 +240,36 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 .task-undo { display: none; font-size: 11px; font-weight: 500; color: var(--plum); padding: 7px 14px; border-radius: 100px; cursor: pointer; background: rgba(155,127,212,0.08); }
 .task-card.done .task-undo { display: inline-flex; align-items: center; gap: 4px; }
 
+/* ── Snoozed state: muted card with updated date ── */
+/* Skipped state */
+.task-card.skipped .pr-title { opacity: 0.45; text-decoration: line-through; text-decoration-color: var(--hint); }
+.task-card.skipped .pr-item { opacity: 0.45; }
+.task-card.skipped .pr-icon { opacity: 0.4; }
+.task-card.skipped .task-chev { opacity: 0.2; }
+.task-card.skipped .task-badge { display: none; }
+.task-card.skipped .task-check { opacity: 0.2; pointer-events: none; }
+
+.task-card.snoozed .pr-title { opacity: 0.5; }
+.task-card.snoozed .pr-item { opacity: 0.5; }
+.task-card.snoozed .pr-icon { opacity: 0.4; }
+.task-card.snoozed .task-chev { opacity: 0.2; }
+.task-card.snoozed .task-badge { display: none; }
+.task-card.snoozed .task-check { opacity: 0.2; pointer-events: none; }
+.snooze-label { font-size: 9px; font-weight: 500; color: var(--plum); opacity: 0.7; }
+.task-card.snoozed .pr-num { color: var(--hint); }
+.task-card.snoozed .pr-day { color: var(--hint); }
+
+/* ── Snooze confetti ── */
+@keyframes snooze-pop {
+  0%   { opacity: 1; transform: translate(0, 0) scale(1); }
+  100% { opacity: 0; transform: translate(var(--sx), var(--sy)) scale(0.4); }
+}
+.snooze-confetti {
+  position: absolute; width: 6px; height: 6px; border-radius: 50%;
+  pointer-events: none; z-index: 130;
+  animation: snooze-pop 600ms cubic-bezier(0.34,1.56,0.64,1) forwards;
+}
+
 /* ── Skip inline preview ── */
 .skip-preview { font-size: 11px; font-style: italic; color: var(--mid); padding: 6px 0 2px; opacity: 0; transition: opacity 200ms; }
 
@@ -1145,6 +1175,22 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
   <div class="cl-title">Changelog</div>
 
   <div class="cl-entry">
+    <div class="cl-ver">v1.5 · 2026-04-04 · BREAKING</div>
+    <div class="cl-body">
+      <strong>Unified task card interactions across Today + Plan.</strong> All three actions (Done, Skip, Snooze) now follow the same pattern: visual state change + toast with Undo + section counts update.<br><br>
+      <strong>Skip:</strong> Card slides out and hides (translateX + maxHeight collapse). Month ratio updates (skipped cards excluded from total). Toast with witty copy + Undo. Undo restores card to original position and updates ratio.<br><br>
+      <strong>Snooze:</strong> Card mutes (title/icon at 0.5 opacity), date column updates to snoozed date, "Snoozed to [time]" label in plum below meta. Mini confetti burst (8 particles, category colors, 600ms spring). Toast with witty escalating copy + Undo. Undo restores original date + removes snooze label.<br><br>
+      <strong>Month ratio: excludes hidden cards.</strong> Skipped (display:none) cards excluded from total count. Ratio shows done/visible, not done/all.
+    </div>
+    <div class="cl-flutter">
+      <strong>Flutter notes:</strong><br>
+      Skip: <code>AnimatedContainer</code> height 0 + opacity 0. Task not deleted, <code>task.last_skipped_at</code> set, <code>task.next_due_at</code> recalculated. Undo: restore height/opacity, clear skip fields.<br>
+      Snooze: <code>task.snoozedUntil</code> field. Card stays in list, muted. Date column shows snoozed date. Confetti: 8 <code>AnimatedPositioned</code> particles with spring curve.<br>
+      All three actions: show <code>SnackBar</code> with Undo action, 5s duration.
+    </div>
+  </div>
+
+  <div class="cl-entry">
     <div class="cl-ver">v1.4 · 2026-04-03 · BREAKING</div>
     <div class="cl-body">
       <strong>Done indicator: checkbox circle is the sole signal.</strong> Removed redundant "check + done" text indicator (<code>.done-indicator</code>) from done tasks. The filled category-colored checkbox circle (right side, 24px) is the only done-state visual. Badge hidden on done. Text muted at 0.4, icon at 0.5. Aligned with Today tab pattern.
@@ -1265,8 +1311,12 @@ function updateMonthRatio(card) {
   while (head && !head.classList.contains('month-head')) head = head.previousElementSibling;
   if (!head) return;
   var allCards = tasks.querySelectorAll('.task-card');
-  var total = allCards.length;
-  var done = tasks.querySelectorAll('.task-card.done').length;
+  var total = 0; var done = 0;
+  allCards.forEach(function(c) {
+    if (c.style.display === 'none') return; // skipped cards excluded
+    total++;
+    if (c.classList.contains('done')) done++;
+  });
   var allDone = done === total && total > 0;
   var wasAllDone = head.classList.contains('all-done');
   // Update label
@@ -1380,6 +1430,7 @@ function doMarkDone(btn) {
   var cb = card.querySelector('.task-check');
   if (cb) cb.style.background = cb.style.borderColor;
   lastDoneCard = card;
+  lastSnoozeCard = null;
 
   // 2. Witty toast (fires first, celebration toast overrides if all-done)
   var witty = [
@@ -1420,7 +1471,20 @@ function doUndo(btn) {
   updateMonthRatio(card);
   showToast('Undone');
 }
+var lastSnoozeCard = null;
 function undoLastAction() {
+  if (lastSkipCard) {
+    undoSkip(lastSkipCard);
+    lastSkipCard = null;
+    hideToast();
+    return;
+  }
+  if (lastSnoozeCard) {
+    undoSnooze(lastSnoozeCard);
+    lastSnoozeCard = null;
+    hideToast();
+    return;
+  }
   if (lastDoneCard) {
     lastDoneCard.classList.remove('done');
     lastDoneCard.classList.remove('expanded');
@@ -1431,29 +1495,68 @@ function undoLastAction() {
     hideToast();
   }
 }
+function undoSnooze(card) {
+  card.classList.remove('snoozed');
+  // Restore original day/num
+  var dayEl = card.querySelector('.pr-day');
+  var numEl = card.querySelector('.pr-num');
+  if (dayEl && card.dataset.origDay) dayEl.textContent = card.dataset.origDay;
+  if (numEl && card.dataset.origNum) numEl.textContent = card.dataset.origNum;
+  // Remove snooze label
+  var sl = card.querySelector('.snooze-label');
+  if (sl) sl.remove();
+  updateMonthRatio(card);
+}
 
-// ── Skip: inline preview, then collapse ──
+// ── Skip: collapse, hide card, update ratio, toast with undo ──
 var nextDates = ['May 12', 'May 19', 'May 24', 'Jun 2', 'Jun 9', 'Jun 16'];
+var lastSkipCard = null;
 function doSkip(btn) {
   var card = btn.closest('.task-card');
-  var actions = card.querySelector('.task-actions');
-  // Remove existing preview
-  var existing = card.querySelector('.skip-preview');
-  if (existing) existing.remove();
-  // Pick a next date
   var nextDate = nextDates[Math.floor(Math.random() * nextDates.length)];
-  // Insert inline preview below actions
-  var preview = document.createElement('div');
-  preview.className = 'skip-preview';
-  preview.textContent = 'Skipping this time. Back on ' + nextDate + '.';
-  actions.after(preview);
-  requestAnimationFrame(function() { preview.style.opacity = '1'; });
-  // After 950ms: collapse card
+
+  card.classList.remove('expanded');
+  lastSkipCard = card;
+  lastDoneCard = null;
+  lastSnoozeCard = null;
+
+  // Animate out then hide
+  card.style.transition = 'opacity 200ms ease, transform 200ms ease';
+  card.style.opacity = '0';
+  card.style.transform = 'translateX(-8px)';
   setTimeout(function() {
-    card.classList.remove('expanded');
-    setTimeout(function() { if (preview.parentNode) preview.remove(); }, 300);
-    showToast('Skipped. Back on ' + nextDate + '.');
-  }, 950);
+    card.style.transition = 'max-height 250ms ease, padding 250ms ease, margin 250ms ease';
+    card.style.overflow = 'hidden';
+    card.style.maxHeight = card.scrollHeight + 'px';
+    requestAnimationFrame(function() {
+      card.style.maxHeight = '0';
+      card.style.padding = '0';
+      card.style.margin = '0';
+    });
+    setTimeout(function() {
+      card.style.display = 'none';
+      updateMonthRatio(card);
+    }, 260);
+  }, 200);
+
+  // Toast with undo
+  var skipCopy = [
+    'Skipping this time. Back on ' + nextDate + '.',
+    'Skipped. We\'ll remind you on ' + nextDate + '.',
+    'No worries. ' + nextDate + ' it is.'
+  ];
+  showToast(skipCopy[Math.floor(Math.random() * skipCopy.length)]);
+}
+function undoSkip(card) {
+  card.style.display = '';
+  card.style.opacity = '';
+  card.style.transform = '';
+  card.style.maxHeight = '';
+  card.style.padding = '';
+  card.style.margin = '';
+  card.style.overflow = '';
+  card.style.transition = '';
+  updateMonthRatio(card);
 }
 
 // ── Snooze: track card, open sheet, collapse on selection ──
@@ -1465,18 +1568,77 @@ function openSnooze(btn) {
 function closeSnooze() {
   document.getElementById('snooze-sheet').style.display = 'none';
 }
+var snoozeDateMap = {
+  'Later today': { day: 'TODAY', num: '', time: '3 hours' },
+  'Tomorrow': { day: 'SAT', num: '5', time: 'tomorrow' },
+  'This weekend': { day: 'SAT', num: '5', time: 'this weekend' },
+  'Next week': { day: 'MON', num: '7', time: 'next week' },
+  'Pick a date': { day: '', num: '', time: 'your chosen date' }
+};
+function snoozeConfetti() {
+  var phone = document.querySelector('.phone');
+  if (!phone) return;
+  var rect = phone.getBoundingClientRect();
+  var colors = ['#9B7FD4','#E8A87C','#C09088','#8C9B80','#8E9A94','#A69BBF'];
+  var cx = rect.width / 2;
+  var cy = rect.height * 0.55;
+  for (var i = 0; i < 8; i++) {
+    var dot = document.createElement('div');
+    dot.className = 'snooze-confetti';
+    var angle = (Math.PI * 2 / 8) * i + (Math.random() - 0.5) * 0.5;
+    var dist = 30 + Math.random() * 40;
+    dot.style.cssText = 'left:' + cx + 'px;top:' + cy + 'px;background:' + colors[i % colors.length]
+      + ';--sx:' + Math.cos(angle) * dist + 'px;--sy:' + (Math.sin(angle) * dist - 15) + 'px;';
+    phone.appendChild(dot);
+    setTimeout(function(d) { d.remove(); }, 650, dot);
+  }
+}
+
 function doSnooze(label) {
   closeSnooze();
-  // Collapse the card that triggered snooze
-  if (_snoozeCard) {
-    _snoozeCard.classList.remove('expanded');
-    _snoozeCard = null;
+  if (!_snoozeCard) return;
+  var card = _snoozeCard;
+  _snoozeCard = null;
+  lastSnoozeCard = card;
+  lastDoneCard = null;
+
+  // Mini confetti burst
+  snoozeConfetti();
+
+  // 1. Collapse and mute
+  card.classList.remove('expanded');
+  card.classList.add('snoozed');
+
+  // 2. Update date column to show snoozed date
+  var dateInfo = snoozeDateMap[label] || { day: '', num: '', time: label.toLowerCase() };
+  var dayEl = card.querySelector('.pr-day');
+  var numEl = card.querySelector('.pr-num');
+  if (dayEl && dateInfo.day) {
+    card.dataset.origDay = dayEl.textContent;
+    dayEl.textContent = dateInfo.day;
   }
-  // Witty snooze copy
+  if (numEl && dateInfo.num) {
+    card.dataset.origNum = numEl.textContent;
+    numEl.textContent = dateInfo.num;
+  }
+
+  // 3. Add snooze indicator below the item meta
+  var body = card.querySelector('.pr-body');
+  if (body && !body.querySelector('.snooze-label')) {
+    var sl = document.createElement('div');
+    sl.className = 'snooze-label';
+    sl.textContent = 'Snoozed to ' + dateInfo.time;
+    body.appendChild(sl);
+  }
+
+  // 4. Update month ratio (snoozed = not done, but count stays)
+  updateMonthRatio(card);
+
+  // 5. Witty toast with undo
   var copy = [
-    'Snoozed until ' + label.toLowerCase() + '.',
+    'Snoozed until ' + dateInfo.time + '.',
     'Fine. But your stuff is taking notes.',
-    'Noted. We\'ll circle back ' + label.toLowerCase() + '.'
+    'Noted. We\'ll circle back ' + dateInfo.time + '.'
   ];
   showToast(copy[Math.floor(Math.random() * copy.length)]);
 }

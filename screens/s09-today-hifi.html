@@ -313,6 +313,17 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 }
 #snooze-backdrop.open { display: block; }
 
+/* ── Snooze confetti ── */
+@keyframes snooze-pop {
+  0%   { opacity: 1; transform: translate(0, 0) scale(1); }
+  100% { opacity: 0; transform: translate(var(--sx), var(--sy)) scale(0.4); }
+}
+.snooze-confetti {
+  position: absolute; width: 6px; height: 6px; border-radius: 50%;
+  pointer-events: none; z-index: 130;
+  animation: snooze-pop 600ms cubic-bezier(0.34,1.56,0.64,1) forwards;
+}
+
 /* ── Action toast ── */
 #action-toast {
   position: absolute; bottom: 92px; left: 16px; right: 16px;
@@ -349,6 +360,14 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 .feat-edit-row { padding-top: 8px; }
 .feat-edit-btn { font-size: 11px; font-weight: 500; color: var(--mid); background: var(--surface-low); padding: 6px 14px; border-radius: 100px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
 /* Snoozed-later-today state */
+/* Skipped state */
+.feat.task-skipped .feat-ti { opacity: 0.45; text-decoration: line-through; text-decoration-color: var(--hint); }
+.feat.task-skipped .feat-m  { opacity: 0.45; }
+.feat.task-skipped .feat-icon { opacity: 0.4; }
+.feat.task-skipped .feat-chev { opacity: 0.2; }
+.feat.task-skipped .badge { display: none; }
+.feat.task-skipped .feat-check { opacity: 0.2; pointer-events: none; }
+
 .feat.task-snoozed .feat-ti { opacity: 0.55; }
 .feat.task-snoozed .feat-m  { opacity: 0.55; }
 .feat.task-snoozed .feat-chev { opacity: 0.2; }
@@ -1051,6 +1070,23 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
   <div class="cl-title">Changelog</div>
 
   <div class="cl-entry">
+    <div class="cl-ver">v1.5 · 2026-04-04 · BREAKING</div>
+    <div class="cl-body">
+      <strong>Unified task card interactions, aligned with Plan tab.</strong> All three actions follow the same pattern: visual state change + toast with Undo + section counts update.<br><br>
+      <strong>Skip:</strong> Card slides out (translateX) and collapses (maxHeight 0). Summary line and section labels update dynamically ("3 things" becomes "2 things", "3 tasks" becomes "2 tasks"). Toast with witty copy + Undo button. Undo restores card to original position and updates all counts.<br><br>
+      <strong>Snooze:</strong> "Later today" mutes card in place. "Tomorrow/Weekend/Next week" moves card to target section with animation. Section counts update (TODAY decrements, THIS WEEK increments). Mini confetti burst (8 particles, category colors, 600ms spring). Witty escalating toast copy.<br><br>
+      <strong>Section count updates:</strong> <code>updateSectionCounts()</code> recalculates visible tasks per section after any action. Summary, TODAY label, THIS WEEK label all update dynamically.
+    </div>
+    <div class="cl-flutter">
+      <strong>Flutter notes:</strong><br>
+      Skip: <code>AnimatedContainer</code> height collapse. <code>task.last_skipped_at</code> set, <code>task.next_due_at</code> recalculated. Undo: restore, clear skip fields.<br>
+      Snooze move: <code>AnimatedList</code> removeItem on source section, insertItem on target. Badge updates to snoozed date label.<br>
+      Counts: <code>ValueListenableBuilder</code> on task list, auto-update section headers.<br>
+      All three: <code>SnackBar</code> with Undo action, 5s duration.
+    </div>
+  </div>
+
+  <div class="cl-entry">
     <div class="cl-ver">v1.4 · 2026-04-03 · BREAKING</div>
     <div class="cl-body">
       <strong>Checkbox circles added, aligned with Plan tab.</strong> Every task card now has a 24px category-colored checkbox circle on the right side (between badge and chevron). 1-tap to mark done. Done state: filled circle with white check, text at 0.4 opacity, icon at 0.5, badge hidden. No icon overlay on the left icon circle. No "check + done" text. Checkbox is the sole done indicator. Tap checkbox on done card to undo. Toast bg uses <code>var(--surface-low)</code> (light, per CLAUDE.md). Witty copy preserved.
@@ -1254,41 +1290,52 @@ function undoDone(editBtn) {
 ═══════════════════════════════════════ */
 const nextDates = ['May 12', 'May 19', 'May 24', 'Jun 2', 'Jun 9', 'Jun 16'];
 
+let _lastSkipFeat = null;
 function handleSkip(btn) {
-  const feat    = btn.closest('.feat');
-  const actions = feat.querySelector('.feat-actions');
-
-  /* Remove any existing preview */
-  const existing = feat.querySelector('.skip-preview');
-  if (existing) existing.remove();
-
-  /* Pick next date */
+  const feat = btn.closest('.feat');
   const nextDate = nextDates[Math.floor(Math.random() * nextDates.length)];
 
-  /* Insert inline preview below action row */
-  const preview = document.createElement('div');
-  preview.className = 'skip-preview';
-  preview.textContent = `Skipping this time. Back on ${nextDate}.`;
-  actions.after(preview);
-  requestAnimationFrame(() => { preview.style.opacity = '1'; });
+  feat.classList.remove('expanded');
+  _lastSkipFeat = feat;
 
-  /* After 950ms: slide card out */
+  // Animate out then hide
+  feat.style.transition = 'opacity 200ms ease, transform 200ms ease';
+  feat.style.opacity = '0';
+  feat.style.transform = 'translateX(-8px)';
   setTimeout(() => {
-    feat.style.transition = 'opacity 220ms ease, transform 220ms ease';
-    feat.style.opacity    = '0';
-    feat.style.transform  = 'translateX(-10px)';
+    feat.style.transition = 'max-height 250ms ease, padding 250ms ease, margin 250ms ease';
+    feat.style.overflow = 'hidden';
+    feat.style.maxHeight = feat.scrollHeight + 'px';
+    requestAnimationFrame(() => {
+      feat.style.maxHeight = '0';
+      feat.style.padding = '0';
+      feat.style.margin = '0';
+    });
     setTimeout(() => {
-      feat.style.transition = 'max-height 280ms ease, padding 280ms ease, margin 280ms ease';
-      feat.style.overflow   = 'hidden';
-      feat.style.maxHeight  = feat.scrollHeight + 'px';
-      requestAnimationFrame(() => {
-        feat.style.maxHeight = '0';
-        feat.style.padding   = '0';
-        feat.style.margin    = '0';
-      });
-      setTimeout(() => { feat.style.display = 'none'; }, 290);
-    }, 220);
-  }, 950);
+      feat.style.display = 'none';
+      updateSectionCounts();
+    }, 260);
+  }, 200);
+
+  // Toast with undo
+  const skipCopy = [
+    'Skipping this time. Back on ' + nextDate + '.',
+    'Skipped. We\'ll remind you on ' + nextDate + '.',
+    'No worries. ' + nextDate + ' it is.'
+  ];
+  showToast(skipCopy[Math.floor(Math.random() * skipCopy.length)], function() {
+    // Undo: restore card
+    feat.style.display = '';
+    feat.style.opacity = '';
+    feat.style.transform = '';
+    feat.style.maxHeight = '';
+    feat.style.padding = '';
+    feat.style.margin = '';
+    feat.style.overflow = '';
+    feat.style.transition = '';
+    _lastSkipFeat = null;
+    updateSectionCounts();
+  });
 }
 
 /* ═══════════════════════════════════════
@@ -1304,11 +1351,33 @@ function handleSnooze(btn) {
   document.getElementById('snooze-backdrop').classList.add('open');
 }
 
+function snoozeConfetti(evt) {
+  const phone = document.querySelector('.phone');
+  if (!phone) return;
+  const rect = phone.getBoundingClientRect();
+  const colors = ['#9B7FD4','#E8A87C','#C09088','#8C9B80','#8E9A94','#A69BBF'];
+  const cx = (evt ? evt.clientX : rect.left + rect.width / 2) - rect.left;
+  const cy = (evt ? evt.clientY : rect.top + rect.height * 0.7) - rect.top;
+  for (let i = 0; i < 8; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'snooze-confetti';
+    const angle = (Math.PI * 2 / 8) * i + (Math.random() - 0.5) * 0.5;
+    const dist = 30 + Math.random() * 40;
+    dot.style.cssText = 'left:' + cx + 'px;top:' + cy + 'px;background:' + colors[i % colors.length]
+      + ';--sx:' + Math.cos(angle) * dist + 'px;--sy:' + (Math.sin(angle) * dist - 15) + 'px;';
+    phone.appendChild(dot);
+    setTimeout(() => dot.remove(), 650);
+  }
+}
+
 function selectSnooze(label, time, dateLabel, targetSection) {
   closeSnoozeSheet();
   if (!_snoozeFeat) return;
   const feat = _snoozeFeat;
   _snoozeFeat = null;
+
+  // Mini confetti burst from the card's position
+  snoozeConfetti(null);
 
   feat.classList.remove('expanded');
 
@@ -1386,11 +1455,46 @@ function selectSnooze(label, time, dateLabel, targetSection) {
       feat.style.padding   = '0';
       feat.style.margin    = '0';
     });
-    setTimeout(function() { feat.style.display = 'none'; }, 270);
+    setTimeout(function() { feat.style.display = 'none'; updateSectionCounts(); }, 270);
   }, 200);
+  const snoozeCopy = [
+    'Snoozed until ' + dateLabel + '. We\'ll circle back.',
+    'Noted. ' + dateLabel + ' it is.',
+    'Fine. But your stuff is taking notes.'
+  ];
+  showToast(snoozeCopy[Math.floor(Math.random() * snoozeCopy.length)], null);
+}
 
-  const sectionLabel = targetSection === 'week' ? 'this week' : 'coming up';
-  showToast('Moved to ' + sectionLabel + '. Back on ' + dateLabel + '.', null);
+function updateSectionCounts() {
+  const active = document.querySelector('.tp.active');
+  if (!active) return;
+  const ncs = active.querySelectorAll('.nc');
+  // TODAY = first .nc (no data-section)
+  const todayNc = ncs[0];
+  let todayCount = 0;
+  if (todayNc) todayNc.querySelectorAll('.feat').forEach(f => {
+    if (f.style.display !== 'none' && !f.classList.contains('task-done')) todayCount++;
+  });
+  // Update summary line
+  const sm = active.querySelector('.sm');
+  if (sm) {
+    if (todayCount === 0) sm.textContent = 'All done for today. Nice work.';
+    else sm.textContent = todayCount + ' thing' + (todayCount !== 1 ? 's' : '') + ' need' + (todayCount === 1 ? 's' : '') + ' attention today';
+  }
+  // Update today section label (the "· 3 tasks" part)
+  const secs = active.querySelectorAll('.sec');
+  if (secs[0]) {
+    const lbl = secs[0].querySelector('div[style*="font-size:10px"]');
+    if (lbl) lbl.textContent = '· ' + todayCount + ' task' + (todayCount !== 1 ? 's' : '');
+  }
+  // THIS WEEK count
+  const weekNc = active.querySelector('[data-section="week"]');
+  if (weekNc && secs[1]) {
+    let weekCount = 0;
+    weekNc.querySelectorAll('.feat').forEach(f => { if (f.style.display !== 'none') weekCount++; });
+    const wl = secs[1].querySelector('.week-count') || secs[1].querySelector('div[style*="font-size:10px"]');
+    if (wl) wl.textContent = '· rest of the week · ' + weekCount + ' task' + (weekCount !== 1 ? 's' : '');
+  }
 }
 
 function closeSnoozeSheet() {
