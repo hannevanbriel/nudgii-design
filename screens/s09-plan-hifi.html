@@ -183,6 +183,14 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 /* Badge (waiting / due date) */
 .task-badge { font-size: 11px; font-weight: 500; color: var(--apricot); flex-shrink: 0; white-space: nowrap; }
 
+/* ── Checkbox circle (right side, 1-tap done) ── */
+.task-check { width: 24px; height: 24px; border-radius: 50%; border: 1.8px solid; opacity: 0.4; flex-shrink: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 250ms ease; }
+.task-check:hover { opacity: 0.6; }
+.task-check svg { opacity: 0; transition: opacity 200ms ease; }
+/* Done: filled circle with check */
+.task-card.done .task-check { opacity: 0.7; }
+.task-card.done .task-check svg { opacity: 1; }
+
 /* Chevron (expand/collapse) */
 .task-chev { width: 12px; height: 12px; flex-shrink: 0; opacity: 0.3; transition: transform 200ms ease; }
 .task-card.expanded .task-chev { transform: rotate(180deg); opacity: 0.5; }
@@ -224,8 +232,8 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 .task-card.done .task-undo { display: inline-flex; align-items: center; gap: 4px; }
 
 /* Why block: tappable with chevron hint */
-.task-why { background: var(--surface-low); border-radius: 8px; padding: 12px 14px; margin-bottom: 12px; position: relative; cursor: pointer; }
-.why-chev { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); opacity: 0.3; }
+.task-why { background: var(--surface-low); border-radius: 8px; padding: 12px 14px 12px 14px; margin-bottom: 12px; position: relative; cursor: pointer; padding-right: 32px; }
+.why-chev { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); opacity: 0.45; }
 .task-card.done .done-indicator { display: flex; }
 
 /* ── Export bottom sheet overlay ── */
@@ -440,7 +448,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                 <div class="task-expand-inner">
                   <div class="task-why" onclick="event.stopPropagation()">
                     <div class="task-wl" style="color:var(--ch-bg);">Why it matters</div>
-                    <svg class="why-chev" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <svg class="why-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="3" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <div class="task-wt">Salt prevents limescale and keeps your dishwasher cleaning effectively. Check the reservoir every 6 to 8 weeks.</div>
                   </div>
                   <div class="task-actions" onclick="event.stopPropagation()">
@@ -469,7 +477,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                 <div class="task-expand-inner">
                   <div class="task-why" onclick="event.stopPropagation()">
                     <div class="task-wl" style="color:var(--cg-bg);">Why it matters</div>
-                    <svg class="why-chev" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <svg class="why-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="3" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <div class="task-wt">Starting indoors in early April gives seedlings 6 weeks to strengthen before transplanting after the last frost.</div>
                   </div>
                   <div class="task-actions" onclick="event.stopPropagation()">
@@ -500,7 +508,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                 <div class="task-expand-inner">
                   <div class="task-why" onclick="event.stopPropagation()">
                     <div class="task-wl" style="color:var(--cv-bg);">Why it matters</div>
-                    <svg class="why-chev" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <svg class="why-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="3" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <div class="task-wt">Low tyre pressure increases fuel consumption and uneven wear. Check all four tyres when cold, including the spare.</div>
                   </div>
                   <div class="task-actions" onclick="event.stopPropagation()">
@@ -527,7 +535,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                 <div class="task-expand-inner">
                   <div class="task-why" onclick="event.stopPropagation()">
                     <div class="task-wl" style="color:var(--ch-bg);">Why it matters</div>
-                    <svg class="why-chev" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <svg class="why-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="3" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <div class="task-wt">Blocked gutters cause water damage to walls and foundations. Spring cleaning catches winter debris before the next rains.</div>
                   </div>
                   <div class="task-actions" onclick="event.stopPropagation()">
@@ -558,7 +566,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                 <div class="task-expand-inner">
                   <div class="task-why" onclick="event.stopPropagation()">
                     <div class="task-wl" style="color:var(--cs-bg);">Why it matters</div>
-                    <svg class="why-chev" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <svg class="why-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="3" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <div class="task-wt">Letting your home insurance lapse leaves you unprotected. Renew 2 weeks before expiry to compare quotes.</div>
                   </div>
                   <div class="task-actions" onclick="event.stopPropagation()">
@@ -607,7 +615,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                 <div class="task-expand-inner">
                   <div class="task-why" onclick="event.stopPropagation()">
                     <div class="task-wl" style="color:var(--cg-bg);">Why it matters</div>
-                    <svg class="why-chev" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <svg class="why-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="3" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <div class="task-wt">Prune after the last frost but before new growth. Removes dead wood and shapes the canopy for better fruit yield.</div>
                   </div>
                   <div class="task-actions" onclick="event.stopPropagation()">
@@ -634,7 +642,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                 <div class="task-expand-inner">
                   <div class="task-why" onclick="event.stopPropagation()">
                     <div class="task-wl" style="color:var(--ch-bg);">Why it matters</div>
-                    <svg class="why-chev" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <svg class="why-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="3" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <div class="task-wt">The annual check validates your warranty and catches carbon monoxide risks. Book 2 to 3 weeks in advance.</div>
                   </div>
                   <div class="task-actions" onclick="event.stopPropagation()">
@@ -661,7 +669,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                 <div class="task-expand-inner">
                   <div class="task-why" onclick="event.stopPropagation()">
                     <div class="task-wl" style="color:var(--ch-bg);">Why it matters</div>
-                    <svg class="why-chev" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <svg class="why-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="3" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <div class="task-wt">Salt prevents limescale and keeps your dishwasher cleaning effectively. Check the reservoir every 6 to 8 weeks.</div>
                   </div>
                   <div class="task-actions" onclick="event.stopPropagation()">
@@ -688,7 +696,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                 <div class="task-expand-inner">
                   <div class="task-why" onclick="event.stopPropagation()">
                     <div class="task-wl" style="color:var(--cv-bg);">Why it matters</div>
-                    <svg class="why-chev" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <svg class="why-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="3" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <div class="task-wt">Worn wipers reduce visibility in rain. Replace annually or when streaking starts. Takes 5 minutes.</div>
                   </div>
                   <div class="task-actions" onclick="event.stopPropagation()">
@@ -737,7 +745,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                 <div class="task-expand-inner">
                   <div class="task-why" onclick="event.stopPropagation()">
                     <div class="task-wl" style="color:var(--cs-bg);">Why it matters</div>
-                    <svg class="why-chev" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <svg class="why-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="3" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <div class="task-wt">The average household wastes around 30 euros per month on unused subscriptions. A quick check takes 5 minutes.</div>
                   </div>
                   <div class="task-actions" onclick="event.stopPropagation()">
@@ -764,7 +772,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                 <div class="task-expand-inner">
                   <div class="task-why" onclick="event.stopPropagation()">
                     <div class="task-wl" style="color:var(--cg-bg);">Why it matters</div>
-                    <svg class="why-chev" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    <svg class="why-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="3" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <div class="task-wt">Consistent watering in the first weeks after transplanting prevents blossom end rot and establishes strong roots.</div>
                   </div>
                   <div class="task-actions" onclick="event.stopPropagation()">
@@ -1211,6 +1219,39 @@ var lastDoneCard = null;
 var toastTimer = null;
 
 // ── Category filter ──
+// ── Init: add checkbox circles to all task cards ──
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.task-card').forEach(function(card) {
+    var top = card.querySelector('.task-top');
+    var chev = card.querySelector('.task-chev');
+    var icon = card.querySelector('.pr-icon');
+    if (!top || !chev || !icon) return;
+    // Get category color from icon background style
+    var style = icon.getAttribute('style') || '';
+    var color = 'var(--hint)';
+    if (style.indexOf('--ch-') > -1) color = 'var(--ch-bg)';
+    else if (style.indexOf('--cg-') > -1) color = 'var(--cg-bg)';
+    else if (style.indexOf('--cv-') > -1) color = 'var(--cv-bg)';
+    else if (style.indexOf('--cs-') > -1) color = 'var(--cs-bg)';
+    // Create done-indicator if not present
+    if (!card.querySelector('.done-indicator')) {
+      var di = document.createElement('div');
+      di.className = 'done-indicator';
+      di.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span class="done-label">done</span>';
+      var chev2 = card.querySelector('.task-chev');
+      if (chev2) top.insertBefore(di, chev2);
+    }
+    // Create checkbox
+    var cb = document.createElement('div');
+    cb.className = 'task-check';
+    cb.style.borderColor = color;
+    if (card.classList.contains('done')) cb.style.background = color;
+    cb.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>';
+    cb.onclick = function(e) { e.stopPropagation(); checkboxTap(cb); };
+    top.insertBefore(cb, chev);
+  });
+});
+
 function setChip(el) {
   var row = el.closest('.chips-row');
   row.querySelectorAll('.chip').forEach(function(c) { c.classList.remove('active'); });
@@ -1243,13 +1284,12 @@ function toggleCard(el) {
   el.classList.toggle('expanded');
 }
 
-// ── Mark Done: check + "done" on RIGHT, no icon overlay ──
+// ── Mark Done: stays expanded, checkbox fills, actions swap to Undo ──
 function doMarkDone(btn) {
   var card = btn.closest('.task-card');
   var itemName = (card.querySelector('.pr-item').textContent.split('·')[0] || 'it').trim().toLowerCase();
 
-  // 1. Collapse + mark done (CSS handles visual: muted text, done-indicator shows)
-  card.classList.remove('expanded');
+  // 1. Mark done (do NOT collapse — let user see the transition)
   card.classList.add('done');
   lastDoneCard = card;
 
@@ -1262,12 +1302,29 @@ function doMarkDone(btn) {
   ];
   showToast(witty[Math.floor(Math.random() * witty.length)]);
 }
+// ── Checkbox tap (1-tap done from collapsed state) ──
+function checkboxTap(el) {
+  var card = el.closest('.task-card');
+  var cb = card.querySelector('.task-check');
+  if (card.classList.contains('done')) {
+    // Undo: unfill checkbox
+    card.classList.remove('done');
+    if (cb) cb.style.background = 'transparent';
+    showToast('Undone');
+  } else {
+    // Fill checkbox + mark done
+    if (cb) cb.style.background = cb.style.borderColor;
+    doMarkDone(el);
+  }
+}
 
 // ── Undo (via Undo button in expanded done card, or toast) ──
 function doUndo(btn) {
   var card = btn.closest('.task-card');
+  var cb = card.querySelector('.task-check');
   card.classList.remove('done');
   card.classList.remove('expanded');
+  if (cb) cb.style.background = 'transparent';
   showToast('Undone');
 }
 function undoLastAction() {
