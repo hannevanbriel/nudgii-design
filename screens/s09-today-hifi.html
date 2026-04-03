@@ -331,12 +331,20 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 /* ── Skip inline preview ── */
 .skip-preview { font-size: 11px; font-style: italic; color: var(--mid); padding: 6px 0 2px; opacity: 0; transition: opacity 200ms; }
 
+/* ── Checkbox circle (right side, 1-tap done) ── */
+.feat-check { width: 24px; height: 24px; border-radius: 50%; border: 1.8px solid; opacity: 0.4; flex-shrink: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 250ms ease; }
+.feat-check:hover { opacity: 0.6; }
+.feat-check svg { opacity: 0; transition: opacity 200ms ease; }
+/* Done: filled circle with check */
+.feat.task-done .feat-check { opacity: 0.7; }
+.feat.task-done .feat-check svg { opacity: 1; }
+
 /* ── Card: done-in-place state ── */
 .feat.task-done .feat-ti { opacity: 0.4; }
 .feat.task-done .feat-m  { opacity: 0.4; }
-.feat.task-done .feat-icon { position: relative; }
-.feat.task-done .feat-chev { opacity: 0.2; }
-.feat-done-badge { font-size: 10px; font-weight: 500; color: var(--hint); display: flex; align-items: center; gap: 3px; }
+.feat.task-done .feat-icon { opacity: 0.5; }
+.feat.task-done .feat-chev { opacity: 0.15; }
+.feat.task-done .badge { display: none; }
 /* Edit-only action row (shown after done) */
 .feat-edit-row { padding-top: 8px; }
 .feat-edit-btn { font-size: 11px; font-weight: 500; color: var(--mid); background: var(--surface-low); padding: 6px 14px; border-radius: 100px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
@@ -1043,6 +1051,17 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
   <div class="cl-title">Changelog</div>
 
   <div class="cl-entry">
+    <div class="cl-ver">v1.4 · 2026-04-03 · BREAKING</div>
+    <div class="cl-body">
+      <strong>Checkbox circles added, aligned with Plan tab.</strong> Every task card now has a 24px category-colored checkbox circle on the right side (between badge and chevron). 1-tap to mark done. Done state: filled circle with white check, text at 0.4 opacity, icon at 0.5, badge hidden. No icon overlay on the left icon circle. No "check + done" text. Checkbox is the sole done indicator. Tap checkbox on done card to undo. Toast bg uses <code>var(--surface-low)</code> (light, per CLAUDE.md). Witty copy preserved.
+    </div>
+    <div class="cl-flutter">
+      <strong>Flutter notes:</strong><br>
+      Checkbox: <code>GestureDetector</code> wrapping <code>AnimatedContainer(width: 24, height: 24, decoration: BoxDecoration(shape: BoxShape.circle, border/color: categoryColor))</code>. Done fill: <code>color: categoryColor</code> with white check icon. Category color derived from item's category. Tap toggles done state. Badge: <code>Visibility(visible: !isDone)</code>. Icon circle: no overlay, just <code>AnimatedOpacity(0.5)</code> on done.
+    </div>
+  </div>
+
+  <div class="cl-entry">
     <div class="cl-ver">v1.3 · 2026-04-02 · ADDITIVE</div>
     <div class="cl-body">
       <strong>Skip / Snooze / Done interaction spec added to annotation sidebar.</strong><br><br>
@@ -1107,12 +1126,32 @@ function setState(s) {
 
 /* ── Event delegation for task buttons ── */
 document.addEventListener('DOMContentLoaded', () => {
-  /* Store original badge text + done color on each feat for undo */
+  /* Store original badge text + done color on each feat, create checkboxes */
   document.querySelectorAll('.feat').forEach(feat => {
     const badge = feat.querySelector('.badge');
     const done  = feat.querySelector('.feat-done');
+    const top   = feat.querySelector('.feat-top');
+    const chev  = feat.querySelector('.feat-chev');
     if (badge) feat.dataset.originalBadge = badge.textContent.trim();
     if (done)  feat.dataset.doneBg = done.style.background;
+    // Get category color from icon background style
+    const iconEl = feat.querySelector('.feat-icon');
+    const style = (iconEl && iconEl.getAttribute('style')) || '';
+    let color = 'var(--hint)';
+    if (style.indexOf('--ch-') > -1) color = 'var(--ch-bg)';
+    else if (style.indexOf('--cg-') > -1) color = 'var(--cg-bg)';
+    else if (style.indexOf('--cv-') > -1) color = 'var(--cv-bg)';
+    else if (style.indexOf('--cs-') > -1) color = 'var(--cs-bg)';
+    feat.dataset.catColor = color;
+    // Create checkbox circle
+    if (top && chev) {
+      const cb = document.createElement('div');
+      cb.className = 'feat-check';
+      cb.style.borderColor = color;
+      cb.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>';
+      cb.onclick = function(e) { e.stopPropagation(); checkboxTap(cb); };
+      top.insertBefore(cb, chev);
+    }
   });
 
   document.querySelectorAll('.tc').forEach(tc => {
@@ -1136,52 +1175,44 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+/* Checkbox 1-tap done */
+function checkboxTap(cb) {
+  const feat = cb.closest('.feat');
+  if (feat.classList.contains('task-done')) {
+    const editBtn = feat.querySelector('.feat-edit-btn');
+    if (editBtn) undoDone(editBtn);
+  } else {
+    const doneBtn = feat.querySelector('.feat-done');
+    if (doneBtn) handleDone(doneBtn);
+  }
+}
+
 /* ═══════════════════════════════════════
    DONE
-   Card stays in place, transforms to done state.
-   Icon gets checkmark overlay, badge shows "✓ done",
-   action buttons hidden, edit button shown.
+   Card stays in place, checkbox fills with category color.
+   Text muted, badge hidden, action buttons replaced with Undo.
 ═══════════════════════════════════════ */
 function handleDone(btn) {
   const feat    = btn.closest('.feat');
-  const iconEl  = feat.querySelector('.feat-icon');
-  const doneBg  = btn.style.background;
-  const badgeEl = feat.querySelector('.badge');
+  const cb      = feat.querySelector('.feat-check');
   const actions = feat.querySelector('.feat-actions');
   const itemName = (feat.querySelector('.feat-m').textContent.split('·')[0] || 'it').trim().toLowerCase();
+  const color   = feat.dataset.catColor || 'var(--hint)';
 
-  /* 1. Collapse expanded state */
-  feat.classList.remove('expanded');
-
-  /* 2. Add done class for visual muting */
+  /* 1. Add done class for visual muting */
   feat.classList.add('task-done');
 
-  /* 3. Overlay checkmark on icon circle */
-  iconEl.style.position = 'relative';
-  const check = document.createElement('div');
-  check.style.cssText = `position:absolute;inset:0;border-radius:50%;background:${doneBg};display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 250ms ease;`;
-  check.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
-  iconEl.appendChild(check);
-  requestAnimationFrame(() => { check.style.opacity = '1'; });
+  /* 2. Fill checkbox with category color */
+  if (cb) cb.style.background = color;
 
-  /* 4. Update badge to "✓ done" */
-  if (badgeEl) {
-    badgeEl.className = 'badge';
-    badgeEl.style.color = 'var(--hint)';
-    badgeEl.innerHTML = `<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> done`;
-    badgeEl.style.display = 'flex';
-    badgeEl.style.alignItems = 'center';
-    badgeEl.style.gap = '3px';
-  }
-
-  /* 5. Replace action buttons with edit-only row */
+  /* 3. Replace action buttons with Undo */
   actions.innerHTML = `
     <span class="feat-edit-btn" onclick="undoDone(this)">
       <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
       Undo
     </span>`;
 
-  /* 6. Witty toast */
+  /* 4. Witty toast */
   const witty = [
     `Done. Your ${itemName} approves.`,
     `Done. One less thing to think about.`,
@@ -1193,25 +1224,15 @@ function handleDone(btn) {
 
 function undoDone(editBtn) {
   const feat    = editBtn.closest('.feat');
-  const iconEl  = feat.querySelector('.feat-icon');
-  const badgeEl = feat.querySelector('.badge');
+  const cb      = feat.querySelector('.feat-check');
 
   /* Remove done class */
   feat.classList.remove('task-done');
 
-  /* Remove checkmark overlay */
-  const overlay = iconEl.querySelector('div');
-  if (overlay) overlay.remove();
-  iconEl.style.position = '';
+  /* Clear checkbox fill */
+  if (cb) cb.style.background = '';
 
-  /* Restore badge — figure out original state from task */
-  if (badgeEl) {
-    badgeEl.style.cssText = '';
-    badgeEl.innerHTML = feat.dataset.originalBadge || 'due';
-  }
-
-  /* Restore action buttons — rebuild from original feat structure */
-  const iconBg  = iconEl.style.background;
+  /* Restore action buttons */
   const doneBg  = feat.dataset.doneBg || 'var(--hint)';
   const actions = feat.querySelector('.feat-actions');
   actions.innerHTML = `

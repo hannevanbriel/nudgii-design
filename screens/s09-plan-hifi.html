@@ -218,10 +218,6 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 .task-card.done .pr-icon { opacity: 0.5; }
 .task-card.done .task-chev { opacity: 0.15; }
 .task-card.done .task-badge { display: none; }
-.done-indicator { display: none; align-items: center; gap: 3px; flex-shrink: 0; }
-.done-indicator svg { flex-shrink: 0; }
-.done-label { font-size: 11px; font-weight: 500; color: var(--hint); }
-.task-card.done .done-indicator { display: flex; }
 /* Done expanded: show Why block + Undo only */
 .task-card.done .task-actions { justify-content: flex-end; }
 .task-card.done .task-skip { display: none; }
@@ -234,8 +230,6 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 /* Why block: tappable with chevron hint */
 .task-why { background: var(--surface-low); border-radius: 8px; padding: 12px 14px 12px 14px; margin-bottom: 12px; position: relative; cursor: pointer; padding-right: 32px; }
 .why-chev { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); opacity: 0.45; }
-.task-card.done .done-indicator { display: flex; }
-
 /* ── Export bottom sheet overlay ── */
 .export-sheet { display: none; position: absolute; inset: 0; z-index: 100; }
 .export-scrim { position: absolute; inset: 0; background: rgba(49,51,44,0.5); }
@@ -498,10 +492,6 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cv-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="12" height="6" rx="1.5"/><path d="M3 10v2M11 10v2"/><path d="M3 4l1.5-2h5L11 4"/></svg>
                 </div>
                 <div class="pr-body"><div class="pr-title">Check tyre pressure</div><div class="pr-item">Car · Vehicle</div></div>
-                <div class="done-indicator">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--cv-bg)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span class="done-label">done</span>
-                </div>
                 <svg class="task-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
               </div>
               <div class="task-expand">
@@ -556,10 +546,6 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cs-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="2.5" width="12" height="9" rx="1.5"/><line x1="1" y1="5.5" x2="13" y2="5.5"/><line x1="3.5" y1="8.5" x2="5" y2="8.5"/></svg>
                 </div>
                 <div class="pr-body"><div class="pr-title">Renew home insurance</div><div class="pr-item">Allianz Home · Subscriptions</div></div>
-                <div class="done-indicator">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--cs-bg)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span class="done-label">done</span>
-                </div>
                 <svg class="task-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
               </div>
               <div class="task-expand">
@@ -1143,6 +1129,17 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
   <div class="cl-title">Changelog</div>
 
   <div class="cl-entry">
+    <div class="cl-ver">v1.4 · 2026-04-03 · BREAKING</div>
+    <div class="cl-body">
+      <strong>Done indicator: checkbox circle is the sole signal.</strong> Removed redundant "check + done" text indicator (<code>.done-indicator</code>) from done tasks. The filled category-colored checkbox circle (right side, 24px) is the only done-state visual. Badge hidden on done. Text muted at 0.4, icon at 0.5. Aligned with Today tab pattern.
+    </div>
+    <div class="cl-flutter">
+      <strong>Flutter notes:</strong><br>
+      Done state: <code>Container(width: 24, height: 24, decoration: BoxDecoration(shape: BoxShape.circle, color: categoryColor))</code> with white check icon. No separate "done" text label. Badge visibility: <code>Visibility(visible: !isDone)</code>.
+    </div>
+  </div>
+
+  <div class="cl-entry">
     <div class="cl-ver">v1.3 · 2026-04-03 · BREAKING</div>
     <div class="cl-body">
       <strong>Major interaction overhaul: task cards match Today pattern.</strong> Six changes from design review.<br><br>
@@ -1233,14 +1230,6 @@ document.addEventListener('DOMContentLoaded', function() {
     else if (style.indexOf('--cg-') > -1) color = 'var(--cg-bg)';
     else if (style.indexOf('--cv-') > -1) color = 'var(--cv-bg)';
     else if (style.indexOf('--cs-') > -1) color = 'var(--cs-bg)';
-    // Create done-indicator if not present
-    if (!card.querySelector('.done-indicator')) {
-      var di = document.createElement('div');
-      di.className = 'done-indicator';
-      di.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span class="done-label">done</span>';
-      var chev2 = card.querySelector('.task-chev');
-      if (chev2) top.insertBefore(di, chev2);
-    }
     // Create checkbox
     var cb = document.createElement('div');
     cb.className = 'task-check';
