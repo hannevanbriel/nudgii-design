@@ -328,16 +328,23 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 #action-toast {
   position: absolute; bottom: 92px; left: 16px; right: 16px;
   background: var(--surface-low); color: var(--ink);
-  font-size: 12px; font-weight: 500; line-height: 1.4;
-  padding: 11px 14px; border-radius: 10px;
-  box-shadow: 0 4px 16px rgba(49,51,44,0.12);
-  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  font-size: 13px; font-weight: 500; line-height: 1.4;
+  padding: 12px 16px; border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(49,51,44,0.16), 0 1px 4px rgba(49,51,44,0.08);
+  display: flex; align-items: center; gap: 10px;
   z-index: 130; pointer-events: none;
-  opacity: 0; transform: translateY(6px);
-  transition: opacity 200ms ease, transform 200ms ease;
+  opacity: 0; transform: translateY(12px);
+  transition: opacity 180ms ease, transform 350ms cubic-bezier(0.34,1.4,0.64,1);
 }
 #action-toast.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
-#toast-undo { font-size: 11px; font-weight: 600; color: var(--plum); background: none; border: none; font-family: inherit; cursor: pointer; white-space: nowrap; flex-shrink: 0; padding: 0; }
+#toast-icon, .toast-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+#toast-icon svg, .toast-icon svg { width: 12px; height: 12px; }
+.toast-icon.done, #toast-icon.done { background: rgba(59,109,17,0.12); color: #3B6D11; }
+.toast-icon.skip, #toast-icon.skip { background: rgba(155,127,212,0.12); color: #9B7FD4; }
+.toast-icon.snooze, #toast-icon.snooze { background: rgba(232,168,124,0.15); color: #C8784A; }
+#toast-msg { flex: 1; }
+#toast-msg strong { font-weight: 700; }
+#toast-undo { font-size: 12px; font-weight: 600; color: var(--plum); background: none; border: none; font-family: inherit; cursor: pointer; white-space: nowrap; flex-shrink: 0; padding: 0; }
 
 /* ── Skip inline preview ── */
 .skip-preview { font-size: 11px; font-style: italic; color: var(--mid); padding: 6px 0 2px; opacity: 0; transition: opacity 200ms; }
@@ -799,7 +806,10 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 
       <!-- TOAST -->
       <div id="action-toast">
-        <span id="toast-msg">Done.</span>
+        <span id="toast-icon" class="done">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </span>
+        <span id="toast-msg"><strong>Done.</strong></span>
         <button id="toast-undo">Undo</button>
       </div>
 
@@ -1202,7 +1212,6 @@ document.addEventListener('DOMContentLoaded', () => {
       /* Tap-to-undo: clicking a done card undoes it */
       if (feat && feat.classList.contains('task-done')) {
         e.stopPropagation();
-        feat.classList.remove('expanded');
         const editBtn = feat.querySelector('.feat-edit-btn');
         if (editBtn) undoDone(editBtn);
         return;
@@ -1255,7 +1264,7 @@ function handleDone(btn) {
     `Done. You're on a roll.`,
     `Done. ${itemName.charAt(0).toUpperCase() + itemName.slice(1)} says thank you.`
   ];
-  showToast(witty[Math.floor(Math.random() * witty.length)], () => undoDone(feat.querySelector('.feat-edit-btn')));
+  showToast(witty[Math.floor(Math.random() * witty.length)], () => undoDone(feat.querySelector('.feat-edit-btn')), 'done');
 }
 
 function undoDone(editBtn) {
@@ -1335,7 +1344,7 @@ function handleSkip(btn) {
     feat.style.transition = '';
     _lastSkipFeat = null;
     updateSectionCounts();
-  });
+  }, 'skip');
 }
 
 /* ═══════════════════════════════════════
@@ -1376,93 +1385,24 @@ function selectSnooze(label, time, dateLabel, targetSection) {
   const feat = _snoozeFeat;
   _snoozeFeat = null;
 
-  // Mini confetti burst from the card's position
-  snoozeConfetti(null);
-
-  feat.classList.remove('expanded');
-
-  if (targetSection === 'today') {
-    /* Later today — card stays, badge updates to time */
-    feat.classList.add('task-snoozed');
-    const badgeEl = feat.querySelector('.badge');
-    if (badgeEl) {
-      badgeEl.className = 'badge due';
-      badgeEl.textContent = time;
-    }
-    showToast('Reminder set for ' + time + '. Still on your list.', function() {
-      feat.classList.remove('task-snoozed');
-      if (badgeEl) {
-        badgeEl.className = 'badge ov';
-        badgeEl.textContent = feat.dataset.originalBadge || 'late';
-      }
-    });
-    return;
+  /* Card stays in place, gets snoozed visual state + badge update + toast */
+  feat.classList.add('task-snoozed');
+  const badgeEl = feat.querySelector('.badge');
+  const origClass = badgeEl ? badgeEl.className : '';
+  const origText = badgeEl ? badgeEl.textContent : '';
+  if (badgeEl) {
+    badgeEl.className = 'badge due';
+    badgeEl.textContent = (targetSection === 'today') ? time : (dateLabel || label);
   }
-
-  /* Tomorrow / This weekend / Next week — move card to target section */
-  const activeState = document.querySelector('.tp.active');
-  if (!activeState) return;
-  const targetContainer = activeState.querySelector('[data-section="' + targetSection + '"]');
-
-  if (targetContainer) {
-    /* Clone the card, reset state, update badge */
-    const clone = feat.cloneNode(true);
-    clone.classList.remove('task-done', 'task-snoozed', 'expanded');
-    clone.removeAttribute('style');
-    /* Re-wire event delegation — onclick on feat for toggle */
-    clone.setAttribute('onclick', 'this.classList.toggle(\'expanded\')');
-    const cloneBadge = clone.querySelector('.badge');
-    if (cloneBadge) {
-      cloneBadge.className = 'badge due';
-      cloneBadge.textContent = dateLabel || label;
-    }
-    /* Restore done button dataset for undo support */
-    const cloneDone = clone.querySelector('.feat-done');
-    if (cloneDone) { cloneDone.dataset.doneBg = cloneDone.style.background || ''; }
-
-    /* Animate clone in */
-    clone.style.opacity   = '0';
-    clone.style.transform = 'translateY(-8px)';
-    clone.style.transition = 'opacity 300ms ease 220ms, transform 300ms ease 220ms';
-    targetContainer.appendChild(clone);
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      clone.style.opacity   = '1';
-      clone.style.transform = 'translateY(0)';
-      setTimeout(() => { clone.style.transition = ''; }, 340);
-    }));
-
-    /* If COMING UP is collapsed, expand it */
-    if (targetSection === 'coming' && targetContainer.style.display === 'none') {
-      targetContainer.style.display = 'flex';
-      const toggle = document.getElementById('default-coming-toggle');
-      if (toggle) {
-        const chev = toggle.querySelector('.cu-chev');
-        if (chev) chev.style.transform = 'rotate(180deg)';
-      }
-    }
-  }
-
-  /* Collapse and remove original */
-  feat.style.transition = 'opacity 200ms ease, transform 200ms ease';
-  feat.style.opacity    = '0';
-  feat.style.transform  = 'translateY(-4px)';
-  setTimeout(function() {
-    feat.style.transition = 'max-height 260ms ease, padding 260ms ease, margin 260ms ease';
-    feat.style.overflow   = 'hidden';
-    feat.style.maxHeight  = feat.scrollHeight + 'px';
-    requestAnimationFrame(function() {
-      feat.style.maxHeight = '0';
-      feat.style.padding   = '0';
-      feat.style.margin    = '0';
-    });
-    setTimeout(function() { feat.style.display = 'none'; updateSectionCounts(); }, 270);
-  }, 200);
   const snoozeCopy = [
-    'Snoozed until ' + dateLabel + '. We\'ll circle back.',
-    'Noted. ' + dateLabel + ' it is.',
+    'Snoozed until ' + (dateLabel || time) + '.',
+    'Noted. We\'ll circle back ' + (dateLabel || time) + '.',
     'Fine. But your stuff is taking notes.'
   ];
-  showToast(snoozeCopy[Math.floor(Math.random() * snoozeCopy.length)], null);
+  showToast(snoozeCopy[Math.floor(Math.random() * snoozeCopy.length)], function() {
+    feat.classList.remove('task-snoozed');
+    if (badgeEl) { badgeEl.className = origClass; badgeEl.textContent = origText; }
+  }, 'snooze');
 }
 
 function updateSectionCounts() {
@@ -1508,18 +1448,33 @@ function closeSnoozeSheet() {
 ═══════════════════════════════════════ */
 let _toastTimer = null;
 
-function showToast(msg, undoFn) {
+function showToast(msg, undoFn, type) {
   const toast = document.getElementById('action-toast');
   const label = document.getElementById('toast-msg');
   const undo  = document.getElementById('toast-undo');
+  const icon  = document.getElementById('toast-icon');
 
-  label.textContent  = msg;
+  // Set icon type (done/skip/snooze)
+  const t = type || 'done';
+  icon.className = 'toast-icon ' + t;
+  const icons = {
+    done:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
+    skip:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l5 8-5 8H5l5-8z"/><line x1="19" y1="4" x2="19" y2="20"/></svg>',
+    snooze: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>'
+  };
+  icon.innerHTML = icons[t] || icons.done;
+
+  // Bold the action word in the message
+  const boldMsg = msg.replace(/^(Done\.|Skipped\.|Skipping[^.]*\.|Snoozed[^.]*\.|Noted\.|No worries\.|Not now\.|Pushed[^.]*\.|Fine\.|Removed\.|No rush\.)/, '<strong>$1</strong>');
+  label.innerHTML = boldMsg;
+
   undo.style.display = undoFn ? 'inline' : 'none';
   undo.onclick = () => { if (undoFn) undoFn(); hideToast(); };
 
   toast.classList.add('show');
   if (_toastTimer) clearTimeout(_toastTimer);
-  _toastTimer = setTimeout(hideToast, 5000);
+  // 8s for skip/snooze (consequence to read), 5s for done (simpler)
+  _toastTimer = setTimeout(hideToast, t === 'done' ? 5000 : 8000);
 }
 
 function hideToast() {

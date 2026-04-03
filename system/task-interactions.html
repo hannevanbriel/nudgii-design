@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · Task Interactions Spec</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --surface: #FBF9F4;
+  --surface-low: #F5F4ED;
+  --surface-high: #E8E9E0;
+  --ink: #31332C;
+  --mid: #7A756D;
+  --hint: #A09A90;
+  --plum: #9B7FD4;
+  --plum-fg: #FAF8FF;
+  --plum-wash: rgba(155,127,212,0.10);
+  --apricot: #E8A87C;
+  --apricot-wash: rgba(232,168,124,0.12);
+  --ch-bg: #C09088; --ch-wash: rgba(192,144,136,0.14);
+  --cg-bg: #8C9B80; --cg-wash: rgba(140,155,128,0.14);
+  --cv-bg: #8E9A94; --cv-wash: rgba(142,154,148,0.14);
+  --cs-bg: #A69BBF; --cs-wash: rgba(166,155,191,0.14);
+  --sage: #3B6D11; --sage-lt: #EAF3DE;
+  --red: #A32D2D; --red-lt: #FCEBEB;
+  --amber: #854F0B; --amber-lt: #FAEEDA;
+  --r: 12px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+body { font-family: 'Manrope', sans-serif; background: #E8E6E0; color: var(--ink); }
+
+/* Hub nav */
+.hub-nav {
+  background: #F5F0E8; border-bottom: 1px solid rgba(26,22,18,0.12);
+  padding: 0 32px; display: flex; align-items: center; gap: 16px;
+  height: 48px; position: sticky; top: 0; z-index: 200;
+}
+.hub-nav a { font-size: 13px; color: #8A8070; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+.hub-nav a:hover { color: #2C2824; }
+.hub-nav .sep { color: rgba(26,22,18,0.20); }
+.hub-nav .title { font-size: 13px; font-weight: 500; color: var(--ink); }
+.hub-nav .status { margin-left: auto; font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 100px; background: rgba(155,127,212,0.10); color: var(--plum); border: 1px solid rgba(155,127,212,0.20); }
+
+/* Page layout */
+.page { max-width: 1200px; margin: 0 auto; padding: 48px 40px 80px; }
+.page-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: #8A8070; margin-bottom: 8px; }
+.page-h1 { font-family: 'Noto Serif', serif; font-size: 36px; font-weight: 400; color: #2C2824; margin-bottom: 10px; letter-spacing: -0.02em; }
+.page-sub { font-size: 15px; color: var(--mid); line-height: 1.6; max-width: 700px; margin-bottom: 20px; }
+.page-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 48px; }
+.pill { font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 100px; background: var(--plum-wash); color: var(--plum); }
+
+/* Section headers */
+.section-label { font-size: 10px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: #8A8070; margin-bottom: 20px; margin-top: 56px; padding-bottom: 8px; border-bottom: 1px solid rgba(26,22,18,0.08); }
+.section-label:first-of-type { margin-top: 0; }
+
+/* Tables */
+.spec-table { width: 100%; border-collapse: collapse; background: white; border-radius: 14px; overflow: hidden; border: 1px solid rgba(26,22,18,0.06); margin-bottom: 24px; }
+.spec-table th { text-align: left; font-size: 9px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; color: var(--hint); padding: 12px 16px; background: var(--surface-low); border-bottom: 1px solid rgba(26,22,18,0.06); }
+.spec-table td { padding: 14px 16px; font-size: 12px; color: #6B6358; line-height: 1.5; border-bottom: 1px solid rgba(26,22,18,0.04); vertical-align: top; }
+.spec-table tr:last-child td { border-bottom: none; }
+.spec-table tr:hover td { background: rgba(26,22,18,0.01); }
+.spec-table .label { font-weight: 600; color: var(--ink); font-size: 13px; }
+.spec-table .sub { font-size: 10px; color: var(--mid); margin-top: 2px; }
+.spec-table code { background: rgba(26,22,18,0.06); padding: 1px 5px; border-radius: 3px; font-size: 10px; font-family: 'SF Mono', monospace; }
+
+/* Spec cards */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; margin-bottom: 8px; }
+.spec-card { background: #FFFFFF; border-radius: 14px; padding: 20px; border: 1px solid rgba(26,22,18,0.06); }
+.spec-card-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; gap: 12px; }
+.spec-card-title { font-size: 14px; font-weight: 600; color: var(--ink); }
+.spec-card-sub { font-size: 11px; color: var(--mid); margin-top: 2px; line-height: 1.4; }
+.spec-card-body { font-size: 12px; color: #6B6358; line-height: 1.7; }
+.spec-card-body strong { color: var(--ink); }
+
+/* Callouts */
+.callout { border-radius: 12px; padding: 18px 20px; margin-bottom: 24px; display: flex; gap: 14px; align-items: flex-start; }
+.callout.plum { background: var(--plum-wash); border-left: 3px solid var(--plum); }
+.callout.sage { background: var(--sage-lt); border-left: 3px solid var(--sage); }
+.callout.amber { background: var(--amber-lt); border-left: 3px solid var(--amber); }
+.callout.red { background: var(--red-lt); border-left: 3px solid var(--red); }
+.callout-title { font-size: 12px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.callout-body { font-size: 11px; color: #6B6358; line-height: 1.6; }
+
+/* Tier badges */
+.tier { display: inline-flex; align-items: center; gap: 4px; font-size: 9px; font-weight: 600; letter-spacing: 0.4px; padding: 3px 8px; border-radius: 100px; flex-shrink: 0; }
+.tier-action { background: var(--plum-wash); color: var(--plum); }
+.tier-state { background: var(--apricot-wash); color: #B07A4A; }
+
+/* Flow diagrams */
+.flow { background: white; border-radius: 14px; padding: 24px; border: 1px solid rgba(26,22,18,0.06); margin-bottom: 24px; }
+.flow-title { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 16px; }
+.flow-steps { display: flex; flex-direction: column; gap: 0; }
+.flow-step { display: flex; align-items: flex-start; gap: 14px; padding: 10px 0; }
+.flow-num { width: 24px; height: 24px; border-radius: 50%; background: var(--plum); color: white; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.flow-num.ghost { background: var(--surface-high); color: var(--mid); }
+.flow-num.confirm { background: var(--amber); }
+.flow-arrow { width: 24px; display: flex; justify-content: center; color: var(--hint); font-size: 14px; padding: 4px 0; }
+.flow-text { font-size: 12px; color: #6B6358; line-height: 1.5; }
+.flow-text strong { color: var(--ink); }
+.flow-text em { color: var(--mid); font-style: italic; }
+
+/* Rules list */
+.rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+.rule-card { background: white; border-radius: 12px; padding: 18px; border: 1px solid rgba(26,22,18,0.06); }
+.rule-title { font-size: 12px; font-weight: 600; color: var(--ink); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.rule-body { font-size: 11px; color: #6B6358; line-height: 1.7; }
+.rule-body strong { color: var(--ink); }
+
+/* Divider */
+.divider { height: 1px; background: rgba(26,22,18,0.08); margin: 48px 0; }
+
+/* Copy examples */
+.copy-example { background: var(--surface-low); border-radius: 8px; padding: 10px 14px; font-size: 12px; color: var(--ink); font-style: italic; margin: 6px 0; line-height: 1.5; }
+
+@media (max-width: 800px) {
+  .card-grid { grid-template-columns: 1fr; }
+  .rules-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="hub-nav">
+  <a href="../index.html">
+    <svg width="16" height="18" viewBox="0 0 626 700" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:2px;"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0C56.05,700.13,0,642.43,0,571.26V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#C4A8E8" cx="535.96" cy="119.29" r="90"/></svg>
+    Design hub
+  </a>
+  <span class="sep">/</span>
+  <span class="title">Task Interactions</span>
+  <span class="status">Spec · v1.0</span>
+</nav>
+
+<div class="page">
+
+  <div class="page-eyebrow">Core interactions · Engineering + PM spec</div>
+  <h1 class="page-h1">Task Interactions</h1>
+  <p class="page-sub">The complete spec for how users interact with tasks: Done, Skip, and Snooze. Covers behavior, visual state, copy, confirmation logic, and the task instance model. This is the single source of truth for engineering implementation.</p>
+  <div class="page-pills">
+    <span class="pill">3 actions: Done, Skip, Snooze</span>
+    <span class="pill">Frequency-aware logic</span>
+    <span class="pill">Task instance model</span>
+    <span class="pill">Confirmation rules</span>
+    <span class="pill">Consistent across all screens</span>
+  </div>
+
+  <div class="callout plum">
+    <div>
+      <div class="callout-title">Consistency principle</div>
+      <div class="callout-body">Same-looking elements must produce identical interactions everywhere. A task card on Today, Plan, and S-17 item detail behaves exactly the same way. No screen-specific exceptions.</div>
+    </div>
+  </div>
+
+  <!-- ═══ TASK INSTANCE MODEL ═══ -->
+  <div class="section-label">Task instance model</div>
+
+  <div class="callout sage">
+    <div>
+      <div class="callout-title">Active + projected instances</div>
+      <div class="callout-body">Each recurring task has exactly <strong>one active instance</strong> (the next due date, actionable). The Plan tab renders <strong>projected future instances</strong> as ghost items within the visible time window. Ghosts are calculated on render, not stored in the database. Only the active instance can be acted on (Done/Skip/Snooze).</div>
+    </div>
+  </div>
+
+  <table class="spec-table">
+    <thead>
+      <tr><th>Concept</th><th>Description</th><th>Database</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="label">Active instance</span><div class="sub">The "real" task</div></td>
+        <td>The next occurrence of a recurring task. This is what the user sees and acts on. Has <code>next_due_at</code>, <code>last_completed_at</code>, <code>last_skipped_at</code>, and all action state.</td>
+        <td><code>tasks</code> table row with <code>next_due_at</code></td>
+      </tr>
+      <tr>
+        <td><span class="label">Projected instance</span><div class="sub">Ghost / preview</div></td>
+        <td>A future occurrence calculated from the active instance's due date + interval. Shown on Plan tab and S-17 item detail as a lighter, non-actionable preview. Helps users see their maintenance rhythm over time.</td>
+        <td>Not stored. Calculated: <code>active.next_due_at + (N * interval)</code></td>
+      </tr>
+      <tr>
+        <td><span class="label">Recurrence pattern</span></td>
+        <td>Stored on the task template, not on instances. Defines interval (weekly, monthly, every 6 months, yearly, seasonal). One-time tasks have no recurrence pattern.</td>
+        <td><code>tasks.interval</code> (e.g., <code>P1M</code>, <code>P6M</code>, <code>P1Y</code>)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-grid">
+    <div class="spec-card">
+      <div class="spec-card-head">
+        <div>
+          <div class="spec-card-title">Where each type shows</div>
+        </div>
+      </div>
+      <div class="spec-card-body">
+        <strong>Today tab:</strong> Active instances only (due now, this week, coming up). No ghosts. This is the "what needs my attention" view.<br><br>
+        <strong>Plan tab:</strong> Active instances + projected ghosts for visible months. Ghosts render at 40% opacity, no checkbox, no chevron, no action buttons. This is the "what does my year look like" view.<br><br>
+        <strong>S-17 item detail:</strong> Active instance (full actions) + next projected instance below it as a preview card. Shows the rhythm for that specific item.<br><br>
+        <strong>My Stuff:</strong> Status badges based on active instance only. "1 task waiting" counts active instances, not projections.
+      </div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-card-head">
+        <div>
+          <div class="spec-card-title">Projected ghost visual treatment</div>
+        </div>
+      </div>
+      <div class="spec-card-body">
+        <strong>Opacity:</strong> 40% on entire row<br>
+        <strong>Checkbox:</strong> Hidden (not actionable)<br>
+        <strong>Chevron:</strong> Hidden (not expandable)<br>
+        <strong>Action buttons:</strong> None<br>
+        <strong>Badge:</strong> Date only, no status color<br>
+        <strong>On tap:</strong> Tooltip: "This is a projected future occurrence based on your [interval] schedule. It becomes active after you complete or skip the current one."<br><br>
+        <strong>Label (optional):</strong> Small "projected" tag in hint color if needed for clarity.
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══ ACTION OVERVIEW ═══ -->
+  <div class="section-label">Three actions overview</div>
+
+  <table class="spec-table">
+    <thead>
+      <tr><th>Action</th><th>What it means</th><th>Card state after</th><th>Toast</th><th>Undo</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="label">Done</span></td>
+        <td>Task completed. <code>last_completed_at = now</code>. Active instance advances to <code>now + interval</code>. For non-recurring: task is archived.</td>
+        <td>Card stays in place. Checkbox fills with category color + white check. Title + meta at 40% opacity. Moves to "Done today" section at end of day.</td>
+        <td>Witty copy. "Done. Your dishwasher approves." 5s with Undo.</td>
+        <td>Toast Undo (5s) + tap done card to undo.</td>
+      </tr>
+      <tr>
+        <td><span class="label">Skip</span></td>
+        <td>Not now, come back later. <code>last_skipped_at = now</code>. <code>last_completed_at</code> NOT updated. Next due date depends on interval (see Skip logic below).</td>
+        <td>Card stays in place. Title gets strikethrough + muted. Badge updates to show new due date. "Skipped. Back on [date]." label below title.</td>
+        <td>Copy varies by interval. 5s with Undo.</td>
+        <td>Toast Undo (5s) restores original state.</td>
+      </tr>
+      <tr>
+        <td><span class="label">Snooze</span></td>
+        <td>Remind me later. Task stays active, just pushed to a new reminder time. <code>snoozed_until = chosen time</code>. No impact on <code>next_due_at</code> or interval.</td>
+        <td>Card stays in place. Muted state (title + icon at reduced opacity). Badge updates to snooze time. "Snoozed to [time]." label below title.</td>
+        <td>Copy varies. 5s with Undo.</td>
+        <td>Toast Undo (5s) restores original state.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber">
+    <div>
+      <div class="callout-title">Cards never collapse, move, or disappear on action</div>
+      <div class="callout-body">When the user taps Done, Skip, or Snooze, the card stays in place. It gets a visual state change (muted, strikethrough, check) but does not animate away, collapse, or move to another section. The user should see the result of their action in context. Movement to "Done today" section happens at end of day, not immediately.</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══ DONE: DETAILED SPEC ═══ -->
+  <div class="section-label">Done: detailed spec</div>
+
+  <div class="flow">
+    <div class="flow-title">User flow: marking a task done</div>
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-text"><strong>User taps checkbox or Done button</strong><br>Either the round checkbox on the collapsed card, or the "Done" pill button in the expanded action row.</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-arrow">↓</div>
+        <div></div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-text"><strong>Checkbox animates</strong> (250ms ease-out)<br>Circle fills with category color. White checkmark appears with spring animation. Title + meta text fade to 40% opacity. Chevron fades to 20%.</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-arrow">↓</div>
+        <div></div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-text"><strong>Toast appears</strong> (bottom of screen, 5s auto-dismiss)<br>Light surface-low background. Witty copy: "Done. Your dishwasher approves." Undo button in plum color.</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-arrow">↓</div>
+        <div></div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <div class="flow-text"><strong>Badge updates</strong> to "done" with checkmark icon.<br>Section counts update (e.g., "3 tasks" becomes "2 tasks").</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-arrow">↓</div>
+        <div></div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num ghost">5</div>
+        <div class="flow-text"><strong>At midnight:</strong> card moves to "Done today" section, then to S-16 history.<br><em>Active instance advances: <code>next_due_at = now + interval</code></em></div>
+      </div>
+    </div>
+  </div>
+
+  <table class="spec-table">
+    <thead>
+      <tr><th>Field</th><th>Update</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>task.last_completed_at</code></td><td>Set to <code>now</code></td></tr>
+      <tr><td><code>task.next_due_at</code></td><td><code>now + interval</code> (recurring) or <code>null</code> (one-time, archived)</td></tr>
+      <tr><td><code>task.completion_count</code></td><td>Increment by 1</td></tr>
+      <tr><td><code>task.skip_count</code></td><td>Reset to 0</td></tr>
+      <tr><td><code>task.snooze_count</code></td><td>Reset to 0</td></tr>
+      <tr><td><code>task.snoozed_until</code></td><td>Clear (set to <code>null</code>)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="divider"></div>
+
+  <!-- ═══ SKIP: DETAILED SPEC ═══ -->
+  <div class="section-label">Skip: detailed spec</div>
+
+  <div class="callout red">
+    <div>
+      <div class="callout-title">Skip never means "skip forever"</div>
+      <div class="callout-body">"Skip" always means "not now." It postpones the task, it never removes it. For non-recurring tasks, "skip" is effectively "remove" and requires explicit confirmation. The word "skip" must always be paired with the return date so the user understands the consequence.</div>
+    </div>
+  </div>
+
+  <!-- Skip push logic -->
+  <h3 style="font-size:14px; font-weight:600; margin-bottom:16px; margin-top:8px;">Skip push logic: how far forward?</h3>
+
+  <table class="spec-table">
+    <thead>
+      <tr><th>Task interval</th><th>Skip pushes by</th><th>Rationale</th><th>Example</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="label">Weekly</span><div class="sub">7 days</div></td>
+        <td><strong>+1 week</strong> (full interval)</td>
+        <td>Natural rhythm. Task comes back at same cadence.</td>
+        <td>Due Mon Apr 7 → skipped → due Mon Apr 14</td>
+      </tr>
+      <tr>
+        <td><span class="label">Bi-weekly</span><div class="sub">14 days</div></td>
+        <td><strong>+2 weeks</strong> (full interval)</td>
+        <td>Same rhythm, next cycle.</td>
+        <td>Due Apr 7 → skipped → due Apr 21</td>
+      </tr>
+      <tr>
+        <td><span class="label">Monthly</span><div class="sub">~30 days</div></td>
+        <td><strong>+1 month</strong> (full interval)</td>
+        <td>Natural monthly cadence.</td>
+        <td>Due Apr 4 → skipped → due May 4</td>
+      </tr>
+      <tr>
+        <td><span class="label">Every 2-3 months</span><div class="sub">60-90 days</div></td>
+        <td><strong>+1 month</strong></td>
+        <td>Full interval is too long. User is likely busy this week, not abandoning for 3 months. One month is a reasonable postponement.</td>
+        <td>Due Apr 4 (every 3mo) → skipped → due May 4</td>
+      </tr>
+      <tr>
+        <td><span class="label">Every 4-6 months</span><div class="sub">120-180 days</div></td>
+        <td><strong>+1 month</strong></td>
+        <td>Skipping a 6-month task for another 6 months is dangerous (warranties, safety). One month gives breathing room without losing the task.</td>
+        <td>Due Apr 4 (every 6mo) → skipped → due May 4</td>
+      </tr>
+      <tr>
+        <td><span class="label">Yearly</span><div class="sub">365 days</div></td>
+        <td><strong>+1 month</strong></td>
+        <td>Annual tasks are high-stakes (boiler service, car inspection). Pushing by a year could void warranties or create safety risks.</td>
+        <td>Due Apr 4 (yearly) → skipped → due May 4</td>
+      </tr>
+      <tr>
+        <td><span class="label">Seasonal</span><div class="sub">Variable window</div></td>
+        <td><strong>+1 month</strong></td>
+        <td>Seasonal tasks have a window (e.g., "prune in March-April"). Skip within window = +1 month. If window closes, task moves to next season's window.</td>
+        <td>Due Mar 15 (seasonal spring) → skipped → due Apr 15</td>
+      </tr>
+      <tr>
+        <td><span class="label">Non-recurring</span><div class="sub">One-time</div></td>
+        <td><strong>Removed from list</strong></td>
+        <td>There's no "next time." Skip = remove. Requires confirmation.</td>
+        <td>"Replace smoke detector battery" → skipped → gone (with confirm)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber">
+    <div>
+      <div class="callout-title">The rule in one sentence</div>
+      <div class="callout-body"><strong>Interval ≤ 1 month:</strong> skip pushes by the full interval.<br><strong>Interval > 1 month:</strong> skip pushes by 1 month.<br><br>This means "skip" always means "not now, try again soon" rather than "forget about it for the full cycle."</div>
+    </div>
+  </div>
+
+  <!-- Skip button label -->
+  <h3 style="font-size:14px; font-weight:600; margin-bottom:16px; margin-top:32px;">Skip button: always shows the consequence</h3>
+
+  <p style="font-size:13px; color: #6B6358; line-height:1.6; margin-bottom:20px;">The Skip button is never just "Skip." It always includes the return date so the user sees what will happen before they tap.</p>
+
+  <table class="spec-table">
+    <thead>
+      <tr><th>Task example</th><th>Interval</th><th>Button label</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Check tyre pressure</td>
+        <td>Monthly</td>
+        <td><strong>Skip · back May 4</strong></td>
+      </tr>
+      <tr>
+        <td>Refill dishwasher salt</td>
+        <td>Every 2 months</td>
+        <td><strong>Skip · back May 4</strong></td>
+      </tr>
+      <tr>
+        <td>Clean boiler filter</td>
+        <td>Every 6 months</td>
+        <td><strong>Skip · back May 4</strong></td>
+      </tr>
+      <tr>
+        <td>Annual boiler service</td>
+        <td>Yearly</td>
+        <td><strong>Skip · back May 4</strong></td>
+      </tr>
+      <tr>
+        <td>Replace smoke detector battery</td>
+        <td>Non-recurring</td>
+        <td><strong>Skip · won't repeat</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Skip confirmation -->
+  <h3 style="font-size:14px; font-weight:600; margin-bottom:16px; margin-top:32px;">Confirmation rules</h3>
+
+  <table class="spec-table">
+    <thead>
+      <tr><th>Interval</th><th>On tap</th><th>Why</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="label">≤ 1 month</span></td>
+        <td><strong>Direct skip.</strong> No confirmation. Toast with Undo (5s).</td>
+        <td>Low stakes. Task returns quickly. Undo covers mistakes.</td>
+      </tr>
+      <tr>
+        <td><span class="label">2-3 months</span></td>
+        <td><strong>Direct skip.</strong> No confirmation. Toast with Undo (5s).</td>
+        <td>Medium stakes but +1 month is reasonable. Undo covers mistakes.</td>
+      </tr>
+      <tr>
+        <td><span class="label">4+ months</span></td>
+        <td><strong>Confirmation required.</strong> Bottom sheet explaining consequence, then toast + Undo.</td>
+        <td>High-stakes tasks. User must understand what "skip" means for a yearly service vs. a weekly check.</td>
+      </tr>
+      <tr>
+        <td><span class="label">Non-recurring</span></td>
+        <td><strong>Confirmation required.</strong> Bottom sheet: "This is a one-time task. Skipping removes it from your list."</td>
+        <td>Irreversible (no next occurrence). Must be explicit.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Skip confirmation copy -->
+  <h3 style="font-size:14px; font-weight:600; margin-bottom:16px; margin-top:32px;">Confirmation bottom sheet copy</h3>
+
+  <div class="card-grid">
+    <div class="spec-card">
+      <div class="spec-card-head">
+        <div>
+          <div class="spec-card-title">4+ month recurring task</div>
+          <div class="spec-card-sub">e.g., Annual boiler service, 6-month gutter cleaning</div>
+        </div>
+        <span class="tier tier-action">Confirm</span>
+      </div>
+      <div class="spec-card-body">
+        <strong>Title:</strong> "Skip annual boiler service?"<br><br>
+        <strong>Body:</strong> "This task happens every [interval]. Skipping moves the reminder to [date] (1 month from now)."<br><br>
+        <strong>Buttons:</strong><br>
+        <code>[Cancel]</code> Ghost button, left<br>
+        <code>[Skip to May 4]</code> Plum pill, right
+      </div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-card-head">
+        <div>
+          <div class="spec-card-title">Non-recurring task</div>
+          <div class="spec-card-sub">e.g., Replace smoke detector battery</div>
+        </div>
+        <span class="tier tier-action">Confirm</span>
+      </div>
+      <div class="spec-card-body">
+        <strong>Title:</strong> "Skip this task?"<br><br>
+        <strong>Body:</strong> "This is a one-time task. Skipping removes it from your list. You can always add it back later."<br><br>
+        <strong>Buttons:</strong><br>
+        <code>[Cancel]</code> Ghost button, left<br>
+        <code>[Remove task]</code> Red-tinted pill, right
+      </div>
+    </div>
+  </div>
+
+  <!-- Skip toast copy -->
+  <h3 style="font-size:14px; font-weight:600; margin-bottom:16px; margin-top:32px;">Toast copy after skip</h3>
+
+  <table class="spec-table">
+    <thead>
+      <tr><th>Interval</th><th>Toast copy</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Weekly/bi-weekly</td>
+        <td><div class="copy-example">"Skipping this week. Back on [date]."</div></td>
+      </tr>
+      <tr>
+        <td>Monthly</td>
+        <td><div class="copy-example">"Skipping this time. Back on [date]."</div></td>
+      </tr>
+      <tr>
+        <td>Every 2-3 months</td>
+        <td><div class="copy-example">"Not now. We'll remind you again [date]."</div></td>
+      </tr>
+      <tr>
+        <td>Every 4+ months</td>
+        <td><div class="copy-example">"No rush. We'll check back [date]."</div></td>
+      </tr>
+      <tr>
+        <td>Yearly</td>
+        <td><div class="copy-example">"Pushed to [date]. We'll remind you then."</div></td>
+      </tr>
+      <tr>
+        <td>Non-recurring</td>
+        <td><div class="copy-example">"Removed. You can always add it back."</div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Skip escalation -->
+  <h3 style="font-size:14px; font-weight:600; margin-bottom:16px; margin-top:32px;">Skip escalation (repeat skippers)</h3>
+
+  <table class="spec-table">
+    <thead>
+      <tr><th>Skip count</th><th>Behavior</th><th>Copy</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="label">1st skip</span></td>
+        <td>Normal skip. Standard toast.</td>
+        <td>See toast copy above.</td>
+      </tr>
+      <tr>
+        <td><span class="label">2nd skip</span><div class="sub">Same task within 30 days</div></td>
+        <td>Normal skip. Warmer toast.</td>
+        <td><div class="copy-example">"Skipping again. Still counting from [last done date]."</div></td>
+      </tr>
+      <tr>
+        <td><span class="label">3rd skip</span><div class="sub">Consecutive, no completion between</div></td>
+        <td>Skip + "For You" suggestion card appears.</td>
+        <td>Card: "You've skipped [task name] 3 times. Want to reschedule it?"<br>Options: "Reschedule" (opens interval picker) / "Dismiss"</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout plum">
+    <div>
+      <div class="callout-title">Skip counter resets on completion</div>
+      <div class="callout-body"><code>task.skip_count</code> resets to 0 whenever the task is marked done. The escalation only applies to consecutive skips without a completion in between.</div>
+    </div>
+  </div>
+
+  <!-- Skip data model -->
+  <h3 style="font-size:14px; font-weight:600; margin-bottom:16px; margin-top:32px;">Data model updates on skip</h3>
+
+  <table class="spec-table">
+    <thead>
+      <tr><th>Field</th><th>Update</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>task.last_skipped_at</code></td><td>Set to <code>now</code></td></tr>
+      <tr><td><code>task.last_completed_at</code></td><td><strong>NOT updated.</strong> This preserves the real "time since last done" for urgency calculations.</td></tr>
+      <tr><td><code>task.next_due_at</code></td><td>If interval ≤ 1 month: <code>now + interval</code>. If interval > 1 month: <code>now + 1 month</code>. If non-recurring: set to <code>null</code> (archived).</td></tr>
+      <tr><td><code>task.skip_count</code></td><td>Increment by 1</td></tr>
+      <tr><td><code>task.snoozed_until</code></td><td>Clear (set to <code>null</code>)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="divider"></div>
+
+  <!-- ═══ SNOOZE: DETAILED SPEC ═══ -->
+  <div class="section-label">Snooze: detailed spec</div>
+
+  <div class="callout sage">
+    <div>
+      <div class="callout-title">Snooze vs Skip</div>
+      <div class="callout-body"><strong>Snooze</strong> = "remind me later today/this week." The task stays active, just the reminder timing shifts. No impact on <code>next_due_at</code> or interval calculations.<br><br><strong>Skip</strong> = "not doing this one, move to next occurrence." The active instance advances. Skip affects the maintenance schedule.</div>
+    </div>
+  </div>
+
+  <div class="flow">
+    <div class="flow-title">User flow: snoozing a task</div>
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-text"><strong>User taps "Snooze" in expanded action row</strong><br>Nothing happens to the card yet. Just opens the bottom sheet.</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-arrow">↓</div>
+        <div></div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-text"><strong>Bottom sheet opens</strong> (280px, surface bg, 20px top radius, drag handle)<br>Title: "Snooze until..."<br>4 preset options + 1 custom option.</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-arrow">↓</div>
+        <div></div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-text"><strong>User picks an option</strong><br>Sheet closes. Card gets muted "snoozed" state. Badge updates to snooze time. "Snoozed to [label]" text appears below title. Toast confirms.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Snooze options -->
+  <h3 style="font-size:14px; font-weight:600; margin-bottom:16px; margin-top:8px;">Snooze presets</h3>
+
+  <table class="spec-table">
+    <thead>
+      <tr><th>Option</th><th>Resolves to</th><th>When shown</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="label">Later today</span></td>
+        <td><code>now + 3 hours</code> (or next available hour if past 6 PM)</td>
+        <td>Always</td>
+      </tr>
+      <tr>
+        <td><span class="label">Tomorrow</span></td>
+        <td>Tomorrow at 8:00 AM</td>
+        <td>Always</td>
+      </tr>
+      <tr>
+        <td><span class="label">This weekend</span></td>
+        <td>Saturday at 8:00 AM</td>
+        <td>Monday through Thursday. Hidden on Fri/Sat/Sun (use "Next weekend" or "Tomorrow" instead).</td>
+      </tr>
+      <tr>
+        <td><span class="label">Next week</span></td>
+        <td>Monday at 8:00 AM</td>
+        <td>Always</td>
+      </tr>
+      <tr>
+        <td><span class="label">Pick a date</span></td>
+        <td>Opens native date picker</td>
+        <td>Always (last option, styled as link)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Snooze card state -->
+  <h3 style="font-size:14px; font-weight:600; margin-bottom:16px; margin-top:32px;">Card visual state after snooze</h3>
+
+  <div class="rules-grid">
+    <div class="rule-card">
+      <div class="rule-title">Title + meta</div>
+      <div class="rule-body">Opacity reduced to 55%. Not strikethrough (task isn't skipped, just delayed).</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-title">Badge</div>
+      <div class="rule-body">Updates to snooze time (e.g., "3:00 PM", "Sat 8:00 AM", "Mon"). Uses <code>.badge.due</code> style (neutral, not urgent).</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-title">Snooze label</div>
+      <div class="rule-body">"Snoozed to [label]" appears below the meta line. Small text, hint color. Communicates state at a glance.</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-title">Checkbox</div>
+      <div class="rule-body">Still tappable. Opacity at 35%. Tapping it clears the snooze and marks done (user changed their mind).</div>
+    </div>
+  </div>
+
+  <!-- Snooze escalation -->
+  <h3 style="font-size:14px; font-weight:600; margin-bottom:16px; margin-top:32px;">Snooze escalation copy</h3>
+
+  <table class="spec-table">
+    <thead>
+      <tr><th>Snooze count</th><th>Toast copy</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="label">1st snooze</span></td>
+        <td><div class="copy-example">"Snoozed until Saturday."</div></td>
+      </tr>
+      <tr>
+        <td><span class="label">2nd snooze</span><div class="sub">Same task</div></td>
+        <td><div class="copy-example">"Fine. But your dishwasher is taking notes."</div></td>
+      </tr>
+      <tr>
+        <td><span class="label">3rd snooze</span><div class="sub">Same task</div></td>
+        <td><div class="copy-example">"Your boiler forgives you. For now."</div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Snooze data model -->
+  <h3 style="font-size:14px; font-weight:600; margin-bottom:16px; margin-top:32px;">Data model updates on snooze</h3>
+
+  <table class="spec-table">
+    <thead>
+      <tr><th>Field</th><th>Update</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>task.snoozed_until</code></td><td>Set to chosen datetime</td></tr>
+      <tr><td><code>task.snooze_count</code></td><td>Increment by 1</td></tr>
+      <tr><td><code>task.next_due_at</code></td><td><strong>NOT updated.</strong> Snooze only affects the reminder, not the schedule.</td></tr>
+      <tr><td><code>task.last_completed_at</code></td><td><strong>NOT updated.</strong></td></tr>
+      <tr><td><code>task.last_skipped_at</code></td><td><strong>NOT updated.</strong></td></tr>
+    </tbody>
+  </table>
+
+  <div class="divider"></div>
+
+  <!-- ═══ TOAST SPEC ═══ -->
+  <div class="section-label">Toast pattern (shared)</div>
+
+  <div class="rules-grid">
+    <div class="rule-card">
+      <div class="rule-title">Visual</div>
+      <div class="rule-body">
+        <strong>Background:</strong> <code>var(--surface-low)</code> (light, warm)<br>
+        <strong>Text:</strong> <code>var(--ink)</code><br>
+        <strong>Undo button:</strong> Plum text, tappable<br>
+        <strong>Border radius:</strong> 12px<br>
+        <strong>Position:</strong> Bottom of phone viewport, above tab bar<br>
+        <strong>No dark ink backgrounds.</strong> Ever.
+      </div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-title">Behavior</div>
+      <div class="rule-body">
+        <strong>Auto-dismiss:</strong> 5 seconds<br>
+        <strong>Undo:</strong> Restores full original card state (class, badge, text, position)<br>
+        <strong>Stacking:</strong> New toast replaces previous (no stacking)<br>
+        <strong>Swipe to dismiss:</strong> Optional, nice-to-have for v1.1
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══ SCREEN-SPECIFIC NOTES ═══ -->
+  <div class="section-label">Screen-specific implementation notes</div>
+
+  <div class="card-grid">
+    <div class="spec-card">
+      <div class="spec-card-head">
+        <div>
+          <div class="spec-card-title">Today tab (S-09)</div>
+          <div class="spec-card-sub">The daily action view</div>
+        </div>
+      </div>
+      <div class="spec-card-body">
+        <strong>Shows:</strong> Active instances only (due today, this week, coming up). No projected ghosts.<br><br>
+        <strong>Section counts:</strong> Update dynamically when tasks are done/skipped. "3 things need attention today" recalculates. When all done: "All done for today. Nice work."<br><br>
+        <strong>Done section:</strong> "Done today" appears at bottom when any task is completed. Resets at midnight.<br><br>
+        <strong>Snoozed cards:</strong> Stay in their current section with muted state. Badge updates to snooze time.
+      </div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-card-head">
+        <div>
+          <div class="spec-card-title">Plan tab (S-09)</div>
+          <div class="spec-card-sub">The timeline view</div>
+        </div>
+      </div>
+      <div class="spec-card-body">
+        <strong>Shows:</strong> Active instances + projected ghosts for visible months.<br><br>
+        <strong>Ghost items:</strong> 40% opacity, no checkbox, no chevron, no actions. Tappable for tooltip only.<br><br>
+        <strong>Month ratios:</strong> Update on done/skip. Ratio counts active instances only, not ghosts.<br><br>
+        <strong>Snoozed cards:</strong> Stay in month with muted state. Date column updates to show snoozed-to date.
+      </div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-card-head">
+        <div>
+          <div class="spec-card-title">S-17 Item detail</div>
+          <div class="spec-card-sub">Per-item task list</div>
+        </div>
+      </div>
+      <div class="spec-card-body">
+        <strong>Shows:</strong> Active instance for each task (full actions) + one projected ghost below each (preview of next occurrence).<br><br>
+        <strong>Task cards:</strong> Expand to show "Why it matters" + "How to complete" + action row (Skip/Snooze/Done).<br><br>
+        <strong>All actions behave identically</strong> to Today and Plan tab versions. No screen-specific exceptions.<br><br>
+        <strong>Skip confirmation:</strong> Uses same bottom sheet pattern as Today/Plan.
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══ EDGE CASES ═══ -->
+  <div class="section-label">Edge cases</div>
+
+  <table class="spec-table">
+    <thead>
+      <tr><th>Scenario</th><th>Behavior</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="label">Snooze then Done</span><div class="sub">User snoozes, then taps checkbox</div></td>
+        <td>Snooze clears. Task marked done. <code>snoozed_until = null</code>, <code>last_completed_at = now</code>. Normal done flow.</td>
+      </tr>
+      <tr>
+        <td><span class="label">Snooze then Skip</span><div class="sub">User snoozes, then later skips</div></td>
+        <td>Snooze clears. Normal skip flow. <code>snoozed_until = null</code>, skip logic applies.</td>
+      </tr>
+      <tr>
+        <td><span class="label">Skip a snoozed task</span><div class="sub">Task was snoozed, user expands and skips</div></td>
+        <td>Same as above. Snooze state clears, skip takes over.</td>
+      </tr>
+      <tr>
+        <td><span class="label">Undo after Undo</span><div class="sub">User undoes, then re-does the action</div></td>
+        <td>Each undo fully restores. The user can then re-tap Done/Skip/Snooze. No "undo the undo" button.</td>
+      </tr>
+      <tr>
+        <td><span class="label">Multiple quick actions</span><div class="sub">User does 3 tasks fast in sequence</div></td>
+        <td>Each action replaces the previous toast. Only the most recent action can be undone via toast. Earlier actions are committed.</td>
+      </tr>
+      <tr>
+        <td><span class="label">Offline skip/done</span></td>
+        <td>Action applies locally immediately. Syncs to server when connection returns. Conflict resolution: last write wins.</td>
+      </tr>
+      <tr>
+        <td><span class="label">Seasonal task outside window</span><div class="sub">User tries to skip a seasonal task after its window closes</div></td>
+        <td>Skip moves to next season's window start date, not +1 month. E.g., "Prune olive tree" (spring) skipped in May → next due Feb next year.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="divider"></div>
+
+  <!-- ═══ SUMMARY DECISION TABLE ═══ -->
+  <div class="section-label">Quick reference: decision table</div>
+
+  <table class="spec-table">
+    <thead>
+      <tr><th>Question</th><th>Answer</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Does the card collapse on action?</td><td><strong>No.</strong> Card stays in place, gets visual state change.</td></tr>
+      <tr><td>Does the card move to another section?</td><td><strong>No.</strong> Not on action. Done cards move to "Done today" at end of day.</td></tr>
+      <tr><td>Does Skip show the return date?</td><td><strong>Yes, always.</strong> Button label: "Skip · back [date]"</td></tr>
+      <tr><td>Does Skip need confirmation?</td><td><strong>4+ month intervals and non-recurring: yes.</strong> Others: no.</td></tr>
+      <tr><td>How far does Skip push?</td><td><strong>≤ 1 month interval: full interval. > 1 month: +1 month.</strong></td></tr>
+      <tr><td>Does Snooze affect the schedule?</td><td><strong>No.</strong> Only the reminder timing. <code>next_due_at</code> unchanged.</td></tr>
+      <tr><td>Does Snooze need confirmation?</td><td><strong>No.</strong> User picks from bottom sheet presets.</td></tr>
+      <tr><td>Can you Done a snoozed task?</td><td><strong>Yes.</strong> Checkbox stays tappable. Clears snooze, marks done.</td></tr>
+      <tr><td>Are projected ghosts actionable?</td><td><strong>No.</strong> Tap shows tooltip only.</td></tr>
+      <tr><td>Does Undo work on all actions?</td><td><strong>Yes.</strong> 5s toast with Undo button. Full state restore.</td></tr>
+    </tbody>
+  </table>
+
+  <p style="font-size: 11px; color: var(--hint); margin-top: 48px;">Task Interactions Spec v1.0 · April 2026 · nudgii design system</p>
+
+</div>
+
+</body>
+</html>

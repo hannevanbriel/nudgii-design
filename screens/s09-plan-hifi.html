@@ -299,10 +299,15 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 .swipe-action.sw-skip { background: rgba(49,51,44,0.08); color: var(--mid); }
 
 /* ── Toast notification ── */
-.plan-toast { position: absolute; bottom: 96px; left: 24px; right: 24px; z-index: 90; background: var(--surface-low); border-radius: 10px; padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 16px rgba(49,51,44,0.12); opacity: 0; transform: translateY(10px); transition: opacity 200ms ease, transform 200ms ease; pointer-events: none; }
+.plan-toast { position: absolute; bottom: 96px; left: 24px; right: 24px; z-index: 90; background: var(--surface-low); border-radius: 12px; padding: 12px 16px; display: flex; align-items: center; gap: 10px; box-shadow: 0 6px 24px rgba(49,51,44,0.16), 0 1px 4px rgba(49,51,44,0.08); opacity: 0; transform: translateY(12px); transition: opacity 180ms ease, transform 350ms cubic-bezier(0.34,1.4,0.64,1); pointer-events: none; }
 .plan-toast.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
-.plan-toast-text { font-size: 12px; font-weight: 500; color: var(--ink); }
-.plan-toast-undo { font-size: 11px; font-weight: 600; color: var(--plum); cursor: pointer; padding: 4px 8px; }
+.plan-toast-text { font-size: 13px; font-weight: 500; color: var(--ink); flex: 1; }
+.plan-toast-undo { font-size: 11px; font-weight: 600; color: var(--plum); cursor: pointer; padding: 4px 8px; flex-shrink: 0; }
+.plan-toast-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.plan-toast-icon svg { width: 12px; height: 12px; }
+.plan-toast-icon.done { background: rgba(59,109,17,0.12); color: #3B6D11; }
+.plan-toast-icon.skip { background: rgba(155,127,212,0.12); color: #9B7FD4; }
+.plan-toast-icon.snooze { background: rgba(232,168,124,0.15); color: #C8784A; }
 
 /* ── Snooze bottom sheet ── */
 .snooze-sheet { display: none; position: absolute; inset: 0; z-index: 100; }
@@ -865,6 +870,9 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 
       <!-- TOAST -->
       <div class="plan-toast" id="plan-toast">
+        <span id="plan-toast-icon" class="plan-toast-icon done">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </span>
         <span class="plan-toast-text" id="toast-text">Marked done</span>
         <span class="plan-toast-undo" onclick="undoLastAction()">Undo</span>
       </div>
@@ -1356,7 +1364,7 @@ function updateMonthRatio(card) {
       monthName + ' is all yours. Every task, done.',
       'That\'s all of ' + monthName + '. Well played.'
     ];
-    showToast(monthToasts[Math.floor(Math.random() * monthToasts.length)]);
+    showToast(monthToasts[Math.floor(Math.random() * monthToasts.length)], 'done');
   } else if (!allDone && wasAllDone) {
     head.classList.remove('all-done');
   }
@@ -1439,7 +1447,7 @@ function doMarkDone(btn) {
     'Done. You\'re on a roll.',
     'Done. ' + itemName.charAt(0).toUpperCase() + itemName.slice(1) + ' says thank you.'
   ];
-  showToast(witty[Math.floor(Math.random() * witty.length)]);
+  showToast(witty[Math.floor(Math.random() * witty.length)], 'done');
 
   // 3. Update ratio (may override toast with celebration message)
   updateMonthRatio(card);
@@ -1453,7 +1461,7 @@ function checkboxTap(el) {
     card.classList.remove('done');
     if (cb) cb.style.background = 'transparent';
     updateMonthRatio(card);
-    showToast('Undone');
+    showToast('Undone', 'done');
   } else {
     // Clear snooze state if snoozed
     if (card.classList.contains('snoozed')) undoSnooze(card);
@@ -1471,7 +1479,7 @@ function doUndo(btn) {
   card.classList.remove('expanded');
   if (cb) cb.style.background = 'transparent';
   updateMonthRatio(card);
-  showToast('Undone');
+  showToast('Undone', 'done');
 }
 var lastSnoozeCard = null;
 function undoLastAction() {
@@ -1489,7 +1497,6 @@ function undoLastAction() {
   }
   if (lastDoneCard) {
     lastDoneCard.classList.remove('done');
-    lastDoneCard.classList.remove('expanded');
     var cb = lastDoneCard.querySelector('.task-check');
     if (cb) cb.style.background = 'transparent';
     updateMonthRatio(lastDoneCard);
@@ -1547,7 +1554,7 @@ function doSkip(btn) {
     'Skipped. We\'ll remind you on ' + nextDate + '.',
     'No worries. ' + nextDate + ' it is.'
   ];
-  showToast(skipCopy[Math.floor(Math.random() * skipCopy.length)]);
+  showToast(skipCopy[Math.floor(Math.random() * skipCopy.length)], 'skip');
 }
 function undoSkip(card) {
   card.style.display = '';
@@ -1604,14 +1611,10 @@ function doSnooze(label) {
   lastSnoozeCard = card;
   lastDoneCard = null;
 
-  // Mini confetti burst
-  snoozeConfetti();
-
-  // 1. Collapse and mute
-  card.classList.remove('expanded');
+  // Card stays in place and expanded, just gets snoozed visual state
   card.classList.add('snoozed');
 
-  // 2. Update date column to show snoozed date
+  // Update date column to show snoozed date
   var dateInfo = snoozeDateMap[label] || { day: '', num: '', time: label.toLowerCase() };
   var dayEl = card.querySelector('.pr-day');
   var numEl = card.querySelector('.pr-num');
@@ -1624,7 +1627,7 @@ function doSnooze(label) {
     numEl.textContent = dateInfo.num;
   }
 
-  // 3. Add snooze indicator below the item meta
+  // Add snooze indicator below the item meta
   var body = card.querySelector('.pr-body');
   if (body && !body.querySelector('.snooze-label')) {
     var sl = document.createElement('div');
@@ -1633,25 +1636,37 @@ function doSnooze(label) {
     body.appendChild(sl);
   }
 
-  // 4. Update month ratio (snoozed = not done, but count stays)
-  updateMonthRatio(card);
-
-  // 5. Witty toast with undo
+  // Toast
   var copy = [
     'Snoozed until ' + dateInfo.time + '.',
     'Fine. But your stuff is taking notes.',
     'Noted. We\'ll circle back ' + dateInfo.time + '.'
   ];
-  showToast(copy[Math.floor(Math.random() * copy.length)]);
+  showToast(copy[Math.floor(Math.random() * copy.length)], 'snooze');
 }
 
 // ── Toast ──
-function showToast(msg) {
+function showToast(msg, type) {
   var t = document.getElementById('plan-toast');
-  document.getElementById('toast-text').textContent = msg;
+  var icon = document.getElementById('plan-toast-icon');
+  var tp = type || 'done';
+
+  // Set icon
+  icon.className = 'plan-toast-icon ' + tp;
+  var icons = {
+    done: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
+    skip: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l5 8-5 8H5l5-8z"/><line x1="19" y1="4" x2="19" y2="20"/></svg>',
+    snooze: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>'
+  };
+  icon.innerHTML = icons[tp] || icons.done;
+
+  // Bold action word
+  var boldMsg = msg.replace(/^(Done\.|Skipped\.|Skipping[^.]*\.|Snoozed[^.]*\.|Noted\.|Fine\.|No rush\.)/, '<strong>$1</strong>');
+  document.getElementById('toast-text').innerHTML = boldMsg;
+
   t.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(function() { hideToast(); }, 5000);
+  toastTimer = setTimeout(function() { hideToast(); }, tp === 'done' ? 5000 : 8000);
 }
 function hideToast() {
   document.getElementById('plan-toast').classList.remove('show');

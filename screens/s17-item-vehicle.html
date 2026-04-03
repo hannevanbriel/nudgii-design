@@ -69,6 +69,40 @@ body{font-family:'Manrope',sans-serif;background:#0E0D0B;display:flex;flex-direc
 .countdown-card{flex:1;background:var(--surface-low);border-radius:var(--rs);padding:12px;text-align:center;}
 .countdown-val{font-family:'Noto Serif',serif;font-size:16px;font-weight:500;color:var(--ink);}
 .countdown-label{font-size:8px;color:var(--mid);margin-top:3px;letter-spacing:0.03em;text-transform:uppercase;}
+
+/* Snooze sheet */
+.snooze-overlay{display:none;position:absolute;inset:0;z-index:100;}
+.snooze-overlay.open{display:block;}
+.snooze-backdrop{position:absolute;inset:0;background:rgba(49,51,44,0.3);}
+.snooze-panel{position:absolute;bottom:0;left:0;right:0;background:var(--surface);border-radius:20px 20px 0 0;padding:12px 24px 34px;transform:translateY(100%);transition:transform 350ms cubic-bezier(0.32,0.72,0,1);}
+.snooze-overlay.open .snooze-panel{transform:translateY(0);}
+.snooze-handle{width:36px;height:4px;border-radius:2px;background:var(--surface-high);margin:0 auto 16px;}
+.snooze-title{font-family:'Noto Serif',serif;font-size:14px;color:var(--ink);margin-bottom:12px;}
+.snooze-opt{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--surface-high);cursor:pointer;}
+.snooze-opt:last-child{border-bottom:none;}
+.snooze-opt-l{font-size:13px;font-weight:500;color:var(--ink);}
+.snooze-opt-r{font-size:11px;color:var(--mid);}
+.snooze-opt-pick{font-size:13px;color:var(--plum);font-weight:500;cursor:pointer;padding:13px 0;}
+/* Snoozed state */
+.task-card.snoozed .task-title{opacity:0.5;}
+.task-card.snoozed .task-sub{opacity:0.5;}
+.task-card.snoozed .icon-circle{opacity:0.4;}
+.task-card.snoozed .chevron{opacity:0.15;}
+.task-card.snoozed .overdue{display:none;}
+.snz-label{font-size:9px;font-weight:500;color:var(--plum);opacity:0.7;margin-top:3px;}
+/* Toast */
+.s17-toast{position:absolute;bottom:24px;left:16px;right:16px;z-index:110;background:var(--surface-low);border-radius:12px;padding:12px 16px;font-size:13px;display:flex;align-items:center;gap:10px;box-shadow:0 6px 24px rgba(49,51,44,0.16), 0 1px 4px rgba(49,51,44,0.08);opacity:0;transform:translateY(12px);transition:opacity 180ms ease, transform 350ms cubic-bezier(0.34,1.4,0.64,1);pointer-events:none;}
+.s17-toast.show{opacity:1;transform:translateY(0);pointer-events:auto;}
+.s17-toast-icon{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.s17-toast-icon svg{width:12px;height:12px;}
+.s17-toast-icon.snooze{background:rgba(232,168,124,0.15);color:#C8784A;}
+.s17-toast-icon.done{background:rgba(59,109,17,0.12);color:#3B6D11;}
+.s17-toast-icon.skip{background:rgba(155,127,212,0.12);color:#9B7FD4;}
+.s17-toast-text{font-size:13px;font-weight:500;color:var(--ink);flex:1;}
+.s17-toast-undo{font-size:11px;font-weight:600;color:var(--plum);cursor:pointer;padding:4px 8px;background:none;border:none;flex-shrink:0;}
+/* Confetti */
+@keyframes snooze-pop{0%{opacity:1;transform:translate(0,0) scale(1);}100%{opacity:0;transform:translate(var(--sx),var(--sy)) scale(0.4);}}
+.snooze-confetti{position:absolute;width:6px;height:6px;border-radius:50%;pointer-events:none;z-index:120;animation:snooze-pop 600ms cubic-bezier(0.34,1.56,0.64,1) forwards;}
 </style>
 </head>
 <body>
@@ -183,7 +217,7 @@ body{font-family:'Manrope',sans-serif;background:#0E0D0B;display:flex;flex-direc
         </div>
         <div class="actions">
           <button class="btn-skip">Skip</button>
-          <button class="btn-snooze">Snooze</button>
+          <button class="btn-snooze" onclick="openSnooze(this)">Snooze</button>
           <button class="btn-done"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</button>
         </div>
       </div>
@@ -206,7 +240,7 @@ body{font-family:'Manrope',sans-serif;background:#0E0D0B;display:flex;flex-direc
         </div>
         <div class="actions">
           <button class="btn-skip">Skip</button>
-          <button class="btn-snooze">Snooze</button>
+          <button class="btn-snooze" onclick="openSnooze(this)">Snooze</button>
           <button class="btn-done"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</button>
         </div>
       </div>
@@ -323,6 +357,27 @@ body{font-family:'Manrope',sans-serif;background:#0E0D0B;display:flex;flex-direc
     </div>
   </div>
 
+    <!-- Snooze sheet -->
+    <div class="snooze-overlay" id="snooze-overlay" onclick="closeSnooze()">
+      <div class="snooze-backdrop"></div>
+      <div class="snooze-panel" onclick="event.stopPropagation()">
+        <div class="snooze-handle"></div>
+        <div class="snooze-title">Snooze until...</div>
+        <div class="snooze-opt" onclick="doSnooze('Later today','3:00 PM')"><span class="snooze-opt-l">Later today</span><span class="snooze-opt-r">3 hours</span></div>
+        <div class="snooze-opt" onclick="doSnooze('Tomorrow','8:00 AM')"><span class="snooze-opt-l">Tomorrow</span><span class="snooze-opt-r">8:00 AM</span></div>
+        <div class="snooze-opt" onclick="doSnooze('This weekend','Sat 8:00 AM')"><span class="snooze-opt-l">This weekend</span><span class="snooze-opt-r">Sat 8:00 AM</span></div>
+        <div class="snooze-opt" onclick="doSnooze('Next week','Mon 8:00 AM')"><span class="snooze-opt-l">Next week</span><span class="snooze-opt-r">Mon 8:00 AM</span></div>
+        <div class="snooze-opt-pick" onclick="closeSnooze()">Pick a date...</div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="s17-toast" id="s17-toast">
+      <span id="s17-toast-icon" class="s17-toast-icon snooze"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+      <span class="s17-toast-text" id="s17-toast-text"></span>
+      <button class="s17-toast-undo" id="s17-toast-undo" onclick="undoSnooze()">Undo</button>
+    </div>
+
   <div style="height:40px;"></div>
 </div>
 </div>
@@ -332,6 +387,56 @@ function theme(t){document.getElementById('phone').setAttribute('data-theme',t);
 function toggleExpand(card){var e=card.querySelector('.expand');var c=card.querySelector('.chevron');if(e.style.maxHeight&&e.style.maxHeight!=='0px'){e.style.maxHeight='0';c.style.transform='';}else{e.style.maxHeight=e.scrollHeight+'px';c.style.transform='rotate(180deg)';}}
 function toggleSection(header){var e=header.nextElementSibling;var c=header.querySelector('.chevron');if(e.style.maxHeight&&e.style.maxHeight!=='0px'){e.style.maxHeight='0';c.style.transform='';}else{e.style.maxHeight=e.scrollHeight+'px';c.style.transform='rotate(180deg)';}}
 function promptMileage(){var v=prompt('Update mileage (km):','67240');if(v){document.getElementById('km-val').textContent=parseInt(v).toLocaleString();}}
+var _snoozeCard=null,_lastSnooze=null,_toastTimer=null;
+function openSnooze(btn){event.stopPropagation();_snoozeCard=btn.closest('.task-card');document.getElementById('snooze-overlay').classList.add('open');}
+function closeSnooze(){document.getElementById('snooze-overlay').classList.remove('open');}
+function doSnooze(label,time){
+  closeSnooze();if(!_snoozeCard)return;
+  var card=_snoozeCard;_snoozeCard=null;_lastSnooze=card;
+  card.classList.add('snoozed');
+  var body=card.querySelector('.task-row div[style*="flex:1"]')||card.querySelector('.task-row > div:nth-child(2)');
+  if(body&&!body.querySelector('.snz-label')){var sl=document.createElement('div');sl.className='snz-label';sl.textContent='Snoozed to '+label.toLowerCase();body.appendChild(sl);}
+  var copy=['Snoozed until '+label.toLowerCase()+'.',
+    'Fine. But your stuff is taking notes.',
+    'Noted. We\'ll circle back '+label.toLowerCase()+'.'];
+  showS17Toast(copy[Math.floor(Math.random()*copy.length)],'snooze');
+}
+function undoSnooze(){
+  hideS17Toast();if(!_lastSnooze)return;
+  _lastSnooze.classList.remove('snoozed');
+  var sl=_lastSnooze.querySelector('.snz-label');if(sl)sl.remove();
+  _lastSnooze=null;
+}
+function showS17Toast(msg,type){
+  var t=document.getElementById('s17-toast');
+  var icon=document.getElementById('s17-toast-icon');
+  var tp=type||'snooze';
+  icon.className='s17-toast-icon '+tp;
+  var icons={
+    done:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
+    skip:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l5 8-5 8H5l5-8z"/><line x1="19" y1="4" x2="19" y2="20"/></svg>',
+    snooze:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>'
+  };
+  icon.innerHTML=icons[tp]||icons.snooze;
+  var boldMsg=msg.replace(/^(Done\.|Skipped\.|Snoozed[^.]*\.|Noted\.|Fine\.|Removed\.)/,'<strong>$1</strong>');
+  document.getElementById('s17-toast-text').innerHTML=boldMsg;
+  t.classList.add('show');
+  clearTimeout(_toastTimer);
+  _toastTimer=setTimeout(hideS17Toast,tp==='done'?5000:8000);
+}
+function hideS17Toast(){document.getElementById('s17-toast').classList.remove('show');}
+function spawnConfetti(card){
+  var ph=document.querySelector('.ph');if(!ph)return;
+  var r=card.getBoundingClientRect(),pr=ph.getBoundingClientRect();
+  var cx=r.left+r.width/2-pr.left,cy=r.top+r.height/2-pr.top;
+  var colors=['#9B7FD4','#E8A87C','#C09088','#8C9B80','#8E9A94','#A69BBF'];
+  for(var i=0;i<8;i++){
+    var dot=document.createElement('div');dot.className='snooze-confetti';
+    var a=(Math.PI*2/8)*i+(Math.random()-0.5)*0.5,d=25+Math.random()*35;
+    dot.style.cssText='left:'+cx+'px;top:'+cy+'px;background:'+colors[i%colors.length]+';--sx:'+Math.cos(a)*d+'px;--sy:'+(Math.sin(a)*d-12)+'px;';
+    ph.appendChild(dot);setTimeout(function(el){el.remove();},650,dot);
+  }
+}
 </script>
 </body>
 </html>
