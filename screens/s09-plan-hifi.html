@@ -203,17 +203,29 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 .task-snooze { font-size: 11px; font-weight: 500; color: var(--ink); background: var(--surface-low); padding: 7px 14px; border-radius: 100px; cursor: pointer; }
 .task-done { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 500; color: var(--surface); padding: 7px 16px; border-radius: 100px; cursor: pointer; }
 
-/* ── Done state: muted row, check + "done" on RIGHT ── */
-.task-card.done { pointer-events: auto; }
+/* ── Done state: muted row, still expandable, check + "done" on RIGHT ── */
+.task-card.done { pointer-events: auto; cursor: pointer; }
 .task-card.done .pr-title { opacity: 0.4; }
 .task-card.done .pr-item { opacity: 0.4; }
 .task-card.done .pr-icon { opacity: 0.5; }
-.task-card.done .task-chev { display: none; }
+.task-card.done .task-chev { opacity: 0.15; }
 .task-card.done .task-badge { display: none; }
 .done-indicator { display: none; align-items: center; gap: 3px; flex-shrink: 0; }
 .done-indicator svg { flex-shrink: 0; }
 .done-label { font-size: 11px; font-weight: 500; color: var(--hint); }
 .task-card.done .done-indicator { display: flex; }
+/* Done expanded: show Why block + Undo only */
+.task-card.done .task-actions { justify-content: flex-end; }
+.task-card.done .task-skip { display: none; }
+.task-card.done .task-snooze { display: none; }
+.task-card.done .task-done { display: none; }
+/* Undo button (hidden on active cards, visible on done) */
+.task-undo { display: none; font-size: 11px; font-weight: 500; color: var(--plum); padding: 7px 14px; border-radius: 100px; cursor: pointer; background: rgba(155,127,212,0.08); }
+.task-card.done .task-undo { display: inline-flex; align-items: center; gap: 4px; }
+
+/* Why block: tappable with chevron hint */
+.task-why { background: var(--surface-low); border-radius: 8px; padding: 12px 14px; margin-bottom: 12px; position: relative; cursor: pointer; }
+.why-chev { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); opacity: 0.3; }
 .task-card.done .done-indicator { display: flex; }
 
 /* ── Export bottom sheet overlay ── */
@@ -428,9 +440,11 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                 <div class="task-expand-inner">
                   <div class="task-why" onclick="event.stopPropagation()">
                     <div class="task-wl" style="color:var(--ch-bg);">Why it matters</div>
+                    <svg class="why-chev" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <div class="task-wt">Salt prevents limescale and keeps your dishwasher cleaning effectively. Check the reservoir every 6 to 8 weeks.</div>
                   </div>
                   <div class="task-actions" onclick="event.stopPropagation()">
+                    <span class="task-undo" onclick="doUndo(this)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>Undo</span>
                     <span class="task-skip" onclick="doSkip(this)">Skip</span>
                     <span class="task-snooze" onclick="openSnooze()">Snooze</span>
                     <span class="task-done" onclick="doMarkDone(this)" style="background:var(--ch-bg);">
@@ -455,9 +469,11 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                 <div class="task-expand-inner">
                   <div class="task-why" onclick="event.stopPropagation()">
                     <div class="task-wl" style="color:var(--cg-bg);">Why it matters</div>
+                    <svg class="why-chev" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <div class="task-wt">Starting indoors in early April gives seedlings 6 weeks to strengthen before transplanting after the last frost.</div>
                   </div>
                   <div class="task-actions" onclick="event.stopPropagation()">
+                    <span class="task-undo" onclick="doUndo(this)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>Undo</span>
                     <span class="task-skip" onclick="doSkip(this)">Skip</span>
                     <span class="task-snooze" onclick="openSnooze()">Snooze</span>
                     <span class="task-done" onclick="doMarkDone(this)" style="background:var(--cg-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
@@ -467,7 +483,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
             </div>
 
             <!-- ══ Apr 14: Check tyre pressure — DONE STATE (tap to undo) ══ -->
-            <div class="task-card done" onclick="toggleDone(this)" title="Tap to undo">
+            <div class="task-card done" onclick="toggleCard(this)" title="Tap to undo">
               <div class="task-top">
                 <div class="pr-date"><div class="pr-day">Mon</div><div class="pr-num">14</div></div>
                 <div class="pr-icon" style="background:var(--cv-wash);">
@@ -484,9 +500,11 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                 <div class="task-expand-inner">
                   <div class="task-why" onclick="event.stopPropagation()">
                     <div class="task-wl" style="color:var(--cv-bg);">Why it matters</div>
+                    <svg class="why-chev" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <div class="task-wt">Low tyre pressure increases fuel consumption and uneven wear. Check all four tyres when cold, including the spare.</div>
                   </div>
                   <div class="task-actions" onclick="event.stopPropagation()">
+                    <span class="task-undo" onclick="doUndo(this)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>Undo</span>
                     <span class="task-skip" onclick="doSkip(this)">Skip</span>
                     <span class="task-snooze" onclick="openSnooze()">Snooze</span>
                     <span class="task-done" onclick="doMarkDone(this)" style="background:var(--cv-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
@@ -509,9 +527,11 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                 <div class="task-expand-inner">
                   <div class="task-why" onclick="event.stopPropagation()">
                     <div class="task-wl" style="color:var(--ch-bg);">Why it matters</div>
+                    <svg class="why-chev" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <div class="task-wt">Blocked gutters cause water damage to walls and foundations. Spring cleaning catches winter debris before the next rains.</div>
                   </div>
                   <div class="task-actions" onclick="event.stopPropagation()">
+                    <span class="task-undo" onclick="doUndo(this)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>Undo</span>
                     <span class="task-skip" onclick="doSkip(this)">Skip</span>
                     <span class="task-snooze" onclick="openSnooze()">Snooze</span>
                     <span class="task-done" onclick="doMarkDone(this)" style="background:var(--ch-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
@@ -521,7 +541,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
             </div>
 
             <!-- ══ Apr 28: Renew home insurance — DONE STATE (tap to undo) ══ -->
-            <div class="task-card done" onclick="toggleDone(this)" title="Tap to undo">
+            <div class="task-card done" onclick="toggleCard(this)" title="Tap to undo">
               <div class="task-top">
                 <div class="pr-date"><div class="pr-day">Mon</div><div class="pr-num">28</div></div>
                 <div class="pr-icon" style="background:var(--cs-wash);">
@@ -538,9 +558,11 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                 <div class="task-expand-inner">
                   <div class="task-why" onclick="event.stopPropagation()">
                     <div class="task-wl" style="color:var(--cs-bg);">Why it matters</div>
+                    <svg class="why-chev" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <div class="task-wt">Letting your home insurance lapse leaves you unprotected. Renew 2 weeks before expiry to compare quotes.</div>
                   </div>
                   <div class="task-actions" onclick="event.stopPropagation()">
+                    <span class="task-undo" onclick="doUndo(this)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>Undo</span>
                     <span class="task-skip" onclick="doSkip(this)">Skip</span>
                     <span class="task-snooze" onclick="openSnooze()">Snooze</span>
                     <span class="task-done" onclick="doMarkDone(this)" style="background:var(--cs-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
@@ -585,9 +607,11 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                 <div class="task-expand-inner">
                   <div class="task-why" onclick="event.stopPropagation()">
                     <div class="task-wl" style="color:var(--cg-bg);">Why it matters</div>
+                    <svg class="why-chev" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <div class="task-wt">Prune after the last frost but before new growth. Removes dead wood and shapes the canopy for better fruit yield.</div>
                   </div>
                   <div class="task-actions" onclick="event.stopPropagation()">
+                    <span class="task-undo" onclick="doUndo(this)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>Undo</span>
                     <span class="task-skip" onclick="doSkip(this)">Skip</span>
                     <span class="task-snooze" onclick="openSnooze()">Snooze</span>
                     <span class="task-done" onclick="doMarkDone(this)" style="background:var(--cg-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
@@ -610,9 +634,11 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                 <div class="task-expand-inner">
                   <div class="task-why" onclick="event.stopPropagation()">
                     <div class="task-wl" style="color:var(--ch-bg);">Why it matters</div>
+                    <svg class="why-chev" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <div class="task-wt">The annual check validates your warranty and catches carbon monoxide risks. Book 2 to 3 weeks in advance.</div>
                   </div>
                   <div class="task-actions" onclick="event.stopPropagation()">
+                    <span class="task-undo" onclick="doUndo(this)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>Undo</span>
                     <span class="task-skip" onclick="doSkip(this)">Skip</span>
                     <span class="task-snooze" onclick="openSnooze()">Snooze</span>
                     <span class="task-done" onclick="doMarkDone(this)" style="background:var(--ch-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
@@ -635,9 +661,11 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                 <div class="task-expand-inner">
                   <div class="task-why" onclick="event.stopPropagation()">
                     <div class="task-wl" style="color:var(--ch-bg);">Why it matters</div>
+                    <svg class="why-chev" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <div class="task-wt">Salt prevents limescale and keeps your dishwasher cleaning effectively. Check the reservoir every 6 to 8 weeks.</div>
                   </div>
                   <div class="task-actions" onclick="event.stopPropagation()">
+                    <span class="task-undo" onclick="doUndo(this)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>Undo</span>
                     <span class="task-skip" onclick="doSkip(this)">Skip</span>
                     <span class="task-snooze" onclick="openSnooze()">Snooze</span>
                     <span class="task-done" onclick="doMarkDone(this)" style="background:var(--ch-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
@@ -660,9 +688,11 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                 <div class="task-expand-inner">
                   <div class="task-why" onclick="event.stopPropagation()">
                     <div class="task-wl" style="color:var(--cv-bg);">Why it matters</div>
+                    <svg class="why-chev" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <div class="task-wt">Worn wipers reduce visibility in rain. Replace annually or when streaking starts. Takes 5 minutes.</div>
                   </div>
                   <div class="task-actions" onclick="event.stopPropagation()">
+                    <span class="task-undo" onclick="doUndo(this)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>Undo</span>
                     <span class="task-skip" onclick="doSkip(this)">Skip</span>
                     <span class="task-snooze" onclick="openSnooze()">Snooze</span>
                     <span class="task-done" onclick="doMarkDone(this)" style="background:var(--cv-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
@@ -707,9 +737,11 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                 <div class="task-expand-inner">
                   <div class="task-why" onclick="event.stopPropagation()">
                     <div class="task-wl" style="color:var(--cs-bg);">Why it matters</div>
+                    <svg class="why-chev" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <div class="task-wt">The average household wastes around 30 euros per month on unused subscriptions. A quick check takes 5 minutes.</div>
                   </div>
                   <div class="task-actions" onclick="event.stopPropagation()">
+                    <span class="task-undo" onclick="doUndo(this)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>Undo</span>
                     <span class="task-skip" onclick="doSkip(this)">Skip</span>
                     <span class="task-snooze" onclick="openSnooze()">Snooze</span>
                     <span class="task-done" onclick="doMarkDone(this)" style="background:var(--cs-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
@@ -732,9 +764,11 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                 <div class="task-expand-inner">
                   <div class="task-why" onclick="event.stopPropagation()">
                     <div class="task-wl" style="color:var(--cg-bg);">Why it matters</div>
+                    <svg class="why-chev" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
                     <div class="task-wt">Consistent watering in the first weeks after transplanting prevents blossom end rot and establishes strong roots.</div>
                   </div>
                   <div class="task-actions" onclick="event.stopPropagation()">
+                    <span class="task-undo" onclick="doUndo(this)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>Undo</span>
                     <span class="task-skip" onclick="doSkip(this)">Skip</span>
                     <span class="task-snooze" onclick="openSnooze()">Snooze</span>
                     <span class="task-done" onclick="doMarkDone(this)" style="background:var(--cg-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
@@ -1201,9 +1235,8 @@ function filterByCategory(cat) {
   });
 }
 
-// ── Expand / collapse ──
+// ── Expand / collapse (works for both active AND done cards) ──
 function toggleCard(el) {
-  if (el.classList.contains('done')) return;
   el.closest('.plan-tasks').querySelectorAll('.task-card.expanded').forEach(function(c) {
     if (c !== el) c.classList.remove('expanded');
   });
@@ -1230,22 +1263,20 @@ function doMarkDone(btn) {
   showToast(witty[Math.floor(Math.random() * witty.length)]);
 }
 
-// ── Undo (tap done task OR toast undo) ──
-function toggleDone(el) {
-  if (el.classList.contains('done')) {
-    undoCard(el);
-    showToast('Undone');
-  }
+// ── Undo (via Undo button in expanded done card, or toast) ──
+function doUndo(btn) {
+  var card = btn.closest('.task-card');
+  card.classList.remove('done');
+  card.classList.remove('expanded');
+  showToast('Undone');
 }
 function undoLastAction() {
   if (lastDoneCard) {
-    undoCard(lastDoneCard);
+    lastDoneCard.classList.remove('done');
+    lastDoneCard.classList.remove('expanded');
     lastDoneCard = null;
     hideToast();
   }
-}
-function undoCard(card) {
-  card.classList.remove('done');
 }
 
 // ── Skip ──
