@@ -254,7 +254,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 .task-card.snoozed .pr-icon { opacity: 0.4; }
 .task-card.snoozed .task-chev { opacity: 0.2; }
 .task-card.snoozed .task-badge { display: none; }
-.task-card.snoozed .task-check { opacity: 0.2; pointer-events: none; }
+.task-card.snoozed .task-check { opacity: 0.35; }
 .snooze-label { font-size: 9px; font-weight: 500; color: var(--plum); opacity: 0.7; }
 .task-card.snoozed .pr-num { color: var(--hint); }
 .task-card.snoozed .pr-day { color: var(--hint); }
@@ -1455,6 +1455,8 @@ function checkboxTap(el) {
     updateMonthRatio(card);
     showToast('Undone');
   } else {
+    // Clear snooze state if snoozed
+    if (card.classList.contains('snoozed')) undoSnooze(card);
     // Fill checkbox + mark done
     if (cb) cb.style.background = cb.style.borderColor;
     doMarkDone(el);
