@@ -1280,6 +1280,8 @@ function doMarkDone(btn) {
 
   // 1. Mark done (do NOT collapse — let user see the transition)
   card.classList.add('done');
+  var cb = card.querySelector('.task-check');
+  if (cb) cb.style.background = cb.style.borderColor;
   lastDoneCard = card;
 
   // 2. Witty toast
@@ -1320,6 +1322,8 @@ function undoLastAction() {
   if (lastDoneCard) {
     lastDoneCard.classList.remove('done');
     lastDoneCard.classList.remove('expanded');
+    var cb = lastDoneCard.querySelector('.task-check');
+    if (cb) cb.style.background = 'transparent';
     lastDoneCard = null;
     hideToast();
   }
