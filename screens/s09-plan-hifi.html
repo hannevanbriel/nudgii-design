@@ -165,13 +165,17 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 /* ── Month section header ── */
 .month-head { display: flex; align-items: center; gap: 10px; padding: 14px 24px 8px; }
 .month-name { font-family: 'Noto Serif', serif; font-size: 18px; font-weight: 400; color: var(--ink); letter-spacing: -0.01em; flex: 1; }
-.month-circle { width: 36px; height: 36px; position: relative; flex-shrink: 0; }
+.month-circle { width: 36px; height: 36px; position: relative; flex-shrink: 0; overflow: visible; }
 .month-circle svg { position: absolute; inset: 0; transform: rotate(-90deg); }
 .month-pct { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 600; color: var(--plum); transition: color 300ms ease; }
-/* All-done month: circle turns sage, pulse celebrates */
+/* All-done month: circle turns sage, celebration burst */
 .month-head.all-done .month-pct { color: var(--sage); }
-@keyframes month-pulse { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
-.month-circle.celebrate { animation: month-pulse 400ms cubic-bezier(0.34,1.56,0.64,1); }
+@keyframes month-spring { 0% { transform: scale(1); } 40% { transform: scale(1.25); } 100% { transform: scale(1); } }
+.month-circle.celebrate { animation: month-spring 500ms cubic-bezier(0.34,1.56,0.64,1); }
+/* Confetti dots burst from circle */
+.month-confetti { position: absolute; width: 4px; height: 4px; border-radius: 50%; opacity: 0; pointer-events: none; }
+.month-confetti.rect { border-radius: 1px; width: 3px; height: 7px; }
+@keyframes confetti-burst { 0% { opacity: 0.9; transform: translate(0,0) scale(1); } 60% { opacity: 0.8; } 100% { opacity: 0; transform: var(--end) scale(0.3); } }
 
 /* ── Plan task cards (expand/collapse, matching Today pattern) ── */
 .plan-tasks { display: flex; flex-direction: column; gap: 2px; padding: 0 16px; }
@@ -1229,6 +1233,30 @@ var toastTimer = null;
 var CIRCUMFERENCE = 87.96; // 2 * PI * 14 (radius)
 
 // ── Update month ratio circle when done state changes ──
+// ── Confetti burst from a circle element ──
+function spawnConfetti(origin) {
+  var colors = ['#C09088','#8C9B80','#8E9A94','#A69BBF','#9B7FD4','#E8A87C','#C4A8E8'];
+  var count = 14;
+  for (var i = 0; i < count; i++) {
+    var dot = document.createElement('div');
+    var angle = (i / count) * 360 + (Math.random() * 25 - 12);
+    var dist = 28 + Math.random() * 38;
+    var rad = angle * Math.PI / 180;
+    var tx = Math.cos(rad) * dist;
+    var ty = Math.sin(rad) * dist;
+    dot.className = 'month-confetti' + (Math.random() > 0.5 ? ' rect' : '');
+    dot.style.background = colors[Math.floor(Math.random() * colors.length)];
+    dot.style.left = '50%';
+    dot.style.top = '50%';
+    dot.style.setProperty('--end', 'translate(' + tx + 'px,' + ty + 'px)');
+    dot.style.animation = 'confetti-burst ' + (400 + Math.random() * 300) + 'ms ease-out forwards';
+    dot.style.animationDelay = (i * 20) + 'ms';
+    if (Math.random() > 0.5) dot.style.transform = 'rotate(' + (Math.random() * 60 - 30) + 'deg)';
+    origin.appendChild(dot);
+    (function(d) { setTimeout(function() { d.remove(); }, 900); })(dot);
+  }
+}
+
 function updateMonthRatio(card) {
   var tasks = card.closest('.plan-tasks');
   if (!tasks) return;
@@ -1264,11 +1292,13 @@ function updateMonthRatio(card) {
     arc.setAttribute('stroke-dasharray', progress + ' ' + CIRCUMFERENCE);
     arcs[0].parentNode.appendChild(arc);
   }
-  // All-done state: sage color + celebration pulse
+  // All-done state: sage color + celebration burst
   if (allDone && !wasAllDone) {
     head.classList.add('all-done');
     circle.classList.add('celebrate');
-    setTimeout(function() { circle.classList.remove('celebrate'); }, 450);
+    setTimeout(function() { circle.classList.remove('celebrate'); }, 550);
+    // Confetti burst from the circle
+    spawnConfetti(circle);
     // Witty month-complete toast
     var monthName = head.querySelector('.month-name').textContent.trim();
     var monthToasts = [
@@ -1350,9 +1380,8 @@ function doMarkDone(btn) {
   var cb = card.querySelector('.task-check');
   if (cb) cb.style.background = cb.style.borderColor;
   lastDoneCard = card;
-  updateMonthRatio(card);
 
-  // 2. Witty toast
+  // 2. Witty toast (fires first, celebration toast overrides if all-done)
   var witty = [
     'Done. Your ' + itemName + ' approves.',
     'Done. One less thing to think about.',
@@ -1360,6 +1389,9 @@ function doMarkDone(btn) {
     'Done. ' + itemName.charAt(0).toUpperCase() + itemName.slice(1) + ' says thank you.'
   ];
   showToast(witty[Math.floor(Math.random() * witty.length)]);
+
+  // 3. Update ratio (may override toast with celebration message)
+  updateMonthRatio(card);
 }
 // ── Checkbox tap (1-tap done from collapsed state) ──
 function checkboxTap(el) {
