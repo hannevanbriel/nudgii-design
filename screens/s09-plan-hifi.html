@@ -49,6 +49,10 @@
   --cx-bg: #C29494; --cx-wash: rgba(194,148,148,0.14);
   --cp-bg: #C7B7A3; --cp-wash: rgba(199,183,163,0.14);
 
+  /* Semantic */
+  --sage: #3B6D11;
+  --sage-lt: #EAF3DE;
+
   /* Overdue */
   --overdue-bg: #6B4A3A;
   --overdue-fg: #FBF9F4;
@@ -74,6 +78,7 @@
   --cg-bg: #A8B89C; --cg-wash: rgba(168,184,156,0.15);
   --cv-bg: #A8B0AA; --cv-wash: rgba(168,176,170,0.15);
   --cs-bg: #C0B4D6; --cs-wash: rgba(192,180,214,0.15);
+  --sage: #6AAE40; --sage-lt: #2A3422;
   --cx-bg: #D4AAAA; --cx-wash: rgba(212,170,170,0.15);
   --cp-bg: #D6C8B6; --cp-wash: rgba(214,200,182,0.15);
   --overdue-bg: #C88860;
@@ -162,7 +167,11 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 .month-name { font-family: 'Noto Serif', serif; font-size: 18px; font-weight: 400; color: var(--ink); letter-spacing: -0.01em; flex: 1; }
 .month-circle { width: 36px; height: 36px; position: relative; flex-shrink: 0; }
 .month-circle svg { position: absolute; inset: 0; transform: rotate(-90deg); }
-.month-pct { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 600; color: var(--plum); }
+.month-pct { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 600; color: var(--plum); transition: color 300ms ease; }
+/* All-done month: circle turns sage, pulse celebrates */
+.month-head.all-done .month-pct { color: var(--sage); }
+@keyframes month-pulse { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
+.month-circle.celebrate { animation: month-pulse 400ms cubic-bezier(0.34,1.56,0.64,1); }
 
 /* ── Plan task cards (expand/collapse, matching Today pattern) ── */
 .plan-tasks { display: flex; flex-direction: column; gap: 2px; padding: 0 16px; }
@@ -187,8 +196,8 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 .task-check { width: 24px; height: 24px; border-radius: 50%; border: 1.8px solid; opacity: 0.4; flex-shrink: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 250ms ease; }
 .task-check:hover { opacity: 0.6; }
 .task-check svg { opacity: 0; transition: opacity 200ms ease; }
-/* Done: filled circle with check */
-.task-card.done .task-check { opacity: 0.7; }
+/* Done: filled circle with check — recedes, doesn't compete with active tasks */
+.task-card.done .task-check { opacity: 0.5; }
 .task-card.done .task-check svg { opacity: 1; }
 
 /* Chevron (expand/collapse) */
@@ -216,7 +225,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 .task-card.done .pr-title { opacity: 0.4; }
 .task-card.done .pr-item { opacity: 0.4; }
 .task-card.done .pr-icon { opacity: 0.5; }
-.task-card.done .task-chev { opacity: 0.15; }
+.task-card.done .task-chev { opacity: 0.3; }
 .task-card.done .task-badge { display: none; }
 /* Done expanded: show Why block + Undo only */
 .task-card.done .task-actions { justify-content: flex-end; }
@@ -1230,6 +1239,8 @@ function updateMonthRatio(card) {
   var allCards = tasks.querySelectorAll('.task-card');
   var total = allCards.length;
   var done = tasks.querySelectorAll('.task-card.done').length;
+  var allDone = done === total && total > 0;
+  var wasAllDone = head.classList.contains('all-done');
   // Update label
   var pct = head.querySelector('.month-pct');
   if (pct) {
@@ -1237,18 +1248,37 @@ function updateMonthRatio(card) {
     pct.style.color = done === 0 ? 'var(--hint)' : '';
   }
   // Update arc
+  var circle = head.querySelector('.month-circle');
   var arcs = head.querySelectorAll('.month-circle svg circle');
+  var arcColor = allDone ? 'var(--sage)' : 'var(--plum)';
   if (arcs.length >= 2) {
     var progress = total > 0 ? (done / total) * CIRCUMFERENCE : 0;
     arcs[1].setAttribute('stroke-dasharray', progress + ' ' + CIRCUMFERENCE);
+    arcs[1].setAttribute('stroke', arcColor);
   } else if (arcs.length === 1 && done > 0) {
     // No progress arc yet (was 0/n), add one
     var arc = arcs[0].cloneNode();
-    arc.setAttribute('stroke', 'var(--plum)');
+    arc.setAttribute('stroke', arcColor);
     arc.setAttribute('stroke-linecap', 'round');
     var progress = (done / total) * CIRCUMFERENCE;
     arc.setAttribute('stroke-dasharray', progress + ' ' + CIRCUMFERENCE);
     arcs[0].parentNode.appendChild(arc);
+  }
+  // All-done state: sage color + celebration pulse
+  if (allDone && !wasAllDone) {
+    head.classList.add('all-done');
+    circle.classList.add('celebrate');
+    setTimeout(function() { circle.classList.remove('celebrate'); }, 450);
+    // Witty month-complete toast
+    var monthName = head.querySelector('.month-name').textContent.trim();
+    var monthToasts = [
+      monthName + ', handled.',
+      monthName + ' is all yours. Every task, done.',
+      'That\'s all of ' + monthName + '. Well played.'
+    ];
+    showToast(monthToasts[Math.floor(Math.random() * monthToasts.length)]);
+  } else if (!allDone && wasAllDone) {
+    head.classList.remove('all-done');
   }
 }
 

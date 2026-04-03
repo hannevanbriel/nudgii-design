@@ -335,15 +335,15 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 .feat-check { width: 24px; height: 24px; border-radius: 50%; border: 1.8px solid; opacity: 0.4; flex-shrink: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 250ms ease; }
 .feat-check:hover { opacity: 0.6; }
 .feat-check svg { opacity: 0; transition: opacity 200ms ease; }
-/* Done: filled circle with check */
-.feat.task-done .feat-check { opacity: 0.7; }
+/* Done: filled circle with check — recedes, doesn't compete with active tasks */
+.feat.task-done .feat-check { opacity: 0.5; }
 .feat.task-done .feat-check svg { opacity: 1; }
 
 /* ── Card: done-in-place state ── */
 .feat.task-done .feat-ti { opacity: 0.4; }
 .feat.task-done .feat-m  { opacity: 0.4; }
 .feat.task-done .feat-icon { opacity: 0.5; }
-.feat.task-done .feat-chev { opacity: 0.15; }
+.feat.task-done .feat-chev { opacity: 0.3; }
 .feat.task-done .badge { display: none; }
 /* Edit-only action row (shown after done) */
 .feat-edit-row { padding-top: 8px; }
