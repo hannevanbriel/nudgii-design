@@ -203,16 +203,17 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 .task-snooze { font-size: 11px; font-weight: 500; color: var(--ink); background: var(--surface-low); padding: 7px 14px; border-radius: 100px; cursor: pointer; }
 .task-done { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 500; color: var(--surface); padding: 7px 16px; border-radius: 100px; cursor: pointer; }
 
-/* ── Done state (matching Today: icon overlay + targeted opacity) ── */
+/* ── Done state: muted row, check + "done" on RIGHT ── */
 .task-card.done { pointer-events: auto; }
 .task-card.done .pr-title { opacity: 0.4; }
 .task-card.done .pr-item { opacity: 0.4; }
-.task-card.done .task-chev { opacity: 0.2; }
-.task-card.done .pr-icon { position: relative; }
+.task-card.done .pr-icon { opacity: 0.5; }
+.task-card.done .task-chev { display: none; }
 .task-card.done .task-badge { display: none; }
 .done-indicator { display: none; align-items: center; gap: 3px; flex-shrink: 0; }
 .done-indicator svg { flex-shrink: 0; }
 .done-label { font-size: 11px; font-weight: 500; color: var(--hint); }
+.task-card.done .done-indicator { display: flex; }
 .task-card.done .done-indicator { display: flex; }
 
 /* ── Export bottom sheet overlay ── */
@@ -1209,43 +1210,17 @@ function toggleCard(el) {
   el.classList.toggle('expanded');
 }
 
-// ── Mark Done (matching Today: icon overlay + witty toast) ──
+// ── Mark Done: check + "done" on RIGHT, no icon overlay ──
 function doMarkDone(btn) {
   var card = btn.closest('.task-card');
-  var iconEl = card.querySelector('.pr-icon');
-  var doneBg = btn.style.background;
-  var badgeEl = card.querySelector('.task-badge');
-  var doneInd = card.querySelector('.done-indicator');
   var itemName = (card.querySelector('.pr-item').textContent.split('·')[0] || 'it').trim().toLowerCase();
 
-  // 1. Collapse
+  // 1. Collapse + mark done (CSS handles visual: muted text, done-indicator shows)
   card.classList.remove('expanded');
-
-  // 2. Add done class
   card.classList.add('done');
   lastDoneCard = card;
 
-  // 3. Icon overlay: category-color circle + white check (animated)
-  iconEl.style.position = 'relative';
-  var existing = iconEl.querySelector('.done-overlay');
-  if (!existing) {
-    var check = document.createElement('div');
-    check.className = 'done-overlay';
-    check.style.cssText = 'position:absolute;inset:0;border-radius:50%;background:' + doneBg + ';display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 250ms ease;';
-    check.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
-    iconEl.appendChild(check);
-    requestAnimationFrame(function() { check.style.opacity = '1'; });
-  }
-
-  // 4. Badge swap to "check + done"
-  if (badgeEl) {
-    badgeEl.style.display = 'none';
-  }
-  if (doneInd) {
-    doneInd.style.display = 'flex';
-  }
-
-  // 5. Witty toast
+  // 2. Witty toast
   var witty = [
     'Done. Your ' + itemName + ' approves.',
     'Done. One less thing to think about.',
@@ -1271,15 +1246,6 @@ function undoLastAction() {
 }
 function undoCard(card) {
   card.classList.remove('done');
-  // Remove icon overlay
-  var overlay = card.querySelector('.done-overlay');
-  if (overlay) overlay.remove();
-  // Restore badge
-  var badge = card.querySelector('.task-badge');
-  if (badge) badge.style.display = '';
-  // Hide done indicator
-  var ind = card.querySelector('.done-indicator');
-  if (ind) ind.style.display = '';
 }
 
 // ── Skip ──
