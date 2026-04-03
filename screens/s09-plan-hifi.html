@@ -227,6 +227,9 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 .task-undo { display: none; font-size: 11px; font-weight: 500; color: var(--plum); padding: 7px 14px; border-radius: 100px; cursor: pointer; background: rgba(155,127,212,0.08); }
 .task-card.done .task-undo { display: inline-flex; align-items: center; gap: 4px; }
 
+/* ── Skip inline preview ── */
+.skip-preview { font-size: 11px; font-style: italic; color: var(--mid); padding: 6px 0 2px; opacity: 0; transition: opacity 200ms; }
+
 /* Why block: tappable with chevron hint */
 .task-why { background: var(--surface-low); border-radius: 8px; padding: 12px 14px 12px 14px; margin-bottom: 12px; position: relative; cursor: pointer; padding-right: 32px; }
 .why-chev { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); opacity: 0.45; }
@@ -448,7 +451,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                   <div class="task-actions" onclick="event.stopPropagation()">
                     <span class="task-undo" onclick="doUndo(this)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>Undo</span>
                     <span class="task-skip" onclick="doSkip(this)">Skip</span>
-                    <span class="task-snooze" onclick="openSnooze()">Snooze</span>
+                    <span class="task-snooze" onclick="openSnooze(this)">Snooze</span>
                     <span class="task-done" onclick="doMarkDone(this)" style="background:var(--ch-bg);">
                       <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done
                     </span>
@@ -477,7 +480,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                   <div class="task-actions" onclick="event.stopPropagation()">
                     <span class="task-undo" onclick="doUndo(this)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>Undo</span>
                     <span class="task-skip" onclick="doSkip(this)">Skip</span>
-                    <span class="task-snooze" onclick="openSnooze()">Snooze</span>
+                    <span class="task-snooze" onclick="openSnooze(this)">Snooze</span>
                     <span class="task-done" onclick="doMarkDone(this)" style="background:var(--cg-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
                   </div>
                 </div>
@@ -504,7 +507,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                   <div class="task-actions" onclick="event.stopPropagation()">
                     <span class="task-undo" onclick="doUndo(this)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>Undo</span>
                     <span class="task-skip" onclick="doSkip(this)">Skip</span>
-                    <span class="task-snooze" onclick="openSnooze()">Snooze</span>
+                    <span class="task-snooze" onclick="openSnooze(this)">Snooze</span>
                     <span class="task-done" onclick="doMarkDone(this)" style="background:var(--cv-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
                   </div>
                 </div>
@@ -531,7 +534,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                   <div class="task-actions" onclick="event.stopPropagation()">
                     <span class="task-undo" onclick="doUndo(this)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>Undo</span>
                     <span class="task-skip" onclick="doSkip(this)">Skip</span>
-                    <span class="task-snooze" onclick="openSnooze()">Snooze</span>
+                    <span class="task-snooze" onclick="openSnooze(this)">Snooze</span>
                     <span class="task-done" onclick="doMarkDone(this)" style="background:var(--ch-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
                   </div>
                 </div>
@@ -558,7 +561,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                   <div class="task-actions" onclick="event.stopPropagation()">
                     <span class="task-undo" onclick="doUndo(this)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>Undo</span>
                     <span class="task-skip" onclick="doSkip(this)">Skip</span>
-                    <span class="task-snooze" onclick="openSnooze()">Snooze</span>
+                    <span class="task-snooze" onclick="openSnooze(this)">Snooze</span>
                     <span class="task-done" onclick="doMarkDone(this)" style="background:var(--cs-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
                   </div>
                 </div>
@@ -607,7 +610,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                   <div class="task-actions" onclick="event.stopPropagation()">
                     <span class="task-undo" onclick="doUndo(this)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>Undo</span>
                     <span class="task-skip" onclick="doSkip(this)">Skip</span>
-                    <span class="task-snooze" onclick="openSnooze()">Snooze</span>
+                    <span class="task-snooze" onclick="openSnooze(this)">Snooze</span>
                     <span class="task-done" onclick="doMarkDone(this)" style="background:var(--cg-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
                   </div>
                 </div>
@@ -634,7 +637,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                   <div class="task-actions" onclick="event.stopPropagation()">
                     <span class="task-undo" onclick="doUndo(this)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>Undo</span>
                     <span class="task-skip" onclick="doSkip(this)">Skip</span>
-                    <span class="task-snooze" onclick="openSnooze()">Snooze</span>
+                    <span class="task-snooze" onclick="openSnooze(this)">Snooze</span>
                     <span class="task-done" onclick="doMarkDone(this)" style="background:var(--ch-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
                   </div>
                 </div>
@@ -661,7 +664,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                   <div class="task-actions" onclick="event.stopPropagation()">
                     <span class="task-undo" onclick="doUndo(this)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>Undo</span>
                     <span class="task-skip" onclick="doSkip(this)">Skip</span>
-                    <span class="task-snooze" onclick="openSnooze()">Snooze</span>
+                    <span class="task-snooze" onclick="openSnooze(this)">Snooze</span>
                     <span class="task-done" onclick="doMarkDone(this)" style="background:var(--ch-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
                   </div>
                 </div>
@@ -688,7 +691,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                   <div class="task-actions" onclick="event.stopPropagation()">
                     <span class="task-undo" onclick="doUndo(this)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>Undo</span>
                     <span class="task-skip" onclick="doSkip(this)">Skip</span>
-                    <span class="task-snooze" onclick="openSnooze()">Snooze</span>
+                    <span class="task-snooze" onclick="openSnooze(this)">Snooze</span>
                     <span class="task-done" onclick="doMarkDone(this)" style="background:var(--cv-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
                   </div>
                 </div>
@@ -737,7 +740,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                   <div class="task-actions" onclick="event.stopPropagation()">
                     <span class="task-undo" onclick="doUndo(this)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>Undo</span>
                     <span class="task-skip" onclick="doSkip(this)">Skip</span>
-                    <span class="task-snooze" onclick="openSnooze()">Snooze</span>
+                    <span class="task-snooze" onclick="openSnooze(this)">Snooze</span>
                     <span class="task-done" onclick="doMarkDone(this)" style="background:var(--cs-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
                   </div>
                 </div>
@@ -764,7 +767,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
                   <div class="task-actions" onclick="event.stopPropagation()">
                     <span class="task-undo" onclick="doUndo(this)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>Undo</span>
                     <span class="task-skip" onclick="doSkip(this)">Skip</span>
-                    <span class="task-snooze" onclick="openSnooze()">Snooze</span>
+                    <span class="task-snooze" onclick="openSnooze(this)">Snooze</span>
                     <span class="task-done" onclick="doMarkDone(this)" style="background:var(--cg-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
                   </div>
                 </div>
@@ -1329,15 +1332,34 @@ function undoLastAction() {
   }
 }
 
-// ── Skip ──
+// ── Skip: inline preview, then collapse ──
+var nextDates = ['May 12', 'May 19', 'May 24', 'Jun 2', 'Jun 9', 'Jun 16'];
 function doSkip(btn) {
   var card = btn.closest('.task-card');
-  card.classList.remove('expanded');
-  showToast('Skipped this time');
+  var actions = card.querySelector('.task-actions');
+  // Remove existing preview
+  var existing = card.querySelector('.skip-preview');
+  if (existing) existing.remove();
+  // Pick a next date
+  var nextDate = nextDates[Math.floor(Math.random() * nextDates.length)];
+  // Insert inline preview below actions
+  var preview = document.createElement('div');
+  preview.className = 'skip-preview';
+  preview.textContent = 'Skipping this time. Back on ' + nextDate + '.';
+  actions.after(preview);
+  requestAnimationFrame(function() { preview.style.opacity = '1'; });
+  // After 950ms: collapse card
+  setTimeout(function() {
+    card.classList.remove('expanded');
+    setTimeout(function() { if (preview.parentNode) preview.remove(); }, 300);
+    showToast('Skipped. Back on ' + nextDate + '.');
+  }, 950);
 }
 
-// ── Snooze ──
-function openSnooze() {
+// ── Snooze: track card, open sheet, collapse on selection ──
+var _snoozeCard = null;
+function openSnooze(btn) {
+  _snoozeCard = btn ? btn.closest('.task-card') : null;
   document.getElementById('snooze-sheet').style.display = 'block';
 }
 function closeSnooze() {
@@ -1345,9 +1367,18 @@ function closeSnooze() {
 }
 function doSnooze(label) {
   closeSnooze();
-  // Collapse any expanded card
-  document.querySelectorAll('.task-card.expanded').forEach(function(c) { c.classList.remove('expanded'); });
-  showToast('Snoozed: ' + label);
+  // Collapse the card that triggered snooze
+  if (_snoozeCard) {
+    _snoozeCard.classList.remove('expanded');
+    _snoozeCard = null;
+  }
+  // Witty snooze copy
+  var copy = [
+    'Snoozed until ' + label.toLowerCase() + '.',
+    'Fine. But your stuff is taking notes.',
+    'Noted. We\'ll circle back ' + label.toLowerCase() + '.'
+  ];
+  showToast(copy[Math.floor(Math.random() * copy.length)]);
 }
 
 // ── Toast ──
