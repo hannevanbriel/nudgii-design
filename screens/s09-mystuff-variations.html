@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · S-09 My stuff · 3 variations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   S-09 My stuff · 3 design variations
+   Precision Warmth design system
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Tokens ── */
+:root {
+  --surface: #FBF9F4;
+  --surface-low: #F5F4ED;
+  --surface-high: #E8E9E0;
+  --surface-lowest: #FFFFFF;
+  --ink: #31332C;
+  --mid: #7A756D;
+  --hint: #A09A90;
+  --outline-var: #B1B3A9;
+  --plum: #9B7FD4;
+  --plum-fg: #FAF8FF;
+  --plum-wash: rgba(155,127,212,0.10);
+  --plum-container: rgba(155,127,212,0.08);
+  --apricot: #E8A87C;
+  --apricot-wash: rgba(232,168,124,0.12);
+  --sage: #3B6D11;
+  --sage-lt: #EAF3DE;
+  --ch-bg: #C09088; --ch-wash: rgba(192,144,136,0.14);
+  --cg-bg: #8C9B80; --cg-wash: rgba(140,155,128,0.14);
+  --cv-bg: #8E9A94; --cv-wash: rgba(142,154,148,0.14);
+  --cs-bg: #A69BBF; --cs-wash: rgba(166,155,191,0.14);
+  --cp-bg: #C7B7A3; --cp-wash: rgba(199,183,163,0.14);
+  --r: 12px; --rs: 8px;
+}
+[data-theme="dark"] {
+  --surface: #1C1B18;
+  --surface-low: #24231F;
+  --surface-high: #2E2D28;
+  --surface-lowest: #181714;
+  --ink: #F0EDE6;
+  --mid: #A8A29A;
+  --hint: #787068;
+  --outline-var: rgba(177,179,169,0.15);
+  --plum: #B8A0E8;
+  --plum-fg: #1C1B18;
+  --apricot: #F0B890;
+  --sage: #6AAF40;
+  --sage-lt: rgba(106,175,64,0.15);
+  --ch-bg: #E0A898; --ch-wash: rgba(224,168,152,0.15);
+  --cg-bg: #A8B89C; --cg-wash: rgba(168,184,156,0.15);
+  --cv-bg: #A8B0AA; --cv-wash: rgba(168,176,170,0.15);
+  --cs-bg: #C0B4D6; --cs-wash: rgba(192,180,214,0.15);
+  --cp-bg: #D6C8B6; --cp-wash: rgba(214,200,182,0.15);
+  --apricot-wash: rgba(240,184,144,0.15);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100vh; color: var(--ink); }
+
+/* ── Hub nav ── */
+.hub-nav {
+  background: #F5F0E8; border-bottom: 1px solid rgba(26,22,18,0.12);
+  padding: 0 32px; display: flex; align-items: center; gap: 16px;
+  height: 48px; position: sticky; top: 0; z-index: 200;
+}
+.hub-nav a { font-size: 13px; color: #8A8070; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+.hub-nav a:hover { color: #2C2824; }
+.hub-nav .sep { color: rgba(26,22,18,0.12); }
+.hub-nav .title { font-size: 13px; font-weight: 500; }
+.hub-nav .status { margin-left: auto; font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 100px; background: rgba(155,127,212,0.10); color: #9B7FD4; border: 1px solid rgba(155,127,212,0.20); }
+
+/* ── Page header ── */
+.page-header { max-width: 1400px; margin: 0 auto; padding: 40px 40px 0; }
+.page-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: #8A8070; margin-bottom: 8px; }
+.page-h1 { font-family: 'Noto Serif', serif; font-size: 32px; font-weight: 400; color: #2C2824; margin-bottom: 6px; letter-spacing: -0.02em; }
+.page-subtitle { font-size: 14px; color: #8A8070; margin-bottom: 16px; max-width: 680px; line-height: 1.5; }
+
+/* ── Controls ── */
+.controls { max-width: 1400px; margin: 0 auto; padding: 20px 40px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.ctrl-group { display: flex; gap: 4px; align-items: center; }
+.ctrl-label { font-size: 9px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: #A09888; margin-right: 4px; }
+.ctrl-btn { font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 500; padding: 5px 14px; border-radius: 6px; border: 1px solid rgba(26,22,18,0.12); background: transparent; color: #8A8070; cursor: pointer; transition: all 120ms; }
+.ctrl-btn:hover { border-color: rgba(26,22,18,0.20); }
+.ctrl-btn.on { background: #9B7FD4; color: #FAF8FF; border-color: #9B7FD4; }
+
+/* ── Three-up layout ── */
+.variations-row {
+  max-width: 1400px; margin: 0 auto; padding: 0 40px 40px;
+  display: flex; gap: 32px; justify-content: center; align-items: flex-start;
+}
+.variation-col { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.var-label { font-size: 11px; font-weight: 600; letter-spacing: 0.5px; color: #2C2824; text-align: center; }
+.var-sublabel { font-size: 10px; color: #8A8070; font-style: italic; margin-top: 2px; }
+
+/* ── Phone shell ── */
+.ph {
+  width: 390px; height: 844px; border-radius: 50px; overflow: hidden;
+  position: relative; background: var(--surface);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.03), 0 24px 80px rgba(49,51,44,0.25);
+  transition: background 250ms;
+}
+.notch { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 102px; height: 8px; border-radius: 100px; background: rgba(49,51,44,0.06); z-index: 60; }
+[data-theme="dark"] .notch { background: rgba(255,255,255,0.08); }
+.sb { height: 54px; padding: 14px 30px 0; display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 600; color: var(--ink); letter-spacing: 0.01em; }
+
+/* Tab content area */
+.tc { position: absolute; inset: 54px 0 84px 0; overflow: hidden; }
+.tp { position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden; scrollbar-width: none; }
+.tp::-webkit-scrollbar { display: none; }
+
+/* Screen title */
+.screen-title { padding: 8px 24px 0; display: flex; align-items: baseline; justify-content: space-between; }
+.screen-title h2 { font-family: 'Noto Serif', serif; font-size: 24px; font-weight: 400; color: var(--ink); letter-spacing: -0.02em; line-height: 1.2; }
+.screen-title-count { font-size: 11px; color: var(--mid); font-family: 'Manrope', sans-serif; }
+
+/* Filter chips */
+.filter-row { display: flex; gap: 6px; overflow-x: auto; padding: 12px 24px 0; scrollbar-width: none; }
+.filter-row::-webkit-scrollbar { display: none; }
+.fc { flex-shrink: 0; font-size: 11px; font-weight: 500; padding: 5px 12px; border-radius: 100px; cursor: pointer; border: 1px solid rgba(49,51,44,0.12); background: transparent; color: var(--ink); transition: all 150ms; }
+.fc.active { border-color: transparent; color: var(--plum-fg); background: var(--plum); font-weight: 600; }
+.fc.active[data-cat="home"]    { background: #C09088; }
+.fc.active[data-cat="vehicle"] { background: #8E9A94; }
+.fc.active[data-cat="garden"]  { background: #8C9B80; }
+.fc.active[data-cat="subs"]    { background: #A69BBF; }
+
+/* Nav bar */
+.nz { position: absolute; bottom: 0; left: 0; right: 0; height: 84px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 14px; pointer-events: none; z-index: 40; }
+.nb { background: var(--surface); border-radius: 20px; padding: 9px 6px 11px; display: flex; align-items: center; box-shadow: 0 -2px 12px rgba(49,51,44,0.04); pointer-events: auto; }
+[data-theme="dark"] .nb { background: var(--surface-low); box-shadow: 0 -2px 12px rgba(0,0,0,0.15); }
+.nt { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 14px; cursor: pointer; border: none; background: none; font-family: 'Manrope', sans-serif; border-radius: 10px; }
+.nt svg * { stroke: var(--hint); }
+.nt .nl { font-size: 8px; font-weight: 500; color: var(--hint); }
+.nt.on svg * { stroke: var(--plum); }
+.nt.on .nl { color: var(--plum); font-weight: 600; }
+.fab { width: 46px; height: 46px; border-radius: 14px; background: var(--plum); display: flex; align-items: center; justify-content: center; cursor: pointer; pointer-events: auto; position: absolute; right: 24px; bottom: 18px; z-index: 45; box-shadow: 0 6px 20px rgba(155,127,212,0.45); border: none; margin-bottom: 4px; }
+
+/* Go Pro meter */
+.pro-meter {
+  position: absolute; bottom: 84px; left: 0; right: 0;
+  background: var(--surface-low); border-top: 1px solid var(--surface-high);
+  padding: 8px 16px; display: flex; align-items: center; gap: 8px; z-index: 30;
+}
+.pm-label { font-size: 11px; font-weight: 500; color: var(--ink); flex-shrink: 0; }
+.pm-dots { display: flex; gap: 3px; align-items: center; flex: 1; }
+.pm-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.pm-dot.f { background: var(--plum); }
+.pm-dot.e { background: var(--surface-high); }
+.pm-link { font-size: 11px; font-weight: 500; color: var(--plum); cursor: pointer; flex-shrink: 0; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   VARIATION A: Collection shelf
+   Editorial, spacious, museum-like item cards
+   ═══════════════════════════════════════════════════════════════ */
+
+.va .items-list { display: flex; flex-direction: column; gap: 12px; padding: 14px 16px 24px; }
+
+.va .shelf-card {
+  border-radius: var(--r); overflow: hidden; cursor: pointer;
+  background: var(--surface-lowest); transition: transform 150ms;
+  box-shadow: 0 1px 3px rgba(49,51,44,0.04);
+}
+.va .shelf-card:active { transform: scale(0.98); }
+
+.va .shelf-hero {
+  height: 80px; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 6px;
+  position: relative;
+}
+.va .shelf-icon {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: rgba(255,255,255,0.45);
+  display: flex; align-items: center; justify-content: center;
+}
+.va .shelf-cat-label {
+  font-size: 8px; font-weight: 600; letter-spacing: 1.2px;
+  text-transform: uppercase; opacity: 0.5;
+}
+
+.va .shelf-body {
+  padding: 12px 16px 14px; display: flex; align-items: center;
+  justify-content: space-between;
+}
+.va .shelf-info {}
+.va .shelf-name {
+  font-family: 'Noto Serif', serif; font-size: 16px; font-weight: 400;
+  color: var(--ink); letter-spacing: -0.02em; line-height: 1.2;
+}
+.va .shelf-meta {
+  font-size: 10px; color: var(--mid); margin-top: 3px;
+}
+.va .shelf-status {
+  font-size: 10px; font-weight: 500; flex-shrink: 0;
+}
+.va .shelf-accent {
+  height: 2px; border-radius: 0 0 var(--r) var(--r);
+}
+
+/* Category hero backgrounds */
+.va .shelf-card.cat-home .shelf-hero { background: #D2BEB6; }
+.va .shelf-card.cat-vehicle .shelf-hero { background: #C0CDD8; }
+.va .shelf-card.cat-garden .shelf-hero { background: #C4DABE; }
+.va .shelf-card.cat-subs .shelf-hero { background: #D0C6DC; }
+[data-theme="dark"] .va .shelf-card.cat-home .shelf-hero { background: #3A302E; }
+[data-theme="dark"] .va .shelf-card.cat-vehicle .shelf-hero { background: #262E34; }
+[data-theme="dark"] .va .shelf-card.cat-garden .shelf-hero { background: #283020; }
+[data-theme="dark"] .va .shelf-card.cat-subs .shelf-hero { background: #302838; }
+[data-theme="dark"] .va .shelf-card { background: var(--surface-low); box-shadow: none; }
+
+/* Category label colors */
+.va .shelf-card.cat-home .shelf-cat-label { color: var(--ch-bg); }
+.va .shelf-card.cat-vehicle .shelf-cat-label { color: var(--cv-bg); }
+.va .shelf-card.cat-garden .shelf-cat-label { color: var(--cg-bg); }
+.va .shelf-card.cat-subs .shelf-cat-label { color: var(--cs-bg); }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   VARIATION B: Status board
+   Status-first grouping, scannable, dashboard feel
+   ═══════════════════════════════════════════════════════════════ */
+
+.vb .status-list { padding: 14px 16px 24px; }
+
+.vb .status-group { margin-bottom: 20px; }
+.vb .status-group:last-child { margin-bottom: 0; }
+
+.vb .sg-header {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+  padding: 0 4px;
+}
+.vb .sg-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.vb .sg-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 1.3px;
+  text-transform: uppercase; color: var(--mid);
+}
+.vb .sg-count {
+  font-size: 10px; color: var(--hint); margin-left: auto;
+}
+
+.vb .sg-items { display: flex; flex-direction: column; gap: 4px; }
+
+/* Attention items: slightly larger */
+.vb .sb-item {
+  background: var(--surface-low); border-radius: var(--r);
+  padding: 12px 14px; display: flex; align-items: center; gap: 10px;
+  cursor: pointer; transition: background 150ms;
+}
+.vb .sb-item:active { background: var(--surface-high); }
+
+.vb .sb-icon {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.vb .sb-body { flex: 1; min-width: 0; }
+.vb .sb-name { font-size: 13px; font-weight: 500; color: var(--ink); line-height: 1.25; }
+.vb .sb-sub { font-size: 10px; color: var(--mid); margin-top: 2px; }
+.vb .sb-right { flex-shrink: 0; text-align: right; }
+.vb .sb-tasks { font-size: 10px; color: var(--hint); }
+
+/* Attention group: wider cards with personality */
+.vb .sg-attention .sb-item { padding: 14px 16px; }
+.vb .sg-attention .sb-icon { width: 36px; height: 36px; }
+.vb .sb-personality {
+  font-family: 'Noto Serif', serif; font-style: italic;
+  font-size: 10px; color: var(--mid); margin-top: 4px; line-height: 1.3;
+}
+
+/* Status dot colors */
+.vb .sg-attention .sg-dot { background: var(--apricot); }
+.vb .sg-ontrack .sg-dot { background: var(--sage); }
+.vb .sg-seasonal .sg-dot { background: var(--cg-bg); }
+
+/* Separator */
+.vb .sg-sep {
+  height: 1px; background: var(--surface-high); margin: 0 4px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   VARIATION C: Living grid
+   Asymmetric layout, featured item + tiles
+   ═══════════════════════════════════════════════════════════════ */
+
+.vc .grid-zone { padding: 14px 16px 24px; }
+
+/* Top hero row: featured + 2 tiles */
+.vc .hero-row {
+  display: grid; grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto; gap: 8px; margin-bottom: 8px;
+}
+
+.vc .featured {
+  grid-row: 1 / 3; border-radius: var(--r); padding: 20px 16px;
+  display: flex; flex-direction: column; cursor: pointer;
+  transition: transform 150ms; position: relative; overflow: hidden;
+  min-height: 180px;
+}
+.vc .featured:active { transform: scale(0.98); }
+
+.vc .feat-icon {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: rgba(255,255,255,0.40);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 12px;
+}
+.vc .feat-name {
+  font-family: 'Noto Serif', serif; font-size: 16px; font-weight: 400;
+  color: var(--ink); letter-spacing: -0.02em; line-height: 1.2;
+}
+.vc .feat-meta {
+  font-size: 10px; color: var(--mid); margin-top: 4px;
+}
+.vc .feat-personality {
+  font-family: 'Noto Serif', serif; font-style: italic;
+  font-size: 10px; color: var(--mid); margin-top: auto; padding-top: 12px;
+  line-height: 1.3;
+}
+.vc .feat-status {
+  font-size: 10px; font-weight: 600; margin-top: 8px;
+}
+.vc .feat-progress {
+  height: 3px; border-radius: 100px; background: rgba(255,255,255,0.25);
+  margin-top: 8px; overflow: hidden;
+}
+.vc .feat-progress-fill { height: 100%; border-radius: 100px; }
+
+/* Category backgrounds for featured */
+.vc .featured.cat-home { background: #D2BEB6; }
+.vc .featured.cat-vehicle { background: #C0CDD8; }
+.vc .featured.cat-garden { background: #C4DABE; }
+.vc .featured.cat-subs { background: #D0C6DC; }
+[data-theme="dark"] .vc .featured.cat-home { background: #3A302E; }
+[data-theme="dark"] .vc .featured.cat-vehicle { background: #262E34; }
+[data-theme="dark"] .vc .featured.cat-garden { background: #283020; }
+[data-theme="dark"] .vc .featured.cat-subs { background: #302838; }
+
+/* Small tiles */
+.vc .tile {
+  background: var(--surface-low); border-radius: var(--r);
+  padding: 14px; display: flex; flex-direction: column;
+  cursor: pointer; transition: transform 150ms;
+  min-height: 86px;
+}
+.vc .tile:active { transform: scale(0.97); }
+
+.vc .tile-top { display: flex; align-items: center; gap: 8px; }
+.vc .tile-icon {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.vc .tile-name {
+  font-size: 13px; font-weight: 500; color: var(--ink);
+  line-height: 1.2;
+}
+.vc .tile-bottom {
+  margin-top: auto; padding-top: 8px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.vc .tile-tasks { font-size: 10px; color: var(--mid); }
+.vc .tile-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+/* Remaining items: compact rows */
+.vc .remaining { display: flex; flex-direction: column; gap: 4px; }
+.vc .rem-item {
+  background: var(--surface-low); border-radius: var(--r);
+  padding: 10px 14px; display: flex; align-items: center; gap: 10px;
+  cursor: pointer; transition: background 150ms;
+}
+.vc .rem-item:active { background: var(--surface-high); }
+.vc .rem-icon {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.vc .rem-body { flex: 1; min-width: 0; }
+.vc .rem-name { font-size: 13px; font-weight: 500; color: var(--ink); }
+.vc .rem-meta { font-size: 10px; color: var(--mid); margin-top: 1px; }
+.vc .rem-status { font-size: 10px; font-weight: 500; flex-shrink: 0; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   Annotation cards
+   ═══════════════════════════════════════════════════════════════ */
+
+.annotations {
+  max-width: 1400px; margin: 0 auto; padding: 0 40px 60px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+}
+.annot-block {}
+.annot-title {
+  font-family: 'Noto Serif', serif; font-size: 18px; font-weight: 400;
+  color: #2C2824; margin-bottom: 4px; letter-spacing: -0.01em;
+}
+.annot-inspo {
+  font-size: 10px; color: #8A8070; font-style: italic; margin-bottom: 12px;
+}
+.annot-card {
+  background: #FFFFFF; border-radius: 10px; padding: 14px 16px;
+  margin-bottom: 10px; border: 1px solid rgba(26,22,18,0.06);
+}
+.annot-head {
+  font-size: 11px; font-weight: 600; color: #2C2824; margin-bottom: 6px;
+  display: flex; align-items: center; gap: 8px;
+}
+.annot-body {
+  font-size: 11px; color: #6B6358; line-height: 1.6;
+}
+.badge-persona {
+  font-size: 8px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;
+  padding: 2px 6px; border-radius: 4px;
+  background: rgba(155,127,212,0.12); color: #9B7FD4;
+}
+.badge-vibe {
+  font-size: 8px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;
+  padding: 2px 6px; border-radius: 4px;
+  background: rgba(232,168,124,0.12); color: #C08060;
+}
+
+/* Divider */
+.page-divider { max-width: 1400px; margin: 0 auto; padding: 0 40px 32px; }
+.page-divider::after { content: ''; display: block; height: 1px; background: rgba(26,22,18,0.08); }
+
+/* ── Responsive ── */
+@media (max-width: 1350px) {
+  .variations-row { flex-direction: column; align-items: center; gap: 40px; }
+  .annotations { grid-template-columns: 1fr; max-width: 600px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="hub-nav">
+  <a href="../index.html">
+    <svg width="16" height="18" viewBox="0 0 626 700" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:2px;"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0C56.05,700.13,0,642.43,0,571.26V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#C4A8E8" cx="535.96" cy="119.29" r="90"/></svg>
+    Design hub
+  </a>
+  <span class="sep">/</span>
+  <span class="title">S-09 My stuff, 3 variations</span>
+  <span class="status">Exploration</span>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-eyebrow">S-09 · My stuff tab</div>
+  <h1 class="page-h1">Three directions</h1>
+  <p class="page-subtitle">Three layout philosophies for the item inventory. Same data, same tokens, different information hierarchy. Which one makes you want to open the app?</p>
+</div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <div class="ctrl-group">
+    <span class="ctrl-label">Theme</span>
+    <button class="ctrl-btn on" id="ctl" onclick="setTheme('light')">Light</button>
+    <button class="ctrl-btn" id="ctd" onclick="setTheme('dark')">Dark</button>
+  </div>
+</div>
+
+<!-- THREE PHONES -->
+<div class="variations-row">
+
+  <!-- ═══════════════════════════════════════════
+       VARIATION A: Collection shelf
+       ═══════════════════════════════════════════ -->
+  <div class="variation-col">
+    <div>
+      <div class="var-label">A: Collection shelf</div>
+      <div class="var-sublabel">Editorial, spacious, curated</div>
+    </div>
+    <div class="ph" data-theme="light">
+      <div class="notch"></div>
+      <div class="sb"><span>9:41</span><span style="font-size:10px;color:var(--mid);">v10.5</span></div>
+      <div class="tc">
+        <div class="tp va" style="opacity:1;pointer-events:auto;">
+          <div class="screen-title" style="padding-top:10px;">
+            <h2>My stuff</h2>
+            <span class="screen-title-count">5 items · 14 tasks</span>
+          </div>
+          <div class="filter-row">
+            <div class="fc active">All</div>
+            <div class="fc">Home</div>
+            <div class="fc">Vehicle</div>
+            <div class="fc">Garden</div>
+            <div class="fc">Subs</div>
+          </div>
+          <div class="items-list">
+
+            <!-- Boiler -->
+            <div class="shelf-card cat-home">
+              <div class="shelf-hero">
+                <div class="shelf-icon">
+                  <svg width="22" height="22" viewBox="0 0 256 256" fill="none"><rect x="64" y="32" width="128" height="192" rx="16" stroke="var(--ch-bg)" stroke-width="18" fill="none" stroke-linecap="round"/><circle cx="128" cy="144" r="28" stroke="var(--ch-bg)" stroke-width="18" fill="none"/><line x1="128" y1="72" x2="128" y2="88" stroke="var(--ch-bg)" stroke-width="18" stroke-linecap="round"/></svg>
+                </div>
+                <div class="shelf-cat-label">Home</div>
+              </div>
+              <div class="shelf-body">
+                <div class="shelf-info">
+                  <div class="shelf-name">Boiler</div>
+                  <div class="shelf-meta">3 tasks · last done 6 months ago</div>
+                </div>
+                <span class="shelf-status" style="color:var(--sage);">On track</span>
+              </div>
+              <div class="shelf-accent" style="background:var(--sage);"></div>
+            </div>
+
+            <!-- Dishwasher -->
+            <div class="shelf-card cat-home">
+              <div class="shelf-hero">
+                <div class="shelf-icon">
+                  <svg width="22" height="22" viewBox="0 0 256 256" fill="none"><rect x="32" y="56" width="192" height="144" rx="8" stroke="var(--ch-bg)" stroke-width="18" fill="none"/><line x1="32" y1="104" x2="224" y2="104" stroke="var(--ch-bg)" stroke-width="18"/><circle cx="80" cy="80" r="10" stroke="var(--ch-bg)" stroke-width="14" fill="none"/></svg>
+                </div>
+                <div class="shelf-cat-label">Home</div>
+              </div>
+              <div class="shelf-body">
+                <div class="shelf-info">
+                  <div class="shelf-name">Dishwasher</div>
+                  <div class="shelf-meta">3 tasks · 1 task waiting</div>
+                </div>
+                <span class="shelf-status" style="color:var(--apricot);font-weight:600;">1 task waiting</span>
+              </div>
+              <div class="shelf-accent" style="background:var(--apricot);"></div>
+            </div>
+
+            <!-- VW Golf -->
+            <div class="shelf-card cat-vehicle">
+              <div class="shelf-hero">
+                <div class="shelf-icon">
+                  <svg width="22" height="22" viewBox="0 0 256 256" fill="none"><path d="M224,168H208V128L176,80H80L48,128V168H32a8,8,0,0,0,0,16H48v8a16,16,0,0,0,32,0v-8h96v8a16,16,0,0,0,32,0v-8h16a8,8,0,0,0,0-16Z" stroke="var(--cv-bg)" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="shelf-cat-label">Vehicle</div>
+              </div>
+              <div class="shelf-body">
+                <div class="shelf-info">
+                  <div class="shelf-name">Volkswagen Golf</div>
+                  <div class="shelf-meta">4 tasks · next Wed 26</div>
+                </div>
+                <span class="shelf-status" style="color:var(--sage);">On track</span>
+              </div>
+              <div class="shelf-accent" style="background:var(--sage);"></div>
+            </div>
+
+            <!-- Olive tree -->
+            <div class="shelf-card cat-garden">
+              <div class="shelf-hero">
+                <div class="shelf-icon">
+                  <svg width="22" height="22" viewBox="0 0 256 256" fill="none"><path d="M128 232V128" stroke="var(--cg-bg)" stroke-width="18" stroke-linecap="round"/><path d="M128 128c-40-60-80-20-80 0s40 40 80 0" stroke="var(--cg-bg)" stroke-width="16" fill="none" stroke-linecap="round"/><path d="M128 128c40-60 80-20 80 0s-40 40-80 0" stroke="var(--cg-bg)" stroke-width="16" fill="none" stroke-linecap="round"/><path d="M128 96c-30-50-70-20-60 10" stroke="var(--cg-bg)" stroke-width="14" fill="none" stroke-linecap="round"/><path d="M128 96c30-50 70-20 60 10" stroke="var(--cg-bg)" stroke-width="14" fill="none" stroke-linecap="round"/></svg>
+                </div>
+                <div class="shelf-cat-label">Garden</div>
+              </div>
+              <div class="shelf-body">
+                <div class="shelf-info">
+                  <div class="shelf-name">Olive tree</div>
+                  <div class="shelf-meta">2 tasks · spring pruning window</div>
+                </div>
+                <span class="shelf-status" style="color:var(--cg-bg);">Seasonal</span>
+              </div>
+              <div class="shelf-accent" style="background:var(--cg-bg);"></div>
+            </div>
+
+            <!-- Netflix -->
+            <div class="shelf-card cat-subs">
+              <div class="shelf-hero">
+                <div class="shelf-icon">
+                  <svg width="22" height="22" viewBox="0 0 256 256" fill="none"><rect x="40" y="40" width="176" height="176" rx="16" stroke="var(--cs-bg)" stroke-width="18" fill="none"/><line x1="96" y1="88" x2="96" y2="168" stroke="var(--cs-bg)" stroke-width="18" stroke-linecap="round"/><line x1="160" y1="88" x2="160" y2="168" stroke="var(--cs-bg)" stroke-width="18" stroke-linecap="round"/><line x1="96" y1="128" x2="160" y2="128" stroke="var(--cs-bg)" stroke-width="14" stroke-linecap="round"/></svg>
+                </div>
+                <div class="shelf-cat-label">Subscriptions</div>
+              </div>
+              <div class="shelf-body">
+                <div class="shelf-info">
+                  <div class="shelf-name">Netflix</div>
+                  <div class="shelf-meta">1 task · renews Apr 15</div>
+                </div>
+                <span class="shelf-status" style="color:var(--sage);">On track</span>
+              </div>
+              <div class="shelf-accent" style="background:var(--sage);"></div>
+            </div>
+
+            <div style="height:24px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pro meter -->
+      <div class="pro-meter">
+        <span class="pm-label">5 of 10 free</span>
+        <div class="pm-dots">
+          <div class="pm-dot f"></div><div class="pm-dot f"></div><div class="pm-dot f"></div><div class="pm-dot f"></div><div class="pm-dot f"></div>
+          <div class="pm-dot e"></div><div class="pm-dot e"></div><div class="pm-dot e"></div><div class="pm-dot e"></div><div class="pm-dot e"></div>
+        </div>
+        <span class="pm-link">Go Pro</span>
+      </div>
+
+      <!-- Nav -->
+      <div class="nz">
+        <div class="nb">
+          <button class="nt"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M216 216V40" stroke="currentColor" stroke-width="18" stroke-linecap="round"/><path d="M176 216V104" stroke="currentColor" stroke-width="18" stroke-linecap="round"/><path d="M136 216V136" stroke="currentColor" stroke-width="18" stroke-linecap="round"/><path d="M96 216V72" stroke="currentColor" stroke-width="18" stroke-linecap="round"/><path d="M56 216V168" stroke="currentColor" stroke-width="18" stroke-linecap="round"/></svg><span class="nl">Today</span></button>
+          <button class="nt"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><rect x="40" y="40" width="176" height="176" rx="8" stroke="currentColor" stroke-width="18" fill="none"/><line x1="176" y1="24" x2="176" y2="56" stroke="currentColor" stroke-width="18" stroke-linecap="round"/><line x1="80" y1="24" x2="80" y2="56" stroke="currentColor" stroke-width="18" stroke-linecap="round"/><line x1="40" y1="88" x2="216" y2="88" stroke="currentColor" stroke-width="18" stroke-linecap="round"/></svg><span class="nl">Plan</span></button>
+          <button class="nt on"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M200 128a72 72 0 1 1-144 0c0-60 72-112 72-112S200 68 200 128Z" stroke="currentColor" stroke-width="18" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="nl">My stuff</span></button>
+          <button class="nt"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="96" r="48" stroke="currentColor" stroke-width="18" fill="none"/><path d="M32 216c0-48 42.98-80 96-80s96 32 96 80" stroke="currentColor" stroke-width="18" fill="none" stroke-linecap="round"/></svg><span class="nl">Profile</span></button>
+        </div>
+        <button class="fab"><svg width="17" height="17" viewBox="0 0 17 17" fill="none"><line x1="8.5" y1="2" x2="8.5" y2="15" stroke="#FAF8FF" stroke-width="2" stroke-linecap="round"/><line x1="2" y1="8.5" x2="15" y2="8.5" stroke="#FAF8FF" stroke-width="2" stroke-linecap="round"/></svg></button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       VARIATION B: Status board
+       ═══════════════════════════════════════════ -->
+  <div class="variation-col">
+    <div>
+      <div class="var-label">B: Status board</div>
+      <div class="var-sublabel">Scannable, status-first, decisive</div>
+    </div>
+    <div class="ph" data-theme="light">
+      <div class="notch"></div>
+      <div class="sb"><span>9:41</span><span style="font-size:10px;color:var(--mid);">v10.5</span></div>
+      <div class="tc">
+        <div class="tp vb" style="opacity:1;pointer-events:auto;">
+          <div class="screen-title" style="padding-top:10px;">
+            <h2>My stuff</h2>
+            <span class="screen-title-count">5 items · 14 tasks</span>
+          </div>
+          <div class="filter-row">
+            <div class="fc active">All</div>
+            <div class="fc">Home</div>
+            <div class="fc">Vehicle</div>
+            <div class="fc">Garden</div>
+            <div class="fc">Subs</div>
+          </div>
+          <div class="status-list">
+
+            <!-- NEEDS ATTENTION -->
+            <div class="status-group sg-attention">
+              <div class="sg-header">
+                <div class="sg-dot"></div>
+                <span class="sg-label">Needs attention</span>
+                <span class="sg-count">1 item</span>
+              </div>
+              <div class="sg-items">
+                <div class="sb-item">
+                  <div class="sb-icon" style="background:var(--ch-wash);">
+                    <svg width="16" height="16" viewBox="0 0 256 256" fill="none"><rect x="32" y="56" width="192" height="144" rx="8" stroke="var(--ch-bg)" stroke-width="18" fill="none"/><line x1="32" y1="104" x2="224" y2="104" stroke="var(--ch-bg)" stroke-width="18"/><circle cx="80" cy="80" r="10" stroke="var(--ch-bg)" stroke-width="14" fill="none"/></svg>
+                  </div>
+                  <div class="sb-body">
+                    <div class="sb-name">Dishwasher</div>
+                    <div class="sb-sub">Home · 3 tasks · <span style="color:var(--apricot);font-weight:600;">1 task waiting</span></div>
+                    <div class="sb-personality">Salt refilled 2 months ago. Getting impatient.</div>
+                  </div>
+                  <div class="sb-right">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="var(--hint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="sg-sep"></div>
+
+            <!-- ON TRACK -->
+            <div class="status-group sg-ontrack">
+              <div class="sg-header">
+                <div class="sg-dot"></div>
+                <span class="sg-label">On track</span>
+                <span class="sg-count">3 items</span>
+              </div>
+              <div class="sg-items">
+                <div class="sb-item">
+                  <div class="sb-icon" style="background:var(--ch-wash);">
+                    <svg width="14" height="14" viewBox="0 0 256 256" fill="none"><rect x="64" y="32" width="128" height="192" rx="16" stroke="var(--ch-bg)" stroke-width="18" fill="none"/><circle cx="128" cy="144" r="28" stroke="var(--ch-bg)" stroke-width="18" fill="none"/><line x1="128" y1="72" x2="128" y2="88" stroke="var(--ch-bg)" stroke-width="18" stroke-linecap="round"/></svg>
+                  </div>
+                  <div class="sb-body">
+                    <div class="sb-name">Boiler</div>
+                    <div class="sb-sub">Home · 3 tasks</div>
+                  </div>
+                  <div class="sb-right"><span class="sb-tasks">75%</span></div>
+                </div>
+                <div class="sb-item">
+                  <div class="sb-icon" style="background:var(--cv-wash);">
+                    <svg width="14" height="14" viewBox="0 0 256 256" fill="none"><path d="M224,168H208V128L176,80H80L48,128V168H32a8,8,0,0,0,0,16H48v8a16,16,0,0,0,32,0v-8h96v8a16,16,0,0,0,32,0v-8h16a8,8,0,0,0,0-16Z" stroke="var(--cv-bg)" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  <div class="sb-body">
+                    <div class="sb-name">Volkswagen Golf</div>
+                    <div class="sb-sub">Vehicle · 5 tasks</div>
+                  </div>
+                  <div class="sb-right"><span class="sb-tasks">80%</span></div>
+                </div>
+                <div class="sb-item">
+                  <div class="sb-icon" style="background:var(--cs-wash);">
+                    <svg width="14" height="14" viewBox="0 0 256 256" fill="none"><rect x="40" y="40" width="176" height="176" rx="16" stroke="var(--cs-bg)" stroke-width="18" fill="none"/><line x1="96" y1="88" x2="96" y2="168" stroke="var(--cs-bg)" stroke-width="18" stroke-linecap="round"/><line x1="160" y1="88" x2="160" y2="168" stroke="var(--cs-bg)" stroke-width="18" stroke-linecap="round"/><line x1="96" y1="128" x2="160" y2="128" stroke="var(--cs-bg)" stroke-width="14" stroke-linecap="round"/></svg>
+                  </div>
+                  <div class="sb-body">
+                    <div class="sb-name">Netflix</div>
+                    <div class="sb-sub">Subscriptions · 1 task</div>
+                  </div>
+                  <div class="sb-right"><span class="sb-tasks">100%</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="sg-sep"></div>
+
+            <!-- SEASONAL -->
+            <div class="status-group sg-seasonal">
+              <div class="sg-header">
+                <div class="sg-dot"></div>
+                <span class="sg-label">Seasonal</span>
+                <span class="sg-count">1 item</span>
+              </div>
+              <div class="sg-items">
+                <div class="sb-item">
+                  <div class="sb-icon" style="background:var(--cg-wash);">
+                    <svg width="14" height="14" viewBox="0 0 256 256" fill="none"><path d="M128 232V128" stroke="var(--cg-bg)" stroke-width="18" stroke-linecap="round"/><path d="M128 128c-40-60-80-20-80 0s40 40 80 0" stroke="var(--cg-bg)" stroke-width="16" fill="none" stroke-linecap="round"/><path d="M128 128c40-60 80-20 80 0s-40 40-80 0" stroke="var(--cg-bg)" stroke-width="16" fill="none" stroke-linecap="round"/></svg>
+                  </div>
+                  <div class="sb-body">
+                    <div class="sb-name">Olive tree</div>
+                    <div class="sb-sub">Garden · 2 tasks · <span style="color:var(--cg-bg);font-weight:500;">spring window</span></div>
+                    <div class="sb-personality">Pruning window is now open. Don't miss it.</div>
+                  </div>
+                  <div class="sb-right">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="var(--hint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="height:32px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pro meter -->
+      <div class="pro-meter">
+        <span class="pm-label">5 of 10 free</span>
+        <div class="pm-dots">
+          <div class="pm-dot f"></div><div class="pm-dot f"></div><div class="pm-dot f"></div><div class="pm-dot f"></div><div class="pm-dot f"></div>
+          <div class="pm-dot e"></div><div class="pm-dot e"></div><div class="pm-dot e"></div><div class="pm-dot e"></div><div class="pm-dot e"></div>
+        </div>
+        <span class="pm-link">Go Pro</span>
+      </div>
+
+      <!-- Nav -->
+      <div class="nz">
+        <div class="nb">
+          <button class="nt"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M216 216V40" stroke="currentColor" stroke-width="18" stroke-linecap="round"/><path d="M176 216V104" stroke="currentColor" stroke-width="18" stroke-linecap="round"/><path d="M136 216V136" stroke="currentColor" stroke-width="18" stroke-linecap="round"/><path d="M96 216V72" stroke="currentColor" stroke-width="18" stroke-linecap="round"/><path d="M56 216V168" stroke="currentColor" stroke-width="18" stroke-linecap="round"/></svg><span class="nl">Today</span></button>
+          <button class="nt"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><rect x="40" y="40" width="176" height="176" rx="8" stroke="currentColor" stroke-width="18" fill="none"/><line x1="176" y1="24" x2="176" y2="56" stroke="currentColor" stroke-width="18" stroke-linecap="round"/><line x1="80" y1="24" x2="80" y2="56" stroke="currentColor" stroke-width="18" stroke-linecap="round"/><line x1="40" y1="88" x2="216" y2="88" stroke="currentColor" stroke-width="18" stroke-linecap="round"/></svg><span class="nl">Plan</span></button>
+          <button class="nt on"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M200 128a72 72 0 1 1-144 0c0-60 72-112 72-112S200 68 200 128Z" stroke="currentColor" stroke-width="18" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="nl">My stuff</span></button>
+          <button class="nt"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="96" r="48" stroke="currentColor" stroke-width="18" fill="none"/><path d="M32 216c0-48 42.98-80 96-80s96 32 96 80" stroke="currentColor" stroke-width="18" fill="none" stroke-linecap="round"/></svg><span class="nl">Profile</span></button>
+        </div>
+        <button class="fab"><svg width="17" height="17" viewBox="0 0 17 17" fill="none"><line x1="8.5" y1="2" x2="8.5" y2="15" stroke="#FAF8FF" stroke-width="2" stroke-linecap="round"/><line x1="2" y1="8.5" x2="15" y2="8.5" stroke="#FAF8FF" stroke-width="2" stroke-linecap="round"/></svg></button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       VARIATION C: Living grid
+       ═══════════════════════════════════════════ -->
+  <div class="variation-col">
+    <div>
+      <div class="var-label">C: Living grid</div>
+      <div class="var-sublabel">Dynamic, contextual, magazine-like</div>
+    </div>
+    <div class="ph" data-theme="light">
+      <div class="notch"></div>
+      <div class="sb"><span>9:41</span><span style="font-size:10px;color:var(--mid);">v10.5</span></div>
+      <div class="tc">
+        <div class="tp vc" style="opacity:1;pointer-events:auto;">
+          <div class="screen-title" style="padding-top:10px;">
+            <h2>My stuff</h2>
+            <span class="screen-title-count">5 items · 14 tasks</span>
+          </div>
+          <div class="filter-row">
+            <div class="fc active">All</div>
+            <div class="fc">Home</div>
+            <div class="fc">Vehicle</div>
+            <div class="fc">Garden</div>
+            <div class="fc">Subs</div>
+          </div>
+          <div class="grid-zone">
+
+            <!-- Hero row: featured + 2 tiles -->
+            <div class="hero-row">
+              <!-- Featured: Dishwasher (most urgent) -->
+              <div class="featured cat-home">
+                <div class="feat-icon">
+                  <svg width="22" height="22" viewBox="0 0 256 256" fill="none"><rect x="32" y="56" width="192" height="144" rx="8" stroke="var(--ch-bg)" stroke-width="18" fill="none"/><line x1="32" y1="104" x2="224" y2="104" stroke="var(--ch-bg)" stroke-width="18"/><circle cx="80" cy="80" r="10" stroke="var(--ch-bg)" stroke-width="14" fill="none"/></svg>
+                </div>
+                <div class="feat-name">Dishwasher</div>
+                <div class="feat-meta">Home · 3 tasks</div>
+                <div class="feat-status" style="color:var(--apricot);">1 task waiting</div>
+                <div class="feat-personality">Salt refilled 2 months ago</div>
+                <div class="feat-progress"><div class="feat-progress-fill" style="width:40%;background:var(--apricot);"></div></div>
+              </div>
+
+              <!-- Tile: Boiler -->
+              <div class="tile">
+                <div class="tile-top">
+                  <div class="tile-icon" style="background:var(--ch-wash);">
+                    <svg width="14" height="14" viewBox="0 0 256 256" fill="none"><rect x="64" y="32" width="128" height="192" rx="16" stroke="var(--ch-bg)" stroke-width="18" fill="none"/><circle cx="128" cy="144" r="28" stroke="var(--ch-bg)" stroke-width="18" fill="none"/><line x1="128" y1="72" x2="128" y2="88" stroke="var(--ch-bg)" stroke-width="18" stroke-linecap="round"/></svg>
+                  </div>
+                  <div class="tile-name">Boiler</div>
+                </div>
+                <div class="tile-bottom">
+                  <span class="tile-tasks">3 tasks</span>
+                  <div class="tile-dot" style="background:var(--sage);"></div>
+                </div>
+              </div>
+
+              <!-- Tile: VW Golf -->
+              <div class="tile">
+                <div class="tile-top">
+                  <div class="tile-icon" style="background:var(--cv-wash);">
+                    <svg width="14" height="14" viewBox="0 0 256 256" fill="none"><path d="M224,168H208V128L176,80H80L48,128V168H32a8,8,0,0,0,0,16H48v8a16,16,0,0,0,32,0v-8h96v8a16,16,0,0,0,32,0v-8h16a8,8,0,0,0,0-16Z" stroke="var(--cv-bg)" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  <div class="tile-name">VW Golf</div>
+                </div>
+                <div class="tile-bottom">
+                  <span class="tile-tasks">4 tasks</span>
+                  <div class="tile-dot" style="background:var(--sage);"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Remaining items: compact rows -->
+            <div class="remaining">
+              <!-- Olive tree -->
+              <div class="rem-item">
+                <div class="rem-icon" style="background:var(--cg-wash);">
+                  <svg width="14" height="14" viewBox="0 0 256 256" fill="none"><path d="M128 232V128" stroke="var(--cg-bg)" stroke-width="18" stroke-linecap="round"/><path d="M128 128c-40-60-80-20-80 0s40 40 80 0" stroke="var(--cg-bg)" stroke-width="16" fill="none" stroke-linecap="round"/><path d="M128 128c40-60 80-20 80 0s-40 40-80 0" stroke="var(--cg-bg)" stroke-width="16" fill="none" stroke-linecap="round"/></svg>
+                </div>
+                <div class="rem-body">
+                  <div class="rem-name">Olive tree</div>
+                  <div class="rem-meta">Garden · 2 tasks</div>
+                </div>
+                <span class="rem-status" style="color:var(--cg-bg);">Seasonal</span>
+              </div>
+              <!-- Netflix -->
+              <div class="rem-item">
+                <div class="rem-icon" style="background:var(--cs-wash);">
+                  <svg width="14" height="14" viewBox="0 0 256 256" fill="none"><rect x="40" y="40" width="176" height="176" rx="16" stroke="var(--cs-bg)" stroke-width="18" fill="none"/><line x1="96" y1="88" x2="96" y2="168" stroke="var(--cs-bg)" stroke-width="18" stroke-linecap="round"/><line x1="160" y1="88" x2="160" y2="168" stroke="var(--cs-bg)" stroke-width="18" stroke-linecap="round"/><line x1="96" y1="128" x2="160" y2="128" stroke="var(--cs-bg)" stroke-width="14" stroke-linecap="round"/></svg>
+                </div>
+                <div class="rem-body">
+                  <div class="rem-name">Netflix</div>
+                  <div class="rem-meta">Subscriptions · 1 task</div>
+                </div>
+                <span class="rem-status" style="color:var(--sage);">On track</span>
+              </div>
+            </div>
+
+            <div style="height:32px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pro meter -->
+      <div class="pro-meter">
+        <span class="pm-label">5 of 10 free</span>
+        <div class="pm-dots">
+          <div class="pm-dot f"></div><div class="pm-dot f"></div><div class="pm-dot f"></div><div class="pm-dot f"></div><div class="pm-dot f"></div>
+          <div class="pm-dot e"></div><div class="pm-dot e"></div><div class="pm-dot e"></div><div class="pm-dot e"></div><div class="pm-dot e"></div>
+        </div>
+        <span class="pm-link">Go Pro</span>
+      </div>
+
+      <!-- Nav -->
+      <div class="nz">
+        <div class="nb">
+          <button class="nt"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M216 216V40" stroke="currentColor" stroke-width="18" stroke-linecap="round"/><path d="M176 216V104" stroke="currentColor" stroke-width="18" stroke-linecap="round"/><path d="M136 216V136" stroke="currentColor" stroke-width="18" stroke-linecap="round"/><path d="M96 216V72" stroke="currentColor" stroke-width="18" stroke-linecap="round"/><path d="M56 216V168" stroke="currentColor" stroke-width="18" stroke-linecap="round"/></svg><span class="nl">Today</span></button>
+          <button class="nt"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><rect x="40" y="40" width="176" height="176" rx="8" stroke="currentColor" stroke-width="18" fill="none"/><line x1="176" y1="24" x2="176" y2="56" stroke="currentColor" stroke-width="18" stroke-linecap="round"/><line x1="80" y1="24" x2="80" y2="56" stroke="currentColor" stroke-width="18" stroke-linecap="round"/><line x1="40" y1="88" x2="216" y2="88" stroke="currentColor" stroke-width="18" stroke-linecap="round"/></svg><span class="nl">Plan</span></button>
+          <button class="nt on"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M200 128a72 72 0 1 1-144 0c0-60 72-112 72-112S200 68 200 128Z" stroke="currentColor" stroke-width="18" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="nl">My stuff</span></button>
+          <button class="nt"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="96" r="48" stroke="currentColor" stroke-width="18" fill="none"/><path d="M32 216c0-48 42.98-80 96-80s96 32 96 80" stroke="currentColor" stroke-width="18" fill="none" stroke-linecap="round"/></svg><span class="nl">Profile</span></button>
+        </div>
+        <button class="fab"><svg width="17" height="17" viewBox="0 0 17 17" fill="none"><line x1="8.5" y1="2" x2="8.5" y2="15" stroke="#FAF8FF" stroke-width="2" stroke-linecap="round"/><line x1="2" y1="8.5" x2="15" y2="8.5" stroke="#FAF8FF" stroke-width="2" stroke-linecap="round"/></svg></button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /variations-row -->
+
+
+<!-- DIVIDER -->
+<div class="page-divider"></div>
+
+<!-- ANNOTATIONS -->
+<div class="annotations">
+
+  <!-- A -->
+  <div class="annot-block">
+    <div class="annot-title">Collection shelf</div>
+    <div class="annot-inspo">Apple Music library, Calm content cards</div>
+    <div class="annot-card">
+      <div class="annot-head">Core idea <span class="badge-vibe">editorial</span></div>
+      <div class="annot-body">Items displayed as tall cards with a generous category-wash hero zone. Feels like browsing a curated collection, not checking a to-do list. The 2px accent line at the bottom signals status without visual clutter.</div>
+    </div>
+    <div class="annot-card">
+      <div class="annot-head">Best for <span class="badge-persona">Lena</span> <span class="badge-persona">Sara</span></div>
+      <div class="annot-body">Users who enjoy the app as a calm, aesthetic experience. Each item feels like it matters. Discovery-oriented users (Lena) feel their home is a "collection" to care for, not a task list.</div>
+    </div>
+    <div class="annot-card">
+      <div class="annot-head">Trade-off</div>
+      <div class="annot-body">Spacious layout means fewer items visible without scrolling. Power users (Arne) with 15+ items may find it slow to scan. Consider: compress cards after 8 items?</div>
+    </div>
+  </div>
+
+  <!-- B -->
+  <div class="annot-block">
+    <div class="annot-title">Status board</div>
+    <div class="annot-inspo">Tiimo, Things 3, Linear</div>
+    <div class="annot-card">
+      <div class="annot-head">Core idea <span class="badge-vibe">dashboard</span></div>
+      <div class="annot-body">Items grouped by status, not category. "Needs attention" floats to top with personality text. On-track items stay compact. Answers the daily question: "What needs me?" in one glance.</div>
+    </div>
+    <div class="annot-card">
+      <div class="annot-head">Best for <span class="badge-persona">Arne</span> <span class="badge-persona">Martijn</span></div>
+      <div class="annot-body">Power users and busy homeowners who want signal, not beauty. Arne scans the attention section and is done in 3 seconds. Martijn gets the "all clear" feeling when attention section is empty.</div>
+    </div>
+    <div class="annot-card">
+      <div class="annot-head">Trade-off</div>
+      <div class="annot-body">Category becomes secondary. Users who organize mentally by "home stuff vs car stuff" may find it disorienting. Consider: allow toggle between status and category grouping?</div>
+    </div>
+  </div>
+
+  <!-- C -->
+  <div class="annot-block">
+    <div class="annot-title">Living grid</div>
+    <div class="annot-inspo">iOS Home app, Notion gallery, Arc</div>
+    <div class="annot-card">
+      <div class="annot-head">Core idea <span class="badge-vibe">dynamic</span></div>
+      <div class="annot-body">The most urgent item gets a large featured card. Others fill tiles and rows. The layout changes based on what actually needs attention, making the screen feel alive across visits.</div>
+    </div>
+    <div class="annot-card">
+      <div class="annot-head">Best for <span class="badge-persona">Martijn</span> <span class="badge-persona">Lena</span></div>
+      <div class="annot-body">Daily openers who want the app to feel different each time. The featured slot creates a "story of the day" for their home. Lena sees the item that most needs her learning attention.</div>
+    </div>
+    <div class="annot-card">
+      <div class="annot-head">Trade-off</div>
+      <div class="annot-body">Asymmetric layout is harder to build in Flutter (custom layout delegate). Items shift positions across visits, which may frustrate muscle-memory users. Consider: animate featured transitions?</div>
+    </div>
+  </div>
+
+</div>
+
+
+<script>
+function setTheme(t) {
+  document.querySelectorAll('.ph').forEach(p => p.setAttribute('data-theme', t));
+  document.getElementById('ctl').classList.toggle('on', t === 'light');
+  document.getElementById('ctd').classList.toggle('on', t === 'dark');
+}
+</script>
+</body>
+</html>

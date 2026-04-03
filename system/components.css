@@ -310,24 +310,30 @@ body{
   flex-shrink:0;cursor:pointer;
   transition:background 0.15s ease-out,color 0.15s ease-out;
 }
-/* "All" active — CTA purple */
+/* ── Category filter active states (locked 2026-04-03) ──
+   "All" active = plum fill + cream text.
+   Category pills active = their own category COLOR fill + cream text.
+   Category colors match the main category tokens (not icon stroke colors).
+   Home = dusty rose #C09088, Vehicle = sage-slate #8E9A94,
+   Garden = sage #8C9B80, Subs = lavender #A69BBF.
+   Supersedes purple outline and dark ink patterns. */
 .cat-pill.active{background:var(--cta);color:var(--cta-fg);}
-/* Category modifier — inactive: pastel bg + icon stroke color text */
-.cat-pill.home{background:var(--cat-home-bg,#D2BEB6);color:var(--cat-home-ic,#7A5A50);}
-.cat-pill.vehicle{background:var(--cat-vehicle-bg,#C0CDD8);color:var(--cat-vehicle-ic,#4A6A82);}
-.cat-pill.garden{background:var(--cat-garden-bg,#C4DABE);color:var(--cat-garden-ic,#4A7A40);}
-.cat-pill.subs{background:var(--cat-sub-bg,#D0C6DC);color:var(--cat-sub-ic,#6A5085);}
-/* Category modifier — active: filled icon color bg + cream text */
-.cat-pill.home.active{background:var(--cat-home-ic,#7A5A50);color:#FAF8FF;}
-.cat-pill.vehicle.active{background:var(--cat-vehicle-ic,#4A6A82);color:#FAF8FF;}
-.cat-pill.garden.active{background:var(--cat-garden-ic,#4A7A40);color:#FAF8FF;}
-.cat-pill.subs.active{background:var(--cat-sub-ic,#6A5085);color:#FAF8FF;}
+/* Category modifier — inactive: neutral bg */
+.cat-pill.home,
+.cat-pill.vehicle,
+.cat-pill.garden,
+.cat-pill.subs{background:rgba(26,22,18,0.07);color:var(--mid-a, #6B6358);}
+/* Category modifier — active: category color fill + cream text */
+.cat-pill.home.active{background:#C09088;color:#FAF8FF;}
+.cat-pill.vehicle.active{background:#8E9A94;color:#FAF8FF;}
+.cat-pill.garden.active{background:#8C9B80;color:#FAF8FF;}
+.cat-pill.subs.active{background:#A69BBF;color:#FAF8FF;}
 /* .on alias for prototype compat */
 .cat-pill.on{background:var(--cta);color:var(--cta-fg);}
-.cat-pill.home.on{background:var(--cat-home-ic,#7A5A50);color:#FAF8FF;}
-.cat-pill.vehicle.on{background:var(--cat-vehicle-ic,#4A6A82);color:#FAF8FF;}
-.cat-pill.garden.on{background:var(--cat-garden-ic,#4A7A40);color:#FAF8FF;}
-.cat-pill.subs.on{background:var(--cat-sub-ic,#6A5085);color:#FAF8FF;}
+.cat-pill.home.on{background:#C09088;color:#FAF8FF;}
+.cat-pill.vehicle.on{background:#8E9A94;color:#FAF8FF;}
+.cat-pill.garden.on{background:#8C9B80;color:#FAF8FF;}
+.cat-pill.subs.on{background:#A69BBF;color:#FAF8FF;}
 .cat-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
 
 
