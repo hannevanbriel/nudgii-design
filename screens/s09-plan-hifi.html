@@ -1217,6 +1217,40 @@ function setState(s) {
 }
 var lastDoneCard = null;
 var toastTimer = null;
+var CIRCUMFERENCE = 87.96; // 2 * PI * 14 (radius)
+
+// ── Update month ratio circle when done state changes ──
+function updateMonthRatio(card) {
+  var tasks = card.closest('.plan-tasks');
+  if (!tasks) return;
+  var head = tasks.previousElementSibling;
+  // Walk back past dividers to find .month-head
+  while (head && !head.classList.contains('month-head')) head = head.previousElementSibling;
+  if (!head) return;
+  var allCards = tasks.querySelectorAll('.task-card');
+  var total = allCards.length;
+  var done = tasks.querySelectorAll('.task-card.done').length;
+  // Update label
+  var pct = head.querySelector('.month-pct');
+  if (pct) {
+    pct.textContent = done + '/' + total;
+    pct.style.color = done === 0 ? 'var(--hint)' : '';
+  }
+  // Update arc
+  var arcs = head.querySelectorAll('.month-circle svg circle');
+  if (arcs.length >= 2) {
+    var progress = total > 0 ? (done / total) * CIRCUMFERENCE : 0;
+    arcs[1].setAttribute('stroke-dasharray', progress + ' ' + CIRCUMFERENCE);
+  } else if (arcs.length === 1 && done > 0) {
+    // No progress arc yet (was 0/n), add one
+    var arc = arcs[0].cloneNode();
+    arc.setAttribute('stroke', 'var(--plum)');
+    arc.setAttribute('stroke-linecap', 'round');
+    var progress = (done / total) * CIRCUMFERENCE;
+    arc.setAttribute('stroke-dasharray', progress + ' ' + CIRCUMFERENCE);
+    arcs[0].parentNode.appendChild(arc);
+  }
+}
 
 // ── Category filter ──
 // ── Init: add checkbox circles to all task cards ──
@@ -1286,6 +1320,7 @@ function doMarkDone(btn) {
   var cb = card.querySelector('.task-check');
   if (cb) cb.style.background = cb.style.borderColor;
   lastDoneCard = card;
+  updateMonthRatio(card);
 
   // 2. Witty toast
   var witty = [
@@ -1304,6 +1339,7 @@ function checkboxTap(el) {
     // Undo: unfill checkbox
     card.classList.remove('done');
     if (cb) cb.style.background = 'transparent';
+    updateMonthRatio(card);
     showToast('Undone');
   } else {
     // Fill checkbox + mark done
@@ -1319,6 +1355,7 @@ function doUndo(btn) {
   card.classList.remove('done');
   card.classList.remove('expanded');
   if (cb) cb.style.background = 'transparent';
+  updateMonthRatio(card);
   showToast('Undone');
 }
 function undoLastAction() {
@@ -1327,6 +1364,7 @@ function undoLastAction() {
     lastDoneCard.classList.remove('expanded');
     var cb = lastDoneCard.querySelector('.task-check');
     if (cb) cb.style.background = 'transparent';
+    updateMonthRatio(lastDoneCard);
     lastDoneCard = null;
     hideToast();
   }
