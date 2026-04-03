@@ -354,28 +354,28 @@ Tasks have time windows, not deadlines. "Refill dishwasher salt" is due every 6-
 - ✅ "ready when you are" — no pressure
 - ✅ time-since-last-done — factual, lets the user decide urgency
 
-**Item personality names (default names suggested by nudgii):**
+**Item nicknames (opt-in, not default):**
 
-nudgii suggests warm, descriptive personality names when items are added. Generic item type stays visible in the meta line. User can always rename. Names are affectionate labels, not jokes. Never silly, never forced.
+Default item name is the generic type ("Dishwasher", "Boiler", "Car"). After adding an item, nudgii offers a short nickname as an optional extra: "Added. Want to give it a nickname?" with a suggestion chip. Most users skip, some tap it. Those users love the app more.
 
 | Item type | nudgii suggests | Why |
 |---|---|---|
-| Dishwasher | "The workhorse" | Runs constantly, does the heavy lifting |
-| Boiler | "Old reliable" | Quietly working for years |
-| Car | "The daily driver" | Gets you everywhere, every day |
-| Olive tree | "The slow grower" | Patience is her thing |
-| Netflix | "The monthly stream" | It just keeps going |
-| Washing machine | "The spin doctor" | It handles the dirty work |
-| Roof gutters | "The silent guardians" | Protecting without being noticed |
+| Dishwasher | "Dishy" | Obvious, affectionate, fast |
+| Boiler | "Bubs" | Warm, bubbly, short |
+| Car | "Wheels" | What it does, one word |
+| Olive tree | "Ollie" | Obvious nickname |
+| Netflix | "Flix" | How people already shorten it |
+| Washing machine | "Spinny" | What it does |
+| Roof gutters | "The guardians" | Plural items can be slightly longer |
 | Smoke detectors | "The watchers" | Always on, hopefully never needed |
 
-**Rules for personality names:**
-- Descriptive, not random: the name tells you something about the item's character
-- Warm, not silly: "Old reliable" yes, "Mr. Boily McBoilface" no
-- Always in sentence case: "The workhorse" not "The Workhorse"
-- Always editable: user can rename to anything, including the generic type
-- Display: personality name as primary (Noto Serif), item type in meta line (Manrope)
-- After AI scan: nudgii can use the brand, e.g. "The trusty Bosch" instead of "The workhorse"
+**Rules for nicknames:**
+- Short: one word preferred, two max
+- Obvious: the nickname should make you smile, not think
+- Never the default: generic item type is always the default name
+- Offered once: after item is added, as a suggestion chip. Not pushed again
+- Always editable: user can rename to anything at any time
+- After AI scan: nudgii can suggest brand-based names, e.g. "The Bosch" instead of "Dishy"
 
 **Key copy examples:**
 - Welcome: *"Your stuff won't maintain itself."* / subline: *"We remind you before things break, expire, or get too late."*
@@ -610,7 +610,7 @@ Update this section when open decisions are resolved.
 | My Stuff "Could use you" section | Replaces "Needs attention." The item wants your help, not "you missed a deadline." Stronger category wash = only visual urgency signal (no accent line, no badge). | ✅ Yes | 2026-04-03 |
 | Category filter: category-colored active | "All" active = plum fill + cream text. Category pills active = their own category color fill + cream text. Home = dusty rose, Vehicle = sage-slate, Garden = sage, Subs = lavender. Supersedes purple outline and dark ink patterns. Locked across all screens. | ✅ Yes | 2026-04-03 |
 | Progress ring: ratio + category color | Ring shows tasks on track / total as ratio ("2/3", not "75%"). Ring color = category color (dusty rose, sage-slate, sage, lavender). Exception: "could use you" items use apricot. Recurring tasks count as 1, not N occurrences. | ✅ Yes | 2026-04-03 |
-| Item personality names | nudgii suggests warm, descriptive personality names as defaults ("The workhorse", "Old reliable", "The daily driver"). Generic item type shown in meta line. User can always rename. Names are affectionate labels, not jokes. Never silly, never forced. | ✅ Yes | 2026-04-03 |
+| Item personality names | nudgii suggests warm, descriptive personality names when items are added. Generic item type stays visible in the meta line. User can always rename. Names are affectionate labels, not jokes. Never silly, never forced. | ✅ Yes | 2026-04-03 |
 | No separator lines in status groups | Status groups on My Stuff separated by spacing (20px gap) only. No horizontal rules, no borders, no dividers between groups. Spacing is the separator. | ✅ Yes | 2026-04-03 |
 | Status group priority logic | Items appear in exactly one group based on highest-priority task state. Priority: 1. "Could use you" (any task past its window, always wins), 2. "Seasonal" (a calendar window is currently open, task not done), 3. "On track" (all tasks within window). Groups are live queries, not permanent labels. Items move between groups as tasks change state. Seasonal section can be empty for months and full in October. | ✅ Yes | 2026-04-03 |
 | Onboarding flow review needed | Onboarding screens S-01 to S-08 use older design language (DM Serif/DM Sans, older tokens, S-03/S-04 mini-tile columns replaced by item rows). Full review against Precision Warmth in a dedicated session. | ❌ No | — |
