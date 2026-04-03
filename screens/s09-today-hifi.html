@@ -183,7 +183,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 .badge.due { color: var(--mid); background: none; font-weight: 500; }
 
 /* Action row inside expanded task */
-.feat-actions { display: flex; align-items: center; gap: 8px; margin-top: 0; justify-content: space-between; }
+.feat-actions { display: flex; align-items: center; gap: 8px; margin-top: 0; justify-content: flex-end; }
 .feat-detail { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 500; color: var(--mid); cursor: pointer; }
 .feat-btns { display: flex; align-items: center; gap: 8px; }
 .feat-skip { font-size: 11px; font-weight: 500; color: var(--hint); padding: 7px 6px; cursor: pointer; }
@@ -316,9 +316,10 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 /* ── Action toast ── */
 #action-toast {
   position: absolute; bottom: 92px; left: 16px; right: 16px;
-  background: var(--ink); color: var(--surface);
-  font-size: 12px; font-weight: 400; line-height: 1.4;
+  background: var(--surface-low); color: var(--ink);
+  font-size: 12px; font-weight: 500; line-height: 1.4;
   padding: 11px 14px; border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(49,51,44,0.12);
   display: flex; align-items: center; justify-content: space-between; gap: 10px;
   z-index: 130; pointer-events: none;
   opacity: 0; transform: translateY(6px);
@@ -429,7 +430,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
               </div>
               <div class="feat-expand"><div class="feat-expand-inner">
                 <div class="feat-why"><div class="feat-wl" style="color:var(--ch-bg);">Why it matters</div><div class="feat-wt">The annual check validates your warranty and catches carbon monoxide risks. Book 2-3 weeks in advance.</div></div>
-                <div class="feat-actions"><span class="feat-detail">Details <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg></span><div class="feat-btns"><span class="feat-skip">Skip</span><span class="feat-snooze">Snooze</span><span class="feat-done" style="background:var(--ch-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span></div></div>
+                <div class="feat-actions"><div class="feat-btns"><span class="feat-skip">Skip</span><span class="feat-snooze">Snooze</span><span class="feat-done" style="background:var(--ch-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span></div></div>
               </div></div>
             </div>
             <div class="feat" onclick="this.classList.toggle('expanded')">
@@ -441,7 +442,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
               </div>
               <div class="feat-expand"><div class="feat-expand-inner">
                 <div class="feat-why"><div class="feat-wl" style="color:var(--ch-bg);">Why it matters</div><div class="feat-wt">Without salt, limescale builds up and shortens your dishwasher's lifespan.</div></div>
-                <div class="feat-actions"><span class="feat-detail">Details <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg></span><div class="feat-btns"><span class="feat-skip">Skip</span><span class="feat-snooze">Snooze</span><span class="feat-done" style="background:var(--ch-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span></div></div>
+                <div class="feat-actions"><div class="feat-btns"><span class="feat-skip">Skip</span><span class="feat-snooze">Snooze</span><span class="feat-done" style="background:var(--ch-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span></div></div>
               </div></div>
             </div>
             <div class="feat" onclick="this.classList.toggle('expanded')">
@@ -453,7 +454,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
               </div>
               <div class="feat-expand"><div class="feat-expand-inner">
                 <div class="feat-why"><div class="feat-wl" style="color:var(--cv-bg);">Why it matters</div><div class="feat-wt">Under-inflated tyres increase fuel use by 3% and wear significantly faster.</div></div>
-                <div class="feat-actions"><span class="feat-detail">Details <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg></span><div class="feat-btns"><span class="feat-skip">Skip</span><span class="feat-snooze">Snooze</span><span class="feat-done" style="background:var(--cv-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span></div></div>
+                <div class="feat-actions"><div class="feat-btns"><span class="feat-skip">Skip</span><span class="feat-snooze">Snooze</span><span class="feat-done" style="background:var(--cv-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span></div></div>
               </div></div>
             </div>
           </div>
@@ -471,7 +472,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
               </div>
               <div class="feat-expand"><div class="feat-expand-inner">
                 <div class="feat-why"><div class="feat-wl" style="color:var(--cg-bg);">Why it matters</div><div class="feat-wt">Late March pruning promotes new fruiting wood and prevents disease before growing season.</div></div>
-                <div class="feat-actions"><span class="feat-detail">Details <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg></span><div class="feat-btns"><span class="feat-skip">Skip</span><span class="feat-snooze">Snooze</span><span class="feat-done" style="background:var(--cg-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span></div></div>
+                <div class="feat-actions"><div class="feat-btns"><span class="feat-skip">Skip</span><span class="feat-snooze">Snooze</span><span class="feat-done" style="background:var(--cg-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span></div></div>
               </div></div>
             </div>
           </div>
@@ -551,7 +552,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
               </div>
               <div class="feat-expand"><div class="feat-expand-inner">
                 <div class="feat-why"><div class="feat-wl" style="color:var(--cg-bg);">Why it matters</div><div class="feat-wt">Late March pruning promotes new fruiting wood and prevents disease before growing season.</div></div>
-                <div class="feat-actions"><span class="feat-detail">Details <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg></span><div class="feat-btns"><span class="feat-skip">Skip</span><span class="feat-snooze">Snooze</span><span class="feat-done" style="background:var(--cg-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span></div></div>
+                <div class="feat-actions"><div class="feat-btns"><span class="feat-skip">Skip</span><span class="feat-snooze">Snooze</span><span class="feat-done" style="background:var(--cg-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span></div></div>
               </div></div>
             </div>
           </div>
@@ -634,7 +635,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
               </div>
               <div class="feat-expand"><div class="feat-expand-inner">
                 <div class="feat-why"><div class="feat-wl" style="color:var(--ch-bg);">Why it matters</div><div class="feat-wt">The annual check validates your warranty and catches carbon monoxide risks. Book 2-3 weeks in advance.</div></div>
-                <div class="feat-actions"><span class="feat-detail">Details <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg></span><div class="feat-btns"><span class="feat-skip">Skip</span><span class="feat-snooze">Snooze</span><span class="feat-done" style="background:var(--ch-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span></div></div>
+                <div class="feat-actions"><div class="feat-btns"><span class="feat-skip">Skip</span><span class="feat-snooze">Snooze</span><span class="feat-done" style="background:var(--ch-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span></div></div>
               </div></div>
             </div>
             <div class="feat" onclick="this.classList.toggle('expanded')">
@@ -646,7 +647,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
               </div>
               <div class="feat-expand"><div class="feat-expand-inner">
                 <div class="feat-why"><div class="feat-wl" style="color:var(--ch-bg);">Why it matters</div><div class="feat-wt">Without salt, limescale builds up and shortens your dishwasher's lifespan.</div></div>
-                <div class="feat-actions"><span class="feat-detail">Details <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg></span><div class="feat-btns"><span class="feat-skip">Skip</span><span class="feat-snooze">Snooze</span><span class="feat-done" style="background:var(--ch-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span></div></div>
+                <div class="feat-actions"><div class="feat-btns"><span class="feat-skip">Skip</span><span class="feat-snooze">Snooze</span><span class="feat-done" style="background:var(--ch-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span></div></div>
               </div></div>
             </div>
             <div class="feat" onclick="this.classList.toggle('expanded')">
@@ -658,7 +659,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
               </div>
               <div class="feat-expand"><div class="feat-expand-inner">
                 <div class="feat-why"><div class="feat-wl" style="color:var(--cv-bg);">Why it matters</div><div class="feat-wt">Under-inflated tyres increase fuel use by 3% and wear significantly faster.</div></div>
-                <div class="feat-actions"><span class="feat-detail">Details <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg></span><div class="feat-btns"><span class="feat-skip">Skip</span><span class="feat-snooze">Snooze</span><span class="feat-done" style="background:var(--cv-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span></div></div>
+                <div class="feat-actions"><div class="feat-btns"><span class="feat-skip">Skip</span><span class="feat-snooze">Snooze</span><span class="feat-done" style="background:var(--cv-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span></div></div>
               </div></div>
             </div>
           </div>
@@ -1119,9 +1120,18 @@ document.addEventListener('DOMContentLoaded', () => {
       const skip   = e.target.closest('.feat-skip');
       const snooze = e.target.closest('.feat-snooze');
       const done   = e.target.closest('.feat-done');
-      if (skip)   { e.stopPropagation(); handleSkip(skip); }
-      if (snooze) { e.stopPropagation(); handleSnooze(snooze); }
-      if (done)   { e.stopPropagation(); handleDone(done); }
+      const feat   = e.target.closest('.feat');
+      if (skip)   { e.stopPropagation(); handleSkip(skip); return; }
+      if (snooze) { e.stopPropagation(); handleSnooze(snooze); return; }
+      if (done)   { e.stopPropagation(); handleDone(done); return; }
+      /* Tap-to-undo: clicking a done card undoes it */
+      if (feat && feat.classList.contains('task-done')) {
+        e.stopPropagation();
+        feat.classList.remove('expanded');
+        const editBtn = feat.querySelector('.feat-edit-btn');
+        if (editBtn) undoDone(editBtn);
+        return;
+      }
     });
   });
 });
@@ -1205,8 +1215,7 @@ function undoDone(editBtn) {
   const doneBg  = feat.dataset.doneBg || 'var(--hint)';
   const actions = feat.querySelector('.feat-actions');
   actions.innerHTML = `
-    <span class="feat-detail">Details <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg></span>
-    <div class="feat-btns">
+        <div class="feat-btns">
       <span class="feat-skip">Skip</span>
       <span class="feat-snooze">Snooze</span>
       <span class="feat-done" style="background:${doneBg};">

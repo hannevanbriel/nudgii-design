@@ -137,17 +137,22 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 .plan-title { font-family: 'Noto Serif', serif; font-size: 24px; font-weight: 400; color: var(--ink); letter-spacing: -0.02em; }
 .plan-filter-icon { width: 32px; height: 32px; border-radius: 8px; background: none; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid var(--surface-high); }
 
-/* ── Plan Export button ── */
-.plan-export { display: inline-flex; align-items: center; gap: 5px; background: var(--plum); color: var(--plum-fg); font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 500; padding: 7px 14px; border-radius: 100px; border: none; cursor: pointer; flex-shrink: 0; }
-
-/* ── "EDITORIAL TIMELINE" subtitle ── */
-.plan-eyebrow { font-size: 9px; font-weight: 500; letter-spacing: 1.3px; text-transform: uppercase; color: var(--hint); padding: 6px 24px 0; }
+/* ── Plan Export button (icon-only, toned down) ── */
+.plan-export { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; background: none; border-radius: 8px; padding: 0; flex-shrink: 0; transition: background 120ms; }
+.plan-export:hover { background: rgba(49,51,44,0.05); }
+.plan-export svg { color: var(--mid); }
 
 /* ── Filter chips row ── */
 .chips-row { display: flex; gap: 6px; overflow-x: auto; padding: 10px 24px 4px; scrollbar-width: none; white-space: nowrap; }
 .chips-row::-webkit-scrollbar { display: none; }
 .chip { font-size: 11px; font-weight: 500; padding: 5px 12px; border-radius: 100px; border: 1px solid var(--outline-var); color: var(--ink); background: transparent; cursor: pointer; white-space: nowrap; flex-shrink: 0; transition: all 120ms; font-family: 'Manrope', sans-serif; }
-.chip.active { border-color: var(--ink); color: var(--plum-fg); background: var(--ink); }
+/* "All" active = plum fill + cream text (locked 2026-04-03) */
+.chip.active { border-color: transparent; color: #FAF8FF; background: var(--plum); }
+/* Category pills active = their own category color fill + cream text */
+.chip.home.active { background: #C09088; }
+.chip.garden.active { background: #8C9B80; }
+.chip.vehicle.active { background: #8E9A94; }
+.chip.subs.active { background: #A69BBF; }
 
 /* ── Month divider line ── */
 .month-divider { height: 1px; background: var(--surface-high); margin: 14px 24px 0; }
@@ -159,10 +164,14 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 .month-circle svg { position: absolute; inset: 0; transform: rotate(-90deg); }
 .month-pct { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 600; color: var(--plum); }
 
-/* ── Plan task rows ── */
+/* ── Plan task cards (expand/collapse, matching Today pattern) ── */
 .plan-tasks { display: flex; flex-direction: column; gap: 2px; padding: 0 16px; }
-.plan-row { display: flex; align-items: center; gap: 10px; padding: 9px 8px; border-radius: 10px; cursor: pointer; transition: background 120ms; }
-.plan-row:hover { background: rgba(49,51,44,0.03); }
+
+.task-card { border-radius: 10px; cursor: pointer; transition: background 120ms; }
+.task-card:active { background: rgba(49,51,44,0.03); }
+
+.task-top { display: flex; align-items: center; gap: 10px; padding: 9px 8px; }
+
 .pr-date { width: 40px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; }
 .pr-day { font-size: 9px; font-weight: 500; color: var(--hint); text-transform: uppercase; letter-spacing: 0.04em; line-height: 1; margin-bottom: 2px; }
 .pr-num { font-size: 16px; font-weight: 600; color: var(--mid); line-height: 1; }
@@ -170,7 +179,76 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 .pr-body { flex: 1; min-width: 0; }
 .pr-title { font-size: 13px; font-weight: 500; color: var(--ink); line-height: 1.3; letter-spacing: -0.01em; }
 .pr-item { font-size: 10px; color: var(--mid); margin-top: 2px; }
-.pr-menu { flex-shrink: 0; }
+
+/* Badge (waiting / due date) */
+.task-badge { font-size: 11px; font-weight: 500; color: var(--apricot); flex-shrink: 0; white-space: nowrap; }
+
+/* Chevron (expand/collapse) */
+.task-chev { width: 12px; height: 12px; flex-shrink: 0; opacity: 0.3; transition: transform 200ms ease; }
+.task-card.expanded .task-chev { transform: rotate(180deg); opacity: 0.5; }
+
+/* Expand zone */
+.task-expand { max-height: 0; overflow: hidden; transition: max-height 300ms ease; }
+.task-card.expanded .task-expand { max-height: 280px; }
+.task-expand-inner { padding: 0 8px 12px; }
+
+/* "Why it matters" block (tappable: opens detail sheet) */
+.task-why { background: var(--surface-low); border-radius: 8px; padding: 12px 14px; margin-bottom: 12px; position: relative; }
+.task-wl { font-size: 9px; font-weight: 600; letter-spacing: 0.04em; margin-bottom: 4px; text-transform: uppercase; }
+.task-wt { font-size: 11px; color: var(--mid); line-height: 1.5; }
+
+/* Action row */
+.task-actions { display: flex; align-items: center; gap: 8px; justify-content: flex-end; }
+.task-skip { font-size: 11px; font-weight: 500; color: var(--hint); padding: 7px 6px; cursor: pointer; }
+.task-snooze { font-size: 11px; font-weight: 500; color: var(--ink); background: var(--surface-low); padding: 7px 14px; border-radius: 100px; cursor: pointer; }
+.task-done { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 500; color: var(--surface); padding: 7px 16px; border-radius: 100px; cursor: pointer; }
+
+/* ── Done state (matching Today: icon overlay + targeted opacity) ── */
+.task-card.done { pointer-events: auto; }
+.task-card.done .pr-title { opacity: 0.4; }
+.task-card.done .pr-item { opacity: 0.4; }
+.task-card.done .task-chev { opacity: 0.2; }
+.task-card.done .pr-icon { position: relative; }
+.task-card.done .task-badge { display: none; }
+.done-indicator { display: none; align-items: center; gap: 3px; flex-shrink: 0; }
+.done-indicator svg { flex-shrink: 0; }
+.done-label { font-size: 11px; font-weight: 500; color: var(--hint); }
+.task-card.done .done-indicator { display: flex; }
+
+/* ── Export bottom sheet overlay ── */
+.export-sheet { display: none; position: absolute; inset: 0; z-index: 100; }
+.export-scrim { position: absolute; inset: 0; background: rgba(49,51,44,0.5); }
+.export-panel { position: absolute; bottom: 0; left: 0; right: 0; background: var(--surface); border-radius: 20px 20px 0 0; padding: 12px 24px 34px; }
+.export-handle { width: 36px; height: 4px; border-radius: 100px; background: var(--surface-high); margin: 0 auto 16px; }
+.export-title { font-family: 'Noto Serif', serif; font-size: 18px; color: var(--ink); margin-bottom: 4px; }
+.export-sub { font-size: 11px; color: var(--mid); margin-bottom: 16px; }
+.export-option { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--surface-high); cursor: pointer; }
+.export-option:last-child { border-bottom: none; }
+.export-opt-icon { width: 36px; height: 36px; border-radius: 10px; background: var(--surface-low); display: flex; align-items: center; justify-content: center; }
+.export-opt-body { flex: 1; }
+.export-opt-title { font-size: 13px; font-weight: 500; color: var(--ink); }
+.export-opt-sub { font-size: 10px; color: var(--mid); margin-top: 2px; }
+.export-pro { font-size: 8px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--plum); background: rgba(155,127,212,0.10); padding: 2px 6px; border-radius: 4px; margin-left: auto; flex-shrink: 0; }
+
+/* ── Swipe hint (annotation-only, visual demo) ── */
+.swipe-demo { display: flex; gap: 0; height: 44px; border-radius: 10px; overflow: hidden; margin: 8px 16px; }
+.swipe-action { display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: #FAF8FF; padding: 0 14px; white-space: nowrap; }
+.swipe-action.sw-done { flex: 1; }
+.swipe-action.sw-snooze { background: var(--surface-high); color: var(--ink); }
+.swipe-action.sw-skip { background: rgba(49,51,44,0.08); color: var(--mid); }
+
+/* ── Toast notification ── */
+.plan-toast { position: absolute; bottom: 96px; left: 24px; right: 24px; z-index: 90; background: var(--surface-low); border-radius: 10px; padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 16px rgba(49,51,44,0.12); opacity: 0; transform: translateY(10px); transition: opacity 200ms ease, transform 200ms ease; pointer-events: none; }
+.plan-toast.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.plan-toast-text { font-size: 12px; font-weight: 500; color: var(--ink); }
+.plan-toast-undo { font-size: 11px; font-weight: 600; color: var(--plum); cursor: pointer; padding: 4px 8px; }
+
+/* ── Snooze bottom sheet ── */
+.snooze-sheet { display: none; position: absolute; inset: 0; z-index: 100; }
+.snooze-panel { position: absolute; bottom: 0; left: 0; right: 0; background: var(--surface); border-radius: 20px 20px 0 0; padding: 12px 24px 34px; }
+.snooze-option { display: flex; align-items: center; gap: 12px; padding: 13px 0; border-bottom: 1px solid var(--surface-high); cursor: pointer; font-size: 13px; font-weight: 500; color: var(--ink); }
+.snooze-option:last-child { border-bottom: none; }
+.snooze-option-sub { font-size: 10px; color: var(--mid); margin-left: auto; }
 
 /* ── Seasonal quote card ── */
 .season-card { margin: 16px 24px; padding: 14px 16px; background: var(--surface-low); border-radius: var(--r); }
@@ -280,6 +358,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
     <span class="ctrl-label">State</span>
     <button class="ctrl-btn on" id="cs-default" onclick="setState('default')">Default</button>
     <button class="ctrl-btn" id="cs-empty" onclick="setState('empty')">Empty</button>
+    <button class="ctrl-btn" id="cs-export" onclick="setState('export')">Export sheet</button>
   </div>
 </div>
 
@@ -297,112 +376,178 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
         <!-- ═══ DEFAULT STATE ═══ -->
         <div class="tp active" id="state-default">
 
-          <!-- Plan header + export button -->
+          <!-- Plan header + export icon -->
           <div class="plan-header">
             <div class="plan-title">Plan</div>
-            <button class="plan-export">
-              <!-- Download icon -->
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <button class="plan-export" title="Export (Pro)" onclick="openExport()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 3v12M7 10l5 5 5-5"/>
                 <path d="M3 19h18"/>
               </svg>
-              Export
             </button>
           </div>
-
-          <!-- EDITORIAL TIMELINE subtitle -->
-          <div class="plan-eyebrow">Editorial timeline</div>
 
           <!-- Filter chips -->
           <div class="chips-row">
             <button class="chip active" onclick="setChip(this)">All</button>
-            <button class="chip" onclick="setChip(this)">Home</button>
-            <button class="chip" onclick="setChip(this)">Garden</button>
-            <button class="chip" onclick="setChip(this)">Vehicle</button>
-            <button class="chip" onclick="setChip(this)">Subscriptions</button>
+            <button class="chip home" onclick="setChip(this)">Home</button>
+            <button class="chip garden" onclick="setChip(this)">Garden</button>
+            <button class="chip vehicle" onclick="setChip(this)">Vehicle</button>
+            <button class="chip subs" onclick="setChip(this)">Subscriptions</button>
           </div>
 
           <!-- ─── APRIL ─── -->
           <div class="month-head">
-            <!-- Completion circle LEFT: 2 of 5 tasks done = 40% -->
+            <!-- Completion circle LEFT: 2 of 5 tasks done -->
             <div class="month-circle">
               <svg width="36" height="36" viewBox="0 0 36 36">
-                <!-- Track -->
                 <circle cx="18" cy="18" r="14" fill="none" stroke="var(--surface-high)" stroke-width="2.5"/>
-                <!-- Progress arc: circumference = 2*pi*14 = 87.96. 40% = 35.18 -->
+                <!-- Progress arc: 2/5 = 40%. circumference 87.96, 40% = 35.18 -->
                 <circle cx="18" cy="18" r="14" fill="none" stroke="var(--plum)" stroke-width="2.5" stroke-dasharray="35.18 87.96" stroke-linecap="round"/>
               </svg>
-              <div class="month-pct">40%</div>
+              <div class="month-pct">2/5</div>
             </div>
             <div class="month-name">April</div>
           </div>
 
           <div class="plan-tasks">
-            <!-- Row: Apr 4 — Home -->
-            <div class="plan-row">
-              <div class="pr-date"><div class="pr-day">Fri</div><div class="pr-num">4</div></div>
-              <div class="pr-icon" style="background:var(--ch-wash);">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M1 6.5L7 2l6 4.5V13a.5.5 0 0 1-.5.5h-3.5v-3H5v3H1.5A.5.5 0 0 1 1 13V6.5z"/>
-                </svg>
+
+            <!-- ══ Apr 4: Refill dishwasher salt — EXPANDED DEMO ══ -->
+            <div class="task-card expanded" onclick="toggleCard(this)">
+              <div class="task-top">
+                <div class="pr-date"><div class="pr-day">Fri</div><div class="pr-num">4</div></div>
+                <div class="pr-icon" style="background:var(--ch-wash);">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6.5L7 2l6 4.5V13a.5.5 0 0 1-.5.5h-3.5v-3H5v3H1.5A.5.5 0 0 1 1 13V6.5z"/></svg>
+                </div>
+                <div class="pr-body"><div class="pr-title">Refill dishwasher salt</div><div class="pr-item">Dishwasher · Home</div></div>
+                <span class="task-badge">waiting 3d</span>
+                <svg class="task-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
               </div>
-              <div class="pr-body"><div class="pr-title">Refill dishwasher salt</div><div class="pr-item">Dishwasher · Home</div></div>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="5" r="1" fill="var(--hint)"/><circle cx="12" cy="12" r="1" fill="var(--hint)"/><circle cx="12" cy="19" r="1" fill="var(--hint)"/></svg>
+              <div class="task-expand">
+                <div class="task-expand-inner">
+                  <div class="task-why" onclick="event.stopPropagation()">
+                    <div class="task-wl" style="color:var(--ch-bg);">Why it matters</div>
+                    <div class="task-wt">Salt prevents limescale and keeps your dishwasher cleaning effectively. Check the reservoir every 6 to 8 weeks.</div>
+                  </div>
+                  <div class="task-actions" onclick="event.stopPropagation()">
+                    <span class="task-skip" onclick="doSkip(this)">Skip</span>
+                    <span class="task-snooze" onclick="openSnooze()">Snooze</span>
+                    <span class="task-done" onclick="doMarkDone(this)" style="background:var(--ch-bg);">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <!-- Row: Apr 7 — Garden -->
-            <div class="plan-row">
-              <div class="pr-date"><div class="pr-day">Mon</div><div class="pr-num">7</div></div>
-              <div class="pr-icon" style="background:var(--cg-wash);">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cg-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M7 13V6"/>
-                  <path d="M7 6C7 6 4 4.5 2 2c3 0 5 1 5 4z"/>
-                  <path d="M7 6C7 6 10 4.5 12 2c-3 0-5 1-5 4z"/>
-                </svg>
+            <!-- ══ Apr 7: Start tomato seedlings — collapsed ══ -->
+            <div class="task-card" onclick="toggleCard(this)">
+              <div class="task-top">
+                <div class="pr-date"><div class="pr-day">Mon</div><div class="pr-num">7</div></div>
+                <div class="pr-icon" style="background:var(--cg-wash);">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cg-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13V6"/><path d="M7 6C7 6 4 4.5 2 2c3 0 5 1 5 4z"/><path d="M7 6C7 6 10 4.5 12 2c-3 0-5 1-5 4z"/></svg>
+                </div>
+                <div class="pr-body"><div class="pr-title">Start tomato seedlings</div><div class="pr-item">Tomatoes · Garden</div></div>
+                <svg class="task-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
               </div>
-              <div class="pr-body"><div class="pr-title">Start tomato seedlings</div><div class="pr-item">Tomatoes · Garden</div></div>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="5" r="1" fill="var(--hint)"/><circle cx="12" cy="12" r="1" fill="var(--hint)"/><circle cx="12" cy="19" r="1" fill="var(--hint)"/></svg>
+              <div class="task-expand">
+                <div class="task-expand-inner">
+                  <div class="task-why" onclick="event.stopPropagation()">
+                    <div class="task-wl" style="color:var(--cg-bg);">Why it matters</div>
+                    <div class="task-wt">Starting indoors in early April gives seedlings 6 weeks to strengthen before transplanting after the last frost.</div>
+                  </div>
+                  <div class="task-actions" onclick="event.stopPropagation()">
+                    <span class="task-skip" onclick="doSkip(this)">Skip</span>
+                    <span class="task-snooze" onclick="openSnooze()">Snooze</span>
+                    <span class="task-done" onclick="doMarkDone(this)" style="background:var(--cg-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <!-- Row: Apr 14 — Vehicle -->
-            <div class="plan-row">
-              <div class="pr-date"><div class="pr-day">Mon</div><div class="pr-num">14</div></div>
-              <div class="pr-icon" style="background:var(--cv-wash);">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cv-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="1" y="4" width="12" height="6" rx="1.5"/>
-                  <path d="M3 10v2M11 10v2"/>
-                  <path d="M3 4l1.5-2h5L11 4"/>
-                </svg>
+            <!-- ══ Apr 14: Check tyre pressure — DONE STATE (tap to undo) ══ -->
+            <div class="task-card done" onclick="toggleDone(this)" title="Tap to undo">
+              <div class="task-top">
+                <div class="pr-date"><div class="pr-day">Mon</div><div class="pr-num">14</div></div>
+                <div class="pr-icon" style="background:var(--cv-wash);">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cv-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="12" height="6" rx="1.5"/><path d="M3 10v2M11 10v2"/><path d="M3 4l1.5-2h5L11 4"/></svg>
+                </div>
+                <div class="pr-body"><div class="pr-title">Check tyre pressure</div><div class="pr-item">Car · Vehicle</div></div>
+                <div class="done-indicator">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--cv-bg)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span class="done-label">done</span>
+                </div>
+                <svg class="task-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
               </div>
-              <div class="pr-body"><div class="pr-title">Check tyre pressure</div><div class="pr-item">Car · Vehicle</div></div>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="5" r="1" fill="var(--hint)"/><circle cx="12" cy="12" r="1" fill="var(--hint)"/><circle cx="12" cy="19" r="1" fill="var(--hint)"/></svg>
+              <div class="task-expand">
+                <div class="task-expand-inner">
+                  <div class="task-why" onclick="event.stopPropagation()">
+                    <div class="task-wl" style="color:var(--cv-bg);">Why it matters</div>
+                    <div class="task-wt">Low tyre pressure increases fuel consumption and uneven wear. Check all four tyres when cold, including the spare.</div>
+                  </div>
+                  <div class="task-actions" onclick="event.stopPropagation()">
+                    <span class="task-skip" onclick="doSkip(this)">Skip</span>
+                    <span class="task-snooze" onclick="openSnooze()">Snooze</span>
+                    <span class="task-done" onclick="doMarkDone(this)" style="background:var(--cv-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <!-- Row: Apr 18 — Home -->
-            <div class="plan-row">
-              <div class="pr-date"><div class="pr-day">Fri</div><div class="pr-num">18</div></div>
-              <div class="pr-icon" style="background:var(--ch-wash);">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M1 6.5L7 2l6 4.5V13a.5.5 0 0 1-.5.5h-3.5v-3H5v3H1.5A.5.5 0 0 1 1 13V6.5z"/>
-                </svg>
+            <!-- ══ Apr 18: Clean gutters — collapsed ══ -->
+            <div class="task-card" onclick="toggleCard(this)">
+              <div class="task-top">
+                <div class="pr-date"><div class="pr-day">Fri</div><div class="pr-num">18</div></div>
+                <div class="pr-icon" style="background:var(--ch-wash);">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6.5L7 2l6 4.5V13a.5.5 0 0 1-.5.5h-3.5v-3H5v3H1.5A.5.5 0 0 1 1 13V6.5z"/></svg>
+                </div>
+                <div class="pr-body"><div class="pr-title">Clean gutters</div><div class="pr-item">House · Home</div></div>
+                <svg class="task-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
               </div>
-              <div class="pr-body"><div class="pr-title">Clean gutters</div><div class="pr-item">House · Home</div></div>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="5" r="1" fill="var(--hint)"/><circle cx="12" cy="12" r="1" fill="var(--hint)"/><circle cx="12" cy="19" r="1" fill="var(--hint)"/></svg>
+              <div class="task-expand">
+                <div class="task-expand-inner">
+                  <div class="task-why" onclick="event.stopPropagation()">
+                    <div class="task-wl" style="color:var(--ch-bg);">Why it matters</div>
+                    <div class="task-wt">Blocked gutters cause water damage to walls and foundations. Spring cleaning catches winter debris before the next rains.</div>
+                  </div>
+                  <div class="task-actions" onclick="event.stopPropagation()">
+                    <span class="task-skip" onclick="doSkip(this)">Skip</span>
+                    <span class="task-snooze" onclick="openSnooze()">Snooze</span>
+                    <span class="task-done" onclick="doMarkDone(this)" style="background:var(--ch-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <!-- Row: Apr 28 — Subscriptions -->
-            <div class="plan-row">
-              <div class="pr-date"><div class="pr-day">Mon</div><div class="pr-num">28</div></div>
-              <div class="pr-icon" style="background:var(--cs-wash);">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cs-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="1" y="2.5" width="12" height="9" rx="1.5"/>
-                  <line x1="1" y1="5.5" x2="13" y2="5.5"/>
-                  <line x1="3.5" y1="8.5" x2="5" y2="8.5"/>
-                </svg>
+            <!-- ══ Apr 28: Renew home insurance — DONE STATE (tap to undo) ══ -->
+            <div class="task-card done" onclick="toggleDone(this)" title="Tap to undo">
+              <div class="task-top">
+                <div class="pr-date"><div class="pr-day">Mon</div><div class="pr-num">28</div></div>
+                <div class="pr-icon" style="background:var(--cs-wash);">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cs-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="2.5" width="12" height="9" rx="1.5"/><line x1="1" y1="5.5" x2="13" y2="5.5"/><line x1="3.5" y1="8.5" x2="5" y2="8.5"/></svg>
+                </div>
+                <div class="pr-body"><div class="pr-title">Renew home insurance</div><div class="pr-item">Allianz Home · Subscriptions</div></div>
+                <div class="done-indicator">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--cs-bg)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span class="done-label">done</span>
+                </div>
+                <svg class="task-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
               </div>
-              <div class="pr-body"><div class="pr-title">Renew home insurance</div><div class="pr-item">Allianz Home · Subscriptions</div></div>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="5" r="1" fill="var(--hint)"/><circle cx="12" cy="12" r="1" fill="var(--hint)"/><circle cx="12" cy="19" r="1" fill="var(--hint)"/></svg>
+              <div class="task-expand">
+                <div class="task-expand-inner">
+                  <div class="task-why" onclick="event.stopPropagation()">
+                    <div class="task-wl" style="color:var(--cs-bg);">Why it matters</div>
+                    <div class="task-wt">Letting your home insurance lapse leaves you unprotected. Renew 2 weeks before expiry to compare quotes.</div>
+                  </div>
+                  <div class="task-actions" onclick="event.stopPropagation()">
+                    <span class="task-skip" onclick="doSkip(this)">Skip</span>
+                    <span class="task-snooze" onclick="openSnooze()">Snooze</span>
+                    <span class="task-done" onclick="doMarkDone(this)" style="background:var(--cs-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
+                  </div>
+                </div>
+              </div>
             </div>
+
           </div>
 
           <!-- Seasonal quote card between April and May -->
@@ -414,69 +559,117 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
           <!-- ─── MAY ─── -->
           <div class="month-divider"></div>
           <div class="month-head">
-            <!-- Completion circle LEFT: 0 of 4 done = 0% — track only, no fill -->
             <div class="month-circle">
               <svg width="36" height="36" viewBox="0 0 36 36">
                 <circle cx="18" cy="18" r="14" fill="none" stroke="var(--surface-high)" stroke-width="2.5"/>
               </svg>
-              <div class="month-pct" style="color:var(--hint);">0%</div>
+              <div class="month-pct" style="color:var(--hint);">0/4</div>
             </div>
             <div class="month-name">May</div>
           </div>
 
           <div class="plan-tasks">
-            <!-- Row: May 1 — Garden -->
-            <div class="plan-row">
-              <div class="pr-date"><div class="pr-day">Thu</div><div class="pr-num">1</div></div>
-              <div class="pr-icon" style="background:var(--cg-wash);">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cg-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M7 13V6"/>
-                  <path d="M7 6C7 6 4 4.5 2 2c3 0 5 1 5 4z"/>
-                  <path d="M7 6C7 6 10 4.5 12 2c-3 0-5 1-5 4z"/>
-                </svg>
+
+            <!-- ══ May 1: Prune olive tree ══ -->
+            <div class="task-card" onclick="toggleCard(this)">
+              <div class="task-top">
+                <div class="pr-date"><div class="pr-day">Thu</div><div class="pr-num">1</div></div>
+                <div class="pr-icon" style="background:var(--cg-wash);">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cg-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13V6"/><path d="M7 6C7 6 4 4.5 2 2c3 0 5 1 5 4z"/><path d="M7 6C7 6 10 4.5 12 2c-3 0-5 1-5 4z"/></svg>
+                </div>
+                <div class="pr-body"><div class="pr-title">Prune olive tree</div><div class="pr-item">Olive tree · Garden</div></div>
+                <svg class="task-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
               </div>
-              <div class="pr-body"><div class="pr-title">Prune olive tree</div><div class="pr-item">Olive tree · Garden</div></div>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="5" r="1" fill="var(--hint)"/><circle cx="12" cy="12" r="1" fill="var(--hint)"/><circle cx="12" cy="19" r="1" fill="var(--hint)"/></svg>
+              <div class="task-expand">
+                <div class="task-expand-inner">
+                  <div class="task-why" onclick="event.stopPropagation()">
+                    <div class="task-wl" style="color:var(--cg-bg);">Why it matters</div>
+                    <div class="task-wt">Prune after the last frost but before new growth. Removes dead wood and shapes the canopy for better fruit yield.</div>
+                  </div>
+                  <div class="task-actions" onclick="event.stopPropagation()">
+                    <span class="task-skip" onclick="doSkip(this)">Skip</span>
+                    <span class="task-snooze" onclick="openSnooze()">Snooze</span>
+                    <span class="task-done" onclick="doMarkDone(this)" style="background:var(--cg-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <!-- Row: May 6 — Home -->
-            <div class="plan-row">
-              <div class="pr-date"><div class="pr-day">Tue</div><div class="pr-num">6</div></div>
-              <div class="pr-icon" style="background:var(--ch-wash);">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M1 6.5L7 2l6 4.5V13a.5.5 0 0 1-.5.5h-3.5v-3H5v3H1.5A.5.5 0 0 1 1 13V6.5z"/>
-                </svg>
+            <!-- ══ May 6: Annual boiler service ══ -->
+            <div class="task-card" onclick="toggleCard(this)">
+              <div class="task-top">
+                <div class="pr-date"><div class="pr-day">Tue</div><div class="pr-num">6</div></div>
+                <div class="pr-icon" style="background:var(--ch-wash);">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6.5L7 2l6 4.5V13a.5.5 0 0 1-.5.5h-3.5v-3H5v3H1.5A.5.5 0 0 1 1 13V6.5z"/></svg>
+                </div>
+                <div class="pr-body"><div class="pr-title">Annual boiler service</div><div class="pr-item">Boiler · Home</div></div>
+                <svg class="task-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
               </div>
-              <div class="pr-body"><div class="pr-title">Annual boiler service</div><div class="pr-item">Boiler · Home</div></div>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="5" r="1" fill="var(--hint)"/><circle cx="12" cy="12" r="1" fill="var(--hint)"/><circle cx="12" cy="19" r="1" fill="var(--hint)"/></svg>
+              <div class="task-expand">
+                <div class="task-expand-inner">
+                  <div class="task-why" onclick="event.stopPropagation()">
+                    <div class="task-wl" style="color:var(--ch-bg);">Why it matters</div>
+                    <div class="task-wt">The annual check validates your warranty and catches carbon monoxide risks. Book 2 to 3 weeks in advance.</div>
+                  </div>
+                  <div class="task-actions" onclick="event.stopPropagation()">
+                    <span class="task-skip" onclick="doSkip(this)">Skip</span>
+                    <span class="task-snooze" onclick="openSnooze()">Snooze</span>
+                    <span class="task-done" onclick="doMarkDone(this)" style="background:var(--ch-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <!-- Row: May 14 — Home -->
-            <div class="plan-row">
-              <div class="pr-date"><div class="pr-day">Wed</div><div class="pr-num">14</div></div>
-              <div class="pr-icon" style="background:var(--ch-wash);">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="1" y="2.5" width="12" height="9" rx="1.5"/>
-                  <path d="M4 6.5h6M4 8.5h4"/>
-                </svg>
+            <!-- ══ May 14: Refill dishwasher salt ══ -->
+            <div class="task-card" onclick="toggleCard(this)">
+              <div class="task-top">
+                <div class="pr-date"><div class="pr-day">Wed</div><div class="pr-num">14</div></div>
+                <div class="pr-icon" style="background:var(--ch-wash);">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6.5L7 2l6 4.5V13a.5.5 0 0 1-.5.5h-3.5v-3H5v3H1.5A.5.5 0 0 1 1 13V6.5z"/></svg>
+                </div>
+                <div class="pr-body"><div class="pr-title">Refill dishwasher salt</div><div class="pr-item">Dishwasher · Home</div></div>
+                <svg class="task-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
               </div>
-              <div class="pr-body"><div class="pr-title">Refill dishwasher salt</div><div class="pr-item">Dishwasher · Home</div></div>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="5" r="1" fill="var(--hint)"/><circle cx="12" cy="12" r="1" fill="var(--hint)"/><circle cx="12" cy="19" r="1" fill="var(--hint)"/></svg>
+              <div class="task-expand">
+                <div class="task-expand-inner">
+                  <div class="task-why" onclick="event.stopPropagation()">
+                    <div class="task-wl" style="color:var(--ch-bg);">Why it matters</div>
+                    <div class="task-wt">Salt prevents limescale and keeps your dishwasher cleaning effectively. Check the reservoir every 6 to 8 weeks.</div>
+                  </div>
+                  <div class="task-actions" onclick="event.stopPropagation()">
+                    <span class="task-skip" onclick="doSkip(this)">Skip</span>
+                    <span class="task-snooze" onclick="openSnooze()">Snooze</span>
+                    <span class="task-done" onclick="doMarkDone(this)" style="background:var(--ch-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <!-- Row: May 26 — Vehicle -->
-            <div class="plan-row">
-              <div class="pr-date"><div class="pr-day">Mon</div><div class="pr-num">26</div></div>
-              <div class="pr-icon" style="background:var(--cv-wash);">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cv-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="1" y="4" width="12" height="6" rx="1.5"/>
-                  <path d="M3 10v2M11 10v2"/>
-                  <path d="M3 4l1.5-2h5L11 4"/>
-                </svg>
+            <!-- ══ May 26: Replace windscreen wipers ══ -->
+            <div class="task-card" onclick="toggleCard(this)">
+              <div class="task-top">
+                <div class="pr-date"><div class="pr-day">Mon</div><div class="pr-num">26</div></div>
+                <div class="pr-icon" style="background:var(--cv-wash);">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cv-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="12" height="6" rx="1.5"/><path d="M3 10v2M11 10v2"/><path d="M3 4l1.5-2h5L11 4"/></svg>
+                </div>
+                <div class="pr-body"><div class="pr-title">Replace windscreen wipers</div><div class="pr-item">Car · Vehicle</div></div>
+                <svg class="task-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
               </div>
-              <div class="pr-body"><div class="pr-title">Replace windscreen wipers</div><div class="pr-item">Car · Vehicle</div></div>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="5" r="1" fill="var(--hint)"/><circle cx="12" cy="12" r="1" fill="var(--hint)"/><circle cx="12" cy="19" r="1" fill="var(--hint)"/></svg>
+              <div class="task-expand">
+                <div class="task-expand-inner">
+                  <div class="task-why" onclick="event.stopPropagation()">
+                    <div class="task-wl" style="color:var(--cv-bg);">Why it matters</div>
+                    <div class="task-wt">Worn wipers reduce visibility in rain. Replace annually or when streaking starts. Takes 5 minutes.</div>
+                  </div>
+                  <div class="task-actions" onclick="event.stopPropagation()">
+                    <span class="task-skip" onclick="doSkip(this)">Skip</span>
+                    <span class="task-snooze" onclick="openSnooze()">Snooze</span>
+                    <span class="task-done" onclick="doMarkDone(this)" style="background:var(--cv-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
+                  </div>
+                </div>
+              </div>
             </div>
+
           </div>
 
           <!-- Seasonal quote card between May and June -->
@@ -488,44 +681,67 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
           <!-- ─── JUNE ─── -->
           <div class="month-divider"></div>
           <div class="month-head">
-            <!-- Completion circle LEFT: 0 of 2 done = 0% — track only, no fill -->
             <div class="month-circle">
               <svg width="36" height="36" viewBox="0 0 36 36">
                 <circle cx="18" cy="18" r="14" fill="none" stroke="var(--surface-high)" stroke-width="2.5"/>
               </svg>
-              <div class="month-pct" style="color:var(--hint);">0%</div>
+              <div class="month-pct" style="color:var(--hint);">0/2</div>
             </div>
             <div class="month-name">June</div>
           </div>
 
           <div class="plan-tasks">
-            <!-- Row: Jun 4 — Subscriptions -->
-            <div class="plan-row">
-              <div class="pr-date"><div class="pr-day">Wed</div><div class="pr-num">4</div></div>
-              <div class="pr-icon" style="background:var(--cs-wash);">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cs-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="1" y="2.5" width="12" height="9" rx="1.5"/>
-                  <line x1="1" y1="5.5" x2="13" y2="5.5"/>
-                  <line x1="3.5" y1="8.5" x2="5" y2="8.5"/>
-                </svg>
+
+            <!-- ══ Jun 4: Review streaming subscriptions ══ -->
+            <div class="task-card" onclick="toggleCard(this)">
+              <div class="task-top">
+                <div class="pr-date"><div class="pr-day">Wed</div><div class="pr-num">4</div></div>
+                <div class="pr-icon" style="background:var(--cs-wash);">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cs-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="2.5" width="12" height="9" rx="1.5"/><line x1="1" y1="5.5" x2="13" y2="5.5"/><line x1="3.5" y1="8.5" x2="5" y2="8.5"/></svg>
+                </div>
+                <div class="pr-body"><div class="pr-title">Review streaming subscriptions</div><div class="pr-item">Netflix, Spotify · Subscriptions</div></div>
+                <svg class="task-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
               </div>
-              <div class="pr-body"><div class="pr-title">Review streaming subscriptions</div><div class="pr-item">Netflix, Spotify · Subscriptions</div></div>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="5" r="1" fill="var(--hint)"/><circle cx="12" cy="12" r="1" fill="var(--hint)"/><circle cx="12" cy="19" r="1" fill="var(--hint)"/></svg>
+              <div class="task-expand">
+                <div class="task-expand-inner">
+                  <div class="task-why" onclick="event.stopPropagation()">
+                    <div class="task-wl" style="color:var(--cs-bg);">Why it matters</div>
+                    <div class="task-wt">The average household wastes around 30 euros per month on unused subscriptions. A quick check takes 5 minutes.</div>
+                  </div>
+                  <div class="task-actions" onclick="event.stopPropagation()">
+                    <span class="task-skip" onclick="doSkip(this)">Skip</span>
+                    <span class="task-snooze" onclick="openSnooze()">Snooze</span>
+                    <span class="task-done" onclick="doMarkDone(this)" style="background:var(--cs-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <!-- Row: Jun 16 — Garden -->
-            <div class="plan-row">
-              <div class="pr-date"><div class="pr-day">Mon</div><div class="pr-num">16</div></div>
-              <div class="pr-icon" style="background:var(--cg-wash);">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cg-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M7 13V6"/>
-                  <path d="M7 6C7 6 4 4.5 2 2c3 0 5 1 5 4z"/>
-                  <path d="M7 6C7 6 10 4.5 12 2c-3 0-5 1-5 4z"/>
-                </svg>
+            <!-- ══ Jun 16: Water tomato seedlings ══ -->
+            <div class="task-card" onclick="toggleCard(this)">
+              <div class="task-top">
+                <div class="pr-date"><div class="pr-day">Mon</div><div class="pr-num">16</div></div>
+                <div class="pr-icon" style="background:var(--cg-wash);">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cg-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13V6"/><path d="M7 6C7 6 4 4.5 2 2c3 0 5 1 5 4z"/><path d="M7 6C7 6 10 4.5 12 2c-3 0-5 1-5 4z"/></svg>
+                </div>
+                <div class="pr-body"><div class="pr-title">Water tomato seedlings</div><div class="pr-item">Tomatoes · Garden</div></div>
+                <svg class="task-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
               </div>
-              <div class="pr-body"><div class="pr-title">Water tomato seedlings</div><div class="pr-item">Tomatoes · Garden</div></div>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="5" r="1" fill="var(--hint)"/><circle cx="12" cy="12" r="1" fill="var(--hint)"/><circle cx="12" cy="19" r="1" fill="var(--hint)"/></svg>
+              <div class="task-expand">
+                <div class="task-expand-inner">
+                  <div class="task-why" onclick="event.stopPropagation()">
+                    <div class="task-wl" style="color:var(--cg-bg);">Why it matters</div>
+                    <div class="task-wt">Consistent watering in the first weeks after transplanting prevents blossom end rot and establishes strong roots.</div>
+                  </div>
+                  <div class="task-actions" onclick="event.stopPropagation()">
+                    <span class="task-skip" onclick="doSkip(this)">Skip</span>
+                    <span class="task-snooze" onclick="openSnooze()">Snooze</span>
+                    <span class="task-done" onclick="doMarkDone(this)" style="background:var(--cg-bg);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</span>
+                  </div>
+                </div>
+              </div>
             </div>
+
           </div>
 
           <!-- Editorial closer -->
@@ -571,6 +787,66 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
         </div><!-- /state-empty -->
 
       </div><!-- /tc -->
+
+      <!-- TOAST -->
+      <div class="plan-toast" id="plan-toast">
+        <span class="plan-toast-text" id="toast-text">Marked done</span>
+        <span class="plan-toast-undo" onclick="undoLastAction()">Undo</span>
+      </div>
+
+      <!-- SNOOZE BOTTOM SHEET -->
+      <div class="snooze-sheet" id="snooze-sheet" onclick="closeSnooze()">
+        <div class="export-scrim"></div>
+        <div class="snooze-panel" onclick="event.stopPropagation()">
+          <div class="export-handle"></div>
+          <div class="export-title">Snooze</div>
+          <div class="snooze-option" onclick="doSnooze('Later today')">Later today<span class="snooze-option-sub">3 hours</span></div>
+          <div class="snooze-option" onclick="doSnooze('Tomorrow')">Tomorrow<span class="snooze-option-sub">8:00 AM</span></div>
+          <div class="snooze-option" onclick="doSnooze('This weekend')">This weekend<span class="snooze-option-sub">Sat 8:00</span></div>
+          <div class="snooze-option" onclick="doSnooze('Next week')">Next week<span class="snooze-option-sub">Mon 8:00</span></div>
+          <div class="snooze-option" onclick="doSnooze('Pick a date')" style="color:var(--plum);">Pick a date</div>
+        </div>
+      </div>
+
+      <!-- EXPORT BOTTOM SHEET -->
+      <div class="export-sheet" id="export-sheet" onclick="closeExport()">
+        <div class="export-scrim"></div>
+        <div class="export-panel" onclick="event.stopPropagation()">
+          <div class="export-handle"></div>
+          <div class="export-title">Export plan</div>
+          <div class="export-sub">Share your schedule or sync it with your calendar.</div>
+          <div class="export-option">
+            <div class="export-opt-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="export-opt-body">
+              <div class="export-opt-title">PDF</div>
+              <div class="export-opt-sub">Full schedule with task history</div>
+            </div>
+            <span class="export-pro">Pro</span>
+          </div>
+          <div class="export-option">
+            <div class="export-opt-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div class="export-opt-body">
+              <div class="export-opt-title">Calendar</div>
+              <div class="export-opt-sub">Add to Apple or Google calendar</div>
+            </div>
+            <span class="export-pro">Pro</span>
+          </div>
+          <div class="export-option">
+            <div class="export-opt-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            </div>
+            <div class="export-opt-body">
+              <div class="export-opt-title">Share</div>
+              <div class="export-opt-sub">Send via any app</div>
+            </div>
+            <span class="export-pro">Pro</span>
+          </div>
+        </div>
+      </div>
 
       <!-- NAV BAR -->
       <div class="nz">
@@ -635,59 +911,110 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
     <div class="annot-card">
       <div class="annot-head"><span class="badge-rule">Layout</span> Plan tab shell</div>
       <div class="annot-body">
-        Fixed header zone (title + filter icon + chip row), then a scrollable content area with monthly sections. Title: Noto Serif 24px, <code>letter-spacing: -0.02em</code>. Filter icon (sliders) top-right: 32x32px, 8px radius, surface-high border. Chip row: horizontal scroll, <code>nowrap</code>, 24px horizontal padding, 6px gap. No second line of chips ever.
+        Fixed header zone (title + export icon + chip row), then a scrollable content area with monthly sections. Title: Noto Serif 24px, <code>letter-spacing: -0.02em</code>. Export icon top-right: 32x32px, icon-only, mid color, no bg. Chip row: horizontal scroll, <code>nowrap</code>, 24px horizontal padding, 6px gap. No second line of chips ever.
+      </div>
+    </div>
+
+    <div class="annot-section">Export (Pro only)</div>
+
+    <div class="annot-card decision">
+      <div class="annot-head"><span class="badge-decision">Decision</span> Icon-only, toned down</div>
+      <div class="annot-body">
+        Export is a <strong>Pro-only</strong> feature. Icon-only button (Phosphor DownloadSimple, 16px, mid color). No label, no fill, no border. 32x32 tap target inside 44x44 accessibility zone. Tapping opens export bottom sheet (PDF / Calendar / Share). Free users see Pro upgrade prompt instead.<br><br>
+        Previous plum pill competed visually with the FAB. Two plum elements dilute the FAB's primacy. Export is secondary, FAB is primary.<br><br>
+        <strong>Flutter:</strong> <code>IconButton(icon: PhosphorIcons.downloadSimple, color: colorMid, onPressed: showExportSheet)</code>. Gate behind Pro subscription check.
       </div>
     </div>
 
     <div class="annot-section">Filter chips</div>
 
     <div class="annot-card">
-      <div class="annot-head"><span class="badge-note">Chips</span> Active state</div>
+      <div class="annot-head"><span class="badge-note">Chips</span> Category-colored active states</div>
       <div class="annot-body">
-        Active chip: <code>background: var(--ink)</code>, <code>color: var(--plum-fg)</code>, no border. Dark filled pill. Inactive chip: <code>outline-var</code> border, ink text, transparent bg. Tap toggles filter — only one active at a time. "All" is always the first chip and is the default active state. No second line of chips, ever.<br><br>
-        <strong>Flutter:</strong> Use custom chip widget. Active state sets <code>backgroundColor: colorInk</code> and <code>foregroundColor: colorPlumFg</code>. Inactive sets transparent bg with <code>BorderSide(color: outlineVar)</code> and ink label color.
+        "All" active: <code>background: var(--plum)</code>, <code>color: #FAF8FF</code>. Category pills active: their own category color fill + cream text. Home = <code>#C09088</code>, Garden = <code>#8C9B80</code>, Vehicle = <code>#8E9A94</code>, Subs = <code>#A69BBF</code>. Inactive: <code>outline-var</code> border, ink text, transparent bg. Tap toggles filter, one active at a time. "All" is always first and default. No second line of chips, ever.<br><br>
+        <strong>Flutter:</strong> Custom chip widget. "All" active: <code>backgroundColor: colorCta</code>. Category active: <code>backgroundColor: categoryColor</code>. All active chips: <code>foregroundColor: #FAF8FF</code>, no border. Inactive: transparent bg, <code>BorderSide(color: outlineVar)</code>, ink text.
       </div>
     </div>
 
     <div class="annot-section">Month header</div>
 
     <div class="annot-card">
-      <div class="annot-head"><span class="badge-note">Month header</span> Serif name + completion circle</div>
+      <div class="annot-head"><span class="badge-note">Month header</span> Serif name + task ratio circle</div>
       <div class="annot-body">
-        Layout: [circle] [month name]. Circle is 36x36px and sits on the LEFT. Month name: Noto Serif 18px, ink, takes remaining width via <code>flex: 1</code>. Circle: SVG with two concentric rings. Track: <code>surface-high</code> stroke, 2.5px. Progress arc: <code>var(--plum)</code> stroke, 2.5px, <code>stroke-linecap: round</code>, rotated -90deg (starts at top). Center label: 9px 600 plum showing % complete. When 0%, circle shows only the track and the % label uses hint color.
+        Layout: [circle] [month name]. Circle: 36x36px, LEFT of name. Month name: Noto Serif 18px, ink, <code>flex: 1</code>. Circle: SVG with track (<code>surface-high</code>, 2.5px) + progress arc (<code>var(--plum)</code>, 2.5px, round cap, rotated -90deg). Center label: 9px 600 plum, ratio format ("2/5"). When 0 done: track only, hint color label.
       </div>
     </div>
 
     <div class="annot-card decision">
-      <div class="annot-head"><span class="badge-decision">Spec</span> Completion % calculation</div>
+      <div class="annot-head"><span class="badge-decision">Spec</span> Task ratio, not percentage</div>
       <div class="annot-body">
-        Completion circle shows the % of tasks in that calendar month that are marked Done or Skipped out of the total tasks in that month. Formula: <code>completedTasks / totalTasks * 100</code>. Rounded to nearest integer. SVG arc: <code>stroke-dasharray="[circumference * pct] [circumference]"</code>. Circumference for r=14: <code>2 * pi * 14 = 87.96</code>.<br><br>
-        <strong>Flutter:</strong> Use <code>CustomPaint</code> with two <code>drawArc</code> calls. Do not use <code>CircularProgressIndicator</code> (limited styling). Wrap in <code>Stack</code> with centered <code>Text</code> for the % number.
+        Circle shows "2/5" not "40%". Matches My Stuff progress ring pattern. Recurring tasks count as 1 occurrence per month. SVG arc: <code>stroke-dasharray="[87.96 * (done/total)] 87.96"</code>.<br><br>
+        <strong>Flutter:</strong> <code>CustomPaint</code> with two <code>drawArc</code> calls. <code>Stack</code> with centered <code>Text('$done/$total')</code>.
       </div>
     </div>
 
-    <div class="annot-section">Task rows</div>
+    <div class="annot-section">Task cards (expand/collapse)</div>
+
+    <div class="annot-card decision">
+      <div class="annot-head"><span class="badge-decision">Decision</span> Same interaction as Today</div>
+      <div class="annot-body">
+        Plan task cards use the <strong>identical expand/collapse pattern from Today</strong>. If it looks the same, it must behave the same. Users learn one pattern, not two.<br><br>
+        <strong>Collapsed:</strong> date column + icon circle + title/subtitle + optional badge + chevron (12px, 0.3 opacity, points down).<br>
+        <strong>Expanded:</strong> chevron rotates 180deg. Reveals "Why it matters" block + action row (Skip / Snooze / Done). Accordion: expanding one card collapses any other open card in that month.<br><br>
+        Date column: 40px, day abbrev (9px 500 hint uppercase) + date number (16px 600 mid). Icon circle: 32px, category wash bg. Body: 13px 500 title, 10px mid subtitle. Badge (optional): apricot "waiting Xd" for past-window tasks.
+      </div>
+    </div>
 
     <div class="annot-card">
-      <div class="annot-head"><span class="badge-note">Task row</span> Layout</div>
+      <div class="annot-head"><span class="badge-note">Expanded</span> "Why it matters" + actions</div>
       <div class="annot-body">
-        Row height: natural (min ~44px). Flex row, 10px gap. No background on the row itself. On tap: navigate to task detail (S-13). No in-place expand on Plan tab. <strong>3-dot vertical menu</strong> on the right edge, 16px, hint stroke + filled circles, signals contextual action not navigation.<br><br>
-        Date column: 40px fixed width, flex-shrink 0. Day abbreviation (Mon/Tue etc): 9px 500 hint, uppercase, 0.04em letter-spacing. Date number: 16px 600 mid. Icon circle: 32px, category wash bg, category-colored SVG 14px, no border, flex-shrink 0. Body: flex 1, min-width 0. Title: 13px 500 ink, natural wrap. Item + category: 10px mid.
+        <strong>"Why it matters"</strong> block: surface-low bg, 8px radius, 12px 14px padding. Label: 9px 600 uppercase, category color. Body: 11px mid, 1.5 line-height. Tappable: opens full task detail as bottom sheet (see below).<br><br>
+        <strong>Action row:</strong> right-aligned. Skip (11px hint, no bg) + Snooze (11px ink, surface-low pill) + Done (11px, category-color pill with check icon). Done uses the task's category color, not plum. Plum = app-level actions only.
       </div>
     </div>
 
+    <div class="annot-section">Task detail: bottom sheet</div>
+
     <div class="annot-card decision">
-      <div class="annot-head"><span class="badge-decision">Decision</span> No expand on Plan</div>
+      <div class="annot-head"><span class="badge-decision">Decision</span> Sheet replaces "Details >" link</div>
       <div class="annot-body">
-        Plan tab task rows do <strong>not</strong> expand in place. Tapping a row navigates to S-13 Task detail. This is intentional: Plan is a timeline overview, not a task action surface. Users come to Plan to see the full schedule, not to act on tasks.<br><br>
-        <strong>Flutter:</strong> Wrap each row in <code>InkWell</code> with <code>onTap: () => Navigator.push(TaskDetailRoute(taskId))</code>. No <code>ExpansionTile</code>. No <code>AnimatedContainer</code> for expand logic.
+        No "Details >" text link. Instead, tapping the <strong>"Why it matters" block</strong> or the <strong>icon + title area</strong> in expanded state opens S-13 task detail as a <strong>modal bottom sheet</strong> that slides up (300ms ease). The list stays visible behind a dimmed scrim.<br><br>
+        <strong>Why this works:</strong> The sheet is spatial. You always see the Plan list behind it. Swipe down to dismiss. You never lose context about where you are. No page navigation, no back button ambiguity. This is the Apple Maps / Stocks sheet pattern.<br><br>
+        <strong>Sheet content:</strong> drag handle (4px, 36px wide, surface-high, 6px top margin), then S-13 content: task identity, full "Why it matters", instructions (expandable), completion history, CTA bar (Snooze + Done).<br><br>
+        <strong>Flutter:</strong> <code>showModalBottomSheet(isScrollControlled: true, builder: (ctx) => DraggableScrollableSheet(...))</code>. Shared element: category icon circle animates from card to sheet header.
+      </div>
+    </div>
+
+    <div class="annot-section">Swipe gestures</div>
+
+    <div class="annot-card decision">
+      <div class="annot-head"><span class="badge-decision">Decision</span> Swipe right-to-left for actions</div>
+      <div class="annot-body">
+        Swiping a task card from right to left reveals action buttons behind the card. Order from RIGHT to LEFT (trailing edge first):<br><br>
+        <strong>1. Done</strong> (category color fill, white check icon, widest)<br>
+        <strong>2. Snooze</strong> (surface-high bg, ink text)<br>
+        <strong>3. Skip</strong> (subtle gray bg, mid text)<br><br>
+        Full right-to-left swipe = mark Done (the most common action). This matches iOS Mail / Reminders swipe pattern. Applies to both Today and Plan tabs.<br><br>
+        <strong>Flutter:</strong> <code>Dismissible</code> with <code>confirmDismiss</code>, or use <code>flutter_slidable</code> package for the 3-action reveal. <code>ActionPane(motion: DrawerMotion(), children: [done, snooze, skip])</code>.
+      </div>
+    </div>
+
+    <div class="annot-section">Done tasks on Plan</div>
+
+    <div class="annot-card decision">
+      <div class="annot-head"><span class="badge-decision">Decision</span> Stay inline, visually muted</div>
+      <div class="annot-body">
+        Done tasks <strong>stay in their calendar position</strong>, muted to 45% opacity with a strikethrough title. A 20px category-colored check circle replaces the chevron. No expand on done tasks. The month progress circle updates (2/5 becomes 3/5).<br><br>
+        <strong>Why not remove or move?</strong> Plan is a timeline. Temporal position matters. Removing "Check tyre pressure" from April 14 creates a gap that confuses scanning. The user expects to see all tasks for a month, including completed ones.<br><br>
+        <strong>Undo:</strong> 5s toast with undo action (matching Today behavior). Tapping a done task un-does it (restores active state).<br><br>
+        <strong>Flutter:</strong> <code>AnimatedOpacity(opacity: task.isDone ? 0.45 : 1.0, duration: 350ms)</code>. Title: <code>TextDecoration.lineThrough</code>. Check circle: 20px <code>Container(decoration: BoxDecoration(shape: circle, color: categoryColor))</code> with centered check icon.
       </div>
     </div>
 
     <div class="annot-card">
       <div class="annot-head"><span class="badge-note">Row spacing</span> Gap, not borders</div>
       <div class="annot-body">
-        Rows sit in a <code>Column</code> with <code>gap: 2px</code>. No dividers, no border-bottom between rows. The surface color between rows acts as the visual separator. Each row has a subtle hover/pressed background: <code>rgba(49,51,44,0.03)</code>. Never wrap multiple rows in a single card container.
+        Rows sit in a <code>Column</code> with <code>gap: 2px</code>. No dividers, no border-bottom. Surface color between rows is the separator. Pressed state: <code>rgba(49,51,44,0.03)</code>. Never wrap multiple rows in a single card container.
       </div>
     </div>
 
@@ -748,26 +1075,17 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
     <div class="annot-section">Flutter implementation</div>
 
     <div class="annot-card">
-      <div class="annot-head"><span class="badge-rule">Flutter</span> List structure</div>
-      <div class="annot-body">
-        Use <code>ListView</code> (not <code>SingleChildScrollView</code>) for the Plan content area. Build month sections as groups: use a <code>SliverList</code> + <code>SliverPersistentHeader</code> if sticky month headers are desired (v1.1 enhancement, not required for v1.0). Month data model: group tasks by <code>DateTime(year, month)</code>. Compute completion % per group: <code>tasks.where((t) => t.isDone || t.isSkipped).length / tasks.length</code>.<br><br>
-        Task rows: <code>InkWell</code> + <code>Padding</code> + <code>Row</code>. No <code>ListTile</code> (limited layout control). Date column: fixed 40px <code>SizedBox</code>. Category icon: 32px <code>Container</code> with <code>BoxDecoration(shape: BoxShape.circle, color: categoryWash)</code>.<br><br>
-        SVG arc (completion circle): <code>CustomPaint</code>, two <code>drawArc</code> calls. Circumference for radius 14 logical px: <code>2 * pi * 14</code>. Scale to physical px via <code>MediaQuery.devicePixelRatio</code> if needed. Center label: <code>Stack</code> + <code>Center</code>.<br><br>
-        Filter chips: <code>SingleChildScrollView(scrollDirection: Axis.horizontal)</code> wrapping a <code>Row</code> of custom chip widgets. Active state stored in <code>selectedCategory</code> state variable. Chips filter the task list in place, no screen navigation.
-      </div>
-    </div>
-
-    <div class="annot-card">
       <div class="annot-head"><span class="badge-rule">Flutter</span> Standard block</div>
       <div class="annot-body">
         <strong>Mockup base:</strong> 390x844 (iPhone 15).<br>
         <strong>SafeArea:</strong> yes, wraps content area.<br>
-        <strong>Scroll:</strong> <code>ListView</code> for Plan content zone only (inset 54px top for status bar, 84px bottom for nav).<br>
+        <strong>Scroll:</strong> <code>ListView</code> for Plan content zone only.<br>
         <strong>Bottom zone:</strong> nav bar 84px, fixed, outside scroll.<br>
         <strong>FAB:</strong> <code>Positioned</code>, right: 24, bottom: 18.<br>
-        <strong>Theme:</strong> <code>[data-theme]</code> maps to <code>ThemeData</code>. Category washes: <code>Color.withOpacity(0.14)</code> on category base color.<br>
-        <strong>Month sections:</strong> use <code>GroupedListView</code> package or manual <code>SliverList</code> with header widgets.<br>
-        <strong>Completion arc:</strong> <code>CustomPainter</code> with two <code>drawArc</code> calls. No <code>CircularProgressIndicator</code>.
+        <strong>Task cards:</strong> <code>AnimatedContainer</code> for expand/collapse (300ms ease). Accordion: <code>expandedTaskId</code> state. <code>flutter_slidable</code> for swipe actions.<br>
+        <strong>Detail sheet:</strong> <code>showModalBottomSheet(isScrollControlled: true)</code> with <code>DraggableScrollableSheet</code>.<br>
+        <strong>Done state:</strong> <code>AnimatedOpacity(0.45, 350ms)</code> + <code>TextDecoration.lineThrough</code>.<br>
+        <strong>Month grouping:</strong> <code>SliverList</code> with header widgets. <code>CustomPainter</code> for ratio circle.
       </div>
     </div>
 
@@ -780,6 +1098,23 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 <!-- CHANGELOG -->
 <div class="changelog">
   <div class="cl-title">Changelog</div>
+
+  <div class="cl-entry">
+    <div class="cl-ver">v1.3 · 2026-04-03 · BREAKING</div>
+    <div class="cl-body">
+      <strong>Major interaction overhaul: task cards match Today pattern.</strong> Six changes from design review.<br><br>
+      <strong>1. Task cards: expand/collapse replaces 3-dot menu.</strong> Tap a task row to expand (chevron rotates 180deg). Reveals "Why it matters" block + action row (Skip / Snooze / Done). Accordion behavior: only one card expanded per month section. Identical to Today tab pattern. 3-dot menu removed from all rows.<br><br>
+      <strong>2. Bottom sheet replaces "Details >" link.</strong> Tapping "Why it matters" or the icon/title area in expanded state opens S-13 task detail as a modal bottom sheet (slides up, 300ms). List visible behind dimmed scrim. Swipe down to dismiss. No page navigation, no "Details >" text link.<br><br>
+      <strong>3. Swipe gestures: right-to-left reveals actions.</strong> Order from trailing edge: Done (category color) > Snooze (surface-high) > Skip (gray). Full swipe = mark Done. Matches iOS Mail/Reminders pattern.<br><br>
+      <strong>4. Done tasks stay inline, muted.</strong> Done tasks remain at their calendar position at 45% opacity with strikethrough title. 20px category-colored check circle replaces chevron. Month ratio circle updates. No separate "done" section on Plan (unlike Today's "Done today" group).<br><br>
+      <strong>5. Export: icon-only, toned down.</strong> Plum pill replaced with 16px icon-only button (mid color, no bg). Previous plum pill competed with FAB. Export is Pro-only; free users get upgrade prompt.<br><br>
+      <strong>6. Category filter + ratio circles + editorial subtitle.</strong> Carried forward from v1.2: category-colored active pills, "2/5" ratio format, "Editorial timeline" subtitle removed.
+    </div>
+    <div class="cl-flutter">
+      <strong>Flutter notes:</strong><br>
+      Task expand: <code>AnimatedContainer</code> with <code>clipBehavior: Clip.hardEdge</code>, 300ms ease. State: <code>expandedTaskId</code> per month. Swipe: <code>flutter_slidable</code> with <code>ActionPane(motion: DrawerMotion())</code>. Detail sheet: <code>showModalBottomSheet(isScrollControlled: true)</code>. Done: <code>AnimatedOpacity(0.45, 350ms)</code> + <code>TextDecoration.lineThrough</code>. Export: <code>IconButton(icon: PhosphorIcons.downloadSimple, color: colorMid)</code>. Filter chips: "All" = <code>colorCta</code>, category = own color. Ratio label: <code>'$done/$total'</code>.
+    </div>
+  </div>
 
   <div class="cl-entry">
     <div class="cl-ver">v1.1 · 2026-04-02 · BREAKING</div>
@@ -821,17 +1156,171 @@ function setTheme(t) {
   document.getElementById('ctd').classList.toggle('on', t === 'dark');
 }
 function setState(s) {
-  ['default','empty'].forEach(function(id) {
-    document.getElementById('state-' + id).classList.remove('active');
-    document.getElementById('cs-' + id).classList.remove('on');
+  ['default','empty','export'].forEach(function(id) {
+    var el = document.getElementById('state-' + id);
+    if (el) el.classList.remove('active');
+    var btn = document.getElementById('cs-' + id);
+    if (btn) btn.classList.remove('on');
   });
-  document.getElementById('state-' + s).classList.add('active');
+  // Export state shows default + export sheet overlay
+  if (s === 'export') {
+    document.getElementById('state-default').classList.add('active');
+    document.getElementById('export-sheet').style.display = 'block';
+  } else {
+    document.getElementById('export-sheet').style.display = 'none';
+    document.getElementById('state-' + s).classList.add('active');
+  }
   document.getElementById('cs-' + s).classList.add('on');
 }
+var lastDoneCard = null;
+var toastTimer = null;
+
+// ── Category filter ──
 function setChip(el) {
   var row = el.closest('.chips-row');
   row.querySelectorAll('.chip').forEach(function(c) { c.classList.remove('active'); });
   el.classList.add('active');
+  // Get category from class (home, garden, vehicle, subs) or 'all'
+  var cat = 'all';
+  if (el.classList.contains('home')) cat = 'home';
+  else if (el.classList.contains('garden')) cat = 'garden';
+  else if (el.classList.contains('vehicle')) cat = 'vehicle';
+  else if (el.classList.contains('subs')) cat = 'subs';
+  filterByCategory(cat);
+}
+function filterByCategory(cat) {
+  var catMap = { home: '--ch-', garden: '--cg-', vehicle: '--cv-', subs: '--cs-' };
+  document.querySelectorAll('#state-default .task-card').forEach(function(card) {
+    if (cat === 'all') { card.style.display = ''; return; }
+    var icon = card.querySelector('.pr-icon');
+    if (!icon) { card.style.display = ''; return; }
+    var bg = icon.getAttribute('style') || '';
+    var match = bg.indexOf(catMap[cat]) !== -1;
+    card.style.display = match ? '' : 'none';
+  });
+}
+
+// ── Expand / collapse ──
+function toggleCard(el) {
+  if (el.classList.contains('done')) return;
+  el.closest('.plan-tasks').querySelectorAll('.task-card.expanded').forEach(function(c) {
+    if (c !== el) c.classList.remove('expanded');
+  });
+  el.classList.toggle('expanded');
+}
+
+// ── Mark Done (matching Today: icon overlay + witty toast) ──
+function doMarkDone(btn) {
+  var card = btn.closest('.task-card');
+  var iconEl = card.querySelector('.pr-icon');
+  var doneBg = btn.style.background;
+  var badgeEl = card.querySelector('.task-badge');
+  var doneInd = card.querySelector('.done-indicator');
+  var itemName = (card.querySelector('.pr-item').textContent.split('·')[0] || 'it').trim().toLowerCase();
+
+  // 1. Collapse
+  card.classList.remove('expanded');
+
+  // 2. Add done class
+  card.classList.add('done');
+  lastDoneCard = card;
+
+  // 3. Icon overlay: category-color circle + white check (animated)
+  iconEl.style.position = 'relative';
+  var existing = iconEl.querySelector('.done-overlay');
+  if (!existing) {
+    var check = document.createElement('div');
+    check.className = 'done-overlay';
+    check.style.cssText = 'position:absolute;inset:0;border-radius:50%;background:' + doneBg + ';display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 250ms ease;';
+    check.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+    iconEl.appendChild(check);
+    requestAnimationFrame(function() { check.style.opacity = '1'; });
+  }
+
+  // 4. Badge swap to "check + done"
+  if (badgeEl) {
+    badgeEl.style.display = 'none';
+  }
+  if (doneInd) {
+    doneInd.style.display = 'flex';
+  }
+
+  // 5. Witty toast
+  var witty = [
+    'Done. Your ' + itemName + ' approves.',
+    'Done. One less thing to think about.',
+    'Done. You\'re on a roll.',
+    'Done. ' + itemName.charAt(0).toUpperCase() + itemName.slice(1) + ' says thank you.'
+  ];
+  showToast(witty[Math.floor(Math.random() * witty.length)]);
+}
+
+// ── Undo (tap done task OR toast undo) ──
+function toggleDone(el) {
+  if (el.classList.contains('done')) {
+    undoCard(el);
+    showToast('Undone');
+  }
+}
+function undoLastAction() {
+  if (lastDoneCard) {
+    undoCard(lastDoneCard);
+    lastDoneCard = null;
+    hideToast();
+  }
+}
+function undoCard(card) {
+  card.classList.remove('done');
+  // Remove icon overlay
+  var overlay = card.querySelector('.done-overlay');
+  if (overlay) overlay.remove();
+  // Restore badge
+  var badge = card.querySelector('.task-badge');
+  if (badge) badge.style.display = '';
+  // Hide done indicator
+  var ind = card.querySelector('.done-indicator');
+  if (ind) ind.style.display = '';
+}
+
+// ── Skip ──
+function doSkip(btn) {
+  var card = btn.closest('.task-card');
+  card.classList.remove('expanded');
+  showToast('Skipped this time');
+}
+
+// ── Snooze ──
+function openSnooze() {
+  document.getElementById('snooze-sheet').style.display = 'block';
+}
+function closeSnooze() {
+  document.getElementById('snooze-sheet').style.display = 'none';
+}
+function doSnooze(label) {
+  closeSnooze();
+  // Collapse any expanded card
+  document.querySelectorAll('.task-card.expanded').forEach(function(c) { c.classList.remove('expanded'); });
+  showToast('Snoozed: ' + label);
+}
+
+// ── Toast ──
+function showToast(msg) {
+  var t = document.getElementById('plan-toast');
+  document.getElementById('toast-text').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function() { hideToast(); }, 5000);
+}
+function hideToast() {
+  document.getElementById('plan-toast').classList.remove('show');
+}
+
+// ── Export ──
+function openExport() {
+  document.getElementById('export-sheet').style.display = 'block';
+}
+function closeExport() {
+  document.getElementById('export-sheet').style.display = 'none';
 }
 </script>
 </body>
