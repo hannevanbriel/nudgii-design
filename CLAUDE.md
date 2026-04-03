@@ -54,7 +54,7 @@
 - At item 11 (during onboarding or later), nudgii says: "That's 11 items, nice collection. Free plan covers 10, but don't stop now. Add everything, you'll choose your favourites later. Or keep them all with Pro."
 - Items 11+ visible on dashboard, slightly muted, purple "Pro" pill. Paused: no reminders sent, no push notifications.
 - User chooses which 10 stay active, or upgrades to keep all.
-- Paused items with overdue tasks show in terra red on dashboard (passive, user sees when they open the app). No notification for paused items.
+- Paused items with waiting tasks show in apricot on dashboard (passive, user sees when they open the app). No notification for paused items.
 - Never auto-delete, never block, never hide data.
 
 **Affiliate links:** Shown only at task-due moment, always labeled "we may earn a small fee," never more prominent than the task itself, one link per task view, no follow-up.
@@ -234,7 +234,7 @@ const Color darkTextMid        = Color(0xFF96908A);  // (was #96A89C — was gre
 **Color rules that never bend:**
 - `colorCta` (#9B7FD4) = THE ONLY BRIGHT COLOR. CTA button, FAB, Export, Done, active tab, active filter pill
 - `colorPlum` = done overlay ONLY. Never chips, headers, badges, any other surface
-- `colorOverdueBadge` (#6B4A3A) = overdue badge background ONLY. Warm brown, not red. Cream text on top.
+- `colorOverdueBadge` (#6B4A3A) = **legacy token, may be removed.** "Overdue" removed from vocabulary (2026-04-03). Apricot text is the only urgency signal. If badge is still needed, use apricot text on surface, not a filled badge.
 - Category card backgrounds are SOLID pastel fills — never `rgba(color, opacity)` on cream
 - Icons sit directly on cards — no container. Stroke = category icon token, never ink black
 - `colorMid` (#8A8070) = decorative italic subtitles ONLY — 2.8:1 fails WCAG AA. Never functional text
@@ -323,10 +323,63 @@ nudgii speaks like a witty, competent friend — warm, direct, gently funny. Nev
 - Earn the joke — humor only where it fits. Never on error states, payment screens, or anything stressful
 - Short sentences — two words can be funnier than ten
 - Sentence case everywhere
+- The item is the subject, not the user — items "wait for you," users never "miss deadlines"
+- Time windows, not deadlines — home tasks have flexible timeframes, not due dates. "10 weeks since last done" not "2 weeks overdue"
+
+**Urgency language ladder — warm escalation, never blame:**
+
+Tasks have time windows, not deadlines. "Refill dishwasher salt" is due every 6-8 weeks, not on a specific calendar day. The word "overdue" creates guilt. nudgii reframes: the item needs you, you haven't failed it.
+
+| Context | Language | Example |
+|---|---|---|
+| My Stuff section header | "Could use you" | Section groups items with waiting tasks |
+| My Stuff task status | "X task(s) waiting" | "1 task waiting" in apricot |
+| My Stuff personality | Time-since-last-done, factual | "Salt was last topped up 10 weeks ago." |
+| Today tab, approaching window | "due this week" / "due this month" | Neutral, informational |
+| Today tab, past window | "waiting for you" | Warm, item is the subject |
+| Today tab, well past window | Time-since-last-done | "10 weeks since last done" |
+| Push notification | Witty + factual | "Your dishwasher would like a word. Salt was last topped up 10 weeks ago." |
+| Snooze 1st | Neutral acknowledgment | "Snoozed until Saturday." |
+| Snooze 2nd | Gentle wit | "Fine. But your dishwasher is taking notes." |
+| Snooze 3rd | Warm escalation | "Your boiler forgives you. For now." |
+
+**Words we never use for urgency:**
+- ❌ "overdue" — guilt, implies failure
+- ❌ "late" — same energy
+- ❌ "missed" — blaming
+- ❌ "expired" — only for actual expirations (subscriptions, warranties)
+- ❌ "urgent" — anxiety-inducing, we're not an emergency app
+- ✅ "waiting" — warm, the task is patient
+- ✅ "could use you" — the item wants your help
+- ✅ "ready when you are" — no pressure
+- ✅ time-since-last-done — factual, lets the user decide urgency
+
+**Item personality names (default names suggested by nudgii):**
+
+nudgii suggests warm, descriptive personality names when items are added. Generic item type stays visible in the meta line. User can always rename. Names are affectionate labels, not jokes. Never silly, never forced.
+
+| Item type | nudgii suggests | Why |
+|---|---|---|
+| Dishwasher | "The workhorse" | Runs constantly, does the heavy lifting |
+| Boiler | "Old reliable" | Quietly working for years |
+| Car | "The daily driver" | Gets you everywhere, every day |
+| Olive tree | "The slow grower" | Patience is her thing |
+| Netflix | "The monthly stream" | It just keeps going |
+| Washing machine | "The spin doctor" | It handles the dirty work |
+| Roof gutters | "The silent guardians" | Protecting without being noticed |
+| Smoke detectors | "The watchers" | Always on, hopefully never needed |
+
+**Rules for personality names:**
+- Descriptive, not random: the name tells you something about the item's character
+- Warm, not silly: "Old reliable" yes, "Mr. Boily McBoilface" no
+- Always in sentence case: "The workhorse" not "The Workhorse"
+- Always editable: user can rename to anything, including the generic type
+- Display: personality name as primary (Noto Serif), item type in meta line (Manrope)
+- After AI scan: nudgii can use the brand, e.g. "The trusty Bosch" instead of "The workhorse"
 
 **Key copy examples:**
 - Welcome: *"Your stuff won't maintain itself."* / subline: *"We remind you before things break, expire, or get too late."*
-- Empty dashboard: *"Nothing overdue. Suspicious."*
+- Empty dashboard: *"Nothing waiting. Suspicious."*
 - Done confirmation: *"Done. Your dishwasher approves."*
 - After 2nd snooze: *"Fine. But your dishwasher is taking notes."*
 - At 10-item limit: *"You've hit 10 items. Your house has more opinions."*
@@ -443,6 +496,8 @@ These are locked decisions. Do not question them in design or code reviews.
 - ❌ Never add "Step X of Y" text labels anywhere on screen — the progress bar is the only progress indicator, ever
 - ❌ Never write "NUDGII" as a sender label in conversation UI — always lowercase "nudgii", same rule as everywhere else
 - ❌ Never design S-02 (or any onboarding step) as if prior steps didn't happen — carry context forward. S-01 no longer has interactive selection, so S-02 always opens fresh.
+- ❌ Never use the word "overdue" in any user-facing copy, label, badge, or status — use "waiting," "could use you," or time-since-last-done instead. Tasks have time windows, not deadlines.
+- ❌ Never use "late," "missed," or "urgent" for task status — these create guilt. The item is the subject ("waiting for you"), the user is never the one who failed.
 - ❌ Never modify a hi-fi screen without adding a changelog entry — every change gets a version + date, BREAKING/ADDITIVE tag, description, and Flutter notes. The developer reads these to know what to build. No exceptions.
 - ❌ Never consider a design change complete without updating ALL of: CLAUDE.md, ClickUp tasks, index.html, flow files, lo-fi files, hi-fi changelogs, and design system files (design-system.html, icon-inventory.html, interaction-states.html). Partial updates cause confusion downstream.
 
@@ -496,7 +551,7 @@ Update this section when open decisions are resolved.
 | S-01 subtitle | "We remind you before things break, expire, or get too late." Explains what the app does (prevent problems) vs what the user does (add items). | ✅ Yes | 2026-03-26 |
 | S-01 hi-fi layout | Single English phone + annotation sidebar. Matches S-02 pattern. Locale variants removed from hi-fi (English only per design system rules). | ✅ Yes | 2026-03-24 |
 | Shared components.css | All 5 hi-fi screens (S-01, S-02, S-03, S-05, S-06) now link to system/components.css. ~985 lines of duplicated inline CSS removed. Screen files keep only screen-specific styles. (S-06 was S-07 pre-renumber) | ✅ Yes | 2026-03-25 |
-| Category filter active state | Active pill uses purple outline (colorCta border + text, subtle lavender bg) instead of dark ink fill. Applies across S-01, S-03, S-09. | ✅ Yes | 2026-03-25 |
+| Category filter active state | ~~Active pill uses purple outline (colorCta border + text, subtle lavender bg).~~ **Superseded 2026-04-03:** Category-colored active states. "All" = plum fill. Category pills = their own category color fill (Home = dusty rose #C09088, Vehicle = sage-slate #8E9A94, Garden = sage #8C9B80, Subs = lavender #A69BBF). Cream text on all active pills. Applies across S-03, S-09. | ✅ Yes | 2026-04-03 |
 | S-03 "All" pill added | "All" pill first, active by default. JS updated from .on to .active class. S-01 still has no "All" pill (decorative). | ✅ Yes | 2026-03-25 |
 | S-03 headline added | "What do you have?" + "Tick what applies. We'll figure out the rest." above search bar. Screen lacked context without it. | ✅ Yes | 2026-03-25 |
 | Alt flow reorder | AHA > Celebration > Push > Apple/Google SSO > Dashboard. Celebration protects emotional peak. Push after value demo = 3x opt-in. SSO replaces email capture. One fewer onboarding screen. | ✅ Yes | 2026-03-25 |
@@ -528,7 +583,7 @@ Update this section when open decisions are resolved.
 | Single metric summary | "3 things need attention today" replaces progress ring + text + streak combo. Streak circle (apricot, tappable with tooltip) sits on the right of the summary line. One message, not three competing metrics. | ✅ Yes | 2026-03-31 |
 | Contextual cards all actionable | "For you" section: all cards have a category CTA button. No mixed editorial/metric/action types. Icon + title inline (horizontal), description below, category-colored pill CTA. | ✅ Yes | 2026-03-31 |
 | Category-integrated card buttons | Contextual card CTAs use the card's own category color as button fill (not plum). Plum = app-level actions only. This preserves plum's meaning as "do your task." | ✅ Yes | 2026-03-31 |
-| Overdue badge text-only | Overdue indicators use apricot text only ("12d overdue"), no filled badge. Warm warning without anxiety. | ✅ Yes | 2026-03-31 |
+| Overdue badge text-only | ~~Overdue indicators use apricot text only ("12d overdue"), no filled badge.~~ **Superseded 2026-04-03:** "overdue" removed from vocabulary. Replaced by "waiting" / "could use you" / time-since-last-done. Apricot color retained for urgency signal. | ✅ Yes | 2026-03-31 |
 | Expanded card pattern | Tap chevron to expand. Shows "Why it matters" (apricot label) + context text + right-aligned actions: Details link (left), Skip/Snooze/Done (right). Done = plum pill with checkmark. | ✅ Yes | 2026-03-31 |
 | Nav bar solid, no glassmorphism | Tab bar uses solid surface background, not semi-transparent blur. Content doesn't show through. Subtle upward shadow. | ✅ Yes | 2026-03-31 |
 | Nav active state: no container | Active tab = plum icon + plum label, no background shape. Color alone signals active state. | ✅ Yes | 2026-03-31 |
@@ -550,6 +605,14 @@ Update this section when open decisions are resolved.
 | All 4 dashboard tabs hi-fi | Today (s09-today-hifi.html), Plan (s09-plan-hifi.html), My Stuff (s09-mystuff-hifi.html), Profile (s09-profile-hifi.html) all built as standalone hi-fi screens. All linked from index.html S-09 card. | ✅ Yes | 2026-04-02 |
 | My Stuff item cards: full-width, not grid | My Stuff shows full-width item cards with gap between them, NOT a 2-column tile grid. Each card: 40px icon circle, item name + status badge, category + task count, italic personality line, 3px mini progress bar at bottom. | ✅ Yes | 2026-04-02 |
 | Pricing tiers page | system/pricing-tiers.html: simple user-facing tier cards (Free €0, Pro €4.99/mo, Ultimate TBD) + detailed internal feature matrix. Linked from index.html. | ✅ Yes | 2026-04-02 |
+| Urgency language ladder | Never "overdue." Tasks have time windows, not deadlines. Item is the subject, user never fails. "Could use you" (section header), "X task(s) waiting" (status), time-since-last-done (personality). Full ladder in Section 12. Apricot = only urgency color. No "late," "missed," "urgent." | ✅ Yes | 2026-04-03 |
+| My Stuff entity cards | Status-grouped layout. Items use category wash bg, Noto Serif names, 44px icons, progress rings, 14px radius, 16px padding, personality lines. 7 visual differences from task rows on Today. No left-border accents. Single column only. | ✅ Yes | 2026-04-03 |
+| My Stuff "Could use you" section | Replaces "Needs attention." The item wants your help, not "you missed a deadline." Stronger category wash = only visual urgency signal (no accent line, no badge). | ✅ Yes | 2026-04-03 |
+| Category filter: category-colored active | "All" active = plum fill + cream text. Category pills active = their own category color fill + cream text. Home = dusty rose, Vehicle = sage-slate, Garden = sage, Subs = lavender. Supersedes purple outline and dark ink patterns. Locked across all screens. | ✅ Yes | 2026-04-03 |
+| Progress ring: ratio + category color | Ring shows tasks on track / total as ratio ("2/3", not "75%"). Ring color = category color (dusty rose, sage-slate, sage, lavender). Exception: "could use you" items use apricot. Recurring tasks count as 1, not N occurrences. | ✅ Yes | 2026-04-03 |
+| Item personality names | nudgii suggests warm, descriptive personality names as defaults ("The workhorse", "Old reliable", "The daily driver"). Generic item type shown in meta line. User can always rename. Names are affectionate labels, not jokes. Never silly, never forced. | ✅ Yes | 2026-04-03 |
+| No separator lines in status groups | Status groups on My Stuff separated by spacing (20px gap) only. No horizontal rules, no borders, no dividers between groups. Spacing is the separator. | ✅ Yes | 2026-04-03 |
+| Status group priority logic | Items appear in exactly one group based on highest-priority task state. Priority: 1. "Could use you" (any task past its window, always wins), 2. "Seasonal" (a calendar window is currently open, task not done), 3. "On track" (all tasks within window). Groups are live queries, not permanent labels. Items move between groups as tasks change state. Seasonal section can be empty for months and full in October. | ✅ Yes | 2026-04-03 |
 | Onboarding flow review needed | Onboarding screens S-01 to S-08 use older design language (DM Serif/DM Sans, older tokens, S-03/S-04 mini-tile columns replaced by item rows). Full review against Precision Warmth in a dedicated session. | ❌ No | — |
 
 ---

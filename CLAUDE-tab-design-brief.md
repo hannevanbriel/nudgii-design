@@ -54,7 +54,7 @@ Work one tab at a time. Each tab becomes its own hi-fi screen file. Start each s
 ### Content zones (top to bottom)
 1. **Greeting** (Noto Serif 24px): "Good morning, Martijn." Name in apricot italic.
 2. **Summary line** (Manrope 13px): "3 things need attention today" + streak circle (apricot, 36-50px, tappable with tooltip)
-3. **Overdue section**: section label + task cards with apricot "Xd overdue" text
+3. **Could use you section**: section label + task cards with apricot "waiting for you" / time-since-last-done text
 4. **Due this week**: section label + task cards with date (e.g. "Wed 26")
 5. **Coming up**: collapsible section, "next 30 days, X tasks"
 6. **For you**: contextual cards row (Did you know, seasonal tips, missing items). Horizontally scrollable.
@@ -62,13 +62,13 @@ Work one tab at a time. Each tab becomes its own hi-fi screen file. Start each s
 ### Task card pattern
 - 40px round circle with category wash bg + category icon
 - Title (14px, 500) + subtitle (item name, frequency)
-- Right side: date or "Xd overdue" in apricot
+- Right side: date or "waiting for you" in apricot (never "overdue")
 - Chevron to expand
 - Expanded: "Why it matters" block (surface-low bg, apricot label) + Done/Snooze/Skip buttons
 - Done button = category color (not plum)
 
 ### Design tasks for this session
-- [ ] Define all states: default, empty ("Nothing due. Suspicious."), overdue only, all done
+- [ ] Define all states: default, empty ("Nothing waiting. Suspicious."), tasks waiting, all done
 - [ ] Define task card expanded state with full detail
 - [ ] Define streak circle tooltip content and dismiss behavior
 - [ ] Define "For you" card types and rotation logic
@@ -119,24 +119,41 @@ Work one tab at a time. Each tab becomes its own hi-fi screen file. Start each s
 ### Content zones (top to bottom)
 1. **Screen title** (Noto Serif 24px): "My stuff"
 2. **Category filter chips**: All, Home, Garden, Vehicle, Subscriptions
-3. **Item cards**: full-width cards with item details
+3. **Status-grouped entity cards**: items grouped by status, not category
 4. **Add item card**: dashed border, plum accent, "Add item" with + icon
-5. **Go Pro meter** (free users): "7 of 10 free" + "Go Pro" link, above nav bar
+5. **Go Pro meter** (free users): "5 of 10 free" + "Go Pro" link, above nav bar
 
-### Item card pattern
-- Category icon circle (40px, category wash bg)
-- Item name (14px, 500) + task count + status badge
-- Mini progress bar (% of tasks completed)
-- Italic personality line ("Loyal since 2019", "Needs some love")
+### Status groups (priority order, items appear in exactly one group)
+1. **Could use you** (apricot dot): any task past its recommended window. Always wins.
+2. **Seasonal** (category dot): a calendar-based window is currently open, task not yet done.
+3. **On track** (sage dot): all tasks within their recommended window.
+
+Groups are live queries, not permanent labels. Items move between groups as tasks change state. The Seasonal section can be empty for months and have 4 items in October. When a seasonal task is marked done, the item moves back to "On track."
+
+### Entity card pattern (distinct from task rows on Today)
+- 44px category icon circle (white overlay bg)
+- Personality name in Noto Serif 15px ("The workhorse", "Old reliable")
+- Meta line: item type + category + task status (Manrope 10px)
+- Progress ring: 32px, category color, ratio label ("2/3")
+- Personality line on attention + seasonal items only (Noto Serif italic)
+- Category wash background (stronger wash for "could use you")
 - Tap goes to S-17 item detail
 
-### Status badges
-- "On track" (sage text)
-- "1 overdue" (apricot text)
-- "Seasonal" (category color text)
+### Category filter (locked 2026-04-03)
+- "All" active = plum fill + cream text
+- Category active = category color fill + cream text (Home = #C09088, Vehicle = #8E9A94, Garden = #8C9B80, Subs = #A69BBF)
+- Inactive = transparent bg + 1px border + ink text
+- Single select. Tapping a category shows only items in that category. Empty groups hide.
+- Single scrollable row, no wrap
+
+### Task types and how they count
+- **Interval-based**: "every 6-8 weeks." Counts as 1 task. On track = within window. Waiting = past window.
+- **Calendar-based (seasonal)**: "March to May." Counts as 1 task. Triggers Seasonal group when window opens. Moves to "could use you" if window closes without completion.
+- **One-time**: "register warranty." Counts as 1 task. Done = gone forever.
+- Recurring tasks count as 1 task, not N occurrences. The ring shows tasks on track / total active tasks right now.
 
 ### Design tasks for this session
-- [ ] Define item card with all states (on track, overdue, seasonal, paused/Pro)
+- [ ] Define item card with all states (on track, waiting, seasonal, paused/Pro)
 - [ ] Define "Add item" card style
 - [ ] Define Go Pro meter for free users
 - [ ] Define empty state ("No items yet. Add your first one.")

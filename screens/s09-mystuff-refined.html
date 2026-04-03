@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · S-09 My stuff · refined</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   S-09 My stuff · refined direction
+   Status-grouped + entity cards + research patterns
+
+   Key design choices:
+   1. Status grouping (B) for instant "what needs me?"
+   2. Entity cards with generous icon moment + category wash bg
+      (Apple Home: status through color shift on the card)
+   3. Progress ring per item (Things 3: entity with lifecycle)
+   4. Personality line on attention items only (Greg: warmth)
+   5. Card shape distinct from task rows on Today tab
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --surface: #FBF9F4;
+  --surface-low: #F5F4ED;
+  --surface-high: #E8E9E0;
+  --surface-lowest: #FFFFFF;
+  --ink: #31332C;
+  --mid: #7A756D;
+  --hint: #A09A90;
+  --outline-var: #B1B3A9;
+  --plum: #9B7FD4;
+  --plum-fg: #FAF8FF;
+  --plum-wash: rgba(155,127,212,0.10);
+  --apricot: #E8A87C;
+  --apricot-wash: rgba(232,168,124,0.12);
+  --sage: #3B6D11;
+  --sage-lt: #EAF3DE;
+  --ch-bg: #C09088; --ch-wash: rgba(192,144,136,0.14); --ch-wash-strong: rgba(192,144,136,0.22);
+  --cg-bg: #8C9B80; --cg-wash: rgba(140,155,128,0.14); --cg-wash-strong: rgba(140,155,128,0.22);
+  --cv-bg: #8E9A94; --cv-wash: rgba(142,154,148,0.14); --cv-wash-strong: rgba(142,154,148,0.22);
+  --cs-bg: #A69BBF; --cs-wash: rgba(166,155,191,0.14); --cs-wash-strong: rgba(166,155,191,0.22);
+  --cp-bg: #C7B7A3; --cp-wash: rgba(199,183,163,0.14); --cp-wash-strong: rgba(199,183,163,0.22);
+  --r: 14px; --rs: 8px;
+}
+[data-theme="dark"] {
+  --surface: #1C1B18;
+  --surface-low: #24231F;
+  --surface-high: #2E2D28;
+  --surface-lowest: #181714;
+  --ink: #F0EDE6;
+  --mid: #A8A29A;
+  --hint: #787068;
+  --outline-var: rgba(177,179,169,0.15);
+  --plum: #B8A0E8;
+  --plum-fg: #1C1B18;
+  --apricot: #F0B890;
+  --sage: #6AAF40;
+  --sage-lt: rgba(106,175,64,0.15);
+  --ch-bg: #E0A898; --ch-wash: rgba(224,168,152,0.15); --ch-wash-strong: rgba(224,168,152,0.25);
+  --cg-bg: #A8B89C; --cg-wash: rgba(168,184,156,0.15); --cg-wash-strong: rgba(168,184,156,0.25);
+  --cv-bg: #A8B0AA; --cv-wash: rgba(168,176,170,0.15); --cv-wash-strong: rgba(168,176,170,0.25);
+  --cs-bg: #C0B4D6; --cs-wash: rgba(192,180,214,0.15); --cs-wash-strong: rgba(192,180,214,0.25);
+  --cp-bg: #D6C8B6; --cp-wash: rgba(214,200,182,0.15); --cp-wash-strong: rgba(214,200,182,0.25);
+  --apricot-wash: rgba(240,184,144,0.15);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100vh; color: var(--ink); }
+
+/* ── Hub nav ── */
+.hub-nav {
+  background: #F5F0E8; border-bottom: 1px solid rgba(26,22,18,0.12);
+  padding: 0 32px; display: flex; align-items: center; gap: 16px;
+  height: 48px; position: sticky; top: 0; z-index: 200;
+}
+.hub-nav a { font-size: 13px; color: #8A8070; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+.hub-nav a:hover { color: #2C2824; }
+.hub-nav .sep { color: rgba(26,22,18,0.12); }
+.hub-nav .title { font-size: 13px; font-weight: 500; }
+.hub-nav .status { margin-left: auto; font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 100px; }
+.status-progress { background: rgba(133,79,11,0.10); color: #854F0B; border: 1px solid rgba(133,79,11,0.20); }
+.hub-nav .archive-links { display: flex; gap: 8px; margin-left: auto; align-items: center; }
+.hub-nav .archive-links a { font-size: 10px; font-weight: 500; color: #8A8070; background: rgba(26,22,18,0.06); padding: 3px 10px; border-radius: 100px; gap: 4px; }
+.hub-nav .archive-links a:hover { background: rgba(26,22,18,0.10); color: #2C2824; }
+
+/* ── Page header ── */
+.page-header { max-width: 1200px; margin: 0 auto; padding: 40px 40px 0; }
+.page-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: #8A8070; margin-bottom: 8px; }
+.page-h1 { font-family: 'Noto Serif', serif; font-size: 32px; font-weight: 400; color: #2C2824; margin-bottom: 6px; letter-spacing: -0.02em; }
+.page-subtitle { font-size: 14px; color: #8A8070; margin-bottom: 16px; max-width: 640px; line-height: 1.55; }
+.page-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+.page-pill { font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 100px; background: rgba(155,127,212,0.10); color: #9B7FD4; }
+
+/* ── Controls ── */
+.controls { max-width: 1200px; margin: 0 auto; padding: 20px 40px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.ctrl-group { display: flex; gap: 4px; align-items: center; }
+.ctrl-label { font-size: 9px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: #A09888; margin-right: 4px; }
+.ctrl-btn { font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 500; padding: 5px 14px; border-radius: 6px; border: 1px solid rgba(26,22,18,0.12); background: transparent; color: #8A8070; cursor: pointer; transition: all 120ms; }
+.ctrl-btn:hover { border-color: rgba(26,22,18,0.20); }
+.ctrl-btn.on { background: #9B7FD4; color: #FAF8FF; border-color: #9B7FD4; }
+
+/* ── Content row ── */
+.content-row { max-width: 1200px; margin: 0 auto; padding: 0 40px 40px; display: flex; gap: 40px; align-items: flex-start; }
+.phone-col { flex-shrink: 0; position: sticky; top: 68px; }
+
+/* ── Phone shell ── */
+.ph {
+  width: 390px; height: 844px; border-radius: 50px; overflow: hidden;
+  position: relative; background: var(--surface);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.03), 0 24px 80px rgba(49,51,44,0.25);
+  transition: background 250ms;
+}
+.notch { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 102px; height: 8px; border-radius: 100px; background: rgba(49,51,44,0.06); z-index: 60; }
+[data-theme="dark"] .notch { background: rgba(255,255,255,0.08); }
+.sb { height: 54px; padding: 14px 30px 0; display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 600; color: var(--ink); letter-spacing: 0.01em; }
+
+/* Tab content */
+.tc { position: absolute; inset: 54px 0 84px 0; overflow: hidden; }
+.tp { position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden; scrollbar-width: none; }
+.tp::-webkit-scrollbar { display: none; }
+
+/* Screen title */
+.screen-title { padding: 8px 24px 0; display: flex; align-items: baseline; justify-content: space-between; }
+.screen-title h2 { font-family: 'Noto Serif', serif; font-size: 24px; font-weight: 400; color: var(--ink); letter-spacing: -0.02em; line-height: 1.2; }
+.screen-title-count { font-size: 11px; color: var(--mid); }
+
+/* Filter chips */
+.filter-row { display: flex; gap: 6px; overflow-x: auto; padding: 12px 24px 0; scrollbar-width: none; }
+.filter-row::-webkit-scrollbar { display: none; }
+.fc { flex-shrink: 0; font-size: 11px; font-weight: 500; padding: 5px 12px; border-radius: 100px; cursor: pointer; border: 1px solid rgba(49,51,44,0.12); background: transparent; color: var(--ink); transition: all 150ms; }
+/* Active "All" = plum. Category pills = their own category color. */
+.fc.active { border-color: transparent; color: var(--plum-fg); background: var(--plum); font-weight: 600; }
+.fc.active[data-cat="home"]    { background: var(--ch-bg); }
+.fc.active[data-cat="vehicle"] { background: var(--cv-bg); }
+.fc.active[data-cat="garden"]  { background: var(--cg-bg); }
+.fc.active[data-cat="subs"]    { background: var(--cs-bg); }
+
+/* Nav bar */
+.nz { position: absolute; bottom: 0; left: 0; right: 0; height: 84px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 14px; pointer-events: none; z-index: 40; }
+.nb { background: var(--surface); border-radius: 20px; padding: 9px 6px 11px; display: flex; align-items: center; box-shadow: 0 -2px 12px rgba(49,51,44,0.04); pointer-events: auto; }
+[data-theme="dark"] .nb { background: var(--surface-low); box-shadow: 0 -2px 12px rgba(0,0,0,0.15); }
+.nt { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 14px; cursor: pointer; border: none; background: none; font-family: 'Manrope', sans-serif; border-radius: 10px; }
+.nt svg * { stroke: var(--hint); }
+.nt .nl { font-size: 8px; font-weight: 500; color: var(--hint); }
+.nt.on svg * { stroke: var(--plum); }
+.nt.on .nl { color: var(--plum); font-weight: 600; }
+.fab { width: 46px; height: 46px; border-radius: 14px; background: var(--plum); display: flex; align-items: center; justify-content: center; cursor: pointer; pointer-events: auto; position: absolute; right: 24px; bottom: 18px; z-index: 45; box-shadow: 0 6px 20px rgba(155,127,212,0.45); border: none; margin-bottom: 4px; }
+
+/* Go Pro meter */
+.pro-meter {
+  position: absolute; bottom: 84px; left: 0; right: 0;
+  background: var(--surface-low); border-top: 1px solid var(--surface-high);
+  padding: 8px 16px; display: flex; align-items: center; gap: 8px; z-index: 30;
+}
+.pm-label { font-size: 11px; font-weight: 500; color: var(--ink); flex-shrink: 0; }
+.pm-dots { display: flex; gap: 3px; align-items: center; flex: 1; }
+.pm-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.pm-dot.f { background: var(--plum); }
+.pm-dot.e { background: var(--surface-high); }
+.pm-link { font-size: 11px; font-weight: 500; color: var(--plum); cursor: pointer; flex-shrink: 0; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   ENTITY CARDS
+   Items feel like "things you own" not "things to do"
+
+   Key differences from task rows on Today:
+   1. Category wash background (tasks use neutral surface-low)
+   2. Generous 44px icon circle (tasks use 40px, tighter)
+   3. Progress ring (tasks have no progress indicator)
+   4. Rounded 14px corners (tasks use 12px)
+   5. More vertical padding (16px vs 10-12px on tasks)
+   6. Personality line in Noto Serif italic (tasks never have this)
+   7. Status through card tint shift (tasks use text badges)
+   ═══════════════════════════════════════════════════════════════ */
+
+.status-list { padding: 14px 16px 120px; }
+
+/* ── Status group ── */
+.sg { margin-bottom: 20px; }
+.sg:last-child { margin-bottom: 0; }
+.sg-header {
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 2px; margin-bottom: 10px;
+}
+.sg-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.sg-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 1.3px;
+  text-transform: uppercase; color: var(--mid);
+}
+.sg-count { font-size: 10px; color: var(--hint); margin-left: auto; }
+
+.sg-items { display: flex; flex-direction: column; gap: 8px; }
+
+/* ── Entity card (the item) ── */
+.entity {
+  border-radius: var(--r); padding: 16px;
+  cursor: pointer; transition: all 200ms ease;
+  position: relative; overflow: hidden;
+}
+.entity:active { transform: scale(0.98); }
+
+/* Category wash backgrounds: items live in their category color */
+.entity.cat-home    { background: var(--ch-wash); }
+.entity.cat-garden  { background: var(--cg-wash); }
+.entity.cat-vehicle { background: var(--cv-wash); }
+.entity.cat-subs    { background: var(--cs-wash); }
+.entity.cat-pets    { background: var(--cp-wash); }
+
+/* Attention items: stronger wash to signal urgency (Apple Home pattern) */
+.sg-attention .entity.cat-home    { background: var(--ch-wash-strong); }
+.sg-attention .entity.cat-garden  { background: var(--cg-wash-strong); }
+.sg-attention .entity.cat-vehicle { background: var(--cv-wash-strong); }
+.sg-attention .entity.cat-subs    { background: var(--cs-wash-strong); }
+
+[data-theme="dark"] .entity.cat-home    { background: rgba(224,168,152,0.10); }
+[data-theme="dark"] .entity.cat-garden  { background: rgba(168,184,156,0.10); }
+[data-theme="dark"] .entity.cat-vehicle { background: rgba(168,176,170,0.10); }
+[data-theme="dark"] .entity.cat-subs    { background: rgba(192,180,214,0.10); }
+[data-theme="dark"] .sg-attention .entity.cat-home    { background: rgba(224,168,152,0.18); }
+[data-theme="dark"] .sg-attention .entity.cat-garden  { background: rgba(168,184,156,0.18); }
+[data-theme="dark"] .sg-attention .entity.cat-vehicle { background: rgba(168,176,170,0.18); }
+[data-theme="dark"] .sg-attention .entity.cat-subs    { background: rgba(192,180,214,0.18); }
+
+/* Card layout */
+.entity-row { display: flex; align-items: flex-start; gap: 14px; }
+
+/* Icon circle: generous, with category color */
+.entity-icon {
+  width: 44px; height: 44px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; position: relative;
+  background: rgba(255,255,255,0.50);
+}
+[data-theme="dark"] .entity-icon { background: rgba(255,255,255,0.08); }
+
+.entity-body { flex: 1; min-width: 0; }
+
+/* Item name: serif for identity (tasks on Today use Manrope sans) */
+.entity-name {
+  font-family: 'Noto Serif', serif; font-size: 15px; font-weight: 500;
+  color: var(--ink); letter-spacing: -0.01em; line-height: 1.25;
+}
+
+/* Category + task count */
+.entity-meta {
+  font-size: 10px; color: var(--mid); margin-top: 3px;
+  display: flex; align-items: center; gap: 6px;
+}
+
+/* Right side: progress ring + status */
+.entity-right {
+  display: flex; flex-direction: column; align-items: flex-end;
+  gap: 4px; flex-shrink: 0; padding-top: 2px;
+}
+
+/* ── Progress ring (Things 3 pattern) ── */
+.progress-ring {
+  width: 32px; height: 32px; position: relative;
+}
+.progress-ring svg { width: 32px; height: 32px; transform: rotate(-90deg); }
+.progress-ring .ring-track {
+  fill: none; stroke: var(--surface-high); stroke-width: 3;
+}
+.progress-ring .ring-fill {
+  fill: none; stroke-width: 3; stroke-linecap: round;
+  transition: stroke-dashoffset 400ms ease;
+}
+[data-theme="dark"] .progress-ring .ring-track { stroke: rgba(255,255,255,0.08); }
+
+/* Ring center text */
+.ring-pct {
+  position: absolute; inset: 0; display: flex;
+  align-items: center; justify-content: center;
+  font-size: 8px; font-weight: 700; color: var(--mid);
+  letter-spacing: -0.02em;
+}
+
+/* Status text below ring */
+.entity-status { font-size: 9px; font-weight: 500; text-align: right; }
+
+/* ── Personality line: only on attention items ── */
+.entity-personality {
+  font-family: 'Noto Serif', serif; font-style: italic;
+  font-size: 10px; color: var(--mid); margin-top: 6px;
+  line-height: 1.35; padding-right: 48px;
+}
+
+/* Attention accent: NO left border (design rule: never left-border accent).
+   The stronger category wash IS the signal. Combined with the apricot
+   progress ring and the personality line, the card communicates urgency
+   without needing a border. */
+
+/* Status group dot colors */
+.sg-attention .sg-dot { background: var(--apricot); }
+.sg-ontrack .sg-dot { background: var(--sage); }
+.sg-seasonal .sg-dot { background: var(--cg-bg); }
+
+/* No separators between groups — spacing alone creates separation */
+
+
+/* ═══════════════════════════════════════════════════════════════
+   ANNOTATION SIDEBAR
+   ═══════════════════════════════════════════════════════════════ */
+
+.annot-col { flex: 1; min-width: 280px; max-width: 420px; }
+.annot-section {
+  font-size: 10px; font-weight: 600; letter-spacing: 1.3px;
+  text-transform: uppercase; color: #8A8070; margin: 28px 0 12px;
+  padding-bottom: 6px; border-bottom: 1px solid rgba(26,22,18,0.08);
+}
+.annot-section:first-child { margin-top: 0; }
+.annot-card {
+  background: #FFFFFF; border-radius: 10px; padding: 14px 16px;
+  margin-bottom: 10px; border: 1px solid rgba(26,22,18,0.06);
+}
+.annot-card.decision { border-left: 3px solid #9B7FD4; }
+.annot-head {
+  font-size: 12px; font-weight: 600; color: #2C2824; margin-bottom: 6px;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.annot-body { font-size: 11px; color: #6B6358; line-height: 1.6; }
+.annot-body code { background: rgba(26,22,18,0.06); padding: 1px 5px; border-radius: 3px; font-size: 10px; font-family: 'SF Mono', 'Fira Code', monospace; }
+.annot-body strong { color: #2C2824; }
+.badge-rule { font-size: 8px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; background: rgba(59,109,17,0.10); color: #3B6D11; }
+.badge-note { font-size: 8px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; background: rgba(133,79,11,0.10); color: #854F0B; }
+.badge-research { font-size: 8px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; background: rgba(155,127,212,0.12); color: #9B7FD4; }
+
+
+/* ── Comparison section ── */
+.compare-section {
+  max-width: 1200px; margin: 0 auto; padding: 40px 40px 60px;
+}
+.compare-title {
+  font-family: 'Noto Serif', serif; font-size: 22px; font-weight: 400;
+  color: #2C2824; margin-bottom: 8px; letter-spacing: -0.01em;
+}
+.compare-sub { font-size: 13px; color: #8A8070; margin-bottom: 24px; line-height: 1.55; }
+.compare-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.compare-card {
+  background: #FFFFFF; border-radius: 12px; padding: 20px;
+  border: 1px solid rgba(26,22,18,0.06);
+}
+.compare-card h4 {
+  font-size: 13px; font-weight: 600; color: #2C2824; margin-bottom: 4px;
+  display: flex; align-items: center; gap: 8px;
+}
+.compare-card .cc-desc { font-size: 11px; color: #6B6358; line-height: 1.6; }
+.compare-chip {
+  display: inline-block; font-size: 8px; font-weight: 600;
+  letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 6px;
+  border-radius: 4px;
+}
+.chip-entity { background: rgba(155,127,212,0.12); color: #9B7FD4; }
+.chip-task { background: rgba(232,168,124,0.12); color: #C08060; }
+
+/* Page divider */
+.page-divider { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+.page-divider::after { content: ''; display: block; height: 1px; background: rgba(26,22,18,0.08); }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .content-row { flex-direction: column; align-items: center; }
+  .phone-col { position: static; }
+  .annot-col { max-width: 600px; width: 100%; }
+  .compare-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="hub-nav">
+  <a href="../index.html">
+    <svg width="16" height="18" viewBox="0 0 626 700" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:2px;"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0C56.05,700.13,0,642.43,0,571.26V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#C4A8E8" cx="535.96" cy="119.29" r="90"/></svg>
+    Design hub
+  </a>
+  <span class="sep">/</span>
+  <span class="title">S-09 My stuff · refined</span>
+  <div class="archive-links">
+    <a href="s09-mystuff-variations.html" target="_blank">3 variations</a>
+    <a href="s09-mystuff-hifi.html" target="_blank">Previous hi-fi</a>
+  </div>
+  <span class="status status-progress">In progress</span>
+</nav>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div class="page-eyebrow">S-09 · My stuff tab</div>
+  <h1 class="page-h1">My stuff, refined</h1>
+  <p class="page-subtitle">Status-grouped entity cards. Items feel like things you own (objects with identity and health), not things you need to do (tasks on a checklist). Based on patterns from Apple Home, Things 3, Planta, and CARFAX.</p>
+  <div class="page-meta">
+    <span class="page-pill">Status-first grouping</span>
+    <span class="page-pill">Entity cards</span>
+    <span class="page-pill">Progress rings</span>
+    <span class="page-pill">Category wash bg</span>
+  </div>
+</div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <div class="ctrl-group">
+    <span class="ctrl-label">Theme</span>
+    <button class="ctrl-btn on" id="ctl" onclick="setTheme('light')">Light</button>
+    <button class="ctrl-btn" id="ctd" onclick="setTheme('dark')">Dark</button>
+  </div>
+</div>
+
+<!-- CONTENT ROW -->
+<div class="content-row">
+
+  <!-- PHONE -->
+  <div class="phone-col">
+    <div class="ph" id="phone" data-theme="light">
+      <div class="notch"></div>
+      <div class="sb"><span>9:41</span><span style="font-size:10px;color:var(--mid);">v10.5</span></div>
+      <div class="tc">
+        <div class="tp" style="opacity:1;pointer-events:auto;">
+
+          <div class="screen-title" style="padding-top:10px;">
+            <h2>My stuff</h2>
+            <span class="screen-title-count">5 items · 14 tasks</span>
+          </div>
+          <!-- Category filter: "All" active by default, single select,
+               scrollable, matches components.css .cat-strip/.cat-pill spec.
+               Active "All" = ink bg + plum-fg text. Category pills use
+               category wash bg inactive, category icon color bg when active.
+               Tap a category: shows only items in that category (JS below).
+               Tap "All": resets to show all items. -->
+          <div class="filter-row" id="filters">
+            <div class="fc active" data-cat="all" onclick="filterCat('all')">All</div>
+            <div class="fc" data-cat="home" onclick="filterCat('home')">Home</div>
+            <div class="fc" data-cat="vehicle" onclick="filterCat('vehicle')">Vehicle</div>
+            <div class="fc" data-cat="garden" onclick="filterCat('garden')">Garden</div>
+            <div class="fc" data-cat="subs" onclick="filterCat('subs')">Subs</div>
+          </div>
+
+          <div class="status-list">
+
+            <!-- ═══ COULD USE YOU ═══ -->
+            <div class="sg sg-attention">
+              <div class="sg-header">
+                <div class="sg-dot"></div>
+                <span class="sg-label">Could use you</span>
+                <span class="sg-count">1 item</span>
+              </div>
+              <div class="sg-items">
+
+                <!-- Dishwasher: past its window -->
+                <div class="entity cat-home" data-cat="home" onclick="window.open('s17-item-home-appliance.html','_blank')">
+                  <div class="entity-row">
+                    <div class="entity-icon">
+                      <svg width="20" height="20" viewBox="0 0 256 256" fill="none"><rect x="32" y="56" width="192" height="144" rx="8" stroke="var(--ch-bg)" stroke-width="18" fill="none"/><line x1="32" y1="104" x2="224" y2="104" stroke="var(--ch-bg)" stroke-width="18"/><circle cx="80" cy="80" r="10" stroke="var(--ch-bg)" stroke-width="14" fill="none"/></svg>
+                    </div>
+                    <div class="entity-body">
+                      <div class="entity-name">The workhorse</div>
+                      <div class="entity-meta">
+                        <span>Dishwasher</span>
+                        <span style="opacity:0.4;">·</span>
+                        <span>Home</span>
+                        <span style="opacity:0.4;">·</span>
+                        <span style="color:var(--apricot);font-weight:500;">1 task waiting</span>
+                      </div>
+                      <div class="entity-personality">Salt was last topped up 10 weeks ago.</div>
+                    </div>
+                    <div class="entity-right">
+                      <!-- Ring: 2 of 3 tasks on track. Apricot because item
+                           is in "could use you" state. Label shows ratio. -->
+                      <div class="progress-ring">
+                        <svg viewBox="0 0 32 32">
+                          <circle class="ring-track" cx="16" cy="16" r="13"/>
+                          <circle class="ring-fill" cx="16" cy="16" r="13"
+                            stroke="var(--apricot)"
+                            stroke-dasharray="81.68"
+                            stroke-dashoffset="27.23"/>
+                        </svg>
+                        <span class="ring-pct">2/3</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- ═══ ON TRACK ═══ -->
+            <div class="sg sg-ontrack">
+              <div class="sg-header">
+                <div class="sg-dot"></div>
+                <span class="sg-label">On track</span>
+                <span class="sg-count">3 items</span>
+              </div>
+              <div class="sg-items">
+
+                <!-- Boiler: all current-cycle tasks on track -->
+                <div class="entity cat-home" data-cat="home" onclick="window.open('s17-item-home-appliance.html','_blank')">
+                  <div class="entity-row">
+                    <div class="entity-icon">
+                      <svg width="20" height="20" viewBox="0 0 256 256" fill="none"><rect x="64" y="32" width="128" height="192" rx="16" stroke="var(--ch-bg)" stroke-width="18" fill="none" stroke-linecap="round"/><circle cx="128" cy="144" r="28" stroke="var(--ch-bg)" stroke-width="18" fill="none"/><line x1="128" y1="72" x2="128" y2="88" stroke="var(--ch-bg)" stroke-width="18" stroke-linecap="round"/></svg>
+                    </div>
+                    <div class="entity-body">
+                      <div class="entity-name">Old reliable</div>
+                      <div class="entity-meta">
+                        <span>Boiler</span>
+                        <span style="opacity:0.4;">·</span>
+                        <span>Home</span>
+                        <span style="opacity:0.4;">·</span>
+                        <span>3 tasks on track</span>
+                      </div>
+                    </div>
+                    <div class="entity-right">
+                      <!-- Ring: category color (home = dusty rose) -->
+                      <div class="progress-ring">
+                        <svg viewBox="0 0 32 32">
+                          <circle class="ring-track" cx="16" cy="16" r="13"/>
+                          <circle class="ring-fill" cx="16" cy="16" r="13"
+                            stroke="var(--ch-bg)"
+                            stroke-dasharray="81.68"
+                            stroke-dashoffset="0"/>
+                        </svg>
+                        <span class="ring-pct">3/3</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Car -->
+                <div class="entity cat-vehicle" data-cat="vehicle" onclick="window.open('s17-item-vehicle.html','_blank')">
+                  <div class="entity-row">
+                    <div class="entity-icon">
+                      <svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M224,168H208V128L176,80H80L48,128V168H32a8,8,0,0,0,0,16H48v8a16,16,0,0,0,32,0v-8h96v8a16,16,0,0,0,32,0v-8h16a8,8,0,0,0,0-16Z" stroke="var(--cv-bg)" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <div class="entity-body">
+                      <div class="entity-name">The daily driver</div>
+                      <div class="entity-meta">
+                        <span>Car</span>
+                        <span style="opacity:0.4;">·</span>
+                        <span>Vehicle</span>
+                        <span style="opacity:0.4;">·</span>
+                        <span>4 of 5 on track</span>
+                      </div>
+                    </div>
+                    <div class="entity-right">
+                      <!-- Ring: category color (vehicle = warm sage-slate) -->
+                      <div class="progress-ring">
+                        <svg viewBox="0 0 32 32">
+                          <circle class="ring-track" cx="16" cy="16" r="13"/>
+                          <circle class="ring-fill" cx="16" cy="16" r="13"
+                            stroke="var(--cv-bg)"
+                            stroke-dasharray="81.68"
+                            stroke-dashoffset="16.34"/>
+                        </svg>
+                        <span class="ring-pct">4/5</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Netflix -->
+                <div class="entity cat-subs" data-cat="subs" onclick="window.open('s17-item-subscription.html','_blank')">
+                  <div class="entity-row">
+                    <div class="entity-icon">
+                      <svg width="20" height="20" viewBox="0 0 256 256" fill="none"><rect x="40" y="40" width="176" height="176" rx="16" stroke="var(--cs-bg)" stroke-width="18" fill="none"/><line x1="96" y1="88" x2="96" y2="168" stroke="var(--cs-bg)" stroke-width="18" stroke-linecap="round"/><line x1="160" y1="88" x2="160" y2="168" stroke="var(--cs-bg)" stroke-width="18" stroke-linecap="round"/><line x1="96" y1="128" x2="160" y2="128" stroke="var(--cs-bg)" stroke-width="14" stroke-linecap="round"/></svg>
+                    </div>
+                    <div class="entity-body">
+                      <div class="entity-name">The monthly stream</div>
+                      <div class="entity-meta">
+                        <span>Netflix</span>
+                        <span style="opacity:0.4;">·</span>
+                        <span>Subs</span>
+                        <span style="opacity:0.4;">·</span>
+                        <span>1 task on track</span>
+                      </div>
+                    </div>
+                    <div class="entity-right">
+                      <!-- Ring: category color (subs = lavender) -->
+                      <div class="progress-ring">
+                        <svg viewBox="0 0 32 32">
+                          <circle class="ring-track" cx="16" cy="16" r="13"/>
+                          <circle class="ring-fill" cx="16" cy="16" r="13"
+                            stroke="var(--cs-bg)"
+                            stroke-dasharray="81.68"
+                            stroke-dashoffset="0"/>
+                        </svg>
+                        <span class="ring-pct">1/1</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- ═══ SEASONAL ═══ -->
+            <div class="sg sg-seasonal">
+              <div class="sg-header">
+                <div class="sg-dot"></div>
+                <span class="sg-label">Seasonal</span>
+                <span class="sg-count">1 item</span>
+              </div>
+              <div class="sg-items">
+
+                <!-- Olive tree -->
+                <div class="entity cat-garden" data-cat="garden" onclick="window.open('s17-item-plant.html','_blank')">
+                  <div class="entity-row">
+                    <div class="entity-icon">
+                      <svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M128 232V128" stroke="var(--cg-bg)" stroke-width="18" stroke-linecap="round"/><path d="M128 128c-40-60-80-20-80 0s40 40 80 0" stroke="var(--cg-bg)" stroke-width="16" fill="none" stroke-linecap="round"/><path d="M128 128c40-60 80-20 80 0s-40 40-80 0" stroke="var(--cg-bg)" stroke-width="16" fill="none" stroke-linecap="round"/></svg>
+                    </div>
+                    <div class="entity-body">
+                      <div class="entity-name">The slow grower</div>
+                      <div class="entity-meta">
+                        <span>Olive tree</span>
+                        <span style="opacity:0.4;">·</span>
+                        <span>Garden</span>
+                        <span style="opacity:0.4;">·</span>
+                        <span style="color:var(--cg-bg);font-weight:500;">spring window</span>
+                      </div>
+                      <div class="entity-personality">Pruning window is open. She's ready.</div>
+                    </div>
+                    <div class="entity-right">
+                      <!-- Ring: category color (garden = sage green) -->
+                      <div class="progress-ring">
+                        <svg viewBox="0 0 32 32">
+                          <circle class="ring-track" cx="16" cy="16" r="13"/>
+                          <circle class="ring-fill" cx="16" cy="16" r="13"
+                            stroke="var(--cg-bg)"
+                            stroke-dasharray="81.68"
+                            stroke-dashoffset="40.84"/>
+                        </svg>
+                        <span class="ring-pct">1/2</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div><!-- /status-list -->
+
+        </div>
+      </div>
+
+      <!-- Pro meter -->
+      <div class="pro-meter">
+        <span class="pm-label">5 of 10 free</span>
+        <div class="pm-dots">
+          <div class="pm-dot f"></div><div class="pm-dot f"></div><div class="pm-dot f"></div><div class="pm-dot f"></div><div class="pm-dot f"></div>
+          <div class="pm-dot e"></div><div class="pm-dot e"></div><div class="pm-dot e"></div><div class="pm-dot e"></div><div class="pm-dot e"></div>
+        </div>
+        <span class="pm-link">Go Pro</span>
+      </div>
+
+      <!-- Nav -->
+      <div class="nz">
+        <div class="nb">
+          <button class="nt"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M216 216V40" stroke="currentColor" stroke-width="18" stroke-linecap="round"/><path d="M176 216V104" stroke="currentColor" stroke-width="18" stroke-linecap="round"/><path d="M136 216V136" stroke="currentColor" stroke-width="18" stroke-linecap="round"/><path d="M96 216V72" stroke="currentColor" stroke-width="18" stroke-linecap="round"/><path d="M56 216V168" stroke="currentColor" stroke-width="18" stroke-linecap="round"/></svg><span class="nl">Today</span></button>
+          <button class="nt"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><rect x="40" y="40" width="176" height="176" rx="8" stroke="currentColor" stroke-width="18" fill="none"/><line x1="176" y1="24" x2="176" y2="56" stroke="currentColor" stroke-width="18" stroke-linecap="round"/><line x1="80" y1="24" x2="80" y2="56" stroke="currentColor" stroke-width="18" stroke-linecap="round"/><line x1="40" y1="88" x2="216" y2="88" stroke="currentColor" stroke-width="18" stroke-linecap="round"/></svg><span class="nl">Plan</span></button>
+          <button class="nt on"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M200 128a72 72 0 1 1-144 0c0-60 72-112 72-112S200 68 200 128Z" stroke="currentColor" stroke-width="18" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="nl">My stuff</span></button>
+          <button class="nt"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="96" r="48" stroke="currentColor" stroke-width="18" fill="none"/><path d="M32 216c0-48 42.98-80 96-80s96 32 96 80" stroke="currentColor" stroke-width="18" fill="none" stroke-linecap="round"/></svg><span class="nl">Profile</span></button>
+        </div>
+        <button class="fab"><svg width="17" height="17" viewBox="0 0 17 17" fill="none"><line x1="8.5" y1="2" x2="8.5" y2="15" stroke="#FAF8FF" stroke-width="2" stroke-linecap="round"/><line x1="2" y1="8.5" x2="15" y2="8.5" stroke="#FAF8FF" stroke-width="2" stroke-linecap="round"/></svg></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANNOTATIONS -->
+  <div class="annot-col">
+
+    <div class="annot-section">Design rationale</div>
+
+    <div class="annot-card decision">
+      <div class="annot-head">Status grouping <span class="badge-research">Things 3</span></div>
+      <div class="annot-body">"Could use you" floats to top. Empty section = instant calm. Power users (Arne) scan one section and are done. Status is the organizing principle, not category.</div>
+    </div>
+
+    <div class="annot-card decision">
+      <div class="annot-head">"Could use you", not "overdue" <span class="badge-rule">Voice</span></div>
+      <div class="annot-body">Tasks have time windows, not deadlines. "Refill dishwasher salt" is due every 6-8 weeks, not on a specific day. The word "overdue" creates guilt. nudgii reframes: the item needs you, you haven't failed it.<br><br>
+      <strong>Section header:</strong> "Could use you" (item is the subject)<br>
+      <strong>Task status:</strong> "1 task waiting" (factual, no blame)<br>
+      <strong>Personality:</strong> "Salt was last topped up 10 weeks ago." (time since, not time past due)<br><br>
+      The apricot color on the ring and task count is the only urgency signal. No "overdue" badge, no accent line, no red.</div>
+    </div>
+
+    <div class="annot-card decision">
+      <div class="annot-head">Category wash on cards <span class="badge-research">Apple Home</span></div>
+      <div class="annot-body">Items sit on their category wash color. Tasks on Today sit on neutral <code>surface-low</code>. This is the primary visual cue that these are <strong>objects</strong>, not actions. "Could use you" items get stronger wash (Apple Home: device tiles shift color with state). No left-border accent: the wash IS the signal.</div>
+    </div>
+
+    <div class="annot-card decision">
+      <div class="annot-head">Progress ring <span class="badge-research">Things 3</span></div>
+      <div class="annot-body">32px ring shows <strong>tasks on track / total tasks</strong> as a ratio (e.g. "2/3", "4/5"). Not a percentage: a ratio is instantly clear without needing to know the timeframe.<br><br>
+      <strong>Ring color = category color</strong> (home=dusty rose, vehicle=sage-slate, garden=sage, subs=lavender). The only exception: items in "Could use you" use apricot to signal attention.<br><br>
+      <strong>What counts as a task:</strong> Active tasks in the current maintenance cycle. Recurring tasks (e.g. monthly) count as 1 task, not 12. A task is "on track" when it's within its time window.</div>
+    </div>
+
+    <div class="annot-card decision">
+      <div class="annot-head">Personality names <span class="badge-rule">Voice</span> <span class="badge-research">Blossom</span></div>
+      <div class="annot-body">nudgii suggests a warm, descriptive personality name when an item is added. The generic item type stays in the meta line as context. User can always rename.<br><br>
+      <strong>Display:</strong> personality name in Noto Serif 15px (primary), item type in Manrope 10px meta line (secondary). Different typeface from task names on Today (Manrope 14px), reinforcing that these are objects, not actions.<br><br>
+      <strong>Examples:</strong><br>
+      "The workhorse" → Dishwasher<br>
+      "Old reliable" → Boiler<br>
+      "The daily driver" → Car<br>
+      "The slow grower" → Olive tree<br>
+      "The monthly stream" → Netflix<br><br>
+      <strong>Rules:</strong> descriptive, not random. Warm, not silly. The name tells you something about the item's character. After AI scan, nudgii can use the brand: "The trusty Bosch" instead of "The workhorse."</div>
+    </div>
+
+    <div class="annot-card decision">
+      <div class="annot-head">Personality on attention + seasonal only <span class="badge-research">Greg</span></div>
+      <div class="annot-body">On-track items stay clean (name + meta + ring). Only items that need conversation show the italic personality line. This creates information density where it matters and calm where it doesn't.</div>
+    </div>
+
+    <div class="annot-section">Status group logic</div>
+
+    <div class="annot-card decision">
+      <div class="annot-head">Priority order <span class="badge-rule">Locked</span></div>
+      <div class="annot-body">Items appear in exactly one group. Priority determines which:<br><br>
+      <strong>1. Could use you</strong> (apricot dot): any task past its recommended window. Always wins.<br>
+      <strong>2. Seasonal</strong> (category dot): a calendar-based window is currently open, task not yet done.<br>
+      <strong>3. On track</strong> (sage dot): all tasks within their recommended window.<br><br>
+      Groups are <strong>live queries</strong>, not permanent labels. Items move between groups as tasks change state.</div>
+    </div>
+
+    <div class="annot-card decision">
+      <div class="annot-head">Seasonal behavior <span class="badge-rule">Locked</span></div>
+      <div class="annot-body">Seasonal = a calendar-based time window is currently open. Not a permanent label.<br><br>
+      <strong>Example: olive tree</strong><br>
+      Jan: On track (no window open)<br>
+      Mar: Seasonal (spring pruning window opens)<br>
+      Apr: user prunes, marks done → On track<br>
+      Nov: Seasonal again (winter protection window)<br><br>
+      The Seasonal section can be <strong>empty for months</strong> and have 4 items in October. If a seasonal window closes without completion, the item moves to "Could use you."</div>
+    </div>
+
+    <div class="annot-card decision">
+      <div class="annot-head">Task types <span class="badge-rule">Dev spec</span></div>
+      <div class="annot-body">Three types, each counts as 1 task in the progress ring:<br><br>
+      <strong>Interval-based:</strong> "every 6-8 weeks." On track = within window. Waiting = past window. Ring shows tasks on track / total.<br>
+      <strong>Calendar-based (seasonal):</strong> "March to May." Triggers Seasonal group when window opens. Moves to "could use you" if window closes undone.<br>
+      <strong>One-time:</strong> "register warranty." Done = gone from ring count.<br><br>
+      Recurring tasks count as <strong>1 task, not N occurrences</strong>. A monthly task is 1 task that's either on track or waiting.</div>
+    </div>
+
+    <div class="annot-section">Interaction spec</div>
+
+    <div class="annot-card decision">
+      <div class="annot-head">Category filter <span class="badge-rule">Locked</span></div>
+      <div class="annot-body"><strong>Active states (locked 2026-04-03):</strong><br>
+      "All" = plum fill + cream text<br>
+      Home = dusty rose #C09088 + cream<br>
+      Vehicle = sage-slate #8E9A94 + cream<br>
+      Garden = sage #8C9B80 + cream<br>
+      Subs = lavender #A69BBF + cream<br><br>
+      <strong>Behavior:</strong> Single select. Tapping a category shows only items in that category. Empty status groups hide entirely. Tapping "All" resets. Single scrollable row, no wrap.</div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head">Go Pro meter <span class="badge-note">Free tier</span></div>
+      <div class="annot-body">Fixed above nav bar, free users only. Shows "X of 10 free" + dot meter (plum filled, surface-high empty) + "Go Pro" link. Hidden for Pro users. Never blocks, never nags. Items 11+ are paused (no reminders) but visible with Pro badge.</div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head">Item tap <span class="badge-note">Navigation</span></div>
+      <div class="annot-body">Tapping an entity card navigates to S-17 item detail. Card shows <code>:active</code> state (scale 0.98) on press. No swipe gestures on My Stuff (swipe-to-complete is Today tab only).</div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head">Dark mode <span class="badge-note">Complete</span></div>
+      <div class="annot-body">Full dark mode via <code>[data-theme="dark"]</code>. Warm dark surfaces (#1C1B18). Category wash at 10-18% opacity (stronger for "could use you"). Plum lightened to #B8A0E8. Ring tracks use <code>rgba(255,255,255,0.08)</code>. No cold/blue tints.</div>
+    </div>
+
+    <div class="annot-card">
+      <div class="annot-head">Wash intensity <span class="badge-note">Dev spec</span></div>
+      <div class="annot-body">Category wash on cards:<br>
+      <strong>Normal:</strong> 14% opacity (e.g. <code>rgba(192,144,136,0.14)</code>)<br>
+      <strong>"Could use you":</strong> 22% opacity (<code>rgba(192,144,136,0.22)</code>)<br>
+      The stronger wash is the only visual urgency signal. No left-border accent, no badge, no red.</div>
+    </div>
+
+    <div class="annot-section">Entity vs. task: 7 visual differences</div>
+
+    <div class="annot-card">
+      <div class="annot-head">How users know they're looking at items, not tasks</div>
+      <div class="annot-body">
+        <strong>1.</strong> Category wash background (tasks: neutral)<br>
+        <strong>2.</strong> Noto Serif name (tasks: Manrope)<br>
+        <strong>3.</strong> Progress ring in category color (tasks: no ring)<br>
+        <strong>4.</strong> 44px icon circle (tasks: 40px, tighter)<br>
+        <strong>5.</strong> 14px rounded corners (tasks: 12px)<br>
+        <strong>6.</strong> 16px padding (tasks: 10-12px)<br>
+        <strong>7.</strong> Italic personality line (tasks: never)<br>
+        <br>
+        None of these is dramatic alone. Together they create a distinct visual rhythm: items feel spacious and owned, tasks feel compact and actionable.
+      </div>
+    </div>
+
+    <div class="annot-section">Persona fit</div>
+
+    <div class="annot-card">
+      <div class="annot-head">Arne <span class="badge-note">Power user</span></div>
+      <div class="annot-body">Scans "Could use you" header, sees 1 item, taps it or moves on. Done in 3 seconds. Status grouping is built for him.</div>
+    </div>
+    <div class="annot-card">
+      <div class="annot-head">Martijn <span class="badge-note">Primary</span></div>
+      <div class="annot-body">Opens My Stuff weekly. Progress rings give instant health check. Empty attention section = "everything's fine" dopamine hit. Category wash colors make the screen feel personal.</div>
+    </div>
+    <div class="annot-card">
+      <div class="annot-head">Lena <span class="badge-note">Learning</span></div>
+      <div class="annot-body">Personality lines teach her about her things ("Pruning window is open. She's ready."). Seasonal section introduces concepts she doesn't know yet. The screen is informative without being overwhelming.</div>
+    </div>
+    <div class="annot-card">
+      <div class="annot-head">Sara <span class="badge-note">Organizer</span></div>
+      <div class="annot-body">Progress rings satisfy her completionist instinct. She wants to see 100% on everything. Category filter lets her browse by domain. The system mirrors how she already thinks about her possessions.</div>
+    </div>
+
+    <div class="annot-section">Open questions</div>
+
+    <div class="annot-card">
+      <div class="annot-head">Scale at 15+ items</div>
+      <div class="annot-body">With 15 items, the on-track section gets long. Options: collapse sections (Things 3 pattern), show count-only in collapsed mode, or add a "show all" button after 5 items. Test with Arne persona data.</div>
+    </div>
+    <div class="annot-card">
+      <div class="annot-head">Photo support (v2)</div>
+      <div class="annot-body">Plant apps lead with user photos. nudgii could show an AI-scan photo as the icon background (from camera input). v1 ships with category icons. v2 adds optional photo from scan, displayed inside the 44px circle.</div>
+    </div>
+
+  </div>
+
+</div><!-- /content-row -->
+
+
+<!-- DIVIDER -->
+<div class="page-divider"></div>
+
+<!-- COMPARISON: entity vs task -->
+<div class="compare-section">
+  <div class="compare-title">Entity card vs. task row</div>
+  <div class="compare-sub">Side-by-side comparison of the visual language differences. These are subtle individually but compound into distinct object types.</div>
+
+  <div class="compare-grid">
+    <div class="compare-card">
+      <h4><span class="compare-chip chip-entity">Entity card</span> My Stuff tab</h4>
+      <div class="cc-desc">
+        <strong>Background:</strong> category wash (tinted)<br>
+        <strong>Name font:</strong> Noto Serif 15px<br>
+        <strong>Icon:</strong> 44px circle, white overlay<br>
+        <strong>Progress:</strong> 32px ring in category color, ratio label<br>
+        <strong>Border radius:</strong> 14px<br>
+        <strong>Padding:</strong> 16px<br>
+        <strong>Personality:</strong> italic serif line<br>
+        <strong>Status signal:</strong> wash intensity + ring color<br>
+        <strong>Urgency language:</strong> "1 task waiting" (warm)<br>
+        <strong>Item names:</strong> user-given (nudgii suggests, user edits)
+      </div>
+    </div>
+    <div class="compare-card">
+      <h4><span class="compare-chip chip-task">Task row</span> Today tab</h4>
+      <div class="cc-desc">
+        <strong>Background:</strong> surface-low (neutral)<br>
+        <strong>Name font:</strong> Manrope 14px 500<br>
+        <strong>Icon:</strong> 40px circle, category wash<br>
+        <strong>Progress:</strong> none<br>
+        <strong>Border radius:</strong> 12px<br>
+        <strong>Padding:</strong> 10-12px<br>
+        <strong>Personality:</strong> never<br>
+        <strong>Status signal:</strong> apricot text ("waiting 12d")<br>
+        <strong>Urgency language:</strong> "waiting Xd" (warm, factual)
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- CHANGELOG -->
+<div style="max-width:1200px;margin:0 auto;padding:32px 40px 60px;">
+  <div style="font-family:'Noto Serif',serif;font-size:20px;color:#2C2824;margin-bottom:20px;">Changelog</div>
+
+  <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid rgba(26,22,18,0.06);">
+    <div style="font-size:10px;font-weight:600;letter-spacing:0.5px;color:#8A8070;margin-bottom:6px;">v1.0 · 2026-04-03 · BREAKING</div>
+    <div style="font-size:12px;color:#6B6358;line-height:1.6;">
+      <strong>New screen.</strong> Replaces flat list layout from s09-mystuff-hifi.html with status-grouped entity cards.<br><br>
+      <strong>Visual changes:</strong> Status grouping (Could use you > Seasonal > On track). Entity cards with category wash bg, 44px icons, Noto Serif names, progress rings in category colors, ratio labels. No separator lines between groups. Category-colored filter pills.<br><br>
+      <strong>Language:</strong> "Could use you" replaces "Needs attention." "1 task waiting" replaces "1 overdue." Urgency language ladder locked. Personality names as default item names ("The workhorse", "Old reliable").<br><br>
+      <strong>Interaction:</strong> Filter is functional (single select, groups hide when empty). Item cards tap through to S-17 detail pages.
+    </div>
+    <div style="margin-top:8px;padding:10px 12px;background:rgba(155,127,212,0.06);border-radius:6px;font-size:11px;color:#6B6358;line-height:1.5;">
+      <strong style="color:#9B7FD4;font-size:10px;letter-spacing:0.3px;">FLUTTER NOTES</strong><br>
+      Mockup base: 390x844 iPhone 15. SafeArea + Column + Expanded shell. Status groups are filtered ListViews, not static sections. Progress ring: CustomPainter with category color stroke. Filter: single-select chip row, updates list query. Go Pro meter: positioned above nav, free tier only. Entity cards: GestureDetector → Navigator.push to S-17. Dark mode: full token swap via ThemeData.
+    </div>
+  </div>
+</div>
+
+<script>
+function setTheme(t) {
+  document.getElementById('phone').setAttribute('data-theme', t);
+  document.getElementById('ctl').classList.toggle('on', t === 'light');
+  document.getElementById('ctd').classList.toggle('on', t === 'dark');
+}
+
+/* ── Category filter ──
+   Spec: components.css .cat-strip/.cat-pill
+   - "All" pill: active by default (ink bg, plum-fg text)
+   - Category pills: inactive = transparent + border, active = ink bg
+   - Single select: tapping a category shows only items in that category
+   - Tapping "All" resets to show all items
+   - Status group headers hide when no items match
+   ────────────────────────────────────────────── */
+function filterCat(cat) {
+  // Update active pill
+  document.querySelectorAll('#filters .fc').forEach(fc => {
+    fc.classList.toggle('active', fc.dataset.cat === cat);
+  });
+  // Show/hide items
+  document.querySelectorAll('.entity[data-cat]').forEach(e => {
+    e.style.display = (cat === 'all' || e.dataset.cat === cat) ? '' : 'none';
+  });
+  // Show/hide empty status groups
+  document.querySelectorAll('.sg').forEach(sg => {
+    const visible = sg.querySelectorAll('.entity[data-cat]:not([style*="display: none"])');
+    sg.style.display = visible.length > 0 ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>
