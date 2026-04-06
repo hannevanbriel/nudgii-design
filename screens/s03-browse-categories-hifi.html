@@ -1,3 +1,4 @@
+<!-- v2 archived: use git history for previous tile grid version -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,103 +7,122 @@
 <title>nudgii · S-03 Browse categories · hi-fi</title>
 <link rel="stylesheet" href="../system/components.css">
 <style>
+/* ── S-03 Precision Warmth tokens (match dashboard) ── */
+:root{
+  --ch-bg:#C09088;--cg-bg:#8C9B80;--cv-bg:#8E9A94;--cs-bg:#A69BBF;
+  --ch-wash:rgba(192,144,136,0.14);--cg-wash:rgba(140,155,128,0.14);
+  --cv-wash:rgba(142,154,148,0.14);--cs-wash:rgba(166,155,191,0.14);
+}
+[data-theme="dark"]{
+  --ch-bg:#E0A898;--cg-bg:#A8B89C;--cv-bg:#A8B0AA;--cs-bg:#C0B4D6;
+  --ch-wash:rgba(224,168,152,0.12);--cg-wash:rgba(168,184,156,0.12);
+  --cv-wash:rgba(168,176,170,0.12);--cs-wash:rgba(192,180,214,0.12);
+}
+
 /* ── S-03 screen-specific ── */
 body{background:#CBC5BB;padding:0 0 80px;}
 
-/* Two-phone layout */
-.content-row{display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap;}
-.phone-col{display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap;flex-shrink:0;}
-.phone-stack{display:flex;flex-direction:column;align-items:center;gap:10px;}
-.phone-lbl{font-size:9px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:rgba(26,22,18,0.40);text-align:center;}
+/* Theme toggle */
+.s03-controls{display:flex;gap:4px;align-items:center;margin-bottom:16px;}
+.s03-ctrl-label{font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#A09888;margin-right:4px;}
+.s03-ctrl-btn{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;padding:5px 14px;border-radius:6px;border:1px solid rgba(26,22,18,0.12);background:transparent;color:#8A8070;cursor:pointer;transition:all 120ms;}
+.s03-ctrl-btn:hover{border-color:rgba(26,22,18,0.20);}
+.s03-ctrl-btn.on{background:#9B7FD4;color:#FAF8FF;border-color:#9B7FD4;}
 
-/* Screen padding overrides */
+/* Screen padding */
 .w-screen{padding:10px 16px 0;}
-.w-bottom{padding:8px 0 20px;}
+.w-bottom{padding:8px 16px 20px;}
 
 /* Header */
 .s03-hed{font-family:'DM Serif Display',Georgia,serif;font-size:20px;font-weight:400;line-height:1.1;letter-spacing:-0.3px;color:var(--ink);margin-bottom:2px;}
 .s03-hed em{font-style:italic;color:var(--cta);}
-.s03-sub{font-size:11px;font-style:italic;color:var(--mid);margin-bottom:10px;}
+.s03-sub{font-size:11px;font-style:italic;color:var(--mid);margin-bottom:12px;}
 
 /* Search bar */
-.search-bar{
-  display:flex;align-items:center;gap:7px;
-  background:var(--surface);border:0.5px solid var(--border-md);
-  border-radius:10px;padding:8px 11px;margin-bottom:8px;
-}
+.search-bar{display:flex;align-items:center;gap:7px;background:rgba(26,22,18,0.04);border:0.5px solid var(--border-md);border-radius:10px;padding:8px 11px;margin-bottom:10px;}
 .search-bar svg{width:13px;height:13px;fill:none;stroke:var(--mid);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
 .search-input-mock{font-size:11.5px;font-style:italic;color:rgba(107,99,88,0.40);}
 
-/* Category chips — Option B: pastel bg + icon text inactive; filled icon bg + cream text active */
-.chip-row{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;padding:4px 0;margin-bottom:2px;}
+/* Category filter chips */
+.chip-row{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;padding:4px 0;margin-bottom:10px;}
 .chip-row::-webkit-scrollbar{display:none;}
-.cat-chip{flex-shrink:0;padding:5px 12px;border-radius:100px;font-size:11px;font-weight:500;cursor:pointer;user-select:none;transition:background 0.15s,color 0.15s;}
-.cat-chip-all{background:rgba(26,22,18,0.07);color:var(--mid-a);}
-.cat-chip-all.active{background:var(--cta);color:var(--cta-fg);}
-.cat-chip-home{background:var(--cat-home-bg);color:var(--cat-home-ic);}
-.cat-chip-home.active{background:var(--cat-home-ic);color:#FAF8FF;}
-.cat-chip-vehicle{background:var(--cat-vehicle-bg);color:var(--cat-vehicle-ic);}
-.cat-chip-vehicle.active{background:var(--cat-vehicle-ic);color:#FAF8FF;}
-.cat-chip-garden{background:var(--cat-garden-bg);color:var(--cat-garden-ic);}
-.cat-chip-garden.active{background:var(--cat-garden-ic);color:#FAF8FF;}
-.cat-chip-subs{background:var(--cat-sub-bg);color:var(--cat-sub-ic);}
-.cat-chip-subs.active{background:var(--cat-sub-ic);color:#FAF8FF;}
+.cat-chip{flex-shrink:0;padding:5px 12px;border-radius:100px;font-size:11px;font-weight:500;cursor:pointer;user-select:none;transition:all 0.15s;}
+.cat-chip-all{background:var(--cta);color:var(--cta-fg);}
+.cat-chip-cat{background:rgba(26,22,18,0.06);color:var(--mid);}
 
-/* Selected pill */
-.sel-pill{display:inline-flex;align-items:center;gap:5px;background:var(--cta);color:var(--cta-fg);font-size:10px;font-weight:600;padding:3px 10px 3px 5px;border-radius:100px;margin-bottom:6px;}
-.sel-num{background:rgba(255,255,255,0.25);width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:700;}
+/* Entity cards (selectable) */
+.entity-list{display:flex;flex-direction:column;gap:8px;margin-bottom:8px;}
+.entity{border-radius:14px;padding:14px;cursor:pointer;transition:all 200ms ease;position:relative;}
+.entity:active{transform:scale(0.98);}
+.entity-row{display:flex;align-items:center;gap:12px;}
+.entity-icon{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(255,255,255,0.50);}
+.entity-body{flex:1;min-width:0;}
+.entity-name{font-family:'DM Serif Display',Georgia,serif;font-size:15px;font-weight:400;color:var(--ink);line-height:1.25;}
+.entity-meta{font-size:10px;color:var(--mid);margin-top:3px;display:flex;align-items:center;gap:6px;}
+.entity-tasks{font-size:10px;color:var(--mid);margin-top:2px;}
 
-/* Category section headers */
-.cat-sec{padding:8px 0 3px;}
-.cat-lbl{display:flex;align-items:center;gap:5px;font-size:9px;font-weight:600;letter-spacing:1.3px;text-transform:uppercase;color:var(--mid-a);margin-bottom:5px;}
-.cat-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+/* Selection check circle */
+.entity-check{width:24px;height:24px;border-radius:50%;border:1.8px solid rgba(26,22,18,0.18);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 200ms;}
+.entity-check svg{opacity:0;transition:opacity 150ms;}
+.entity.selected .entity-check{border-color:transparent;}
+.entity.selected.cat-home .entity-check{background:var(--ch-bg);}
+.entity.selected.cat-vehicle .entity-check{background:var(--cv-bg);}
+.entity.selected.cat-garden .entity-check{background:var(--cg-bg);}
+.entity.selected.cat-subs .entity-check{background:var(--cs-bg);}
+.entity.selected .entity-check svg{opacity:1;}
 
-/* Horizontal tile row */
-.hrow{
-  display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;
-  padding:3px 0 5px;
-}
-.hrow::-webkit-scrollbar{display:none;}
+/* Category wash backgrounds */
+.entity.cat-home{background:var(--ch-wash);}
+.entity.cat-vehicle{background:var(--cv-wash);}
+.entity.cat-garden{background:var(--cg-wash);}
+.entity.cat-subs{background:var(--cs-wash);}
 
-/* Tiles */
-.tile{
-  flex-shrink:0;width:84px;border-radius:14px;padding:13px 6px 9px;
-  text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px;
-  border:1.5px solid transparent;cursor:pointer;
-  transition:border-color 0.15s,background 0.15s,transform 0.12s;
-}
-.tile:hover{transform:scale(1.03);}
-.tile:active{transform:scale(0.93);}
-.tile-lbl{font-size:9.5px;font-weight:500;color:var(--ink);line-height:1.2;text-align:center;}
-.peek{flex-shrink:0;width:16px;display:flex;align-items:center;justify-content:center;font-size:13px;color:rgba(26,22,18,0.20);}
-
-/* 3-col grid for single category view */
-.tile-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;padding:4px 0;}
-.tile-grid .tile{width:auto;}
-
-/* Row divider */
-.row-div{height:0.5px;background:rgba(26,22,18,0.08);margin:2px 0;}
-
-/* CTA states */
-.cta-off{
-  width:100%;padding:13px;border-radius:100px;border:none;
-  background:rgba(26,22,18,0.08);color:var(--mid);
-  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
-  display:flex;align-items:center;justify-content:center;
-}
-.cta-on{
-  width:100%;padding:13px;border-radius:100px;border:none;
-  background:var(--cta);color:var(--cta-fg);
-  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
-  box-shadow:0 4px 18px rgba(155,127,212,0.35);
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  cursor:pointer;
-}
+/* CTA */
+.cta-off{width:100%;padding:13px;border-radius:100px;border:none;background:rgba(26,22,18,0.08);color:var(--mid);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;display:flex;align-items:center;justify-content:center;}
+.cta-on{width:100%;padding:13px;border-radius:100px;border:none;background:var(--cta);color:var(--cta-fg);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;box-shadow:0 4px 18px rgba(155,127,212,0.35);display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;}
 .cta-badge{background:rgba(255,255,255,0.22);border-radius:100px;padding:2px 9px;font-size:11px;font-weight:500;}
-
 
 /* Annotation overrides */
 .annot-col{flex:1;min-width:280px;}
+
+/* ══════════════════════════════════════════════
+   DARK MODE
+   ══════════════════════════════════════════════ */
+[data-theme="dark"].phone{background:#1C1B18;box-shadow:0 0 0 1px rgba(255,255,255,0.03),0 24px 80px rgba(0,0,0,0.5);}
+[data-theme="dark"] .w-screen{background:#1C1B18;}
+[data-theme="dark"] .notch .np{background:rgba(255,255,255,0.08);}
+[data-theme="dark"] .sbar span{color:#F0EDE6;}
+[data-theme="dark"] .sbar .batt{background:#F0EDE6;}
+[data-theme="dark"] .prog-bar{background:rgba(240,237,230,0.08);}
+[data-theme="dark"] .prog-fill{background:#B8A0E8;}
+
+/* Header */
+[data-theme="dark"] .s03-hed{color:#F0EDE6;}
+[data-theme="dark"] .s03-hed em{color:#B8A0E8;}
+[data-theme="dark"] .s03-sub{color:#A8A29A;}
+
+/* Search */
+[data-theme="dark"] .search-bar{background:rgba(255,255,255,0.04);border-color:rgba(240,237,230,0.10);}
+[data-theme="dark"] .search-bar svg{stroke:#787068;}
+[data-theme="dark"] .search-input-mock{color:rgba(240,237,230,0.25);}
+
+/* Chips */
+[data-theme="dark"] .cat-chip-all{background:#B8A0E8;color:#1C1B18;}
+[data-theme="dark"] .cat-chip-cat{background:rgba(255,255,255,0.06);color:#A8A29A;}
+
+/* Entity cards */
+[data-theme="dark"] .entity-icon{background:rgba(255,255,255,0.08);}
+[data-theme="dark"] .entity-name{color:#F0EDE6;}
+[data-theme="dark"] .entity-meta{color:#A8A29A;}
+[data-theme="dark"] .entity-tasks{color:#A8A29A;}
+[data-theme="dark"] .entity-check{border-color:rgba(240,237,230,0.18);}
+
+/* CTA */
+[data-theme="dark"] .cta-off{background:rgba(255,255,255,0.06);color:#787068;}
+[data-theme="dark"] .cta-on{background:#B8A0E8;color:#1C1B18;box-shadow:0 4px 18px rgba(184,160,232,0.35);}
+
+/* Bottom zone */
+[data-theme="dark"] .w-bottom{background:#1C1B18;}
 </style>
 </head>
 <body>
@@ -113,302 +133,246 @@ body{background:#CBC5BB;padding:0 0 80px;}
     <svg width="16" height="18" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:2px;">
       <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
       <path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
-      <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
+      <circle fill="#C4A8E8" cx="535.96" cy="119.29" r="90"/>
     </svg>
     Design hub
   </a>
   <span class="nav-sep">/</span>
-  <span class="nav-title">S-03 — Browse categories</span>
-  <a href="s03-browse-categories-flutter-spec.html" class="nav-status ready" style="text-decoration:none;">Flutter spec</a>
-  <span class="nav-status ready">Ready for dev</span>
+  <span class="nav-title">S-03 · Browse categories</span>
+  <span class="nav-status progress">In progress</span>
 </nav>
 
 <div class="page">
 
   <!-- PAGE HEADER -->
-  <div class="page-eyebrow">S-03 · Browse categories · Hi-fi · 390x844px (iPhone 15) · March 2026</div>
+  <div class="page-eyebrow">S-03 · Browse categories · Hi-fi · 390x844px (iPhone 15) · April 2026</div>
   <h1 class="page-h1">Browse categories</h1>
-  <p class="page-sub">Path B: the user selects items from a visual tile grid grouped by category. Horizontal scroll rows in overview mode, 3-column grid when a category is active. Two states shown below: overview (All) and single-category (Home).</p>
+  <p class="page-sub">Users select items they own from categorized entity cards. Category filter chips filter the list. Tap a card to select/deselect. Selection counter + progressive CTA. Entity card pattern matches My Stuff dashboard.</p>
   <div class="meta">
     <span class="mp hifi">Hi-fi</span>
     <span class="mp ob">Onboarding flow</span>
     <span class="mp">S-03</span>
-    <span class="mp">v2.0 · March 2026</span>
+    <span class="mp">v3.0 · April 2026</span>
+  </div>
+
+  <!-- THEME TOGGLE -->
+  <div style="max-width:980px;margin:0 auto;padding:0 32px;">
+    <div class="s03-controls">
+      <span class="s03-ctrl-label">Theme</span>
+      <button class="s03-ctrl-btn on" id="s03-ctl" onclick="setS03Theme('light')">Light</button>
+      <button class="s03-ctrl-btn" id="s03-ctd" onclick="setS03Theme('dark')">Dark</button>
+    </div>
   </div>
 
   <!-- CONTENT ROW -->
   <div class="content-row">
 
-    <!-- TWO PHONES -->
+    <!-- PHONE -->
     <div class="phone-col">
+      <div class="phone s03-phone" id="s03-phone" data-theme="light">
+        <div class="notch"><div class="np"></div></div>
+        <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+        <!-- progress bar: 48% (40% base + 8% per selected item) -->
+        <div class="prog-bar"><div class="prog-fill" id="s03-pf" style="width:48%;"></div></div>
 
-      <!-- Phone 1: Overview / All view -->
-      <div class="phone-stack">
-        <div class="phone-lbl">Overview — "All" active</div>
-        <div class="phone">
-          <div class="notch"><div class="np"></div></div>
-          <div class="sbar"><span>9:41</span><div class="batt"></div></div>
-          <!-- progress bar: 40% base + 2 items = 56% -->
-          <div class="prog-bar"><div class="prog-fill" style="width:56%;"></div></div>
+        <div class="w-screen">
+          <div class="w-content">
 
-          <div class="w-screen">
-            <div class="w-content">
+            <!-- Header -->
+            <div class="s03-hed">What's <em>yours?</em></div>
+            <div class="s03-sub">Tick what applies. We'll figure out the rest.</div>
 
-              <!-- Header -->
-              <div class="s03-hed">What's <em>yours?</em></div>
-              <div class="s03-sub">Tap what applies, we'll take it from there.</div>
-
-              <!-- Search bar -->
-              <div class="search-bar">
-                <svg viewBox="0 0 256 256"><circle cx="112" cy="112" r="80" stroke="#8A8070" stroke-width="22" fill="none"/><line x1="170" y1="170" x2="224" y2="224" stroke="#8A8070" stroke-width="22" stroke-linecap="round"/></svg>
-                <div class="search-input-mock">Search items...</div>
-              </div>
-
-              <!-- Category chips: All active -->
-              <div class="chip-row">
-                <div class="cat-chip cat-chip-all active">All</div>
-                <div class="cat-chip cat-chip-home">Home</div>
-                <div class="cat-chip cat-chip-vehicle">Vehicle</div>
-                <div class="cat-chip cat-chip-garden">Garden</div>
-                <div class="cat-chip cat-chip-subs">Subscriptions</div>
-              </div>
-
-              <!-- Selected pill: 2 items -->
-              <div class="sel-pill"><div class="sel-num">2</div> selected</div>
-
-              <!-- HOME row -->
-              <div class="cat-sec">
-                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-home);"></span>Home</div>
-                <div class="hrow">
-                  <!-- Dishwasher: selected -->
-                  <div class="tile" style="background:#C4A89E;position:relative;">
-                    <div style="position:absolute;top:6px;right:6px;width:16px;height:16px;border-radius:50%;background:#7A5A50;display:flex;align-items:center;justify-content:center;"><svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#FAF8FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="32" y="48" width="192" height="160" rx="16" stroke="#7A5A50" stroke-width="14" fill="none"/><line x1="32" y1="100" x2="224" y2="100" stroke="#7A5A50" stroke-width="14" stroke-linecap="round"/><circle cx="128" cy="164" r="34" stroke="#7A5A50" stroke-width="12" fill="none"/><circle cx="128" cy="164" r="10" fill="#7A5A50"/></svg>
-                    <div class="tile-lbl">Dishwasher</div>
-                  </div>
-                  <!-- Washing machine: unselected -->
-                  <div class="tile" style="background:#D2BEB6;">
-                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="32" y="32" width="192" height="192" rx="16" stroke="#7A5A50" stroke-width="14" fill="none"/><circle cx="128" cy="150" r="48" stroke="#7A5A50" stroke-width="12" fill="none"/><circle cx="82" cy="74" r="11" fill="#7A5A50"/></svg>
-                    <div class="tile-lbl">Washing machine</div>
-                  </div>
-                  <!-- Boiler: unselected -->
-                  <div class="tile" style="background:#D2BEB6;">
-                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="72" y="24" width="112" height="208" rx="20" stroke="#7A5A50" stroke-width="14" fill="none"/><circle cx="128" cy="124" r="34" stroke="#7A5A50" stroke-width="12" fill="none"/><line x1="128" y1="58" x2="128" y2="76" stroke="#7A5A50" stroke-width="12" stroke-linecap="round"/></svg>
-                    <div class="tile-lbl">Boiler</div>
-                  </div>
-                  <div class="peek">›</div>
-                </div>
-              </div>
-
-
-              <!-- VEHICLE row -->
-              <div class="cat-sec">
-                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-vehicle);"></span>Vehicle</div>
-                <div class="hrow">
-                  <!-- Car: selected -->
-                  <div class="tile" style="background:#A8B8C4;position:relative;">
-                    <div style="position:absolute;top:6px;right:6px;width:16px;height:16px;border-radius:50%;background:#4A6A82;display:flex;align-items:center;justify-content:center;"><svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#FAF8FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><path d="M8 144a8 8 0 0 1 8-8h16L60 80h136l28 56h16a8 8 0 0 1 8 8v32a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8v-32z" stroke="#4A6A82" stroke-width="14" fill="none" stroke-linejoin="round"/><circle cx="76" cy="192" r="24" stroke="#4A6A82" stroke-width="14" fill="none"/><circle cx="180" cy="192" r="24" stroke="#4A6A82" stroke-width="14" fill="none"/></svg>
-                    <div class="tile-lbl">Car</div>
-                  </div>
-                  <div class="tile" style="background:#C0CDD8;">
-                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><circle cx="60" cy="168" r="44" stroke="#4A6A82" stroke-width="14" fill="none"/><circle cx="196" cy="168" r="44" stroke="#4A6A82" stroke-width="14" fill="none"/><path d="M60 168l56-96h48" stroke="#4A6A82" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M128 72l68 96" stroke="#4A6A82" stroke-width="14" stroke-linecap="round"/></svg>
-                    <div class="tile-lbl">Bicycle</div>
-                  </div>
-                  <div class="tile" style="background:#C0CDD8;">
-                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><circle cx="56" cy="180" r="44" stroke="#4A6A82" stroke-width="14" fill="none"/><circle cx="200" cy="180" r="44" stroke="#4A6A82" stroke-width="14" fill="none"/><path d="M56 180l60-84h52l28 36H128" stroke="#4A6A82" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <div class="tile-lbl">Motorcycle</div>
-                  </div>
-                  <div class="peek">›</div>
-                </div>
-              </div>
-
-
-              <!-- GARDEN row -->
-              <div class="cat-sec">
-                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-garden);"></span>Garden</div>
-                <div class="hrow">
-                  <div class="tile" style="background:#C4DABE;">
-                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><path d="M24 200c0 0 20-88 56-88s28 56 48 56 36-120 56-120 48 152 48 152" stroke="#4A7A40" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="200" x2="244" y2="200" stroke="#4A7A40" stroke-width="14" stroke-linecap="round"/></svg>
-                    <div class="tile-lbl">Lawn</div>
-                  </div>
-                  <div class="tile" style="background:#C4DABE;">
-                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><line x1="128" y1="224" x2="128" y2="140" stroke="#4A7A40" stroke-width="14" stroke-linecap="round"/><circle cx="128" cy="96" r="52" stroke="#4A7A40" stroke-width="14" fill="none"/><circle cx="82" cy="140" r="34" stroke="#4A7A40" stroke-width="12" fill="none"/><circle cx="174" cy="140" r="34" stroke="#4A7A40" stroke-width="12" fill="none"/><line x1="68" y1="224" x2="188" y2="224" stroke="#4A7A40" stroke-width="14" stroke-linecap="round"/></svg>
-                    <div class="tile-lbl">Hedge</div>
-                  </div>
-                  <div class="tile" style="background:#C4DABE;">
-                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><line x1="128" y1="224" x2="128" y2="128" stroke="#4A7A40" stroke-width="14" stroke-linecap="round"/><path d="M128 172c0 0-36-16-52-56s20-80 52-72c32-8 68 32 52 72s-52 56-52 56z" stroke="#4A7A40" stroke-width="12" fill="none" stroke-linejoin="round"/></svg>
-                    <div class="tile-lbl">Houseplant</div>
-                  </div>
-                  <div class="peek">›</div>
-                </div>
-              </div>
-
-
-              <!-- SUBSCRIPTIONS row -->
-              <div class="cat-sec">
-                <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-sub);"></span>Subscriptions</div>
-                <div class="hrow">
-                  <div class="tile" style="background:#D0C6DC;">
-                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><path d="M128 24L32 64v72c0 56 40 96 96 112 56-16 96-56 96-112V64L128 24z" stroke="#6A5085" stroke-width="14" fill="none" stroke-linejoin="round"/><path d="M92 128l28 28 44-52" stroke="#6A5085" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <div class="tile-lbl">Insurance</div>
-                  </div>
-                  <div class="tile" style="background:#D0C6DC;">
-                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="32" y="64" width="192" height="128" rx="16" stroke="#6A5085" stroke-width="14" fill="none"/><path d="M100 100l72 28-72 28V100z" stroke="#6A5085" stroke-width="12" fill="none" stroke-linejoin="round"/></svg>
-                    <div class="tile-lbl">Streaming</div>
-                  </div>
-                  <div class="tile" style="background:#D0C6DC;">
-                    <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><path d="M80 192H64a64 64 0 1 1 14-126A80 80 0 1 1 80 192z" stroke="#6A5085" stroke-width="14" fill="none" stroke-linejoin="round"/></svg>
-                    <div class="tile-lbl">Cloud storage</div>
-                  </div>
-                  <div class="peek">›</div>
-                </div>
-              </div>
-
-            </div><!-- /w-content -->
-
-            <div class="w-bottom">
-              <div style="height:0.5px;background:rgba(26,22,18,0.10);margin-bottom:8px;"></div>
-              <button class="cta-on">Looking good, continue <span class="cta-badge">2</span></button>
+            <!-- Search bar -->
+            <div class="search-bar">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <span class="search-input-mock">Search items...</span>
             </div>
-          </div><!-- /w-screen -->
-        </div><!-- /phone -->
-      </div><!-- /phone-stack -->
 
-      <!-- Phone 2: Single category (Home) with 3-col grid -->
-      <div class="phone-stack">
-        <div class="phone-lbl">Category view — "Home" active</div>
-        <div class="phone">
-          <div class="notch"><div class="np"></div></div>
-          <div class="sbar"><span>9:41</span><div class="batt"></div></div>
-          <!-- progress bar: 40% base + 1 item selected = 48% -->
-          <div class="prog-bar"><div class="prog-fill" style="width:48%;"></div></div>
-
-          <div class="w-screen">
-            <div class="w-content">
-
-              <div class="s03-hed">What's <em>yours?</em></div>
-              <div class="s03-sub">Tap what applies, we'll take it from there.</div>
-
-              <div class="search-bar">
-                <svg viewBox="0 0 256 256"><circle cx="112" cy="112" r="80" stroke="#8A8070" stroke-width="22" fill="none"/><line x1="170" y1="170" x2="224" y2="224" stroke="#8A8070" stroke-width="22" stroke-linecap="round"/></svg>
-                <div class="search-input-mock">Search items...</div>
-              </div>
-
-              <!-- Chips: Home active -->
-              <div class="chip-row">
-                <div class="cat-chip cat-chip-all">All</div>
-                <div class="cat-chip cat-chip-home active">Home</div>
-                <div class="cat-chip cat-chip-vehicle">Vehicle</div>
-                <div class="cat-chip cat-chip-garden">Garden</div>
-                <div class="cat-chip cat-chip-subs">Subscriptions</div>
-              </div>
-
-              <!-- Selected pill: 1 item -->
-              <div class="sel-pill"><div class="sel-num">1</div> selected</div>
-
-              <!-- Home 3-col grid, sorted: selected first -->
-              <div class="tile-grid">
-                <!-- Dishwasher: selected, sorted to top -->
-                <div class="tile" style="background:#C4A89E;position:relative;">
-                  <div style="position:absolute;top:6px;right:6px;width:16px;height:16px;border-radius:50%;background:#7A5A50;display:flex;align-items:center;justify-content:center;"><svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#FAF8FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                  <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="32" y="48" width="192" height="160" rx="16" stroke="#7A5A50" stroke-width="14" fill="none"/><line x1="32" y1="100" x2="224" y2="100" stroke="#7A5A50" stroke-width="14" stroke-linecap="round"/><circle cx="128" cy="164" r="34" stroke="#7A5A50" stroke-width="12" fill="none"/><circle cx="128" cy="164" r="10" fill="#7A5A50"/></svg>
-                  <div class="tile-lbl">Dishwasher</div>
-                </div>
-                <!-- Unselected tiles -->
-                <div class="tile" style="background:#D2BEB6;">
-                  <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="32" y="32" width="192" height="192" rx="16" stroke="#7A5A50" stroke-width="14" fill="none"/><circle cx="128" cy="150" r="48" stroke="#7A5A50" stroke-width="12" fill="none"/><circle cx="82" cy="74" r="11" fill="#7A5A50"/></svg>
-                  <div class="tile-lbl">Washing machine</div>
-                </div>
-                <div class="tile" style="background:#D2BEB6;">
-                  <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="72" y="24" width="112" height="208" rx="20" stroke="#7A5A50" stroke-width="14" fill="none"/><circle cx="128" cy="124" r="34" stroke="#7A5A50" stroke-width="12" fill="none"/></svg>
-                  <div class="tile-lbl">Boiler</div>
-                </div>
-                <div class="tile" style="background:#D2BEB6;">
-                  <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="48" y="24" width="160" height="208" rx="16" stroke="#7A5A50" stroke-width="14" fill="none"/><line x1="48" y1="112" x2="208" y2="112" stroke="#7A5A50" stroke-width="14" stroke-linecap="round"/><line x1="128" y1="64" x2="128" y2="88" stroke="#7A5A50" stroke-width="10" stroke-linecap="round"/><line x1="128" y1="148" x2="128" y2="184" stroke="#7A5A50" stroke-width="10" stroke-linecap="round"/></svg>
-                  <div class="tile-lbl">Fridge</div>
-                </div>
-                <div class="tile" style="background:#D2BEB6;">
-                  <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><rect x="16" y="60" width="224" height="88" rx="16" stroke="#7A5A50" stroke-width="14" fill="none"/><line x1="64" y1="185" x2="80" y2="148" stroke="#7A5A50" stroke-width="12" stroke-linecap="round"/><line x1="128" y1="185" x2="128" y2="148" stroke="#7A5A50" stroke-width="12" stroke-linecap="round"/><line x1="192" y1="185" x2="176" y2="148" stroke="#7A5A50" stroke-width="12" stroke-linecap="round"/></svg>
-                  <div class="tile-lbl">Airco</div>
-                </div>
-                <div class="tile" style="background:#D2BEB6;">
-                  <svg width="26" height="26" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="100" r="68" stroke="#7A5A50" stroke-width="14" fill="none"/><line x1="128" y1="184" x2="128" y2="232" stroke="#7A5A50" stroke-width="12" stroke-linecap="round"/><line x1="96" y1="208" x2="160" y2="208" stroke="#7A5A50" stroke-width="10" stroke-linecap="round"/><circle cx="128" cy="100" r="18" fill="#7A5A50"/></svg>
-                  <div class="tile-lbl">Smoke detector</div>
-                </div>
-              </div>
-
-            </div><!-- /w-content -->
-
-            <div class="w-bottom">
-              <div style="height:0.5px;background:rgba(26,22,18,0.10);margin-bottom:8px;"></div>
-              <button class="cta-on">Good start, continue <span class="cta-badge">1</span></button>
+            <!-- Category filter chips -->
+            <div class="chip-row">
+              <div class="cat-chip cat-chip-all">All</div>
+              <div class="cat-chip cat-chip-cat">Home</div>
+              <div class="cat-chip cat-chip-cat">Vehicle</div>
+              <div class="cat-chip cat-chip-cat">Garden</div>
+              <div class="cat-chip cat-chip-cat">Subscriptions</div>
             </div>
-          </div><!-- /w-screen -->
-        </div><!-- /phone -->
-      </div><!-- /phone-stack -->
 
+            <!-- Entity cards (selectable) -->
+            <div class="entity-list">
+
+              <!-- HOME items -->
+              <!-- Boiler: selected -->
+              <div class="entity cat-home selected" onclick="this.classList.toggle('selected');updateCount()">
+                <div class="entity-row">
+                  <div class="entity-icon">
+                    <svg width="20" height="20" viewBox="0 0 256 256" fill="none"><rect x="64" y="32" width="128" height="192" rx="16" stroke="var(--ch-bg)" stroke-width="18" fill="none" stroke-linecap="round"/><circle cx="128" cy="144" r="28" stroke="var(--ch-bg)" stroke-width="18" fill="none"/><line x1="128" y1="72" x2="128" y2="88" stroke="var(--ch-bg)" stroke-width="18" stroke-linecap="round"/></svg>
+                  </div>
+                  <div class="entity-body">
+                    <div class="entity-name">Boiler</div>
+                    <div class="entity-meta"><span>Home</span><span style="opacity:0.4;">·</span><span>4 tasks</span></div>
+                  </div>
+                  <div class="entity-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#FAF8FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                </div>
+              </div>
+
+              <!-- Dishwasher: not selected -->
+              <div class="entity cat-home" onclick="this.classList.toggle('selected');updateCount()">
+                <div class="entity-row">
+                  <div class="entity-icon">
+                    <svg width="20" height="20" viewBox="0 0 256 256" fill="none"><rect x="32" y="56" width="192" height="144" rx="8" stroke="var(--ch-bg)" stroke-width="18" fill="none"/><line x1="32" y1="104" x2="224" y2="104" stroke="var(--ch-bg)" stroke-width="18"/><circle cx="80" cy="80" r="10" stroke="var(--ch-bg)" stroke-width="14" fill="none"/></svg>
+                  </div>
+                  <div class="entity-body">
+                    <div class="entity-name">Dishwasher</div>
+                    <div class="entity-meta"><span>Home</span><span style="opacity:0.4;">·</span><span>3 tasks</span></div>
+                  </div>
+                  <div class="entity-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#FAF8FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                </div>
+              </div>
+
+              <!-- Washing machine -->
+              <div class="entity cat-home" onclick="this.classList.toggle('selected');updateCount()">
+                <div class="entity-row">
+                  <div class="entity-icon">
+                    <svg width="20" height="20" viewBox="0 0 256 256" fill="none"><rect x="32" y="32" width="192" height="192" rx="16" stroke="var(--ch-bg)" stroke-width="18" fill="none"/><circle cx="128" cy="150" r="48" stroke="var(--ch-bg)" stroke-width="14" fill="none"/><circle cx="82" cy="74" r="11" fill="var(--ch-bg)"/></svg>
+                  </div>
+                  <div class="entity-body">
+                    <div class="entity-name">Washing machine</div>
+                    <div class="entity-meta"><span>Home</span><span style="opacity:0.4;">·</span><span>2 tasks</span></div>
+                  </div>
+                  <div class="entity-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#FAF8FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                </div>
+              </div>
+
+              <!-- VEHICLE items -->
+              <!-- Car: selected -->
+              <div class="entity cat-vehicle selected" onclick="this.classList.toggle('selected');updateCount()">
+                <div class="entity-row">
+                  <div class="entity-icon">
+                    <svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M224,168H208V128L176,80H80L48,128V168H32a8,8,0,0,0,0,16H48v8a16,16,0,0,0,32,0v-8h96v8a16,16,0,0,0,32,0v-8h16a8,8,0,0,0,0-16Z" stroke="var(--cv-bg)" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  <div class="entity-body">
+                    <div class="entity-name">Car</div>
+                    <div class="entity-meta"><span>Vehicle</span><span style="opacity:0.4;">·</span><span>5 tasks</span></div>
+                  </div>
+                  <div class="entity-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#FAF8FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                </div>
+              </div>
+
+              <!-- Bicycle -->
+              <div class="entity cat-vehicle" onclick="this.classList.toggle('selected');updateCount()">
+                <div class="entity-row">
+                  <div class="entity-icon">
+                    <svg width="20" height="20" viewBox="0 0 256 256" fill="none"><circle cx="80" cy="168" r="48" stroke="var(--cv-bg)" stroke-width="16" fill="none"/><circle cx="176" cy="168" r="48" stroke="var(--cv-bg)" stroke-width="16" fill="none"/><polyline points="176,168 128,72 80,168" stroke="var(--cv-bg)" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  <div class="entity-body">
+                    <div class="entity-name">Bicycle</div>
+                    <div class="entity-meta"><span>Vehicle</span><span style="opacity:0.4;">·</span><span>3 tasks</span></div>
+                  </div>
+                  <div class="entity-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#FAF8FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                </div>
+              </div>
+
+              <!-- GARDEN items -->
+              <!-- Olive tree -->
+              <div class="entity cat-garden" onclick="this.classList.toggle('selected');updateCount()">
+                <div class="entity-row">
+                  <div class="entity-icon">
+                    <svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M128 232V128" stroke="var(--cg-bg)" stroke-width="18" stroke-linecap="round"/><path d="M128 128c-40-60-80-20-80 0s40 40 80 0" stroke="var(--cg-bg)" stroke-width="16" fill="none" stroke-linecap="round"/><path d="M128 128c40-60 80-20 80 0s-40 40-80 0" stroke="var(--cg-bg)" stroke-width="16" fill="none" stroke-linecap="round"/></svg>
+                  </div>
+                  <div class="entity-body">
+                    <div class="entity-name">Olive tree</div>
+                    <div class="entity-meta"><span>Garden</span><span style="opacity:0.4;">·</span><span>2 tasks</span></div>
+                  </div>
+                  <div class="entity-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#FAF8FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                </div>
+              </div>
+
+              <!-- Lawn -->
+              <div class="entity cat-garden" onclick="this.classList.toggle('selected');updateCount()">
+                <div class="entity-row">
+                  <div class="entity-icon">
+                    <svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M40 200 L128 40 L216 200" stroke="var(--cg-bg)" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="84" y1="120" x2="172" y2="120" stroke="var(--cg-bg)" stroke-width="14" stroke-linecap="round"/></svg>
+                  </div>
+                  <div class="entity-body">
+                    <div class="entity-name">Lawn</div>
+                    <div class="entity-meta"><span>Garden</span><span style="opacity:0.4;">·</span><span>2 tasks</span></div>
+                  </div>
+                  <div class="entity-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#FAF8FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                </div>
+              </div>
+
+              <!-- SUBSCRIPTIONS items -->
+              <!-- Streaming -->
+              <div class="entity cat-subs" onclick="this.classList.toggle('selected');updateCount()">
+                <div class="entity-row">
+                  <div class="entity-icon">
+                    <svg width="20" height="20" viewBox="0 0 256 256" fill="none"><rect x="32" y="56" width="192" height="144" rx="12" stroke="var(--cs-bg)" stroke-width="16" fill="none"/><polygon points="112,100 112,156 160,128" stroke="var(--cs-bg)" stroke-width="14" fill="none" stroke-linejoin="round"/></svg>
+                  </div>
+                  <div class="entity-body">
+                    <div class="entity-name">Streaming</div>
+                    <div class="entity-meta"><span>Subscriptions</span><span style="opacity:0.4;">·</span><span>2 tasks</span></div>
+                  </div>
+                  <div class="entity-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#FAF8FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                </div>
+              </div>
+
+              <!-- Insurance -->
+              <div class="entity cat-subs" onclick="this.classList.toggle('selected');updateCount()">
+                <div class="entity-row">
+                  <div class="entity-icon">
+                    <svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M128 24L40 68V128c0 52 38 100 88 120 50-20 88-68 88-120V68L128 24Z" stroke="var(--cs-bg)" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  <div class="entity-body">
+                    <div class="entity-name">Insurance</div>
+                    <div class="entity-meta"><span>Subscriptions</span><span style="opacity:0.4;">·</span><span>1 task</span></div>
+                  </div>
+                  <div class="entity-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#FAF8FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                </div>
+              </div>
+
+            </div><!-- /entity-list -->
+
+          </div><!-- /w-content -->
+
+          <div class="w-bottom">
+            <button class="cta-on" id="s03-cta">Looking good, continue <span class="cta-badge" id="s03-badge">2</span></button>
+          </div>
+        </div><!-- /w-screen -->
+      </div><!-- /phone -->
     </div><!-- /phone-col -->
 
     <!-- ANNOTATION SIDEBAR -->
     <div class="annot-col">
 
-      <div class="annot-section">Structure + shell</div>
+      <div class="annot-section">Structure</div>
 
       <div class="annot-card">
         <div class="annot-head"><span class="badge-rule">Rule</span> Progress bar</div>
         <div class="annot-body">
-          Starts at <strong>40%</strong> (step 2 of 5). Grows by <strong>8% per selected item</strong>, clamped at 80%. Animates on every toggle via <code>AnimatedContainer</code>. Outside SafeArea, full-width edge-to-edge.
+          Starts at <strong>40%</strong> (step 2 of 5). Grows by <strong>8% per selected item</strong>, clamped at 80%. Animates on every toggle.
         </div>
       </div>
 
-      <div class="annot-section">Category chips</div>
+      <div class="annot-section">Selection pattern</div>
 
-      <div class="annot-card">
-        <div class="annot-head"><span class="badge-rule">Rule</span> New chip style — no dots</div>
+      <div class="annot-card decision">
+        <div class="annot-head"><span class="badge-decision">Decision</span> Entity cards replace tile grid</div>
         <div class="annot-body">
-          Category chips use <strong>tinted background + category color text</strong>. No dot indicators. Each chip background = <code>categoryColor at 13% opacity</code>. Text = full category color.<br><br>
-          <strong>Active category:</strong> adds <code>1px solid categoryColor</code> outline.<br>
-          <strong>"All" inactive:</strong> <code>rgba(26,22,18,0.07)</code> bg, <code>colorMid</code> text, no outline.<br>
-          <strong>"All" active:</strong> <code>rgba(155,127,212,0.12)</code> bg, <code>1px solid colorCta</code>, <code>colorCta</code> text.<br><br>
-          Flutter: <code>GestureDetector + AnimatedContainer</code>. No <code>FilterChip</code> widget (insufficient animation control).
-        </div>
-      </div>
-
-      <div class="annot-section">Tile grid</div>
-
-      <div class="annot-card">
-        <div class="annot-head"><span class="badge-rule">Rule</span> Overview mode — horizontal rows</div>
-        <div class="annot-body">
-          One section per category. Each section: category label + horizontal <code>SingleChildScrollView</code> row. <code>EdgeInsets.symmetric(vertical:4, horizontal:16)</code> — vertical padding prevents selected border clip.<br><br>
-          Row ends with a faint <code>›</code> peek indicator (<code>rgba(26,22,18,0.20)</code>).<br><br>
-          <strong>Swipe hint (first load only):</strong> Home row scrolls 52px right, pauses 520ms, snaps back. <code>hintDone</code> flag prevents repeat.
+          Items shown as <strong>entity cards</strong> matching My Stuff: 44px icon circle, DM Serif name, category wash bg. Selection state: filled check circle (24px, category color bg, white tick). Unselected: empty circle with thin border. Card wash stays the same in both states. Visual continuity with S-04 Review and dashboard.
         </div>
       </div>
 
       <div class="annot-card">
-        <div class="annot-head"><span class="badge-rule">Rule</span> Category mode — 3-column grid</div>
+        <div class="annot-head"><span class="badge-rule">Rule</span> Category filter chips</div>
         <div class="annot-body">
-          Tapping a category chip switches to <code>GridView</code>, 3 columns, <code>gap:7px</code>. Selected items sort to the top. No overflow tile or "something else" row in this view.
+          "All" active by default (plum fill). Category chips: neutral bg until tapped. Tapping a category filters the list to only that category's items. Single selection: tapping a new chip deselects the previous one.
         </div>
       </div>
 
       <div class="annot-card">
-        <div class="annot-head"><span class="badge-rule">Rule</span> Tile widget</div>
+        <div class="annot-head"><span class="badge-rule">Rule</span> Search bar</div>
         <div class="annot-body">
-          88px wide, 14px radius. <code>position: relative</code> for check circle overlay.<br><br>
-          <strong>Unselected:</strong> solid pastel bg (Home <code>#D2BEB6</code>, Vehicle <code>#C0CDD8</code>, Garden <code>#C4DABE</code>, Subs <code>#D0C6DC</code>). No border, no indicator.<br>
-          <strong>Selected:</strong> deepened bg (Home <code>#C4A89E</code>, Vehicle <code>#A8B8C4</code>, Garden <code>#A8B8B4</code>, Subs <code>#BCB0CC</code>) + filled circle top-right (16px, category icon color bg, white tick 9px).<br><br>
-          Icon: Phosphor outline, 26px, category icon color, no inner wrapper.<br>
-          Label: DM Sans 9.5px, 500 weight, <code>colorInk</code>, centered, max 2 lines.<br><br>
-          Hover: scale 1.03. Press: scale 0.93. Haptic: <code>HapticFeedback.selectionClick()</code>.
-        </div>
-      </div>
-
-      <div class="annot-card">
-        <div class="annot-head"><span class="badge-note">Selected pill</span></div>
-        <div class="annot-body">
-          Appears when <code>selectedIds.isNotEmpty</code>. <code>colorCta</code> filled pill, white-tinted count circle on left. Tapping shows only selected items in a 3-col grid (temporary filter view).
+          Filters items by name as user types. Phosphor MagnifyingGlass icon, 11.5px italic placeholder. Positioned above chips, below header.
         </div>
       </div>
 
@@ -417,22 +381,20 @@ body{background:#CBC5BB;padding:0 0 80px;}
       <div class="annot-card">
         <div class="annot-head"><span class="badge-rule">Rule</span> Copy states</div>
         <div class="annot-body">
-          <strong>0 items:</strong> <code>rgba(26,22,18,0.08)</code> bg, <code>colorMid</code> text, "Tick something first", not tappable.<br>
-          <strong>1 item:</strong> Active CTA purple, "Good start, continue" + count badge.<br>
-          <strong>2 items:</strong> "Nice, keep going or continue".<br>
-          <strong>3+ items:</strong> "Looking good, continue".<br><br>
-          Copy transition: fade out 180ms, swap copy, fade in. Count badge updates alongside. All via <code>AnimatedContainer 200ms</code>.
+          <strong>0 items:</strong> Disabled, "Tick something first".<br>
+          <strong>1 item:</strong> Active, "Good start, continue [1]".<br>
+          <strong>2 items:</strong> "Nice, keep going or continue [2]".<br>
+          <strong>3+ items:</strong> "Looking good, continue [N]".<br>
+          180ms fade transition on copy swap.
         </div>
       </div>
 
-      <div class="annot-section">State model</div>
+      <div class="annot-section">Dark mode</div>
 
       <div class="annot-card">
-        <div class="annot-head"><span class="badge-note">Riverpod state</span></div>
+        <div class="annot-head"><span class="badge-rule">Rule</span> Dark tokens</div>
         <div class="annot-body">
-          <code>CatFilter</code> enum: <code>all, home, vehicle, garden, subs</code>.<br>
-          <code>S03State</code> holds: <code>activeFilter</code>, <code>searchQuery</code> (lowercase), <code>Set&lt;String&gt; selectedIds</code>.<br>
-          All rendering derives from state. Pre-selected IDs passed from S-01 as <code>initialSelectedIds</code> (empty in v2 — S-01 no longer has interactive selection).
+          Surface #1C1B18. Plum #B8A0E8. Category washes use lightened hues at 12% opacity. Icon circles: rgba(255,255,255,0.08). Search bar: rgba(255,255,255,0.04) bg. Check circle: category color bg unchanged (already bright enough). CTA: #B8A0E8 bg.
         </div>
       </div>
 
@@ -447,68 +409,57 @@ body{background:#CBC5BB;padding:0 0 80px;}
     <div class="cl-title">Changelog</div>
 
     <div class="cl-entry">
-      <div class="cl-ver">v2.2 · 2026-03-30 · BREAKING</div>
-      <div class="cl-body"><strong>Tile selection state: border removed, check circle added.</strong> Selected tiles no longer show a 1.5px category color border. New pattern: deepened pastel background + filled 16px check circle (top-right corner, category icon color bg, white tick). Unselected tiles: flat solid pastel, no indicator. Flutter: wrap tile in <code>Stack</code>, add <code>Positioned</code> check circle widget when selected. Animate with <code>AnimatedOpacity 150ms</code> + <code>AnimatedContainer</code> on background color.</div>
-      <div class="cl-body"><strong>Tile backgrounds: solid pastels replace opacity tints.</strong> All tile backgrounds now use solid hex values instead of <code>rgba(color, 0.12)</code> on cream. Unselected: Home <code>#D2BEB6</code>, Vehicle <code>#C0CDD8</code>, Garden <code>#C4DABE</code>, Subs <code>#D0C6DC</code>. Selected (deepened): Home <code>#C4A89E</code>, Vehicle <code>#A8B8C4</code>, Garden <code>#A8B8B4</code>, Subs <code>#BCB0CC</code>. Flutter: use <code>Color(0xFF...)</code> constants, never <code>withOpacity()</code>.</div>
-      <div class="cl-body"><strong>Category section dividers removed.</strong> The 0.5px hairline between category rows is removed. The category dot + label provides sufficient visual separation. Flutter: remove <code>Divider</code> widgets between category sections.</div>
-      <div class="cl-body"><strong>Garden icon color corrected to v10.5.</strong> All garden SVG strokes corrected from <code>#607870</code> to <code>catGardenIc #4A7A40</code>.</div>
-    </div>
-
-    <div class="cl-entry">
-      <div class="cl-ver">v2.1 · 2026-03-30 · BREAKING</div>
-      <div class="cl-body"><strong>colorInk token updated globally.</strong> <code>Color(0xFF1A1612)</code> → <code>Color(0xFF2C2824)</code>. Flutter: update <code>colorInk</code> constant.</div>
-      <div class="cl-body"><strong>All category icon colors replaced — confirmed in dev build as incorrect.</strong> Dev build shows old legacy icon color values. New v10.5 values for all category chip text, tile icon stroke, and tile bg tint:<br>
-        Home: text/icon <code>#7A5A50</code> → <code>catHomeIc #7A5A50</code>; tile bg tint base → <code>#7A5A50</code> at 12% opacity<br>
-        Vehicle: <code>#4A6A82</code> → <code>catVehicleIc #4A6A82</code><br>
-        Garden: <code>#607870</code> → <code>catGardenIc #4A7A40</code><br>
-        Subscriptions: <code>#6A5085</code> → <code>catSubsIc #6A5085</code><br>
-        Health: <code>#B86478</code> (was pink) → <code>catHealthIc #6A6858</code> (now olive)<br>
-        Pets (new): icon <code>catPetsIc #8A6238</code>; tile bg tint → <code>#8A6238</code> at 12% opacity<br>
-        Flutter: update the category color map (<code>CategoryColors.forCategory()</code> or equivalent) with all new values. All downstream chip, tile, and icon styling will update automatically if color is centralised.</div>
-      <div class="cl-body"><strong>Active tile outline: use new category icon color, not old value.</strong> Selected tile border was <code>1.5px solid categoryColor</code> using old values. Update to new catXxxIc values per category. Flutter: no structural change — just update color map.</div>
-    </div>
-
-    <div class="cl-entry">
-      <div class="cl-ver">v2.0 · 2026-03-27 · BREAKING</div>
-      <div class="cl-body"><strong>Full redesign: tile grid replaces flat list.</strong> S-03 now uses a visual tile grid (the "bingo" pattern). Overview mode shows horizontal scroll rows per category. Single category mode shows a 3-column grid. More items visible above the fold, faster for Arne.</div>
-      <div class="cl-body"><strong>New category chip style.</strong> Chips now use category-tinted background + category color text, with no dot indicator. Home chip: rgba(122,90,80,0.12) bg + #7A5A50 text. Active chip adds 1px solid categoryColor outline. "All" active: rgba(155,127,212,0.12) bg + colorCta text + colorCta outline.</div>
-      <div class="cl-body"><strong>Selected pill.</strong> Appears above tile area when items are selected. Shows count, tapping shows only selected items in a 3-col grid.</div>
-      <div class="cl-body"><strong>Tile widget spec.</strong> 88px wide, 14px radius, categoryColor at 12% opacity bg. Icon: Phosphor outline 26px. Selected: 1.5px categoryColor border (not purple). Press: scale 0.93. Hover: scale 1.03 + 20% bg lift.</div>
-      <div class="cl-body"><strong>CTA copy progression.</strong> "Tick something first" (0) → "Good start, continue" (1) → "Nice, keep going or continue" (2) → "Looking good, continue" (3+). 180ms fade transition on copy swap.</div>
-      <div class="cl-body"><strong>Progress bar grows with selections.</strong> Base 40% + 8% per item, clamped at 80%. Animates on every toggle.</div>
-      <div class="cl-body"><strong>Swipe hint.</strong> Home row scrolls 52px right on first load, pauses 520ms, snaps back. One-time only (hintDone flag).</div>
-      <div class="cl-body"><strong>No context carry-over from S-01.</strong> S-01 v2 no longer has interactive item selection, so S-03 always opens fresh with 0 selected.</div>
+      <div class="cl-ver">v3.0 · 2026-04-06 · BREAKING</div>
+      <div class="cl-body"><strong>Entity cards replace tile grid.</strong> Items now use My Stuff entity card pattern (44px icon circle, DM Serif name, category wash bg, 14px radius) instead of 84px tile grid. Selection via 24px check circle (category color bg + white tick). No category section headers: wash color communicates category.</div>
+      <div class="cl-body"><strong>Dark mode added.</strong> Precision Warmth dark tokens with lightened category hues. Theme toggle above phone.</div>
+      <div class="cl-body"><strong>Single phone layout.</strong> Replaces 2-phone side-by-side. One phone with interactive selection + annotation sidebar.</div>
     </div>
 
     <div class="cl-entry" style="opacity:0.6;">
-      <div class="cl-ver">v1.0 · 2026-03-24 · archived</div>
-      <div class="cl-body">Flat browsable item list with category filter strip, search bar, and pre-checked items from S-01. Replaced by v2.0 tile grid design. Archived at <a href="s03-browse-categories-hifi-v1-archived.html" style="color:var(--cta);">s03-browse-categories-hifi-v1-archived.html</a>.</div>
+      <div class="cl-ver">v2.0 · 2026-03-27 · archived</div>
+      <div class="cl-body">Tile grid with horizontal scroll rows per category. 84px tiles, pastel backgrounds, check circle top-right. Two phones: All view + filtered Home view.</div>
     </div>
 
     <div class="cl-flutter">
-      <div class="cl-flutter-head">Flutter implementation block · S-03 v2.0</div>
+      <div class="cl-flutter-head">Flutter implementation block · S-03 v3.0</div>
       <div class="cl-flutter-body">
         Mockup base:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;390px width (iPhone 15)<br>
-        SafeArea:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;top=false — progress bar bleeds full width above SafeArea<br>
-        Scroll:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Expanded + SingleChildScrollView for content zone only<br>
-        Bottom zone:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fixed Column at bottom (not Spacer). Hairline + CTA button.<br>
-        Progress bar:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Full width, height 3px. Width = (0.40 + selectedCount * 0.08).clamp(0.40, 0.80) * screenWidth. AnimatedContainer 500ms ease.<br>
-        Scaling:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All visual elements x (screenWidth/390).clamp(0.9, 1.15)<br>
-        State:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Riverpod. S03State(activeFilter: CatFilter, searchQuery: String, selectedIds: Set&lt;String&gt;)<br>
-        Category chips:&nbsp;&nbsp;&nbsp;GestureDetector + AnimatedContainer. No FilterChip widget. Smooth 150ms transition.<br>
-        Tile rows:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SingleChildScrollView(scrollDirection: Axis.horizontal). EdgeInsets.symmetric(vertical:4, horizontal:16).<br>
-        Tile grid:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SliverGrid with 3-column delegate when activeFilter != all.<br>
-        Tile widget:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GestureDetector + AnimatedContainer. On tap: HapticFeedback.selectionClick().<br>
-        Swipe hint:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ScrollController on Home row. Post-frame callback: scrollTo(52, duration:400ms), then scrollTo(0, duration:300ms) after 520ms delay. hintDone flag in state.<br>
-        CTA copy:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AnimatedSwitcher 180ms on Text widget. Fade transition.<br>
-        Data:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Query item_types joined with categories. Group by categories.slug. Sort by sort_order. icon_key via ItemIcons.fromString().<br>
-        Navigation:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CTA onTap (selectedIds.isNotEmpty): push to S-04 Review passing selectedIds.
+        SafeArea:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;top=false, progress bar outside SafeArea<br>
+        Scroll:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Expanded + SingleChildScrollView for content zone<br>
+        Bottom zone:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CTA in fixed Column (not Spacer)<br>
+        Progress bar:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(0.40 + selectedCount * 0.08).clamp(0.40, 0.80)<br>
+        Scaling:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Text clamp 1.3x. Elements x (screenWidth/390).clamp(0.9, 1.15)<br>
+        State:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Riverpod. S03State(activeFilter, searchQuery, selectedIds)<br>
+        Selection:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tap toggles selectedIds. HapticFeedback.selectionClick().<br>
+        Theme:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[data-theme] maps to ThemeData.<br>
+        Navigation:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CTA onTap: push to S-04 Review passing selectedIds.
       </div>
     </div>
 
   </div><!-- /changelog -->
 
 </div><!-- /page -->
+
+<script>
+function setS03Theme(t){
+  document.querySelectorAll('.s03-phone').forEach(p => p.setAttribute('data-theme', t));
+  document.getElementById('s03-ctl').classList.toggle('on', t === 'light');
+  document.getElementById('s03-ctd').classList.toggle('on', t === 'dark');
+}
+
+function updateCount(){
+  const n = document.querySelectorAll('.entity.selected').length;
+  const badge = document.getElementById('s03-badge');
+  const cta = document.getElementById('s03-cta');
+  const pf = document.getElementById('s03-pf');
+  badge.textContent = n;
+  pf.style.width = Math.min(40 + n * 8, 80) + '%';
+  if(n === 0){ cta.className='cta-off'; cta.innerHTML='Tick something first'; }
+  else if(n === 1){ cta.className='cta-on'; cta.innerHTML='Good start, continue <span class="cta-badge">1</span>'; }
+  else if(n === 2){ cta.className='cta-on'; cta.innerHTML='Nice, keep going <span class="cta-badge">2</span>'; }
+  else{ cta.className='cta-on'; cta.innerHTML='Looking good, continue <span class="cta-badge">'+n+'</span>'; }
+}
+</script>
 
 </body>
 </html>
