@@ -10,6 +10,13 @@
 /* ── S-06 screen-specific ── */
 body{background:#CBC5BB;padding:0 0 80px;}
 
+/* Theme toggle */
+.s06-controls{display:flex;gap:4px;align-items:center;margin-bottom:16px;}
+.s06-ctrl-label{font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#A09888;margin-right:4px;}
+.s06-ctrl-btn{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;padding:5px 14px;border-radius:6px;border:1px solid rgba(26,22,18,0.12);background:transparent;color:#8A8070;cursor:pointer;transition:all 120ms;}
+.s06-ctrl-btn:hover{border-color:rgba(26,22,18,0.20);}
+.s06-ctrl-btn.on{background:#9B7FD4;color:#FAF8FF;border-color:#9B7FD4;}
+
 /* phones row (multi-phone layout) */
 .phones-row{display:flex;gap:32px;align-items:flex-start;flex-shrink:0;}
 .phone-label{
@@ -97,6 +104,53 @@ body{background:#CBC5BB;padding:0 0 80px;}
 .ios-dialog-btn.secondary{color:#007AFF;border-right:0.5px solid rgba(60,60,67,0.18);}
 .ios-dialog-btn.primary{color:#007AFF;font-weight:600;}
 
+/* ══════════════════════════════════════════════
+   DARK MODE — Precision Warmth
+   ══════════════════════════════════════════════ */
+
+/* Phone shell */
+[data-theme="dark"].phone{background:#1C1B18;box-shadow:0 0 0 1px rgba(255,255,255,0.03),0 24px 80px rgba(0,0,0,0.5);}
+[data-theme="dark"] .w-screen{background:#1C1B18;}
+[data-theme="dark"] .notch .np{background:rgba(255,255,255,0.08);}
+[data-theme="dark"] .sbar span{color:#F0EDE6;}
+[data-theme="dark"] .sbar .batt{background:#F0EDE6;}
+
+/* Progress bar */
+[data-theme="dark"] .prog-bar{background:rgba(240,237,230,0.08);}
+[data-theme="dark"] .prog-fill{background:#B8A0E8;}
+
+/* Bell icon */
+[data-theme="dark"] .push-bell svg{stroke:rgba(184,160,232,0.65);}
+
+/* Headline + date */
+[data-theme="dark"] .push-h{color:#F0EDE6;}
+[data-theme="dark"] .push-h .date-em{color:#B8A0E8;}
+
+/* Subline */
+[data-theme="dark"] .push-sub{color:#A8A29A;}
+
+/* CTA */
+[data-theme="dark"] .push-cta{background:#B8A0E8;color:#1C1B18;box-shadow:0 2px 12px rgba(184,160,232,0.35);}
+[data-theme="dark"] .push-cta:active{background:#9B88C8;}
+
+/* Ghost */
+[data-theme="dark"] .push-ghost{color:#A8A29A;}
+
+/* Note */
+[data-theme="dark"] .push-note{color:#787068;}
+
+/* Bottom zone */
+[data-theme="dark"] .w-bottom{background:#1C1B18;}
+
+/* iOS dialog in dark mode: system dark style */
+[data-theme="dark"] .ios-overlay{background:rgba(0,0,0,0.50);}
+[data-theme="dark"] .ios-dialog{background:rgba(44,44,46,0.92);}
+[data-theme="dark"] .ios-dialog-title{color:#F2F2F7;}
+[data-theme="dark"] .ios-dialog-body{color:rgba(235,235,245,0.60);}
+[data-theme="dark"] .ios-dialog-btns{border-top-color:rgba(84,84,88,0.65);}
+[data-theme="dark"] .ios-dialog-btn.secondary{color:#0A84FF;border-right-color:rgba(84,84,88,0.65);}
+[data-theme="dark"] .ios-dialog-btn.primary{color:#0A84FF;}
+
 </style>
 </head>
 <body>
@@ -130,6 +184,15 @@ body{background:#CBC5BB;padding:0 0 80px;}
     <span class="mp">March 2026</span>
   </div>
 
+  <!-- THEME TOGGLE -->
+  <div style="max-width:980px;margin:0 auto;padding:0 32px;">
+    <div class="s06-controls">
+      <span class="s06-ctrl-label">Theme</span>
+      <button class="s06-ctrl-btn on" id="s06-ctl" onclick="setS06Theme('light')">Light</button>
+      <button class="s06-ctrl-btn" id="s06-ctd" onclick="setS06Theme('dark')">Dark</button>
+    </div>
+  </div>
+
   <!-- CONTENT ROW: phones + annotation sidebar -->
   <div class="content-row">
 
@@ -140,7 +203,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
       <!-- STATE 1: Default (pre-prompt)                   -->
       <!-- ═══════════════════════════════════════════════ -->
       <div class="phone-col">
-        <div class="phone">
+        <div class="phone s06-phone" data-theme="light">
           <div class="notch"><div class="np"></div></div>
           <div class="sbar"><span>9:41</span><div class="batt"></div></div>
           <!-- progress bar 100% -->
@@ -177,7 +240,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
       <!-- STATE 2: iOS native dialog overlay              -->
       <!-- ═══════════════════════════════════════════════ -->
       <div class="phone-col">
-        <div class="phone">
+        <div class="phone s06-phone" data-theme="light">
           <div class="notch"><div class="np"></div></div>
           <div class="sbar"><span>9:41</span><div class="batt"></div></div>
           <!-- progress bar 100% -->
@@ -382,9 +445,22 @@ body{background:#CBC5BB;padding:0 0 80px;}
       </div>
     </div>
 
+    <div class="cl-entry">
+      <div class="cl-ver">v3.0 · 2026-04-06 · ADDITIVE</div>
+      <div class="cl-body"><strong>Dark mode added.</strong> Precision Warmth dark tokens: surface #1C1B18, ink #F0EDE6, plum #B8A0E8, hint #787068. Bell icon stroke lightened to rgba(184,160,232,0.65). CTA button: #B8A0E8 bg, #1C1B18 text. iOS dialog: system dark style (rgba(44,44,46,0.92) bg, #F2F2F7 title, #0A84FF buttons). Theme toggle added above phone mockups.</div>
+    </div>
+
   </div><!-- /changelog -->
 
 </div><!-- /page -->
+
+<script>
+function setS06Theme(t){
+  document.querySelectorAll('.s06-phone').forEach(p => p.setAttribute('data-theme', t));
+  document.getElementById('s06-ctl').classList.toggle('on', t === 'light');
+  document.getElementById('s06-ctd').classList.toggle('on', t === 'dark');
+}
+</script>
 
 </body>
 </html>

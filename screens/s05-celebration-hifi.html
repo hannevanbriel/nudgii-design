@@ -10,18 +10,28 @@
 /* ── S-05 screen-specific ── */
 body{background:#CBC5BB;padding:0 0 80px;}
 
+/* Theme toggle */
+.s05-controls{display:flex;gap:4px;align-items:center;margin-bottom:16px;justify-content:center;}
+.s05-ctrl-label{font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#A09888;margin-right:4px;}
+.s05-ctrl-btn{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;padding:5px 14px;border-radius:6px;border:1px solid rgba(26,22,18,0.12);background:transparent;color:#8A8070;cursor:pointer;transition:all 120ms;}
+.s05-ctrl-btn:hover{border-color:rgba(26,22,18,0.20);}
+.s05-ctrl-btn.on{background:#9B7FD4;color:#FAF8FF;border-color:#9B7FD4;}
+
 /* STATE 1 styles */
 .s1-eyebrow{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--cta);margin-bottom:8px;}
 .s1-headline{font-family:'DM Serif Display',Georgia,serif;font-size:24px;font-weight:400;line-height:1.05;letter-spacing:-0.3px;color:var(--ink);margin-bottom:6px;}
 .s1-subline{font-size:13px;font-style:italic;color:var(--mid);line-height:1.4;margin-bottom:22px;}
 
-/* Task cards */
-.s5-tasks{display:flex;flex-direction:column;gap:6px;flex:1;}
-.s5-task{background:var(--surface);border:0.5px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:11px;box-shadow:0 1px 3px rgba(26,22,18,0.04);}
-.s5-task-info{flex:1;min-width:0;}
-.s5-task-name{font-size:13px;font-weight:500;color:var(--ink);letter-spacing:-0.2px;margin-bottom:2px;}
-.s5-task-sub{font-size:10px;color:var(--mid-a);letter-spacing:-0.1px;}
-.s5-task-date{font-size:10px;font-weight:500;color:var(--ap-dk);white-space:nowrap;flex-shrink:0;}
+/* Plan-style task rows */
+.s5-tasks{display:flex;flex-direction:column;gap:2px;flex:1;}
+.s5-task{border-radius:10px;padding:9px 8px;display:flex;align-items:center;gap:10px;}
+.s5-date{width:40px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;}
+.s5-day{font-size:9px;font-weight:500;color:var(--hint);text-transform:uppercase;letter-spacing:0.04em;line-height:1;margin-bottom:2px;}
+.s5-num{font-size:16px;font-weight:600;color:var(--mid);line-height:1;}
+.s5-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.s5-body{flex:1;min-width:0;}
+.s5-task-name{font-size:13px;font-weight:500;color:var(--ink);letter-spacing:-0.01em;line-height:1.3;}
+.s5-task-sub{font-size:10px;color:var(--mid);margin-top:2px;}
 .s5-cta-zone{padding:16px 20px 34px;margin-top:auto;}
 
 /* STATE 2: celebration (plum bg phone) */
@@ -69,6 +79,25 @@ body{background:#CBC5BB;padding:0 0 80px;}
 .state-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:var(--mid-a);}
 .state-arrow{display:flex;align-items:center;gap:6px;color:var(--mid);font-size:9px;font-style:italic;align-self:center;margin-top:380px;}
 .state-arrow svg{flex-shrink:0;}
+
+/* ══════════════════════════════════════════════
+   DARK MODE — State 1 only (States 2+3 are plum)
+   ══════════════════════════════════════════════ */
+[data-theme="dark"] .scr-light{background:#1C1B18 !important;}
+[data-theme="dark"] .sbar span{color:#F0EDE6;}
+[data-theme="dark"] .batt{background:#F0EDE6;}
+[data-theme="dark"] .notch .np{background:rgba(255,255,255,0.08);}
+[data-theme="dark"] .prog-bar{background:rgba(240,237,230,0.08);}
+[data-theme="dark"] .prog-fill{background:#B8A0E8;}
+[data-theme="dark"] .s1-eyebrow{color:#B8A0E8;}
+[data-theme="dark"] .s1-headline{color:#F0EDE6;}
+[data-theme="dark"] .s1-subline{color:#A8A29A;}
+[data-theme="dark"] .s5-day{color:#787068;}
+[data-theme="dark"] .s5-num{color:#A8A29A;}
+[data-theme="dark"] .s5-task-name{color:#F0EDE6;}
+[data-theme="dark"] .s5-task-sub{color:#A8A29A;}
+[data-theme="dark"] .s5-cta-zone .s5-cta-btn{background:#B8A0E8;color:#1C1B18;}
+[data-theme="dark"] .s5-more{color:#787068;}
 </style>
 </head>
 <body>
@@ -102,6 +131,15 @@ body{background:#CBC5BB;padding:0 0 80px;}
     <span class="mp">March 2026</span>
   </div>
 
+  <!-- THEME TOGGLE -->
+  <div style="max-width:980px;margin:0 auto;padding:0 32px;">
+    <div class="s05-controls">
+      <span class="s05-ctrl-label">Theme</span>
+      <button class="s05-ctrl-btn on" id="s05-ctl" onclick="setS05Theme('light')">Light</button>
+      <button class="s05-ctrl-btn" id="s05-ctd" onclick="setS05Theme('dark')">Dark</button>
+    </div>
+  </div>
+
   <!-- CONTENT: three states side by side -->
   <div class="states-row">
 
@@ -110,89 +148,75 @@ body{background:#CBC5BB;padding:0 0 80px;}
     <!-- ════════════════════════════════════════════════════════════ -->
     <div class="state-col">
       <div class="state-label">State 1: Schedule reveal</div>
-      <div class="phone">
+      <div class="phone s05-phone" data-theme="light">
         <div class="notch"><div class="np"></div></div>
         <div class="sbar"><span>9:41</span><div class="batt"></div></div>
         <!-- progress bar 80% -->
         <div class="prog-bar"><div class="prog-fill" style="width:80%;"></div></div>
 
-        <div class="scr" style="background:var(--cream);display:flex;flex-direction:column;">
-          <div style="flex:1;overflow-y:auto;padding:20px 20px 0;">
+        <div class="scr scr-light" style="background:var(--cream);display:flex;flex-direction:column;">
+          <div style="flex:1;overflow-y:auto;padding:20px 16px 0;">
             <div class="s1-eyebrow">Your schedule is ready</div>
             <div class="s1-headline">Here's what we figured out for you.</div>
             <div class="s1-subline">You told us what. We worked out when. Every time.</div>
 
+            <!-- Plan-style task rows with date columns -->
             <div class="s5-tasks">
-              <!-- Task 1: Olive tree -->
+              <!-- Task 1: Olive tree · Garden -->
               <div class="s5-task">
-                <div class="ci ci-g">
-                  <svg width="13" height="13" viewBox="0 0 256 256" fill="none" stroke="#607870" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><line x1="128" y1="232" x2="128" y2="152"/><path d="M96,192c0-40,32-88,32-88s32,48,32,88a32,32,0,0,1-64,0Z"/></svg>
+                <div class="s5-date"><div class="s5-day">Sun</div><div class="s5-num">5</div></div>
+                <div class="s5-icon" style="background:rgba(140,155,128,0.14);">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cat-garden-ic)" stroke-width="1.5" stroke-linecap="round"><path d="M7 13V6"/><path d="M7 6C7 6 4 4.5 2 2c3 0 5 1 5 4z"/><path d="M7 6C7 6 10 4.5 12 2c-3 0-5 1-5 4z"/></svg>
                 </div>
-                <div class="s5-task-info">
-                  <div class="s5-task-name">Autumn pruning</div>
-                  <div class="s5-task-sub">Olive tree, yearly</div>
-                </div>
-                <div class="s5-task-date">Oct 5</div>
+                <div class="s5-body"><div class="s5-task-name">Autumn pruning</div><div class="s5-task-sub">Olive tree, Garden</div></div>
               </div>
 
-              <!-- Task 2: Car -->
+              <!-- Task 2: Car · Vehicle -->
               <div class="s5-task">
-                <div class="ci ci-v">
-                  <svg width="13" height="13" viewBox="0 0 256 256" fill="none" stroke="#4A6A82" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><path d="M208,176H48V200a8,8,0,0,0,8,8H200a8,8,0,0,0,8-8V176Z"/><path d="M184,128H72L96,72h64l24,56Z"/></svg>
+                <div class="s5-date"><div class="s5-day">Mon</div><div class="s5-num">20</div></div>
+                <div class="s5-icon" style="background:rgba(142,154,148,0.14);">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cat-vehicle-ic)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5.5"/><circle cx="7" cy="7" r="2"/></svg>
                 </div>
-                <div class="s5-task-info">
-                  <div class="s5-task-name">Switch to winter tyres</div>
-                  <div class="s5-task-sub">Car, before Nov</div>
-                </div>
-                <div class="s5-task-date">Oct 20</div>
+                <div class="s5-body"><div class="s5-task-name">Switch to winter tyres</div><div class="s5-task-sub">Car, Vehicle</div></div>
               </div>
 
-              <!-- Task 3: Boiler -->
+              <!-- Task 3: Boiler · Home -->
               <div class="s5-task">
-                <div class="ci ci-h">
-                  <svg width="13" height="13" viewBox="0 0 256 256" fill="none" stroke="#7A5A50" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8,8,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8,8,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"/></svg>
+                <div class="s5-date"><div class="s5-day">Tue</div><div class="s5-num">28</div></div>
+                <div class="s5-icon" style="background:rgba(192,144,136,0.14);">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cat-home-ic)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6.5L7 2l6 4.5V13a.5.5 0 0 1-.5.5h-3.5v-3H5v3H1.5A.5.5 0 0 1 1 13V6.5z"/></svg>
                 </div>
-                <div class="s5-task-info">
-                  <div class="s5-task-name">Annual boiler service</div>
-                  <div class="s5-task-sub">CV ketel, yearly</div>
-                </div>
-                <div class="s5-task-date">Oct 28</div>
+                <div class="s5-body"><div class="s5-task-name">Annual boiler service</div><div class="s5-task-sub">Boiler, Home</div></div>
               </div>
 
-              <!-- Task 4: Dishwasher -->
+              <!-- Task 4: Dishwasher filter · Home -->
               <div class="s5-task">
-                <div class="ci ci-h">
-                  <svg width="13" height="13" viewBox="0 0 256 256" fill="none" stroke="#7A5A50" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8,8,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8,8,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"/></svg>
+                <div class="s5-date"><div class="s5-day">Sat</div><div class="s5-num">8</div></div>
+                <div class="s5-icon" style="background:rgba(192,144,136,0.14);">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cat-home-ic)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6.5L7 2l6 4.5V13a.5.5 0 0 1-.5.5h-3.5v-3H5v3H1.5A.5.5 0 0 1 1 13V6.5z"/></svg>
                 </div>
-                <div class="s5-task-info">
-                  <div class="s5-task-name">Clean dishwasher filter</div>
-                  <div class="s5-task-sub">Dishwasher, every 6-8 wks</div>
-                </div>
-                <div class="s5-task-date">Nov 8</div>
+                <div class="s5-body"><div class="s5-task-name">Clean dishwasher filter</div><div class="s5-task-sub">Dishwasher, Home</div></div>
               </div>
 
-              <!-- Task 5: Dishwasher -->
+              <!-- Task 5: Dishwasher salt · Home -->
               <div class="s5-task">
-                <div class="ci ci-h">
-                  <svg width="13" height="13" viewBox="0 0 256 256" fill="none" stroke="#7A5A50" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8,8,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8,8,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"/></svg>
+                <div class="s5-date"><div class="s5-day">Sat</div><div class="s5-num">8</div></div>
+                <div class="s5-icon" style="background:rgba(192,144,136,0.14);">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cat-home-ic)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6.5L7 2l6 4.5V13a.5.5 0 0 1-.5.5h-3.5v-3H5v3H1.5A.5.5 0 0 1 1 13V6.5z"/></svg>
                 </div>
-                <div class="s5-task-info">
-                  <div class="s5-task-name">Refill dishwasher salt</div>
-                  <div class="s5-task-sub">Dishwasher, every 6-8 wks</div>
-                </div>
-                <div class="s5-task-date">Nov 8</div>
+                <div class="s5-body"><div class="s5-task-name">Refill dishwasher salt</div><div class="s5-task-sub">Dishwasher, Home</div></div>
               </div>
 
               <!-- +3 more -->
-              <div style="text-align:center;padding:4px 0 2px;">
-                <span style="font-size:10px;color:var(--mid-a);font-style:italic;">and 3 more tasks</span>
+              <div style="text-align:center;padding:8px 0 2px;">
+                <span class="s5-more" style="font-size:10px;color:var(--mid);font-style:italic;">and 3 more tasks</span>
               </div>
             </div>
           </div>
 
           <!-- Sticky CTA -->
           <div class="s5-cta-zone">
-            <div style="display:flex;align-items:center;justify-content:center;width:100%;height:50px;background:var(--cta);color:var(--cta-fg);border:none;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;box-shadow:0 2px 12px rgba(155,127,212,0.28);">That's it. I'm done.</div>
+            <div class="s5-cta-btn" style="display:flex;align-items:center;justify-content:center;width:100%;height:50px;background:var(--cta);color:var(--cta-fg);border:none;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;box-shadow:0 2px 12px rgba(155,127,212,0.28);">That's it. I'm done.</div>
           </div>
         </div>
       </div>
@@ -540,9 +564,23 @@ body{background:#CBC5BB;padding:0 0 80px;}
       </div>
     </div>
 
+    <div class="cl-entry">
+      <div class="cl-ver">v2.0 · 2026-04-06 · BREAKING</div>
+      <div class="cl-body"><strong>Plan-style task rows replace flat cards.</strong> State 1 tasks now use date column (day + number) + 32px category icon circle + title + item subtitle. Matches Plan tab layout. Tighter 2px gap between rows.</div>
+      <div class="cl-body"><strong>Dark mode added for State 1.</strong> Precision Warmth dark tokens. Surface #1C1B18, plum #B8A0E8, ink #F0EDE6. States 2+3 (celebration + sign-in) already use plum bg, unchanged. Theme toggle above phones.</div>
+    </div>
+
   </div><!-- /changelog -->
 
 </div><!-- /page -->
+
+<script>
+function setS05Theme(t){
+  document.querySelectorAll('.s05-phone').forEach(p => p.setAttribute('data-theme', t));
+  document.getElementById('s05-ctl').classList.toggle('on', t === 'light');
+  document.getElementById('s05-ctd').classList.toggle('on', t === 'dark');
+}
+</script>
 
 </body>
 </html>
