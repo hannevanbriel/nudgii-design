@@ -10,36 +10,74 @@
 html{scroll-behavior:smooth;}
 
 :root{
-  /* ── v10.5 — locked 2026-03-30 ── */
+  /* ── v11.0 Precision Warmth — locked 2026-04-06 ── */
+
+  /* Tonal surface system — paper-on-paper */
+  --surface-lowest: #FFFFFF;  /* elevated modals, "Why it matters" blocks */
+  --surface:        #FBF9F4;  /* app background, nav bar */
+  --surface-low:    #F5F4ED;  /* cards, section backgrounds */
+  --surface-high:   #E8E9E0;  /* dividers, track fills, strongest separation */
+
+  /* Legacy alias — design system page chrome uses cream for its own bg */
   --cream:    #F5F0E8;
   --cream-2:  #EDE6D4;
-  --ink:      #2C2824;   /* warm charcoal — softer than pre-v10.5 #1A1612 */
+
+  /* Text — warm neutrals */
+  --ink:      #2C2824;   /* all body text, warm charcoal */
   --mid:      #8A8070;   /* decorative italic subtitles only — 2.8:1, NOT functional text */
-  --mid-a:    #6B6358;   /* ALL functional mid text — WCAG AA 4.6:1 on cream */
-  --hint:     #A09888;   /* placeholders, very secondary text */
+  --mid-a:    #6B6358;   /* ALL functional mid text — WCAG AA 4.6:1 */
+  --hint:     #A09888;   /* placeholders, section labels, chevrons */
+
+  /* Borders */
   --border:   rgba(44,40,36,0.08);
   --border-md:rgba(44,40,36,0.12);
-  --cta:      #9B7FD4;   /* PRIMARY CTA — the ONLY bright color in the app */
-  --cta-fg:   #FAF8FF;   /* text on CTA background */
+
+  /* Signature color duo: plum + apricot */
+  --cta:      #9B7FD4;   /* plum — actions: FAB, CTA, Done, active tab */
+  --cta-fg:   #FAF8FF;   /* text on plum background, lavender-white */
+  --apricot:  #E8A87C;   /* warmth: greeting name, streak, savings, urgency text */
+  --apricot-wash: rgba(232,168,124,0.12);
+  --plum-wash: rgba(155,127,212,0.10);
+
+  /* Sacred tokens */
   --plum:     #2D1F4A;   /* done overlay bg — sacred, nowhere else */
   --plum-pale:#C4A8E8;   /* done overlay ii mark pill */
-  --overdue-badge: #6B4A3A; /* overdue badge bg — warm brown, NOT red */
-  --surface:  #FFFFFF;   /* bottom sheets, dialogs */
+  --overdue-badge: #6B4A3A; /* legacy — "overdue" removed from vocabulary */
 
-  /* Category — solid pastel fills (v10.5). Icon stroke = darkened tint. No borders on cards. */
-  --ch-bg:#D2BEB6;--ch-ic:#7A5A50;   /* Home — Anthropic blush */
-  --cv-bg:#C0CDD8;--cv-ic:#4A6A82;   /* Vehicle — steel mist */
-  --cg-bg:#C0CEC9;--cg-ic:#607870;   /* Garden — leaf green */
-  --cs-bg:#D0C6DC;--cs-ic:#6A5085;   /* Subscriptions — lavender */
-  --cx-bg:#D2D0C4;--cx-ic:#6A6858;   /* Health — soft olive */
-  --cp-bg:#DECDC0;--cp-ic:#8A6238;   /* Pets — warm amber */
+  /* Category — Precision Warmth: desaturated "found" colors */
+  /* Core 6 */
+  --ch-bg:#C09088;--ch-ic:#5A3830;   /* Home — dusty rose */
+  --cg-bg:#8C9B80;--cg-ic:#3A4830;   /* Garden — sage green */
+  --cv-bg:#8E9A94;--cv-ic:#3A4842;   /* Vehicle — warm sage-slate */
+  --cs-bg:#A69BBF;--cs-ic:#4A3866;   /* Subscriptions — lavender */
+  --cx-bg:#9A9A88;--cx-ic:#404030;   /* Health — olive */
+  --cp-bg:#B8A080;--cp-ic:#584020;   /* Pets — warm amber */
+  /* Expansion 5 */
+  --co-bg:#A8B0A0;--co-ic:#404840;   /* Outdoor — moss green */
+  --cf-bg:#B0A8A0;--cf-ic:#504840;   /* Finance — warm taupe */
+  --ce-bg:#9CA0A8;--ce-ic:#383C48;   /* Electronics — cool slate */
+  --ck-bg:#C4A8A0;--ck-ic:#6A4038;   /* Family — blush clay */
+  --cl-bg:#B8B098;--cl-ic:#505038;   /* Seasonal — dry grass */
 
-  /* Legacy category aliases — kept for onboarding/filter chip usage */
-  --ch:var(--ch-ic);--chb:rgba(122,90,80,0.10);
-  --cv:var(--cv-ic);--cvb:rgba(74,106,130,0.10);
-  --cg:var(--cg-ic);--cgb:rgba(74,122,64,0.10);
-  --cs:var(--cs-ic);--csb:rgba(106,80,133,0.10);
-  --chl:var(--cx-ic);--chlb:rgba(106,104,88,0.10);
+  /* Category wash variants (for icon circles, tinted surfaces) */
+  --ch-wash:rgba(192,144,136,0.14);
+  --cg-wash:rgba(140,155,128,0.14);
+  --cv-wash:rgba(142,154,148,0.14);
+  --cs-wash:rgba(166,155,191,0.14);
+  --cx-wash:rgba(154,154,136,0.14);
+  --cp-wash:rgba(184,160,128,0.14);
+  --co-wash:rgba(168,176,160,0.14);
+  --cf-wash:rgba(176,168,160,0.14);
+  --ce-wash:rgba(156,160,168,0.14);
+  --ck-wash:rgba(196,168,160,0.14);
+  --cl-wash:rgba(184,176,152,0.14);
+
+  /* Legacy category aliases — kept for onboarding screens */
+  --ch:var(--ch-ic);--chb:var(--ch-wash);
+  --cv:var(--cv-ic);--cvb:var(--cv-wash);
+  --cg:var(--cg-ic);--cgb:var(--cg-wash);
+  --cs:var(--cs-ic);--csb:var(--cs-wash);
+  --chl:var(--cx-ic);--chlb:var(--cx-wash);
 
   /* Spacing scale — never use arbitrary values */
   --space-1:  4px;
@@ -138,15 +176,15 @@ section{padding-top:60px;}
 .trole{font-size:10px;color:var(--mid);margin-top:2px;line-height:1.4;}
 .tnote{font-size:9px;font-style:italic;color:rgba(26,22,18,0.3);margin-top:2px;}
 
-/* DARK PANEL */
-.dark-panel{background:#111614;border-radius:14px;padding:22px 24px;margin-top:16px;}
-.dark-lbl{font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:rgba(239,240,232,0.3);margin-bottom:14px;}
+/* DARK PANEL — Precision Warmth dark */
+.dark-panel{background:#1C1B18;border-radius:14px;padding:22px 24px;margin-top:16px;}
+.dark-lbl{font-size:9px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:rgba(240,237,230,0.3);margin-bottom:14px;}
 .dark-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(136px,1fr));gap:9px;}
-.dark-tile{border-radius:10px;overflow:hidden;border:1px solid rgba(239,240,232,0.08);}
-.dark-body{padding:8px 10px;background:#1A1F1D;}
-.dark-name{font-size:12px;font-weight:500;color:#EFF0E8;}
-.dark-hex{font-size:10px;color:rgba(239,240,232,0.4);font-family:monospace;margin-top:1px;}
-.dark-role{font-size:10px;color:rgba(239,240,232,0.3);margin-top:2px;line-height:1.4;}
+.dark-tile{border-radius:10px;overflow:hidden;border:1px solid rgba(240,237,230,0.08);}
+.dark-body{padding:8px 10px;background:#24231F;}
+.dark-name{font-size:12px;font-weight:500;color:#F0EDE6;}
+.dark-hex{font-size:10px;color:rgba(240,237,230,0.4);font-family:monospace;margin-top:1px;}
+.dark-role{font-size:10px;color:rgba(240,237,230,0.3);margin-top:2px;line-height:1.4;}
 
 /* CATEGORY */
 .cat-row{display:flex;gap:9px;flex-wrap:wrap;}
@@ -273,23 +311,23 @@ section{padding-top:60px;}
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-eye">nudgii Design system · March 2026</div>
+    <div class="hero-eye">nudgii Design system · Precision Warmth · April 2026</div>
     <h1 class="hero-title">Everything decided.<br>Nothing open.</h1>
-    <p class="hero-sub">All tokens, rules, components, and Figma workflow for nudgii. If it's not in here it's not decided. If it's in here it doesn't get questioned in a design review.</p>
+    <p class="hero-sub">All tokens, rules, components, and Figma workflow for nudgii. Precision Warmth: tonal surfaces, plum + apricot color duo, DM Serif Display + DM Sans. If it's not in here it's not decided. If it's in here it doesn't get questioned in a design review.</p>
     <div class="hero-pills">
-      <span class="hero-pill locked">CTA → light plum #9B7FD4</span>
-      <span class="hero-pill locked">Ink → warm charcoal #2C2824</span>
-      <span class="hero-pill locked">Dark base → warm #1E1C18</span>
-      <span class="hero-pill locked">Overdue → warm brown badge #6B4A3A</span>
-      <span class="hero-pill locked">Category cards → solid pastels, no opacity</span>
+      <span class="hero-pill locked">Plum #9B7FD4 → actions (FAB, CTA, Done, active tab)</span>
+      <span class="hero-pill locked">Apricot #E8A87C → warmth (greeting, streak, highlights)</span>
+      <span class="hero-pill locked">Tonal surfaces → 4-tier paper-on-paper system</span>
+      <span class="hero-pill locked">DM Serif Display + DM Sans → one serif moment per screen</span>
+      <span class="hero-pill locked">Category cards → solid pastels, 11 categories</span>
       <span class="hero-pill locked">Icons → direct on card, no container</span>
       <span class="hero-pill locked">nudgii always lowercase</span>
       <span class="hero-pill locked">No gradients anywhere</span>
       <span class="hero-pill locked">Phosphor outline only</span>
-      <span class="hero-pill locked">Plum sacred → done overlay only</span>
-      <span class="hero-pill locked">Tab bar → floating pill</span>
+      <span class="hero-pill locked">Deep plum #2D1F4A → done overlay only</span>
+      <span class="hero-pill locked">Never "overdue" → "waiting" or time-since-last-done</span>
     </div>
-    <div style="font-size:10px;color:var(--mid);margin-top:10px;">v10.5 — locked 2026-03-30</div>
+    <div style="font-size:10px;color:var(--mid);margin-top:10px;">v11.0 Precision Warmth — locked 2026-04-06</div>
 
     <div class="toc">
       <div class="toc-lbl">Contents</div>
@@ -458,21 +496,55 @@ section{padding-top:60px;}
   <!-- 02 COLOR -->
   <section id="color">
     <div class="sec-eye">02</div>
-    <h2 class="sec-title">Color tokens · light mode</h2>
-    <p class="sec-desc">Every color has one job. Color is information, not decoration. v10.5 — locked 2026-03-30.</p>
+    <h2 class="sec-title">Color tokens · Precision Warmth</h2>
+    <p class="sec-desc">Every color has one job. Color is information, not decoration. Precision Warmth uses a tonal surface system (paper-on-paper) and two signature colors: plum for actions, apricot for warmth. v11.0 — locked 2026-04-06.</p>
 
-    <div class="token-grid">
-      <div class="ttile"><div class="tsw" style="background:#F5F0E8;"></div><div class="tbody"><div class="tname">Cream</div><div class="thex">#F5F0E8</div><div class="trole">App background. Never pure white.</div></div></div>
-      <div class="ttile"><div class="tsw" style="background:#2C2824;"></div><div class="tbody"><div class="tname">Ink</div><div class="thex">#2C2824</div><div class="trole">All body text. Warm charcoal — softer than pre-v10.5.</div><div class="tnote">Was #1A1612 — updated v10.5</div></div></div>
-      <div class="ttile"><div class="tsw" style="background:#8A8070;"></div><div class="tbody"><div class="tname">Mid</div><div class="thex">#8A8070</div><div class="trole">Decorative italic subtitles only. 2.8:1 contrast — never functional text.</div></div></div>
-      <div class="ttile"><div class="tsw" style="background:#6B6358;"></div><div class="tbody"><div class="tname">Mid-accessible</div><div class="thex">#6B6358</div><div class="trole">All functional mid text — hints, labels, descriptions. WCAG AA 4.6:1.</div></div></div>
-      <div class="ttile"><div class="tsw" style="background:#A09888;"></div><div class="tbody"><div class="tname">Hint</div><div class="thex">#A09888</div><div class="trole">Placeholders, very secondary text. Use sparingly.</div></div></div>
-      <div class="ttile" style="outline:2px solid #9B7FD4;outline-offset:2px;border-radius:11px;"><div class="tsw" style="background:#9B7FD4;"></div><div class="tbody"><div class="tname">CTA</div><div class="thex">#9B7FD4</div><div class="trole">Primary CTA, FAB, Export, Done button, active nav tab, active filter pill. The ONLY bright color in the app.</div></div></div>
-      <div class="ttile"><div class="tsw" style="background:#FAF8FF;border:1px solid rgba(44,40,36,0.08);"></div><div class="tbody"><div class="tname">CTA foreground</div><div class="thex">#FAF8FF</div><div class="trole">Text and icons on CTA background. Lavender-white.</div></div></div>
-      <div class="ttile"><div class="tsw" style="background:#2D1F4A;"></div><div class="tbody"><div class="tname">Plum</div><div class="thex">#2D1F4A</div><div class="trole">Done overlay background. Sacred — appears nowhere else.</div></div></div>
-      <div class="ttile"><div class="tsw" style="background:#C4A8E8;"></div><div class="tbody"><div class="tname">Plum-pale</div><div class="thex">#C4A8E8</div><div class="trole">Done overlay ii mark pill fill.</div></div></div>
-      <div class="ttile"><div class="tsw" style="background:#6B4A3A;"></div><div class="tbody"><div class="tname">Overdue badge</div><div class="thex">#6B4A3A</div><div class="trole">Overdue pill background. Warm brown — NOT red. Cream text on top.</div><div class="tnote">Replaces terra (#C4503A) — v10.5</div></div></div>
-      <div class="ttile"><div class="tsw" style="background:#FFFFFF;border:1px solid rgba(44,40,36,0.08);"></div><div class="tbody"><div class="tname">Surface</div><div class="thex">#FFFFFF</div><div class="trole">Bottom sheets, dialogs, inline modals.</div></div></div>
+    <!-- TONAL SURFACE SYSTEM -->
+    <div style="margin-bottom:20px;">
+      <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:8px;">Tonal surface system — paper-on-paper</div>
+      <div class="token-grid">
+        <div class="ttile"><div class="tsw" style="background:#FFFFFF;border:1px solid rgba(44,40,36,0.08);"></div><div class="tbody"><div class="tname">Surface-lowest</div><div class="thex">#FFFFFF</div><div class="trole">Elevated modals, "Why it matters" blocks, FAB label bg. Highest contrast.</div></div></div>
+        <div class="ttile"><div class="tsw" style="background:#FBF9F4;"></div><div class="tbody"><div class="tname">Surface</div><div class="thex">#FBF9F4</div><div class="trole">App background, nav bar. The default canvas.</div></div></div>
+        <div class="ttile"><div class="tsw" style="background:#F5F4ED;"></div><div class="tbody"><div class="tname">Surface-low</div><div class="thex">#F5F4ED</div><div class="trole">Cards, section backgrounds, snooze pills, settings rows.</div></div></div>
+        <div class="ttile"><div class="tsw" style="background:#E8E9E0;"></div><div class="tbody"><div class="tname">Surface-high</div><div class="thex">#E8E9E0</div><div class="trole">Dividers, track fills, filter borders, inactive dots. Strongest separation.</div></div></div>
+      </div>
+      <div class="rcard" style="margin-top:8px;">
+        <div class="rcard-title">Why tonal surfaces <span class="tag tag-lock">locked</span></div>
+        <div class="rcard-body">No solid borders on cards. Separation is achieved purely through surface tiers: content sits on a slightly different shade of warm white. The result feels like layers of paper, not boxed containers. Category washes (<code>rgba(color, 0.10-0.14)</code>) create a fifth implicit tier on top of any surface.</div>
+      </div>
+    </div>
+
+    <!-- TEXT TOKENS -->
+    <div style="margin-bottom:20px;">
+      <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:8px;">Text — warm neutrals, never pure gray</div>
+      <div class="token-grid">
+        <div class="ttile"><div class="tsw" style="background:#2C2824;"></div><div class="tbody"><div class="tname">Ink</div><div class="thex">#2C2824</div><div class="trole">All body text. Warm charcoal.</div></div></div>
+        <div class="ttile"><div class="tsw" style="background:#8A8070;"></div><div class="tbody"><div class="tname">Mid</div><div class="thex">#8A8070</div><div class="trole">Decorative italic subtitles only. 2.8:1 contrast, fails AA. Never functional text.</div></div></div>
+        <div class="ttile"><div class="tsw" style="background:#6B6358;"></div><div class="tbody"><div class="tname">Mid-accessible</div><div class="thex">#6B6358</div><div class="trole">All functional mid text. WCAG AA 4.6:1 on cream.</div></div></div>
+        <div class="ttile"><div class="tsw" style="background:#A09888;"></div><div class="tbody"><div class="tname">Hint</div><div class="thex">#A09888</div><div class="trole">Placeholders, section labels, chevrons. Very secondary.</div></div></div>
+      </div>
+    </div>
+
+    <!-- SIGNATURE COLOR DUO -->
+    <div style="margin-bottom:20px;">
+      <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:8px;">Signature color duo — plum + apricot</div>
+      <div class="token-grid">
+        <div class="ttile" style="outline:2px solid #9B7FD4;outline-offset:2px;border-radius:11px;"><div class="tsw" style="background:#9B7FD4;"></div><div class="tbody"><div class="tname">Plum (actions)</div><div class="thex">#9B7FD4</div><div class="trole">FAB, CTA button, Done button, active nav tab, active filter pill, Export. The ONLY action color.</div></div></div>
+        <div class="ttile" style="outline:2px solid #E8A87C;outline-offset:2px;border-radius:11px;"><div class="tsw" style="background:#E8A87C;"></div><div class="tbody"><div class="tname">Apricot (warmth)</div><div class="thex">#E8A87C</div><div class="trole">Greeting name, streak circle, savings number, "why it matters" labels, urgency text. Warmth moments only.</div></div></div>
+        <div class="ttile"><div class="tsw" style="background:#FAF8FF;border:1px solid rgba(44,40,36,0.08);"></div><div class="tbody"><div class="tname">Plum foreground</div><div class="thex">#FAF8FF</div><div class="trole">Text and icons on plum background. Lavender-white.</div></div></div>
+        <div class="ttile"><div class="tsw" style="background:rgba(155,127,212,0.10);border:1px solid rgba(44,40,36,0.08);"></div><div class="tbody"><div class="tname">Plum wash</div><div class="thex">rgba(155,127,212,0.10)</div><div class="trole">Plum-tinted surface for done toast icon, selection states.</div></div></div>
+        <div class="ttile"><div class="tsw" style="background:rgba(232,168,124,0.12);border:1px solid rgba(44,40,36,0.08);"></div><div class="tbody"><div class="tname">Apricot wash</div><div class="thex">rgba(232,168,124,0.12)</div><div class="trole">Apricot-tinted surface for streak circle, snooze toast icon.</div></div></div>
+      </div>
+    </div>
+
+    <!-- SACRED TOKENS -->
+    <div style="margin-bottom:20px;">
+      <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:8px;">Sacred + legacy tokens</div>
+      <div class="token-grid">
+        <div class="ttile"><div class="tsw" style="background:#2D1F4A;"></div><div class="tbody"><div class="tname">Deep plum</div><div class="thex">#2D1F4A</div><div class="trole">Done overlay background. Sacred, appears nowhere else.</div></div></div>
+        <div class="ttile"><div class="tsw" style="background:#C4A8E8;"></div><div class="tbody"><div class="tname">Plum-pale</div><div class="thex">#C4A8E8</div><div class="trole">Done overlay ii mark pill fill.</div></div></div>
+        <div class="ttile"><div class="tsw" style="background:#6B4A3A;"></div><div class="tbody"><div class="tname">Overdue badge</div><div class="thex">#6B4A3A</div><div class="trole">Legacy token, may be removed. "Overdue" removed from vocabulary. Use apricot text for urgency instead.</div><div class="tnote">Superseded by urgency language ladder</div></div></div>
+      </div>
     </div>
 
     <!-- SEMANTIC FEEDBACK -->
@@ -490,8 +562,8 @@ section{padding-top:60px;}
 
     <!-- COLOR THREAD -->
     <div style="background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:18px 20px;margin-bottom:9px;box-shadow:0 1px 3px rgba(44,40,36,0.04);">
-      <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:5px;display:flex;align-items:center;gap:7px;">The color thread <span class="tag tag-lock">locked</span></div>
-      <div style="font-size:12px;color:var(--mid);line-height:1.65;margin-bottom:16px;">One color family connects the entire user journey — homescreen to first tap to reward moment. The ii mark, the CTA button, and the done overlay all share the same plum hues.</div>
+      <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:5px;display:flex;align-items:center;gap:7px;">The color thread: plum + apricot <span class="tag tag-lock">locked</span></div>
+      <div style="font-size:12px;color:var(--mid);line-height:1.65;margin-bottom:16px;">Two signature colors define the nudgii brand. <strong style="color:#9B7FD4;">Plum</strong> is for actions: the things users tap. <strong style="color:#E8A87C;">Apricot</strong> is for warmth: the moments that make the app feel personal. They never swap roles.</div>
       <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
         <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
           <svg width="52" height="52" viewBox="0 0 80 80" style="border-radius:13px;box-shadow:0 6px 18px rgba(45,31,74,0.3);"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#C4A8E8"/></svg>
@@ -502,7 +574,14 @@ section{padding-top:60px;}
           <div style="width:52px;height:32px;border-radius:100px;background:#9B7FD4;box-shadow:0 4px 14px rgba(155,127,212,0.25);display:flex;align-items:center;justify-content:center;padding:0 16px;">
             <span style="font-size:11px;font-weight:500;color:#FAF8FF;">Add item</span>
           </div>
-          <div style="font-size:9px;color:var(--mid);text-align:center;line-height:1.4;">CTA button<br><strong style="color:var(--ink);font-weight:500;">#9B7FD4</strong></div>
+          <div style="font-size:9px;color:var(--mid);text-align:center;line-height:1.4;">CTA button<br><strong style="color:#9B7FD4;font-weight:500;">plum</strong></div>
+        </div>
+        <div style="font-size:16px;color:rgba(44,40,36,0.15);">→</div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="padding:6px 12px;border-radius:100px;display:flex;align-items:center;gap:6px;">
+            <span style="font-family:'DM Serif Display',serif;font-size:18px;font-style:italic;color:#2C2824;">Good morning, </span><span style="font-family:'DM Serif Display',serif;font-size:18px;font-style:italic;color:#E8A87C;">Martijn.</span>
+          </div>
+          <div style="font-size:9px;color:var(--mid);text-align:center;line-height:1.4;">Greeting name<br><strong style="color:#E8A87C;font-weight:500;">apricot</strong></div>
         </div>
         <div style="font-size:16px;color:rgba(44,40,36,0.15);">→</div>
         <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
@@ -511,17 +590,17 @@ section{padding-top:60px;}
           </div>
           <div style="font-size:9px;color:var(--mid);text-align:center;line-height:1.4;">Done overlay<br><strong style="color:var(--ink);font-weight:500;">#2D1F4A</strong></div>
         </div>
-        <div style="font-size:16px;color:rgba(44,40,36,0.15);">+</div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
-          <div style="width:22px;height:32px;border-radius:100px;background:#6B4A3A;display:flex;align-items:center;justify-content:center;"><span style="font-size:7px;font-weight:600;color:#F5F0E8;">12d</span></div>
-          <div style="font-size:9px;color:var(--mid);text-align:center;line-height:1.4;">Overdue badge<br><strong style="color:var(--ink);font-weight:500;">#6B4A3A</strong><br>warm brown</div>
-        </div>
       </div>
     </div>
 
     <div class="rcard">
-      <div class="rcard-title">Primary CTA — light plum <span class="tag tag-lock">locked</span></div>
-      <div class="rcard-body"><strong>All primary action buttons use <code>#9B7FD4</code> background with <code>#FAF8FF</code> lavender-cream text.</strong> This is the ONLY bright color in the app — CTA button, FAB, Export button, active nav tab, active filter pill, Done button.<br><br>Contrast: 4.7:1 on cream (WCAG AA). FAB shadow: <code>0 4px 14px rgba(155,127,212,0.25)</code> — subtle, not heavy.<br><br><strong>Why warm brown for overdue:</strong> red (#C4503A) felt alarming — like an error state rather than a gentle nudge. Warm brown (#6B4A3A) communicates urgency without stress. The app's job is to help, not to scold.</div>
+      <div class="rcard-title">Plum = actions <span class="tag tag-lock">locked</span></div>
+      <div class="rcard-body"><strong>All primary action buttons use <code>#9B7FD4</code> background with <code>#FAF8FF</code> lavender-cream text.</strong> This is the ONLY action color: CTA button, FAB, Export button, active nav tab, active filter pill.<br><br>Contrast: 4.7:1 on cream (WCAG AA). FAB shadow: <code>0 6px 20px rgba(155,127,212,0.45)</code>.<br><br><strong>Done button exception:</strong> the Done button on expanded task cards uses the task's <strong>category color</strong>, not plum. This preserves plum's meaning as "app-level action" while Done is "task-level completion."</div>
+    </div>
+
+    <div class="rcard">
+      <div class="rcard-title">Apricot = warmth <span class="tag tag-lock">locked</span></div>
+      <div class="rcard-body"><strong>Apricot <code>#E8A87C</code> is for personality moments only.</strong> It appears on: the greeting name ("Good morning, <em style="color:#E8A87C;">Martijn.</em>"), the streak circle, savings numbers, "why it matters" labels, and urgency text ("waiting for you", time-since-last-done).<br><br>Apricot never appears on buttons, backgrounds, or navigation. It is not an action color. If you can tap it, it should be plum. If it adds warmth, it should be apricot.<br><br><code>rgba(232,168,124,0.12)</code> apricot wash is used for the streak circle background and snooze toast icon.</div>
     </div>
 
     <!-- LEGACY REFERENCE -->
@@ -546,58 +625,120 @@ section{padding-top:60px;}
   <section id="dark">
     <div class="sec-eye">03</div>
     <h2 class="sec-title">Dark mode tokens</h2>
-    <p class="sec-desc">Warm dark — no blue, no cool-green. Like old paper in dim light. v10.5 — locked 2026-03-30.</p>
+    <p class="sec-desc">Warm dark, like old paper in dim light. Same tonal surface logic as light mode, same 4-tier system. Plum lightens to #B8A0E8, apricot to #F0B890 for contrast. v11.0 — locked 2026-04-06.</p>
 
-    <div class="dark-panel" style="background:#1E1C18;">
-      <div class="dark-lbl">Dark mode · follows system preference · warm dark base</div>
+    <div class="dark-panel" style="background:#1C1B18;">
+      <div class="dark-lbl">Dark mode · follows system preference · tonal surface tiers</div>
       <div class="dark-grid">
-        <div class="dark-tile"><div class="tsw" style="background:#1E1C18;"></div><div class="dark-body"><div class="dark-name">App bg</div><div class="dark-hex">#1E1C18</div><div class="dark-role">Warm dark cream. No blue, no green.</div></div></div>
-        <div class="dark-tile"><div class="tsw" style="background:#28261F;"></div><div class="dark-body"><div class="dark-name">Nav</div><div class="dark-hex">#28261F</div><div class="dark-role">Tab bar and FAB options surface.</div></div></div>
-        <div class="dark-tile"><div class="tsw" style="background:#E0DDD6;"></div><div class="dark-body"><div class="dark-name">Text primary</div><div class="dark-hex">#E0DDD6</div><div class="dark-role">Primary text on dark.</div></div></div>
-        <div class="dark-tile"><div class="tsw" style="background:#96908A;"></div><div class="dark-body"><div class="dark-name">Text mid</div><div class="dark-hex">#96908A</div><div class="dark-role">Secondary text, subtitles.</div></div></div>
-        <div class="dark-tile"><div class="tsw" style="background:#9B7FD4;"></div><div class="dark-body"><div class="dark-name">CTA</div><div class="dark-hex">#9B7FD4</div><div class="dark-role">Unchanged in dark mode.</div></div></div>
+        <div class="dark-tile"><div class="tsw" style="background:#181714;"></div><div class="dark-body"><div class="dark-name">Surface-lowest</div><div class="dark-hex">#181714</div><div class="dark-role">Elevated modals, deepest layer.</div></div></div>
+        <div class="dark-tile"><div class="tsw" style="background:#1C1B18;"></div><div class="dark-body"><div class="dark-name">Surface</div><div class="dark-hex">#1C1B18</div><div class="dark-role">App background. Warm dark cream.</div></div></div>
+        <div class="dark-tile"><div class="tsw" style="background:#24231F;"></div><div class="dark-body"><div class="dark-name">Surface-low</div><div class="dark-hex">#24231F</div><div class="dark-role">Cards, nav bar, sections.</div></div></div>
+        <div class="dark-tile"><div class="tsw" style="background:#2E2D28;"></div><div class="dark-body"><div class="dark-name">Surface-high</div><div class="dark-hex">#2E2D28</div><div class="dark-role">Dividers, track fills, stronger separation.</div></div></div>
       </div>
 
       <div style="margin-top:14px;">
-        <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(224,221,214,0.35);margin-bottom:8px;">Category card backgrounds · dark mode</div>
+        <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(240,237,230,0.35);margin-bottom:8px;">Text + signature colors · dark mode</div>
+        <div class="dark-grid">
+          <div class="dark-tile"><div class="tsw" style="background:#F0EDE6;"></div><div class="dark-body"><div class="dark-name">Text primary</div><div class="dark-hex">#F0EDE6</div><div class="dark-role">Primary text. Warm off-white.</div></div></div>
+          <div class="dark-tile"><div class="tsw" style="background:#A8A29A;"></div><div class="dark-body"><div class="dark-name">Text mid</div><div class="dark-hex">#A8A29A</div><div class="dark-role">Secondary text, subtitles.</div></div></div>
+          <div class="dark-tile"><div class="tsw" style="background:#787068;"></div><div class="dark-body"><div class="dark-name">Hint</div><div class="dark-hex">#787068</div><div class="dark-role">Placeholders, section labels.</div></div></div>
+          <div class="dark-tile"><div class="tsw" style="background:#B8A0E8;"></div><div class="dark-body"><div class="dark-name">Plum (dark)</div><div class="dark-hex">#B8A0E8</div><div class="dark-role">Lightened for visibility. FAB, CTA, active tab.</div></div></div>
+          <div class="dark-tile"><div class="tsw" style="background:#F0B890;"></div><div class="dark-body"><div class="dark-name">Apricot (dark)</div><div class="dark-hex">#F0B890</div><div class="dark-role">Lightened for visibility. Greeting, streak, warmth.</div></div></div>
+        </div>
+      </div>
+
+      <div style="margin-top:14px;">
+        <div style="font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(240,237,230,0.35);margin-bottom:8px;">Category card backgrounds · dark mode · lifted 15-20%</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(224,221,214,0.08);min-width:100px;">
+          <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(240,237,230,0.08);min-width:100px;">
             <div style="height:32px;background:#3A302E;"></div>
-            <div style="padding:6px 10px;background:#28261F;"><div style="font-size:10px;font-weight:500;color:#E0DDD6;">Home</div><div style="font-size:9px;color:rgba(224,221,214,0.4);font-family:monospace;">#3A302E</div></div>
+            <div style="padding:6px 10px;background:#24231F;"><div style="font-size:10px;font-weight:500;color:#F0EDE6;">Home</div><div style="font-size:9px;color:rgba(240,237,230,0.4);font-family:monospace;">#3A302E</div></div>
           </div>
-          <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(224,221,214,0.08);min-width:100px;">
-            <div style="height:32px;background:#242E2C;"></div>
-            <div style="padding:6px 10px;background:#28261F;"><div style="font-size:10px;font-weight:500;color:#E0DDD6;">Garden</div><div style="font-size:9px;color:rgba(224,221,214,0.4);font-family:monospace;">#242E2C</div></div>
+          <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(240,237,230,0.08);min-width:100px;">
+            <div style="height:32px;background:#283020;"></div>
+            <div style="padding:6px 10px;background:#24231F;"><div style="font-size:10px;font-weight:500;color:#F0EDE6;">Garden</div><div style="font-size:9px;color:rgba(240,237,230,0.4);font-family:monospace;">#283020</div></div>
           </div>
-          <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(224,221,214,0.08);min-width:100px;">
+          <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(240,237,230,0.08);min-width:100px;">
             <div style="height:32px;background:#262E34;"></div>
-            <div style="padding:6px 10px;background:#28261F;"><div style="font-size:10px;font-weight:500;color:#E0DDD6;">Vehicle</div><div style="font-size:9px;color:rgba(224,221,214,0.4);font-family:monospace;">#262E34</div></div>
+            <div style="padding:6px 10px;background:#24231F;"><div style="font-size:10px;font-weight:500;color:#F0EDE6;">Vehicle</div><div style="font-size:9px;color:rgba(240,237,230,0.4);font-family:monospace;">#262E34</div></div>
           </div>
-          <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(224,221,214,0.08);min-width:100px;">
+          <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(240,237,230,0.08);min-width:100px;">
             <div style="height:32px;background:#302838;"></div>
-            <div style="padding:6px 10px;background:#28261F;"><div style="font-size:10px;font-weight:500;color:#E0DDD6;">Subs</div><div style="font-size:9px;color:rgba(224,221,214,0.4);font-family:monospace;">#302838</div></div>
+            <div style="padding:6px 10px;background:#24231F;"><div style="font-size:10px;font-weight:500;color:#F0EDE6;">Subs</div><div style="font-size:9px;color:rgba(240,237,230,0.4);font-family:monospace;">#302838</div></div>
           </div>
-          <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(224,221,214,0.08);min-width:100px;">
+          <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(240,237,230,0.08);min-width:100px;">
             <div style="height:32px;background:#2E2E26;"></div>
-            <div style="padding:6px 10px;background:#28261F;"><div style="font-size:10px;font-weight:500;color:#E0DDD6;">Health</div><div style="font-size:9px;color:rgba(224,221,214,0.4);font-family:monospace;">#2E2E26</div></div>
+            <div style="padding:6px 10px;background:#24231F;"><div style="font-size:10px;font-weight:500;color:#F0EDE6;">Health</div><div style="font-size:9px;color:rgba(240,237,230,0.4);font-family:monospace;">#2E2E26</div></div>
           </div>
-          <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(224,221,214,0.08);min-width:100px;">
+          <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(240,237,230,0.08);min-width:100px;">
             <div style="height:32px;background:#342C22;"></div>
-            <div style="padding:6px 10px;background:#28261F;"><div style="font-size:10px;font-weight:500;color:#E0DDD6;">Pets</div><div style="font-size:9px;color:rgba(224,221,214,0.4);font-family:monospace;">#342C22</div></div>
+            <div style="padding:6px 10px;background:#24231F;"><div style="font-size:10px;font-weight:500;color:#F0EDE6;">Pets</div><div style="font-size:9px;color:rgba(240,237,230,0.4);font-family:monospace;">#342C22</div></div>
           </div>
         </div>
       </div>
 
-      <div style="margin-top:14px;font-size:11px;color:rgba(224,221,214,0.3);line-height:1.6;">Border: <code style="font-family:monospace;font-size:10px;background:rgba(255,255,255,0.07);padding:1px 5px;border-radius:3px;">rgba(224,221,214,0.08)</code> — warm hairline · Card shadow: none — elevation from bg/card color difference alone</div>
+      <div style="margin-top:14px;font-size:11px;color:rgba(240,237,230,0.3);line-height:1.6;">Border: <code style="font-family:monospace;font-size:10px;background:rgba(255,255,255,0.07);padding:1px 5px;border-radius:3px;">rgba(240,237,230,0.08)</code> warm hairline · Card shadow: none, elevation from surface-tier difference alone · Category washes at 15% opacity (was 12%)</div>
     </div>
 
     <div style="margin-top:14px;">
     <div class="rcard">
       <div class="rcard-title">Dark mode rules <span class="tag tag-lock">locked</span></div>
-      <div class="rcard-body"><strong>Default is light.</strong> Dark follows system preference. Both modes must be fully designed — "just invert" is not acceptable.<br><br>
-      <strong>No blue or cool-green tints anywhere in dark mode.</strong> The base (#1E1C18) is warm dark cream. Category card backgrounds are warm desaturated versions of their light counterparts.<br><br>
-      The done overlay uses <code>plum #2D1F4A</code> in both modes — already dark enough in light mode, consistent in dark.<br><br>
-      <strong>CTA (#9B7FD4) is identical in both modes</strong> — light plum works against both cream and the warm dark background.</div>
+      <div class="rcard-body"><strong>Default is light.</strong> Dark follows system preference. Both modes must be fully designed.<br><br>
+      <strong>No blue or cool-green tints.</strong> The base (#1C1B18) is warm dark cream. Category backgrounds are warm desaturated versions of light counterparts, lifted 15-20% for visibility.<br><br>
+      The done overlay uses <code>deep plum #2D1F4A</code> in both modes.<br><br>
+      <strong>Plum lightens to #B8A0E8, apricot to #F0B890</strong> in dark mode for adequate contrast. Category washes increase from 12% to 15% opacity.</div>
+    </div>
+    </div>
+
+    <!-- COMPONENT-LEVEL DARK OVERRIDES -->
+    <div style="margin-top:14px;">
+    <div class="rcard">
+      <div class="rcard-title">Component overrides in dark mode <span class="tag tag-lock">locked</span></div>
+      <div class="rcard-body">
+        These component-level overrides ensure UI elements pop against the dark surface. All values are from the production dashboard screens.<br><br>
+
+        <table style="width:100%;border-collapse:collapse;font-size:11px;line-height:1.8;">
+          <tr style="border-bottom:1px solid var(--border);background:rgba(26,22,18,0.02);">
+            <td style="padding:6px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;width:180px;">Component</td>
+            <td style="padding:6px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Dark value</td>
+            <td style="padding:6px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Light reference</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Nav bar bg</td><td style="padding:4px 8px;"><code>--surface-low</code> (#24231F)</td><td style="padding:4px 8px;color:var(--mid);"><code>--surface</code> (#FBF9F4)</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Nav bar shadow</td><td style="padding:4px 8px;"><code>0 -2px 12px rgba(0,0,0,0.15)</code></td><td style="padding:4px 8px;color:var(--mid);"><code>0 -2px 12px rgba(49,51,44,0.04)</code></td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Notch</td><td style="padding:4px 8px;"><code>rgba(255,255,255,0.08)</code></td><td style="padding:4px 8px;color:var(--mid);">Solid dark</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">"Why it matters" bg</td><td style="padding:4px 8px;"><code>rgba(255,255,255,0.04)</code></td><td style="padding:4px 8px;color:var(--mid);"><code>--surface-low</code></td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Dismiss X button</td><td style="padding:4px 8px;"><code>rgba(255,255,255,0.08)</code></td><td style="padding:4px 8px;color:var(--mid);"><code>rgba(49,51,44,0.05)</code></td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Outline / divider</td><td style="padding:4px 8px;"><code>rgba(177,179,169,0.15)</code></td><td style="padding:4px 8px;color:var(--mid);"><code>#B1B3A9</code></td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Primary container</td><td style="padding:4px 8px;"><code>rgba(184,160,232,0.12)</code></td><td style="padding:4px 8px;color:var(--mid);"><code>rgba(155,127,212,0.08)</code></td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Card shadow</td><td style="padding:4px 8px;">none</td><td style="padding:4px 8px;color:var(--mid);">none</td></tr>
+          <tr><td style="padding:4px 8px;font-weight:500;">Sage (success)</td><td style="padding:4px 8px;"><code>#6AAE40</code> text, <code>rgba(106,175,64,0.15)</code> bg</td><td style="padding:4px 8px;color:var(--mid);"><code>#3B6D11</code> text, <code>#EAF3DE</code> bg</td></tr>
+        </table>
+      </div>
+    </div>
+    </div>
+
+    <!-- MY STUFF DARK CARD BACKGROUNDS -->
+    <div style="margin-top:10px;">
+    <div class="rcard">
+      <div class="rcard-title">My Stuff card backgrounds, dark mode <span class="tag tag-lock">locked</span></div>
+      <div class="rcard-body">
+        My Stuff item cards use solid dark category backgrounds, not washes. Each has a pressed/active state that lightens slightly.<br><br>
+        <table style="width:100%;border-collapse:collapse;font-size:11px;line-height:1.8;">
+          <tr style="border-bottom:1px solid var(--border);background:rgba(26,22,18,0.02);">
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;width:120px;">Category</td>
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Default</td>
+            <td style="padding:4px 8px;font-size:10px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:1px;">Active/pressed</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Home</td><td style="padding:4px 8px;"><code>#3A302E</code></td><td style="padding:4px 8px;"><code>#443835</code></td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Garden</td><td style="padding:4px 8px;"><code>#283020</code></td><td style="padding:4px 8px;"><code>#303A28</code></td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Vehicle</td><td style="padding:4px 8px;"><code>#262E34</code></td><td style="padding:4px 8px;"><code>#2E383E</code></td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Subscriptions</td><td style="padding:4px 8px;"><code>#302838</code></td><td style="padding:4px 8px;"><code>#3A3242</code></td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:4px 8px;font-weight:500;">Health</td><td style="padding:4px 8px;"><code>#2E2E26</code></td><td style="padding:4px 8px;"><code>#383830</code></td></tr>
+          <tr><td style="padding:4px 8px;font-weight:500;">Pets</td><td style="padding:4px 8px;"><code>#342C22</code></td><td style="padding:4px 8px;"><code>#3E362C</code></td></tr>
+        </table>
+        <br>
+        <strong>Rule:</strong> Active state lightens by approx. +10 in the dominant channel. Keep it subtle: a pressed card should feel like a breath, not a highlight.
+      </div>
     </div>
     </div>
 
@@ -622,64 +763,124 @@ section{padding-top:60px;}
   <section id="category">
     <div class="sec-eye">04</div>
     <h2 class="sec-title">Categories, items &amp; tasks</h2>
-    <p class="sec-desc">nudgii organises everything into a three-level hierarchy: categories contain items, items contain tasks. v10.5 — cards use solid pastel fills. Icons sit directly on the card, no container.</p>
+    <p class="sec-desc">nudgii organises everything into a three-level hierarchy: categories contain items, items contain tasks. 11 categories, each with a solid pastel fill + darkened icon stroke. Icons sit directly on the card, no container. v11.0 Precision Warmth.</p>
 
-    <!-- v10.5 card-style category swatches -->
-    <div style="margin-bottom:8px;font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);">Task card backgrounds + icon strokes · v10.5</div>
-    <div class="cat-row" style="margin-bottom:18px;">
+    <!-- CATEGORY PALETTE — 6 CORE + 5 EXPANSION -->
+    <div style="margin-bottom:8px;font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);">Core categories (6) — MVP launch</div>
+    <div class="cat-row" style="margin-bottom:12px;">
       <!-- Home -->
       <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(44,40,36,0.06);min-width:130px;">
-        <div style="background:#D2BEB6;padding:14px 14px 10px;display:flex;align-items:center;gap:10px;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7A5A50" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          <span style="font-size:12px;font-weight:500;color:#2C2824;">Home</span>
+        <div style="background:#C09088;padding:14px 14px 10px;display:flex;align-items:center;gap:10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5A3830" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span style="font-size:12px;font-weight:500;color:#FFFFFF;">Home</span>
         </div>
-        <div style="padding:8px 12px;background:var(--surface);"><div style="font-size:9px;font-family:monospace;color:var(--mid);">bg #D2BEB6</div><div style="font-size:9px;font-family:monospace;color:var(--mid);">ic #7A5A50</div><div style="font-size:9px;color:var(--mid);font-style:italic;">Anthropic blush</div></div>
+        <div style="padding:8px 12px;background:var(--surface);"><div style="font-size:9px;font-family:monospace;color:var(--mid);">bg #C09088</div><div style="font-size:9px;font-family:monospace;color:var(--mid);">ic #5A3830</div><div style="font-size:9px;color:var(--mid);font-style:italic;">Dusty rose</div></div>
       </div>
       <!-- Garden -->
       <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(44,40,36,0.06);min-width:130px;">
-        <div style="background:#C0CEC9;padding:14px 14px 10px;display:flex;align-items:center;gap:10px;">
-          <svg width="20" height="20" viewBox="0 0 256 256" fill="none" stroke="#607870" stroke-width="16" stroke-linecap="round"><path d="M128,24C128,24,48,80,48,128a80,80,0,0,0,160,0C208,80,128,24,128,24Z"/></svg>
-          <span style="font-size:12px;font-weight:500;color:#2C2824;">Garden</span>
+        <div style="background:#8C9B80;padding:14px 14px 10px;display:flex;align-items:center;gap:10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3A4830" stroke-width="1.6" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.9.9 7.1"/><path d="M11.88 11.88C10 14 9 16 9 20"/></svg>
+          <span style="font-size:12px;font-weight:500;color:#FFFFFF;">Garden</span>
         </div>
-        <div style="padding:8px 12px;background:var(--surface);"><div style="font-size:9px;font-family:monospace;color:var(--mid);">bg #C0CEC9</div><div style="font-size:9px;font-family:monospace;color:var(--mid);">ic #607870</div><div style="font-size:9px;color:var(--mid);font-style:italic;">Leaf green</div></div>
+        <div style="padding:8px 12px;background:var(--surface);"><div style="font-size:9px;font-family:monospace;color:var(--mid);">bg #8C9B80</div><div style="font-size:9px;font-family:monospace;color:var(--mid);">ic #3A4830</div><div style="font-size:9px;color:var(--mid);font-style:italic;">Sage green</div></div>
       </div>
       <!-- Vehicle -->
       <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(44,40,36,0.06);min-width:130px;">
-        <div style="background:#C0CDD8;padding:14px 14px 10px;display:flex;align-items:center;gap:10px;">
-          <svg width="20" height="20" viewBox="0 0 256 256" fill="none" stroke="#4A6A82" stroke-width="16" stroke-linecap="round"><circle cx="128" cy="128" r="96"/><circle cx="128" cy="128" r="36"/></svg>
-          <span style="font-size:12px;font-weight:500;color:#2C2824;">Vehicle</span>
+        <div style="background:#8E9A94;padding:14px 14px 10px;display:flex;align-items:center;gap:10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3A4842" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>
+          <span style="font-size:12px;font-weight:500;color:#FFFFFF;">Vehicle</span>
         </div>
-        <div style="padding:8px 12px;background:var(--surface);"><div style="font-size:9px;font-family:monospace;color:var(--mid);">bg #C0CDD8</div><div style="font-size:9px;font-family:monospace;color:var(--mid);">ic #4A6A82</div><div style="font-size:9px;color:var(--mid);font-style:italic;">Steel mist</div></div>
+        <div style="padding:8px 12px;background:var(--surface);"><div style="font-size:9px;font-family:monospace;color:var(--mid);">bg #8E9A94</div><div style="font-size:9px;font-family:monospace;color:var(--mid);">ic #3A4842</div><div style="font-size:9px;color:var(--mid);font-style:italic;">Warm sage-slate</div></div>
       </div>
       <!-- Subscriptions -->
       <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(44,40,36,0.06);min-width:130px;">
-        <div style="background:#D0C6DC;padding:14px 14px 10px;display:flex;align-items:center;gap:10px;">
-          <svg width="20" height="20" viewBox="0 0 256 256" fill="none" stroke="#6A5085" stroke-width="16" stroke-linecap="round"><rect x="32" y="56" width="192" height="144" rx="8"/><line x1="32" y1="104" x2="224" y2="104"/></svg>
-          <span style="font-size:12px;font-weight:500;color:#2C2824;">Subscriptions</span>
+        <div style="background:#A69BBF;padding:14px 14px 10px;display:flex;align-items:center;gap:10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4A3866" stroke-width="1.6" stroke-linecap="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          <span style="font-size:12px;font-weight:500;color:#FFFFFF;">Subscriptions</span>
         </div>
-        <div style="padding:8px 12px;background:var(--surface);"><div style="font-size:9px;font-family:monospace;color:var(--mid);">bg #D0C6DC</div><div style="font-size:9px;font-family:monospace;color:var(--mid);">ic #6A5085</div><div style="font-size:9px;color:var(--mid);font-style:italic;">Lavender</div></div>
+        <div style="padding:8px 12px;background:var(--surface);"><div style="font-size:9px;font-family:monospace;color:var(--mid);">bg #A69BBF</div><div style="font-size:9px;font-family:monospace;color:var(--mid);">ic #4A3866</div><div style="font-size:9px;color:var(--mid);font-style:italic;">Lavender</div></div>
       </div>
       <!-- Health -->
       <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(44,40,36,0.06);min-width:130px;">
-        <div style="background:#D2D0C4;padding:14px 14px 10px;display:flex;align-items:center;gap:10px;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6A6858" stroke-width="1.6" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-          <span style="font-size:12px;font-weight:500;color:#2C2824;">Health</span>
+        <div style="background:#9A9A88;padding:14px 14px 10px;display:flex;align-items:center;gap:10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#404030" stroke-width="1.6" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          <span style="font-size:12px;font-weight:500;color:#FFFFFF;">Health</span>
         </div>
-        <div style="padding:8px 12px;background:var(--surface);"><div style="font-size:9px;font-family:monospace;color:var(--mid);">bg #D2D0C4</div><div style="font-size:9px;font-family:monospace;color:var(--mid);">ic #6A6858</div><div style="font-size:9px;color:var(--mid);font-style:italic;">Soft olive · v2</div></div>
+        <div style="padding:8px 12px;background:var(--surface);"><div style="font-size:9px;font-family:monospace;color:var(--mid);">bg #9A9A88</div><div style="font-size:9px;font-family:monospace;color:var(--mid);">ic #404030</div><div style="font-size:9px;color:var(--mid);font-style:italic;">Olive</div></div>
       </div>
       <!-- Pets -->
       <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(44,40,36,0.06);min-width:130px;">
-        <div style="background:#DECDC0;padding:14px 14px 10px;display:flex;align-items:center;gap:10px;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A6238" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2a2 2 0 0 1 2 2M12 20a2 2 0 0 0 2 2M20 12a2 2 0 0 1 2 2M2 12a2 2 0 0 0 2 2"/></svg>
-          <span style="font-size:12px;font-weight:500;color:#2C2824;">Pets</span>
+        <div style="background:#B8A080;padding:14px 14px 10px;display:flex;align-items:center;gap:10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#584020" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2a2 2 0 0 1 2 2M12 20a2 2 0 0 0 2 2M20 12a2 2 0 0 1 2 2M2 12a2 2 0 0 0 2 2"/></svg>
+          <span style="font-size:12px;font-weight:500;color:#FFFFFF;">Pets</span>
         </div>
-        <div style="padding:8px 12px;background:var(--surface);"><div style="font-size:9px;font-family:monospace;color:var(--mid);">bg #DECDC0</div><div style="font-size:9px;font-family:monospace;color:var(--mid);">ic #8A6238</div><div style="font-size:9px;color:var(--mid);font-style:italic;">Warm amber</div></div>
+        <div style="padding:8px 12px;background:var(--surface);"><div style="font-size:9px;font-family:monospace;color:var(--mid);">bg #B8A080</div><div style="font-size:9px;font-family:monospace;color:var(--mid);">ic #584020</div><div style="font-size:9px;color:var(--mid);font-style:italic;">Warm amber</div></div>
       </div>
     </div>
 
+    <!-- EXPANSION CATEGORIES -->
+    <div style="margin-bottom:8px;font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);">Expansion categories (5) — ready for post-launch</div>
+    <div class="cat-row" style="margin-bottom:18px;">
+      <!-- Outdoor / Recreation -->
+      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(44,40,36,0.06);min-width:130px;">
+        <div style="background:#A8B0A0;padding:14px 14px 10px;display:flex;align-items:center;gap:10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#404840" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20l9-16 9 16H3z"/><line x1="12" y1="10" x2="12" y2="16"/></svg>
+          <span style="font-size:12px;font-weight:500;color:#FFFFFF;">Outdoor</span>
+        </div>
+        <div style="padding:8px 12px;background:var(--surface);"><div style="font-size:9px;font-family:monospace;color:var(--mid);">bg #A8B0A0</div><div style="font-size:9px;font-family:monospace;color:var(--mid);">ic #404840</div><div style="font-size:9px;color:var(--mid);font-style:italic;">Moss green</div></div>
+      </div>
+      <!-- Finance / Insurance -->
+      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(44,40,36,0.06);min-width:130px;">
+        <div style="background:#B0A8A0;padding:14px 14px 10px;display:flex;align-items:center;gap:10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#504840" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="6" y1="12" x2="6" y2="12"/><circle cx="16" cy="12" r="2"/></svg>
+          <span style="font-size:12px;font-weight:500;color:#FFFFFF;">Finance</span>
+        </div>
+        <div style="padding:8px 12px;background:var(--surface);"><div style="font-size:9px;font-family:monospace;color:var(--mid);">bg #B0A8A0</div><div style="font-size:9px;font-family:monospace;color:var(--mid);">ic #504840</div><div style="font-size:9px;color:var(--mid);font-style:italic;">Warm taupe</div></div>
+      </div>
+      <!-- Electronics / Tech -->
+      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(44,40,36,0.06);min-width:130px;">
+        <div style="background:#9CA0A8;padding:14px 14px 10px;display:flex;align-items:center;gap:10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#383C48" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+          <span style="font-size:12px;font-weight:500;color:#FFFFFF;">Electronics</span>
+        </div>
+        <div style="padding:8px 12px;background:var(--surface);"><div style="font-size:9px;font-family:monospace;color:var(--mid);">bg #9CA0A8</div><div style="font-size:9px;font-family:monospace;color:var(--mid);">ic #383C48</div><div style="font-size:9px;color:var(--mid);font-style:italic;">Cool slate</div></div>
+      </div>
+      <!-- Kids / Family -->
+      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(44,40,36,0.06);min-width:130px;">
+        <div style="background:#C4A8A0;padding:14px 14px 10px;display:flex;align-items:center;gap:10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6A4038" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+          <span style="font-size:12px;font-weight:500;color:#FFFFFF;">Family</span>
+        </div>
+        <div style="padding:8px 12px;background:var(--surface);"><div style="font-size:9px;font-family:monospace;color:var(--mid);">bg #C4A8A0</div><div style="font-size:9px;font-family:monospace;color:var(--mid);">ic #6A4038</div><div style="font-size:9px;color:var(--mid);font-style:italic;">Blush clay</div></div>
+      </div>
+      <!-- Seasonal / Calendar -->
+      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(44,40,36,0.06);min-width:130px;">
+        <div style="background:#B8B098;padding:14px 14px 10px;display:flex;align-items:center;gap:10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#505038" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span style="font-size:12px;font-weight:500;color:#FFFFFF;">Seasonal</span>
+        </div>
+        <div style="padding:8px 12px;background:var(--surface);"><div style="font-size:9px;font-family:monospace;color:var(--mid);">bg #B8B098</div><div style="font-size:9px;font-family:monospace;color:var(--mid);">ic #505038</div><div style="font-size:9px;color:var(--mid);font-style:italic;">Dry grass</div></div>
+      </div>
+    </div>
+
+    <!-- COLOR RULES + SELECTION GUIDE -->
     <div class="rcard">
-      <div class="rcard-title">Category color rules · v10.5 <span class="tag tag-lock">locked</span></div>
-      <div class="rcard-body"><strong>Card backgrounds are SOLID pastel fills</strong> — never <code>rgba(color, opacity)</code> on cream. The fill defines the element. No borders on colored cards.<br><br><strong>Icons sit directly on the card</strong> — no circle or rounded-square container. Stroke color is the darkened version of the card background (the <code>-ic</code> token), never ink black.<br><br>Category colors appear <strong>only on task cards, My Stuff tiles, and dynamic cards</strong>. Never on: date labels, section headers, tab bar, filter text, or any status indicator.<br><br><strong>Adding a new category:</strong> choose a muted pastel not already in the system. Define <code>bg</code> (solid fill) and <code>ic</code> (darkened stroke) tokens. One Phosphor outline icon. Done — the system absorbs it without redesign.</div>
+      <div class="rcard-title">Category color rules <span class="tag tag-lock">locked</span></div>
+      <div class="rcard-body"><strong>Card backgrounds are SOLID pastel fills</strong>, never <code>rgba(color, opacity)</code> on cream. The fill defines the element. No borders on colored cards.<br><br><strong>Icons sit directly on the card</strong>, no circle or rounded-square container. Stroke color is the darkened version of the card background (the <code>-ic</code> token), never ink black.<br><br>Category colors appear <strong>only on task cards, My Stuff tiles, dynamic cards, and filter pills (active state)</strong>. Never on: date labels, section headers, tab bar, or any status indicator.<br><br><strong>Done button uses category color</strong>, not plum. Plum = app-level action, category color = task-level completion.</div>
+    </div>
+
+    <div class="rcard">
+      <div class="rcard-title">How to choose a new category color <span class="tag tag-new">color selection guide</span></div>
+      <div class="rcard-body">
+        All 11 category colors live in the same warm, desaturated pastel family. When adding a new category:<br><br>
+        <strong>1. Saturation:</strong> Stay in the 15-30% saturation range. nudgii colors feel "found in nature," not "picked from a color picker." Think weathered terracotta, dried sage, old paper.<br><br>
+        <strong>2. Lightness:</strong> Aim for 55-70% lightness. Light enough for white text/icons to be readable, dark enough to separate from the cream surface.<br><br>
+        <strong>3. Hue distance:</strong> New color must be at least 25 degrees away from any existing category on the hue wheel. Test by placing all swatches in a row: if two look like the same color at arm's length, they're too close.<br><br>
+        <strong>4. Icon stroke:</strong> Darken the bg color by 30-40% lightness to get the <code>-ic</code> token. The stroke should feel like it belongs to the card, not like a separate color.<br><br>
+        <strong>5. Wash variant:</strong> Create <code>rgba(bg-color, 0.14)</code> for the <code>-wash</code> token. Test on both surface (#FBF9F4) and surface-low (#F5F4ED).<br><br>
+        <strong>6. Dark mode:</strong> Lighten the hue by 15-20%, keep saturation low. Create a warm desaturated dark bg variant at roughly #2A-3A range.<br><br>
+        <strong>The acid test:</strong> Line up all category swatches. They should look like they came from the same paint set, not like a rainbow.
+      </div>
     </div>
 
     <!-- Legacy reference -->
@@ -2361,19 +2562,23 @@ Overlay.of(context).insert(
   <section id="rules">
     <div class="sec-eye">13</div>
     <h2 class="sec-title">Locked rules</h2>
-    <p class="sec-desc">These don't get questioned in design reviews. They are decided.</p>
+    <p class="sec-desc">These don't get questioned in design reviews. They are decided. Precision Warmth v11.0.</p>
 
     <div class="locked-grid">
-      <div class="rcard"><div class="rcard-title"><span class="tag tag-never">never</span> Gradient anywhere</div><div class="rcard-body">No gradient backgrounds, headers, or CTAs. Warmth comes from cream + apricot accent + typography weight. Gradients read as tacky at the quality level nudgii targets.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-never">never</span> Gradient anywhere</div><div class="rcard-body">No gradient backgrounds, headers, or CTAs. Warmth comes from tonal surfaces + apricot accent + typography weight. Gradients read as tacky at the quality level nudgii targets.</div></div>
       <div class="rcard"><div class="rcard-title"><span class="tag tag-never">never</span> Left-border accent lines</div><div class="rcard-body">Colored left stripe on cards is the most overused pattern in AI-generated UI. Status lives in the date label color only. No exceptions.</div></div>
-      <div class="rcard"><div class="rcard-title"><span class="tag tag-never">never</span> Plum outside done overlay</div><div class="rcard-body">Deep plum <code>#2D1F4A</code> appears only in the done overlay background. The moment it appears on a chip, header, or badge the overlay loses its impact.<br><br>Light plum <code>#9B7FD4</code> has two sanctioned uses only: the CTA button (and its echoes — active chip, tab pip, add button) and the Pro badge. It never appears in category icons, card backgrounds, section labels, or any status element.</div></div>
-      <div class="rcard"><div class="rcard-title"><span class="tag tag-never">never</span> Category colors on status</div><div class="rcard-body">A slate vehicle icon is always slate — overdue or not. The icon tells WHAT, the date tells WHEN. Two independent systems that never overlap.</div></div>
-      <div class="rcard"><div class="rcard-title"><span class="tag tag-never">never</span> Blue-tinted dark bg</div><div class="rcard-body">Old ink <code>#1E2832</code> had a blue hue — removed. Dark base is deep sage <code>#111614</code>. No blue, no cold, no developer-tool feeling.</div></div>
-      <div class="rcard"><div class="rcard-title"><span class="tag tag-lock">always</span> nudgii lowercase</div><div class="rcard-body">Always nudgii — never Nudgii, never NUDGII. In all app copy, marketing, documentation, and code comments. The double-i is the brand's typographic signature.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-never">never</span> Deep plum outside done overlay</div><div class="rcard-body">Deep plum <code>#2D1F4A</code> appears only in the done overlay background. The moment it appears on a chip, header, or badge the overlay loses its impact.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-lock">always</span> Plum = actions only</div><div class="rcard-body">Light plum <code>#9B7FD4</code> is for tappable actions only: CTA button, FAB, active nav tab, active filter pill, Pro badge. It never appears in category icons, card backgrounds, section labels, or any status element.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-lock">always</span> Apricot = warmth only</div><div class="rcard-body">Apricot <code>#E8A87C</code> is for personality moments: greeting name, streak circle, savings numbers, "why it matters" labels, urgency text. Never on buttons, backgrounds, or navigation. If you can tap it, use plum.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-lock">always</span> Done button = category color</div><div class="rcard-body">The Done button on expanded task cards uses the task's category color, not plum. Plum = app-level action. Category color = task-level completion. This keeps plum reserved for "add something new."</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-never">never</span> "Overdue" in any copy</div><div class="rcard-body">Tasks have time windows, not deadlines. The word "overdue" creates guilt. Use "waiting," "could use you," or time-since-last-done. Also never: "late," "missed," or "urgent." The item is the subject ("waiting for you"), the user never fails.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-never">never</span> Borders on cards</div><div class="rcard-body">Separation comes from tonal surface tiers (surface-lowest → surface → surface-low → surface-high), not from borders. Category cards use solid pastel fills. The cream between cards is the separator.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-never">never</span> Blue-tinted dark bg</div><div class="rcard-body">Dark base is warm dark cream <code>#1C1B18</code>. No blue, no cool-green, no developer-tool feeling. Category backgrounds lifted 15-20% for visibility.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-lock">always</span> nudgii lowercase</div><div class="rcard-body">Always nudgii, never Nudgii, never NUDGII. In all app copy, marketing, documentation, and code comments. The double-i is the brand's typographic signature.</div></div>
       <div class="rcard"><div class="rcard-title"><span class="tag tag-lock">always</span> One serif moment per screen</div><div class="rcard-body">DM Serif Display appears once per screen. Welcome: headline. Dashboard: greeting. Detail: witty opener. Done overlay: confirmation. Never two visible simultaneously.</div></div>
-      <div class="rcard"><div class="rcard-title"><span class="tag tag-lock">always</span> White cards on cream</div><div class="rcard-body">Task cards and UI cards are white on cream. Subtle but essential — creates depth without contrast. Never use off-white for cards on cream — they merge.</div></div>
-      <div class="rcard"><div class="rcard-title"><span class="tag tag-lock">always</span> CTA = light plum <span class="tag tag-new"></span></div><div class="rcard-body"><code>#9B7FD4</code> on all primary action buttons. Pulled directly from the icon's right pill — the color thread is icon → CTA → done overlay. Lavender-white <code>#FAF8FF</code> text. Never ink, never apricot, never green. Apricot-dk is now status dates only.</div></div>
-      <div class="rcard"><div class="rcard-title"><span class="tag tag-lock">always</span> Sentence case everywhere</div><div class="rcard-body">Buttons, chips, labels, section headers — sentence case. Never Title Case. Never ALL CAPS in user-facing copy. This includes filter chip labels and tab bar labels.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-lock">always</span> Tonal surface system</div><div class="rcard-body">Four tiers: surface-lowest (#FFFFFF) → surface (#FBF9F4) → surface-low (#F5F4ED) → surface-high (#E8E9E0). Paper-on-paper depth, no solid borders. Category washes at 10-14% create a fifth implicit layer.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-lock">always</span> Sentence case everywhere</div><div class="rcard-body">Buttons, chips, labels, section headers. Never Title Case. Never ALL CAPS in user-facing copy. Section labels (10px uppercase) are the single exception.</div></div>
+      <div class="rcard"><div class="rcard-title"><span class="tag tag-never">never</span> Em dashes anywhere</div><div class="rcard-body">Never use em dashes in copy, labels, microcopy, code comments, or documentation. Use commas, colons, or line breaks instead.</div></div>
     </div>
   </section>
 

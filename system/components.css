@@ -44,20 +44,32 @@
 html{scroll-behavior:smooth;}
 
 
-/* ── 1. DESIGN TOKENS ── */
+/* ── 1. DESIGN TOKENS — v11.0 Precision Warmth ── */
 :root{
-  /* core palette — v10.5 */
+  /* tonal surface system — paper-on-paper */
+  --surface-lowest:#FFFFFF;
+  --surface:#FBF9F4;
+  --surface-low:#F5F4ED;
+  --surface-high:#E8E9E0;
+
+  /* legacy alias — onboarding screens still reference --cream */
   --cream:#F5F0E8;
+
+  /* text — warm neutrals */
   --ink:#2C2824;
   --mid:#8A8070;
   --mid-lt:#B0A898;
   --mid-a:#6B6358;
   --hint:#A09888;
-  --surface:#FFFFFF;
 
-  /* brand */
+  /* signature color duo: plum + apricot */
   --cta:#9B7FD4;
   --cta-fg:#FAF8FF;
+  --apricot:#E8A87C;
+  --apricot-wash:rgba(232,168,124,0.12);
+  --plum-wash:rgba(155,127,212,0.10);
+
+  /* sacred tokens */
   --plum:#2D1F4A;
   --plum-pale:#C4A8E8;
   --overdue-badge:#6B4A3A;
@@ -78,29 +90,49 @@ html{scroll-behavior:smooth;}
   --ink-10:rgba(44,40,36,0.10);
   --ink-16:rgba(44,40,36,0.16);
 
-  /* category card backgrounds — SOLID pastels, v10.5 */
-  --cat-home-bg:#D2BEB6;
-  --cat-vehicle-bg:#C0CDD8;
-  --cat-garden-bg:#C4DABE;
-  --cat-sub-bg:#D0C6DC;
-  --cat-health-bg:#D2D0C4;
-  --cat-pets-bg:#DECDC0;
+  /* category — Precision Warmth desaturated "found" colors */
+  /* core 6 */
+  --cat-home-bg:#C09088;
+  --cat-garden-bg:#8C9B80;
+  --cat-vehicle-bg:#8E9A94;
+  --cat-sub-bg:#A69BBF;
+  --cat-health-bg:#9A9A88;
+  --cat-pets-bg:#B8A080;
+  /* expansion 5 */
+  --cat-outdoor-bg:#A8B0A0;
+  --cat-finance-bg:#B0A8A0;
+  --cat-electronics-bg:#9CA0A8;
+  --cat-family-bg:#C4A8A0;
+  --cat-seasonal-bg:#B8B098;
 
-  /* category icon strokes — v10.5 */
-  --cat-home-ic:#7A5A50;
-  --cat-vehicle-ic:#4A6A82;
-  --cat-garden-ic:#4A7A40;
-  --cat-sub-ic:#6A5085;
-  --cat-health-ic:#6A6858;
-  --cat-pets-ic:#8A6238;
+  /* category icon strokes */
+  --cat-home-ic:#5A3830;
+  --cat-garden-ic:#3A4830;
+  --cat-vehicle-ic:#3A4842;
+  --cat-sub-ic:#4A3866;
+  --cat-health-ic:#404030;
+  --cat-pets-ic:#584020;
+  --cat-outdoor-ic:#404840;
+  --cat-finance-ic:#504840;
+  --cat-electronics-ic:#383C48;
+  --cat-family-ic:#6A4038;
+  --cat-seasonal-ic:#505038;
 
-  /* category dot aliases (used in filter pills — uses icon color) */
+  /* category dot aliases (filter pills) */
   --cat-home:var(--cat-home-ic);
   --cat-vehicle:var(--cat-vehicle-ic);
   --cat-garden:var(--cat-garden-ic);
   --cat-sub:var(--cat-sub-ic);
   --cat-health:var(--cat-health-ic);
   --cat-pets:var(--cat-pets-ic);
+
+  /* category wash variants */
+  --cat-home-wash:rgba(192,144,136,0.14);
+  --cat-garden-wash:rgba(140,155,128,0.14);
+  --cat-vehicle-wash:rgba(142,154,148,0.14);
+  --cat-sub-wash:rgba(166,155,191,0.14);
+  --cat-health-wash:rgba(154,154,136,0.14);
+  --cat-pets-wash:rgba(184,160,128,0.14);
 
   /* spacing scale */
   --space-1:4px;

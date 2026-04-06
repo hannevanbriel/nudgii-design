@@ -40,6 +40,67 @@ body{background:#CBC5BB;padding:0 0 80px;}
 .pivot-l2 strong{font-style:normal;font-weight:600;color:var(--ink);}
 
 .trust-line{text-align:center;font-size:11px;color:var(--mid);margin-top:12px;}
+
+/* ── Theme toggle controls ── */
+.s01-controls{display:flex;gap:4px;align-items:center;margin-bottom:16px;}
+.s01-ctrl-label{font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#A09888;margin-right:4px;}
+.s01-ctrl-btn{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;padding:5px 14px;border-radius:6px;border:1px solid rgba(26,22,18,0.12);background:transparent;color:#8A8070;cursor:pointer;transition:all 120ms;}
+.s01-ctrl-btn:hover{border-color:rgba(26,22,18,0.20);}
+.s01-ctrl-btn.on{background:#9B7FD4;color:#FAF8FF;border-color:#9B7FD4;}
+
+/* ══════════════════════════════════════════════
+   DARK MODE — Precision Warmth tokens
+   ══════════════════════════════════════════════ */
+[data-theme="dark"] .w-screen{background:#1C1B18;}
+[data-theme="dark"] .w-content{color:#F0EDE6;}
+[data-theme="dark"] .w-h1{color:#F0EDE6;}
+[data-theme="dark"] .w-h1 em{color:#B8A0E8;}
+[data-theme="dark"] .sbar{color:#F0EDE6;}
+[data-theme="dark"] .sbar span{color:#F0EDE6;}
+
+/* ii mark: Version D (dark mode inline) */
+[data-theme="dark"] .ii-mark .ii-left{fill:#F0EDE6;}
+[data-theme="dark"] .ii-mark path:first-child{fill:#B8A0E8;}
+[data-theme="dark"] .ii-mark path:nth-child(2){fill:#F0EDE6;}
+
+/* Season chip */
+[data-theme="dark"] .season-chip{background:rgba(168,184,156,0.15);color:#A8B89C;}
+
+/* Progress bar track */
+[data-theme="dark"] .prog-bar{background:rgba(240,237,230,0.08);}
+[data-theme="dark"] .prog-fill{background:#B8A0E8;}
+
+/* Notch */
+[data-theme="dark"] .notch .np{background:rgba(255,255,255,0.08);}
+[data-theme="dark"] .notch{background:rgba(255,255,255,0.00);}
+
+/* Polaroid card — stays white in dark mode (physical object metaphor) */
+[data-theme="dark"] .pol{background:white;box-shadow:0 8px 40px rgba(0,0,0,0.50);}
+[data-theme="dark"] .pol-note-area{background:white;}
+[data-theme="dark"] .pol-note{color:#2C2824;}
+[data-theme="dark"] .pol-note em{color:#9B7FD4;}
+[data-theme="dark"] .pol-photo img{filter:saturate(0.85) contrast(1.05) brightness(0.92);}
+
+/* Dots */
+[data-theme="dark"] .pol-dot{background:rgba(240,237,230,0.15);}
+[data-theme="dark"] .pol-dot.on{background:#B8A0E8;}
+
+/* Pivot text */
+[data-theme="dark"] .pivot-l1{color:#A8A29A;}
+[data-theme="dark"] .pivot-l2{color:#A8A29A;}
+[data-theme="dark"] .pivot-l2 strong{color:#F0EDE6;}
+
+/* CTA button */
+[data-theme="dark"] .btn-a{background:#B8A0E8;color:#1C1B18;}
+
+/* Trust line */
+[data-theme="dark"] .trust-line{color:#787068;}
+
+/* Bottom zone */
+[data-theme="dark"] .w-bottom{background:#1C1B18;}
+
+/* Phone shell */
+[data-theme="dark"].phone{background:#1C1B18;box-shadow:0 0 0 1px rgba(255,255,255,0.03),0 24px 80px rgba(0,0,0,0.5);}
 </style>
 </head>
 <body>
@@ -73,12 +134,21 @@ body{background:#CBC5BB;padding:0 0 80px;}
     <span class="mp">March 2026</span>
   </div>
 
+  <!-- THEME TOGGLE -->
+  <div style="max-width:980px;margin:0 auto;padding:0 32px;">
+    <div class="s01-controls">
+      <span class="s01-ctrl-label">Theme</span>
+      <button class="s01-ctrl-btn on" id="s01-ctl" onclick="setS01Theme('light')">Light</button>
+      <button class="s01-ctrl-btn" id="s01-ctd" onclick="setS01Theme('dark')">Dark</button>
+    </div>
+  </div>
+
   <!-- CONTENT ROW: phone + annotation sidebar -->
   <div class="content-row">
 
     <!-- PHONE -->
     <div class="phone-col">
-      <div class="phone">
+      <div class="phone" id="s01-phone" data-theme="light">
         <div class="notch"><div class="np"></div></div>
         <div class="sbar"><span>9:41</span><div class="batt"></div></div>
         <!-- progress bar 20% -->
@@ -406,6 +476,13 @@ pol.addEventListener("pointerup",()=>{
 
 setMoment(0,"right");
 resetAuto();
+
+/* ── Theme toggle ── */
+function setS01Theme(t){
+  document.getElementById('s01-phone').setAttribute('data-theme',t);
+  document.getElementById('s01-ctl').classList.toggle('on',t==='light');
+  document.getElementById('s01-ctd').classList.toggle('on',t==='dark');
+}
 </script>
 
 </body>
