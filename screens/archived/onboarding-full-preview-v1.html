@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Onboarding flow: S-01 to S-09 Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream: #F5F0E8;
+  --ink: #2C2824;
+  --cta: #9B7FD4;
+  --cta-fg: #FAF8FF;
+  --apricot: #C4A8E8;
+  --apricot-dk: #9B7FD4;
+  --terra: #6B4A3A;
+  --mid: #8A8070;
+  --mid-ac: #6B6358;
+  --sage: #3B6D11;
+  --sage-lt: #EAF3DE;
+  --plum: #2D1F4A;
+  --red: #A32D2D;
+  --red-lt: #FCEBEB;
+  --surface: #FFFFFF;
+  --border: rgba(26,22,18,0.08);
+  --cat-home: #7A5A50;
+  --cat-vehicle: #4A6A82;
+  --cat-garden: #607870;
+  --cat-sub: #6A5085;
+}
+
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: #D8D3C9;
+  color: var(--ink);
+  padding: 36px 32px 48px;
+}
+
+/* ── PAGE HEADER ── */
+.page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.page-logo { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 500; color: rgba(26,22,18,0.50); text-decoration: none; }
+.page-badge { font-size: 10px; font-weight: 500; padding: 4px 10px; border-radius: 100px; background: rgba(155,127,212,0.12); color: var(--cta); border: 0.5px solid rgba(155,127,212,0.25); }
+.page-title { font-size: 10px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid); margin-bottom: 6px; }
+.page-links { display: flex; gap: 12px; margin-bottom: 24px; }
+.page-links a { font-size: 10px; color: var(--cta); text-decoration: none; font-weight: 500; }
+.page-links a:hover { text-decoration: underline; }
+
+/* ── FLOW BAR ── */
+.flow-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; margin-bottom: 24px; }
+.fp { display: flex; align-items: center; gap: 5px; background: var(--surface); border: 0.5px solid var(--border); border-radius: 100px; padding: 4px 10px 4px 5px; font-size: 9.5px; font-weight: 500; color: var(--ink); white-space: nowrap; }
+.fp.or-path { background: rgba(155,127,212,0.06); border-color: rgba(155,127,212,0.20); color: var(--mid-ac); font-style: italic; }
+.fp.changed { background: rgba(155,127,212,0.06); border-color: rgba(155,127,212,0.25); }
+.fp.new-screen { background: var(--sage-lt); border-color: rgba(59,109,17,0.20); }
+.fn { width: 15px; height: 15px; border-radius: 50%; background: var(--cta); color: var(--cta-fg); font-size: 7.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.fa { font-size: 10px; color: rgba(26,22,18,0.25); padding: 0 3px; }
+
+/* ── SCREENS AREA ── */
+.screens-wrap { overflow-x: auto; padding-bottom: 12px; }
+.screens-row { display: flex; gap: 16px; align-items: flex-start; width: max-content; }
+.screen-col { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+.screen-label { font-size: 8.5px; font-weight: 500; letter-spacing: 1.3px; text-transform: uppercase; color: var(--mid); text-align: center; }
+
+/* ── PATH SEPARATOR ── */
+.path-sep {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  height: 606px; padding-top: 52px;
+  gap: 6px;
+}
+.path-sep-line { width: 1px; flex: 1; background: rgba(26,22,18,0.12); }
+.path-sep-or { font-size: 9px; font-style: italic; color: var(--mid); }
+
+/* ── PHONE ── */
+.phone {
+  width: 280px; height: 606px;
+  background: var(--cream);
+  border-radius: 36px; overflow: hidden; position: relative;
+  box-shadow: 0 18px 48px rgba(26,22,18,0.18), 0 3px 12px rgba(26,22,18,0.09);
+  border: 1px solid rgba(26,22,18,0.07);
+  display: flex; flex-direction: column;
+}
+.phone::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 72px; height: 6px; background: var(--ink); border-radius: 0 0 4px 4px; z-index: 10; }
+.phone.dark { background: var(--ink); }
+.phone.dark::before { background: rgba(255,255,255,0.12); }
+
+/* ── STATUS BAR ── */
+.sbar { height: 26px; padding: 8px 16px 0; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.sbar-time { font-size: 9px; font-weight: 600; color: var(--ink); }
+.sbar-time.lt { color: rgba(245,240,232,0.80); }
+.sbar-icons { display: flex; align-items: center; gap: 4px; }
+.sbar-icons svg { width: 11px; height: 11px; }
+
+/* ── PROGRESS BAR ── */
+.prog { height: 3px; background: rgba(26,22,18,0.08); flex-shrink: 0; }
+.prog.lt { background: rgba(255,255,255,0.08); }
+.prog-fill { height: 100%; background: var(--cta); border-radius: 0 100px 100px 0; }
+.prog-fill.full { border-radius: 0; }
+
+/* ── SCREEN STRUCTURE ── */
+.scr { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+.scroll { flex: 1; overflow-y: auto; padding: 12px 14px 0; scrollbar-width: none; }
+.scroll::-webkit-scrollbar { display: none; }
+.btm { padding: 0 14px 14px; flex-shrink: 0; }
+.top-bar { display: flex; align-items: center; gap: 8px; padding: 8px 14px 0; flex-shrink: 0; }
+.brand-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px 0; flex-shrink: 0; }
+
+/* ── SHARED ATOMS ── */
+.ii-mark { display: block; flex-shrink: 0; }
+
+.free-badge { display: inline-flex; align-items: center; gap: 4px; background: var(--sage-lt); border: 0.5px solid rgba(59,109,17,0.15); border-radius: 100px; padding: 2px 7px; font-size: 7.5px; font-weight: 500; color: var(--sage); }
+.free-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--sage); flex-shrink: 0; }
+
+/* ── TYPOGRAPHY ── */
+.h1 { font-family: 'DM Serif Display', Georgia, serif; font-size: 23px; font-weight: 400; line-height: 0.97; letter-spacing: -0.4px; color: var(--ink); margin-bottom: 7px; }
+.h1 em { color: var(--apricot); font-style: italic; }
+.h2 { font-family: 'DM Serif Display', Georgia, serif; font-size: 20px; font-weight: 400; line-height: 1.0; letter-spacing: -0.3px; color: var(--ink); margin-bottom: 6px; }
+.h3 { font-family: 'DM Serif Display', Georgia, serif; font-size: 16px; font-weight: 400; line-height: 1.1; letter-spacing: -0.25px; color: var(--ink); margin-bottom: 5px; }
+.promise { font-size: 9px; font-style: italic; color: var(--mid); line-height: 1.5; margin-bottom: 10px; }
+.sub { font-size: 8px; color: var(--mid-ac); line-height: 1.5; margin-bottom: 10px; }
+.micro { font-size: 7.5px; color: var(--mid); font-style: italic; margin-bottom: 6px; }
+.sec-lbl { font-size: 7px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid); margin: 10px 0 6px; }
+.sec-lbl:first-child { margin-top: 0; }
+
+/* ── CATEGORY CHIPS ── */
+.chip { width: 22px; height: 22px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.chip svg { width: 11px; height: 11px; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.chip.home { background: rgba(122,90,80,0.10); } .chip.home svg { stroke: var(--cat-home); }
+.chip.vehicle { background: rgba(74,106,130,0.10); } .chip.vehicle svg { stroke: var(--cat-vehicle); }
+.chip.garden { background: rgba(74,122,64,0.10); } .chip.garden svg { stroke: var(--cat-garden); }
+.chip.sub { background: rgba(106,80,133,0.10); } .chip.sub svg { stroke: var(--cat-sub); }
+.chip.neutral { background: rgba(26,22,18,0.05); } .chip.neutral svg { stroke: var(--mid); }
+
+/* ── CHECK CIRCLE ── */
+.chk { width: 15px; height: 15px; border-radius: 50%; border: 1.5px solid rgba(26,22,18,0.14); background: transparent; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; }
+.chk svg { display: none; width: 8px; height: 8px; stroke: var(--cta-fg); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.chk.on { background: var(--cta); border-color: var(--cta); }
+.chk.on svg { display: block; }
+
+/* ── BUTTONS ── */
+.btn { width: 100%; height: 36px; border-radius: 100px; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 7px; }
+.btn.primary { background: var(--cta); color: var(--cta-fg); box-shadow: 0 2px 10px rgba(155,127,212,0.28); }
+.btn.secondary { background: transparent; border: 1px solid rgba(26,22,18,0.18); color: var(--ink); }
+.btn.ghost { background: transparent; color: var(--mid-ac); font-size: 8.5px; height: 28px; margin-bottom: 0; }
+
+/* ── S-02 SPECIFIC ── */
+.nudgii-msg { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; margin-bottom: 6px; }
+.nudgii-from { font-size: 6.5px; font-weight: 500; letter-spacing: 0.4px; color: var(--mid-ac); margin-bottom: 1px; padding-left: 1px; }
+.nudgii-bubble { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.08); border-radius: 9px 9px 9px 3px; padding: 6px 8px; box-shadow: 0 1px 3px rgba(26,22,18,0.04); max-width: 90%; }
+.nb-text { font-size: 7.5px; line-height: 1.55; color: var(--ink); }
+.nb-text em { font-style: italic; color: var(--cta); font-weight: 500; }
+.conf-chips { display: flex; flex-wrap: wrap; gap: 3px; margin: 4px 0; }
+.conf-chip { display: inline-flex; align-items: center; gap: 2px; background: #EAF3DE; border-radius: 100px; padding: 1.5px 6px; font-size: 6.5px; font-weight: 500; color: #3B6D11; }
+.conf-chip svg { width: 7px; height: 7px; stroke: #3B6D11; stroke-width: 2; fill: none; flex-shrink: 0; }
+.user-msg { display: flex; justify-content: flex-end; margin-bottom: 6px; }
+.user-bubble { background: var(--cta); border-radius: 9px 9px 3px 9px; padding: 6px 8px; max-width: 84%; }
+.ub-text { font-size: 7.5px; line-height: 1.55; color: var(--cta-fg); }
+.sug-chips { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 2px; }
+.sug-chip { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.12); border-radius: 100px; padding: 2px 7px; font-size: 6.5px; color: var(--mid-ac); }
+
+.input-bar { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.12); border-radius: 100px; padding: 0 8px; height: 36px; display: flex; align-items: center; gap: 7px; box-shadow: 0 1px 6px rgba(26,22,18,0.06); margin-bottom: 5px; }
+.ibar-icon { width: 22px; height: 22px; border-radius: 50%; background: rgba(26,22,18,0.05); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.ibar-icon svg { width: 11px; height: 11px; stroke: var(--mid-ac); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.ibar-text { flex: 1; font-size: 8px; color: var(--mid); }
+.ibar-mic { width: 26px; height: 26px; border-radius: 50%; background: var(--cta); display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 8px rgba(155,127,212,0.35); }
+.ibar-mic svg { width: 12px; height: 12px; stroke: var(--cta-fg); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.input-note { text-align: center; font-size: 6.5px; color: var(--mid); opacity: 0.65; }
+
+/* ── S-03 SPECIFIC ── */
+.search-bar { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.12); border-radius: 10px; padding: 0 10px; height: 32px; display: flex; align-items: center; gap: 6px; margin: 8px 14px 0; flex-shrink: 0; }
+.search-bar svg { width: 11px; height: 11px; stroke: var(--mid); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.search-text { font-size: 8px; color: var(--mid); flex: 1; }
+/* New chip row: tinted bg + category color text, no dots */
+.s3-chips { display: flex; gap: 4px; padding: 6px 14px 0; overflow-x: auto; scrollbar-width: none; flex-shrink: 0; }
+.s3-chips::-webkit-scrollbar { display: none; }
+.s3-chip { display: inline-flex; align-items: center; padding: 3px 9px; border-radius: 100px; flex-shrink: 0; font-size: 8px; font-weight: 500; }
+.s3-chip.all { background: rgba(155,127,212,0.12); color: var(--cta); outline: 0.5px solid var(--cta); }
+.s3-chip.home { background: rgba(122,90,80,0.13); color: var(--cat-home); }
+.s3-chip.vehicle { background: rgba(74,106,130,0.13); color: var(--cat-vehicle); }
+.s3-chip.garden { background: rgba(74,122,64,0.13); color: var(--cat-garden); }
+.s3-chip.subs { background: rgba(106,80,133,0.13); color: var(--cat-sub); }
+/* Selected pill */
+.s3-sel-pill { display: inline-flex; align-items: center; gap: 4px; background: var(--cta); border-radius: 100px; padding: 2px 8px; font-size: 7.5px; font-weight: 600; color: var(--cta-fg); margin: 5px 14px 0; }
+/* Tile grid */
+.tile-sec { margin: 8px 14px 0; }
+.tile-sec-lbl { display: flex; align-items: center; gap: 4px; font-size: 7px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: var(--mid); margin-bottom: 5px; }
+.tile-sec-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.tile-row3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.tile3 { border-radius: 10px; padding: 8px 4px 7px; display: flex; flex-direction: column; align-items: center; gap: 4px; border: 1.5px solid transparent; }
+.tile3-icon { width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; }
+.tile3-icon svg { width: 13px; height: 13px; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.tile3-name { font-size: 7.5px; font-weight: 500; color: var(--ink); text-align: center; line-height: 1.3; }
+.tile3.th { background: #D2BEB6; } .tile3.th .tile3-icon svg { stroke: var(--cat-home); }
+.tile3.th.sel { border-color: var(--cat-home); }
+.tile3.tv { background: #C0CDD8; } .tile3.tv .tile3-icon svg { stroke: var(--cat-vehicle); }
+.tile3.tv.sel { border-color: var(--cat-vehicle); }
+.tile3.tg { background: #C0CEC9; } .tile3.tg .tile3-icon svg { stroke: var(--cat-garden); }
+.tile3.ts { background: #D0C6DC; } .tile3.ts .tile3-icon svg { stroke: var(--cat-sub); }
+.cta-count { background: rgba(250,248,255,0.22); border-radius: 100px; padding: 1px 7px; font-size: 8px; font-weight: 600; }
+
+/* ── S-05 SPECIFIC ── */
+.rev-card { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.08); border-radius: 10px; box-shadow: 0 1px 3px rgba(26,22,18,0.04); margin-bottom: 6px; overflow: hidden; }
+.rev-head { padding: 8px 10px; display: flex; align-items: center; gap: 6px; border-bottom: 0.5px solid rgba(26,22,18,0.06); }
+.rev-name { flex: 1; font-size: 9px; font-weight: 500; color: var(--ink); }
+.scan-btn { width: 20px; height: 20px; border-radius: 5px; background: rgba(26,22,18,0.04); border: 0.5px solid rgba(26,22,18,0.07); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.scan-btn svg { width: 10px; height: 10px; stroke: var(--mid); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.remove-btn { width: 20px; height: 20px; border-radius: 5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer; }
+.remove-btn svg { width: 10px; height: 10px; stroke: rgba(26,22,18,0.30); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.rev-tasks { padding: 7px 10px 6px; display: flex; flex-direction: column; gap: 5px; }
+.rtask { display: flex; align-items: center; gap: 6px; }
+.rtask-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(26,22,18,0.14); flex-shrink: 0; }
+.rtask-name { flex: 1; font-size: 8px; color: var(--mid-ac); }
+.rtask-cad { font-size: 6.5px; color: var(--mid); background: rgba(26,22,18,0.04); border-radius: 100px; padding: 1px 5px; }
+.rev-card.collapsed .rev-tasks { display: none; }
+.rev-card.collapsed .last-done-row { display: none; }
+.rev-collapsed-hint { padding: 7px 10px 8px; display: flex; align-items: center; gap: 5px; }
+.rch-count { font-size: 7px; color: var(--mid); flex: 1; }
+.rch-chevron { width: 14px; height: 14px; display: flex; align-items: center; justify-content: center; }
+.rch-chevron svg { width: 10px; height: 10px; stroke: rgba(26,22,18,0.25); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.last-done-row { padding: 6px 10px 8px; border-top: 0.5px solid rgba(26,22,18,0.05); display: flex; align-items: center; gap: 6px; }
+.last-done-label { font-size: 7px; color: var(--mid); flex-shrink: 0; }
+.last-done-opts { display: flex; gap: 4px; }
+.ldo { font-size: 7px; font-weight: 500; padding: 2px 7px; border-radius: 100px; border: 0.5px solid rgba(26,22,18,0.12); background: var(--surface); color: var(--mid-ac); cursor: pointer; }
+.ldo.active { background: rgba(26,22,18,0.07); border-color: rgba(26,22,18,0.20); color: var(--ink); }
+
+/* ── S-06 AHA SPECIFIC ── */
+.aha-eyebrow { font-size: 7.5px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: var(--cta); margin-bottom: 6px; }
+.aha-line { font-size: 8px; color: var(--mid-ac); line-height: 1.5; margin-bottom: 12px; font-style: italic; }
+.nudge-cards { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
+.ncard { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.08); border-radius: 10px; box-shadow: 0 1px 3px rgba(26,22,18,0.04); padding: 8px 10px; display: flex; align-items: center; gap: 8px; }
+.ncontent { flex: 1; min-width: 0; }
+.nname { font-size: 9px; font-weight: 500; color: var(--ink); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nsub { font-size: 7px; color: var(--mid); font-style: italic; }
+.ndate { font-size: 8px; font-weight: 500; flex-shrink: 0; }
+.date-soon { color: var(--apricot-dk); }
+.date-ok { color: var(--mid-ac); }
+.value-box { background: rgba(155,127,212,0.06); border: 0.5px solid rgba(155,127,212,0.18); border-radius: 8px; padding: 8px 10px; margin-bottom: 10px; text-align: center; }
+.value-box p { font-size: 7.5px; color: var(--mid-ac); line-height: 1.55; }
+.value-box strong { color: var(--ink); font-weight: 500; }
+
+/* ── PUSH PERMISSION ── */
+.push-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 100px 18px 0; text-align: center; }
+.push-icon { width: 56px; height: 56px; border-radius: 16px; background: rgba(155,127,212,0.08); border: 0.5px solid rgba(155,127,212,0.15); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+.push-icon svg { width: 26px; height: 26px; stroke: var(--cta); fill: none; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── S-09 DASHBOARD ── */
+.greeting-row { padding: 12px 16px 10px; flex-shrink: 0; border-bottom: 0.5px solid rgba(26,22,18,0.06); }
+.greeting-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 2px; }
+.greeting-name { font-family: 'DM Serif Display', Georgia, serif; font-size: 19px; font-weight: 400; line-height: 0.95; letter-spacing: -0.3px; color: var(--ink); }
+.greeting-name em { color: var(--apricot); font-style: normal; }
+.greeting-sub { font-size: 8px; color: var(--mid-ac); }
+.settings-btn { width: 28px; height: 28px; border-radius: 8px; background: rgba(26,22,18,0.05); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+.settings-btn svg { width: 13px; height: 13px; stroke: var(--mid-ac); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.dash-scroll { flex: 1; overflow-y: auto; padding: 10px 14px 80px; scrollbar-width: none; }
+.dash-scroll::-webkit-scrollbar { display: none; }
+.dcard { background: var(--surface); border: 0.5px solid rgba(26,22,18,0.08); border-radius: 10px; box-shadow: 0 1px 3px rgba(26,22,18,0.04); padding: 9px 10px; display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+.dcontent { flex: 1; min-width: 0; }
+.dname { font-size: 9px; font-weight: 500; color: var(--ink); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dsub { font-size: 7px; color: var(--mid); font-style: italic; }
+.ddate { font-size: 8px; font-weight: 500; flex-shrink: 0; }
+.overdue { color: var(--terra); }
+.soon { color: var(--apricot-dk); }
+.ok { color: var(--mid-ac); }
+
+/* Tab bar + FAB */
+.shell-btm { position: absolute; bottom: 14px; left: 12px; right: 12px; display: flex; align-items: flex-end; gap: 8px; z-index: 20; }
+.tab-bar { flex: 1; background: var(--surface); border-radius: 22px; padding: 9px 4px 11px; display: flex; justify-content: space-around; align-items: center; box-shadow: 0 4px 20px rgba(26,22,18,0.11); border: 1px solid rgba(26,22,18,0.07); }
+.tab { display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; min-width: 44px; }
+.tab-icon svg { width: 20px; height: 20px; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.tab.active .tab-icon svg,
+.tab.active .tab-icon svg * { stroke: var(--cta); }
+.tab.inactive .tab-icon svg,
+.tab.inactive .tab-icon svg * { stroke: rgba(26,22,18,0.20); }
+.tab-lbl { font-size: 9px; font-weight: 500; }
+.tab.active .tab-lbl { color: var(--cta); }
+.tab.inactive .tab-lbl { color: rgba(26,22,18,0.20); }
+.fab { width: 46px; height: 46px; background: var(--cta); border-radius: 15px; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(155,127,212,0.45); flex-shrink: 0; margin-bottom: 4px; }
+.fab svg { width: 17px; height: 17px; stroke: var(--cta-fg); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── BOTTOM SHEET OVERLAY ── */
+.bs-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: var(--surface); border-radius: 16px 16px 0 0; padding: 10px 16px 14px; box-shadow: 0 -8px 30px rgba(0,0,0,0.20); z-index: 20; }
+.bs-handle { width: 32px; height: 4px; border-radius: 100px; background: rgba(26,22,18,0.12); margin: 0 auto 12px; }
+
+/* ── NUDGE BUBBLES (S-01 v2) ── */
+.nudge-bubbles { display: flex; flex-direction: column; gap: 12px; margin: 24px 0 0; padding: 0 6px; align-items: flex-start; }
+.nb { border-radius: 12px; padding: 8px 12px 8px 8px; display: inline-flex; align-items: center; gap: 8px; border: none; box-shadow: none; max-width: 85%; }
+.nb.nb-home { background: rgba(122,90,80,0.07); transform: rotate(-1.2deg); margin-left: 8px; }
+.nb.nb-garden { background: rgba(74,122,64,0.07); transform: rotate(0.8deg); margin-left: 32px; }
+.nb.nb-vehicle { background: rgba(74,106,130,0.07); transform: rotate(-0.5deg); margin-left: 18px; }
+.nb-icon { width: 22px; height: 22px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.nb-icon svg { width: 11px; height: 11px; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.nb-content { flex: 1; }
+.nb-title { font-size: 8px; font-weight: 500; color: var(--ink); margin-bottom: 1px; }
+.nb-sub { font-size: 6.5px; color: var(--mid); font-style: italic; }
+
+/* ── DECISION NOTES ── */
+.notes-section { margin-top: 32px; max-width: 900px; }
+.notes-title { font-size: 9px; font-weight: 500; letter-spacing: 1.3px; text-transform: uppercase; color: var(--mid); margin-bottom: 12px; }
+.notes-grid { display: flex; gap: 12px; flex-wrap: wrap; }
+.note-card { flex: 1; min-width: 240px; max-width: 320px; background: var(--surface); border: 0.5px solid var(--border); border-radius: 12px; padding: 12px 14px; }
+.note-icon { font-size: 10px; margin-bottom: 6px; }
+.note-heading { font-size: 9px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+.note-body { font-size: 7.5px; color: var(--mid-ac); line-height: 1.5; }
+
+/* ── ITEM COUNTER ── */
+.item-counter { display: flex; align-items: center; justify-content: space-between; padding: 8px 14px 0; flex-shrink: 0; }
+.counter-pill { display: inline-flex; align-items: center; gap: 5px; background: rgba(155,127,212,0.08); border: 0.5px solid rgba(155,127,212,0.20); border-radius: 100px; padding: 3px 8px; font-size: 7.5px; font-weight: 500; color: var(--mid-ac); }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="page-header">
+  <a class="page-logo" href="../index.html">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect width="18" height="18" rx="5" fill="#2C2824"/><text x="3.5" y="13" fill="#F5F0E8" font-size="11" font-family="Georgia, serif">ii</text></svg>
+    Design hub
+  </a>
+  <span class="page-badge">v2 · exploration</span>
+</div>
+<div class="page-title">Onboarding v2 flow: S-01 to S-09 Dashboard</div>
+<div class="page-links">
+  <a href="../index.html">&larr; Back to hub</a>
+  <a href="onboarding-full-preview.html">v1 flow (current)</a>
+</div>
+
+<!-- Flow bar -->
+<div class="flow-bar">
+  <div class="fp changed"><div class="fn">1</div>S-01 Welcome · photo carousel</div>
+  <div class="fa">&rarr;</div>
+  <div class="fp changed"><div class="fn">2</div>S-03 Show me what I can track</div>
+  <div class="fa">&rarr;</div>
+  <div class="fp changed"><div class="fn">3</div>S-04 Review (tile grid)</div>
+  <div class="fa">&rarr;</div>
+  <div class="fp changed"><div class="fn">4</div>S-05 AHA + celebration + sign-in</div>
+  <div class="fa">&rarr;</div>
+  <div class="fp"><div class="fn">5</div>S-06 Push permission</div>
+  <div class="fa">&rarr;</div>
+  <div class="fp"><div class="fn">6</div>S-09 Dashboard</div>
+</div>
+
+
+<!-- SCREENS -->
+<div class="screens-wrap">
+<div class="screens-row">
+
+<!-- ═══ S-01 WELCOME (v4 · photo carousel) ═══ -->
+<div class="screen-col">
+  <div class="screen-label">S-01 · Welcome · photo carousel · 20%</div>
+  <div class="phone">
+    <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
+    <div class="prog"><div class="prog-fill" style="width:20%"></div></div>
+    <div class="scr">
+      <div style="padding:14px 14px 0;">
+        <svg class="ii-mark" width="18" height="20" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#C4A8E8" cx="535.96" cy="119.29" r="90"/></svg>
+      </div>
+      <div class="scroll" style="padding-top:10px;display:flex;flex-direction:column;align-items:center;">
+        <div class="h1" style="margin-top:10px;text-align:left;align-self:stretch;">Your stuff won't<br><em style="color:var(--cta);">remind itself.</em></div>
+        <!-- season chip -->
+        <div style="align-self:flex-start;display:inline-flex;align-items:center;gap:4px;font-size:7px;font-weight:600;background:rgba(74,122,64,0.13);color:#2D5A30;padding:2px 8px;border-radius:100px;margin:6px 0 12px;">🌱 spring</div>
+        <!-- polaroid card (static, showing tyres) -->
+        <div style="background:white;padding:6px 6px 0;width:150px;box-shadow:0 5px 24px rgba(44,40,36,0.22);transform:rotate(-1.8deg);align-self:center;">
+          <div style="width:100%;height:96px;overflow:hidden;">
+            <img src="../assets/s01-tyres.jpg" alt="tyres" style="width:100%;height:100%;object-fit:cover;display:block;filter:saturate(0.88) contrast(0.95) brightness(0.97);">
+          </div>
+          <div style="padding:6px 5px 9px;text-align:center;background:white;">
+            <span style="font-family:'Caveat',cursive;font-size:12px;font-weight:500;color:var(--ink);line-height:1.3;display:block;">summer tyres.<br>frost is gone. <em style="font-style:italic;color:var(--cta);">almost.</em></span>
+            <span style="display:inline-block;font-size:6px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;padding:1.5px 6px;border-radius:100px;margin-top:4px;background:rgba(74,122,64,0.12);color:#2D5A30;">after the frost</span>
+          </div>
+        </div>
+        <!-- dots -->
+        <div style="display:flex;justify-content:center;gap:5px;margin:10px 0 0;">
+          <div style="width:5px;height:5px;border-radius:50%;background:var(--cta);transform:scale(1.3);"></div>
+          <div style="width:5px;height:5px;border-radius:50%;background:rgba(44,40,36,0.15);"></div>
+          <div style="width:5px;height:5px;border-radius:50%;background:rgba(44,40,36,0.15);"></div>
+        </div>
+        <!-- pivot text -->
+        <div style="text-align:center;margin:8px 16px 0;">
+          <div style="font-size:7.5px;font-style:italic;color:var(--mid);line-height:1.4;">nudgii reminds you before the garage fills up.</div>
+          <div style="font-size:7.5px;font-style:italic;color:var(--mid);line-height:1.4;"><strong style="font-style:normal;font-weight:600;color:var(--ink);">Book before November.</strong></div>
+        </div>
+      </div>
+      <div class="btm" style="padding:0 14px 12px;">
+        <button class="btn primary" style="height:38px;margin-bottom:0;">Show me what I can track</button>
+        <div style="text-align:center;font-size:7.5px;color:var(--mid);margin-top:10px;">Free · no credit card · 2 min setup</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ S-03 BROWSE CATEGORIES (tile grid v2) ═══ -->
+<div class="screen-col">
+  <div class="screen-label">S-03 · Browse categories · 40%</div>
+  <div class="phone">
+    <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
+    <div class="prog"><div class="prog-fill" style="width:40%"></div></div>
+    <div class="scr">
+      <div style="padding:8px 14px 0;">
+        <div style="font-family:'DM Serif Display',Georgia,serif;font-size:16px;font-weight:400;line-height:1.1;letter-spacing:-0.25px;color:var(--ink);margin-bottom:2px;">What's <em style="color:var(--cta);font-style:italic;">yours?</em></div>
+        <div style="font-size:7.5px;font-style:italic;color:var(--mid-ac);margin-bottom:0;line-height:1.5;">Tap what applies, we'll take it from there.</div>
+      </div>
+      <div class="search-bar"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/></svg><div class="search-text">Search items...</div></div>
+      <!-- New chip style: tinted bg, category color text, no dots -->
+      <div class="s3-chips">
+        <div class="s3-chip all">All</div>
+        <div class="s3-chip home">Home</div>
+        <div class="s3-chip vehicle">Vehicle</div>
+        <div class="s3-chip garden">Garden</div>
+        <div class="s3-chip subs">Subscriptions</div>
+      </div>
+      <!-- Selected pill (2 items) -->
+      <div class="s3-sel-pill"><svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg>2 selected</div>
+      <div class="scroll" style="padding-top:4px;padding-left:0;padding-right:0;">
+        <!-- Home row -->
+        <div class="tile-sec">
+          <div class="tile-sec-lbl"><div class="tile-sec-dot" style="background:var(--cat-home);"></div>Home</div>
+          <div class="tile-row3">
+            <div class="tile3 th sel"><div class="tile3-icon"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div><div class="tile3-name">Dishwasher</div></div>
+            <div class="tile3 th"><div class="tile3-icon"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div><div class="tile3-name">Boiler</div></div>
+            <div class="tile3 th"><div class="tile3-icon"><svg viewBox="0 0 16 16"><path d="M3 3h10v8H3z"/><path d="M7 11v2M5 13h6"/></svg></div><div class="tile3-name">Airco</div></div>
+          </div>
+        </div>
+        <!-- Vehicle row -->
+        <div class="tile-sec">
+          <div class="tile-sec-lbl"><div class="tile-sec-dot" style="background:var(--cat-vehicle);"></div>Vehicle</div>
+          <div class="tile-row3">
+            <div class="tile3 tv sel"><div class="tile3-icon"><svg viewBox="0 0 16 16"><rect x="1" y="6" width="14" height="6" rx="2"/><circle cx="4.5" cy="12" r="1.5"/><circle cx="11.5" cy="12" r="1.5"/><path d="M3 6L5 2h6l2 4"/></svg></div><div class="tile3-name">Car</div></div>
+            <div class="tile3 tv"><div class="tile3-icon"><svg viewBox="0 0 16 16"><circle cx="4.5" cy="11.5" r="2"/><circle cx="11.5" cy="11.5" r="2"/><path d="M6.5 11.5H9.5M7 4L4 8h7l-1-4H7z"/></svg></div><div class="tile3-name">Bicycle</div></div>
+            <div class="tile3 tv"><div class="tile3-icon"><svg viewBox="0 0 16 16"><rect x="1" y="6" width="14" height="6" rx="2"/><circle cx="4.5" cy="12" r="1.5"/><circle cx="11.5" cy="12" r="1.5"/><path d="M4 6L5.5 2h5l1.5 4"/></svg></div><div class="tile3-name">Motorcycle</div></div>
+          </div>
+        </div>
+        <!-- Garden row -->
+        <div class="tile-sec">
+          <div class="tile-sec-lbl"><div class="tile-sec-dot" style="background:var(--cat-garden);"></div>Garden</div>
+          <div class="tile-row3">
+            <div class="tile3 tg"><div class="tile3-icon"><svg viewBox="0 0 16 16"><path d="M8 14V8"/><path d="M5 11c-2-1-2-4 1-5 0-2 4-3 5 0 3 0 3 4 0 5"/></svg></div><div class="tile3-name">Lawn</div></div>
+            <div class="tile3 tg"><div class="tile3-icon"><svg viewBox="0 0 16 16"><path d="M2 8c0-3 2-5 6-5s6 2 6 5v4H2V8z"/></svg></div><div class="tile3-name">Hedge</div></div>
+            <div class="tile3 tg"><div class="tile3-icon"><svg viewBox="0 0 16 16"><line x1="8" y1="14" x2="8" y2="7"/><path d="M5 11c0-2.5 3-7 3-7s3 4.5 3 7a3 3 0 01-6 0z"/></svg></div><div class="tile3-name">Houseplant</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="btm"><button class="btn primary">Good start, continue <span class="cta-count">2</span></button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ S-04 REVIEW (tile grid) ═══ -->
+<div class="screen-col">
+  <div class="screen-label">S-04 · Review (tile grid) · 60%</div>
+  <div class="phone">
+    <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
+    <div class="prog"><div class="prog-fill" style="width:60%"></div></div>
+    <div class="scr">
+      <div class="scroll" style="padding-top:10px;">
+        <div class="h3">Here's what nudgii found.</div>
+        <div class="sub" style="margin-bottom:8px;">Tap a card to review its tasks.</div>
+
+        <!-- Category pills -->
+        <div style="display:flex;gap:4px;margin-bottom:8px;overflow-x:auto;">
+          <div class="s4-pill active" style="background:rgba(26,22,18,0.07);color:var(--mid-a);font-size:7px;font-weight:600;padding:3px 8px;border-radius:100px;border:1px solid var(--mid-a);white-space:nowrap;">All</div>
+          <div class="s4-pill" style="background:rgba(122,90,80,0.12);color:#7A5A50;font-size:7px;font-weight:600;padding:3px 8px;border-radius:100px;border:1px solid transparent;white-space:nowrap;">Home</div>
+          <div class="s4-pill" style="background:rgba(74,106,130,0.12);color:#4A6A82;font-size:7px;font-weight:600;padding:3px 8px;border-radius:100px;border:1px solid transparent;white-space:nowrap;">Vehicle</div>
+          <div class="s4-pill" style="background:rgba(74,122,64,0.12);color:#607870;font-size:7px;font-weight:600;padding:3px 8px;border-radius:100px;border:1px solid transparent;white-space:nowrap;">Garden</div>
+        </div>
+
+        <!-- Home section -->
+        <div style="display:flex;align-items:center;gap:3px;margin-bottom:4px;">
+          <div style="width:4px;height:4px;border-radius:50%;background:#7A5A50;"></div>
+          <span style="font-size:6px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:var(--mid);">Home · 2 items</span>
+        </div>
+        <!-- 2-col tile grid -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:6px;">
+          <div style="background:#D2BEB6;border-radius:10px;padding:8px 6px;text-align:center;border:1px solid #7A5A50;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7A5A50" stroke-width="1.5" stroke-linecap="round"><rect x="5" y="2" width="14" height="18" rx="3"/><circle cx="12" cy="13" r="3"/><line x1="12" y1="2" x2="12" y2="6"/></svg>
+            <div style="font-size:7px;font-weight:600;color:var(--ink);margin-top:3px;">Boiler</div>
+            <div style="font-size:6px;color:#7A5A50;font-weight:500;">3 tasks</div>
+          </div>
+          <div style="background:#D2BEB6;border-radius:10px;padding:8px 6px;text-align:center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7A5A50" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="2" width="18" height="20" rx="3"/><circle cx="12" cy="13" r="4"/><line x1="12" y1="2" x2="12" y2="5"/></svg>
+            <div style="font-size:7px;font-weight:600;color:var(--ink);margin-top:3px;">Dishwasher</div>
+            <div style="font-size:6px;color:var(--mid);">3 tasks</div>
+          </div>
+        </div>
+
+        <!-- Boiler expanded drawer -->
+        <div style="background:white;border-radius:8px;border:0.5px solid rgba(26,22,18,0.08);padding:5px 7px;margin-bottom:6px;">
+          <div style="font-size:6px;color:var(--mid);text-align:right;margin-bottom:2px;">collapse</div>
+          <div style="display:flex;align-items:center;gap:4px;padding:2px 0;border-bottom:0.5px solid rgba(26,22,18,0.06);">
+            <div style="width:3px;height:3px;border-radius:50%;background:#7A5A50;"></div>
+            <span style="font-size:6.5px;color:var(--ink);flex:1;">Annual boiler service</span>
+            <span style="font-size:5.5px;color:var(--mid);">yearly</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:4px;padding:2px 0;border-bottom:0.5px solid rgba(26,22,18,0.06);">
+            <div style="width:3px;height:3px;border-radius:50%;background:rgba(26,22,18,0.15);"></div>
+            <span style="font-size:6.5px;color:var(--ink);flex:1;">Check CO detector</span>
+            <span style="font-size:5.5px;color:var(--mid);">yearly</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:4px;padding:2px 0;">
+            <div style="width:3px;height:3px;border-radius:50%;background:rgba(26,22,18,0.15);"></div>
+            <span style="font-size:6.5px;color:var(--ink);flex:1;">Bleed radiators</span>
+            <span style="font-size:5.5px;color:var(--mid);">before winter</span>
+          </div>
+        </div>
+
+        <!-- Vehicle section -->
+        <div style="display:flex;align-items:center;gap:3px;margin-bottom:4px;">
+          <div style="width:4px;height:4px;border-radius:50%;background:#4A6A82;"></div>
+          <span style="font-size:6px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:var(--mid);">Vehicle · 1 item</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:6px;">
+          <div style="background:#C0CDD8;border-radius:10px;padding:8px 6px;text-align:center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4A6A82" stroke-width="1.5" stroke-linecap="round"><path d="M3 14L6 8h12l3 6v4H3v-4z"/><circle cx="7.5" cy="17" r="2"/><circle cx="16.5" cy="17" r="2"/></svg>
+            <div style="font-size:7px;font-weight:600;color:var(--ink);margin-top:3px;">Car</div>
+            <div style="font-size:6px;color:var(--mid);">4 tasks</div>
+          </div>
+        </div>
+
+        <!-- Add item -->
+        <div style="text-align:center;padding:4px 0 2px;">
+          <span style="font-size:7px;color:var(--cta);font-weight:500;">+ Add another item</span>
+        </div>
+
+        <!-- Tier banner -->
+        <div style="background:rgba(155,127,212,0.08);border:0.5px solid rgba(155,127,212,0.2);border-radius:6px;padding:4px 7px;margin-top:4px;display:flex;align-items:center;gap:5px;">
+          <div style="display:flex;gap:1.5px;">
+            <div style="width:3px;height:3px;border-radius:50%;background:var(--cta);"></div>
+            <div style="width:3px;height:3px;border-radius:50%;background:var(--cta);"></div>
+            <div style="width:3px;height:3px;border-radius:50%;background:var(--cta);"></div>
+            <div style="width:3px;height:3px;border-radius:50%;background:var(--cta);"></div>
+            <div style="width:3px;height:3px;border-radius:50%;background:var(--cta);"></div>
+            <div style="width:3px;height:3px;border-radius:50%;background:rgba(26,22,18,0.1);"></div>
+            <div style="width:3px;height:3px;border-radius:50%;background:rgba(26,22,18,0.1);"></div>
+            <div style="width:3px;height:3px;border-radius:50%;background:rgba(26,22,18,0.1);"></div>
+            <div style="width:3px;height:3px;border-radius:50%;background:rgba(26,22,18,0.1);"></div>
+            <div style="width:3px;height:3px;border-radius:50%;background:rgba(26,22,18,0.1);"></div>
+          </div>
+          <span style="font-size:6px;font-weight:600;color:var(--ink);flex:1;">5 of 10 free</span>
+          <span style="font-size:6px;font-weight:600;color:var(--cta);">Go Pro</span>
+        </div>
+      </div>
+      <div class="btm"><button class="btn primary">Looks good</button></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ S-06 AHA + CELEBRATION (two-state screen) ═══ -->
+<!-- State 1: cream, schedule reveal -->
+<div class="screen-col">
+  <div class="screen-label">S-06 · State 1: schedule reveal · 80%</div>
+  <div class="phone">
+    <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
+    <div class="prog"><div class="prog-fill" style="width:80%"></div></div>
+    <div class="scr">
+      <div class="scroll" style="padding-top:18px;">
+        <div class="aha-eyebrow">Your schedule is ready</div>
+        <div class="h2">Here's what we figured<br>out for you.</div>
+        <div class="aha-line">You told us what. We worked out when. Every time.</div>
+        <div class="nudge-cards">
+          <div class="ncard">
+            <div class="chip garden"><svg viewBox="0 0 16 16"><line x1="8" y1="14" x2="8" y2="7"/><path d="M5 11c0-2.5 3-7 3-7s3 4.5 3 7a3 3 0 01-6 0z"/></svg></div>
+            <div class="ncontent"><div class="nname">Autumn pruning</div><div class="nsub">Olive tree, yearly</div></div>
+            <div class="ndate date-soon">Oct 5</div>
+          </div>
+          <div class="ncard">
+            <div class="chip vehicle"><svg viewBox="0 0 16 16"><path d="M2 9.5L4 5h8l2 4.5"/><path d="M1 9.5h14"/><circle cx="4.5" cy="12" r="2"/><circle cx="11.5" cy="12" r="2"/></svg></div>
+            <div class="ncontent"><div class="nname">Switch to winter tyres</div><div class="nsub">Car, before Nov</div></div>
+            <div class="ndate date-soon">Oct 20</div>
+          </div>
+          <div class="ncard">
+            <div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div>
+            <div class="ncontent"><div class="nname">Annual boiler service</div><div class="nsub">CV ketel, yearly</div></div>
+            <div class="ndate date-soon">Oct 28</div>
+          </div>
+          <div class="ncard">
+            <div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div>
+            <div class="ncontent"><div class="nname">Clean dishwasher filter</div><div class="nsub">Dishwasher, every 6-8 wks</div></div>
+            <div class="ndate date-ok">Nov 8</div>
+          </div>
+          <div class="ncard">
+            <div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div>
+            <div class="ncontent"><div class="nname">Refill dishwasher salt</div><div class="nsub">Dishwasher, every 6-8 wks</div></div>
+            <div class="ndate date-ok">Nov 8</div>
+          </div>
+          <div style="text-align:center;padding:4px 0 2px;">
+            <span style="font-size:7px;color:var(--mid-ac);font-style:italic;">and 3 more tasks</span>
+          </div>
+        </div>
+      </div>
+      <div class="btm">
+        <button class="btn primary">That's it. I'm done.</button>
+      </div>
+    </div>
+  </div>
+  <!-- State transition arrow -->
+  <div style="display:flex;align-items:center;justify-content:center;gap:4px;margin-top:6px;">
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="var(--cta)" stroke-width="1.2" stroke-linecap="round"><path d="M5 2v6"/><path d="M2.5 5.5L5 8l2.5-2.5"/></svg>
+    <span style="font-size:7px;font-weight:500;color:var(--cta);letter-spacing:0.3px;">spring transition</span>
+  </div>
+</div>
+
+<!-- State 2: plum celebration + sign-in sheet -->
+<div class="screen-col">
+  <div class="screen-label">S-06 · State 2: celebration + sign-in · 85%</div>
+  <div class="phone" style="background:#2D1F4A;position:relative;">
+    <div class="sbar"><span class="sbar-time" style="color:rgba(245,240,232,0.65);">9:41</span><div class="sbar-icons" style="opacity:0.35;"><svg viewBox="0 0 11 10" fill="rgba(245,240,232,0.9)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="rgba(245,240,232,0.9)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="rgba(245,240,232,0.9)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
+    <div class="prog" style="background:rgba(255,255,255,0.06);"><div class="prog-fill" style="width:85%"></div></div>
+    <div class="scr" style="position:relative;overflow:hidden;">
+      <!-- confetti dots -->
+      <div style="position:absolute;width:5px;height:5px;border-radius:50%;background:rgba(122,90,80,0.45);top:12%;left:8%;"></div>
+      <div style="position:absolute;width:6px;height:6px;border-radius:50%;background:rgba(155,127,212,0.50);top:8%;left:74%;"></div>
+      <div style="position:absolute;width:4px;height:4px;border-radius:50%;background:rgba(74,122,64,0.40);top:24%;left:90%;"></div>
+      <div style="position:absolute;width:5px;height:5px;border-radius:50%;background:rgba(74,106,130,0.40);top:35%;left:5%;"></div>
+      <div style="position:absolute;width:4px;height:4px;border-radius:50%;background:rgba(232,168,124,0.50);top:7%;left:48%;"></div>
+
+      <!-- Celebration content (top half) -->
+      <div style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center;padding:20px 18px 14px;text-align:center;position:relative;">
+        <!-- ii mark light-on-dark -->
+        <div style="margin-bottom:12px;">
+          <svg width="32" height="36" viewBox="199 162 626 700" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#F2EDE4" d="M324.2,161.93h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87v-442.39c0-71.17,56.05-128.87,125.18-128.87Z"/>
+            <path fill="#9B7FD4" d="M649.98,161.93h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87v-442.39c0-71.17,56.05-128.87,125.18-128.87Z"/>
+            <circle fill="#C4A8E8" cx="735" cy="281.22" r="90"/>
+          </svg>
+        </div>
+        <div style="font-family:'DM Serif Display',serif;font-size:17px;font-style:italic;font-weight:400;line-height:1.05;letter-spacing:-0.3px;color:#C4A8E8;margin-bottom:6px;">Your boiler<br>is relieved.</div>
+        <div style="font-size:7px;color:rgba(245,240,232,0.45);line-height:1.55;font-style:italic;">We'll remind you when it matters.</div>
+      </div>
+
+      <!-- Sign-in bottom sheet (slides up over plum) -->
+      <div style="flex:1;background:white;border-radius:16px 16px 0 0;padding:10px 14px 14px;display:flex;flex-direction:column;box-shadow:0 -4px 24px rgba(0,0,0,0.20);position:relative;z-index:10;">
+        <!-- handle -->
+        <div style="width:28px;height:3px;border-radius:100px;background:rgba(26,22,18,0.12);margin:0 auto 12px;"></div>
+        <!-- ii mark small -->
+        <div style="display:flex;justify-content:center;margin-bottom:8px;">
+          <svg width="14" height="16" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#C4A8E8" cx="535.96" cy="119.29" r="90"/></svg>
+        </div>
+        <div style="text-align:center;margin-bottom:3px;">
+          <div style="font-family:'DM Serif Display',Georgia,serif;font-size:15px;font-weight:400;line-height:1.1;letter-spacing:-0.25px;color:var(--ink);">Save your schedule</div>
+        </div>
+        <div style="text-align:center;font-size:7.5px;font-style:italic;color:var(--mid);margin-bottom:14px;line-height:1.5;">Your data stays yours. We never share it.</div>
+        <!-- Apple SSO -->
+        <button style="width:100%;height:34px;border-radius:100px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:8.5px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:6px;border:none;background:#2C2824;color:white;">
+          <svg viewBox="0 0 14 17" fill="white" width="11" height="11"><path d="M11.5 8.8c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.6-1.9-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.8C1.4 3.4 0 4.8 0 7.3c0 3.5 3 7.2 4.3 9.2.9 1.4 2 2.9 3.4 2.8 1.4-.1 1.9-.9 3.6-.9 1.7 0 2.1.9 3.6.8 1.5-.1 2.4-1.4 3.3-2.8.7-1 1-1.9 1.3-2 0 0-2.4-1-2.4-3.6z"/><path d="M9.3 2.2C10 1.3 10.5.1 10.3-1c-1 .1-2.2.7-3 1.6-.7.8-1.3 2-1.1 3.1 1.1.1 2.2-.5 3.1-1.5z"/></svg>
+          Continue with Apple
+        </button>
+        <!-- Google SSO -->
+        <button style="width:100%;height:34px;border-radius:100px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:8.5px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:6px;border:1px solid rgba(26,22,18,0.16);background:var(--surface);color:var(--ink);">
+          <svg viewBox="0 0 18 18" width="11" height="11"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z"/></svg>
+          Continue with Google
+        </button>
+        <div style="text-align:center;font-size:7.5px;color:var(--mid);padding:4px 0 0;cursor:pointer;">Not now</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ S-07 PUSH PERMISSION (new) ═══ -->
+<div class="screen-col">
+  <div class="screen-label">S-07 Push permission (new) · 100%</div>
+  <div class="phone">
+    <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
+    <div class="prog"><div class="prog-fill full" style="width:100%"></div></div>
+    <div class="scr">
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:100px 18px 0;text-align:center;">
+        <!-- Bell icon, bare, 48px scaled, purple at 60% opacity -->
+        <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="rgba(155,127,212,0.60)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:20px;">
+          <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 01-3.46 0"/>
+        </svg>
+        <!-- Headline with dynamic date -->
+        <div style="font-family:'DM Serif Display',Georgia,serif;font-size:20px;font-weight:400;line-height:1.1;letter-spacing:-0.3px;color:var(--ink);margin-bottom:10px;">We'll remind you on<br><em style="color:var(--apricot-dk);font-style:italic;">Oct 28.</em></div>
+        <!-- Subline -->
+        <div style="font-size:9px;font-style:italic;color:var(--mid);line-height:1.55;max-width:200px;margin-bottom:0;">We only reach out when something actually needs your attention.</div>
+      </div>
+      <div class="btm">
+        <button class="btn primary">Turn on notifications</button>
+        <button class="btn ghost">Maybe later</button>
+        <div style="text-align:center;font-size:7px;color:var(--mid);margin-top:4px;">You can always turn this on later in settings.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ S-09 DASHBOARD (unchanged) ═══ -->
+<div class="screen-col">
+  <div class="screen-label">S-09 Dashboard</div>
+  <div class="phone" style="position:relative;">
+    <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><svg viewBox="0 0 11 10" fill="var(--ink)"><rect x="0" y="6.5" width="2" height="3.5" rx="0.4"/><rect x="3" y="4.5" width="2" height="5.5" rx="0.4"/><rect x="6" y="2" width="2" height="8" rx="0.4"/><rect x="9" y="0" width="2" height="10" rx="0.4" opacity="0.25"/></svg><svg viewBox="0 0 13 10" fill="none" stroke="var(--ink)" stroke-width="1"><rect x="0.5" y="1.5" width="10" height="7" rx="1.5"/><rect x="1.5" y="2.5" width="7" height="5" rx="0.5" fill="var(--ink)"/><path d="M11 4v2" stroke-linecap="round"/></svg></div></div>
+    <div class="scr">
+      <div class="greeting-row">
+        <div class="greeting-top">
+          <div class="greeting-name">Good morning,<br><em>Martijn.</em></div>
+          <div class="settings-btn"><svg viewBox="0 0 16 16"><line x1="2" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="14" y2="12"/><circle cx="5" cy="4" r="1.5" fill="white" stroke="var(--mid-ac)"/><circle cx="10" cy="8" r="1.5" fill="white" stroke="var(--mid-ac)"/><circle cx="7" cy="12" r="1.5" fill="white" stroke="var(--mid-ac)"/></svg></div>
+        </div>
+        <div class="greeting-sub">3 tasks this week</div>
+      </div>
+      <div class="cat-filters">
+        <div class="cat-f"><span class="cat-dot" style="background:#7A5A50;"></span>Home</div>
+        <div class="cat-f"><span class="cat-dot" style="background:#4A6A82;"></span>Vehicle</div>
+      </div>
+      <div class="dash-scroll" style="padding-top:8px;">
+        <div class="sec-lbl" style="margin-top:0;">This week</div>
+        <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div><div class="dcontent"><div class="dname">Annual boiler service</div><div class="dsub">CV ketel, yearly</div></div><div class="ddate soon">Oct 28</div></div>
+        <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><path d="M2 7.5L8 3l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V7.5z"/></svg></div><div class="dcontent"><div class="dname">Clean dishwasher filter</div><div class="dsub">Dishwasher, every 6-8 wks</div></div><div class="ddate ok">Nov 8</div></div>
+        <div class="dcard"><div class="chip home"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="2"/><circle cx="8" cy="10" r="2"/></svg></div><div class="dcontent"><div class="dname">Check CO detector</div><div class="dsub">CV ketel, yearly</div></div><div class="ddate ok">Nov 15</div></div>
+        <!-- Gesture hint -->
+        <div style="display:flex;align-items:center;justify-content:flex-end;gap:3px;padding:2px 14px 6px;">
+          <svg width="10" height="7" viewBox="0 0 10 7" fill="none"><path d="M1 3.5h8M6 1l2.5 2.5L6 6" stroke="#6B6358" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span style="font-size:6px;color:var(--mid-ac);font-style:italic;">swipe right to complete</span>
+        </div>
+      </div>
+    </div>
+    <!-- Tab bar + FAB -->
+    <div class="shell-btm">
+      <div class="tab-bar">
+        <div class="tab active"><div class="tab-icon"><svg viewBox="0 0 256 256"><rect x="40" y="40" width="176" height="176" rx="8" fill="none"/><line x1="176" y1="24" x2="176" y2="56" fill="none"/><line x1="80" y1="24" x2="80" y2="56" fill="none"/><line x1="40" y1="88" x2="216" y2="88" fill="none"/></svg></div><div class="tab-lbl">Tasks</div></div>
+        <div class="tab inactive"><div class="tab-icon"><svg viewBox="0 0 256 256"><circle cx="128" cy="128" r="96" fill="none"/><circle cx="128" cy="180" r="12" fill="rgba(26,22,18,0.20)"/><path d="M128,144v-8a28,28,0,1,0-28-28" fill="none"/></svg></div><div class="tab-lbl">Ask</div></div>
+        <div class="tab inactive"><div class="tab-icon"><svg viewBox="0 0 20 20"><circle cx="10" cy="7" r="3" stroke="rgba(26,22,18,0.20)" fill="none"/><path d="M3 18c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="rgba(26,22,18,0.20)" fill="none"/></svg></div><div class="tab-lbl">Profile</div></div>
+      </div>
+      <div class="fab"><svg viewBox="0 0 16 16"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /screens-row -->
+</div><!-- /screens-wrap -->
+
+<!-- DECISION NOTES -->
+<div class="notes-section">
+  <div class="notes-title">Design decisions: why this flow order</div>
+  <div class="notes-grid">
+    <div class="note-card">
+      <div class="note-icon">&#9733;</div>
+      <div class="note-heading">Two-state screen (AHA + celebration)</div>
+      <div class="note-body">Reveal and celebration are one screen with a spring transition. "That's it. I'm done." triggers the plum takeover. No misleading CTAs, no extra navigation step. The emotional peak and the action happen together.</div>
+    </div>
+    <div class="note-card">
+      <div class="note-icon">&#128274;</div>
+      <div class="note-heading">Sign-in slides up over celebration</div>
+      <div class="note-body">Bottom sheet on plum background. The celebration is still visible behind. "Save your schedule" frames sign-in as protecting something you just built, not passing through a gate.</div>
+    </div>
+    <div class="note-card">
+      <div class="note-icon">&#128276;</div>
+      <div class="note-heading">Push shows actual first date</div>
+      <div class="note-body">"We'll remind you on Oct 28" makes the permission ask concrete. Abstract asks ("stay on top of things") convert at 20-25%. Concrete asks convert at 60-70%.</div>
+    </div>
+    <div class="note-card">
+      <div class="note-icon">&#10003;</div>
+      <div class="note-heading">"Maybe later" never blocks</div>
+      <div class="note-body">Both push choices lead to the dashboard. Denying push permission never blocks progression. Re-trigger fires contextually when first reminder is within 3 days.</div>
+    </div>
+    <div class="note-card">
+      <div class="note-icon">&#9634;</div>
+      <div class="note-heading">One fewer screen in the flow</div>
+      <div class="note-body">v1 had 3 screens between schedule and dashboard (celebration, auth, push). v2 combines reveal + celebration + auth into one two-state screen. User reaches dashboard faster with no bait-and-switch.</div>
+    </div>
+    <div class="note-card">
+      <div class="note-icon">&#128176;</div>
+      <div class="note-heading">No limits during onboarding</div>
+      <div class="note-body">Users can add unlimited items during onboarding. The 10-item free tier limit is enforced on the dashboard only. Items 11+ are visible but paused (no reminders). Users choose which 10 stay active, or upgrade. Conversion trigger: when a paused item's task comes due.</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
