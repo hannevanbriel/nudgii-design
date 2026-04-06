@@ -7,6 +7,14 @@
 <title>nudgii · S-04 Review · hi-fi</title>
 <link rel="stylesheet" href="../system/components.css">
 <style>
+/* ── S-04 Precision Warmth tokens (match dashboard) ── */
+:root{
+  --ch-bg:#C09088;--cg-bg:#8C9B80;--cv-bg:#8E9A94;--cs-bg:#A69BBF;
+}
+[data-theme="dark"]{
+  --ch-bg:#E0A898;--cg-bg:#A8B89C;--cv-bg:#A8B0AA;--cs-bg:#C0B4D6;
+}
+
 /* ── S-04 screen-specific ── */
 body{background:#CBC5BB;padding:0 0 80px;}
 
@@ -212,7 +220,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
 
             <!-- HOME section -->
             <div class="cat-sec">
-              <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-home-ic);"></span>Home</div>
+              <div class="cat-lbl"><span class="cat-dot" style="background:var(--ch-bg);"></span>Home</div>
               <div class="entity-list">
 
                 <!-- Boiler: expanded, showing tasks -->
@@ -220,7 +228,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
                   <div class="entity-remove" onclick="event.stopPropagation()"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>
                   <div class="entity-row">
                     <div class="entity-icon">
-                      <svg width="20" height="20" viewBox="0 0 256 256" fill="none"><rect x="64" y="32" width="128" height="192" rx="16" stroke="var(--cat-home-ic)" stroke-width="18" fill="none" stroke-linecap="round"/><circle cx="128" cy="144" r="28" stroke="var(--cat-home-ic)" stroke-width="18" fill="none"/><line x1="128" y1="72" x2="128" y2="88" stroke="var(--cat-home-ic)" stroke-width="18" stroke-linecap="round"/></svg>
+                      <svg width="20" height="20" viewBox="0 0 256 256" fill="none"><rect x="64" y="32" width="128" height="192" rx="16" stroke="var(--ch-bg)" stroke-width="18" fill="none" stroke-linecap="round"/><circle cx="128" cy="144" r="28" stroke="var(--ch-bg)" stroke-width="18" fill="none"/><line x1="128" y1="72" x2="128" y2="88" stroke="var(--ch-bg)" stroke-width="18" stroke-linecap="round"/></svg>
                     </div>
                     <div class="entity-body">
                       <div class="entity-name">Boiler</div>
@@ -232,7 +240,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
                     <div class="entity-expand-inner">
                       <div class="etask-list">
                         <div class="etask">
-                          <div class="etask-dot" style="background:var(--cat-home-ic);"></div>
+                          <div class="etask-dot" style="background:var(--ch-bg);"></div>
                           <div class="etask-name">Annual boiler service</div>
                           <div class="etask-cadence">yearly, autumn</div>
                           <div class="etask-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>
@@ -265,7 +273,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
                   <div class="entity-remove" onclick="event.stopPropagation()"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>
                   <div class="entity-row">
                     <div class="entity-icon">
-                      <svg width="20" height="20" viewBox="0 0 256 256" fill="none"><rect x="32" y="56" width="192" height="144" rx="8" stroke="var(--cat-home-ic)" stroke-width="18" fill="none"/><line x1="32" y1="104" x2="224" y2="104" stroke="var(--cat-home-ic)" stroke-width="18"/><circle cx="80" cy="80" r="10" stroke="var(--cat-home-ic)" stroke-width="14" fill="none"/></svg>
+                      <svg width="20" height="20" viewBox="0 0 256 256" fill="none"><rect x="32" y="56" width="192" height="144" rx="8" stroke="var(--ch-bg)" stroke-width="18" fill="none"/><line x1="32" y1="104" x2="224" y2="104" stroke="var(--ch-bg)" stroke-width="18"/><circle cx="80" cy="80" r="10" stroke="var(--ch-bg)" stroke-width="14" fill="none"/></svg>
                     </div>
                     <div class="entity-body">
                       <div class="entity-name">Dishwasher</div>
@@ -277,7 +285,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
                     <div class="entity-expand-inner">
                       <div class="etask-list">
                         <div class="etask">
-                          <div class="etask-dot" style="background:var(--cat-home-ic);"></div>
+                          <div class="etask-dot" style="background:var(--ch-bg);"></div>
                           <div class="etask-name">Clean dishwasher filter</div>
                           <div class="etask-cadence">every 6-8 weeks</div>
                           <div class="etask-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>
@@ -304,13 +312,13 @@ body{background:#CBC5BB;padding:0 0 80px;}
 
             <!-- VEHICLE section -->
             <div class="cat-sec">
-              <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-vehicle-ic);"></span>Vehicle</div>
+              <div class="cat-lbl"><span class="cat-dot" style="background:var(--cv-bg);"></span>Vehicle</div>
               <div class="entity-list">
                 <div class="entity cat-vehicle" onclick="toggleEntity(this)">
                   <div class="entity-remove" onclick="event.stopPropagation()"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>
                   <div class="entity-row">
                     <div class="entity-icon">
-                      <svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M224,168H208V128L176,80H80L48,128V168H32a8,8,0,0,0,0,16H48v8a16,16,0,0,0,32,0v-8h96v8a16,16,0,0,0,32,0v-8h16a8,8,0,0,0,0-16Z" stroke="var(--cat-vehicle-ic)" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      <svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M224,168H208V128L176,80H80L48,128V168H32a8,8,0,0,0,0,16H48v8a16,16,0,0,0,32,0v-8h96v8a16,16,0,0,0,32,0v-8h16a8,8,0,0,0,0-16Z" stroke="var(--cv-bg)" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </div>
                     <div class="entity-body">
                       <div class="entity-name">Car</div>
@@ -319,7 +327,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
                     <svg class="entity-chev" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
                   </div>
                   <div class="entity-expand"><div class="entity-expand-inner"><div class="etask-list">
-                    <div class="etask"><div class="etask-dot" style="background:var(--cat-vehicle-ic);"></div><div class="etask-name">Switch to winter tyres</div><div class="etask-cadence">before Nov</div><div class="etask-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div></div>
+                    <div class="etask"><div class="etask-dot" style="background:var(--cv-bg);"></div><div class="etask-name">Switch to winter tyres</div><div class="etask-cadence">before Nov</div><div class="etask-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div></div>
                     <div class="etask"><div class="etask-dot" style="background:transparent;"></div><div class="etask-name">Check tyre pressure</div><div class="etask-cadence">monthly</div><div class="etask-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div></div>
                     <div class="etask"><div class="etask-dot" style="background:transparent;"></div><div class="etask-name">Annual car service</div><div class="etask-cadence">yearly</div><div class="etask-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div></div>
                   </div></div></div>
@@ -329,13 +337,13 @@ body{background:#CBC5BB;padding:0 0 80px;}
 
             <!-- GARDEN section -->
             <div class="cat-sec">
-              <div class="cat-lbl"><span class="cat-dot" style="background:var(--cat-garden-ic);"></span>Garden</div>
+              <div class="cat-lbl"><span class="cat-dot" style="background:var(--cg-bg);"></span>Garden</div>
               <div class="entity-list">
                 <div class="entity cat-garden" onclick="toggleEntity(this)">
                   <div class="entity-remove" onclick="event.stopPropagation()"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>
                   <div class="entity-row">
                     <div class="entity-icon">
-                      <svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M128 232V128" stroke="var(--cat-garden-ic)" stroke-width="18" stroke-linecap="round"/><path d="M128 128c-40-60-80-20-80 0s40 40 80 0" stroke="var(--cat-garden-ic)" stroke-width="16" fill="none" stroke-linecap="round"/><path d="M128 128c40-60 80-20 80 0s-40 40-80 0" stroke="var(--cat-garden-ic)" stroke-width="16" fill="none" stroke-linecap="round"/></svg>
+                      <svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M128 232V128" stroke="var(--cg-bg)" stroke-width="18" stroke-linecap="round"/><path d="M128 128c-40-60-80-20-80 0s40 40 80 0" stroke="var(--cg-bg)" stroke-width="16" fill="none" stroke-linecap="round"/><path d="M128 128c40-60 80-20 80 0s-40 40-80 0" stroke="var(--cg-bg)" stroke-width="16" fill="none" stroke-linecap="round"/></svg>
                     </div>
                     <div class="entity-body">
                       <div class="entity-name">Olive tree</div>
@@ -344,7 +352,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
                     <svg class="entity-chev" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
                   </div>
                   <div class="entity-expand"><div class="entity-expand-inner"><div class="etask-list">
-                    <div class="etask"><div class="etask-dot" style="background:var(--cat-garden-ic);"></div><div class="etask-name">Autumn pruning</div><div class="etask-cadence">yearly, Oct</div><div class="etask-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div></div>
+                    <div class="etask"><div class="etask-dot" style="background:var(--cg-bg);"></div><div class="etask-name">Autumn pruning</div><div class="etask-cadence">yearly, Oct</div><div class="etask-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div></div>
                     <div class="etask"><div class="etask-dot" style="background:transparent;"></div><div class="etask-name">Spring pruning</div><div class="etask-cadence">yearly, Mar</div><div class="etask-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div></div>
                   </div></div></div>
                 </div>
