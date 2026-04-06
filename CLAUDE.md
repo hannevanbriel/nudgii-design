@@ -121,8 +121,11 @@ Status as of March 2026. Always check `nudgii-design/index.html` for current sta
 | S-06 | Push permission | 🔶 In progress |
 | S-07 | *(removed, was onboarding completion)* | — |
 | S-08 | *(removed, was push permission standalone)* | — |
-| S-09 | Dashboard — default | ✅ Ready for dev |
-| S-10 | Dashboard — empty | ✅ Ready for dev |
+| S-09 | Dashboard — Today tab | 🔶 In progress |
+| S-09b | Dashboard — Plan tab | 🔶 In progress |
+| S-09c | Dashboard — My Stuff tab | 🔶 In progress |
+| S-09d | Dashboard — Profile tab | 🔶 In progress |
+| S-10 | Dashboard — empty state | 🔶 In progress |
 | S-11 | Done overlay | 🔶 In progress (OD-01 resolved 2026-03-18) |
 | S-12 | FAB action sheet | ✅ Ready for dev |
 | S-13 | Task detail — default | 🔶 In progress (lo-fi done) |
@@ -540,11 +543,13 @@ Update this section when open decisions are resolved.
 | Dark mode brighter colors | Plum lightened to #B8A0E8, apricot to #F0B890. Category colors lifted 15-20% for visibility. Text primary #F0EDE6 (was #E2DFD6). Category washes at 15% opacity (was 12%). | ✅ Yes | 2026-03-31 |
 | Font size hierarchy | Greeting: 24px serif. Task titles: 14px. Section labels: 10px uppercase. Body/subtitles: 10-11px. Reduced gap between personality and functional layers. | ✅ Yes | 2026-03-31 |
 | Contextual cards not collapsible (free) | Free users cannot hide the "For you" card row. Individual cards dismissible (X button), new ones rotate in. Pro gets "focus mode" toggle for task-only view. | ✅ Yes | 2026-03-31 |
-| Done: moves to "Done today" section | Tapping Done does not remove the task from Today list. It animates (spring 350ms) to a "Done today" section at bottom of Today panel. Checkmark circle (category color) + muted title (55% opacity) + timestamp. Resets at midnight, moves to S-16 history. Undo toast 5s. Tapping Done today header or any item navigates to S-16. When all tasks done: summary updates to "All done for today." with witty line. | ✅ Yes | 2026-04-02 |
+| Done: in-place card transformation | Tapping Done transforms the task card in place (spring 350ms). Card stays in its section but gains a checkmark overlay on the icon circle, title becomes muted (55% opacity), and action buttons are replaced by an Undo link. A "Done today" collapsed section appears at the bottom of the Today panel grouping all completed cards. Resets at midnight, moves to S-16 history. Undo toast 5s. Tapping the "Done today" header or any completed card navigates to S-16. When all tasks done: summary updates to "All done for today." with witty line. | ✅ Yes | 2026-04-02 |
 | Skip: this occurrence only | Skip = this occurrence only. task.last_completed_at never updated by skip. task.last_skipped_at set. task.next_due_at = last_skipped_at + interval. Inline preview 800ms in card before collapse: "Skipping this time. Back on [date]." Non-recurring: "Skipped. This task won't repeat." 3 skips triggers gentle For You suggestion card. task.skipCount tracks count. | ✅ Yes | 2026-04-02 |
 | Skip escalating copy | 1st skip: neutral. 2nd skip same task within 30 days: "Skipping again. Still counting from [last done date]." 3rd skip in a row: For You card: "You've skipped this 3 times. Want to reschedule it?" | ✅ Yes | 2026-04-02 |
 | Snooze: half-height bottom sheet | Tap Snooze: 280px bottom sheet, surface bg, 20px top radius, drag handle. 4 presets: Later today (3h), Tomorrow (8:00 AM), This weekend (Sat 8:00), Next week (Mon 8:00). Pick a date opens date picker. task.snoozeCount field for escalating copy. | ✅ Yes | 2026-04-02 |
 | Snooze escalating copy | 1st: "Snoozed until Saturday." 2nd same task: "Fine. But your dishwasher is taking notes." 3rd: "Your boiler forgives you. For now." | ✅ Yes | 2026-04-02 |
+| Snooze section routing | Snoozed tasks move to the correct Today tab section based on preset: "Later today" stays in current section (badge updates to time). "Tomorrow" and "This weekend" move to THIS WEEK. "Next week" moves to COMING UP (auto-expands if collapsed). Card is cloned into target section with updated date badge, then original collapses with animation. | ✅ Yes | 2026-04-06 |
+| My Stuff category card backgrounds | My Stuff item cards use solid v10.5 category tokens as card background: catHomeBg #D2BEB6, catGardenBg #C4DABE, catVehicleBg #C0CDD8, catSubsBg #D0C6DC, catPetsBg #DECDC0. Icon circle inside card uses rgba(255,255,255,0.45) overlay. Dark mode uses darkHomeBg #3A302E, darkGardenBg #283020, darkVehicleBg #262E34, darkSubsBg #302838, darkPetsBg #342C22. | ✅ Yes | 2026-04-06 |
 | THIS WEEK section logic | ISO calendar week boundary (Mon-Sun). Always visible — never hidden, even if empty. Sunday exception: shows full coming week (Mon-Sun) instead of going empty. Empty hint copy rotates. Section label shows task count when not empty. | ✅ Yes | 2026-04-02 |
 | FOR YOU card system | 6 base card types + 2 Pro-only. Priority algorithm rank 0-6. Max 4 cards, min 2. Savings card always position 0 (permanent, no X). Weekly rotation. Full spec: system/for-you-cards.html. | ✅ Yes | 2026-04-02 |
 | All 4 dashboard tabs hi-fi | Today (s09-today-hifi.html), Plan (s09-plan-hifi.html), My Stuff (s09-mystuff-hifi.html), Profile (s09-profile-hifi.html) all built as standalone hi-fi screens. All linked from index.html S-09 card. | ✅ Yes | 2026-04-02 |
