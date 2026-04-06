@@ -218,10 +218,8 @@ body{background:#CBC5BB;padding:0 0 80px;}
             <div class="s04-hed">Here's what nudgii found.</div>
             <div class="s04-sub">Tap a card to review its tasks. Adjust anything later.</div>
 
-            <!-- HOME section -->
-            <div class="cat-sec">
-              <div class="cat-lbl"><span class="cat-dot" style="background:var(--ch-bg);"></span>Home</div>
-              <div class="entity-list">
+            <!-- All items, no category section headers (wash color + icon = category) -->
+            <div class="entity-list">
 
                 <!-- Boiler: expanded, showing tasks -->
                 <div class="entity cat-home expanded" onclick="toggleEntity(this)">
@@ -305,13 +303,6 @@ body{background:#CBC5BB;padding:0 0 80px;}
                   </div>
                 </div>
 
-              </div>
-            </div>
-
-            <!-- VEHICLE section -->
-            <div class="cat-sec">
-              <div class="cat-lbl"><span class="cat-dot" style="background:var(--cv-bg);"></span>Vehicle</div>
-              <div class="entity-list">
                 <div class="entity cat-vehicle" onclick="toggleEntity(this)">
                   <div class="entity-row">
                     <div class="entity-icon">
@@ -329,13 +320,6 @@ body{background:#CBC5BB;padding:0 0 80px;}
                     <div class="etask"><div class="etask-dot" style="background:var(--cv-bg);"></div><div class="etask-name">Annual car service</div><div class="etask-cadence">yearly</div><div class="etask-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div></div>
                   </div></div></div>
                 </div>
-              </div>
-            </div>
-
-            <!-- GARDEN section -->
-            <div class="cat-sec">
-              <div class="cat-lbl"><span class="cat-dot" style="background:var(--cg-bg);"></span>Garden</div>
-              <div class="entity-list">
                 <div class="entity cat-garden" onclick="toggleEntity(this)">
                   <div class="entity-row">
                     <div class="entity-icon">
@@ -352,8 +336,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
                     <div class="etask"><div class="etask-dot" style="background:var(--cg-bg);"></div><div class="etask-name">Spring pruning</div><div class="etask-cadence">yearly, Mar</div><div class="etask-remove"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div></div>
                   </div></div></div>
                 </div>
-              </div>
-            </div>
+            </div><!-- /entity-list -->
 
             <!-- Add item row -->
             <div class="add-row">
