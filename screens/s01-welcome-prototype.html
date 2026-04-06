@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · S-01 Welcome · Prototype</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+  --surface:#FBF9F4;--ink:#2C2824;--mid:#8A8070;--hint:#A09888;
+  --cta:#9B7FD4;--cta-fg:#FAF8FF;--plum:#2D1F4A;
+  --border:rgba(26,22,18,0.08);
+  --apricot:#E8A87C;
+}
+
+body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:24px 16px 48px;-webkit-font-smoothing:antialiased;}
+
+/* Page header */
+.page-head{width:100%;max-width:420px;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.page-head a{font-size:11px;color:rgba(245,240,232,0.50);text-decoration:none;display:flex;align-items:center;gap:6px;}
+.page-head a:hover{color:rgba(245,240,232,0.70);}
+.page-badge{font-size:9px;font-weight:500;padding:3px 8px;border-radius:100px;background:rgba(155,127,212,0.15);color:#B8A0E8;}
+.page-label{width:100%;max-width:420px;text-align:center;font-size:9px;font-weight:500;letter-spacing:1.3px;text-transform:uppercase;color:rgba(245,240,232,0.35);margin-bottom:10px;}
+
+/* Phone */
+.device{width:390px;height:844px;border-radius:44px;overflow:hidden;position:relative;background:var(--surface);box-shadow:0 0 0 1.5px rgba(255,255,255,0.06),0 24px 80px rgba(0,0,0,0.40);display:flex;flex-direction:column;}
+
+/* Status bar */
+.sbar{height:54px;padding:14px 28px 0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.sbar-time{font-size:14px;font-weight:600;color:var(--ink);}
+.sbar-icons{display:flex;align-items:center;gap:5px;}
+.sbar-icons svg{width:14px;height:14px;}
+
+/* Notch */
+.device::before{content:'';position:absolute;top:12px;left:50%;transform:translateX(-50%);width:102px;height:8px;border-radius:100px;background:rgba(26,22,18,0.06);z-index:10;}
+
+/* Progress bar */
+.pbar{height:3px;background:rgba(26,22,18,0.08);flex-shrink:0;}
+.pfill{height:100%;background:var(--cta);border-radius:0 100px 100px 0;width:20%;transition:width 0.5s ease;}
+
+/* Screen */
+.screen{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+
+/* Content zone (scrollable) */
+.content{flex:1;overflow-y:auto;padding:20px 24px 0;display:flex;flex-direction:column;}
+
+/* ii mark */
+.ii-mark{margin-bottom:16px;}
+
+/* Headline */
+.w-h1{font-family:'DM Serif Display',Georgia,serif;font-size:33px;font-weight:400;line-height:0.97;letter-spacing:-0.55px;color:var(--ink);margin-bottom:8px;}
+.w-h1 em{color:var(--cta);font-style:italic;}
+
+/* Season chip */
+.season-chip{display:inline-flex;align-items:center;gap:4px;font-size:9.5px;font-weight:600;letter-spacing:0.5px;background:rgba(74,122,64,0.13);color:#2D5A30;padding:3px 10px;border-radius:100px;margin-bottom:0;}
+
+/* Polaroid stage */
+.pol-stage{position:relative;width:100%;height:268px;margin-top:36px;overflow:visible;}
+
+.pol{position:absolute;left:50%;top:0;background:white;padding:9px 9px 0;width:180px;box-shadow:0 8px 40px rgba(44,40,36,0.22);cursor:grab;touch-action:none;transform:translateX(-50%) rotate(-2deg);transition:transform 0.52s cubic-bezier(0.34,1.56,0.64,1),opacity 0.35s ease;user-select:none;}
+.pol-photo{width:100%;height:128px;overflow:hidden;border-radius:1px;}
+.pol-note-area{padding:8px 7px 12px;text-align:center;background:white;}
+.pol-note{font-family:'Caveat',cursive;font-size:16px;font-weight:500;color:var(--ink);line-height:1.3;display:block;}
+.pol-note em{font-style:italic;color:var(--cta);}
+.pol-badge{display:inline-block;font-family:'DM Sans',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;padding:2px 8px;border-radius:100px;margin-top:5px;}
+
+/* Photo placeholders */
+.ph-tyres{background:linear-gradient(135deg,#8A9BA0 0%,#B8C0B8 40%,#6A7A6A 100%);}
+.ph-tomato{background:linear-gradient(135deg,#C49070 0%,#D8A878 40%,#A07858 100%);}
+.ph-lawn{background:linear-gradient(135deg,#7A9A60 0%,#A0B888 40%,#5A7840 100%);}
+
+/* Dots */
+.pol-dots{display:flex;justify-content:center;gap:7px;margin-top:14px;}
+.pol-dot{width:5px;height:5px;border-radius:50%;background:rgba(44,40,36,0.15);transition:background 0.25s,transform 0.25s;}
+.pol-dot.on{background:var(--cta);transform:scale(1.3);}
+
+/* Pivot text */
+.pivot{margin:14px 28px 0;text-align:center;height:40px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;transition:opacity 0.22s ease;}
+.pivot-l1{font-size:12px;font-style:italic;color:var(--mid);line-height:1.4;white-space:nowrap;}
+.pivot-l2{font-size:12px;font-style:italic;color:var(--mid);line-height:1.4;white-space:nowrap;}
+.pivot-l2 strong{font-style:normal;font-weight:600;color:var(--ink);}
+
+/* Bottom zone */
+.bottom-zone{padding:0 24px 34px;flex-shrink:0;}
+.btn-cta{width:100%;height:52px;border-radius:100px;border:none;background:var(--cta);color:var(--cta-fg);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 14px rgba(155,127,212,0.30);transition:transform 0.1s,background 0.1s;}
+.btn-cta:active{transform:scale(0.97);background:#7D62B3;}
+.trust-line{text-align:center;font-size:11px;color:var(--mid);margin-top:12px;}
+</style>
+</head>
+<body>
+
+<div class="page-head">
+  <a href="../index.html">
+    <svg width="14" height="14" viewBox="0 0 80 80" style="border-radius:3px;"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#C4A8E8"/></svg>
+    Design hub
+  </a>
+  <span class="page-badge">Prototype</span>
+</div>
+<div class="page-label">S-01 · Welcome · Prototype</div>
+
+<div class="device">
+  <!-- Status bar -->
+  <div class="sbar">
+    <span class="sbar-time">9:41</span>
+    <div class="sbar-icons">
+      <svg viewBox="0 0 14 12" fill="var(--ink)"><rect x="0" y="8" width="2.5" height="4" rx="0.5"/><rect x="3.5" y="5.5" width="2.5" height="6.5" rx="0.5"/><rect x="7" y="2.5" width="2.5" height="9.5" rx="0.5"/><rect x="10.5" y="0" width="2.5" height="12" rx="0.5" opacity="0.25"/></svg>
+      <svg viewBox="0 0 16 12" fill="none" stroke="var(--ink)" stroke-width="1.2"><rect x="1" y="2" width="12" height="8" rx="2"/><rect x="2" y="3" width="9" height="6" rx="1" fill="var(--ink)"/><path d="M13.5 5.5v1" stroke-linecap="round"/></svg>
+    </div>
+  </div>
+
+  <!-- Progress bar: starts at 20% -->
+  <div class="pbar"><div class="pfill" id="pfill"></div></div>
+
+  <div class="screen">
+    <!-- Content zone -->
+    <div class="content">
+      <!-- ii mark -->
+      <svg class="ii-mark" width="18" height="20" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
+        <path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
+        <circle fill="#C4A8E8" cx="535.96" cy="119.29" r="90"/>
+      </svg>
+
+      <!-- Headline -->
+      <div class="w-h1">Your stuff won't<br><em>remind itself.</em></div>
+      <div class="season-chip">&#127793; spring</div>
+
+      <!-- Polaroid card stage -->
+      <div class="pol-stage">
+        <div class="pol" id="pol">
+          <div class="pol-photo" id="pol-photo"></div>
+          <div class="pol-note-area">
+            <span class="pol-note" id="pol-note"></span>
+            <span class="pol-badge" id="pol-badge"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dots -->
+      <div class="pol-dots">
+        <div class="pol-dot on" id="d0"></div>
+        <div class="pol-dot" id="d1"></div>
+        <div class="pol-dot" id="d2"></div>
+      </div>
+
+      <!-- Pivot text -->
+      <div class="pivot" id="pivot">
+        <span class="pivot-l1" id="pl1"></span>
+        <span class="pivot-l2" id="pl2"></span>
+      </div>
+    </div>
+
+    <!-- Bottom zone (sticky) -->
+    <div class="bottom-zone">
+      <button class="btn-cta">Show me what I can track</button>
+      <div class="trust-line">Free · no credit card · 2 min setup</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const CARDS = [
+  {
+    photoClass: 'ph-tyres',
+    note: 'summer tyres.<br>frost is gone. <em>almost.</em>',
+    badge: 'after the frost',
+    badgeBg: 'rgba(74,122,64,0.12)',
+    badgeCol: '#2D5A30',
+    rot: '-1.8deg',
+    l1: 'nudgii reminds you before the garage fills up.',
+    l2: '<strong>Book before November.</strong>',
+    progress: 20
+  },
+  {
+    photoClass: 'ph-tomato',
+    note: 'tomatoes. sow now<br><em>or wait till next year.</em>',
+    badge: 'narrow window',
+    badgeBg: 'rgba(122,90,80,0.12)',
+    badgeCol: '#6B4030',
+    rot: '2.4deg',
+    l1: 'nudgii knows the window.',
+    l2: '<strong>You</strong> get to enjoy the harvest.',
+    progress: 28
+  },
+  {
+    photoClass: 'ph-lawn',
+    note: 'lawn. three weeks.<br><em>the neighbours are counting.</em>',
+    badge: 'early spring',
+    badgeBg: 'rgba(74,106,130,0.12)',
+    badgeCol: '#2A5E78',
+    rot: '-1.0deg',
+    l1: 'nudgii schedules it',
+    l2: '<strong>before</strong> it gets out of hand.',
+    progress: 36
+  }
+];
+
+let cur = 0;
+let dragging = false;
+let startX = null;
+let startY = null;
+let dragOffset = 0;
+let autoTimer = null;
+let animating = false;
+
+const pol = document.getElementById('pol');
+const polPhoto = document.getElementById('pol-photo');
+const polNote = document.getElementById('pol-note');
+const polBadge = document.getElementById('pol-badge');
+const pl1 = document.getElementById('pl1');
+const pl2 = document.getElementById('pl2');
+const pivot = document.getElementById('pivot');
+const pfill = document.getElementById('pfill');
+
+function updateDots(i) {
+  for (let j = 0; j < 3; j++) {
+    document.getElementById('d' + j).classList.toggle('on', i === j);
+  }
+}
+
+function setCard(idx, enterFrom) {
+  const c = CARDS[idx];
+
+  // Set photo placeholder
+  polPhoto.className = 'pol-photo ' + c.photoClass;
+
+  // Set text
+  polNote.innerHTML = c.note;
+  polBadge.textContent = c.badge;
+  polBadge.style.background = c.badgeBg;
+  polBadge.style.color = c.badgeCol;
+
+  // Update dots
+  updateDots(idx);
+
+  // Cross-fade pivot
+  pivot.style.opacity = '0';
+  setTimeout(() => {
+    pl1.innerHTML = c.l1;
+    pl2.innerHTML = c.l2;
+    pivot.style.opacity = '1';
+  }, 220);
+
+  // Animate card entrance
+  const offset = enterFrom === 'left' ? '110px' : '-110px';
+  pol.style.transition = 'none';
+  pol.style.opacity = '0';
+  pol.style.transform = 'translateX(calc(-50% + ' + offset + ')) rotate(' + c.rot + ')';
+
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    pol.style.transition = 'transform 0.52s cubic-bezier(0.34,1.56,0.64,1), opacity 0.32s ease';
+    pol.style.opacity = '1';
+    pol.style.transform = 'translateX(-50%) rotate(' + c.rot + ')';
+    setTimeout(() => { animating = false; }, 520);
+  }));
+
+  // Update progress bar
+  pfill.style.width = c.progress + '%';
+}
+
+function goTo(idx, dir) {
+  if (idx === cur || animating) return;
+  animating = true;
+
+  // Exit current card
+  const exitX = dir === 'left' ? '-260px' : '260px';
+  const exitRot = dir === 'left' ? '-14deg' : '14deg';
+  pol.style.transition = 'transform 0.28s ease-in, opacity 0.26s ease-in';
+  pol.style.transform = 'translateX(calc(-50% + ' + exitX + ')) rotate(' + exitRot + ')';
+  pol.style.opacity = '0';
+
+  setTimeout(() => {
+    cur = idx;
+    setCard(cur, dir === 'left' ? 'right' : 'left');
+  }, 250);
+
+  resetAuto();
+}
+
+function next() { goTo((cur + 1) % 3, 'left'); }
+function prev() { goTo((cur + 2) % 3, 'right'); }
+
+function resetAuto() {
+  clearInterval(autoTimer);
+  autoTimer = setInterval(next, 3800);
+}
+
+// Pointer drag for swiping
+pol.addEventListener('pointerdown', e => {
+  if (animating) return;
+  startX = e.clientX;
+  startY = e.clientY;
+  dragging = true;
+  dragOffset = 0;
+  pol.setPointerCapture(e.pointerId);
+  clearInterval(autoTimer);
+  pol.style.transition = 'none';
+});
+
+pol.addEventListener('pointermove', e => {
+  if (!dragging || startX === null) return;
+  const dx = e.clientX - startX;
+  // Cancel drag if vertical movement dominates
+  if (Math.abs(e.clientY - startY) > Math.abs(dx) * 1.1) {
+    dragging = false;
+    return;
+  }
+  dragOffset = dx;
+  const baseRot = parseFloat(CARDS[cur].rot);
+  pol.style.transform = 'translateX(calc(-50% + ' + dx + 'px)) rotate(' + (baseRot + dx * 0.04) + 'deg)';
+  pol.style.opacity = Math.max(0.38, 1 - Math.abs(dx) / 200);
+});
+
+pol.addEventListener('pointerup', () => {
+  if (!dragging) return;
+  dragging = false;
+  if (dragOffset < -55) {
+    next();
+  } else if (dragOffset > 55) {
+    prev();
+  } else {
+    // Snap back
+    pol.style.transition = 'transform 0.42s cubic-bezier(0.34,1.4,0.64,1), opacity 0.25s';
+    pol.style.transform = 'translateX(-50%) rotate(' + CARDS[cur].rot + ')';
+    pol.style.opacity = '1';
+    resetAuto();
+  }
+  dragOffset = 0;
+});
+
+// Dot clicks
+for (let i = 0; i < 3; i++) {
+  document.getElementById('d' + i).addEventListener('click', () => {
+    if (i === cur) return;
+    goTo(i, i > cur ? 'left' : 'right');
+  });
+}
+
+// Initialize
+setCard(0, 'right');
+resetAuto();
+</script>
+
+</body>
+</html>

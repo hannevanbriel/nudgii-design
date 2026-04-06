@@ -3,670 +3,195 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>nudgii · S-04 Review · prototype</title>
+<title>nudgii · S-04 Review · Prototype</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0;}
-
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --cream:#F5F0E8;--ink:#2C2824;--cta:#9B7FD4;--cta-fg:#FAF8FF;
-  --mid:#8A8070;--mid-a:#6B6358;--surface:#FFFFFF;--border:rgba(26,22,18,0.08);
-  --cat-home:#7A5A50;--cat-vehicle:#4A6A82;--cat-garden:#4A7A40;--cat-sub:#6A5085;
-  --sage:#3B6D11;--sage-lt:#EAF3DE;--apricot:#C4A8E8;--apricot-dk:#9B7FD4;
+  --surface:#FBF9F4;--ink:#2C2824;--mid:#8A8070;--hint:#A09888;
+  --cta:#9B7FD4;--cta-fg:#FAF8FF;--border:rgba(26,22,18,0.08);
+  --ch-bg:#C09088;--cv-bg:#8E9A94;--cg-bg:#8C9B80;--cs-bg:#A69BBF;
+  --ch-wash:rgba(192,144,136,0.14);--cv-wash:rgba(142,154,148,0.14);
+  --cg-wash:rgba(140,155,128,0.14);--cs-wash:rgba(166,155,191,0.14);
 }
+body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:24px 16px 48px;-webkit-font-smoothing:antialiased;}
+.page-head{width:100%;max-width:420px;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.page-head a{font-size:11px;color:rgba(245,240,232,0.50);text-decoration:none;display:flex;align-items:center;gap:6px;}
+.page-head a:hover{color:rgba(245,240,232,0.70);}
+.page-badge{font-size:9px;font-weight:500;padding:3px 8px;border-radius:100px;background:rgba(155,127,212,0.15);color:#B8A0E8;}
+.page-label{width:100%;max-width:420px;text-align:center;font-size:9px;font-weight:500;letter-spacing:1.3px;text-transform:uppercase;color:rgba(245,240,232,0.35);margin-bottom:10px;}
 
-body{
-  font-family:'DM Sans',-apple-system,sans-serif;
-  background:#2A2520;color:var(--ink);
-  min-height:100vh;display:flex;flex-direction:column;align-items:center;
-}
+.device{width:390px;height:844px;border-radius:44px;overflow:hidden;position:relative;background:var(--surface);box-shadow:0 0 0 1.5px rgba(255,255,255,0.06),0 24px 80px rgba(0,0,0,0.40);display:flex;flex-direction:column;}
+.device::before{content:'';position:absolute;top:12px;left:50%;transform:translateX(-50%);width:102px;height:8px;border-radius:100px;background:rgba(26,22,18,0.06);z-index:10;}
+.sbar{height:54px;padding:14px 28px 0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.sbar-time{font-size:14px;font-weight:600;color:var(--ink);}
+.sbar-icons{display:flex;gap:5px;}
+.sbar-icons svg{width:14px;height:14px;}
+.pbar{height:3px;background:rgba(26,22,18,0.08);flex-shrink:0;}
+.pfill{height:100%;background:var(--cta);border-radius:0 100px 100px 0;width:60%;transition:width 0.5s ease;}
 
-/* ── PAGE HEADER ── */
-.page-header{
-  display:flex;align-items:center;justify-content:space-between;
-  width:100%;max-width:800px;padding:20px 32px 0;
-}
-.page-logo{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;color:rgba(245,240,232,0.40);text-decoration:none;}
-.page-logo:hover{color:rgba(245,240,232,0.65);}
-.page-nav{display:flex;gap:16px;}
-.page-nav a{font-size:10px;font-weight:500;color:rgba(245,240,232,0.30);text-decoration:none;letter-spacing:0.3px;}
-.page-nav a:hover{color:rgba(245,240,232,0.60);}
+.screen{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.scroll{flex:1;overflow-y:auto;padding:12px 16px 16px;scrollbar-width:none;}
+.scroll::-webkit-scrollbar{display:none;}
+.s04-hed{font-family:'DM Serif Display',Georgia,serif;font-size:22px;font-weight:400;line-height:1.1;letter-spacing:-0.3px;color:var(--ink);margin-bottom:3px;}
+.s04-sub{font-size:12px;font-style:italic;color:var(--mid);margin-bottom:16px;}
 
-/* ── PAGE CONTENT ── */
-.page-content{
-  display:flex;flex-direction:column;align-items:center;
-  padding:24px 32px 80px;gap:20px;
-}
-.page-eyebrow{
-  font-size:10px;font-weight:500;letter-spacing:1.6px;text-transform:uppercase;
-  color:rgba(245,240,232,0.30);text-align:center;
-}
-.page-title{
-  font-family:'DM Serif Display',serif;font-size:22px;color:rgba(245,240,232,0.85);
-  text-align:center;line-height:1.2;margin-top:-4px;
-}
-.page-desc{
-  font-size:12px;color:rgba(245,240,232,0.35);text-align:center;
-  max-width:480px;line-height:1.6;
-}
+.entity-list{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.entity{border-radius:14px;padding:14px;cursor:pointer;transition:all 200ms;position:relative;}
+.entity:active{transform:scale(0.98);}
+.entity-row{display:flex;align-items:center;gap:12px;}
+.entity-icon{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(255,255,255,0.50);}
+.entity-body{flex:1;min-width:0;}
+.entity-name{font-family:'DM Serif Display',Georgia,serif;font-size:16px;font-weight:400;color:var(--ink);line-height:1.25;}
+.entity-meta{font-size:11px;color:var(--mid);margin-top:3px;display:flex;align-items:center;gap:6px;}
+.entity-chev{width:14px;height:14px;opacity:0.35;transition:transform 200ms;flex-shrink:0;}
+.entity.expanded .entity-chev{transform:rotate(180deg);opacity:0.5;}
 
-/* ── DEVICE ── */
-.device{
-  width:310px;background:var(--cream);border-radius:38px;
-  overflow:hidden;border:1.5px solid rgba(26,22,18,0.15);
-  box-shadow:0 24px 60px rgba(0,0,0,0.28);
-  display:flex;flex-direction:column;
-}
+.entity-expand{max-height:0;overflow:hidden;transition:max-height 300ms ease;}
+.entity.expanded .entity-expand{max-height:300px;}
+.entity-expand-inner{padding-top:14px;}
+.etask-list{display:flex;flex-direction:column;gap:6px;}
+.etask{display:flex;align-items:center;gap:8px;padding:5px 0;transition:opacity 0.2s;}
+.etask-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.etask-name{flex:1;font-size:12px;color:var(--ink);line-height:1.3;}
+.etask-cadence{font-size:9px;color:var(--mid);background:rgba(26,22,18,0.04);border:0.5px solid rgba(26,22,18,0.06);border-radius:100px;padding:3px 8px;white-space:nowrap;flex-shrink:0;}
+.etask-x{width:18px;height:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;opacity:0.3;transition:opacity 0.15s;}
+.etask-x:hover{opacity:0.6;}
+.etask-x svg{width:8px;height:8px;fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;}
 
-/* Progress bar */
-.pbar{height:3px;background:rgba(26,22,18,0.10);flex-shrink:0;}
-.pfill{height:100%;background:var(--cta);transition:width 0.5s ease;}
+.entity.cat-home{background:var(--ch-wash);}
+.entity.cat-vehicle{background:var(--cv-wash);}
+.entity.cat-garden{background:var(--cg-wash);}
 
-/* Screen header */
-.scr-head{padding:14px 14px 0;flex-shrink:0;}
-.hed{font-family:'DM Serif Display',serif;font-size:19px;color:var(--ink);line-height:1.1;margin-bottom:3px;}
-.sub{font-size:10.5px;font-style:italic;color:var(--mid);margin-bottom:8px;line-height:1.4;}
+.add-row{border:1.5px dashed rgba(26,22,18,0.15);border-radius:14px;padding:14px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:background 0.15s;margin-bottom:8px;}
+.add-row:hover{background:rgba(26,22,18,0.02);}
+.add-icon{width:28px;height:28px;border-radius:50%;background:rgba(26,22,18,0.05);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.add-icon svg{width:12px;height:12px;fill:none;stroke:var(--mid);stroke-width:1.6;stroke-linecap:round;}
+.add-title{font-size:12px;font-weight:500;color:var(--ink);}
+.add-hint{font-size:10px;color:var(--mid);}
 
-/* Category chips */
-.chips{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;padding:4px 0;margin-bottom:4px;}
-.chips::-webkit-scrollbar{display:none;}
-.chip{
-  flex-shrink:0;padding:5px 12px;border-radius:100px;
-  font-size:10.5px;font-weight:500;cursor:pointer;user-select:none;
-  transition:outline 0.12s,background 0.12s,color 0.12s;
-  outline:1.5px solid transparent;outline-offset:0;
-}
-.chip-all{background:rgba(26,22,18,0.07);color:var(--mid-a);}
-.chip-all.on{background:rgba(155,127,212,0.12);color:var(--cta);outline:1px solid var(--cta);}
-.chip-home{background:rgba(122,90,80,0.13);color:var(--cat-home);}
-.chip-home.on{outline:1px solid var(--cat-home);}
-.chip-vehicle{background:rgba(74,106,130,0.13);color:var(--cat-vehicle);}
-.chip-vehicle.on{outline:1px solid var(--cat-vehicle);}
-.chip-garden{background:rgba(74,122,64,0.13);color:var(--cat-garden);}
-.chip-garden.on{outline:1px solid var(--cat-garden);}
-.chip-subs{background:rgba(106,80,133,0.13);color:var(--cat-sub);}
-.chip-subs.on{outline:1px solid var(--cat-sub);}
-
-/* Scrollable content */
-.content{flex:1;overflow-y:auto;max-height:410px;scrollbar-width:none;padding:0 10px 4px;}
-.content::-webkit-scrollbar{display:none;}
-
-/* Category section */
-.cat-section{padding:6px 0 2px;}
-.cat-section.hidden{display:none;}
-.cat-lbl{display:flex;align-items:center;gap:5px;font-size:9px;font-weight:600;letter-spacing:1.3px;text-transform:uppercase;color:var(--mid-a);margin-bottom:6px;padding:0 4px;}
-.cat-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
-.cat-count{font-weight:400;letter-spacing:0.5px;text-transform:none;font-size:8.5px;}
-
-/* 2-column tile grid */
-.tile-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:4px;}
-
-/* Tile card */
-.tile{
-  border-radius:14px;padding:10px 8px 8px;cursor:pointer;user-select:none;
-  display:flex;flex-direction:column;position:relative;
-  transition:transform 0.12s,box-shadow 0.15s;
-}
-.tile:hover{transform:scale(1.02);}
-.tile:active{transform:scale(0.97);}
-.tile.expanded{border-radius:14px 14px 0 0;}
-.tile-top{display:flex;align-items:flex-start;justify-content:space-between;}
-.tile-icon{width:36px;height:36px;display:flex;align-items:center;justify-content:center;}
-.tile-icon svg{width:36px;height:36px;}
-.tile-remove{
-  width:20px;height:20px;border-radius:50%;border:none;cursor:pointer;
-  background:rgba(26,22,18,0.06);display:flex;align-items:center;justify-content:center;
-  transition:background 0.12s;flex-shrink:0;
-}
-.tile-remove:hover{background:rgba(26,22,18,0.12);}
-.tile-remove svg{pointer-events:none;}
-.tile-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:6px;}
-.tile-name{font-size:10.5px;font-weight:500;color:var(--ink);line-height:1.2;}
-.tile-meta{font-size:8.5px;color:var(--mid-a);display:flex;align-items:center;gap:3px;}
-.tile-chevron{opacity:0.4;transition:transform 0.2s;}
-.tile.expanded .tile-chevron{transform:rotate(90deg);opacity:0.7;}
-
-/* Inline drawer below tile */
-.drawer{
-  background:#fff;border-radius:0 0 14px 14px;
-  overflow:hidden;max-height:0;opacity:0;
-  transition:max-height 0.3s ease,opacity 0.2s ease,padding 0.2s ease;
-  padding:0 8px;
-}
-.drawer.open{max-height:500px;opacity:1;padding:6px 8px 8px;}
-.drawer-collapse{
-  display:flex;align-items:center;justify-content:center;gap:4px;
-  font-size:9px;color:var(--mid-a);cursor:pointer;padding:4px 0 6px;
-  user-select:none;
-}
-.drawer-collapse:hover{color:var(--ink);}
-
-/* Task rows inside drawer */
-.task-row{
-  display:flex;align-items:center;gap:7px;padding:5px 4px;
-  border-radius:8px;transition:background 0.12s,opacity 0.3s,max-height 0.3s,transform 0.3s;
-  overflow:hidden;
-}
-.task-row:hover{background:rgba(26,22,18,0.03);}
-.task-row+.task-row{border-top:0.5px solid rgba(26,22,18,0.06);}
-.task-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
-.task-info{flex:1;min-width:0;}
-.task-name{font-size:10px;font-weight:500;color:var(--ink);line-height:1.3;}
-.task-freq{font-size:8px;color:var(--mid);margin-top:1px;}
-.task-del{
-  width:18px;height:18px;border-radius:50%;border:none;cursor:pointer;
-  background:rgba(26,22,18,0.05);display:flex;align-items:center;justify-content:center;
-  transition:background 0.12s;flex-shrink:0;
-}
-.task-del:hover{background:rgba(196,80,58,0.12);}
-.task-del svg{pointer-events:none;}
-
-/* Pro task styling */
-.task-row.pro{opacity:0.38;}
-.task-row.pro.unlocking{animation:unlockTask 0.4s ease forwards;}
-@keyframes unlockTask{
-  0%{opacity:0.38;transform:translateX(8px);}
-  100%{opacity:1;transform:translateX(0);}
-}
-.pro-badge{
-  font-size:7.5px;font-weight:600;color:var(--cta);
-  background:rgba(155,127,212,0.12);border-radius:4px;
-  padding:1.5px 5px;flex-shrink:0;letter-spacing:0.3px;
-}
-
-/* Add item row */
-.add-row{
-  display:flex;align-items:center;gap:8px;padding:10px 12px;
-  border:1.5px dashed rgba(26,22,18,0.15);border-radius:12px;
-  margin:8px 4px;cursor:pointer;transition:background 0.12s,border-color 0.12s;
-}
-.add-row:hover{background:rgba(26,22,18,0.03);border-color:rgba(26,22,18,0.25);}
-.add-row.locked{cursor:default;opacity:0.7;}
-.add-row.locked:hover{background:transparent;border-color:rgba(26,22,18,0.15);}
-.add-icon{
-  width:24px;height:24px;border-radius:50%;
-  background:rgba(155,127,212,0.10);display:flex;align-items:center;justify-content:center;
-}
-.add-label{font-size:10.5px;font-weight:500;color:var(--mid-a);}
-.add-pro-link{font-size:9px;color:var(--cta);font-weight:500;margin-left:auto;cursor:pointer;}
-
-/* Section divider */
-.sec-div{height:0.5px;background:rgba(26,22,18,0.08);margin:2px 4px;}
-
-/* Bottom zone */
-.bottom-zone{flex-shrink:0;background:var(--cream);padding:0 14px 18px;}
-.hairline{height:0.5px;background:rgba(26,22,18,0.10);margin-bottom:6px;}
-
-/* Tier banner */
-.tier-banner{
-  display:flex;align-items:center;gap:8px;padding:7px 10px;
-  border-radius:10px;margin-bottom:8px;
-  transition:background 0.3s,border-color 0.3s;
-}
-.tier-banner.normal{background:rgba(155,127,212,0.08);border:1px solid rgba(155,127,212,0.15);}
-.tier-banner.warn{background:rgba(232,168,124,0.10);border:1px solid rgba(232,168,124,0.20);}
-.tier-banner.full{background:rgba(122,90,80,0.12);border:1px solid rgba(122,90,80,0.25);}
-.tier-pips{display:flex;gap:3px;flex-shrink:0;}
-.tier-pip{width:5px;height:5px;border-radius:50%;transition:background 0.2s;}
-.tier-pip.filled{background:var(--cta);}
-.tier-pip.empty{background:rgba(26,22,18,0.12);}
-.tier-pip.warn-filled{background:var(--apricot-dk);}
-.tier-text{font-size:9px;color:var(--mid-a);flex:1;line-height:1.3;}
-.tier-text strong{font-weight:600;}
-.tier-pro{
-  font-size:8.5px;font-weight:600;color:var(--cta);cursor:pointer;
-  background:rgba(155,127,212,0.12);padding:3px 8px;border-radius:100px;
-  white-space:nowrap;transition:background 0.12s;flex-shrink:0;
-}
-.tier-pro:hover{background:rgba(155,127,212,0.20);}
-
-/* CTA button */
-.cta{
-  width:100%;padding:12px;border-radius:100px;border:none;
-  font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:600;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  background:var(--cta);color:var(--cta-fg);box-shadow:0 4px 18px rgba(155,127,212,0.35);
-  transition:transform 0.12s,box-shadow 0.15s;
-}
+.btm{padding:8px 16px 28px;flex-shrink:0;background:var(--surface);}
+.tier{display:flex;align-items:center;gap:8px;padding:6px 10px;margin-bottom:8px;background:rgba(26,22,18,0.04);border-radius:10px;}
+.pips{display:flex;gap:3px;flex-shrink:0;}
+.pip{width:8px;height:8px;border-radius:50%;background:rgba(26,22,18,0.12);}
+.pip.on{background:var(--cta);}
+.tier-text{flex:1;font-size:10px;color:var(--mid);}
+.tier-pro{font-size:10px;font-weight:600;color:var(--cta);cursor:pointer;flex-shrink:0;}
+.cta{width:100%;height:50px;border-radius:100px;border:none;background:var(--cta);color:var(--cta-fg);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;box-shadow:0 4px 18px rgba(155,127,212,0.35);transition:transform 0.1s;}
 .cta:active{transform:scale(0.97);}
-
-/* Toast */
-.toast{
-  position:fixed;bottom:40px;left:50%;transform:translateX(-50%) translateY(60px);
-  background:var(--sage-lt);color:var(--sage);
-  font-family:'DM Sans',sans-serif;font-size:10.5px;font-weight:500;
-  padding:8px 16px;border-radius:100px;
-  opacity:0;transition:all 0.3s ease;pointer-events:none;z-index:100;
-  white-space:nowrap;
-}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-.toast.warn{background:rgba(232,168,124,0.15);color:var(--apricot-dk);}
-.toast.error{background:rgba(196,80,58,0.10);color:#6B4A3A;}
-
-/* ── LEGEND ── */
-.legend{
-  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
-  max-width:400px;
-}
-.legend-item{
-  font-size:10px;color:rgba(245,240,232,0.35);
-  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);
-  border-radius:6px;padding:5px 10px;
-}
-.legend-item strong{font-weight:500;color:rgba(245,240,232,0.55);}
-
-/* Tile animations */
-.tile-wrap{animation:fadeSlideIn 0.2s ease;}
-.tile-wrap.removing{animation:fadeOut 0.25s ease forwards;}
-@keyframes fadeSlideIn{0%{opacity:0;transform:translateY(-6px);}100%{opacity:1;transform:translateY(0);}}
-@keyframes fadeOut{0%{opacity:1;transform:scale(1);}100%{opacity:0;transform:scale(0.9);}}
-.task-row.removing{animation:slideOut 0.25s ease forwards;}
-@keyframes slideOut{0%{opacity:1;max-height:40px;transform:translateX(0);}100%{opacity:0;max-height:0;transform:translateX(20px);padding:0 4px;}}
 </style>
 </head>
 <body>
 
-<!-- PAGE HEADER -->
-<div class="page-header">
-  <a class="page-logo" href="../index.html">
-    <svg width="14" height="16" viewBox="0 0 625.96 700.13" xmlns="http://www.w3.org/2000/svg">
-      <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
-      <path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
-      <circle fill="#C4A8E8" cx="535.96" cy="119.29" r="90"/>
-    </svg>
-    nudgii design system
+<div class="page-head">
+  <a href="../index.html">
+    <svg width="14" height="14" viewBox="0 0 80 80" style="border-radius:3px;"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#C4A8E8"/></svg>
+    Design hub
   </a>
-  <div class="page-nav">
-    <a href="s04-review-lofi.html">Lo-fi</a>
-    <a href="s04-review-hifi.html">Hi-fi</a>
-    <a href="../index.html">Design hub</a>
+  <span class="page-badge">Prototype</span>
+</div>
+<div class="page-label">S-04 · Review · Prototype</div>
+
+<div class="device">
+  <div class="sbar">
+    <span class="sbar-time">9:41</span>
+    <div class="sbar-icons">
+      <svg viewBox="0 0 14 12" fill="var(--ink)"><rect x="0" y="8" width="2.5" height="4" rx="0.5"/><rect x="3.5" y="5.5" width="2.5" height="6.5" rx="0.5"/><rect x="7" y="2.5" width="2.5" height="9.5" rx="0.5"/><rect x="10.5" y="0" width="2.5" height="12" rx="0.5" opacity="0.25"/></svg>
+      <svg viewBox="0 0 16 12" fill="none" stroke="var(--ink)" stroke-width="1.2"><rect x="1" y="2" width="12" height="8" rx="2"/><rect x="2" y="3" width="9" height="6" rx="1" fill="var(--ink)"/><path d="M13.5 5.5v1" stroke-linecap="round"/></svg>
+    </div>
+  </div>
+  <div class="pbar"><div class="pfill"></div></div>
+
+  <div class="screen">
+    <div class="scroll">
+      <div class="s04-hed">Here's what nudgii found.</div>
+      <div class="s04-sub">Tap a card to review its tasks. Adjust anything later.</div>
+
+      <div class="entity-list">
+        <!-- Boiler: expanded by default -->
+        <div class="entity cat-home expanded" onclick="toggleEntity(this)">
+          <div class="entity-row">
+            <div class="entity-icon"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><rect x="64" y="32" width="128" height="192" rx="16" stroke="var(--ch-bg)" stroke-width="18" fill="none" stroke-linecap="round"/><circle cx="128" cy="144" r="28" stroke="var(--ch-bg)" stroke-width="18" fill="none"/><line x1="128" y1="72" x2="128" y2="88" stroke="var(--ch-bg)" stroke-width="18" stroke-linecap="round"/></svg></div>
+            <div class="entity-body"><div class="entity-name">Boiler</div><div class="entity-meta"><span>Home</span><span style="opacity:0.4;">·</span><span>4 tasks</span></div></div>
+            <svg class="entity-chev" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="entity-expand"><div class="entity-expand-inner"><div class="etask-list">
+            <div class="etask"><div class="etask-dot" style="background:var(--ch-bg);"></div><div class="etask-name">Annual boiler service</div><div class="etask-cadence">yearly, autumn</div><div class="etask-x" onclick="event.stopPropagation();removeTask(this)"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div></div>
+            <div class="etask"><div class="etask-dot" style="background:var(--ch-bg);"></div><div class="etask-name">Check CO detector</div><div class="etask-cadence">yearly</div><div class="etask-x" onclick="event.stopPropagation();removeTask(this)"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div></div>
+            <div class="etask"><div class="etask-dot" style="background:var(--ch-bg);"></div><div class="etask-name">Bleed radiators</div><div class="etask-cadence">before winter</div><div class="etask-x" onclick="event.stopPropagation();removeTask(this)"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div></div>
+            <div class="etask"><div class="etask-dot" style="background:var(--ch-bg);"></div><div class="etask-name">Pressure check expansion vessel</div><div class="etask-cadence">every 2 years</div><div class="etask-x" onclick="event.stopPropagation();removeTask(this)"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div></div>
+          </div></div></div>
+        </div>
+
+        <!-- Dishwasher -->
+        <div class="entity cat-home" onclick="toggleEntity(this)">
+          <div class="entity-row">
+            <div class="entity-icon"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><rect x="32" y="56" width="192" height="144" rx="8" stroke="var(--ch-bg)" stroke-width="18" fill="none"/><line x1="32" y1="104" x2="224" y2="104" stroke="var(--ch-bg)" stroke-width="18"/><circle cx="80" cy="80" r="10" stroke="var(--ch-bg)" stroke-width="14" fill="none"/></svg></div>
+            <div class="entity-body"><div class="entity-name">Dishwasher</div><div class="entity-meta"><span>Home</span><span style="opacity:0.4;">·</span><span>3 tasks</span></div></div>
+            <svg class="entity-chev" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="entity-expand"><div class="entity-expand-inner"><div class="etask-list">
+            <div class="etask"><div class="etask-dot" style="background:var(--ch-bg);"></div><div class="etask-name">Clean dishwasher filter</div><div class="etask-cadence">every 6-8 weeks</div><div class="etask-x" onclick="event.stopPropagation();removeTask(this)"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div></div>
+            <div class="etask"><div class="etask-dot" style="background:var(--ch-bg);"></div><div class="etask-name">Refill dishwasher salt</div><div class="etask-cadence">every 6-8 weeks</div><div class="etask-x" onclick="event.stopPropagation();removeTask(this)"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div></div>
+            <div class="etask"><div class="etask-dot" style="background:var(--ch-bg);"></div><div class="etask-name">Clean spray arms</div><div class="etask-cadence">every 3 months</div><div class="etask-x" onclick="event.stopPropagation();removeTask(this)"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div></div>
+          </div></div></div>
+        </div>
+
+        <!-- Car -->
+        <div class="entity cat-vehicle" onclick="toggleEntity(this)">
+          <div class="entity-row">
+            <div class="entity-icon"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M224,168H208V128L176,80H80L48,128V168H32a8,8,0,0,0,0,16H48v8a16,16,0,0,0,32,0v-8h96v8a16,16,0,0,0,32,0v-8h16a8,8,0,0,0,0-16Z" stroke="var(--cv-bg)" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="entity-body"><div class="entity-name">Car</div><div class="entity-meta"><span>Vehicle</span><span style="opacity:0.4;">·</span><span>5 tasks</span></div></div>
+            <svg class="entity-chev" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="entity-expand"><div class="entity-expand-inner"><div class="etask-list">
+            <div class="etask"><div class="etask-dot" style="background:var(--cv-bg);"></div><div class="etask-name">Switch to winter tyres</div><div class="etask-cadence">before Nov</div><div class="etask-x" onclick="event.stopPropagation();removeTask(this)"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div></div>
+            <div class="etask"><div class="etask-dot" style="background:var(--cv-bg);"></div><div class="etask-name">Check tyre pressure</div><div class="etask-cadence">monthly</div><div class="etask-x" onclick="event.stopPropagation();removeTask(this)"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div></div>
+            <div class="etask"><div class="etask-dot" style="background:var(--cv-bg);"></div><div class="etask-name">Annual car service</div><div class="etask-cadence">yearly</div><div class="etask-x" onclick="event.stopPropagation();removeTask(this)"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div></div>
+          </div></div></div>
+        </div>
+
+        <!-- Olive tree -->
+        <div class="entity cat-garden" onclick="toggleEntity(this)">
+          <div class="entity-row">
+            <div class="entity-icon"><svg width="20" height="20" viewBox="0 0 256 256" fill="none"><path d="M128 232V128" stroke="var(--cg-bg)" stroke-width="18" stroke-linecap="round"/><path d="M128 128c-40-60-80-20-80 0s40 40 80 0" stroke="var(--cg-bg)" stroke-width="16" fill="none" stroke-linecap="round"/><path d="M128 128c40-60 80-20 80 0s-40 40-80 0" stroke="var(--cg-bg)" stroke-width="16" fill="none" stroke-linecap="round"/></svg></div>
+            <div class="entity-body"><div class="entity-name">Olive tree</div><div class="entity-meta"><span>Garden</span><span style="opacity:0.4;">·</span><span>2 tasks</span></div></div>
+            <svg class="entity-chev" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="entity-expand"><div class="entity-expand-inner"><div class="etask-list">
+            <div class="etask"><div class="etask-dot" style="background:var(--cg-bg);"></div><div class="etask-name">Autumn pruning</div><div class="etask-cadence">yearly, Oct</div><div class="etask-x" onclick="event.stopPropagation();removeTask(this)"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div></div>
+            <div class="etask"><div class="etask-dot" style="background:var(--cg-bg);"></div><div class="etask-name">Spring pruning</div><div class="etask-cadence">yearly, Mar</div><div class="etask-x" onclick="event.stopPropagation();removeTask(this)"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div></div>
+          </div></div></div>
+        </div>
+      </div>
+
+      <div class="add-row">
+        <div class="add-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="2" x2="6" y2="10"/><line x1="2" y1="6" x2="10" y2="6"/></svg></div>
+        <div><div class="add-title">Add another item</div><div class="add-hint">Search any appliance, vehicle or plant</div></div>
+      </div>
+    </div>
+
+    <div class="btm">
+      <div class="tier">
+        <div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div>
+        <div class="tier-text">4 of 10 free items</div>
+        <div class="tier-pro">Go Pro</div>
+      </div>
+      <button class="cta">Looks good →</button>
+    </div>
   </div>
 </div>
 
-<div class="page-content">
-
-  <div class="page-eyebrow">S-04 · Review · Interactive prototype</div>
-  <div class="page-title">Review your items</div>
-  <div class="page-desc">Tap tiles to expand task drawers. Remove tasks or items. Watch the free tier banner update live. Pro tasks unlock when free tasks are deleted.</div>
-
-  <!-- DEVICE -->
-  <div class="device">
-    <div class="pbar"><div class="pfill" id="pf" style="width:60%;"></div></div>
-
-    <div class="scr-head">
-      <div class="hed">Here's what nudgii found.</div>
-      <div class="sub">Tap a card to review its tasks. Adjust anything later.</div>
-
-      <!-- Category chips -->
-      <div class="chips" id="chiprow"></div>
-    </div>
-
-    <!-- Scrollable content -->
-    <div class="content" id="ct"></div>
-
-    <!-- Bottom zone -->
-    <div class="bottom-zone">
-      <div class="hairline"></div>
-      <div id="tier-banner"></div>
-      <button class="cta" id="cta-btn" onclick="showToastMsg('Navigating to S-05 AHA...','')">
-        <span>Looks good</span>
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M7 3l3 3-3 3" stroke="#FAF8FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-    </div>
-  </div><!-- /device -->
-
-  <!-- LEGEND -->
-  <div class="legend">
-    <div class="legend-item"><strong>Category filter</strong> hides/shows sections</div>
-    <div class="legend-item"><strong>Tap tile</strong> to expand task drawer</div>
-    <div class="legend-item"><strong>Task delete</strong> + Pro unlock animation</div>
-    <div class="legend-item"><strong>Free tier limit</strong> tracks 10 items</div>
-  </div>
-
-</div><!-- /page-content -->
-
-<!-- Toast -->
-<div class="toast" id="toast"></div>
-
 <script>
-// ── COLOR MAP ──
-const CC={home:'#7A5A50',vehicle:'#4A6A82',garden:'#4A7A40',subs:'#6A5085'};
-const CL={home:'Home',vehicle:'Vehicle',garden:'Garden',subs:'Subscriptions'};
-const CATS=['home','vehicle','garden','subs'];
-
-// ── ICONS (bare colored SVG, 36px, stroke only) ──
-const ICONS={
-  boiler:`<svg viewBox="0 0 24 24" fill="none" stroke="§" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="18" rx="3"/><circle cx="12" cy="13" r="3"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="8" y1="20" x2="16" y2="20"/></svg>`,
-  dishwasher:`<svg viewBox="0 0 24 24" fill="none" stroke="§" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="2" width="18" height="20" rx="3"/><circle cx="12" cy="13" r="4"/><line x1="12" y1="2" x2="12" y2="5"/></svg>`,
-  car:`<svg viewBox="0 0 24 24" fill="none" stroke="§" stroke-width="1.5" stroke-linecap="round"><path d="M3 14L6 8h12l3 6v4H3v-4z"/><circle cx="7.5" cy="17" r="2"/><circle cx="16.5" cy="17" r="2"/><path d="M3 14h18"/></svg>`,
-  olive:`<svg viewBox="0 0 24 24" fill="none" stroke="§" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="22" x2="12" y2="11"/><path d="M12 11C12 7 8 4 8 4C8 4 8 9 12 11Z"/><path d="M12 11C12 7 16 4 16 4C16 4 16 9 12 11Z"/><path d="M12 11C12 16 10 20 10 20"/></svg>`,
-  streaming:`<svg viewBox="0 0 24 24" fill="none" stroke="§" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="5" x2="8" y2="19"/></svg>`
-};
-
-// ── ITEM + TASK DATA ──
-// Deep clone helper
-function cloneData(src){return JSON.parse(JSON.stringify(src));}
-
-const SEED_ITEMS=[
-  {id:'boiler',name:'Boiler',cat:'home',icon:'boiler',tasks:[
-    {id:'t1',name:'Annual boiler service',freq:'Yearly, autumn',first:true,pro:false},
-    {id:'t2',name:'Check CO detector',freq:'Yearly',first:false,pro:false},
-    {id:'t3',name:'Bleed radiators',freq:'Before winter',first:false,pro:false},
-    {id:'t4',name:'Check flue emissions',freq:'Every 2 years',first:false,pro:true}
-  ]},
-  {id:'dishwasher',name:'Dishwasher',cat:'home',icon:'dishwasher',tasks:[
-    {id:'t5',name:'Clean filter',freq:'Every 6-8 weeks',first:true,pro:false},
-    {id:'t6',name:'Refill salt',freq:'Monthly',first:false,pro:false},
-    {id:'t7',name:'Run hot wash cycle',freq:'Monthly',first:false,pro:false}
-  ]},
-  {id:'car',name:'Car',cat:'vehicle',icon:'car',tasks:[
-    {id:'t8',name:'Switch to winter tyres',freq:'Before November',first:true,pro:false},
-    {id:'t9',name:'Annual APK/MOT check',freq:'Yearly',first:false,pro:false},
-    {id:'t10',name:'Check tyre pressure',freq:'Monthly',first:false,pro:false},
-    {id:'t11',name:'Top up windscreen fluid',freq:'Seasonal',first:false,pro:false},
-    {id:'t12',name:'OBD diagnostic scan',freq:'Yearly',first:false,pro:true}
-  ]},
-  {id:'olive',name:'Olive tree',cat:'garden',icon:'olive',tasks:[
-    {id:'t13',name:'Autumn pruning',freq:'Yearly, october-november',first:true,pro:false},
-    {id:'t14',name:'Fertilise in spring',freq:'Yearly, march',first:false,pro:false}
-  ]},
-  {id:'streaming',name:'Streaming',cat:'subs',icon:'streaming',tasks:[
-    {id:'t15',name:'Review active subscriptions',freq:'Every 6 months',first:true,pro:false},
-    {id:'t16',name:'Check for price increases',freq:'Yearly',first:false,pro:false}
-  ]}
-];
-
-// Demo items for "add" functionality
-const DEMO_ITEMS=[
-  {id:'washing',name:'Washing machine',cat:'home',icon:'dishwasher',tasks:[
-    {id:'td1',name:'Clean rubber seal',freq:'Monthly',first:true,pro:false},
-    {id:'td2',name:'Run drum clean cycle',freq:'Every 2 months',first:false,pro:false}
-  ]},
-  {id:'fridge',name:'Fridge',cat:'home',icon:'boiler',tasks:[
-    {id:'td3',name:'Clean condenser coils',freq:'Every 6 months',first:true,pro:false},
-    {id:'td4',name:'Check door seals',freq:'Yearly',first:false,pro:false}
-  ]},
-  {id:'bicycle',name:'Bicycle',cat:'vehicle',icon:'car',tasks:[
-    {id:'td5',name:'Check tyre pressure',freq:'Monthly',first:true,pro:false},
-    {id:'td6',name:'Oil chain',freq:'Every 2 months',first:false,pro:false}
-  ]},
-  {id:'hedge',name:'Hedge',cat:'garden',icon:'olive',tasks:[
-    {id:'td7',name:'Trim hedge',freq:'Twice yearly',first:true,pro:false},
-    {id:'td8',name:'Feed roots',freq:'Spring',first:false,pro:false}
-  ]},
-  {id:'insurance',name:'Insurance',cat:'subs',icon:'streaming',tasks:[
-    {id:'td9',name:'Review coverage',freq:'Yearly',first:true,pro:false},
-    {id:'td10',name:'Compare rates',freq:'Yearly',first:false,pro:false}
-  ]}
-];
-
-// ── STATE ──
-let items=cloneData(SEED_ITEMS);
-let activeCat='all';
-let expandedTile=null;
-let toastTimer=null;
-let demoIdx=0;
-const FREE_LIMIT=10;
-
-// ── HELPERS ──
-function hexToRgb(hex){
-  const h=hex.replace('#','');
-  return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)].join(',');
+function toggleEntity(el){
+  document.querySelectorAll('.entity.expanded').forEach(e=>{if(e!==el)e.classList.remove('expanded');});
+  el.classList.toggle('expanded');
 }
-function getItemCount(){return items.length;}
-function getCatItems(cat){return items.filter(i=>i.cat===cat);}
-
-// ── BUILD CHIPS ──
-function buildChips(){
-  const row=document.getElementById('chiprow');
-  row.innerHTML='';
-  const allC=document.createElement('div');
-  allC.className='chip chip-all on';
-  allC.dataset.cat='all';
-  allC.textContent='All';
-  allC.onclick=function(){filterCat('all');};
-  row.appendChild(allC);
-  CATS.forEach(c=>{
-    const d=document.createElement('div');
-    d.className='chip chip-'+(c==='subs'?'subs':c);
-    d.dataset.cat=c;
-    d.textContent=CL[c];
-    d.onclick=function(){filterCat(c);};
-    row.appendChild(d);
-  });
+function removeTask(x){
+  const task=x.parentElement;
+  task.style.opacity='0';
+  setTimeout(()=>task.style.display='none',200);
 }
-
-function filterCat(cat){
-  activeCat=cat;
-  document.querySelectorAll('.chip').forEach(p=>p.classList.toggle('on',p.dataset.cat===cat));
-  document.querySelectorAll('.cat-section').forEach(s=>{
-    s.classList.toggle('hidden',cat!=='all'&&s.dataset.section!==cat);
-  });
-}
-
-// ── RENDER ──
-function render(){
-  const ct=document.getElementById('ct');
-  let html='';
-  let visibleCats=CATS.filter(c=>getCatItems(c).length>0);
-  let catIdx=0;
-
-  CATS.forEach(cat=>{
-    const catItems=getCatItems(cat);
-    if(catItems.length===0)return;
-    const color=CC[cat];
-    const count=catItems.length;
-
-    html+=`<div class="cat-section" data-section="${cat}">`;
-    html+=`<div class="cat-lbl"><span class="cat-dot" style="background:${color}"></span>${CL[cat]} <span class="cat-count">&middot; ${count} item${count!==1?'s':''}</span></div>`;
-    html+=`<div class="tile-grid">`;
-
-    catItems.forEach(item=>{
-      const isExp=expandedTile===item.id;
-      const svg=ICONS[item.icon]?ICONS[item.icon].replace(/§/g,color):'';
-      const totalTasks=item.tasks.length;
-
-      html+=`<div class="tile-wrap" id="wrap-${item.id}" style="grid-column:${isExp?'1 / -1':'auto'}">`;
-      html+=`<div class="tile${isExp?' expanded':''}" style="background:rgba(${hexToRgb(color)},0.10);" onclick="toggleTile('${item.id}',event)" data-item="${item.id}">`;
-      html+=`<div class="tile-top">`;
-      html+=`<div class="tile-icon">${svg}</div>`;
-      html+=`<button class="tile-remove" onclick="removeItem('${item.id}',event)" title="Remove item">`;
-      html+=`<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 2l6 6M8 2l-6 6" stroke="var(--mid-a)" stroke-width="1.2" stroke-linecap="round"/></svg>`;
-      html+=`</button>`;
-      html+=`</div>`;
-      html+=`<div class="tile-bottom">`;
-      html+=`<div><div class="tile-name">${item.name}</div><div class="tile-meta">${totalTasks} task${totalTasks!==1?'s':''}</div></div>`;
-      html+=`<svg class="tile-chevron" width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M3 1.5l3 2.5-3 2.5" stroke="var(--mid)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-      html+=`</div>`;
-      html+=`</div>`;
-
-      // Drawer
-      html+=`<div class="drawer${isExp?' open':''}" id="drawer-${item.id}">`;
-      html+=`<div class="drawer-collapse" onclick="toggleTile('${item.id}',event)">`;
-      html+=`<svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 5l2.5-3 2.5 3" stroke="var(--mid-a)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-      html+=`<span>Collapse</span></div>`;
-
-      item.tasks.forEach(task=>{
-        const isPro=task.pro;
-        html+=`<div class="task-row${isPro?' pro':''}" id="task-${task.id}" data-item="${item.id}" data-task="${task.id}">`;
-        html+=`<span class="task-dot" style="background:${task.first?color:'rgba(26,22,18,0.15)'}"></span>`;
-        html+=`<div class="task-info"><div class="task-name">${task.name}</div><div class="task-freq">${task.freq}</div></div>`;
-        if(isPro){
-          html+=`<span class="pro-badge">Pro</span>`;
-        }else{
-          html+=`<button class="task-del" onclick="deleteTask('${item.id}','${task.id}',event)" title="Remove task">`;
-          html+=`<svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 1.5l5 5M6.5 1.5l-5 5" stroke="var(--mid)" stroke-width="1" stroke-linecap="round"/></svg>`;
-          html+=`</button>`;
-        }
-        html+=`</div>`;
-      });
-
-      html+=`</div>`;// drawer
-      html+=`</div>`;// tile-wrap
-    });
-
-    html+=`</div>`;// tile-grid
-    html+=`</div>`;// cat-section
-
-    catIdx++;
-    if(catIdx<visibleCats.length){
-      html+=`<div class="sec-div"></div>`;
-    }
-  });
-
-  // Add item row
-  const count=getItemCount();
-  if(count<FREE_LIMIT){
-    html+=`<div class="add-row" onclick="addItem()">`;
-    html+=`<div class="add-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8" stroke="var(--cta)" stroke-width="1.5" stroke-linecap="round"/></svg></div>`;
-    html+=`<span class="add-label">Add another item</span>`;
-    html+=`</div>`;
-  }else{
-    html+=`<div class="add-row locked">`;
-    html+=`<div class="add-icon" style="background:rgba(26,22,18,0.06);"><svg width="11" height="11" viewBox="0 0 256 256" fill="none"><rect x="40" y="112" width="176" height="120" rx="16" stroke="var(--mid)" stroke-width="18" fill="none"/><path d="M80 112V80a48 48 0 0 1 96 0v32" stroke="var(--mid)" stroke-width="18" stroke-linecap="round" fill="none"/><circle cx="128" cy="168" r="12" fill="var(--mid)"/></svg></div>`;
-    html+=`<span class="add-label">Free plan limit reached</span>`;
-    html+=`<span class="add-pro-link" onclick="event.stopPropagation();showToastMsg('Pro upgrade flow...','')">Go Pro</span>`;
-    html+=`</div>`;
-  }
-
-  ct.innerHTML=html;
-
-  // Re-apply current filter
-  if(activeCat!=='all'){
-    document.querySelectorAll('.cat-section').forEach(s=>{
-      s.classList.toggle('hidden',s.dataset.section!==activeCat);
-    });
-  }
-
-  updateTierBanner();
-}
-
-// ── TILE TOGGLE ──
-function toggleTile(id,e){
-  e.stopPropagation();
-  expandedTile=(expandedTile===id)?null:id;
-  render();
-  if(expandedTile){
-    setTimeout(()=>{
-      const drawer=document.getElementById('drawer-'+id);
-      if(drawer)drawer.scrollIntoView({behavior:'smooth',block:'nearest'});
-    },50);
-  }
-}
-
-// ── REMOVE ITEM ──
-function removeItem(id,e){
-  e.stopPropagation();
-  const wrap=document.getElementById('wrap-'+id);
-  if(wrap)wrap.classList.add('removing');
-  setTimeout(()=>{
-    const item=items.find(i=>i.id===id);
-    items=items.filter(i=>i.id!==id);
-    if(expandedTile===id)expandedTile=null;
-    render();
-    showToastMsg(item?`${item.name} removed`:'Item removed','warn');
-  },250);
-}
-
-// ── DELETE TASK ──
-function deleteTask(itemId,taskId,e){
-  e.stopPropagation();
-  const item=items.find(i=>i.id===itemId);
-  if(!item)return;
-
-  const taskEl=document.getElementById('task-'+taskId);
-  if(taskEl)taskEl.classList.add('removing');
-
-  setTimeout(()=>{
-    const taskIdx=item.tasks.findIndex(t=>t.id===taskId);
-    if(taskIdx===-1)return;
-    const removedTask=item.tasks[taskIdx];
-    item.tasks.splice(taskIdx,1);
-
-    // Check if a Pro task should unlock
-    const proTask=item.tasks.find(t=>t.pro);
-    if(proTask&&removedTask&&!removedTask.pro){
-      proTask.pro=false;
-      proTask.first=false;
-      render();
-      // Animate unlock
-      setTimeout(()=>{
-        const unlocked=document.getElementById('task-'+proTask.id);
-        if(unlocked){unlocked.classList.add('unlocking');}
-      },50);
-      showToastMsg('Pro task unlocked!','');
-    }else{
-      render();
-      showToastMsg('Task removed','warn');
-    }
-
-    // If no tasks remain, remove item entirely
-    if(item.tasks.length===0){
-      setTimeout(()=>{
-        items=items.filter(i=>i.id!==itemId);
-        if(expandedTile===itemId)expandedTile=null;
-        render();
-      },300);
-    }
-  },250);
-}
-
-// ── ADD ITEM ──
-function addItem(){
-  if(getItemCount()>=FREE_LIMIT)return;
-  if(demoIdx>=DEMO_ITEMS.length){
-    showToastMsg('No more demo items available','warn');
-    return;
-  }
-  const newItem=cloneData(DEMO_ITEMS[demoIdx]);
-  demoIdx++;
-  items.push(newItem);
-  render();
-  showToastMsg(`${newItem.name} added`,'');
-}
-
-// ── TIER BANNER ──
-function updateTierBanner(){
-  const count=getItemCount();
-  const banner=document.getElementById('tier-banner');
-  let cls='normal';
-  if(count>=FREE_LIMIT)cls='full';
-  else if(count>=8)cls='warn';
-
-  let pips='';
-  for(let i=0;i<FREE_LIMIT;i++){
-    if(cls==='warn'||cls==='full'){
-      pips+=`<span class="tier-pip ${i<count?'warn-filled':'empty'}"></span>`;
-    }else{
-      pips+=`<span class="tier-pip ${i<count?'filled':'empty'}"></span>`;
-    }
-  }
-
-  const label=count>=FREE_LIMIT
-    ?`<strong>${count}/${FREE_LIMIT}</strong> items, limit reached`
-    :`<strong>${count}/${FREE_LIMIT}</strong> free items used`;
-
-  banner.innerHTML=`
-    <div class="tier-banner ${cls}">
-      <div class="tier-pips">${pips}</div>
-      <div class="tier-text">${label}</div>
-      <span class="tier-pro" onclick="showToastMsg('Pro upgrade flow...','')">Go Pro</span>
-    </div>`;
-}
-
-// ── TOAST ──
-function showToastMsg(msg,type){
-  const t=document.getElementById('toast');
-  t.textContent=msg;
-  t.className='toast'+(type?' '+type:'');
-  clearTimeout(toastTimer);
-  requestAnimationFrame(()=>{t.classList.add('show');});
-  toastTimer=setTimeout(()=>{t.classList.remove('show');},1800);
-}
-
-// ── INIT ──
-buildChips();
-render();
 </script>
 
 </body>
