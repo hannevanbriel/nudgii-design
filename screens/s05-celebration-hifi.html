@@ -42,16 +42,21 @@ body{background:#CBC5BB;padding:0 0 80px;}
 .nudge-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .nudge-item-meta{flex:1;min-width:0;font-size:11px;color:var(--mid);}
 .nudge-date{font-size:13px;font-weight:500;color:var(--apricot);white-space:nowrap;}
-.nudge-task-name{font-family:'DM Serif Display',Georgia,serif;font-size:18px;font-weight:400;color:var(--ink);line-height:1.2;margin-bottom:14px;}
+.nudge-task-name{font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;color:var(--ink);line-height:1.3;margin-bottom:14px;}
 
 /* Inset why/how cards */
 .nudge-inset{background:rgba(192,144,136,0.08);border-radius:10px;padding:14px;margin-bottom:12px;}
-.nudge-label{font-size:12px;font-weight:400;font-style:italic;letter-spacing:0;text-transform:none;margin-bottom:6px;}
+.nudge-label{font-size:9px;font-weight:600;letter-spacing:0.04em;text-transform:none;font-style:normal;margin-bottom:6px;}
 .nudge-label-why{color:var(--cat-home-bg);}
 .nudge-label-how{color:var(--cat-home-bg);}
-.nudge-text{font-size:12px;color:var(--ink);line-height:1.5;}
+.nudge-text{font-size:11px;color:var(--ink);line-height:1.6;}
 .nudge-divider{height:0.5px;background:var(--border);margin-bottom:12px;}
 .nudge-more{font-size:12px;font-style:italic;color:var(--mid);}
+/* Numbered steps */
+.nudge-step{display:flex;gap:10px;margin-bottom:10px;}
+.nudge-step:last-child{margin-bottom:0;}
+.nudge-step-num{width:22px;height:22px;border-radius:50%;background:rgba(192,144,136,0.12);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--cat-home-bg);flex-shrink:0;}
+.nudge-step-text{font-size:11px;color:var(--ink);line-height:1.5;}
 
 /* Year at a glance */
 .glance{margin:24px 16px 0;padding:0;}
@@ -138,6 +143,8 @@ body{background:#CBC5BB;padding:0 0 80px;}
 [data-theme="dark"] .nudge-label-why{color:#A8A29A;}
 [data-theme="dark"] .nudge-label-how{color:#A8A29A;}
 [data-theme="dark"] .nudge-text{color:#A8A29A;}
+[data-theme="dark"] .nudge-step-text{color:#A8A29A;}
+[data-theme="dark"] .nudge-step-num{background:rgba(224,168,152,0.12);color:#D4A090;}
 [data-theme="dark"] .nudge-more{color:#787068;}
 [data-theme="dark"] .nudge-icon{background:rgba(224,168,152,0.18) !important;}
 [data-theme="dark"] .glance-title{color:#787068;}
@@ -246,9 +253,13 @@ body{background:#CBC5BB;padding:0 0 80px;}
                 <div class="nudge-text">Skipping the annual check voids most warranty agreements and increases carbon monoxide risk in enclosed spaces.</div>
               </div>
 
-              <!-- How to do it -->
-              <div class="nudge-label nudge-label-how">How to do it</div>
-              <div class="nudge-text" style="margin-bottom:14px;">Book a certified technician 2-3 weeks ahead. They inspect gas pressure, flue output, and the safety valve.</div>
+              <!-- How to complete this -->
+              <div class="nudge-inset" style="background:transparent;">
+                <div class="nudge-label nudge-label-how">How to complete this</div>
+                <div class="nudge-step"><div class="nudge-step-num">1</div><div class="nudge-step-text">Find a certified installer on the manufacturer's website</div></div>
+                <div class="nudge-step"><div class="nudge-step-num">2</div><div class="nudge-step-text">Book 2-3 weeks ahead, morning slots are easier</div></div>
+                <div class="nudge-step"><div class="nudge-step-num">3</div><div class="nudge-step-text">Clear the area around the boiler for access</div></div>
+              </div>
 
               <!-- More tasks link -->
               <div class="nudge-divider"></div>
