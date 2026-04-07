@@ -9,11 +9,11 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 
 :root{
-  --cream:#F5F0E8;--surface:#FFFFFF;--ink:#2C2824;--mid:#8A8070;--hint:#A09888;
+  --cream:#F5F0E8;--surface:#FBF9F4;--surface-lowest:#FFFFFF;--ink:#2C2824;--mid:#8A8070;--hint:#A09888;--mid-a:#6B6358;
   --cta:#9B7FD4;--cta-fg:#FAF8FF;--plum:#2D1F4A;--plum-pale:#C4A8E8;
-  --apricot:#E8A87C;
+  --apricot:#E8A87C;--apricot-wash:rgba(232,168,124,0.12);
   --ch-bg:#C09088;--cg-bg:#8C9B80;--cv-bg:#8E9A94;--cs-bg:#A69BBF;
-  --border:rgba(26,22,18,0.08);
+  --border:rgba(26,22,18,0.08);--ink-06:rgba(26,22,18,0.06);
 }
 
 body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:24px 16px 48px;-webkit-font-smoothing:antialiased;}
@@ -45,35 +45,65 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
 .screen-wrap{flex:1;position:relative;overflow:hidden;}
 
 /* ══════════════════════════════════════ */
-/* STATE 1: Schedule reveal              */
+/* STATE 1: Rich AHA                     */
 /* ══════════════════════════════════════ */
 .state1{position:absolute;inset:0;background:var(--cream);display:flex;flex-direction:column;transition:opacity 0.35s ease;z-index:1;}
 .state1.out{opacity:0;pointer-events:none;}
 
-.s1-content{flex:1;overflow-y:auto;padding:20px 16px 0;}
-.s1-eyebrow{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--cta);margin-bottom:8px;}
-.s1-headline{font-family:'DM Serif Display',Georgia,serif;font-size:24px;font-weight:400;line-height:1.05;letter-spacing:-0.3px;color:var(--ink);margin-bottom:6px;}
-.s1-subline{font-size:13px;font-style:italic;color:var(--mid);line-height:1.4;margin-bottom:22px;}
+.s1-content{flex:1;overflow-y:auto;padding:0;}
 
-/* Task rows */
-.s5-tasks{display:flex;flex-direction:column;gap:2px;}
-.s5-task{border-radius:10px;padding:9px 8px;display:flex;align-items:center;gap:10px;}
-.s5-date{width:40px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;}
-.s5-day{font-size:9px;font-weight:500;color:var(--hint);text-transform:uppercase;letter-spacing:0.04em;line-height:1;margin-bottom:2px;}
-.s5-num{font-size:16px;font-weight:600;color:var(--mid);line-height:1;}
-.s5-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.s5-body{flex:1;min-width:0;}
-.s5-task-name{font-size:13px;font-weight:500;color:var(--ink);letter-spacing:-0.01em;line-height:1.3;}
-.s5-task-sub{font-size:10px;color:var(--mid);margin-top:2px;}
-.s5-month{display:flex;align-items:center;gap:6px;padding:6px 0 4px;}
-.s5-month-name{font-family:'DM Serif Display',Georgia,serif;font-size:14px;color:var(--ink);}
-.s5-month-count{font-size:9px;color:var(--mid);}
-.s5-more{font-size:10px;color:var(--mid);font-style:italic;}
+/* ii mark centering */
+.aha-ii{display:flex;justify-content:center;margin:28px 0 16px;}
+
+/* Headline block */
+.aha-headline{font-family:'DM Serif Display',Georgia,serif;font-size:22px;font-weight:400;line-height:1.08;letter-spacing:-0.3px;color:var(--ink);text-align:center;padding:0 20px;margin-bottom:4px;}
+.aha-sub{font-size:12px;font-style:italic;color:var(--mid);text-align:center;margin-bottom:20px;}
+
+/* Stats row */
+.aha-stats{display:flex;justify-content:center;gap:6px;margin-bottom:24px;padding:0 20px;}
+.aha-stat{display:flex;align-items:center;gap:4px;background:var(--surface);border:0.5px solid var(--border);border-radius:100px;padding:5px 12px;font-size:11px;font-weight:500;color:var(--ink);}
+.aha-stat-num{font-weight:600;color:var(--cta);}
+
+/* Section label */
+.aha-section{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--cta);padding:0 20px;margin-bottom:10px;}
+
+/* First nudge card */
+.nudge-card{margin:0 16px;background:var(--surface);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;}
+.nudge-top{display:flex;align-items:center;gap:12px;padding:14px 16px;}
+.nudge-icon{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.nudge-body{flex:1;min-width:0;}
+.nudge-name{font-size:14px;font-weight:500;color:var(--ink);line-height:1.3;}
+.nudge-meta{font-size:10px;color:var(--mid);margin-top:2px;}
+.nudge-badge{font-size:9px;font-weight:500;color:var(--apricot);background:var(--apricot-wash);border-radius:100px;padding:2px 8px;white-space:nowrap;}
+
+/* Expanded sections */
+.nudge-expand{padding:0 16px 16px;}
+.nudge-divider{height:0.5px;background:var(--border);margin-bottom:14px;}
+.nudge-why,.nudge-how{margin-bottom:14px;}
+.nudge-how{margin-bottom:0;}
+.nudge-label{font-size:9px;font-weight:600;letter-spacing:0.5px;margin-bottom:5px;}
+.nudge-label-why{color:var(--apricot);}
+.nudge-label-how{color:var(--cta);}
+.nudge-text{font-size:11px;color:var(--mid-a);line-height:1.45;}
+
+/* Year at a glance */
+.glance{margin:24px 16px 0;padding:0;}
+.glance-title{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--mid-a);margin-bottom:10px;padding:0 4px;}
+.glance-months{display:flex;gap:4px;}
+.glance-month{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.glance-bar-track{width:100%;height:40px;background:var(--ink-06);border-radius:4px;position:relative;overflow:hidden;display:flex;flex-direction:column-reverse;}
+.glance-bar-fill{width:100%;border-radius:4px;transition:height 600ms ease;}
+.glance-month-label{font-size:8px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:0.3px;}
+.glance-month-count{font-size:7px;color:var(--hint);margin-top:-2px;}
 
 /* CTA zone */
 .s1-cta-zone{padding:16px 20px 34px;margin-top:auto;flex-shrink:0;}
 .s1-cta{width:100%;height:50px;border-radius:100px;border:none;background:var(--cta);color:var(--cta-fg);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 12px rgba(155,127,212,0.28);transition:transform 0.1s,background 0.1s;}
 .s1-cta:active{transform:scale(0.97);background:#7D62B3;}
+
+/* Bar fill animation on load */
+.glance-bar-fill{height:0 !important;}
+.loaded .glance-bar-fill{height:var(--h) !important;}
 
 /* ══════════════════════════════════════ */
 /* STATE 2: Celebration (plum)           */
@@ -125,7 +155,7 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
 .sheet-scrim{position:absolute;inset:0;background:rgba(0,0,0,0.25);z-index:3;opacity:0;pointer-events:none;transition:opacity 0.3s ease;}
 .sheet-scrim.show{opacity:1;pointer-events:auto;}
 
-.bottom-sheet{position:absolute;bottom:0;left:0;right:0;z-index:4;background:var(--surface);border-radius:20px 20px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,0.20);padding:12px 24px 34px;display:flex;flex-direction:column;align-items:center;transform:translateY(100%);transition:transform 0.35s ease-out;}
+.bottom-sheet{position:absolute;bottom:0;left:0;right:0;z-index:4;background:var(--surface-lowest);border-radius:20px 20px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,0.20);padding:12px 24px 34px;display:flex;flex-direction:column;align-items:center;transform:translateY(100%);transition:transform 0.35s ease-out;}
 .bottom-sheet.show{transform:translateY(0);}
 
 .sheet-handle{width:32px;height:3px;border-radius:100px;background:rgba(26,22,18,0.12);margin-bottom:20px;flex-shrink:0;}
@@ -136,7 +166,7 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
 .auth-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border-radius:100px;font-family:'DM Sans',-apple-system,sans-serif;font-size:14px;font-weight:500;cursor:pointer;border:none;-webkit-tap-highlight-color:transparent;transition:transform 0.1s,opacity 0.1s;}
 .auth-btn:active{transform:scale(0.97);opacity:0.85;}
 .auth-apple{height:50px;background:var(--ink);color:#FFFFFF;margin-bottom:10px;}
-.auth-google{height:48px;background:var(--surface);color:var(--ink);border:1px solid rgba(26,22,18,0.16) !important;margin-bottom:16px;}
+.auth-google{height:48px;background:var(--surface-lowest);color:var(--ink);border:1px solid rgba(26,22,18,0.16) !important;margin-bottom:16px;}
 .sheet-skip{font-size:13px;color:var(--mid);background:none;border:none;font-family:'DM Sans',-apple-system,sans-serif;padding:6px 12px;cursor:pointer;transition:opacity 0.1s;}
 .sheet-skip:active{opacity:0.6;}
 
@@ -159,7 +189,7 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
   </a>
   <span class="page-badge">Prototype</span>
 </div>
-<div class="page-label">S-05 · AHA + Celebration · Prototype</div>
+<div class="page-label">S-05 · Rich AHA + Celebration · Prototype</div>
 
 <div class="device" id="device">
   <!-- Status bar -->
@@ -179,70 +209,109 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
   <!-- Screen wrapper -->
   <div class="screen-wrap">
 
-    <!-- STATE 1 -->
+    <!-- STATE 1: Rich AHA -->
     <div class="state1" id="state1">
       <div class="s1-content">
-        <div class="s1-eyebrow">Your schedule is ready</div>
-        <div class="s1-headline">Here's what we figured out for you.</div>
-        <div class="s1-subline">You told us what. We worked out when. Every time.</div>
 
-        <div class="s5-tasks">
-          <!-- October -->
-          <div class="s5-month">
-            <span class="s5-month-name">October</span>
-            <span class="s5-month-count">3 tasks</span>
-          </div>
+        <!-- ii mark (dark-on-light, centered) -->
+        <div class="aha-ii">
+          <svg width="32" height="36" viewBox="0 0 625.96 700.13" fill="none">
+            <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
+            <path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
+            <circle fill="#C4A8E8" cx="535.96" cy="119.29" r="90"/>
+          </svg>
+        </div>
 
-          <div class="s5-task">
-            <div class="s5-date"><div class="s5-day">Sun</div><div class="s5-num">5</div></div>
-            <div class="s5-icon" style="background:rgba(140,155,128,0.14);">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cg-bg)" stroke-width="1.5" stroke-linecap="round"><path d="M7 13V6"/><path d="M7 6C7 6 4 4.5 2 2c3 0 5 1 5 4z"/><path d="M7 6C7 6 10 4.5 12 2c-3 0-5 1-5 4z"/></svg>
+        <!-- Headline -->
+        <div class="aha-headline">You said what.<br>We figured out when and why.</div>
+        <div class="aha-sub">Your maintenance schedule is ready.</div>
+
+        <!-- Stats row -->
+        <div class="aha-stats">
+          <div class="aha-stat"><span class="aha-stat-num">4</span> items</div>
+          <div class="aha-stat"><span class="aha-stat-num">8</span> tasks</div>
+          <div class="aha-stat"><span class="aha-stat-num">6</span> months</div>
+        </div>
+
+        <!-- Your first nudge -->
+        <div class="aha-section">Your first nudge</div>
+
+        <div class="nudge-card">
+          <div class="nudge-top">
+            <div class="nudge-icon" style="background:rgba(140,155,128,0.14);">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#4A7A40" stroke-width="1.5" stroke-linecap="round"><path d="M10 18V9"/><path d="M10 9C10 9 6 7 3 3c4 0 7 1.5 7 6z"/><path d="M10 9C10 9 14 7 17 3c-4 0-7 1.5-7 6z"/></svg>
             </div>
-            <div class="s5-body"><div class="s5-task-name">Autumn pruning</div><div class="s5-task-sub">Olive tree · Garden</div></div>
-          </div>
-
-          <div class="s5-task">
-            <div class="s5-date"><div class="s5-day">Mon</div><div class="s5-num">20</div></div>
-            <div class="s5-icon" style="background:rgba(142,154,148,0.14);">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cv-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5.5"/><circle cx="7" cy="7" r="2"/></svg>
+            <div class="nudge-body">
+              <div class="nudge-name">Autumn pruning</div>
+              <div class="nudge-meta">Olive tree · Garden · Oct 5</div>
             </div>
-            <div class="s5-body"><div class="s5-task-name">Switch to winter tyres</div><div class="s5-task-sub">Car · Vehicle</div></div>
+            <div class="nudge-badge">in 12 days</div>
           </div>
 
-          <div class="s5-task">
-            <div class="s5-date"><div class="s5-day">Tue</div><div class="s5-num">28</div></div>
-            <div class="s5-icon" style="background:rgba(192,144,136,0.14);">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6.5L7 2l6 4.5V13a.5.5 0 0 1-.5.5h-3.5v-3H5v3H1.5A.5.5 0 0 1 1 13V6.5z"/></svg>
+          <div class="nudge-expand">
+            <div class="nudge-divider"></div>
+
+            <div class="nudge-why">
+              <div class="nudge-label nudge-label-why">Why it matters</div>
+              <div class="nudge-text">Pruning after fruiting lets the tree heal before winter. Skip it and you risk weak spring growth and lower yield next year.</div>
             </div>
-            <div class="s5-body"><div class="s5-task-name">Annual boiler service</div><div class="s5-task-sub">Boiler · Home</div></div>
-          </div>
 
-          <!-- November -->
-          <div class="s5-month" style="margin-top:8px;">
-            <span class="s5-month-name">November</span>
-            <span class="s5-month-count">2 tasks</span>
-          </div>
-
-          <div class="s5-task">
-            <div class="s5-date"><div class="s5-day">Sat</div><div class="s5-num">8</div></div>
-            <div class="s5-icon" style="background:rgba(192,144,136,0.14);">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6.5L7 2l6 4.5V13a.5.5 0 0 1-.5.5h-3.5v-3H5v3H1.5A.5.5 0 0 1 1 13V6.5z"/></svg>
+            <div class="nudge-how">
+              <div class="nudge-label nudge-label-how">How to do it</div>
+              <div class="nudge-text">Remove dead wood and crossing branches. Cut just above a leaf node at a 45-degree angle. Takes about 20 minutes for a young tree.</div>
             </div>
-            <div class="s5-body"><div class="s5-task-name">Clean dishwasher filter</div><div class="s5-task-sub">Dishwasher · Home</div></div>
-          </div>
-
-          <div class="s5-task">
-            <div class="s5-date"><div class="s5-day">Sat</div><div class="s5-num">8</div></div>
-            <div class="s5-icon" style="background:rgba(192,144,136,0.14);">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6.5L7 2l6 4.5V13a.5.5 0 0 1-.5.5h-3.5v-3H5v3H1.5A.5.5 0 0 1 1 13V6.5z"/></svg>
-            </div>
-            <div class="s5-body"><div class="s5-task-name">Refill dishwasher salt</div><div class="s5-task-sub">Dishwasher · Home</div></div>
-          </div>
-
-          <div style="text-align:center;padding:8px 0 2px;">
-            <span class="s5-more">and 3 more tasks</span>
           </div>
         </div>
+
+        <!-- Year at a glance -->
+        <div class="glance">
+          <div class="glance-title">Year at a glance</div>
+          <div class="glance-months">
+            <div class="glance-month">
+              <div class="glance-bar-track">
+                <div class="glance-bar-fill" style="--h:75%;background:rgba(140,155,128,0.35);"></div>
+              </div>
+              <div class="glance-month-label">Oct</div>
+              <div class="glance-month-count">3</div>
+            </div>
+            <div class="glance-month">
+              <div class="glance-bar-track">
+                <div class="glance-bar-fill" style="--h:50%;background:rgba(192,144,136,0.35);"></div>
+              </div>
+              <div class="glance-month-label">Nov</div>
+              <div class="glance-month-count">2</div>
+            </div>
+            <div class="glance-month">
+              <div class="glance-bar-track">
+                <div class="glance-bar-fill" style="--h:25%;background:rgba(166,155,191,0.35);"></div>
+              </div>
+              <div class="glance-month-label">Dec</div>
+              <div class="glance-month-count">1</div>
+            </div>
+            <div class="glance-month">
+              <div class="glance-bar-track">
+                <div class="glance-bar-fill" style="--h:25%;background:rgba(192,144,136,0.35);"></div>
+              </div>
+              <div class="glance-month-label">Jan</div>
+              <div class="glance-month-count">1</div>
+            </div>
+            <div class="glance-month">
+              <div class="glance-bar-track">
+                <div class="glance-bar-fill" style="--h:0%;"></div>
+              </div>
+              <div class="glance-month-label">Feb</div>
+              <div class="glance-month-count">0</div>
+            </div>
+            <div class="glance-month">
+              <div class="glance-bar-track">
+                <div class="glance-bar-fill" style="--h:25%;background:rgba(140,155,128,0.35);"></div>
+              </div>
+              <div class="glance-month-label">Mar</div>
+              <div class="glance-month-count">1</div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <!-- CTA -->
@@ -272,9 +341,9 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
 
         <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
           <div class="reminder-pill" id="celePill">
-            First reminder <span style="margin:0 2px">·</span> <span class="date">Oct 28</span>
+            First reminder <span style="margin:0 2px">&middot;</span> <span class="date">Oct 5</span>
           </div>
-          <div class="reminder-sub" id="celePillSub">Annual boiler service</div>
+          <div class="reminder-sub" id="celePillSub">Autumn pruning</div>
         </div>
       </div>
     </div>
@@ -351,6 +420,11 @@ var bottomSheet = document.getElementById('bottomSheet');
 var toast      = document.getElementById('toast');
 
 var animating = false;
+
+// Animate month bars on load
+setTimeout(function() {
+  document.body.classList.add('loaded');
+}, 400);
 
 var confettiColors = ['#C09088','#9B7FD4','#8C9B80','#8E9A94','#C4A8E8','#A69BBF','#F5F0E8','#E8A87C'];
 
