@@ -47,7 +47,7 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
 .state1{position:absolute;inset:0;background:var(--cream);display:flex;flex-direction:column;transition:opacity 0.35s ease;z-index:1;}
 .state1.out{opacity:0;pointer-events:none;}
 
-.s1-content{flex:1;display:flex;flex-direction:column;padding:0 20px;}
+.s1-content{flex:1;display:flex;flex-direction:column;padding:0 20px;justify-content:center;}
 
 /* ii mark */
 .aha-ii{display:flex;justify-content:center;margin:28px 0 12px;}
@@ -75,11 +75,13 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
 .nudge-t-date{font-size:12px;font-weight:500;color:var(--apricot);white-space:nowrap;flex-shrink:0;}
 
 /* Year at a glance */
-.glance{flex:1;display:flex;flex-direction:column;}
+.glance{margin-bottom:0;}
 .glance-title{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--mid-a);margin-bottom:10px;}
-.glance-months{display:flex;gap:4px;flex:1;}
+.glance-months{display:flex;gap:4px;}
 .glance-month{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;}
-.glance-bar-track{width:100%;flex:1;min-height:48px;background:var(--ink-06);border-radius:4px;position:relative;overflow:hidden;display:flex;flex-direction:column-reverse;}
+.glance-bar-track{width:100%;height:72px;background:var(--ink-06);border-radius:4px;position:relative;overflow:hidden;display:flex;flex-direction:column-reverse;}
+/* Personality line */
+.aha-footer{text-align:center;margin-top:24px;padding:0 20px 4px;font-size:11px;font-style:italic;color:var(--mid);line-height:1.4;}
 .glance-bar-fill{width:100%;border-radius:4px;}
 .glance-month-label{font-size:7px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:0.3px;}
 .glance-month-count{font-size:7px;color:var(--hint);margin-top:-2px;}
@@ -279,14 +281,16 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
           </div>
         </div>
 
+        <div class="aha-footer">We'll remind you before things break, expire, or get forgotten.</div>
+
+        <!-- CTA inside content flow -->
+        <div style="margin-top:24px;padding-bottom:34px;">
+          <button class="s1-cta" id="ctaBtn" onclick="triggerCelebration()">That's it. I'm done.</button>
+        </div>
+
       </div>
 
-      <!-- CTA -->
-      <div class="s1-cta-zone" style="padding:14px 20px 34px;">
-        <button class="s1-cta" id="ctaBtn" onclick="triggerCelebration()">That's it. I'm done.</button>
-      </div>
     </div>
-
     <!-- STATE 2: Celebration -->
     <div class="state2" id="state2">
       <div class="confetti-wrap" id="confettiWrap"></div>
