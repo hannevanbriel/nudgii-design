@@ -47,7 +47,7 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
 .state1{position:absolute;inset:0;background:var(--cream);display:flex;flex-direction:column;transition:opacity 0.35s ease;z-index:1;}
 .state1.out{opacity:0;pointer-events:none;}
 
-.s1-content{flex:1;display:flex;flex-direction:column;padding:0 20px;justify-content:center;}
+.s1-content{flex:1;display:flex;flex-direction:column;padding:0 20px;padding-bottom:60px;justify-content:center;}
 
 /* ii mark */
 .aha-ii{display:flex;justify-content:center;margin:28px 0 12px;}
@@ -81,7 +81,7 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
 .glance-month{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;}
 .glance-bar-track{width:100%;height:72px;background:var(--ink-06);border-radius:4px;position:relative;overflow:hidden;display:flex;flex-direction:column-reverse;}
 /* Personality line */
-.aha-footer{text-align:center;margin-top:24px;padding:0 20px 4px;font-size:11px;font-style:italic;color:var(--mid);line-height:1.4;}
+.aha-footer{text-align:center;margin-top:28px;padding:0 20px 0;font-size:11px;font-style:italic;color:var(--mid);line-height:1.4;}
 .glance-bar-fill{width:100%;border-radius:4px;}
 .glance-month-label{font-size:7px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:0.3px;}
 .glance-month-count{font-size:7px;color:var(--hint);margin-top:-2px;}
@@ -230,55 +230,6 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
             <div class="nudge-t-why">Validates your warranty and catches carbon monoxide risks.</div>
           </div>
           <div class="nudge-t-date">Oct 28</div>
-        </div>
-
-        <!-- Year at a glance -->
-        <div class="glance">
-          <div class="glance-title">Year at a glance</div>
-          <div class="glance-months">
-            <div class="glance-month">
-              <div class="glance-bar-track">
-                <div class="glance-bar-fill" style="--h:75%;background:rgba(155,127,212,0.65);"></div>
-              </div>
-              <div class="glance-month-label">Oct</div>
-              <div class="glance-month-count">3</div>
-            </div>
-            <div class="glance-month">
-              <div class="glance-bar-track">
-                <div class="glance-bar-fill" style="--h:50%;background:rgba(155,127,212,0.50);"></div>
-              </div>
-              <div class="glance-month-label">Nov</div>
-              <div class="glance-month-count">2</div>
-            </div>
-            <div class="glance-month">
-              <div class="glance-bar-track">
-                <div class="glance-bar-fill" style="--h:25%;background:rgba(155,127,212,0.30);"></div>
-              </div>
-              <div class="glance-month-label">Dec</div>
-              <div class="glance-month-count">1</div>
-            </div>
-            <div class="glance-month">
-              <div class="glance-bar-track">
-                <div class="glance-bar-fill" style="--h:25%;background:rgba(155,127,212,0.30);"></div>
-              </div>
-              <div class="glance-month-label">Jan</div>
-              <div class="glance-month-count">1</div>
-            </div>
-            <div class="glance-month">
-              <div class="glance-bar-track">
-                <div class="glance-bar-fill" style="--h:0%;"></div>
-              </div>
-              <div class="glance-month-label">Feb</div>
-              <div class="glance-month-count">0</div>
-            </div>
-            <div class="glance-month">
-              <div class="glance-bar-track">
-                <div class="glance-bar-fill" style="--h:25%;background:rgba(155,127,212,0.30);"></div>
-              </div>
-              <div class="glance-month-label">Mar</div>
-              <div class="glance-month-count">1</div>
-            </div>
-          </div>
         </div>
 
         <div class="aha-footer">We'll remind you before things break, expire, or get forgotten.</div>
