@@ -39,43 +39,20 @@ body{background:#CBC5BB;padding:0 0 80px;}
 .aha-stat-num{font-size:20px;font-weight:600;color:var(--cta);}
 .aha-stat-label{font-size:10px;color:var(--mid);}
 
-/* Section label */
-.aha-section{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--cta);padding:0 20px;margin-bottom:10px;}
+/* First nudge teaser */
+.nudge-teaser{display:flex;align-items:center;gap:12px;background:var(--surface);border:0.5px solid var(--border);border-radius:12px;padding:12px 14px;margin:0 16px 0;}
+.nudge-t-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(192,144,136,0.12);}
+.nudge-t-body{flex:1;min-width:0;}
+.nudge-t-label{font-size:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--cta);margin-bottom:2px;}
+.nudge-t-name{font-size:13px;font-weight:500;color:var(--ink);line-height:1.3;}
+.nudge-t-why{font-size:10px;color:var(--mid);line-height:1.4;margin-top:3px;}
+.nudge-t-date{font-size:12px;font-weight:500;color:var(--apricot);white-space:nowrap;flex-shrink:0;}
 
-/* First nudge card */
-.nudge-card{margin:0 16px;background:var(--surface);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;padding:16px;}
-.nudge-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
-.nudge-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.nudge-item-meta{flex:1;min-width:0;font-size:11px;color:var(--mid);}
-.nudge-date{font-size:13px;font-weight:500;color:var(--apricot);white-space:nowrap;}
-.nudge-task-name{font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;color:var(--ink);line-height:1.3;margin-bottom:14px;}
-
-/* Inset why/how cards */
-.nudge-inset{background:rgba(192,144,136,0.08);border-radius:10px;padding:14px;margin-bottom:12px;}
-.nudge-label{font-size:9px;font-weight:600;letter-spacing:0.04em;text-transform:none;font-style:normal;margin-bottom:6px;}
-.nudge-label-why{color:var(--cat-home-bg);}
-.nudge-label-how{color:var(--cat-home-bg);}
-.nudge-text{font-size:11px;color:var(--ink);line-height:1.6;}
-.nudge-divider{height:0.5px;background:var(--border);margin-bottom:12px;}
-.nudge-more{font-size:12px;font-style:italic;color:var(--mid);}
-/* Numbered steps */
-.nudge-step{display:flex;gap:10px;margin-bottom:10px;}
-.nudge-step:last-child{margin-bottom:0;}
-.nudge-step-num{width:22px;height:22px;border-radius:50%;background:rgba(192,144,136,0.12);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--cat-home-bg);flex-shrink:0;}
-.nudge-step-text{font-size:11px;color:var(--ink);line-height:1.5;}
-
-/* Year at a glance */
-.glance{margin:24px 16px 0;padding:0;}
-.glance-title{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--mid-a);margin-bottom:10px;padding:0 4px;}
-.glance-months{display:flex;gap:4px;}
-.glance-month{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;}
-.glance-bar-track{width:100%;height:40px;background:var(--ink-06);border-radius:4px;position:relative;overflow:hidden;display:flex;flex-direction:column-reverse;}
-.glance-bar-fill{width:100%;border-radius:4px;transition:height 300ms ease;}
-.glance-month-label{font-size:8px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:0.3px;}
-.glance-month-count{font-size:7px;color:var(--hint);margin-top:-2px;}
+/* Reassurance line */
+.aha-footer{text-align:center;margin-top:28px;padding:0 20px;font-size:11px;font-style:italic;color:var(--mid);line-height:1.4;}
 
 /* CTA zone */
-.s5-cta-zone{padding:16px 20px 34px;margin-top:auto;}
+.s5-cta-zone{padding:16px 20px 34px;margin-top:24px;}
 
 /* ══════════════════════════════════════════════
    STATE 2: celebration (plum bg phone)
@@ -143,24 +120,13 @@ body{background:#CBC5BB;padding:0 0 80px;}
 [data-theme="dark"] .aha-stat{background:rgba(184,160,232,0.08);border-color:rgba(184,160,232,0.15);}
 [data-theme="dark"] .aha-stat-num{color:#B8A0E8;}
 [data-theme="dark"] .aha-stat-label{color:#787068;}
-[data-theme="dark"] .aha-section{color:#B8A0E8;}
-[data-theme="dark"] .nudge-card{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.08);}
-[data-theme="dark"] .nudge-item-meta{color:#A8A29A;}
-[data-theme="dark"] .nudge-date{color:#F0B890;}
-[data-theme="dark"] .nudge-task-name{color:#F0EDE6;}
-[data-theme="dark"] .nudge-inset{background:rgba(255,255,255,0.04);}
-[data-theme="dark"] .nudge-divider{background:rgba(255,255,255,0.08);}
-[data-theme="dark"] .nudge-label-why{color:#A8A29A;}
-[data-theme="dark"] .nudge-label-how{color:#A8A29A;}
-[data-theme="dark"] .nudge-text{color:#A8A29A;}
-[data-theme="dark"] .nudge-step-text{color:#A8A29A;}
-[data-theme="dark"] .nudge-step-num{background:rgba(224,168,152,0.12);color:#D4A090;}
-[data-theme="dark"] .nudge-more{color:#787068;}
-[data-theme="dark"] .nudge-icon{background:rgba(224,168,152,0.18) !important;}
-[data-theme="dark"] .glance-title{color:#787068;}
-[data-theme="dark"] .glance-bar-track{background:rgba(255,255,255,0.04);}
-[data-theme="dark"] .glance-month-label{color:#787068;}
-[data-theme="dark"] .glance-month-count{color:#585048;}
+[data-theme="dark"] .nudge-teaser{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.08);}
+[data-theme="dark"] .nudge-t-icon{background:rgba(224,168,152,0.18);}
+[data-theme="dark"] .nudge-t-label{color:#B8A0E8;}
+[data-theme="dark"] .nudge-t-name{color:#F0EDE6;}
+[data-theme="dark"] .nudge-t-why{color:#A8A29A;}
+[data-theme="dark"] .nudge-t-date{color:#F0B890;}
+[data-theme="dark"] .aha-footer{color:#787068;}
 [data-theme="dark"] .s5-cta-zone .s5-cta-btn{background:#B8A0E8;color:#1C1B18;box-shadow:0 2px 12px rgba(184,160,232,0.35);}
 </style>
 </head>
@@ -244,93 +210,25 @@ body{background:#CBC5BB;padding:0 0 80px;}
               <div class="aha-stat"><div class="aha-stat-num">6</div><div class="aha-stat-label">months</div></div>
             </div>
 
-            <!-- Your first nudge -->
-            <div class="aha-section">Your first nudge</div>
-
-            <div class="nudge-card">
-              <!-- Item meta row -->
-              <div class="nudge-header">
-                <div class="nudge-icon" style="background:rgba(192,144,136,0.14);">
-                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#7A5A50" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 8.5L9 3l7.5 5.5V16a.5.5 0 0 1-.5.5H11v-4H7v4H2a.5.5 0 0 1-.5-.5V8.5z"/></svg>
-                </div>
-                <div class="nudge-item-meta">Boiler, yearly</div>
-                <div class="nudge-date">Oct 28</div>
+            <!-- First nudge teaser -->
+            <div class="nudge-teaser">
+              <div class="nudge-t-icon">
+                <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="#7A5A50" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 8.5L9 3l7.5 5.5V16a.5.5 0 0 1-.5.5H11v-4H7v4H2a.5.5 0 0 1-.5-.5V8.5z"/></svg>
               </div>
-
-              <!-- Task name as serif heading -->
-              <div class="nudge-task-name">Annual boiler service</div>
-
-              <!-- Why it matters inset card -->
-              <div class="nudge-inset">
-                <div class="nudge-label nudge-label-why">Why it matters</div>
-                <div class="nudge-text">Skipping the annual check voids most warranty agreements and increases carbon monoxide risk in enclosed spaces.</div>
+              <div class="nudge-t-body">
+                <div class="nudge-t-label">First nudge</div>
+                <div class="nudge-t-name">Annual boiler service</div>
+                <div class="nudge-t-why">Validates your warranty and catches carbon monoxide risks.</div>
               </div>
-
-              <!-- How to complete this -->
-              <div class="nudge-inset" style="background:transparent;">
-                <div class="nudge-label nudge-label-how">How to complete this</div>
-                <div class="nudge-step"><div class="nudge-step-num">1</div><div class="nudge-step-text">Find a certified installer on the manufacturer's website</div></div>
-                <div class="nudge-step"><div class="nudge-step-num">2</div><div class="nudge-step-text">Book 2-3 weeks ahead, morning slots are easier</div></div>
-                <div class="nudge-step"><div class="nudge-step-num">3</div><div class="nudge-step-text">Clear the area around the boiler for access</div></div>
-              </div>
-
-              <!-- More tasks link -->
-              <div class="nudge-divider"></div>
-              <div class="nudge-more">+ 2 more tasks for your boiler</div>
+              <div class="nudge-t-date">Oct 28</div>
             </div>
 
-            <!-- Year at a glance -->
-            <div class="glance">
-              <div class="glance-title">Year at a glance</div>
-              <div class="glance-months">
-                <div class="glance-month">
-                  <div class="glance-bar-track">
-                    <div class="glance-bar-fill" style="height:75%;background:rgba(155,127,212,0.65);"></div>
-                  </div>
-                  <div class="glance-month-label">Oct</div>
-                  <div class="glance-month-count">3</div>
-                </div>
-                <div class="glance-month">
-                  <div class="glance-bar-track">
-                    <div class="glance-bar-fill" style="height:50%;background:rgba(155,127,212,0.50);"></div>
-                  </div>
-                  <div class="glance-month-label">Nov</div>
-                  <div class="glance-month-count">2</div>
-                </div>
-                <div class="glance-month">
-                  <div class="glance-bar-track">
-                    <div class="glance-bar-fill" style="height:25%;background:rgba(155,127,212,0.30);"></div>
-                  </div>
-                  <div class="glance-month-label">Dec</div>
-                  <div class="glance-month-count">1</div>
-                </div>
-                <div class="glance-month">
-                  <div class="glance-bar-track">
-                    <div class="glance-bar-fill" style="height:25%;background:rgba(155,127,212,0.30);"></div>
-                  </div>
-                  <div class="glance-month-label">Jan</div>
-                  <div class="glance-month-count">1</div>
-                </div>
-                <div class="glance-month">
-                  <div class="glance-bar-track">
-                    <div class="glance-bar-fill" style="height:0%;"></div>
-                  </div>
-                  <div class="glance-month-label">Feb</div>
-                  <div class="glance-month-count">0</div>
-                </div>
-                <div class="glance-month">
-                  <div class="glance-bar-track">
-                    <div class="glance-bar-fill" style="height:25%;background:rgba(155,127,212,0.30);"></div>
-                  </div>
-                  <div class="glance-month-label">Mar</div>
-                  <div class="glance-month-count">1</div>
-                </div>
-              </div>
-            </div>
+            <!-- Reassurance -->
+            <div class="aha-footer">We'll remind you before things break, expire, or get forgotten.</div>
 
           </div>
 
-          <!-- Sticky CTA -->
+          <!-- CTA -->
           <div class="s5-cta-zone">
             <div class="s5-cta-btn" style="display:flex;align-items:center;justify-content:center;width:100%;height:50px;background:var(--cta);color:var(--cta-fg);border:none;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;box-shadow:0 2px 12px rgba(155,127,212,0.28);">That's it. I'm done.</div>
           </div>
@@ -668,6 +566,14 @@ body{background:#CBC5BB;padding:0 0 80px;}
   <!-- CHANGELOG -->
   <div class="changelog">
     <div class="cl-title">Changelog</div>
+
+    <div class="cl-entry">
+      <div class="cl-ver">v4.0 · 2026-04-08 · BREAKING</div>
+      <div class="cl-body"><strong>Tight single-screen AHA layout.</strong> Everything above the fold, no scroll needed. Full nudge card with Why/How/steps replaced by a compact teaser (icon + task name + one-line why + date). Month bars removed entirely (stats row already proves breadth). Reassurance line added above CTA. Content vertically centered with intentional breathing room. Flutter: replace <code>NudgeCard</code> widget with <code>NudgeTeaser</code> (Row with icon circle, Column of label/name/why, date). Remove <code>MonthBar</code> widget. Add reassurance Text widget.</div>
+      <div class="cl-body"><strong>ii mark dot corrected to apricot.</strong> Dark-on-light variant: dot is <code>#E8A87C</code> (apricot), not <code>#C4A8E8</code> (plum-pale). Matches design system spec for light surfaces. Flutter: update SVG asset.</div>
+      <div class="cl-body"><strong>Headline with purple highlights.</strong> "You said <em>what.</em> We figured out <em>when</em> and <em>why.</em>" Key words in <code>colorCta</code> italic. Eyebrow "YOUR SCHEDULE IS READY" added above. Flutter: use <code>RichText</code> with <code>TextSpan</code> children for inline color/style changes.</div>
+      <div class="cl-body"><strong>Stats pills enlarged.</strong> Stacked number/label layout replacing inline pills. Purple tint background <code>rgba(155,127,212,0.06)</code>, 12px border-radius. Numbers 20px/600. Flutter: <code>Row</code> of <code>Expanded</code> <code>Container</code> widgets with <code>Column</code> children.</div>
+    </div>
 
     <div class="cl-entry">
       <div class="cl-ver">v3.0 · 2026-04-07 · BREAKING</div>

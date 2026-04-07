@@ -18,7 +18,6 @@
 
 body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:24px 16px 48px;-webkit-font-smoothing:antialiased;}
 
-/* Page header */
 .page-head{width:100%;max-width:420px;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
 .page-head a{font-size:11px;color:rgba(245,240,232,0.50);text-decoration:none;display:flex;align-items:center;gap:6px;}
 .page-head a:hover{color:rgba(245,240,232,0.70);}
@@ -34,82 +33,67 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
 .sbar-icons{display:flex;align-items:center;gap:5px;}
 .sbar-icons svg{width:14px;height:14px;transition:fill 0.4s;}
 
-/* Notch */
 .device::before{content:'';position:absolute;top:12px;left:50%;transform:translateX(-50%);width:102px;height:8px;border-radius:100px;background:rgba(26,22,18,0.06);z-index:10;}
 
 /* Progress bar */
 .pbar{height:3px;flex-shrink:0;z-index:2;position:relative;transition:background 0.4s;}
 .pfill{height:100%;border-radius:0 100px 100px 0;transition:width 0.5s ease, background 0.4s;}
 
-/* Screen wrapper */
 .screen-wrap{flex:1;position:relative;overflow:hidden;}
 
 /* ══════════════════════════════════════ */
-/* STATE 1: Rich AHA                     */
+/* STATE 1: Rich AHA v2 (tight)         */
 /* ══════════════════════════════════════ */
 .state1{position:absolute;inset:0;background:var(--cream);display:flex;flex-direction:column;transition:opacity 0.35s ease;z-index:1;}
 .state1.out{opacity:0;pointer-events:none;}
 
-.s1-content{flex:1;overflow-y:auto;padding:0;}
+.s1-content{flex:1;display:flex;flex-direction:column;padding:0 20px;padding-bottom:60px;justify-content:center;}
 
-/* ii mark centering */
-.aha-ii{display:flex;justify-content:center;margin:24px 0 12px;}
+/* ii mark */
+.aha-ii{display:flex;justify-content:center;margin:28px 0 12px;}
 
 /* Eyebrow */
-.aha-eyebrow{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--cta);text-align:center;margin-bottom:10px;}
+.aha-eyebrow{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--cta);text-align:center;margin-bottom:8px;}
 
-/* Headline block */
-.aha-headline{font-family:'DM Serif Display',Georgia,serif;font-size:24px;font-weight:400;line-height:1.1;letter-spacing:-0.3px;color:var(--ink);text-align:center;padding:0 20px;margin-bottom:4px;}
+/* Headline */
+.aha-headline{font-family:'DM Serif Display',Georgia,serif;font-size:24px;font-weight:400;line-height:1.1;letter-spacing:-0.3px;color:var(--ink);text-align:center;margin-bottom:16px;}
 .aha-headline .hl{color:var(--cta);font-style:italic;}
-.aha-sub{font-size:13px;font-style:italic;color:var(--mid);text-align:center;margin-bottom:20px;}
-.aha-sub .hl{color:var(--cta);}
 
 /* Stats row */
-.aha-stats{display:flex;justify-content:center;gap:8px;margin-bottom:24px;padding:0 16px;}
-.aha-stat{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:rgba(155,127,212,0.06);border:0.5px solid rgba(155,127,212,0.12);border-radius:12px;padding:10px 8px;}
+.aha-stats{display:flex;gap:8px;margin-bottom:20px;}
+.aha-stat{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;background:rgba(155,127,212,0.06);border:0.5px solid rgba(155,127,212,0.12);border-radius:12px;padding:10px 6px;}
 .aha-stat-num{font-size:20px;font-weight:600;color:var(--cta);}
-.aha-stat-label{font-size:10px;color:var(--mid);}
+.aha-stat-label{font-size:9px;color:var(--mid);}
 
-/* Section label */
-.aha-section{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--cta);padding:0 20px;margin-bottom:10px;}
-
-/* First nudge card */
-.nudge-card{margin:0 16px;background:var(--surface);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;padding:16px;}
-.nudge-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
-.nudge-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.nudge-item-meta{flex:1;min-width:0;font-size:11px;color:var(--mid);}
-.nudge-date{font-size:13px;font-weight:500;color:var(--apricot);white-space:nowrap;}
-.nudge-task-name{font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;color:var(--ink);line-height:1.3;margin-bottom:14px;}
-.nudge-inset{background:rgba(192,144,136,0.08);border-radius:10px;padding:14px;margin-bottom:12px;}
-.nudge-label{font-size:9px;font-weight:600;letter-spacing:0.04em;text-transform:none;font-style:normal;margin-bottom:6px;}
-.nudge-label-why{color:var(--ch-bg);}
-.nudge-label-how{color:var(--ch-bg);}
-.nudge-text{font-size:11px;color:var(--ink);line-height:1.6;}
-.nudge-divider{height:0.5px;background:var(--border);margin-bottom:12px;}
-.nudge-more{font-size:12px;font-style:italic;color:var(--mid);}
-.nudge-step{display:flex;gap:10px;margin-bottom:10px;}
-.nudge-step:last-child{margin-bottom:0;}
-.nudge-step-num{width:22px;height:22px;border-radius:50%;background:rgba(192,144,136,0.12);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--ch-bg);flex-shrink:0;}
-.nudge-step-text{font-size:11px;color:var(--ink);line-height:1.5;}
+/* First nudge teaser */
+.nudge-teaser{display:flex;align-items:center;gap:12px;background:var(--surface);border:0.5px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:20px;}
+.nudge-t-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(192,144,136,0.12);}
+.nudge-t-body{flex:1;min-width:0;}
+.nudge-t-label{font-size:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--cta);margin-bottom:2px;}
+.nudge-t-name{font-size:13px;font-weight:500;color:var(--ink);line-height:1.3;}
+.nudge-t-why{font-size:10px;color:var(--mid);line-height:1.4;margin-top:3px;}
+.nudge-t-date{font-size:12px;font-weight:500;color:var(--apricot);white-space:nowrap;flex-shrink:0;}
 
 /* Year at a glance */
-.glance{margin:24px 16px 0;padding:0;}
-.glance-title{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--mid-a);margin-bottom:10px;padding:0 4px;}
+.glance{margin-bottom:0;}
+.glance-title{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--mid-a);margin-bottom:10px;}
 .glance-months{display:flex;gap:4px;}
-.glance-month{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;}
-.glance-bar-track{width:100%;height:40px;background:var(--ink-06);border-radius:4px;position:relative;overflow:hidden;display:flex;flex-direction:column-reverse;}
-.glance-bar-fill{width:100%;border-radius:4px;transition:height 600ms ease;}
-.glance-month-label{font-size:8px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:0.3px;}
+.glance-month{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.glance-bar-track{width:100%;height:72px;background:var(--ink-06);border-radius:4px;position:relative;overflow:hidden;display:flex;flex-direction:column-reverse;}
+/* Personality line */
+.aha-footer{text-align:center;margin-top:28px;padding:0 20px 0;font-size:11px;font-style:italic;color:var(--mid);line-height:1.4;}
+.glance-bar-fill{width:100%;border-radius:4px;}
+.glance-month-label{font-size:7px;font-weight:500;color:var(--mid);text-transform:uppercase;letter-spacing:0.3px;}
 .glance-month-count{font-size:7px;color:var(--hint);margin-top:-2px;}
 
+/* Bar fill animation */
+.glance-bar-fill{height:0 !important;transition:height 600ms ease;}
+.loaded .glance-bar-fill{height:var(--h) !important;}
+
 /* CTA zone */
-.s1-cta-zone{padding:16px 20px 34px;margin-top:auto;flex-shrink:0;}
+.s1-cta-zone{padding:14px 0 34px;flex-shrink:0;}
 .s1-cta{width:100%;height:50px;border-radius:100px;border:none;background:var(--cta);color:var(--cta-fg);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 12px rgba(155,127,212,0.28);transition:transform 0.1s,background 0.1s;}
 .s1-cta:active{transform:scale(0.97);background:#7D62B3;}
-
-/* Bar fill animation on load */
-.glance-bar-fill{height:0 !important;}
-.loaded .glance-bar-fill{height:var(--h) !important;}
 
 /* ══════════════════════════════════════ */
 /* STATE 2: Celebration (plum)           */
@@ -117,7 +101,6 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
 .state2{position:absolute;inset:0;background:var(--plum);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.4s ease;z-index:2;}
 .state2.active{opacity:1;pointer-events:auto;}
 
-/* Confetti */
 .confetti-wrap{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;}
 .confetti-piece{position:absolute;top:-20px;opacity:0;}
 .confetti-piece.circle{border-radius:50%;}
@@ -131,7 +114,6 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
 
 .cele-center{display:flex;flex-direction:column;align-items:center;text-align:center;z-index:1;padding:0 24px;transition:opacity 0.35s;}
 
-/* ii mark */
 .cele-ii{opacity:0;transform:scale(0.3);}
 .cele-ii.pop{animation:iiSpring 500ms cubic-bezier(0.34,1.56,0.64,1) forwards;}
 @keyframes iiSpring{
@@ -155,9 +137,7 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
 .reminder-sub{font-size:7px;font-style:italic;color:rgba(245,240,232,0.28);margin-top:5px;opacity:0;transition:opacity 0.35s ease;}
 .reminder-sub.show{opacity:1;}
 
-/* ══════════════════════════════════════ */
-/* STATE 3: Sign-in sheet               */
-/* ══════════════════════════════════════ */
+/* STATE 3: Sign-in sheet */
 .sheet-scrim{position:absolute;inset:0;background:rgba(0,0,0,0.25);z-index:3;opacity:0;pointer-events:none;transition:opacity 0.3s ease;}
 .sheet-scrim.show{opacity:1;pointer-events:auto;}
 
@@ -180,8 +160,11 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
 .toast{position:absolute;bottom:70px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(245,240,232,0.95);border-radius:12px;padding:10px 18px;font-size:12px;font-weight:500;color:var(--ink);box-shadow:0 4px 16px rgba(0,0,0,0.15);z-index:10;opacity:0;pointer-events:none;white-space:nowrap;transition:opacity 0.25s,transform 0.35s cubic-bezier(0.34,1.4,0.64,1);}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto;}
 
+/* Version label */
+.ver-label{margin-top:12px;font-size:10px;color:rgba(245,240,232,0.25);text-align:center;}
+
 /* Reset button */
-.reset-wrap{margin-top:16px;display:flex;justify-content:center;}
+.reset-wrap{margin-top:12px;display:flex;justify-content:center;}
 .reset-btn{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;padding:6px 16px;border-radius:100px;border:1px solid rgba(245,240,232,0.12);background:transparent;color:rgba(245,240,232,0.40);cursor:pointer;transition:all 120ms;}
 .reset-btn:hover{border-color:rgba(245,240,232,0.25);color:rgba(245,240,232,0.60);}
 </style>
@@ -190,15 +173,14 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
 
 <div class="page-head">
   <a href="../index.html">
-    <svg width="14" height="14" viewBox="0 0 80 80" style="border-radius:3px;"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#C4A8E8"/></svg>
+    <svg width="14" height="14" viewBox="0 0 80 80" style="border-radius:3px;"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
     Design hub
   </a>
   <span class="page-badge">Prototype</span>
 </div>
-<div class="page-label">S-05 · Rich AHA + Celebration · Prototype</div>
+<div class="page-label">S-05 · AHA + Celebration · Prototype</div>
 
 <div class="device" id="device">
-  <!-- Status bar -->
   <div class="sbar">
     <span class="sbar-time" id="sbarTime" style="color:var(--ink);">9:41</span>
     <div class="sbar-icons">
@@ -207,19 +189,17 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
     </div>
   </div>
 
-  <!-- Progress bar -->
   <div class="pbar" id="pbar" style="background:rgba(26,22,18,0.08);">
     <div class="pfill" id="pfill" style="width:80%;background:var(--cta);"></div>
   </div>
 
-  <!-- Screen wrapper -->
   <div class="screen-wrap">
 
-    <!-- STATE 1: Rich AHA -->
+    <!-- STATE 1: Rich AHA v2 (tight) -->
     <div class="state1" id="state1">
       <div class="s1-content">
 
-        <!-- ii mark (dark-on-light, dot = apricot) -->
+        <!-- ii mark (dot = apricot) -->
         <div class="aha-ii">
           <svg width="36" height="40" viewBox="0 0 625.96 700.13" fill="none">
             <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
@@ -228,12 +208,9 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
           </svg>
         </div>
 
-        <!-- Eyebrow -->
         <div class="aha-eyebrow">Your schedule is ready</div>
 
-        <!-- Headline with purple highlights -->
         <div class="aha-headline">You said <span class="hl">what.</span><br>We figured out <span class="hl">when</span> and <span class="hl">why.</span></div>
-        <div class="aha-sub"></div>
 
         <!-- Stats row -->
         <div class="aha-stats">
@@ -242,100 +219,33 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
           <div class="aha-stat"><div class="aha-stat-num">6</div><div class="aha-stat-label">months</div></div>
         </div>
 
-        <!-- Your first nudge -->
-        <div class="aha-section">Your first nudge</div>
-
-        <div class="nudge-card">
-          <div class="nudge-header">
-            <div class="nudge-icon" style="background:rgba(192,144,136,0.14);">
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#7A5A50" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 8.5L9 3l7.5 5.5V16a.5.5 0 0 1-.5.5H11v-4H7v4H2a.5.5 0 0 1-.5-.5V8.5z"/></svg>
-            </div>
-            <div class="nudge-item-meta">Boiler, yearly</div>
-            <div class="nudge-date">Oct 28</div>
+        <!-- First nudge teaser (collapsed) -->
+        <div class="nudge-teaser">
+          <div class="nudge-t-icon">
+            <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="#7A5A50" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 8.5L9 3l7.5 5.5V16a.5.5 0 0 1-.5.5H11v-4H7v4H2a.5.5 0 0 1-.5-.5V8.5z"/></svg>
           </div>
-
-          <div class="nudge-task-name">Annual boiler service</div>
-
-          <div class="nudge-inset">
-            <div class="nudge-label nudge-label-why">Why it matters</div>
-            <div class="nudge-text">Skipping the annual check voids most warranty agreements and increases carbon monoxide risk in enclosed spaces.</div>
+          <div class="nudge-t-body">
+            <div class="nudge-t-label">First nudge</div>
+            <div class="nudge-t-name">Annual boiler service</div>
+            <div class="nudge-t-why">Validates your warranty and catches carbon monoxide risks.</div>
           </div>
-
-          <div class="nudge-inset" style="background:transparent;">
-            <div class="nudge-label nudge-label-how">How to complete this</div>
-            <div class="nudge-step"><div class="nudge-step-num">1</div><div class="nudge-step-text">Find a certified installer on the manufacturer's website</div></div>
-            <div class="nudge-step"><div class="nudge-step-num">2</div><div class="nudge-step-text">Book 2-3 weeks ahead, morning slots are easier</div></div>
-            <div class="nudge-step"><div class="nudge-step-num">3</div><div class="nudge-step-text">Clear the area around the boiler for access</div></div>
-          </div>
-
-          <div class="nudge-divider"></div>
-          <div class="nudge-more">+ 2 more tasks for your boiler</div>
+          <div class="nudge-t-date">Oct 28</div>
         </div>
 
-        <!-- Year at a glance -->
-        <div class="glance">
-          <div class="glance-title">Year at a glance</div>
-          <div class="glance-months">
-            <div class="glance-month">
-              <div class="glance-bar-track">
-                <div class="glance-bar-fill" style="--h:75%;background:rgba(155,127,212,0.65);"></div>
-              </div>
-              <div class="glance-month-label">Oct</div>
-              <div class="glance-month-count">3</div>
-            </div>
-            <div class="glance-month">
-              <div class="glance-bar-track">
-                <div class="glance-bar-fill" style="--h:50%;background:rgba(155,127,212,0.50);"></div>
-              </div>
-              <div class="glance-month-label">Nov</div>
-              <div class="glance-month-count">2</div>
-            </div>
-            <div class="glance-month">
-              <div class="glance-bar-track">
-                <div class="glance-bar-fill" style="--h:25%;background:rgba(155,127,212,0.30);"></div>
-              </div>
-              <div class="glance-month-label">Dec</div>
-              <div class="glance-month-count">1</div>
-            </div>
-            <div class="glance-month">
-              <div class="glance-bar-track">
-                <div class="glance-bar-fill" style="--h:25%;background:rgba(155,127,212,0.30);"></div>
-              </div>
-              <div class="glance-month-label">Jan</div>
-              <div class="glance-month-count">1</div>
-            </div>
-            <div class="glance-month">
-              <div class="glance-bar-track">
-                <div class="glance-bar-fill" style="--h:0%;"></div>
-              </div>
-              <div class="glance-month-label">Feb</div>
-              <div class="glance-month-count">0</div>
-            </div>
-            <div class="glance-month">
-              <div class="glance-bar-track">
-                <div class="glance-bar-fill" style="--h:25%;background:rgba(155,127,212,0.30);"></div>
-              </div>
-              <div class="glance-month-label">Mar</div>
-              <div class="glance-month-count">1</div>
-            </div>
-          </div>
+        <div class="aha-footer">We'll remind you before things break, expire, or get forgotten.</div>
+
+        <!-- CTA inside content flow -->
+        <div style="margin-top:24px;padding-bottom:34px;">
+          <button class="s1-cta" id="ctaBtn" onclick="triggerCelebration()">That's it. I'm done.</button>
         </div>
 
       </div>
 
-      <!-- CTA -->
-      <div class="s1-cta-zone">
-        <button class="s1-cta" id="ctaBtn" onclick="triggerCelebration()">That's it. I'm done.</button>
-      </div>
     </div>
-
-    <!-- STATE 2: Celebration (plum bg) -->
+    <!-- STATE 2: Celebration -->
     <div class="state2" id="state2">
-      <!-- Confetti container -->
       <div class="confetti-wrap" id="confettiWrap"></div>
-
       <div class="cele-center" id="celeCenter">
-        <!-- ii mark (light-on-dark) -->
         <div class="cele-ii" id="celeIi">
           <svg width="48" height="54" viewBox="0 0 625.96 700.13" fill="none">
             <path fill="#F5F0E8" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
@@ -343,11 +253,9 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
             <circle fill="#C4A8E8" cx="535.96" cy="119.29" r="90"/>
           </svg>
         </div>
-
         <div class="cele-eyebrow" id="celeEye">you're in</div>
         <div class="cele-headline" id="celeHead">Your boiler is relieved.</div>
         <div class="cele-sub" id="celeSub">We'll remind you when it matters.</div>
-
         <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
           <div class="reminder-pill" id="celePill">
             First reminder <span style="margin:0 2px">&middot;</span> <span class="date">Oct 28</span>
@@ -357,12 +265,10 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
       </div>
     </div>
 
-    <!-- STATE 3: Scrim + bottom sheet -->
+    <!-- STATE 3 -->
     <div class="sheet-scrim" id="sheetScrim"></div>
     <div class="bottom-sheet" id="bottomSheet">
       <div class="sheet-handle"></div>
-
-      <!-- ii mark (dark-on-light) -->
       <div class="sheet-ii">
         <svg width="20" height="22" viewBox="0 0 625.96 700.13" fill="none">
           <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
@@ -370,213 +276,44 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
           <circle fill="#C4A8E8" cx="535.96" cy="119.29" r="90"/>
         </svg>
       </div>
-
       <div class="sheet-headline">Save your schedule</div>
       <div class="sheet-sub">Your data stays yours. We never share it.</div>
-
-      <!-- Apple -->
       <button class="auth-btn auth-apple" onclick="handleAuth('apple')">
-        <svg width="16" height="19" viewBox="0 0 16 19" fill="white">
-          <path d="M13.3 10.1c0-2 1.6-3 1.7-3.1-0.9-1.4-2.4-1.5-2.9-1.6-1.2-0.1-2.4 0.7-3 0.7s-1.6-0.7-2.6-0.7C4.8 5.5 3.2 6.6 2.3 8.3 0.5 11.6 1.8 16.5 3.6 19.2c0.9 1.3 1.9 2.8 3.3 2.7 1.3-0.1 1.8-0.9 3.4-0.9s2 0.9 3.4 0.8c1.4-0.1 2.3-1.3 3.2-2.6 1-1.5 1.4-2.9 1.4-3-0.1 0-2.7-1-2.7-4.1h0.7zM11 4.3c0.7-0.9 1.2-2.2 1.1-3.4-1 0-2.3 0.7-3 1.6-0.7 0.8-1.2 2-1.1 3.2 1.2 0.1 2.3-0.6 3-1.4z" transform="translate(-1, -1)"/>
-        </svg>
+        <svg width="16" height="19" viewBox="0 0 16 19" fill="white"><path d="M13.3 10.1c0-2 1.6-3 1.7-3.1-0.9-1.4-2.4-1.5-2.9-1.6-1.2-0.1-2.4 0.7-3 0.7s-1.6-0.7-2.6-0.7C4.8 5.5 3.2 6.6 2.3 8.3 0.5 11.6 1.8 16.5 3.6 19.2c0.9 1.3 1.9 2.8 3.3 2.7 1.3-0.1 1.8-0.9 3.4-0.9s2 0.9 3.4 0.8c1.4-0.1 2.3-1.3 3.2-2.6 1-1.5 1.4-2.9 1.4-3-0.1 0-2.7-1-2.7-4.1h0.7zM11 4.3c0.7-0.9 1.2-2.2 1.1-3.4-1 0-2.3 0.7-3 1.6-0.7 0.8-1.2 2-1.1 3.2 1.2 0.1 2.3-0.6 3-1.4z" transform="translate(-1, -1)"/></svg>
         Continue with Apple
       </button>
-
-      <!-- Google -->
       <button class="auth-btn auth-google" onclick="handleAuth('google')">
-        <svg width="16" height="16" viewBox="0 0 48 48">
-          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-        </svg>
+        <svg width="16" height="16" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
         Continue with Google
       </button>
-
       <button class="sheet-skip" onclick="handleAuth('skip')">Not now</button>
     </div>
 
-    <!-- Toast -->
     <div class="toast" id="toast"></div>
-
   </div>
 </div>
 
-<!-- Reset button -->
 <div class="reset-wrap">
   <button class="reset-btn" onclick="resetPrototype()">Reset prototype</button>
 </div>
 
 <script>
-var state1     = document.getElementById('state1');
-var state2     = document.getElementById('state2');
-var pbar       = document.getElementById('pbar');
-var pfill      = document.getElementById('pfill');
-var sbarTime   = document.getElementById('sbarTime');
-var sbarSig    = document.getElementById('sbarSig');
-var battFill   = document.getElementById('battFill');
-var sbarBatt   = document.getElementById('sbarBatt');
-var confettiWrap = document.getElementById('confettiWrap');
-var celeIi     = document.getElementById('celeIi');
-var celeEye    = document.getElementById('celeEye');
-var celeHead   = document.getElementById('celeHead');
-var celeSub    = document.getElementById('celeSub');
-var celePill   = document.getElementById('celePill');
-var celePillSub = document.getElementById('celePillSub');
-var celeCenter = document.getElementById('celeCenter');
-var sheetScrim = document.getElementById('sheetScrim');
-var bottomSheet = document.getElementById('bottomSheet');
-var toast      = document.getElementById('toast');
+var state1=document.getElementById('state1'),state2=document.getElementById('state2'),pbar=document.getElementById('pbar'),pfill=document.getElementById('pfill'),sbarTime=document.getElementById('sbarTime'),sbarSig=document.getElementById('sbarSig'),battFill=document.getElementById('battFill'),sbarBatt=document.getElementById('sbarBatt'),confettiWrap=document.getElementById('confettiWrap'),celeIi=document.getElementById('celeIi'),celeEye=document.getElementById('celeEye'),celeHead=document.getElementById('celeHead'),celeSub=document.getElementById('celeSub'),celePill=document.getElementById('celePill'),celePillSub=document.getElementById('celePillSub'),celeCenter=document.getElementById('celeCenter'),sheetScrim=document.getElementById('sheetScrim'),bottomSheet=document.getElementById('bottomSheet'),toast=document.getElementById('toast');
+var animating=false;
 
-var animating = false;
+setTimeout(function(){document.body.classList.add('loaded');},400);
 
-// Animate month bars on load
-setTimeout(function() {
-  document.body.classList.add('loaded');
-}, 400);
+var confettiColors=['#C09088','#9B7FD4','#8C9B80','#8E9A94','#C4A8E8','#A69BBF','#F5F0E8','#E8A87C'];
 
-var confettiColors = ['#C09088','#9B7FD4','#8C9B80','#8E9A94','#C4A8E8','#A69BBF','#F5F0E8','#E8A87C'];
+function createConfetti(){confettiWrap.innerHTML='';for(var i=0;i<28;i++){var el=document.createElement('div');var isRect=Math.random()>0.5;el.className='confetti-piece '+(isRect?'rect':'circle');var color=confettiColors[Math.floor(Math.random()*confettiColors.length)];var size=isRect?5:(4+Math.random()*3);var w=isRect?(2.5+Math.random()*1.5):size;var h=isRect?(5+Math.random()*4):size;var left=(3+Math.random()*94);var delay=(Math.random()*1.2);var duration=(2.5+Math.random()*2.5);var rot=(-180+Math.random()*360);el.style.cssText='width:'+w+'px;height:'+h+'px;background:'+color+';left:'+left+'%;top:-10px;--rot:'+rot+'deg;animation:confettiFall '+duration+'s '+delay+'s ease-in forwards;';confettiWrap.appendChild(el);}}
 
-function createConfetti() {
-  confettiWrap.innerHTML = '';
-  for (var i = 0; i < 28; i++) {
-    var el = document.createElement('div');
-    var isRect = Math.random() > 0.5;
-    el.className = 'confetti-piece ' + (isRect ? 'rect' : 'circle');
-    var color = confettiColors[Math.floor(Math.random() * confettiColors.length)];
-    var size = isRect ? 5 : (4 + Math.random() * 3);
-    var w = isRect ? (2.5 + Math.random() * 1.5) : size;
-    var h = isRect ? (5 + Math.random() * 4) : size;
-    var left = (3 + Math.random() * 94);
-    var delay = (Math.random() * 1.2);
-    var duration = (2.5 + Math.random() * 2.5);
-    var rot = (-180 + Math.random() * 360);
+function triggerCelebration(){if(animating)return;animating=true;sbarTime.style.color='rgba(245,240,232,0.7)';sbarSig.setAttribute('fill','rgba(245,240,232,0.35)');sbarBatt.setAttribute('stroke','rgba(245,240,232,0.35)');battFill.setAttribute('fill','rgba(245,240,232,0.35)');pbar.style.background='rgba(255,255,255,0.08)';pfill.style.width='85%';state1.classList.add('out');setTimeout(function(){state2.classList.add('active');createConfetti();setTimeout(function(){celeIi.classList.add('pop');},150);setTimeout(function(){celeEye.classList.add('show');},300);setTimeout(function(){celeHead.classList.add('show');},400);setTimeout(function(){celeSub.classList.add('show');},550);setTimeout(function(){celePill.classList.add('show');celePillSub.classList.add('show');},650);setTimeout(function(){celeCenter.style.opacity='0.5';sheetScrim.classList.add('show');bottomSheet.classList.add('show');},1250);},250);}
 
-    el.style.cssText =
-      'width:' + w + 'px;height:' + h + 'px;background:' + color +
-      ';left:' + left + '%;top:-10px;' +
-      '--rot:' + rot + 'deg;' +
-      'animation:confettiFall ' + duration + 's ' + delay + 's ease-in forwards;';
-    confettiWrap.appendChild(el);
-  }
-}
+function handleAuth(type){bottomSheet.classList.remove('show');sheetScrim.classList.remove('show');celeCenter.style.opacity='1';if(type==='skip'){showToast('No worries. You can sign in later.');}else{var label=type==='apple'?'Apple':'Google';showToast('Saved! Signed in with '+label+'.');}}
 
-function triggerCelebration() {
-  if (animating) return;
-  animating = true;
+function showToast(msg){toast.textContent=msg;toast.classList.add('show');setTimeout(function(){toast.classList.remove('show');},2500);}
 
-  // Status bar to light-on-plum
-  sbarTime.style.color = 'rgba(245,240,232,0.7)';
-  sbarSig.setAttribute('fill', 'rgba(245,240,232,0.35)');
-  sbarBatt.setAttribute('stroke', 'rgba(245,240,232,0.35)');
-  battFill.setAttribute('fill', 'rgba(245,240,232,0.35)');
-
-  // Progress bar: dark track, advance to 85%
-  pbar.style.background = 'rgba(255,255,255,0.08)';
-  pfill.style.width = '85%';
-
-  // Fade out state 1, reveal state 2
-  state1.classList.add('out');
-
-  setTimeout(function() {
-    state2.classList.add('active');
-
-    // Confetti burst
-    createConfetti();
-
-    // ii mark spring at ~400ms from CTA
-    setTimeout(function() { celeIi.classList.add('pop'); }, 150);
-
-    // Eyebrow at ~550ms
-    setTimeout(function() { celeEye.classList.add('show'); }, 300);
-
-    // Headline at ~650ms
-    setTimeout(function() { celeHead.classList.add('show'); }, 400);
-
-    // Sub at ~800ms
-    setTimeout(function() { celeSub.classList.add('show'); }, 550);
-
-    // Pill at ~900ms
-    setTimeout(function() {
-      celePill.classList.add('show');
-      celePillSub.classList.add('show');
-    }, 650);
-
-    // Sign-in sheet at ~1500ms
-    setTimeout(function() {
-      celeCenter.style.opacity = '0.5';
-      sheetScrim.classList.add('show');
-      bottomSheet.classList.add('show');
-    }, 1250);
-
-  }, 250);
-}
-
-function handleAuth(type) {
-  bottomSheet.classList.remove('show');
-  sheetScrim.classList.remove('show');
-  celeCenter.style.opacity = '1';
-
-  if (type === 'skip') {
-    showToast('No worries. You can sign in later.');
-  } else {
-    var label = type === 'apple' ? 'Apple' : 'Google';
-    showToast('Saved! Signed in with ' + label + '.');
-  }
-}
-
-function showToast(msg) {
-  toast.textContent = msg;
-  toast.classList.add('show');
-  setTimeout(function() {
-    toast.classList.remove('show');
-  }, 2500);
-}
-
-function resetPrototype() {
-  animating = false;
-
-  // Reset status bar
-  sbarTime.style.color = 'var(--ink)';
-  sbarSig.setAttribute('fill', 'var(--ink)');
-  sbarBatt.setAttribute('stroke', 'var(--ink)');
-  battFill.setAttribute('fill', 'var(--ink)');
-
-  // Reset progress bar
-  pbar.style.background = 'rgba(26,22,18,0.08)';
-  pfill.style.width = '80%';
-
-  // Reset states
-  state1.classList.remove('out');
-  state2.classList.remove('active');
-
-  // Reset celebration elements
-  celeIi.classList.remove('pop');
-  celeIi.style.opacity = '0';
-  celeIi.style.transform = 'scale(0.3)';
-  celeEye.classList.remove('show');
-  celeHead.classList.remove('show');
-  celeSub.classList.remove('show');
-  celePill.classList.remove('show');
-  celePillSub.classList.remove('show');
-  celeCenter.style.opacity = '1';
-
-  // Reset sheet
-  sheetScrim.classList.remove('show');
-  bottomSheet.classList.remove('show');
-
-  // Clear confetti
-  confettiWrap.innerHTML = '';
-
-  // Clear toast
-  toast.classList.remove('show');
-
-  // Allow ii mark animation to replay
-  requestAnimationFrame(function() {
-    celeIi.style.opacity = '';
-    celeIi.style.transform = '';
-  });
-}
+function resetPrototype(){animating=false;sbarTime.style.color='var(--ink)';sbarSig.setAttribute('fill','var(--ink)');sbarBatt.setAttribute('stroke','var(--ink)');battFill.setAttribute('fill','var(--ink)');pbar.style.background='rgba(26,22,18,0.08)';pfill.style.width='80%';state1.classList.remove('out');state2.classList.remove('active');celeIi.classList.remove('pop');celeIi.style.opacity='0';celeIi.style.transform='scale(0.3)';celeEye.classList.remove('show');celeHead.classList.remove('show');celeSub.classList.remove('show');celePill.classList.remove('show');celePillSub.classList.remove('show');celeCenter.style.opacity='1';sheetScrim.classList.remove('show');bottomSheet.classList.remove('show');confettiWrap.innerHTML='';toast.classList.remove('show');requestAnimationFrame(function(){celeIi.style.opacity='';celeIi.style.transform='';});}
 </script>
 
 </body>
