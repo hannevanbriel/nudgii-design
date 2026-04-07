@@ -53,16 +53,22 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
 .s1-content{flex:1;overflow-y:auto;padding:0;}
 
 /* ii mark centering */
-.aha-ii{display:flex;justify-content:center;margin:28px 0 16px;}
+.aha-ii{display:flex;justify-content:center;margin:24px 0 12px;}
+
+/* Eyebrow */
+.aha-eyebrow{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--cta);text-align:center;margin-bottom:10px;}
 
 /* Headline block */
-.aha-headline{font-family:'DM Serif Display',Georgia,serif;font-size:22px;font-weight:400;line-height:1.08;letter-spacing:-0.3px;color:var(--ink);text-align:center;padding:0 20px;margin-bottom:4px;}
-.aha-sub{font-size:12px;font-style:italic;color:var(--mid);text-align:center;margin-bottom:20px;}
+.aha-headline{font-family:'DM Serif Display',Georgia,serif;font-size:24px;font-weight:400;line-height:1.1;letter-spacing:-0.3px;color:var(--ink);text-align:center;padding:0 20px;margin-bottom:4px;}
+.aha-headline .hl{color:var(--cta);font-style:italic;}
+.aha-sub{font-size:13px;font-style:italic;color:var(--mid);text-align:center;margin-bottom:20px;}
+.aha-sub .hl{color:var(--cta);}
 
 /* Stats row */
-.aha-stats{display:flex;justify-content:center;gap:6px;margin-bottom:24px;padding:0 20px;}
-.aha-stat{display:flex;align-items:center;gap:4px;background:var(--surface);border:0.5px solid var(--border);border-radius:100px;padding:5px 12px;font-size:11px;font-weight:500;color:var(--ink);}
-.aha-stat-num{font-weight:600;color:var(--cta);}
+.aha-stats{display:flex;justify-content:center;gap:8px;margin-bottom:24px;padding:0 16px;}
+.aha-stat{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:rgba(155,127,212,0.06);border:0.5px solid rgba(155,127,212,0.12);border-radius:12px;padding:10px 8px;}
+.aha-stat-num{font-size:20px;font-weight:600;color:var(--cta);}
+.aha-stat-label{font-size:10px;color:var(--mid);}
 
 /* Section label */
 .aha-section{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--cta);padding:0 20px;margin-bottom:10px;}
@@ -213,24 +219,27 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
     <div class="state1" id="state1">
       <div class="s1-content">
 
-        <!-- ii mark (dark-on-light, centered) -->
+        <!-- ii mark (dark-on-light, dot = apricot) -->
         <div class="aha-ii">
-          <svg width="32" height="36" viewBox="0 0 625.96 700.13" fill="none">
+          <svg width="36" height="40" viewBox="0 0 625.96 700.13" fill="none">
             <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
             <path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
-            <circle fill="#C4A8E8" cx="535.96" cy="119.29" r="90"/>
+            <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
           </svg>
         </div>
 
-        <!-- Headline -->
-        <div class="aha-headline">You said what.<br>We figured out when and why.</div>
-        <div class="aha-sub">Your maintenance schedule is ready.</div>
+        <!-- Eyebrow -->
+        <div class="aha-eyebrow">Your schedule is ready</div>
+
+        <!-- Headline with purple highlights -->
+        <div class="aha-headline">You said <span class="hl">what.</span><br>We figured out <span class="hl">when</span> and <span class="hl">why.</span></div>
+        <div class="aha-sub"></div>
 
         <!-- Stats row -->
         <div class="aha-stats">
-          <div class="aha-stat"><span class="aha-stat-num">4</span> items</div>
-          <div class="aha-stat"><span class="aha-stat-num">8</span> tasks</div>
-          <div class="aha-stat"><span class="aha-stat-num">6</span> months</div>
+          <div class="aha-stat"><div class="aha-stat-num">4</div><div class="aha-stat-label">items</div></div>
+          <div class="aha-stat"><div class="aha-stat-num">8</div><div class="aha-stat-label">tasks</div></div>
+          <div class="aha-stat"><div class="aha-stat-num">6</div><div class="aha-stat-label">months</div></div>
         </div>
 
         <!-- Your first nudge -->
