@@ -4,7 +4,7 @@
     {
       "name": "nudgii design hub",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "3000", "--directory", "/Users/hannevanbriel/Projects/nudgii-design/.claude/worktrees/competent-banach"],
+      "runtimeArgs": ["-m", "http.server", "3000", "--directory", "/Users/hannevanbriel/Projects/nudgii-design/.claude/worktrees/dreamy-engelbart"],
       "port": 3000
     }
   ]
