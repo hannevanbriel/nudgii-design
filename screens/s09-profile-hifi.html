@@ -6,6 +6,14 @@
 <title>nudgii · S-09 Profile · hi-fi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+
+<!-- ── GENERATED TOKENS · single source of truth ──
+     Values come from system/tokens.json via tools/build-tokens.py.
+     Do NOT redefine --surface, --ink, --plum, --apricot, --ch-bg, etc.
+     locally. If a value needs to change, edit tokens.json and rerun the
+     build script. -->
+<link rel="stylesheet" href="../system/tokens.css">
+
 <style>
 /* ═══════════════════════════════════════════════════════════════
    S-09 Profile tab · hi-fi · Precision Warmth design system
@@ -13,63 +21,7 @@
    ═══════════════════════════════════════════════════════════════ */
 
 /* ── Tokens ── */
-:root {
-  /* Surface tiers */
-  --surface: #FBF9F4;
-  --surface-low: #F5F4ED;
-  --surface-high: #E8E9E0;
-  --surface-lowest: #FFFFFF;
-
-  /* Text */
-  --ink: #31332C;
-  --mid: #7A756D;
-  --hint: #A09A90;
-  --outline-var: #B1B3A9;
-
-  /* Plum: actions */
-  --plum: #9B7FD4;
-  --plum-fg: #FAF8FF;
-  --plum-wash: rgba(155,127,212,0.10);
-  --plum-container: rgba(155,127,212,0.08);
-
-  /* Apricot: warmth */
-  --apricot: #E8A87C;
-  --apricot-wash: rgba(232,168,124,0.12);
-
-  /* Semantic */
-  --sage: #3B6D11;
-  --sage-lt: #EAF3DE;
-  --red: #A32D2D;
-  --red-lt: #FCEBEB;
-
-  /* Primary mapped to plum */
-  --primary: #9B7FD4;
-  --primary-fg: #FAF8FF;
-
-  --r: 12px; --rs: 8px;
-}
-
-[data-theme="dark"] {
-  --surface: #1C1B18;
-  --surface-low: #24231F;
-  --surface-high: #2E2D28;
-  --surface-lowest: #181714;
-  --ink: #F0EDE6;
-  --mid: #A8A29A;
-  --hint: #787068;
-  --outline-var: rgba(177,179,169,0.15);
-  --plum: #B8A0E8;
-  --plum-fg: #1C1B18;
-  --apricot: #F0B890;
-  --primary: #B8A0E8;
-  --primary-fg: #1C1B18;
-  --plum-wash: rgba(184,160,232,0.12);
-  --apricot-wash: rgba(240,184,144,0.15);
-  --sage: #6ABD2A;
-  --sage-lt: rgba(106,189,42,0.12);
-  --red: #D46060;
-  --red-lt: rgba(212,96,96,0.12);
-}
+:root { --r: 12px; --rs: 8px; }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
 html { scroll-behavior: smooth; }

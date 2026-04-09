@@ -3,3 +3,9 @@
 
 # macOS
 .DS_Store
+
+# Generated token artifacts — regenerate with tools/build-tokens.py
+# tokens.css is checked in because it's loaded directly by HTML files.
+# Everything else in build/ is a build product and should not be committed.
+build/tokens.dart
+build/tokens-report.md
