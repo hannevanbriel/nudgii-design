@@ -14,7 +14,7 @@
   --hint: #A09888; /* Placeholders, hint text, very secondary. Use sparingly. */
   --cta: #9B7FD4; /* Primary CTA button, FAB, Export button, active nav tab, active filter pill. The ONLY bright color in the app. */
   --cta-fg: #FAF8FF; /* Text and icons on CTA background. Lavender-white. */
-  --plum-deep: #231833; /* Deep plum. App icon background + done overlay background. SACRED, do not use anywhere else. Brand value from canonical app icon SVG (rgb 35/24/51). */
+  --plum-deep: #2D1F4A; /* Deep plum. App icon background + done overlay background. SACRED, do not use anywhere else. Brand value from canonical app icon SVG (rgb 35/24/51). */
   --plum-pale: #C4A8E8; /* Done overlay ii mark pill fill. */
   --overdue-badge: #6B4A3A; /* Overdue badge background. Warm brown — NOT red. Cream text on top. */
   --surface: #FFFFFF; /* Bottom sheets, dialogs, inline modals. */
