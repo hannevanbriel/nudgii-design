@@ -298,6 +298,28 @@ import 'package:google_fonts/google_fonts.dart';
 **Tab bar:** CalendarBlank / ChatCircleQuestion / User
 **FAB:** Plus → rotates 45° to × on open (do not swap icon, use `AnimatedRotation`)
 
+### Brand SVG assets — use these, never inline path data
+
+The ii mark and app icon SVGs live in `system/logo/`. **Always reference these via `<img>` tags. Never inline the SVG path data into screen files** — that creates 48 places to update when the brand changes.
+
+| File | Use on | Variant |
+|---|---|---|
+| `system/logo/ii-dark-on-light.svg` | Cream/light backgrounds | CTA purple left + plum right + apricot dot |
+| `system/logo/ii-light-on-dark.svg` | Plum/dark backgrounds (celebration, done overlay) | Cream left + CTA purple right + apricot dot |
+| `system/logo/nudgii-app-icon.svg` | App icon contexts only (App Store, homescreen) | Plum rounded square bg + the ii mark |
+
+**Usage:**
+```html
+<img src="../system/logo/ii-dark-on-light.svg" width="36" height="40" alt="">
+```
+
+**Rules that never bend:**
+- Never inline ii mark path data into a screen file. Use `<img>` referencing `system/logo/`
+- The dot is **always apricot (#E8A87C)**, never plum-pale (#C4A8E8). Plum-pale is the done overlay pill fill, that's different
+- App icon variant (with bg square) is for icon contexts only — never inline on a screen, use the floating pill version
+
+If brand colors change, update the 3 SVG files in `system/logo/` and every screen updates automatically.
+
 ---
 
 ## 10. Design system — components
@@ -502,6 +524,7 @@ These are locked decisions. Do not question them in design or code reviews.
 - ❌ Never use the word "overdue" in any user-facing copy, label, badge, or status — use "waiting," "could use you," or time-since-last-done instead. Tasks have time windows, not deadlines.
 - ❌ Never use "late," "missed," or "urgent" for task status — these create guilt. The item is the subject ("waiting for you"), the user is never the one who failed.
 - ❌ Never modify a hi-fi screen without adding a changelog entry — every change gets a version + date, BREAKING/ADDITIVE tag, description, and Flutter notes. The developer reads these to know what to build. No exceptions.
+- ❌ Never inline brand SVG path data (ii mark, app icon, nudgii lettermark) into a screen file. Always reference the canonical files in `system/logo/` via `<img>` tags. Inlining creates duplicate sources of truth and means a single brand change becomes a 48-file refactor (this happened with the apricot dot fix on 2026-04-09)
 - ❌ Never consider a design change complete without updating ALL of: CLAUDE.md, ClickUp tasks, index.html, flow files, lo-fi files, hi-fi changelogs, and design system files (design-system.html, icon-inventory.html, interaction-states.html). Partial updates cause confusion downstream.
 
 ---
