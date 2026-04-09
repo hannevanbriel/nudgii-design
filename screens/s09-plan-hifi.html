@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>nudgii · S-09 Plan · hi-fi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════════════════════════
    S-09 Plan tab · hi-fi · Precision Warmth design system
-   Noto Serif + Manrope, plum + apricot, tonal surfaces
+   DM Serif Display + DM Sans, plum + apricot, tonal surfaces
    ═══════════════════════════════════════════════════════════════ */
 
 /* ── Tokens ── */
@@ -87,7 +87,7 @@
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
 html { scroll-behavior: smooth; }
-body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100vh; color: var(--ink); }
+body { font-family: 'DM Sans', sans-serif; background: #E8E6E0; min-height: 100vh; color: var(--ink); }
 
 /* ── Design hub nav ── */
 .hub-nav {
@@ -108,7 +108,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 /* ── Page header ── */
 .page-header { max-width: 1200px; margin: 0 auto; padding: 40px 40px 0; }
 .page-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: #8A8070; margin-bottom: 8px; }
-.page-h1 { font-family: 'Noto Serif', serif; font-size: 32px; font-weight: 400; color: #2C2824; margin-bottom: 6px; letter-spacing: -0.02em; }
+.page-h1 { font-family: 'DM Serif Display', serif; font-size: 32px; font-weight: 400; color: #2C2824; margin-bottom: 6px; letter-spacing: -0.02em; }
 .page-subtitle { font-size: 14px; color: #8A8070; margin-bottom: 16px; }
 .page-meta { display: flex; gap: 8px; flex-wrap: wrap; }
 .page-pill { font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 100px; background: rgba(155,127,212,0.10); color: #9B7FD4; }
@@ -117,7 +117,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 .controls { max-width: 1200px; margin: 0 auto; padding: 20px 40px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 .ctrl-group { display: flex; gap: 4px; align-items: center; }
 .ctrl-label { font-size: 9px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: #A09888; margin-right: 4px; }
-.ctrl-btn { font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 500; padding: 5px 14px; border-radius: 6px; border: 1px solid rgba(26,22,18,0.12); background: transparent; color: #8A8070; cursor: pointer; transition: all 120ms; }
+.ctrl-btn { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; padding: 5px 14px; border-radius: 6px; border: 1px solid rgba(26,22,18,0.12); background: transparent; color: #8A8070; cursor: pointer; transition: all 120ms; }
 .ctrl-btn:hover { border-color: rgba(26,22,18,0.20); }
 .ctrl-btn.on { background: #9B7FD4; color: #FAF8FF; border-color: #9B7FD4; }
 
@@ -139,7 +139,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 
 /* ── Plan screen header ── */
 .plan-header { padding: 10px 24px 0; display: flex; align-items: center; justify-content: space-between; }
-.plan-title { font-family: 'Noto Serif', serif; font-size: 24px; font-weight: 400; color: var(--ink); letter-spacing: -0.02em; }
+.plan-title { font-family: 'DM Serif Display', serif; font-size: 24px; font-weight: 400; color: var(--ink); letter-spacing: -0.02em; }
 .plan-filter-icon { width: 32px; height: 32px; border-radius: 8px; background: none; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid var(--surface-high); }
 
 /* ── Plan Export button (icon-only, toned down) ── */
@@ -150,7 +150,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 /* ── Filter chips row ── */
 .chips-row { display: flex; gap: 6px; overflow-x: auto; padding: 10px 24px 4px; scrollbar-width: none; white-space: nowrap; }
 .chips-row::-webkit-scrollbar { display: none; }
-.chip { font-size: 11px; font-weight: 500; padding: 5px 12px; border-radius: 100px; border: 1px solid var(--outline-var); color: var(--ink); background: transparent; cursor: pointer; white-space: nowrap; flex-shrink: 0; transition: all 120ms; font-family: 'Manrope', sans-serif; }
+.chip { font-size: 11px; font-weight: 500; padding: 5px 12px; border-radius: 100px; border: 1px solid var(--outline-var); color: var(--ink); background: transparent; cursor: pointer; white-space: nowrap; flex-shrink: 0; transition: all 120ms; font-family: 'DM Sans', sans-serif; }
 /* "All" active = plum fill + cream text (locked 2026-04-03) */
 .chip.active { border-color: transparent; color: #FAF8FF; background: var(--plum); }
 /* Category pills active = their own category color fill + cream text */
@@ -164,7 +164,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 
 /* ── Month section header ── */
 .month-head { display: flex; align-items: center; gap: 10px; padding: 14px 24px 8px; }
-.month-name { font-family: 'Noto Serif', serif; font-size: 18px; font-weight: 400; color: var(--ink); letter-spacing: -0.01em; flex: 1; }
+.month-name { font-family: 'DM Serif Display', serif; font-size: 18px; font-weight: 400; color: var(--ink); letter-spacing: -0.01em; flex: 1; }
 .month-circle { width: 36px; height: 36px; position: relative; flex-shrink: 0; overflow: visible; }
 .month-circle svg { position: absolute; inset: 0; transform: rotate(-90deg); }
 .month-pct { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 600; color: var(--plum); transition: color 300ms ease; }
@@ -281,7 +281,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 .export-scrim { position: absolute; inset: 0; background: rgba(49,51,44,0.5); }
 .export-panel { position: absolute; bottom: 0; left: 0; right: 0; background: var(--surface); border-radius: 20px 20px 0 0; padding: 12px 24px 34px; }
 .export-handle { width: 36px; height: 4px; border-radius: 100px; background: var(--surface-high); margin: 0 auto 16px; }
-.export-title { font-family: 'Noto Serif', serif; font-size: 18px; color: var(--ink); margin-bottom: 4px; }
+.export-title { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--ink); margin-bottom: 4px; }
 .export-sub { font-size: 11px; color: var(--mid); margin-bottom: 16px; }
 .export-option { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--surface-high); cursor: pointer; }
 .export-option:last-child { border-bottom: none; }
@@ -318,25 +318,25 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 
 /* ── Seasonal quote card ── */
 .season-card { margin: 16px 24px; padding: 14px 16px; background: var(--surface-low); border-radius: var(--r); }
-.season-quote { font-family: 'Noto Serif', serif; font-style: italic; font-size: 13px; color: var(--ink); line-height: 1.55; margin-bottom: 6px; }
+.season-quote { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 13px; color: var(--ink); line-height: 1.55; margin-bottom: 6px; }
 .season-attr { font-size: 9px; font-weight: 500; color: var(--apricot); letter-spacing: 0.04em; text-transform: uppercase; }
 
 /* ── Editorial closer ── */
 .editorial { text-align: center; padding: 20px 24px 8px; }
-.editorial-text { font-family: 'Noto Serif', serif; font-style: italic; font-size: 12px; color: var(--hint); opacity: 0.55; line-height: 1.55; }
+.editorial-text { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 12px; color: var(--hint); opacity: 0.55; line-height: 1.55; }
 
 /* ── Empty state ── */
 .empty-state { text-align: center; padding: 80px 32px 40px; }
 .empty-icon { width: 64px; height: 64px; border-radius: 50%; background: var(--surface-low); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
-.empty-h { font-family: 'Noto Serif', serif; font-size: 22px; color: var(--ink); margin-bottom: 8px; line-height: 1.2; }
+.empty-h { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--ink); margin-bottom: 8px; line-height: 1.2; }
 .empty-sub { font-size: 13px; color: var(--mid); line-height: 1.5; margin-bottom: 28px; }
-.empty-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--plum); color: var(--plum-fg); font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 500; padding: 12px 24px; border-radius: 100px; cursor: pointer; border: none; }
+.empty-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--plum); color: var(--plum-fg); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; padding: 12px 24px; border-radius: 100px; cursor: pointer; border: none; }
 
 /* ── Nav bar ── */
 .nz { position: absolute; bottom: 0; left: 0; right: 0; height: 84px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 14px; pointer-events: none; z-index: 40; }
 .nb { background: var(--surface); border-radius: 20px; padding: 9px 6px 11px; display: flex; align-items: center; box-shadow: 0 -2px 12px rgba(49,51,44,0.04); pointer-events: auto; }
 [data-theme="dark"] .nb { background: var(--surface-low); box-shadow: 0 -2px 12px rgba(0,0,0,0.15); }
-.nt { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 14px; cursor: pointer; border: none; background: none; font-family: 'Manrope', sans-serif; border-radius: 10px; transition: background 150ms; }
+.nt { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 14px; cursor: pointer; border: none; background: none; font-family: 'DM Sans', sans-serif; border-radius: 10px; transition: background 150ms; }
 .nt svg * { stroke: var(--hint); }
 .nt .nl { font-size: 8px; font-weight: 500; color: var(--hint); }
 .nt.on svg * { stroke: var(--primary); }
@@ -366,7 +366,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 
 /* ── Changelog ── */
 .changelog { max-width: 1200px; margin: 0 auto; padding: 32px 40px 60px; }
-.cl-title { font-family: 'Noto Serif', serif; font-size: 20px; color: #2C2824; margin-bottom: 20px; }
+.cl-title { font-family: 'DM Serif Display', serif; font-size: 20px; color: #2C2824; margin-bottom: 20px; }
 .cl-entry { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid rgba(26,22,18,0.06); }
 .cl-entry:last-child { border-bottom: none; }
 .cl-ver { font-size: 10px; font-weight: 600; letter-spacing: 0.5px; color: #8A8070; margin-bottom: 6px; }
@@ -407,7 +407,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
   <h1 class="page-h1">Plan</h1>
   <p class="page-subtitle">The full task timeline. All tasks, all months, organized by date. Tap a task to go to its detail.</p>
   <div class="page-meta">
-    <span class="page-pill">Noto Serif + Manrope</span>
+    <span class="page-pill">DM Serif Display + DM Sans</span>
     <span class="page-pill">Plum + Apricot</span>
     <span class="page-pill">Tonal surfaces</span>
   </div>
@@ -994,7 +994,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
     <div class="annot-card">
       <div class="annot-head"><span class="badge-rule">Layout</span> Plan tab shell</div>
       <div class="annot-body">
-        Fixed header zone (title + export icon + chip row), then a scrollable content area with monthly sections. Title: Noto Serif 24px, <code>letter-spacing: -0.02em</code>. Export icon top-right: 32x32px, icon-only, mid color, no bg. Chip row: horizontal scroll, <code>nowrap</code>, 24px horizontal padding, 6px gap. No second line of chips ever.
+        Fixed header zone (title + export icon + chip row), then a scrollable content area with monthly sections. Title: DM Serif Display 24px, <code>letter-spacing: -0.02em</code>. Export icon top-right: 32x32px, icon-only, mid color, no bg. Chip row: horizontal scroll, <code>nowrap</code>, 24px horizontal padding, 6px gap. No second line of chips ever.
       </div>
     </div>
 
@@ -1024,7 +1024,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
     <div class="annot-card">
       <div class="annot-head"><span class="badge-note">Month header</span> Serif name + task ratio circle</div>
       <div class="annot-body">
-        Layout: [circle] [month name]. Circle: 36x36px, LEFT of name. Month name: Noto Serif 18px, ink, <code>flex: 1</code>. Circle: SVG with track (<code>surface-high</code>, 2.5px) + progress arc (<code>var(--plum)</code>, 2.5px, round cap, rotated -90deg). Center label: 9px 600 plum, ratio format ("2/5"). When 0 done: track only, hint color label.
+        Layout: [circle] [month name]. Circle: 36x36px, LEFT of name. Month name: DM Serif Display 18px, ink, <code>flex: 1</code>. Circle: SVG with track (<code>surface-high</code>, 2.5px) + progress arc (<code>var(--plum)</code>, 2.5px, round cap, rotated -90deg). Center label: 9px 600 plum, ratio format ("2/5"). When 0 done: track only, hint color label.
       </div>
     </div>
 
@@ -1106,7 +1106,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
     <div class="annot-card">
       <div class="annot-head"><span class="badge-note">Quote card</span> Style</div>
       <div class="annot-body">
-        Appears between month sections (after the last row of a month, before the next month divider). Background: <code>surface-low</code>. Border-radius: 12px. Padding: 14px 16px. Quote text: Noto Serif italic, 13px, ink, <code>line-height: 1.55</code>. Attribution line below: 9px 500 apricot, uppercase, <code>letter-spacing: 0.04em</code>. Not dismissible. Content is seasonal and month-specific, stored server-side, rotated per locale.
+        Appears between month sections (after the last row of a month, before the next month divider). Background: <code>surface-low</code>. Border-radius: 12px. Padding: 14px 16px. Quote text: DM Serif Display italic, 13px, ink, <code>line-height: 1.55</code>. Attribution line below: 9px 500 apricot, uppercase, <code>letter-spacing: 0.04em</code>. Not dismissible. Content is seasonal and month-specific, stored server-side, rotated per locale.
       </div>
     </div>
 
@@ -1133,7 +1133,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
       <div class="annot-head"><span class="badge-state">State 2</span> Empty (no tasks)</div>
       <div class="annot-body">
         <strong>When:</strong> user has no items, or items with no tasks scheduled.<br><br>
-        Screen title still visible. Filter icon grayed out, non-interactive. Chips hidden. Centered empty state: calendar icon (64px circle, surface-low bg) + Noto Serif headline "Nothing planned yet." + 13px mid sub + plum pill CTA "Add an item". CTA opens FAB action sheet.
+        Screen title still visible. Filter icon grayed out, non-interactive. Chips hidden. Centered empty state: calendar icon (64px circle, surface-low bg) + DM Serif Display headline "Nothing planned yet." + 13px mid sub + plum pill CTA "Add an item". CTA opens FAB action sheet.
       </div>
     </div>
 
@@ -1142,7 +1142,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
     <div class="annot-card">
       <div class="annot-head"><span class="badge-note">Editorial</span> Bottom personality line</div>
       <div class="annot-body">
-        Centered. Noto Serif italic, 12px, hint color, 0.55 opacity. Appears after the last month section. Rotates from a set of brand voice one-liners: "A house maintained is a house loved." / "Your future self will thank you." / "Still here. Always watching your gutters." Never shown in empty state.
+        Centered. DM Serif Display italic, 12px, hint color, 0.55 opacity. Appears after the last month section. Rotates from a set of brand voice one-liners: "A house maintained is a house loved." / "Your future self will thank you." / "Still here. Always watching your gutters." Never shown in empty state.
       </div>
     </div>
 
