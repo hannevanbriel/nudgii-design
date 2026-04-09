@@ -31,15 +31,15 @@ Action sheet order (ergonomics, voice nearest thumb): Voice (bottom), Browse (mi
 Two in-app variants. Always use the correct one for the surface. Never swap them.
 
 **Dark-on-light (light backgrounds, cream, white):**
-- Left pill: `#9B7FD4` (CTA purple) · Right pill: `#2D1F4A` (plum) · Dot: `#E8A87C` (apricot)
+- Left pill: `#9B7FD4` (CTA purple) · Right pill: `#231833` (plum) · Dot: `#E8A87C` (apricot)
 - Asset: `ii_logo_dark_on_light_bg.svg`, no background rect, pills float on surface
 - viewBox: `0 0 625.96 700.13`
-- Inline SVG: `<path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>`
+- Inline SVG: `<path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#231833" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>`
 
 **Light-on-dark (dark backgrounds, plum done overlay, dark mode):**
 - Left pill: `#F5F0E8` (cream) · Right pill: `#9B7FD4` (CTA purple) · Dot: `#E8A87C` (apricot)
 - Asset: `ii_logo_light_on_dark bg_DEFAULT_OVERLAY.svg`, no background rect
-- Use on colorPlum (`#2D1F4A`) done overlay and dark mode surfaces
+- Use on colorPlum (`#231833`) done overlay and dark mode surfaces
 
 **Never use the app icon asset (`nudgii_logo_dark_DEFAULT.svg`) inline**, it has a background rect baked in. In-app ii marks always use the floating pill versions above.
 
@@ -88,7 +88,7 @@ Flutter: `SingleChildScrollView(scrollDirection: Axis.horizontal)` wrapping a `R
 - Done state: opacity 0.35 + strikethrough, `AnimatedOpacity` 250ms
 
 ### Done overlay
-- Background: `colorPlum #2D1F4A`, the only place this color appears in the app
+- Background: `colorPlum #231833`, the only place this color appears in the app
 - Spring animation: 400-450ms `cubic-bezier(0.34,1.56,0.64,1)` for ii mark scale + headline translateY
 - This is the only theatrical motion in the app
 

@@ -222,7 +222,7 @@ Each option: 42px rounded-square icon container (white card, purple icon stroke)
 | --text-hint | #8A8070 | #6B7A6F |
 | --border | rgba(26,22,18,0.08) | rgba(255,255,255,0.08) |
 
-CTA purple `#9B7FD4` stays identical in both modes. The done overlay plum `#2D1F4A` is lighter than the dark mode background `#111614`, so it pops clearly. The scrim adjusts: cream blur (light) → dark blur (dark). User preference stored in user_profiles — not system-follows-device (cream is part of nudgii's personality).
+CTA purple `#9B7FD4` stays identical in both modes. The done overlay plum `#231833` is lighter than the dark mode background `#111614`, so it pops clearly. The scrim adjusts: cream blur (light) → dark blur (dark). User preference stored in user_profiles — not system-follows-device (cream is part of nudgii's personality).
 
 Note: plum dark mode (`#1A1433`) was explored during the design session but black was chosen as the preferred option. Plum felt too distinctive for daily use — black is more universal while the done overlay plum still provides the branded moment.
 
