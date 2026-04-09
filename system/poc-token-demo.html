@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · POC · token pipeline demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+
+<!-- GENERATED TOKENS — the ONLY source of colors/spacing/typography on this page -->
+<link rel="stylesheet" href="tokens.css">
+
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   POC · token pipeline demo · Precision Warmth
+   Every color, spacing, radius and font below comes from tokens.css.
+   Zero raw hex values in this file — grep for '#' and you'll only
+   find them inside comments or SVG viewBox numbers.
+   ═══════════════════════════════════════════════════════════════ */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { min-height: 100vh; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--surface);
+  color: var(--ink);
+  padding: var(--space-32);
+  line-height: 1.5;
+  transition: background 250ms ease, color 250ms ease;
+}
+
+.wrap { max-width: 1100px; margin: 0 auto; }
+
+h1 {
+  font-family: var(--font-serif);
+  font-size: 42px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-8);
+}
+h1 em { color: var(--apricot); font-style: italic; }
+
+.sub {
+  font-size: 14px;
+  color: var(--mid);
+  max-width: 640px;
+  margin-bottom: var(--space-32);
+}
+
+.sub code {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  background: var(--surface-low);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.sec-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--mid);
+  margin-bottom: var(--space-12);
+  margin-top: var(--space-32);
+}
+
+/* ── color chip grid ── */
+.chips {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-12);
+}
+.chip {
+  background: var(--surface-low);
+  border-radius: var(--radius-card);
+  padding: var(--space-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+.chip-swatch {
+  height: 64px;
+  border-radius: var(--radius-md);
+}
+.chip-name {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.chip-value {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 10px;
+  color: var(--mid);
+}
+
+/* ── category card demo — Precision Warmth pattern ── */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-12);
+}
+.cat-card {
+  border-radius: var(--radius-card);
+  padding: var(--space-20);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  min-height: 130px;
+}
+.cat-home          { background: var(--ch-wash); }
+.cat-garden        { background: var(--cg-wash); }
+.cat-vehicle       { background: var(--cv-wash); }
+.cat-subscriptions { background: var(--cs-wash); }
+.cat-health        { background: var(--cx-wash); }
+.cat-pets          { background: var(--cp-wash); }
+
+.cat-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cat-title {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  color: var(--ink);
+  line-height: 1;
+}
+.cat-meta {
+  font-size: 11px;
+  color: var(--mid);
+  margin-top: -4px;
+}
+
+/* ── component demo row ── */
+.demo-row {
+  display: flex;
+  gap: var(--space-16);
+  flex-wrap: wrap;
+  align-items: center;
+  padding: var(--space-24);
+  background: var(--surface-low);
+  border-radius: var(--radius-card);
+}
+.btn-cta {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px var(--space-24);
+  border-radius: var(--radius-pill);
+  background: var(--primary);
+  color: var(--primary-fg);
+  border: none;
+  cursor: pointer;
+  transition: transform 150ms ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-cta:active { transform: scale(0.97); }
+
+.badge {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px var(--space-12);
+  border-radius: var(--radius-pill);
+}
+.badge-apricot { background: var(--apricot-wash); color: var(--apricot); }
+.badge-plum    { background: var(--primary-container); color: var(--primary); }
+.badge-overdue { background: var(--overdue-bg); color: var(--overdue-fg); }
+
+.streak {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--apricot);
+  color: var(--surface);
+  font-size: 9px;
+  font-weight: 600;
+  line-height: 1.1;
+  text-align: center;
+}
+.streak .n {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: var(--space-20);
+  right: var(--space-20);
+  background: var(--surface-low);
+  border-radius: var(--radius-pill);
+  padding: 10px var(--space-20);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 100;
+}
+[data-theme='dark'] .theme-toggle {
+  background: var(--surface-low);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.30);
+}
+
+.poc-note {
+  margin-top: var(--space-48);
+  padding: var(--space-24);
+  background: var(--apricot-wash);
+  color: var(--ink);
+  border-radius: var(--radius-card);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.poc-note code {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  background: var(--surface);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+.poc-note strong { color: var(--apricot); }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" onclick="
+  var html = document.documentElement;
+  if (html.getAttribute('data-theme') === 'dark') {
+    html.removeAttribute('data-theme');
+  } else {
+    html.setAttribute('data-theme', 'dark');
+  }
+">
+  <svg width="14" height="14" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M227.91,140A96,96,0,1,1,116,28.09,92,92,0,0,0,227.91,140Z"/>
+  </svg>
+  toggle theme
+</button>
+
+<div class="wrap">
+
+  <h1>Token pipeline <em>POC</em></h1>
+  <p class="sub">
+    Every color, spacing value, radius and font on this page comes from
+    <code>system/tokens.css</code>, generated from
+    <code>system/tokens.json</code> by
+    <code>tools/build-tokens.py</code>. Change a token, rerun the script,
+    reload — everything updates at once, including dark mode.
+  </p>
+
+  <div class="sec-label">core · Precision Warmth</div>
+  <div class="chips">
+    <div class="chip"><div class="chip-swatch" style="background:var(--surface);box-shadow:inset 0 0 0 1px var(--outline-var);"></div><div class="chip-name">surface</div><div class="chip-value">--surface</div></div>
+    <div class="chip"><div class="chip-swatch" style="background:var(--surface-low);"></div><div class="chip-name">surface-low</div><div class="chip-value">--surface-low</div></div>
+    <div class="chip"><div class="chip-swatch" style="background:var(--ink);"></div><div class="chip-name">ink</div><div class="chip-value">--ink</div></div>
+    <div class="chip"><div class="chip-swatch" style="background:var(--primary);"></div><div class="chip-name">primary (plum)</div><div class="chip-value">--primary</div></div>
+    <div class="chip"><div class="chip-swatch" style="background:var(--apricot);"></div><div class="chip-name">apricot</div><div class="chip-value">--apricot</div></div>
+    <div class="chip"><div class="chip-swatch" style="background:var(--yellow);"></div><div class="chip-name">yellow</div><div class="chip-value">--yellow</div></div>
+  </div>
+
+  <div class="sec-label">category cards · PW highlights</div>
+  <div class="cat-grid">
+
+    <div class="cat-card cat-home">
+      <div class="cat-icon">
+        <!-- Phosphor: House (regular) -->
+        <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke="var(--ch-bg)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.54a8,8,0,0,1,2.62-5.92l80-75.54a8,8,0,0,1,10.77,0l80,75.54a8,8,0,0,1,2.61,5.92V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="cat-title">Home</div>
+        <div class="cat-meta">3 tasks waiting</div>
+      </div>
+    </div>
+
+    <div class="cat-card cat-garden">
+      <div class="cat-icon">
+        <!-- Phosphor: Plant (regular) -->
+        <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke="var(--cg-bg)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M232,120c0,55-40,80-80,80-44.18,0-80-25-80-80,0-27.13,25.39-61.66,42.07-80a24,24,0,0,1,35.66,0C166.61,58.34,232,92.87,232,120Z"/>
+          <line x1="152" y1="200" x2="152" y2="120"/>
+          <line x1="152" y1="152" x2="120" y2="120"/>
+        </svg>
+      </div>
+      <div>
+        <div class="cat-title">Garden</div>
+        <div class="cat-meta">On track</div>
+      </div>
+    </div>
+
+    <div class="cat-card cat-vehicle">
+      <div class="cat-icon">
+        <!-- Phosphor: Car (regular) -->
+        <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke="var(--cv-bg)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="40" y1="128" x2="216" y2="128"/>
+          <path d="M64,176H48a8,8,0,0,1-8-8V128L62.34,65.26A8,8,0,0,1,69.88,60H186.12a8,8,0,0,1,7.54,5.26L216,128v40a8,8,0,0,1-8,8H192"/>
+          <circle cx="80" cy="176" r="20"/>
+          <circle cx="176" cy="176" r="20"/>
+        </svg>
+      </div>
+      <div>
+        <div class="cat-title">Vehicle</div>
+        <div class="cat-meta">Winter tyres due</div>
+      </div>
+    </div>
+
+    <div class="cat-card cat-subscriptions">
+      <div class="cat-icon">
+        <!-- Phosphor: CreditCard (regular) -->
+        <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke="var(--cs-bg)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="24" y="56" width="208" height="144" rx="8"/>
+          <line x1="24" y1="100" x2="232" y2="100"/>
+          <line x1="64" y1="156" x2="104" y2="156"/>
+          <line x1="128" y1="156" x2="152" y2="156"/>
+        </svg>
+      </div>
+      <div>
+        <div class="cat-title">Subscriptions</div>
+        <div class="cat-meta">2 renewing soon</div>
+      </div>
+    </div>
+
+    <div class="cat-card cat-health">
+      <div class="cat-icon">
+        <!-- Phosphor: Heart (regular) -->
+        <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke="var(--cx-bg)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M128,224S24,168,24,102A54,54,0,0,1,128,76h0A54,54,0,0,1,232,102C232,168,128,224,128,224Z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="cat-title">Health</div>
+        <div class="cat-meta">All good</div>
+      </div>
+    </div>
+
+    <div class="cat-card cat-pets">
+      <div class="cat-icon">
+        <!-- Phosphor: PawPrint (regular) -->
+        <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke="var(--cp-bg)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="128" cy="164" r="44"/>
+          <circle cx="56" cy="124" r="28"/>
+          <circle cx="200" cy="124" r="28"/>
+          <circle cx="96" cy="64" r="28"/>
+          <circle cx="160" cy="64" r="28"/>
+        </svg>
+      </div>
+      <div>
+        <div class="cat-title">Pets</div>
+        <div class="cat-meta">Vaccines current</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="sec-label">components</div>
+  <div class="demo-row">
+    <button class="btn-cta">
+      <svg width="14" height="14" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="40 144 96 200 216 80"/>
+      </svg>
+      Mark done
+    </button>
+    <span class="badge badge-apricot">waiting 12d</span>
+    <span class="badge badge-plum">snoozed</span>
+    <span class="badge badge-overdue">action needed</span>
+    <div class="streak"><span class="n">4</span>week<br>streak</div>
+  </div>
+
+  <div class="poc-note">
+    <strong>Live edit loop:</strong> open <code>system/tokens.json</code>, change
+    the Precision Warmth <code>apricot</code> value from <code>#E8A87C</code> to
+    anything else, save, run <code>python3 tools/build-tokens.py</code>, then
+    reload this page. The italic "POC" headline, the waiting-12d badge, the
+    streak circle, and the edit-loop title below — all update at once. In dark
+    mode the <code>pw-dark.apricot</code> override (<code>#F0B890</code>)
+    takes over automatically. Want it even more automatic? Run
+    <code>python3 tools/watch-tokens.py</code> — it rebuilds on every save
+    so you never run the build command manually.
+  </div>
+
+</div>
+
+</body>
+</html>

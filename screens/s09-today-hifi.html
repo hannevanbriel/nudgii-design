@@ -5,88 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>nudgii · S-09 Today · hi-fi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+
+<!-- ── GENERATED TOKENS · single source of truth ──
+     Values come from system/tokens.json via tools/build-tokens.py.
+     Do NOT redefine --surface, --ink, --plum, --apricot, --ch-bg, etc.
+     locally. If a value needs to change, edit tokens.json and rerun the
+     build script. -->
+<link rel="stylesheet" href="../system/tokens.css">
+
 <style>
 /* ═══════════════════════════════════════════════════════════════
    S-09 Today tab · hi-fi · Precision Warmth design system
-   Noto Serif + Manrope, plum + apricot, tonal surfaces
+   DM Serif Display + DM Sans, plum + apricot, tonal surfaces
+   Tokens loaded from ../system/tokens.css (do not redefine locally)
    ═══════════════════════════════════════════════════════════════ */
 
-/* ── Tokens ── */
-:root {
-  /* Surface tiers */
-  --surface: #FBF9F4;
-  --surface-low: #F5F4ED;
-  --surface-high: #E8E9E0;
-  --surface-lowest: #FFFFFF;
-
-  /* Text */
-  --ink: #31332C;
-  --mid: #7A756D;
-  --hint: #A09A90;
-  --outline-var: #B1B3A9;
-
-  /* Plum: actions */
-  --plum: #9B7FD4;
-  --plum-fg: #FAF8FF;
-  --plum-wash: rgba(155,127,212,0.10);
-  --plum-container: rgba(155,127,212,0.08);
-
-  /* Apricot: warmth */
-  --apricot: #E8A87C;
-  --apricot-wash: rgba(232,168,124,0.12);
-
-  /* Primary mapped to plum */
-  --primary: #9B7FD4;
-  --primary-fg: #FAF8FF;
-  --primary-container: rgba(155,127,212,0.08);
-
-  /* Category highlights */
-  --ch-bg: #C09088; --ch-wash: rgba(192,144,136,0.14);
-  --cg-bg: #8C9B80; --cg-wash: rgba(140,155,128,0.14);
-  --cv-bg: #8E9A94; --cv-wash: rgba(142,154,148,0.14);
-  --cs-bg: #A69BBF; --cs-wash: rgba(166,155,191,0.14);
-  --cx-bg: #C29494; --cx-wash: rgba(194,148,148,0.14);
-  --cp-bg: #C7B7A3; --cp-wash: rgba(199,183,163,0.14);
-
-  /* Soft yellow */
-  --yellow: #E8B86D; --yellow-wash: rgba(232,184,109,0.14);
-
-  /* Overdue */
-  --overdue-bg: #6B4A3A;
-  --overdue-fg: #FBF9F4;
-
-  --r: 12px; --rs: 8px;
-}
-[data-theme="dark"] {
-  --surface: #1C1B18;
-  --surface-low: #24231F;
-  --surface-high: #2E2D28;
-  --surface-lowest: #181714;
-  --ink: #F0EDE6;
-  --mid: #A8A29A;
-  --hint: #787068;
-  --outline-var: rgba(177,179,169,0.15);
-  --plum: #B8A0E8;
-  --plum-fg: #1C1B18;
-  --apricot: #F0B890;
-  --primary: #B8A0E8;
-  --primary-fg: #1C1B18;
-  --primary-container: rgba(184,160,232,0.12);
-  --ch-bg: #E0A898; --ch-wash: rgba(224,168,152,0.15);
-  --cg-bg: #A8B89C; --cg-wash: rgba(168,184,156,0.15);
-  --cv-bg: #A8B0AA; --cv-wash: rgba(168,176,170,0.15);
-  --cs-bg: #C0B4D6; --cs-wash: rgba(192,180,214,0.15);
-  --cx-bg: #D4AAAA; --cx-wash: rgba(212,170,170,0.15);
-  --cp-bg: #D6C8B6; --cp-wash: rgba(214,200,182,0.15);
-  --overdue-bg: #C88860;
-  --overdue-fg: #1C1B18;
-  --yellow: #E0C880; --yellow-wash: rgba(224,200,128,0.15);
-  --apricot-wash: rgba(240,184,144,0.15);
-}
+/* Local-only token: corner radius shorthand for this screen.
+   Anything color, surface, or category-related lives in tokens.css. */
+:root { --r: 12px; --rs: 8px; }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
 html { scroll-behavior: smooth; }
-body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100vh; color: var(--ink); }
+body { font-family: 'DM Sans', sans-serif; background: #E8E6E0; min-height: 100vh; color: var(--ink); }
 
 /* ── Design hub nav ── */
 .hub-nav {
@@ -108,7 +48,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 /* ── Page header ── */
 .page-header { max-width: 1200px; margin: 0 auto; padding: 40px 40px 0; }
 .page-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: #8A8070; margin-bottom: 8px; }
-.page-h1 { font-family: 'Noto Serif', serif; font-size: 32px; font-weight: 400; color: #2C2824; margin-bottom: 6px; letter-spacing: -0.02em; }
+.page-h1 { font-family: 'DM Serif Display', serif; font-size: 32px; font-weight: 400; color: #2C2824; margin-bottom: 6px; letter-spacing: -0.02em; }
 .page-subtitle { font-size: 14px; color: #8A8070; margin-bottom: 16px; }
 .page-meta { display: flex; gap: 8px; flex-wrap: wrap; }
 .page-pill { font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 100px; background: rgba(155,127,212,0.10); color: #9B7FD4; }
@@ -117,7 +57,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 .controls { max-width: 1200px; margin: 0 auto; padding: 20px 40px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 .ctrl-group { display: flex; gap: 4px; align-items: center; }
 .ctrl-label { font-size: 9px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: #A09888; margin-right: 4px; }
-.ctrl-btn { font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 500; padding: 5px 14px; border-radius: 6px; border: 1px solid rgba(26,22,18,0.12); background: transparent; color: #8A8070; cursor: pointer; transition: all 120ms; }
+.ctrl-btn { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; padding: 5px 14px; border-radius: 6px; border: 1px solid rgba(26,22,18,0.12); background: transparent; color: #8A8070; cursor: pointer; transition: all 120ms; }
 .ctrl-btn:hover { border-color: rgba(26,22,18,0.20); }
 .ctrl-btn.on { background: #9B7FD4; color: #FAF8FF; border-color: #9B7FD4; }
 
@@ -141,7 +81,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 .greeting { padding: 6px 0 2px; display: flex; align-items: center; gap: 14px; }
 .g-av { width: 44px; height: 44px; border-radius: 50%; background: var(--surface-low); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-bottom: 4px; }
 .g-lines { flex: 1; }
-.g-line { font-family: 'Noto Serif', serif; font-size: 24px; color: var(--ink); line-height: 1.12; letter-spacing: -0.02em; }
+.g-line { font-family: 'DM Serif Display', serif; font-size: 24px; color: var(--ink); line-height: 1.12; letter-spacing: -0.02em; }
 .g-name { font-style: italic; color: var(--apricot); }
 .g-date { font-size: 12px; color: var(--mid); margin: -2px 0 6px; padding-left: 58px; }
 
@@ -219,13 +159,13 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 .sec-empty-a { font-size: 10px; font-weight: 500; color: var(--plum); cursor: pointer; display: inline-block; }
 
 /* ── Witty text ── */
-.wit { font-family: 'Noto Serif', serif; font-style: italic; font-size: 13px; color: var(--hint); text-align: center; padding: 6px 0 14px; opacity: 0.55; }
+.wit { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 13px; color: var(--hint); text-align: center; padding: 6px 0 14px; opacity: 0.55; }
 
 /* ── Nav bar ── */
 .nz { position: absolute; bottom: 0; left: 0; right: 0; height: 84px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 14px; pointer-events: none; z-index: 40; }
 .nb { background: var(--surface); border-radius: 20px; padding: 9px 6px 11px; display: flex; align-items: center; box-shadow: 0 -2px 12px rgba(49,51,44,0.04); pointer-events: auto; }
 [data-theme="dark"] .nb { background: var(--surface-low); box-shadow: 0 -2px 12px rgba(0,0,0,0.15); }
-.nt { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 14px; cursor: pointer; border: none; background: none; font-family: 'Manrope', sans-serif; border-radius: 10px; transition: background 150ms; }
+.nt { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 14px; cursor: pointer; border: none; background: none; font-family: 'DM Sans', sans-serif; border-radius: 10px; transition: background 150ms; }
 .nt svg * { stroke: var(--hint); }
 .nt .nl { font-size: 8px; font-weight: 500; color: var(--hint); }
 .nt.on svg * { stroke: var(--primary); }
@@ -237,15 +177,15 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 /* ── Empty state ── */
 .empty-state { text-align: center; padding: 80px 20px 40px; }
 .empty-icon { width: 64px; height: 64px; border-radius: 50%; background: var(--surface-low); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
-.empty-h { font-family: 'Noto Serif', serif; font-size: 22px; color: var(--ink); margin-bottom: 8px; line-height: 1.2; }
+.empty-h { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--ink); margin-bottom: 8px; line-height: 1.2; }
 .empty-sub { font-size: 13px; color: var(--mid); line-height: 1.5; }
 
 /* ── All done state ── */
 .done-state { text-align: center; padding: 60px 20px 40px; }
 .done-icon { width: 72px; height: 72px; border-radius: 50%; background: var(--apricot-wash); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
-.done-h { font-family: 'Noto Serif', serif; font-size: 22px; color: var(--ink); margin-bottom: 6px; line-height: 1.2; }
+.done-h { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--ink); margin-bottom: 6px; line-height: 1.2; }
 .done-sub { font-size: 13px; color: var(--mid); line-height: 1.5; margin-bottom: 4px; }
-.done-wit { font-family: 'Noto Serif', serif; font-style: italic; font-size: 13px; color: var(--hint); margin-top: 16px; opacity: 0.55; }
+.done-wit { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 13px; color: var(--hint); margin-top: 16px; opacity: 0.55; }
 
 /* ── Annotation sidebar ── */
 .annot-col { flex: 1; min-width: 280px; max-width: 420px; }
@@ -268,7 +208,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
 
 /* ── Changelog ── */
 .changelog { max-width: 1200px; margin: 0 auto; padding: 32px 40px 60px; }
-.cl-title { font-family: 'Noto Serif', serif; font-size: 20px; color: #2C2824; margin-bottom: 20px; }
+.cl-title { font-family: 'DM Serif Display', serif; font-size: 20px; color: #2C2824; margin-bottom: 20px; }
 .cl-entry { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid rgba(26,22,18,0.06); }
 .cl-entry:last-child { border-bottom: none; }
 .cl-ver { font-size: 10px; font-weight: 600; letter-spacing: 0.5px; color: #8A8070; margin-bottom: 6px; }
@@ -404,7 +344,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
   <h1 class="page-h1">Today</h1>
   <p class="page-subtitle">The daily dashboard. Tasks that need attention now, this week, and coming up.</p>
   <div class="page-meta">
-    <span class="page-pill">Noto Serif + Manrope</span>
+    <span class="page-pill">DM Serif Display + DM Sans</span>
     <span class="page-pill">Plum + Apricot</span>
     <span class="page-pill">Tonal surfaces</span>
   </div>
@@ -541,13 +481,13 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
           <div class="sec"><div class="st">for you</div></div>
           <div class="dcr">
             <!-- Savings — always first, no X, permanent -->
-            <div class="dc" style="background:var(--apricot-wash);padding:18px 16px 16px;min-width:185px;text-align:center;"><div style="font-size:8px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--hint);margin-bottom:6px;">saved this year</div><div style="font-family:'Noto Serif',serif;font-size:36px;font-weight:400;color:var(--apricot);line-height:1;letter-spacing:-0.02em;margin-bottom:6px;">~&euro;340</div><div style="font-size:11px;color:var(--mid);line-height:1.4;margin-bottom:12px;">Estimated repair costs<br>you've avoided.</div><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--apricot);cursor:pointer;">See breakdown &rsaquo;</span></div>
+            <div class="dc" style="background:var(--apricot-wash);padding:18px 16px 16px;min-width:185px;text-align:center;"><div style="font-size:8px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--hint);margin-bottom:6px;">saved this year</div><div style="font-family:'DM Serif Display',serif;font-size:36px;font-weight:400;color:var(--apricot);line-height:1;letter-spacing:-0.02em;margin-bottom:6px;">~&euro;340</div><div style="font-size:11px;color:var(--mid);line-height:1.4;margin-bottom:12px;">Estimated repair costs<br>you've avoided.</div><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--apricot);cursor:pointer;">See breakdown &rsaquo;</span></div>
             <!-- Gutters — item suggestion, home dusty rose -->
-            <div class="dc" style="background:var(--ch-wash);padding:16px 16px 18px;min-width:185px;"><button class="dc-x" onclick="event.stopPropagation();this.parentElement.style.display='none'"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:38px;height:38px;border-radius:50%;background:var(--ch-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 256 256" fill="none"><path d="M208,224H48a8,8,0,0,1-8-8V104a8,8,0,0,1,3.2-6.4l80-60a8,8,0,0,1,9.6,0l80,60A8,8,0,0,1,216,104V216A8,8,0,0,1,208,224Z" stroke="var(--ch-bg)" stroke-width="20" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div style="font-family:'Noto Serif',serif;font-size:14px;color:var(--ink);line-height:1.25;">Gutters need cleaning</div></div><div class="dc-b">Twice a year in Belgium. Yours haven't been added yet.</div><div style="margin-top:10px;"><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--surface);background:var(--ch-bg);padding:6px 14px;border-radius:100px;cursor:pointer;">Add gutters</span></div></div>
+            <div class="dc" style="background:var(--ch-wash);padding:16px 16px 18px;min-width:185px;"><button class="dc-x" onclick="event.stopPropagation();this.parentElement.style.display='none'"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:38px;height:38px;border-radius:50%;background:var(--ch-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 256 256" fill="none"><path d="M208,224H48a8,8,0,0,1-8-8V104a8,8,0,0,1,3.2-6.4l80-60a8,8,0,0,1,9.6,0l80,60A8,8,0,0,1,216,104V216A8,8,0,0,1,208,224Z" stroke="var(--ch-bg)" stroke-width="20" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div style="font-family:'DM Serif Display',serif;font-size:14px;color:var(--ink);line-height:1.25;">Gutters need cleaning</div></div><div class="dc-b">Twice a year in Belgium. Yours haven't been added yet.</div><div style="margin-top:10px;"><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--surface);background:var(--ch-bg);padding:6px 14px;border-radius:100px;cursor:pointer;">Add gutters</span></div></div>
             <!-- Spring garden — progress checklist, sage green -->
-            <div class="dc" style="background:var(--cg-wash);padding:16px 16px 18px;min-width:185px;"><button class="dc-x" onclick="event.stopPropagation();this.parentElement.style.display='none'"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:38px;height:38px;border-radius:50%;background:var(--cg-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cg-bg)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div style="font-family:'Noto Serif',serif;font-size:14px;color:var(--ink);line-height:1.25;">Spring garden checklist</div></div><div class="dc-b">5 tasks to get your garden ready. You've done 2.</div><div style="margin-top:10px;"><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--surface);background:var(--cg-bg);padding:6px 14px;border-radius:100px;cursor:pointer;">View checklist</span></div></div>
+            <div class="dc" style="background:var(--cg-wash);padding:16px 16px 18px;min-width:185px;"><button class="dc-x" onclick="event.stopPropagation();this.parentElement.style.display='none'"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:38px;height:38px;border-radius:50%;background:var(--cg-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cg-bg)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div style="font-family:'DM Serif Display',serif;font-size:14px;color:var(--ink);line-height:1.25;">Spring garden checklist</div></div><div class="dc-b">5 tasks to get your garden ready. You've done 2.</div><div style="margin-top:10px;"><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--surface);background:var(--cg-bg);padding:6px 14px;border-radius:100px;cursor:pointer;">View checklist</span></div></div>
             <!-- Did you know — soft yellow -->
-            <div class="dc" style="background:var(--yellow-wash);padding:16px 16px 18px;min-width:185px;"><button class="dc-x" onclick="event.stopPropagation();this.parentElement.style.display='none'"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:38px;height:38px;border-radius:50%;background:rgba(232,184,109,0.20);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></div><div style="font-family:'Noto Serif',serif;font-size:14px;color:var(--ink);line-height:1.25;">Did you know?</div></div><div class="dc-b">Drying herbs upside down preserves the natural oils.</div><div style="margin-top:10px;"><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--surface);background:var(--yellow);padding:6px 14px;border-radius:100px;cursor:pointer;">Add herb garden</span></div></div>
+            <div class="dc" style="background:var(--yellow-wash);padding:16px 16px 18px;min-width:185px;"><button class="dc-x" onclick="event.stopPropagation();this.parentElement.style.display='none'"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:38px;height:38px;border-radius:50%;background:rgba(232,184,109,0.20);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></div><div style="font-family:'DM Serif Display',serif;font-size:14px;color:var(--ink);line-height:1.25;">Did you know?</div></div><div class="dc-b">Drying herbs upside down preserves the natural oils.</div><div style="margin-top:10px;"><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--surface);background:var(--yellow);padding:6px 14px;border-radius:100px;cursor:pointer;">Add herb garden</span></div></div>
           </div>
 
           <div class="wit">Your house called. It says thank you.</div>
@@ -621,8 +561,8 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
           <div style="height:16px;"></div>
           <div class="sec"><div class="st">for you</div></div>
           <div class="dcr">
-            <div class="dc" style="background:var(--yellow-wash);padding:16px 16px 18px;min-width:185px;"><button class="dc-x" onclick="event.stopPropagation();this.parentElement.style.display='none'"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:38px;height:38px;border-radius:50%;background:rgba(232,184,109,0.20);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></div><div style="font-family:'Noto Serif',serif;font-size:14px;color:var(--ink);line-height:1.25;">Did you know?</div></div><div class="dc-b">Drying herbs upside down preserves the natural oils.</div><div style="margin-top:10px;"><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--surface);background:var(--yellow);padding:6px 14px;border-radius:100px;cursor:pointer;">Add herb garden</span></div></div>
-            <div class="dc" style="background:var(--apricot-wash);padding:18px 16px 16px;min-width:185px;text-align:center;"><div style="font-size:8px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--hint);margin-bottom:6px;">saved this year</div><div style="font-family:'Noto Serif',serif;font-size:36px;font-weight:400;color:var(--apricot);line-height:1;letter-spacing:-0.02em;margin-bottom:6px;">~&euro;340</div><div style="font-size:11px;color:var(--mid);line-height:1.4;margin-bottom:12px;">Estimated repair costs<br>you've avoided.</div><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--apricot);cursor:pointer;">See breakdown &rsaquo;</span></div>
+            <div class="dc" style="background:var(--yellow-wash);padding:16px 16px 18px;min-width:185px;"><button class="dc-x" onclick="event.stopPropagation();this.parentElement.style.display='none'"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:38px;height:38px;border-radius:50%;background:rgba(232,184,109,0.20);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></div><div style="font-family:'DM Serif Display',serif;font-size:14px;color:var(--ink);line-height:1.25;">Did you know?</div></div><div class="dc-b">Drying herbs upside down preserves the natural oils.</div><div style="margin-top:10px;"><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--surface);background:var(--yellow);padding:6px 14px;border-radius:100px;cursor:pointer;">Add herb garden</span></div></div>
+            <div class="dc" style="background:var(--apricot-wash);padding:18px 16px 16px;min-width:185px;text-align:center;"><div style="font-size:8px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--hint);margin-bottom:6px;">saved this year</div><div style="font-family:'DM Serif Display',serif;font-size:36px;font-weight:400;color:var(--apricot);line-height:1;letter-spacing:-0.02em;margin-bottom:6px;">~&euro;340</div><div style="font-size:11px;color:var(--mid);line-height:1.4;margin-bottom:12px;">Estimated repair costs<br>you've avoided.</div><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--apricot);cursor:pointer;">See breakdown &rsaquo;</span></div>
           </div>
           <div class="wit">Your house called. It says enjoy the quiet.</div>
         </div>
@@ -728,8 +668,8 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
           <div style="height:16px;"></div>
           <div class="sec"><div class="st">for you</div></div>
           <div class="dcr">
-            <div class="dc" style="background:var(--yellow-wash);padding:16px 16px 18px;min-width:185px;"><button class="dc-x" onclick="event.stopPropagation();this.parentElement.style.display='none'"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:38px;height:38px;border-radius:50%;background:rgba(232,184,109,0.20);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></div><div style="font-family:'Noto Serif',serif;font-size:14px;color:var(--ink);line-height:1.25;">Did you know?</div></div><div class="dc-b">Boilers last 2-3 years longer with an annual service. Worth the call.</div><div style="margin-top:10px;"><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--surface);background:var(--yellow);padding:6px 14px;border-radius:100px;cursor:pointer;">Find a technician</span></div></div>
-            <div class="dc" style="background:var(--ch-wash);padding:16px 16px 18px;min-width:185px;"><button class="dc-x" onclick="event.stopPropagation();this.parentElement.style.display='none'"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:38px;height:38px;border-radius:50%;background:var(--ch-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 256 256" fill="none"><path d="M208,224H48a8,8,0,0,1-8-8V104a8,8,0,0,1,3.2-6.4l80-60a8,8,0,0,1,9.6,0l80,60A8,8,0,0,1,216,104V216A8,8,0,0,1,208,224Z" stroke="var(--ch-bg)" stroke-width="20" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div style="font-family:'Noto Serif',serif;font-size:14px;color:var(--ink);line-height:1.25;">Gutters need cleaning</div></div><div class="dc-b">Twice a year in Belgium. Yours haven't been added yet.</div><div style="margin-top:10px;"><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--surface);background:var(--ch-bg);padding:6px 14px;border-radius:100px;cursor:pointer;">Add gutters</span></div></div>
+            <div class="dc" style="background:var(--yellow-wash);padding:16px 16px 18px;min-width:185px;"><button class="dc-x" onclick="event.stopPropagation();this.parentElement.style.display='none'"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:38px;height:38px;border-radius:50%;background:rgba(232,184,109,0.20);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></div><div style="font-family:'DM Serif Display',serif;font-size:14px;color:var(--ink);line-height:1.25;">Did you know?</div></div><div class="dc-b">Boilers last 2-3 years longer with an annual service. Worth the call.</div><div style="margin-top:10px;"><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--surface);background:var(--yellow);padding:6px 14px;border-radius:100px;cursor:pointer;">Find a technician</span></div></div>
+            <div class="dc" style="background:var(--ch-wash);padding:16px 16px 18px;min-width:185px;"><button class="dc-x" onclick="event.stopPropagation();this.parentElement.style.display='none'"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:38px;height:38px;border-radius:50%;background:var(--ch-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 256 256" fill="none"><path d="M208,224H48a8,8,0,0,1-8-8V104a8,8,0,0,1,3.2-6.4l80-60a8,8,0,0,1,9.6,0l80,60A8,8,0,0,1,216,104V216A8,8,0,0,1,208,224Z" stroke="var(--ch-bg)" stroke-width="20" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div style="font-family:'DM Serif Display',serif;font-size:14px;color:var(--ink);line-height:1.25;">Gutters need cleaning</div></div><div class="dc-b">Twice a year in Belgium. Yours haven't been added yet.</div><div style="margin-top:10px;"><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--surface);background:var(--ch-bg);padding:6px 14px;border-radius:100px;cursor:pointer;">Add gutters</span></div></div>
           </div>
 
           <div class="wit">Not judging. Much.</div>
@@ -758,11 +698,11 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
           <div class="sec"><div class="st">for you</div></div>
           <div class="dcr">
             <!-- Savings card — big serif number, apricot wash -->
-            <div class="dc" style="background:var(--apricot-wash);padding:18px 16px 16px;min-width:185px;text-align:center;"><div style="font-size:8px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--hint);margin-bottom:6px;">saved this year</div><div style="font-family:'Noto Serif',serif;font-size:36px;font-weight:400;color:var(--apricot);line-height:1;letter-spacing:-0.02em;margin-bottom:6px;">~&euro;340</div><div style="font-size:11px;color:var(--mid);line-height:1.4;margin-bottom:12px;">Estimated repair costs<br>you've avoided.</div><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--apricot);cursor:pointer;">See breakdown &rsaquo;</span></div>
+            <div class="dc" style="background:var(--apricot-wash);padding:18px 16px 16px;min-width:185px;text-align:center;"><div style="font-size:8px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--hint);margin-bottom:6px;">saved this year</div><div style="font-family:'DM Serif Display',serif;font-size:36px;font-weight:400;color:var(--apricot);line-height:1;letter-spacing:-0.02em;margin-bottom:6px;">~&euro;340</div><div style="font-size:11px;color:var(--mid);line-height:1.4;margin-bottom:12px;">Estimated repair costs<br>you've avoided.</div><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--apricot);cursor:pointer;">See breakdown &rsaquo;</span></div>
             <!-- Spring ready — garden wash, 38px icon inline -->
-            <div class="dc" style="background:var(--cg-wash);padding:16px 16px 18px;min-width:185px;"><button class="dc-x" onclick="event.stopPropagation();this.parentElement.style.display='none'"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:38px;height:38px;border-radius:50%;background:var(--cg-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cg-bg)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div style="font-family:'Noto Serif',serif;font-size:14px;color:var(--ink);line-height:1.25;">Spring garden done</div></div><div class="dc-b">All 5 spring tasks completed. Your garden is ready.</div><div class="dc-dots" style="margin-top:10px;"><div class="dc-dot f"></div><div class="dc-dot f"></div><div class="dc-dot f"></div><div class="dc-dot f"></div><div class="dc-dot f"></div></div></div>
+            <div class="dc" style="background:var(--cg-wash);padding:16px 16px 18px;min-width:185px;"><button class="dc-x" onclick="event.stopPropagation();this.parentElement.style.display='none'"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:38px;height:38px;border-radius:50%;background:var(--cg-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cg-bg)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div style="font-family:'DM Serif Display',serif;font-size:14px;color:var(--ink);line-height:1.25;">Spring garden done</div></div><div class="dc-b">All 5 spring tasks completed. Your garden is ready.</div><div class="dc-dots" style="margin-top:10px;"><div class="dc-dot f"></div><div class="dc-dot f"></div><div class="dc-dot f"></div><div class="dc-dot f"></div><div class="dc-dot f"></div></div></div>
             <!-- Did you know — soft yellow -->
-            <div class="dc" style="background:var(--yellow-wash);padding:16px 16px 18px;min-width:185px;"><button class="dc-x" onclick="event.stopPropagation();this.parentElement.style.display='none'"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:38px;height:38px;border-radius:50%;background:rgba(232,184,109,0.20);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></div><div style="font-family:'Noto Serif',serif;font-size:14px;color:var(--ink);line-height:1.25;">Did you know?</div></div><div class="dc-b">Cars parked outside need wiper fluid checks more often in spring.</div><div style="margin-top:10px;"><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--surface);background:var(--yellow);padding:6px 14px;border-radius:100px;cursor:pointer;">Add wiper fluid task</span></div></div>
+            <div class="dc" style="background:var(--yellow-wash);padding:16px 16px 18px;min-width:185px;"><button class="dc-x" onclick="event.stopPropagation();this.parentElement.style.display='none'"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:38px;height:38px;border-radius:50%;background:rgba(232,184,109,0.20);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></div><div style="font-family:'DM Serif Display',serif;font-size:14px;color:var(--ink);line-height:1.25;">Did you know?</div></div><div class="dc-b">Cars parked outside need wiper fluid checks more often in spring.</div><div style="margin-top:10px;"><span style="display:inline-block;font-size:10px;font-weight:500;color:var(--surface);background:var(--yellow);padding:6px 14px;border-radius:100px;cursor:pointer;">Add wiper fluid task</span></div></div>
           </div>
         </div>
       </div>
@@ -847,7 +787,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
     <div class="annot-card">
       <div class="annot-head"><span class="badge-note">Greeting</span> Variants</div>
       <div class="annot-body">
-        Noto Serif 24px, <code>line-height: 1.12</code>, <code>letter-spacing: -0.02em</code>. Two lines: "Good morning," then name on second line. Greeting word varies by time of day: "Good morning," / "Good afternoon," / "Good evening,". Name in apricot italic. Signed-in: first name from SSO profile. Skipped auth: "there." ii mark avatar (44x44, surface-low circle) sits left. Date line: Manrope 12px, <code>var(--mid)</code>, left-aligned under greeting with 58px left padding.
+        DM Serif Display 24px, <code>line-height: 1.12</code>, <code>letter-spacing: -0.02em</code>. Two lines: "Good morning," then name on second line. Greeting word varies by time of day: "Good morning," / "Good afternoon," / "Good evening,". Name in apricot italic. Signed-in: first name from SSO profile. Skipped auth: "there." ii mark avatar (44x44, surface-low circle) sits left. Date line: DM Sans 12px, <code>var(--mid)</code>, left-aligned under greeting with 58px left padding.
       </div>
     </div>
 
@@ -929,7 +869,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
     <div class="annot-card">
       <div class="annot-head"><span class="badge-note">Cards</span> Horizontal scroll row</div>
       <div class="annot-body">
-        Horizontally scrollable, 12px gap. Cards: min 175px, max 200px, <code>surface-low</code> or category wash bg, 12px radius, 16px padding. Dismiss X: 22px circle, ink 5% bg. Types: "Did you know?" (category wash, CTA button), "Saved this year" (surface-low, Noto Serif 26px apricot number), "Spring ready" (garden wash, progress dots), seasonal tips. Free users cannot hide the row. Individual cards dismissible, new ones rotate in.
+        Horizontally scrollable, 12px gap. Cards: min 175px, max 200px, <code>surface-low</code> or category wash bg, 12px radius, 16px padding. Dismiss X: 22px circle, ink 5% bg. Types: "Did you know?" (category wash, CTA button), "Saved this year" (surface-low, DM Serif Display 26px apricot number), "Spring ready" (garden wash, progress dots), seasonal tips. Free users cannot hide the row. Individual cards dismissible, new ones rotate in.
       </div>
     </div>
 
@@ -1056,7 +996,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
     <div class="annot-card">
       <div class="annot-head"><span class="badge-rule">Rule</span> Hierarchy</div>
       <div class="annot-body">
-        Greeting: Noto Serif 28px. Summary text: Manrope 13px 500. Section labels: Manrope 10px 600, uppercase, <code>letter-spacing: 0.05rem</code>. Task title: 13px 500. Task subtitle: 10px. Badges: 9px. Witty closer: Noto Serif italic 13px, hint color, 0.55 opacity.
+        Greeting: DM Serif Display 28px. Summary text: DM Sans 13px 500. Section labels: DM Sans 10px 600, uppercase, <code>letter-spacing: 0.05rem</code>. Task title: 13px 500. Task subtitle: 10px. Badges: 9px. Witty closer: DM Serif Display italic 13px, hint color, 0.55 opacity.
       </div>
     </div>
 
@@ -1128,7 +1068,7 @@ body { font-family: 'Manrope', sans-serif; background: #E8E6E0; min-height: 100v
       <strong>All 4 states fully built out for dev handoff.</strong> Changes per state:<br><br>
       <strong>Default:</strong> 3-section layout locked — TODAY (overdue + due today merged), THIS WEEK (until Sunday, ISO week), COMING UP (collapsible). Section labels soft/lowercase with task count descriptor. "waiting Xd" replaces "Xd overdue" / "Xd late" (item waits for user, user never fails).<br><br>
       <strong>Overdue only:</strong> Full rebuild. Summary text turns apricot: "X things are a little late". Streak circle dimmed at 0. THIS WEEK always visible — shows "All clear until Sunday." when nothing due (section never hidden). COMING UP shown collapsed. FOR YOU present. Witty closer: "Not judging. Much."<br><br>
-      <strong>All done:</strong> FOR YOU cards updated to match default state card style (38px icon circle + Noto Serif title inline, body copy, pill CTA). Old flat card style removed.<br><br>
+      <strong>All done:</strong> FOR YOU cards updated to match default state card style (38px icon circle + DM Serif Display title inline, body copy, pill CTA). Old flat card style removed.<br><br>
       <strong>BREAKING — Done button:</strong> Annotation corrected. Done button uses <strong>category color</strong> as fill (e.g. ch-bg for Home), not plum. Plum is app-level actions only. Annotation and in-screen cards now match.<br><br>
       <strong>THIS WEEK logic:</strong> Calendar week boundary (ISO Mon–Sun). Sunday exception: section shows coming week (Mon–Sun of next week) instead of going empty. Documented in annotation sidebar with Flutter query logic.<br><br>
       <strong>State trigger documentation:</strong> All 4 states annotated with "WHEN this fires" description for dev clarity. HTML comments added inside each state pane.
