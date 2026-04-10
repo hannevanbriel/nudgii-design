@@ -87,6 +87,9 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
 .pol-note{font-family:'Caveat',cursive;font-size:16px;font-weight:500;color:var(--ink);line-height:1.3;}
 .pol-note em{font-style:italic;color:var(--cta);}
 .pol-badge{display:inline-block;font-family:'DM Sans',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;padding:2px 8px;border-radius:100px;margin-top:5px;background:rgba(74,122,64,0.12);color:#2D5A30;}
+.pol-dots{display:flex;justify-content:center;gap:7px;margin-top:14px;}
+.pol-dot{width:5px;height:5px;border-radius:50%;background:rgba(44,40,36,0.15);}
+.pol-dot.on{background:var(--cta);transform:scale(1.3);}
 .pivot-text{text-align:center;margin-top:12px;font-size:12px;font-style:italic;color:var(--mid);line-height:1.4;}
 .pivot-text strong{font-style:normal;font-weight:600;color:var(--ink);}
 .trust-line{text-align:center;font-size:11px;color:var(--mid);margin-top:12px;}
@@ -301,11 +304,12 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
             </div>
           </div>
         </div>
+        <div class="pol-dots"><div class="pol-dot on"></div><div class="pol-dot"></div><div class="pol-dot"></div></div>
         <div class="pivot-text">nudgii reminds you before the garage fills up.<br><strong>Book before November.</strong></div>
       </div>
       <div class="p-bottom" style="padding:0 24px 34px;">
         <button class="btn-cta" onclick="goTo(1)">Show me what I can track</button>
-        <div class="trust-line">Free . no credit card . 2 min setup</div>
+        <div class="trust-line">Free · no credit card · 2 min setup</div>
       </div>
     </div>
 
@@ -457,44 +461,42 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
       </div>
     </div>
 
-    <!-- ═══════ PANEL 3: S-05 AHA Schedule ═══════ -->
-    <div class="panel" id="panel3">
-      <div class="p-content" style="padding:20px 16px 0;">
-        <div class="s1-eyebrow">Your schedule is ready</div>
-        <div class="s1-headline">Here's what we figured out for you.</div>
-        <div class="s1-subline">You told us what. We worked out when. Every time.</div>
+    <!-- ═══════ PANEL 3: S-05 Rich AHA ═══════ -->
+    <div class="panel" id="panel3" style="background:var(--cream);">
+      <div class="p-content" style="padding:0 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
 
-        <div class="s5-tasks">
-          <div class="s5-month"><span class="s5-month-name">October</span><span class="s5-month-count">3 tasks</span></div>
-          <div class="s5-task">
-            <div class="s5-date"><div class="s5-day">Sun</div><div class="s5-num">5</div></div>
-            <div class="s5-icon" style="background:var(--cg-wash);"><svg width="18" height="18" viewBox="0 0 14 14" fill="none" stroke="var(--cg-bg)" stroke-width="1.5" stroke-linecap="round"><path d="M7 13V6"/><path d="M7 6C7 6 4 4.5 2 2c3 0 5 1 5 4z"/><path d="M7 6C7 6 10 4.5 12 2c-3 0-5 1-5 4z"/></svg></div>
-            <div class="s5-body"><div class="s5-task-name">Autumn pruning</div><div class="s5-task-sub">Olive tree . Garden</div></div>
-          </div>
-          <div class="s5-task">
-            <div class="s5-date"><div class="s5-day">Mon</div><div class="s5-num">20</div></div>
-            <div class="s5-icon" style="background:var(--cv-wash);"><svg width="18" height="18" viewBox="0 0 14 14" fill="none" stroke="var(--cv-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5.5"/><circle cx="7" cy="7" r="2"/></svg></div>
-            <div class="s5-body"><div class="s5-task-name">Switch to winter tyres</div><div class="s5-task-sub">Car . Vehicle</div></div>
-          </div>
-          <div class="s5-task">
-            <div class="s5-date"><div class="s5-day">Tue</div><div class="s5-num">28</div></div>
-            <div class="s5-icon" style="background:var(--ch-wash);"><svg width="18" height="18" viewBox="0 0 14 14" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6.5L7 2l6 4.5V13a.5.5 0 0 1-.5.5h-3.5v-3H5v3H1.5A.5.5 0 0 1 1 13V6.5z"/></svg></div>
-            <div class="s5-body"><div class="s5-task-name">Annual boiler service</div><div class="s5-task-sub">Boiler . Home</div></div>
-          </div>
+        <!-- ii mark -->
+        <img src="../system/logo/ii-dark-on-light.svg" width="36" height="40" alt="" style="margin-bottom:12px;">
 
-          <div class="s5-month" style="margin-top:8px;"><span class="s5-month-name">November</span><span class="s5-month-count">2 tasks</span></div>
-          <div class="s5-task">
-            <div class="s5-date"><div class="s5-day">Sat</div><div class="s5-num">8</div></div>
-            <div class="s5-icon" style="background:var(--ch-wash);"><svg width="18" height="18" viewBox="0 0 14 14" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6.5L7 2l6 4.5V13a.5.5 0 0 1-.5.5h-3.5v-3H5v3H1.5A.5.5 0 0 1 1 13V6.5z"/></svg></div>
-            <div class="s5-body"><div class="s5-task-name">Clean dishwasher filter</div><div class="s5-task-sub">Dishwasher . Home</div></div>
-          </div>
-          <div class="s5-task">
-            <div class="s5-date"><div class="s5-day">Sat</div><div class="s5-num">8</div></div>
-            <div class="s5-icon" style="background:var(--ch-wash);"><svg width="18" height="18" viewBox="0 0 14 14" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6.5L7 2l6 4.5V13a.5.5 0 0 1-.5.5h-3.5v-3H5v3H1.5A.5.5 0 0 1 1 13V6.5z"/></svg></div>
-            <div class="s5-body"><div class="s5-task-name">Refill dishwasher salt</div><div class="s5-task-sub">Dishwasher . Home</div></div>
-          </div>
-          <div style="text-align:center;padding:8px 0 2px;"><span style="font-size:10px;color:var(--mid);font-style:italic;">and 3 more tasks</span></div>
+        <!-- Eyebrow -->
+        <div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--cta);margin-bottom:10px;">Your schedule is ready</div>
+
+        <!-- Headline -->
+        <div style="font-family:'DM Serif Display',Georgia,serif;font-size:22px;font-weight:400;line-height:1.05;letter-spacing:-0.3px;color:var(--ink);margin-bottom:6px;">You said <span style="color:var(--cta);font-style:italic;">what.</span><br>We figured out <span style="color:var(--cta);font-style:italic;">when</span> and <span style="color:var(--cta);font-style:italic;">why.</span></div>
+
+        <!-- Stats row -->
+        <div style="display:flex;gap:10px;margin:18px 0 20px;">
+          <div style="flex:1;background:rgba(155,127,212,0.06);border:1px solid rgba(155,127,212,0.14);border-radius:12px;padding:12px 8px;"><div style="font-size:22px;font-weight:600;color:var(--cta);">4</div><div style="font-size:9px;color:var(--mid);margin-top:2px;">items</div></div>
+          <div style="flex:1;background:rgba(155,127,212,0.06);border:1px solid rgba(155,127,212,0.14);border-radius:12px;padding:12px 8px;"><div style="font-size:22px;font-weight:600;color:var(--cta);">8</div><div style="font-size:9px;color:var(--mid);margin-top:2px;">tasks</div></div>
+          <div style="flex:1;background:rgba(155,127,212,0.06);border:1px solid rgba(155,127,212,0.14);border-radius:12px;padding:12px 8px;"><div style="font-size:22px;font-weight:600;color:var(--cta);">6</div><div style="font-size:9px;color:var(--mid);margin-top:2px;">months</div></div>
         </div>
+
+        <!-- Nudge teaser card -->
+        <div style="width:100%;background:var(--surface);border:0.5px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;text-align:left;">
+          <div style="width:40px;height:40px;border-radius:50%;background:var(--ch-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 8.5L9 3l7.5 5.5V16a.5.5 0 0 1-.5.5H11v-4H7v4H2a.5.5 0 0 1-.5-.5V8.5z"/></svg>
+          </div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--cta);margin-bottom:2px;">First nudge</div>
+            <div style="font-size:13px;font-weight:500;color:var(--ink);line-height:1.3;">Annual boiler service</div>
+            <div style="font-size:10px;color:var(--mid);line-height:1.4;margin-top:3px;">Validates your warranty and catches carbon monoxide risks.</div>
+          </div>
+          <div style="font-size:12px;font-weight:500;color:var(--apricot);flex-shrink:0;">Oct 28</div>
+        </div>
+
+        <!-- Reassurance -->
+        <div style="font-size:10px;color:var(--hint);margin-top:16px;font-style:italic;line-height:1.4;">We'll remind you before things break, expire, or get forgotten.</div>
+
       </div>
       <div class="p-bottom" style="padding:16px 20px 34px;">
         <button class="btn-cta" onclick="triggerCelebration()">That's it. I'm done.</button>
