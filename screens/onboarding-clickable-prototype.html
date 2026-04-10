@@ -157,7 +157,7 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
 .s5-date{width:40px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;}
 .s5-day{font-size:9px;font-weight:500;color:var(--hint);text-transform:uppercase;letter-spacing:0.04em;line-height:1;margin-bottom:2px;}
 .s5-num{font-size:16px;font-weight:600;color:var(--mid);line-height:1;}
-.s5-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.s5-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .s5-body{flex:1;min-width:0;}
 .s5-task-name{font-size:13px;font-weight:500;color:var(--ink);letter-spacing:-0.01em;line-height:1.3;}
 .s5-task-sub{font-size:10px;color:var(--mid);margin-top:2px;}
@@ -286,12 +286,8 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
     <!-- ═══════ PANEL 0: S-01 Welcome ═══════ -->
     <div class="panel active" id="panel0">
       <div class="p-content" style="padding:20px 24px 0;display:flex;flex-direction:column;">
-        <!-- ii mark -->
-        <svg width="18" height="20" viewBox="0 0 625.96 700.13" style="margin-bottom:16px;">
-          <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
-          <path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
-          <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
-        </svg>
+        <!-- ii mark (dark-on-light for cream bg) -->
+        <img src="../system/logo/ii-dark-on-light.svg" width="18" height="20" alt="" style="margin-bottom:16px;">
         <div class="s01-hed">Your stuff won't<br><em>remind itself.</em></div>
         <div class="season-chip">&#127793; spring</div>
 
@@ -472,29 +468,29 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
           <div class="s5-month"><span class="s5-month-name">October</span><span class="s5-month-count">3 tasks</span></div>
           <div class="s5-task">
             <div class="s5-date"><div class="s5-day">Sun</div><div class="s5-num">5</div></div>
-            <div class="s5-icon" style="background:rgba(140,155,128,0.14);"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cg-bg)" stroke-width="1.5" stroke-linecap="round"><path d="M7 13V6"/><path d="M7 6C7 6 4 4.5 2 2c3 0 5 1 5 4z"/><path d="M7 6C7 6 10 4.5 12 2c-3 0-5 1-5 4z"/></svg></div>
+            <div class="s5-icon" style="background:var(--cg-wash);"><svg width="18" height="18" viewBox="0 0 14 14" fill="none" stroke="var(--cg-bg)" stroke-width="1.5" stroke-linecap="round"><path d="M7 13V6"/><path d="M7 6C7 6 4 4.5 2 2c3 0 5 1 5 4z"/><path d="M7 6C7 6 10 4.5 12 2c-3 0-5 1-5 4z"/></svg></div>
             <div class="s5-body"><div class="s5-task-name">Autumn pruning</div><div class="s5-task-sub">Olive tree . Garden</div></div>
           </div>
           <div class="s5-task">
             <div class="s5-date"><div class="s5-day">Mon</div><div class="s5-num">20</div></div>
-            <div class="s5-icon" style="background:rgba(142,154,148,0.14);"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cv-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5.5"/><circle cx="7" cy="7" r="2"/></svg></div>
+            <div class="s5-icon" style="background:var(--cv-wash);"><svg width="18" height="18" viewBox="0 0 14 14" fill="none" stroke="var(--cv-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5.5"/><circle cx="7" cy="7" r="2"/></svg></div>
             <div class="s5-body"><div class="s5-task-name">Switch to winter tyres</div><div class="s5-task-sub">Car . Vehicle</div></div>
           </div>
           <div class="s5-task">
             <div class="s5-date"><div class="s5-day">Tue</div><div class="s5-num">28</div></div>
-            <div class="s5-icon" style="background:rgba(192,144,136,0.14);"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6.5L7 2l6 4.5V13a.5.5 0 0 1-.5.5h-3.5v-3H5v3H1.5A.5.5 0 0 1 1 13V6.5z"/></svg></div>
+            <div class="s5-icon" style="background:var(--ch-wash);"><svg width="18" height="18" viewBox="0 0 14 14" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6.5L7 2l6 4.5V13a.5.5 0 0 1-.5.5h-3.5v-3H5v3H1.5A.5.5 0 0 1 1 13V6.5z"/></svg></div>
             <div class="s5-body"><div class="s5-task-name">Annual boiler service</div><div class="s5-task-sub">Boiler . Home</div></div>
           </div>
 
           <div class="s5-month" style="margin-top:8px;"><span class="s5-month-name">November</span><span class="s5-month-count">2 tasks</span></div>
           <div class="s5-task">
             <div class="s5-date"><div class="s5-day">Sat</div><div class="s5-num">8</div></div>
-            <div class="s5-icon" style="background:rgba(192,144,136,0.14);"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6.5L7 2l6 4.5V13a.5.5 0 0 1-.5.5h-3.5v-3H5v3H1.5A.5.5 0 0 1 1 13V6.5z"/></svg></div>
+            <div class="s5-icon" style="background:var(--ch-wash);"><svg width="18" height="18" viewBox="0 0 14 14" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6.5L7 2l6 4.5V13a.5.5 0 0 1-.5.5h-3.5v-3H5v3H1.5A.5.5 0 0 1 1 13V6.5z"/></svg></div>
             <div class="s5-body"><div class="s5-task-name">Clean dishwasher filter</div><div class="s5-task-sub">Dishwasher . Home</div></div>
           </div>
           <div class="s5-task">
             <div class="s5-date"><div class="s5-day">Sat</div><div class="s5-num">8</div></div>
-            <div class="s5-icon" style="background:rgba(192,144,136,0.14);"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6.5L7 2l6 4.5V13a.5.5 0 0 1-.5.5h-3.5v-3H5v3H1.5A.5.5 0 0 1 1 13V6.5z"/></svg></div>
+            <div class="s5-icon" style="background:var(--ch-wash);"><svg width="18" height="18" viewBox="0 0 14 14" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6.5L7 2l6 4.5V13a.5.5 0 0 1-.5.5h-3.5v-3H5v3H1.5A.5.5 0 0 1 1 13V6.5z"/></svg></div>
             <div class="s5-body"><div class="s5-task-name">Refill dishwasher salt</div><div class="s5-task-sub">Dishwasher . Home</div></div>
           </div>
           <div style="text-align:center;padding:8px 0 2px;"><span style="font-size:10px;color:var(--mid);font-style:italic;">and 3 more tasks</span></div>
@@ -510,11 +506,8 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
       <div class="confetti-wrap" id="confettiWrap"></div>
       <div class="cele-center" id="celeCenter">
         <div class="cele-ii" id="celeIi">
-          <svg width="48" height="54" viewBox="0 0 625.96 700.13" fill="none">
-            <path fill="#F5F0E8" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
-            <path fill="#9B7FD4" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
-            <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
-          </svg>
+          <!-- ii mark (light-on-dark for plum bg) -->
+          <img src="../system/logo/ii-light-on-dark.svg" width="48" height="54" alt="">
         </div>
         <div class="cele-eyebrow" id="celeEye">you're in</div>
         <div class="cele-headline" id="celeHead">Your boiler is relieved.</div>
@@ -529,11 +522,8 @@ body{font-family:'DM Sans',sans-serif;background:#2A2520;color:var(--ink);min-he
       <div class="bottom-sheet" id="bottomSheet">
         <div class="sheet-handle"></div>
         <div class="sheet-ii" style="margin-bottom:14px;">
-          <svg width="20" height="22" viewBox="0 0 625.96 700.13" fill="none">
-            <path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C0,57.7,56.05,0,125.18,0Z"/>
-            <path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/>
-            <circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/>
-          </svg>
+          <!-- ii mark (dark-on-light for white sheet) -->
+          <img src="../system/logo/ii-dark-on-light.svg" width="20" height="22" alt="">
         </div>
         <div class="sheet-headline">Save your schedule</div>
         <div class="sheet-sub">Your data stays yours. We never share it.</div>
