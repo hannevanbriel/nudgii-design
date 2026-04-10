@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · S-13 Task detail · hi-fi</title>
+<link rel="stylesheet" href="../system/components.css">
+<link rel="stylesheet" href="../system/tokens.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* ── S-13 screen-specific ── */
+body{background:#CBC5BB;padding:0 0 80px;}
+
+/* Theme + state toggles */
+.s13-controls{display:flex;gap:4px;align-items:center;margin-bottom:8px;}
+.s13-ctrl-label{font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#A09888;margin-right:4px;}
+.s13-ctrl-btn{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;padding:5px 14px;border-radius:6px;border:1px solid rgba(26,22,18,0.12);background:transparent;color:#8A8070;cursor:pointer;transition:all 120ms;}
+.s13-ctrl-btn:hover{border-color:rgba(26,22,18,0.20);}
+.s13-ctrl-btn.on{background:#9B7FD4;color:#FAF8FF;border-color:#9B7FD4;}
+
+/* Phone content */
+.scr{display:flex;flex-direction:column;flex:1;background:var(--cream);overflow:hidden;}
+
+/* Detail nav bar */
+.detail-nav{height:44px;display:flex;align-items:center;padding:0 16px;gap:10px;background:var(--cream);border-bottom:0.5px solid rgba(44,40,36,0.08);}
+.detail-nav-back{display:flex;align-items:center;justify-content:center;width:32px;height:32px;cursor:pointer;}
+.detail-nav-back svg{stroke:var(--ink);stroke-width:2;}
+.detail-nav-title{flex:1;font-size:13px;font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.detail-nav-more{display:flex;align-items:center;justify-content:center;width:32px;height:32px;}
+
+/* Content zones */
+.detail-content{flex:1;overflow-y:auto;scrollbar-width:none;}
+.detail-content::-webkit-scrollbar{display:none;}
+
+/* Zone: Task identity */
+.task-id{padding:16px 16px 14px;}
+.task-chips{display:flex;gap:6px;margin-bottom:8px;}
+.task-cat-chip{font-size:9px;font-weight:600;letter-spacing:0.5px;padding:3px 10px;border-radius:100px;display:flex;align-items:center;gap:4px;}
+.task-cat-chip.home{background:var(--ch-wash);color:var(--ch-bg);}
+.task-cadence{font-size:9px;color:var(--mid);padding:3px 10px;border-radius:100px;background:rgba(44,40,36,0.04);border:0.5px solid rgba(44,40,36,0.08);}
+.task-name{font-family:'DM Serif Display',Georgia,serif;font-size:20px;font-weight:400;line-height:1.15;letter-spacing:-0.02em;color:var(--ink);margin-bottom:4px;}
+.task-item{font-size:12px;color:var(--mid);}
+
+/* Zone: Why it matters */
+.why-zone{padding:0 16px 14px;}
+.zone-label{font-size:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;}
+.zone-label.apricot{color:var(--apricot);}
+.zone-label.plum{color:var(--plum);}
+.why-text{font-size:12px;color:var(--ink);line-height:1.55;}
+
+/* Zone: How to do it */
+.how-zone{padding:0 16px 14px;}
+.how-toggle{display:flex;align-items:center;gap:8px;cursor:pointer;padding:8px 0;}
+.how-icon{width:28px;height:28px;border-radius:8px;background:rgba(155,127,212,0.08);display:flex;align-items:center;justify-content:center;}
+.how-title{flex:1;font-size:13px;font-weight:500;color:var(--ink);}
+.how-chev{width:12px;height:12px;transition:transform 200ms ease;}
+.how-body{display:none;padding:8px 0 0 36px;}
+.how-body.open{display:block;}
+.how-step{font-size:12px;color:var(--ink);line-height:1.55;margin-bottom:6px;padding-left:12px;position:relative;}
+.how-step::before{content:'';position:absolute;left:0;top:7px;width:4px;height:4px;border-radius:50%;background:var(--plum);opacity:0.5;}
+
+/* Zone: History */
+.hist-zone{padding:0 16px 14px;}
+.hist-toggle{display:flex;align-items:center;gap:10px;cursor:pointer;padding:8px 0;}
+.hist-icon{width:28px;height:28px;border-radius:8px;background:rgba(44,40,36,0.05);display:flex;align-items:center;justify-content:center;}
+.hist-body-text{flex:1;}
+.hist-title{font-size:13px;font-weight:500;color:var(--ink);}
+.hist-last{font-size:10px;color:var(--mid);margin-top:2px;}
+.hist-badge{font-size:9px;font-weight:500;color:var(--mid);padding:3px 8px;border-radius:6px;background:rgba(44,40,36,0.04);border:0.5px solid rgba(44,40,36,0.08);}
+.hist-list{display:none;padding:8px 0 0 38px;}
+.hist-list.open{display:block;}
+.hist-row{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:11px;}
+.hist-dot{width:6px;height:6px;border-radius:50%;background:var(--plum);opacity:0.4;flex-shrink:0;}
+.hist-text{flex:1;color:var(--ink);}
+.hist-date{color:var(--mid);font-size:10px;}
+
+/* Divider */
+.zone-divider{height:0.5px;background:rgba(44,40,36,0.08);margin:0 16px;}
+
+/* CTA bar */
+.cta-bar{padding:12px 16px 28px;background:var(--cream);border-top:0.5px solid rgba(44,40,36,0.08);}
+.cta-row{display:flex;gap:10px;}
+.btn-snooze{flex:1;height:48px;border-radius:12px;border:1.5px solid rgba(44,40,36,0.14);background:transparent;display:flex;align-items:center;justify-content:center;gap:6px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--ink);cursor:pointer;}
+.btn-done{flex:2;height:48px;border-radius:12px;border:none;background:var(--plum);color:var(--plum-fg);display:flex;align-items:center;justify-content:center;gap:6px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;box-shadow:0 2px 12px rgba(155,127,212,0.25);}
+
+/* Chat entry zone */
+.chat-entry{padding:12px 16px;background:rgba(44,40,36,0.02);border-top:0.5px solid rgba(44,40,36,0.08);}
+.chat-prompt{font-size:11px;font-style:italic;color:var(--mid);margin-bottom:8px;}
+.chat-input-bar{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid rgba(44,40,36,0.10);border-radius:10px;height:36px;padding:0 12px;}
+.chat-placeholder{flex:1;font-size:11px;color:var(--hint);}
+.chat-mic{width:24px;height:24px;border-radius:50%;background:rgba(155,127,212,0.08);display:flex;align-items:center;justify-content:center;}
+
+/* Chat active state */
+.chat-bubble{border-radius:12px;padding:10px 12px;margin-bottom:6px;font-size:12px;line-height:1.5;}
+.chat-bubble.ai{background:var(--surface);border:0.5px solid rgba(44,40,36,0.08);margin-right:40px;color:var(--ink);}
+.chat-bubble.user{background:var(--plum);color:var(--plum-fg);margin-left:40px;}
+
+/* Done state */
+.done-banner{background:var(--surface);border:0.5px solid rgba(44,40,36,0.08);border-radius:12px;padding:12px 14px;margin:12px 16px;display:flex;align-items:center;gap:12px;}
+.done-check{width:32px;height:32px;border-radius:50%;background:var(--sage);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.done-body{flex:1;}
+.done-title{font-size:13px;font-weight:500;color:var(--ink);}
+.done-sub{font-size:10px;color:var(--mid);margin-top:2px;}
+.done-undo{font-size:11px;font-weight:500;color:var(--plum);cursor:pointer;flex-shrink:0;}
+.btn-back-dash{height:48px;border-radius:12px;border:1.5px solid rgba(44,40,36,0.14);background:transparent;display:flex;align-items:center;justify-content:center;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--ink);cursor:pointer;width:100%;}
+
+/* State visibility */
+.state{display:none;flex-direction:column;flex:1;overflow:hidden;}
+.state.active{display:flex;}
+.dimmed{opacity:0.35;}
+
+/* Dark mode overrides */
+[data-theme="dark"] .phone{background:#1C1B18;box-shadow:0 0 0 1px rgba(255,255,255,0.03),0 24px 80px rgba(0,0,0,0.5);}
+[data-theme="dark"] .scr{background:var(--surface);}
+[data-theme="dark"] .detail-nav{background:var(--surface);border-color:rgba(240,237,230,0.08);}
+[data-theme="dark"] .detail-nav-back svg{stroke:var(--ink);}
+[data-theme="dark"] .detail-nav-title{color:var(--ink);}
+[data-theme="dark"] .notch .np{background:rgba(255,255,255,0.08);}
+[data-theme="dark"] .sbar span{color:#F0EDE6;}
+[data-theme="dark"] .sbar .batt{background:#F0EDE6;}
+[data-theme="dark"] .task-name{color:var(--ink);}
+[data-theme="dark"] .task-cadence{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.10);color:var(--mid);}
+[data-theme="dark"] .zone-divider{background:rgba(240,237,230,0.08);}
+[data-theme="dark"] .cta-bar{background:var(--surface);border-color:rgba(240,237,230,0.08);}
+[data-theme="dark"] .btn-snooze{border-color:rgba(240,237,230,0.14);color:var(--ink);}
+[data-theme="dark"] .btn-done{background:var(--plum);box-shadow:0 2px 12px rgba(184,160,232,0.35);}
+[data-theme="dark"] .chat-entry{background:rgba(255,255,255,0.02);border-color:rgba(240,237,230,0.08);}
+[data-theme="dark"] .chat-input-bar{background:rgba(255,255,255,0.04);border-color:rgba(240,237,230,0.10);}
+[data-theme="dark"] .chat-placeholder{color:var(--hint);}
+[data-theme="dark"] .done-banner{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.08);}
+[data-theme="dark"] .hist-badge{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.10);}
+[data-theme="dark"] .how-icon{background:rgba(184,160,232,0.12);}
+[data-theme="dark"] .hist-icon{background:rgba(255,255,255,0.06);}
+[data-theme="dark"] .btn-back-dash{border-color:rgba(240,237,230,0.14);color:var(--ink);}
+</style>
+</head>
+<body>
+
+<!-- ── Design hub nav ── -->
+<nav class="nudgii-hub-nav">
+  <a class="nav-back" href="../index.html">
+    <img src="../system/logo/ii-dark-on-light.svg" width="16" height="18" alt="" style="flex-shrink:0;border-radius:2px;">
+    <span>Design hub</span>
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">S-13 : Task detail</span>
+  <span class="nav-status progress">In progress</span>
+</nav>
+
+<div style="max-width:980px;margin:0 auto;padding:32px 32px 0;">
+  <div class="page-eyebrow">S-13 · task detail · Hi-fi · 390x844px (iPhone 15) · April 2026</div>
+  <h1 class="page-h1">Task detail</h1>
+  <p class="page-sub">Full task view when user taps a task from the dashboard. Shows why it matters, how to do it, history, and action buttons. AI chat entry at the bottom for questions.</p>
+  <div class="page-pills">
+    <span class="mp hifi">Hi-fi</span>
+    <span class="mp progress">Dashboard flow</span>
+    <span class="mp">S-13</span>
+    <span class="mp">v1.0 · April 2026</span>
+  </div>
+
+  <!-- Controls -->
+  <div class="s13-controls">
+    <span class="s13-ctrl-label">Theme</span>
+    <button class="s13-ctrl-btn on" onclick="setTheme('light')">Light</button>
+    <button class="s13-ctrl-btn" onclick="setTheme('dark')">Dark</button>
+  </div>
+  <div class="s13-controls" style="margin-bottom:24px;">
+    <span class="s13-ctrl-label">State</span>
+    <button class="s13-ctrl-btn on" onclick="setState('default')">Default</button>
+    <button class="s13-ctrl-btn" onclick="setState('chat')">Chat active</button>
+    <button class="s13-ctrl-btn" onclick="setState('done')">Done</button>
+  </div>
+
+  <div style="display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap;">
+
+    <!-- Phone -->
+    <div class="phone s13-phone" data-theme="light">
+      <div class="notch"><div class="np"></div></div>
+      <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+
+      <div class="scr">
+
+        <!-- Detail nav bar -->
+        <div class="detail-nav">
+          <div class="detail-nav-back">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg>
+          </div>
+          <div class="detail-nav-title">Boiler</div>
+          <div class="detail-nav-more">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="4" r="1.2" fill="var(--mid)"/><circle cx="8" cy="8" r="1.2" fill="var(--mid)"/><circle cx="8" cy="12" r="1.2" fill="var(--mid)"/></svg>
+          </div>
+        </div>
+
+        <!-- ═══ DEFAULT STATE ═══ -->
+        <div class="state active" id="st-default">
+          <div class="detail-content">
+
+            <!-- Task identity -->
+            <div class="task-id">
+              <div class="task-chips">
+                <span class="task-cat-chip home">
+                  <svg width="10" height="10" viewBox="0 0 18 18" fill="none" stroke="var(--ch-bg)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 8.5L9 3l7.5 5.5V16a.5.5 0 0 1-.5.5H11v-4H7v4H2a.5.5 0 0 1-.5-.5V8.5z"/></svg>
+                  Home
+                </span>
+                <span class="task-cadence">yearly, autumn</span>
+              </div>
+              <div class="task-name">Annual boiler service</div>
+              <div class="task-item">Boiler · schedule a technician</div>
+            </div>
+
+            <div class="zone-divider"></div>
+
+            <!-- Why it matters -->
+            <div class="why-zone" style="padding-top:14px;">
+              <div class="zone-label apricot">Why it matters</div>
+              <div class="why-text">The annual check validates your warranty and catches carbon monoxide risks. Book 2-3 weeks in advance for autumn availability.</div>
+            </div>
+
+            <div class="zone-divider"></div>
+
+            <!-- How to do it -->
+            <div class="how-zone" style="padding-top:6px;">
+              <div class="how-toggle" onclick="this.querySelector('.how-chev').classList.toggle('open');this.nextElementSibling.classList.toggle('open');">
+                <div class="how-icon">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="var(--plum)" stroke-width="1.5" stroke-linecap="round"><path d="M6 2v12"/><path d="M2 6h8"/><path d="M10 10h4"/></svg>
+                </div>
+                <div class="how-title">How to do it</div>
+                <svg class="how-chev" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M3 4.5L6 7.5L9 4.5"/></svg>
+              </div>
+              <div class="how-body">
+                <div class="how-step">Call your installer or a certified technician</div>
+                <div class="how-step">Ask for a full inspection including flue gas analysis</div>
+                <div class="how-step">Keep the certificate for warranty and insurance</div>
+                <div class="how-step">Check the pressure gauge after the visit (1-1.5 bar)</div>
+              </div>
+            </div>
+
+            <div class="zone-divider"></div>
+
+            <!-- History -->
+            <div class="hist-zone" style="padding-top:6px;">
+              <div class="hist-toggle" onclick="this.nextElementSibling.classList.toggle('open');">
+                <div class="hist-icon">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
+                </div>
+                <div class="hist-body-text">
+                  <div class="hist-title">Last completed</div>
+                  <div class="hist-last">10 months ago · 12 Jun 2025</div>
+                </div>
+                <span class="hist-badge">3 total</span>
+              </div>
+              <div class="hist-list">
+                <div class="hist-row"><div class="hist-dot"></div><div class="hist-text">Completed</div><div class="hist-date">12 Jun 2025</div></div>
+                <div class="hist-row"><div class="hist-dot"></div><div class="hist-text">Completed</div><div class="hist-date">8 Jun 2024</div></div>
+                <div class="hist-row"><div class="hist-dot"></div><div class="hist-text">Completed</div><div class="hist-date">15 Jun 2023</div></div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- CTA bar -->
+          <div class="cta-bar">
+            <div class="cta-row">
+              <button class="btn-snooze">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
+                Snooze
+              </button>
+              <button class="btn-done">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5L6.5 12L13 4"/></svg>
+                Done
+              </button>
+            </div>
+          </div>
+
+          <!-- Chat entry -->
+          <div class="chat-entry">
+            <div class="chat-prompt">Ask nudgii about this task</div>
+            <div class="chat-input-bar">
+              <span class="chat-placeholder">Type or speak...</span>
+              <div class="chat-mic">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="var(--plum)" stroke-width="1.5" stroke-linecap="round"><rect x="5" y="1" width="6" height="9" rx="3"/><path d="M3 7a5 5 0 0 0 10 0"/><path d="M8 12v3"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ CHAT STATE ═══ -->
+        <div class="state" id="st-chat">
+          <div class="detail-content">
+            <div class="task-id" style="padding-bottom:10px;">
+              <div class="task-chips">
+                <span class="task-cat-chip home">
+                  <svg width="10" height="10" viewBox="0 0 18 18" fill="none" stroke="var(--ch-bg)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 8.5L9 3l7.5 5.5V16a.5.5 0 0 1-.5.5H11v-4H7v4H2a.5.5 0 0 1-.5-.5V8.5z"/></svg>
+                  Home
+                </span>
+              </div>
+              <div class="task-name">Annual boiler service</div>
+            </div>
+            <div class="zone-divider"></div>
+            <div style="padding:12px 16px;">
+              <div class="chat-bubble ai">The annual boiler service keeps your warranty valid and helps catch CO leaks early. Most technicians in Belgium are busiest in September and October.</div>
+              <div class="chat-bubble user">How far in advance should I book?</div>
+              <div class="chat-bubble ai">For autumn, I'd book 2-3 weeks ahead. If you want a specific technician, 4 weeks is safer. Want me to remind you to call next week?</div>
+            </div>
+          </div>
+
+          <div class="cta-bar">
+            <div class="cta-row">
+              <button class="btn-snooze">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
+                Snooze
+              </button>
+              <button class="btn-done">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5L6.5 12L13 4"/></svg>
+                Done
+              </button>
+            </div>
+          </div>
+
+          <div class="chat-entry" style="border-top:1px solid rgba(44,40,36,0.12);">
+            <div class="chat-input-bar" style="border-color:var(--plum);">
+              <span class="chat-placeholder">Ask a follow-up...</span>
+              <div class="chat-mic">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="var(--plum)" stroke-width="1.5" stroke-linecap="round"><rect x="5" y="1" width="6" height="9" rx="3"/><path d="M3 7a5 5 0 0 0 10 0"/><path d="M8 12v3"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ DONE STATE ═══ -->
+        <div class="state" id="st-done">
+          <div class="detail-content">
+            <div class="task-id dimmed">
+              <div class="task-chips">
+                <span class="task-cat-chip home">
+                  <svg width="10" height="10" viewBox="0 0 18 18" fill="none" stroke="var(--ch-bg)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 8.5L9 3l7.5 5.5V16a.5.5 0 0 1-.5.5H11v-4H7v4H2a.5.5 0 0 1-.5-.5V8.5z"/></svg>
+                  Home
+                </span>
+                <span class="task-cadence">yearly, autumn</span>
+              </div>
+              <div class="task-name" style="text-decoration:line-through;">Annual boiler service</div>
+              <div class="task-item">Boiler</div>
+            </div>
+
+            <!-- Completion banner -->
+            <div class="done-banner">
+              <div class="done-check">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5L6.5 12L13 4"/></svg>
+              </div>
+              <div class="done-body">
+                <div class="done-title">Done. Your boiler approves.</div>
+                <div class="done-sub">Completed today · next due autumn 2027</div>
+              </div>
+              <div class="done-undo">Undo</div>
+            </div>
+
+            <div class="zone-divider" style="margin-top:12px;"></div>
+
+            <!-- History auto-expanded -->
+            <div class="hist-zone" style="padding-top:12px;">
+              <div class="zone-label" style="color:var(--mid);padding:0 0 6px;">Completion history</div>
+              <div class="hist-list open" style="padding-left:0;">
+                <div class="hist-row"><div class="hist-dot" style="background:var(--sage);opacity:1;"></div><div class="hist-text" style="font-weight:500;">Today</div><div class="hist-date">10 Apr 2026</div></div>
+                <div class="hist-row"><div class="hist-dot"></div><div class="hist-text">Completed</div><div class="hist-date">12 Jun 2025</div></div>
+                <div class="hist-row"><div class="hist-dot"></div><div class="hist-text">Completed</div><div class="hist-date">8 Jun 2024</div></div>
+                <div class="hist-row"><div class="hist-dot"></div><div class="hist-text">Completed</div><div class="hist-date">15 Jun 2023</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cta-bar">
+            <button class="btn-back-dash">Back to dashboard</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Annotations -->
+    <div style="flex:1;min-width:260px;" id="annotations">
+    </div>
+
+  </div>
+</div>
+
+<script>
+// Theme toggle
+function setTheme(t) {
+  document.querySelector('.s13-phone').setAttribute('data-theme', t);
+  document.querySelectorAll('.s13-controls')[0].querySelectorAll('.s13-ctrl-btn').forEach(b => b.classList.toggle('on', b.textContent.trim() === (t === 'light' ? 'Light' : 'Dark')));
+}
+
+// State toggle
+const annotations = {
+  default: `
+    <div style="font-size:10px;font-weight:600;letter-spacing:1.3px;text-transform:uppercase;color:#8A8070;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid rgba(26,22,18,0.08);">Annotations: Default state</div>
+    <div style="margin-bottom:20px;">
+      <div style="font-size:13px;font-weight:600;color:#31332C;margin-bottom:4px;">Task identity</div>
+      <div style="font-size:12px;color:#7A756D;line-height:1.55;">Category chip + cadence badge. DM Serif Display 20px task name. Item name + action hint below.</div>
+    </div>
+    <div style="margin-bottom:20px;">
+      <div style="font-size:13px;font-weight:600;color:#31332C;margin-bottom:4px;">Why it matters <span style="font-size:9px;font-weight:600;letter-spacing:0.4px;padding:2px 6px;border-radius:100px;background:rgba(232,168,124,0.12);color:#B07A4A;margin-left:4px;">Always visible</span></div>
+      <div style="font-size:12px;color:#7A756D;line-height:1.55;">Never collapsed. Apricot label. Single paragraph explaining value. This is the trust moment.</div>
+    </div>
+    <div style="margin-bottom:20px;">
+      <div style="font-size:13px;font-weight:600;color:#31332C;margin-bottom:4px;">How to do it <span style="font-size:9px;font-weight:600;letter-spacing:0.4px;padding:2px 6px;border-radius:100px;background:rgba(155,127,212,0.10);color:#9B7FD4;margin-left:4px;">Expandable</span></div>
+      <div style="font-size:12px;color:#7A756D;line-height:1.55;">Collapsed by default to keep screen short. Plum label. Step-by-step instructions from the task knowledge base.</div>
+    </div>
+    <div style="margin-bottom:20px;">
+      <div style="font-size:13px;font-weight:600;color:#31332C;margin-bottom:4px;">History <span style="font-size:9px;font-weight:600;letter-spacing:0.4px;padding:2px 6px;border-radius:100px;background:rgba(155,127,212,0.10);color:#9B7FD4;margin-left:4px;">Expandable</span></div>
+      <div style="font-size:12px;color:#7A756D;line-height:1.55;">Last completed date + total count badge. Expands inline to full history. S-16 lives here, not a separate screen.</div>
+    </div>
+    <div style="margin-bottom:20px;">
+      <div style="font-size:13px;font-weight:600;color:#31332C;margin-bottom:4px;">CTA bar <span style="font-size:9px;font-weight:600;letter-spacing:0.4px;padding:2px 6px;border-radius:100px;background:rgba(59,109,17,0.08);color:#3B6D11;margin-left:4px;">Pinned</span></div>
+      <div style="font-size:12px;color:#7A756D;line-height:1.55;">Snooze (1/3 width, outline) + Done (2/3 width, plum fill). Width ratio signals priority. Always pinned above chat entry.</div>
+    </div>
+    <div style="margin-bottom:20px;">
+      <div style="font-size:13px;font-weight:600;color:#31332C;margin-bottom:4px;">AI chat entry</div>
+      <div style="font-size:12px;color:#7A756D;line-height:1.55;">Collapsed: prompt text + input bar with mic. Tap to activate full chat mode. Session resets on navigation (no persistent history in MVP).</div>
+    </div>
+  `,
+  chat: `
+    <div style="font-size:10px;font-weight:600;letter-spacing:1.3px;text-transform:uppercase;color:#8A8070;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid rgba(26,22,18,0.08);">Annotations: Chat active</div>
+    <div style="margin-bottom:20px;">
+      <div style="font-size:13px;font-weight:600;color:#31332C;margin-bottom:4px;">Task header stays</div>
+      <div style="font-size:12px;color:#7A756D;line-height:1.55;">Category chip and task name always visible so the user keeps context during the conversation.</div>
+    </div>
+    <div style="margin-bottom:20px;">
+      <div style="font-size:13px;font-weight:600;color:#31332C;margin-bottom:4px;">Chat replaces body</div>
+      <div style="font-size:12px;color:#7A756D;line-height:1.55;">Bubbles replace the why/how/history zones. nudgii bubbles left (white), user bubbles right (plum). Max 40% screen height then scrolls.</div>
+    </div>
+    <div style="margin-bottom:20px;">
+      <div style="font-size:13px;font-weight:600;color:#31332C;margin-bottom:4px;">CTAs persist <span style="font-size:9px;font-weight:600;letter-spacing:0.4px;padding:2px 6px;border-radius:100px;background:rgba(59,109,17,0.08);color:#3B6D11;margin-left:4px;">Pinned</span></div>
+      <div style="font-size:12px;color:#7A756D;line-height:1.55;">Snooze and Done stay pinned throughout. User can act without closing the conversation.</div>
+    </div>
+    <div style="margin-bottom:20px;">
+      <div style="font-size:13px;font-weight:600;color:#31332C;margin-bottom:4px;">Session model (MVP)</div>
+      <div style="font-size:12px;color:#7A756D;line-height:1.55;">Chat resets when user navigates away. No persistent history in MVP. Revisit post-launch based on user feedback.</div>
+    </div>
+  `,
+  done: `
+    <div style="font-size:10px;font-weight:600;letter-spacing:1.3px;text-transform:uppercase;color:#8A8070;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid rgba(26,22,18,0.08);">Annotations: Done state</div>
+    <div style="margin-bottom:20px;">
+      <div style="font-size:13px;font-weight:600;color:#31332C;margin-bottom:4px;">Task identity dimmed</div>
+      <div style="font-size:12px;color:#7A756D;line-height:1.55;">Header fades to 35% opacity. Strikethrough on task name. Signals completion without hiding context.</div>
+    </div>
+    <div style="margin-bottom:20px;">
+      <div style="font-size:13px;font-weight:600;color:#31332C;margin-bottom:4px;">Completion banner <span style="font-size:9px;font-weight:600;letter-spacing:0.4px;padding:2px 6px;border-radius:100px;background:rgba(232,168,124,0.12);color:#B07A4A;margin-left:4px;">~5s undo</span></div>
+      <div style="font-size:12px;color:#7A756D;line-height:1.55;">Sage check icon. Witty confirmation + next due date. Undo link (5s window). Quiet in-screen banner, not the full plum overlay (dashboard swipe only per OD-01).</div>
+    </div>
+    <div style="margin-bottom:20px;">
+      <div style="font-size:13px;font-weight:600;color:#31332C;margin-bottom:4px;">History auto-expands</div>
+      <div style="font-size:12px;color:#7A756D;line-height:1.55;">History reveals immediately on mark-done. Today's completion highlighted in sage. User sees their track record without an extra tap.</div>
+    </div>
+    <div style="margin-bottom:20px;">
+      <div style="font-size:13px;font-weight:600;color:#31332C;margin-bottom:4px;">CTA changes</div>
+      <div style="font-size:12px;color:#7A756D;line-height:1.55;">Snooze + Done replaced by single "Back to dashboard" outline button. Prevents accidental double-completion.</div>
+    </div>
+  `
+};
+
+function setState(s) {
+  document.querySelectorAll('.state').forEach(el => el.classList.remove('active'));
+  document.getElementById('st-' + s).classList.add('active');
+  document.querySelectorAll('.s13-controls')[1].querySelectorAll('.s13-ctrl-btn').forEach(b => {
+    b.classList.toggle('on', b.textContent.trim() === (s === 'default' ? 'Default' : s === 'chat' ? 'Chat active' : 'Done'));
+  });
+  document.getElementById('annotations').innerHTML = annotations[s];
+}
+setState('default');
+</script>
+</body>
+</html>
