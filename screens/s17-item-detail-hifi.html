@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · S-17 Item detail · hi-fi</title>
+<link rel="stylesheet" href="../system/components.css">
+<link rel="stylesheet" href="../system/tokens.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* ── S-17 screen-specific ── */
+body{background:#CBC5BB;padding:0 0 80px;}
+.s17-controls{display:flex;gap:4px;align-items:center;margin-bottom:16px;}
+.s17-ctrl-label{font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#A09888;margin-right:4px;}
+.s17-ctrl-btn{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;padding:5px 14px;border-radius:6px;border:1px solid rgba(26,22,18,0.12);background:transparent;color:#8A8070;cursor:pointer;transition:all 120ms;}
+.s17-ctrl-btn:hover{border-color:rgba(26,22,18,0.20);}
+.s17-ctrl-btn.on{background:#9B7FD4;color:#FAF8FF;border-color:#9B7FD4;}
+
+.scr{display:flex;flex-direction:column;flex:1;overflow:hidden;background:var(--surface);}
+.scr-scroll{flex:1;overflow-y:auto;scrollbar-width:none;}
+.scr-scroll::-webkit-scrollbar{display:none;}
+
+/* Hero area */
+.hero{position:relative;height:170px;background:var(--ch-wash);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;}
+.hero-icon{width:56px;height:56px;border-radius:16px;background:rgba(255,255,255,0.45);display:flex;align-items:center;justify-content:center;}
+.hero-add-photo{font-size:9px;color:var(--ch-bg);opacity:0.7;}
+.hero-nav{position:absolute;top:12px;left:16px;right:16px;display:flex;justify-content:space-between;}
+.hero-btn{width:32px;height:32px;border-radius:10px;background:rgba(255,255,255,0.65);display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(8px);}
+
+/* Identity */
+.item-id{padding:18px 20px 0;}
+.item-name{font-family:'DM Serif Display',Georgia,serif;font-size:24px;font-weight:400;line-height:1.1;letter-spacing:-0.02em;color:var(--ink);}
+.item-meta{font-size:11px;color:var(--mid);margin-top:4px;}
+
+/* Stats row */
+.stats-row{display:flex;gap:8px;padding:16px 20px 0;}
+.stat-box{flex:1;background:var(--surface-low);border-radius:12px;padding:12px 8px;text-align:center;border:0.5px solid rgba(44,40,36,0.06);}
+.stat-box.highlight{background:var(--apricot-wash);border-color:rgba(232,168,124,0.15);}
+.stat-val{font-family:'DM Serif Display',Georgia,serif;font-size:20px;font-weight:400;color:var(--ink);}
+.stat-box.highlight .stat-val{color:var(--apricot);}
+.stat-label{font-size:8px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--mid);margin-top:2px;}
+
+/* Status strip */
+.status-strip{display:flex;align-items:center;gap:8px;margin:14px 20px 0;padding:10px 14px;background:var(--surface-low);border-radius:10px;}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--apricot);flex-shrink:0;}
+.status-text{font-size:11px;color:var(--ink);flex:1;}
+.status-next{font-size:10px;color:var(--mid);}
+
+/* Section headers */
+.sec-head{display:flex;align-items:center;justify-content:space-between;padding:20px 20px 12px;}
+.sec-title{font-family:'DM Serif Display',Georgia,serif;font-size:17px;font-weight:400;color:var(--ink);}
+.sec-action{font-size:10px;font-weight:500;color:var(--plum);cursor:pointer;display:flex;align-items:center;gap:4px;}
+
+/* Task cards */
+.task-card{margin:0 20px 8px;background:var(--surface);border:0.5px solid rgba(44,40,36,0.06);border-radius:14px;overflow:hidden;transition:all 200ms ease;}
+.task-row{display:flex;align-items:center;gap:12px;padding:14px 14px;cursor:pointer;}
+.task-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--ch-wash);}
+.task-body{flex:1;min-width:0;}
+.task-title{font-size:13px;font-weight:500;color:var(--ink);line-height:1.3;}
+.task-sub{font-size:10px;color:var(--mid);margin-top:2px;}
+.task-badge{font-size:9px;font-weight:500;color:var(--apricot);flex-shrink:0;}
+.task-badge.neutral{color:var(--mid);}
+.task-chev{width:16px;height:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;opacity:0.3;transition:transform 200ms ease;}
+.task-chev.open{transform:rotate(180deg);}
+
+/* Task expand */
+.task-expand{max-height:0;overflow:hidden;transition:max-height 350ms ease;}
+.task-expand-inner{padding:0 14px 14px;}
+.task-why{background:var(--ch-wash);border-radius:10px;padding:12px 14px;margin-bottom:10px;}
+.task-why-label{font-size:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;color:var(--ch-bg);margin-bottom:4px;}
+.task-why-text{font-size:11px;color:var(--ink);line-height:1.55;}
+.task-last{display:flex;align-items:center;gap:8px;padding:6px 0;font-size:11px;color:var(--mid);}
+.task-last-dot{width:5px;height:5px;border-radius:50%;background:var(--plum);opacity:0.4;}
+.task-actions{display:flex;align-items:center;justify-content:flex-end;gap:6px;margin-top:10px;padding-top:10px;border-top:0.5px solid rgba(44,40,36,0.06);}
+.ta-skip{font-size:10px;color:var(--hint);cursor:pointer;padding:6px 10px;}
+.ta-snooze{font-size:10px;font-weight:500;color:var(--ink);cursor:pointer;padding:6px 12px;border-radius:100px;background:var(--surface-low);}
+.ta-done{font-size:10px;font-weight:500;color:white;cursor:pointer;padding:6px 14px;border-radius:100px;background:var(--ch-bg);display:flex;align-items:center;gap:4px;}
+.ta-details{font-size:10px;font-weight:500;color:var(--plum);cursor:pointer;margin-right:auto;}
+
+/* Mini timeline */
+.timeline{padding:0 20px 16px;}
+.tl-bar{position:relative;height:4px;background:var(--surface-high);border-radius:100px;margin:8px 0 12px;}
+.tl-fill{position:absolute;left:0;top:0;height:100%;border-radius:100px;background:var(--ch-bg);opacity:0.5;}
+.tl-labels{display:flex;justify-content:space-between;font-size:9px;color:var(--mid);}
+.tl-label.now{color:var(--ink);font-weight:500;}
+.tl-dot{position:absolute;top:50%;width:8px;height:8px;border-radius:50%;transform:translate(-50%,-50%);}
+.tl-dot.past{background:var(--ch-bg);}
+.tl-dot.future{background:var(--plum);border:2px solid var(--surface);}
+
+/* History section */
+.hist-card{margin:0 20px 8px;background:var(--surface);border:0.5px solid rgba(44,40,36,0.06);border-radius:12px;overflow:hidden;}
+.hist-row{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;border-bottom:0.5px solid rgba(44,40,36,0.04);}
+.hist-row:last-child{border-bottom:none;}
+.hist-check{width:22px;height:22px;border-radius:50%;background:rgba(59,109,17,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hist-info{flex:1;}
+.hist-name{font-size:12px;color:var(--ink);}
+.hist-date{font-size:10px;color:var(--mid);margin-top:1px;}
+.hist-arrow{opacity:0.2;}
+
+/* Details section */
+.detail-card{margin:0 20px;background:var(--surface);border:0.5px solid rgba(44,40,36,0.06);border-radius:12px;overflow:hidden;}
+.detail-row{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:0.5px solid rgba(44,40,36,0.04);}
+.detail-row:last-child{border-bottom:none;}
+.detail-label{font-size:11px;color:var(--mid);}
+.detail-val{font-size:11px;font-weight:500;color:var(--ink);}
+.detail-val.warn{color:var(--apricot);}
+
+/* Bottom spacer */
+.bottom-spacer{height:40px;}
+
+/* Dark mode */
+[data-theme="dark"] .phone{background:#1C1B18;box-shadow:0 0 0 1px rgba(255,255,255,0.03),0 24px 80px rgba(0,0,0,0.5);}
+[data-theme="dark"] .scr{background:var(--surface);}
+[data-theme="dark"] .notch .np{background:rgba(255,255,255,0.08);}
+[data-theme="dark"] .sbar span{color:#F0EDE6;}
+[data-theme="dark"] .sbar .batt{background:#F0EDE6;}
+[data-theme="dark"] .hero{background:var(--ch-wash);}
+[data-theme="dark"] .hero-icon{background:rgba(255,255,255,0.10);}
+[data-theme="dark"] .hero-btn{background:rgba(255,255,255,0.10);backdrop-filter:blur(8px);}
+[data-theme="dark"] .hero-btn svg{stroke:var(--ink);}
+[data-theme="dark"] .stat-box{background:var(--surface-high);border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .stat-box.highlight{background:var(--apricot-wash);border-color:rgba(240,184,144,0.15);}
+[data-theme="dark"] .status-strip{background:var(--surface-high);}
+[data-theme="dark"] .task-card{background:var(--surface-high);border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .task-why{background:rgba(224,168,152,0.10);}
+[data-theme="dark"] .task-actions{border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .ta-snooze{background:var(--surface-low);}
+[data-theme="dark"] .hist-card{background:var(--surface-high);border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .hist-check{background:rgba(106,174,64,0.12);}
+[data-theme="dark"] .hist-row{border-color:rgba(255,255,255,0.04);}
+[data-theme="dark"] .detail-card{background:var(--surface-high);border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .detail-row{border-color:rgba(255,255,255,0.04);}
+</style>
+</head>
+<body>
+
+<nav class="nudgii-hub-nav">
+  <a class="nav-back" href="../index.html">
+    <img src="../system/logo/ii-dark-on-light.svg" width="16" height="18" alt="" style="flex-shrink:0;border-radius:2px;">
+    <span>Design hub</span>
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">S-17 : Item detail</span>
+  <span class="nav-status progress">In progress</span>
+</nav>
+
+<div style="max-width:980px;margin:0 auto;padding:32px 32px 0;">
+  <div class="page-eyebrow">S-17 · item detail · Hi-fi · 390x844px (iPhone 15) · April 2026</div>
+  <h1 class="page-h1">Item detail</h1>
+  <p class="page-sub">Full item view reached from My Stuff tab. Shows item stats, all tasks with inline expand, mini timeline, completion history, and item details. Tasks expand inline with "Why it matters" + actions. "Details" link opens S-13 full task page.</p>
+  <div class="page-pills">
+    <span class="mp hifi">Hi-fi</span>
+    <span class="mp progress">My Stuff flow</span>
+    <span class="mp">S-17</span>
+    <span class="mp">v1.0 · April 2026</span>
+  </div>
+
+  <div class="s17-controls">
+    <span class="s17-ctrl-label">Theme</span>
+    <button class="s17-ctrl-btn on" onclick="setTheme('light')">Light</button>
+    <button class="s17-ctrl-btn" onclick="setTheme('dark')">Dark</button>
+  </div>
+
+  <div style="display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap;">
+
+    <!-- Phone -->
+    <div class="phone s17-phone" data-theme="light">
+      <div class="notch"><div class="np"></div></div>
+      <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+
+      <div class="scr">
+        <div class="scr-scroll">
+
+          <!-- Hero -->
+          <div class="hero">
+            <div class="hero-nav">
+              <div class="hero-btn"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#2C2824" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg></div>
+              <div style="display:flex;gap:8px;">
+                <div class="hero-btn"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#2C2824" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 1.5l3.5 3.5L5 14.5H1.5V11z"/></svg></div>
+                <div class="hero-btn"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="4" r="1.2" fill="#2C2824"/><circle cx="8" cy="8" r="1.2" fill="#2C2824"/><circle cx="8" cy="12" r="1.2" fill="#2C2824"/></svg></div>
+              </div>
+            </div>
+            <div class="hero-icon">
+              <svg width="24" height="24" viewBox="0 0 18 18" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 8.5L9 3l7.5 5.5V16a.5.5 0 0 1-.5.5H11v-4H7v4H2a.5.5 0 0 1-.5-.5V8.5z"/></svg>
+            </div>
+            <div class="hero-add-photo">Tap to add photo</div>
+          </div>
+
+          <!-- Identity -->
+          <div class="item-id">
+            <div class="item-name">Boiler</div>
+            <div class="item-meta">Home · Vaillant ecoTEC plus</div>
+          </div>
+
+          <!-- Stats -->
+          <div class="stats-row">
+            <div class="stat-box">
+              <div class="stat-val">5y</div>
+              <div class="stat-label">owned</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val" style="color:var(--sage);">12</div>
+              <div class="stat-label">completed</div>
+            </div>
+            <div class="stat-box highlight">
+              <div class="stat-val">2y</div>
+              <div class="stat-label">covered until</div>
+            </div>
+          </div>
+
+          <!-- Status strip -->
+          <div class="status-strip">
+            <div class="status-dot"></div>
+            <div class="status-text">1 task waiting for you</div>
+            <div class="status-next">Next due Apr 15</div>
+          </div>
+
+          <!-- Mini timeline -->
+          <div class="sec-head" style="padding-bottom:4px;">
+            <div class="sec-title" style="font-size:14px;">Care timeline</div>
+          </div>
+          <div class="timeline">
+            <div class="tl-bar">
+              <div class="tl-fill" style="width:65%;"></div>
+              <div class="tl-dot past" style="left:10%;"></div>
+              <div class="tl-dot past" style="left:35%;"></div>
+              <div class="tl-dot past" style="left:65%;"></div>
+              <div class="tl-dot future" style="left:85%;"></div>
+            </div>
+            <div class="tl-labels">
+              <span>Jun 2024</span>
+              <span>Dec 2024</span>
+              <span class="tl-label now">Now</span>
+              <span>Oct 2026</span>
+            </div>
+          </div>
+
+          <!-- Tasks -->
+          <div class="sec-head">
+            <div class="sec-title">Tasks</div>
+            <div class="sec-action">
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="var(--plum)" stroke-width="1.5" stroke-linecap="round"><path d="M6 1v10"/><path d="M1 6h10"/></svg>
+              Add task
+            </div>
+          </div>
+
+          <!-- Task 1: waiting -->
+          <div class="task-card" id="tc1">
+            <div class="task-row" onclick="toggleTask('tc1')">
+              <div class="task-icon">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 8.5L9 3l7.5 5.5V16a.5.5 0 0 1-.5.5H11v-4H7v4H2a.5.5 0 0 1-.5-.5V8.5z"/></svg>
+              </div>
+              <div class="task-body">
+                <div class="task-title">Annual boiler service</div>
+                <div class="task-sub">Schedule a technician · yearly</div>
+              </div>
+              <div class="task-badge">waiting 12d</div>
+              <div class="task-chev"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M3 4.5L6 7.5L9 4.5"/></svg></div>
+            </div>
+            <div class="task-expand">
+              <div class="task-expand-inner">
+                <div class="task-why">
+                  <div class="task-why-label">Why it matters</div>
+                  <div class="task-why-text">Validates your warranty and catches carbon monoxide risks. Most manufacturers require annual documented proof.</div>
+                </div>
+                <div class="task-last">
+                  <div class="task-last-dot"></div>
+                  Last completed 10 months ago · 12 Jun 2025
+                </div>
+                <div class="task-actions">
+                  <div class="ta-details">Details ›</div>
+                  <div class="ta-skip">Skip · back Oct 28</div>
+                  <div class="ta-snooze">Snooze</div>
+                  <div class="ta-done"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg> Done</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Task 2: due soon -->
+          <div class="task-card" id="tc2">
+            <div class="task-row" onclick="toggleTask('tc2')">
+              <div class="task-icon">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 8.5L9 3l7.5 5.5V16a.5.5 0 0 1-.5.5H11v-4H7v4H2a.5.5 0 0 1-.5-.5V8.5z"/></svg>
+              </div>
+              <div class="task-body">
+                <div class="task-title">Clean boiler filter</div>
+                <div class="task-sub">15 min DIY · every 6 months</div>
+              </div>
+              <div class="task-badge neutral">Apr 15</div>
+              <div class="task-chev"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M3 4.5L6 7.5L9 4.5"/></svg></div>
+            </div>
+            <div class="task-expand">
+              <div class="task-expand-inner">
+                <div class="task-why">
+                  <div class="task-why-label">Why it matters</div>
+                  <div class="task-why-text">A clogged filter reduces heating efficiency by up to 25% and can cause the boiler to shut down.</div>
+                </div>
+                <div class="task-last">
+                  <div class="task-last-dot"></div>
+                  Last completed 5 months ago · 12 Nov 2025
+                </div>
+                <div class="task-actions">
+                  <div class="ta-details">Details ›</div>
+                  <div class="ta-skip">Skip · back Oct 15</div>
+                  <div class="ta-snooze">Snooze</div>
+                  <div class="ta-done"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg> Done</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Task 3: on track -->
+          <div class="task-card" id="tc3">
+            <div class="task-row" onclick="toggleTask('tc3')">
+              <div class="task-icon">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 8.5L9 3l7.5 5.5V16a.5.5 0 0 1-.5.5H11v-4H7v4H2a.5.5 0 0 1-.5-.5V8.5z"/></svg>
+              </div>
+              <div class="task-body">
+                <div class="task-title">Check water pressure</div>
+                <div class="task-sub">Monthly · on track</div>
+              </div>
+              <div class="task-badge neutral">May 1</div>
+              <div class="task-chev"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M3 4.5L6 7.5L9 4.5"/></svg></div>
+            </div>
+            <div class="task-expand">
+              <div class="task-expand-inner">
+                <div class="task-why">
+                  <div class="task-why-label">Why it matters</div>
+                  <div class="task-why-text">Pressure below 1 bar means the boiler won't fire. Above 2.5 bar risks the pressure relief valve. Check the gauge monthly.</div>
+                </div>
+                <div class="task-last">
+                  <div class="task-last-dot"></div>
+                  Last completed 3 weeks ago · 21 Mar 2026
+                </div>
+                <div class="task-actions">
+                  <div class="ta-details">Details ›</div>
+                  <div class="ta-skip">Skip · back Jun 1</div>
+                  <div class="ta-snooze">Snooze</div>
+                  <div class="ta-done"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg> Done</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- History -->
+          <div class="sec-head">
+            <div class="sec-title">History</div>
+            <span style="font-size:10px;color:var(--mid);">12 completions</span>
+          </div>
+          <div class="hist-card">
+            <div class="hist-row">
+              <div class="hist-check"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="var(--sage)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg></div>
+              <div class="hist-info">
+                <div class="hist-name">Annual boiler service</div>
+                <div class="hist-date">12 Jun 2025</div>
+              </div>
+              <div class="hist-arrow"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M4.5 3L7.5 6L4.5 9"/></svg></div>
+            </div>
+            <div class="hist-row">
+              <div class="hist-check"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="var(--sage)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg></div>
+              <div class="hist-info">
+                <div class="hist-name">Clean boiler filter</div>
+                <div class="hist-date">12 Nov 2025</div>
+              </div>
+              <div class="hist-arrow"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M4.5 3L7.5 6L4.5 9"/></svg></div>
+            </div>
+            <div class="hist-row">
+              <div class="hist-check"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="var(--sage)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg></div>
+              <div class="hist-info">
+                <div class="hist-name">Check water pressure</div>
+                <div class="hist-date">21 Mar 2026</div>
+              </div>
+              <div class="hist-arrow"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M4.5 3L7.5 6L4.5 9"/></svg></div>
+            </div>
+          </div>
+
+          <!-- Details -->
+          <div class="sec-head">
+            <div class="sec-title">Details</div>
+            <div class="sec-action">Edit</div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-row"><span class="detail-label">Brand</span><span class="detail-val">Vaillant</span></div>
+            <div class="detail-row"><span class="detail-label">Model</span><span class="detail-val">ecoTEC plus</span></div>
+            <div class="detail-row"><span class="detail-label">Purchased</span><span class="detail-val">Mar 2020</span></div>
+            <div class="detail-row"><span class="detail-label">Warranty until</span><span class="detail-val warn">Mar 2027</span></div>
+            <div class="detail-row"><span class="detail-label">Last serviced</span><span class="detail-val">12 Jun 2025</span></div>
+            <div class="detail-row"><span class="detail-label">Source</span><span class="detail-val">AI scan</span></div>
+          </div>
+
+          <div class="bottom-spacer"></div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Annotation sidebar -->
+    <div style="flex:1;min-width:260px;">
+      <div style="font-size:10px;font-weight:600;letter-spacing:1.3px;text-transform:uppercase;color:#8A8070;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid rgba(26,22,18,0.08);">Structure</div>
+
+      <div style="margin-bottom:20px;">
+        <div style="font-size:13px;font-weight:600;color:#31332C;margin-bottom:4px;">Hero + photo area</div>
+        <div style="font-size:12px;color:#7A756D;line-height:1.55;">Category wash bg, 56px icon circle, "Tap to add photo" placeholder. Back/edit/more nav pills float over the hero. Photo replaces placeholder when added.</div>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <div style="font-size:13px;font-weight:600;color:#31332C;margin-bottom:4px;">Stats row (3 boxes)</div>
+        <div style="font-size:12px;color:#7A756D;line-height:1.55;">Owned duration, completions count (sage), coverage remaining (apricot highlight). Coverage box is tappable for warranty detail tooltip.</div>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <div style="font-size:13px;font-weight:600;color:#31332C;margin-bottom:4px;">Status strip</div>
+        <div style="font-size:12px;color:#7A756D;line-height:1.55;">"1 task waiting for you" (not "1 task overdue"). Apricot dot. Next due date right-aligned. Urgency language per CLAUDE.md rules.</div>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <div style="font-size:13px;font-weight:600;color:#31332C;margin-bottom:4px;">Care timeline <span style="font-size:9px;font-weight:600;letter-spacing:0.4px;padding:2px 6px;border-radius:100px;background:rgba(232,168,124,0.12);color:#B07A4A;margin-left:4px;">New</span></div>
+        <div style="font-size:12px;color:#7A756D;line-height:1.55;">Mini horizontal timeline showing the rhythm of care. Category-colored dots for past completions. Plum dot for next due. Shows the user their care pattern at a glance.</div>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <div style="font-size:13px;font-weight:600;color:#31332C;margin-bottom:4px;">Task cards (inline expand)</div>
+        <div style="font-size:12px;color:#7A756D;line-height:1.55;">Same 40px icon circles as Today tab. Tap to expand: "Why it matters" in category wash, last completed, and actions (Skip/Snooze/Done). "Details ›" link opens S-13 full task page. All icons use category color, never apricot for urgency.</div>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <div style="font-size:13px;font-weight:600;color:#31332C;margin-bottom:4px;">Skip button shows return date</div>
+        <div style="font-size:12px;color:#7A756D;line-height:1.55;">"Skip · back Oct 28" per task-interactions.html. Frequency-aware: ≤1 month pushes by full interval, >1 month pushes by 1 month only. Yearly tasks can't be skipped for a year.</div>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <div style="font-size:13px;font-weight:600;color:#31332C;margin-bottom:4px;">History (clickable rows)</div>
+        <div style="font-size:12px;color:#7A756D;line-height:1.55;">Each completion is tappable (right arrow indicator). Opens completion detail: date, who did it, notes, photo. Sage check icons. Most recent first.</div>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <div style="font-size:13px;font-weight:600;color:#31332C;margin-bottom:4px;">Details (editable)</div>
+        <div style="font-size:12px;color:#7A756D;line-height:1.55;">Brand, model, purchase date, warranty, last service, source. Edit link top-right. Warranty date in apricot when approaching expiry. Dates from AI scan or user input.</div>
+      </div>
+
+      <div style="margin-bottom:20px;padding:14px;background:rgba(155,127,212,0.06);border-radius:12px;border:1px solid rgba(155,127,212,0.12);">
+        <div style="font-size:12px;font-weight:600;color:#31332C;margin-bottom:4px;">Hybrid navigation pattern</div>
+        <div style="font-size:11px;color:#7A756D;line-height:1.55;">Tasks expand inline here for quick actions. "Details ›" opens S-13 for full depth (how-to steps, AI chat, full history). From Today/Plan tab, tapping a task goes directly to S-13.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Changelog -->
+<div style="max-width:980px;margin:0 auto;padding:48px 32px 0;">
+  <div style="font-size:10px;font-weight:600;letter-spacing:1.3px;text-transform:uppercase;color:#8A8070;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid rgba(26,22,18,0.08);">Changelog</div>
+  <div style="margin-bottom:16px;">
+    <div style="font-size:13px;font-weight:600;color:#31332C;margin-bottom:2px;">v1.0 · April 2026 <span style="font-size:9px;padding:2px 6px;border-radius:3px;background:rgba(155,127,212,0.10);color:#9B7FD4;margin-left:4px;">Initial</span></div>
+    <div style="font-size:12px;color:#7A756D;line-height:1.55;"><strong>Initial hi-fi.</strong> Replaces S-17 prototype. Key changes from prototype: DM Serif Display + DM Sans (was Noto Serif + Manrope). tokens.css integration. Status strip uses "waiting for you" not "needs attention" per urgency language rules. Mini care timeline added (review feedback #3). All task icons use category color (feedback #6). Task rows match Today tab pattern (feedback #2). History entries are clickable with arrow indicator (feedback #4). Edit button prominent in Details section header (feedback #5). Stats row keeps "X completed" count, not progress fraction (feedback #1). Flutter: ScrollView with SliverAppBar for hero collapse. Task expand uses AnimatedContainer with max-height. Timeline is a CustomPainter with category-colored circles.</div>
+  </div>
+</div>
+
+<script>
+function setTheme(t) {
+  document.querySelector('.s17-phone').setAttribute('data-theme', t);
+  document.querySelectorAll('.s17-ctrl-btn').forEach(b => b.classList.toggle('on', b.textContent.trim() === (t === 'light' ? 'Light' : 'Dark')));
+}
+function toggleTask(id) {
+  var card = document.getElementById(id);
+  var expand = card.querySelector('.task-expand');
+  var chev = card.querySelector('.task-chev');
+  if (expand.style.maxHeight && expand.style.maxHeight !== '0px') {
+    expand.style.maxHeight = '0px';
+    chev.classList.remove('open');
+  } else {
+    expand.style.maxHeight = expand.scrollHeight + 'px';
+    chev.classList.add('open');
+  }
+}
+</script>
+</body>
+</html>
