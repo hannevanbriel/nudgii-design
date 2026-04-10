@@ -78,6 +78,14 @@ body{background:#CBC5BB;padding:0 0 80px;}
 .ta-done{font-size:10px;font-weight:500;color:white;cursor:pointer;padding:6px 14px;border-radius:100px;background:var(--ch-bg);display:flex;align-items:center;gap:4px;}
 .ta-details{font-size:10px;font-weight:500;color:var(--plum);cursor:pointer;margin-right:auto;}
 
+/* How to complete steps */
+.task-how{margin-top:10px;padding:12px 14px;background:var(--surface-low);border-radius:10px;}
+.task-how-label{font-size:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;color:var(--ch-bg);margin-bottom:10px;}
+.task-step{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;}
+.task-step:last-child{margin-bottom:0;}
+.task-step-num{width:22px;height:22px;border-radius:50%;background:var(--ch-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;font-weight:600;color:var(--ch-bg);}
+.task-step-text{font-size:11px;color:var(--ink);line-height:1.5;padding-top:2px;}
+
 /* Mini timeline */
 .timeline{padding:0 20px 16px;}
 .tl-bar{position:relative;height:4px;background:var(--surface-high);border-radius:100px;margin:8px 0 12px;}
@@ -124,6 +132,8 @@ body{background:#CBC5BB;padding:0 0 80px;}
 [data-theme="dark"] .status-strip{background:var(--surface-high);}
 [data-theme="dark"] .task-card{background:var(--surface-high);border-color:rgba(255,255,255,0.06);}
 [data-theme="dark"] .task-why{background:rgba(224,168,152,0.10);}
+[data-theme="dark"] .task-how{background:var(--surface-low);}
+[data-theme="dark"] .task-step-num{background:rgba(224,168,152,0.15);}
 [data-theme="dark"] .task-actions{border-color:rgba(255,255,255,0.06);}
 [data-theme="dark"] .ta-snooze{background:var(--surface-low);}
 [data-theme="dark"] .hist-card{background:var(--surface-high);border-color:rgba(255,255,255,0.06);}
@@ -264,6 +274,13 @@ body{background:#CBC5BB;padding:0 0 80px;}
                   <div class="task-why-label">Why it matters</div>
                   <div class="task-why-text">Validates your warranty and catches carbon monoxide risks. Most manufacturers require annual documented proof.</div>
                 </div>
+                <div class="task-how">
+                  <div class="task-how-label">How to complete this</div>
+                  <div class="task-step"><div class="task-step-num">1</div><div class="task-step-text">Find a certified installer on the manufacturer's website</div></div>
+                  <div class="task-step"><div class="task-step-num">2</div><div class="task-step-text">Book 2-3 weeks ahead, morning slots are easier</div></div>
+                  <div class="task-step"><div class="task-step-num">3</div><div class="task-step-text">Clear the area around the boiler for access</div></div>
+                  <div class="task-step"><div class="task-step-num">4</div><div class="task-step-text">Keep the service certificate with your warranty docs</div></div>
+                </div>
                 <div class="task-last">
                   <div class="task-last-dot"></div>
                   Last completed 10 months ago · 12 Jun 2025
@@ -297,6 +314,12 @@ body{background:#CBC5BB;padding:0 0 80px;}
                   <div class="task-why-label">Why it matters</div>
                   <div class="task-why-text">A clogged filter reduces heating efficiency by up to 25% and can cause the boiler to shut down.</div>
                 </div>
+                <div class="task-how">
+                  <div class="task-how-label">How to complete this</div>
+                  <div class="task-step"><div class="task-step-num">1</div><div class="task-step-text">Turn off the boiler and let it cool</div></div>
+                  <div class="task-step"><div class="task-step-num">2</div><div class="task-step-text">Locate the filter (usually near the water inlet)</div></div>
+                  <div class="task-step"><div class="task-step-num">3</div><div class="task-step-text">Rinse under running water until clear</div></div>
+                </div>
                 <div class="task-last">
                   <div class="task-last-dot"></div>
                   Last completed 5 months ago · 12 Nov 2025
@@ -329,6 +352,12 @@ body{background:#CBC5BB;padding:0 0 80px;}
                 <div class="task-why">
                   <div class="task-why-label">Why it matters</div>
                   <div class="task-why-text">Pressure below 1 bar means the boiler won't fire. Above 2.5 bar risks the pressure relief valve. Check the gauge monthly.</div>
+                </div>
+                <div class="task-how">
+                  <div class="task-how-label">How to complete this</div>
+                  <div class="task-step"><div class="task-step-num">1</div><div class="task-step-text">Find the pressure gauge on the front panel</div></div>
+                  <div class="task-step"><div class="task-step-num">2</div><div class="task-step-text">Check it reads between 1.0 and 1.5 bar</div></div>
+                  <div class="task-step"><div class="task-step-num">3</div><div class="task-step-text">If low, use the filling loop valve to top up</div></div>
                 </div>
                 <div class="task-last">
                   <div class="task-last-dot"></div>
