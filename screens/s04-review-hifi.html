@@ -6,15 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>nudgii · S-04 Review · hi-fi</title>
 <link rel="stylesheet" href="../system/components.css">
+<link rel="stylesheet" href="../system/tokens.css">
 <style>
-/* ── S-04 Precision Warmth tokens (match dashboard) ── */
-:root{
-  --ch-bg:#C09088;--cg-bg:#8C9B80;--cv-bg:#8E9A94;--cs-bg:#A69BBF;
-}
-[data-theme="dark"]{
-  --ch-bg:#E0A898;--cg-bg:#A8B89C;--cv-bg:#A8B0AA;--cs-bg:#C0B4D6;
-}
-
 /* ── S-04 screen-specific ── */
 body{background:#CBC5BB;padding:0 0 80px;}
 
@@ -97,10 +90,10 @@ body{background:#CBC5BB;padding:0 0 80px;}
 .cta-on{width:100%;padding:13px;border-radius:100px;border:none;background:var(--cta);color:var(--cta-fg);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;box-shadow:0 4px 18px rgba(155,127,212,0.35);display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;}
 
 /* Category wash backgrounds */
-.entity.cat-home{background:rgba(192,144,136,0.14);}
-.entity.cat-vehicle{background:rgba(142,154,148,0.14);}
-.entity.cat-garden{background:rgba(140,155,128,0.14);}
-.entity.cat-subs{background:rgba(166,155,191,0.14);}
+.entity.cat-home{background:var(--ch-wash);}
+.entity.cat-vehicle{background:var(--cv-wash);}
+.entity.cat-garden{background:var(--cg-wash);}
+.entity.cat-subs{background:var(--cs-wash);}
 
 /* Annotation overrides */
 .annot-col{flex:1;min-width:280px;}
@@ -122,10 +115,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
 [data-theme="dark"] .cat-lbl{color:#A8A29A;}
 
 /* Entity cards: match My Stuff dark (lighter hues, lower opacity = richer color) */
-[data-theme="dark"] .entity.cat-home{background:rgba(224,168,152,0.12);}
-[data-theme="dark"] .entity.cat-vehicle{background:rgba(168,176,170,0.12);}
-[data-theme="dark"] .entity.cat-garden{background:rgba(168,184,156,0.12);}
-[data-theme="dark"] .entity.cat-subs{background:rgba(192,180,214,0.12);}
+/* entity backgrounds use var(--ch-wash) etc. — dark mode handled by tokens.css */
 [data-theme="dark"] .entity-icon{background:rgba(255,255,255,0.08);}
 [data-theme="dark"] .entity-name{color:#F0EDE6;}
 [data-theme="dark"] .entity-meta{color:#A8A29A;}
