@@ -92,9 +92,13 @@ body{background:#CBC5BB;padding:0 0 80px;}
 .task-step-num{width:22px;height:22px;border-radius:50%;background:var(--plum-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;font-weight:600;color:var(--plum);}
 .task-step-text{font-size:11px;color:var(--ink);line-height:1.5;padding-top:2px;}
 
-/* Last completed */
-.task-last{display:flex;align-items:center;gap:8px;padding:6px 0;font-size:11px;color:var(--mid);}
-.task-last-dot{width:5px;height:5px;border-radius:50%;background:var(--sage);opacity:0.5;}
+/* Task-level history */
+.task-hist{margin-bottom:6px;padding:10px 12px;background:var(--surface-low);border-radius:10px;}
+.task-hist-label{font-size:9px;font-weight:600;color:var(--mid);margin-bottom:6px;}
+.task-hist-skip{font-weight:400;color:var(--apricot);}
+.task-hist-entry{display:flex;align-items:center;gap:8px;padding:3px 0;font-size:10px;color:var(--ink);}
+.task-hist-dot{width:5px;height:5px;border-radius:50%;background:var(--sage);opacity:0.5;flex-shrink:0;}
+.task-hist-note{color:var(--mid);margin-left:auto;font-size:9px;}
 
 /* Actions */
 .task-actions{display:flex;align-items:center;gap:6px;margin-top:10px;padding-top:10px;border-top:0.5px solid rgba(44,40,36,0.06);}
@@ -162,6 +166,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
 [data-theme="dark"] .task-info-box{background:var(--surface-low);}
 [data-theme="dark"] .task-why{background:rgba(240,184,144,0.06);}
 [data-theme="dark"] .task-how{background:var(--surface-low);}
+[data-theme="dark"] .task-hist{background:var(--surface-low);}
 [data-theme="dark"] .task-step-num{background:rgba(184,160,232,0.15);}
 [data-theme="dark"] .task-actions{border-color:rgba(255,255,255,0.06);}
 [data-theme="dark"] .ta-snooze{background:var(--surface-low);}
@@ -295,7 +300,13 @@ body{background:#CBC5BB;padding:0 0 80px;}
                 <div class="task-step"><div class="task-step-num">3</div><div class="task-step-text">Clear the area around the boiler so the technician can work</div></div>
                 <div class="task-step"><div class="task-step-num">4</div><div class="task-step-text">Keep the service certificate with your warranty docs</div></div>
               </div>
-              <div class="task-last"><div class="task-last-dot"></div>Last completed 10 months ago · 12 Jun 2025</div>
+              <!-- Task history (last 3 for this task) -->
+              <div class="task-hist">
+                <div class="task-hist-label">Completed 3 times</div>
+                <div class="task-hist-entry"><div class="task-hist-dot"></div><span>12 Jun 2025</span><span class="task-hist-note">by technician</span></div>
+                <div class="task-hist-entry"><div class="task-hist-dot"></div><span>8 Jun 2024</span><span class="task-hist-note">by technician</span></div>
+                <div class="task-hist-entry"><div class="task-hist-dot"></div><span>15 Jun 2023</span><span class="task-hist-note">first service</span></div>
+              </div>
               <div class="task-actions">
                 <div class="ta-skip">Skip · back Nov 2026</div>
                 <div class="ta-snooze">Snooze</div>
@@ -341,7 +352,12 @@ body{background:#CBC5BB;padding:0 0 80px;}
                 <div class="task-step"><div class="task-step-num">2</div><div class="task-step-text">Locate the filter (usually near the water inlet valve)</div></div>
                 <div class="task-step"><div class="task-step-num">3</div><div class="task-step-text">Rinse under running water until the water runs clear</div></div>
               </div>
-              <div class="task-last"><div class="task-last-dot"></div>Last completed 5 months ago · 12 Nov 2025</div>
+              <div class="task-hist">
+                <div class="task-hist-label">Completed 4 times <span class="task-hist-skip">· skipped once this year</span></div>
+                <div class="task-hist-entry"><div class="task-hist-dot"></div><span>12 Nov 2025</span><span class="task-hist-note">DIY</span></div>
+                <div class="task-hist-entry"><div class="task-hist-dot"></div><span>14 May 2025</span><span class="task-hist-note">DIY</span></div>
+                <div class="task-hist-entry"><div class="task-hist-dot"></div><span>10 Nov 2024</span><span class="task-hist-note">DIY</span></div>
+              </div>
               <div class="task-actions">
                 <div class="ta-skip">Skip · back Oct 15</div>
                 <div class="ta-snooze">Snooze</div>
@@ -383,7 +399,12 @@ body{background:#CBC5BB;padding:0 0 80px;}
                 <div class="task-step"><div class="task-step-num">2</div><div class="task-step-text">Check it reads between 1.0 and 1.5 bar</div></div>
                 <div class="task-step"><div class="task-step-num">3</div><div class="task-step-text">If low, use the filling loop valve to top up slowly</div></div>
               </div>
-              <div class="task-last"><div class="task-last-dot"></div>Last completed 3 weeks ago · 21 Mar 2026</div>
+              <div class="task-hist">
+                <div class="task-hist-label">Completed 5 times</div>
+                <div class="task-hist-entry"><div class="task-hist-dot"></div><span>21 Mar 2026</span><span class="task-hist-note">DIY</span></div>
+                <div class="task-hist-entry"><div class="task-hist-dot"></div><span>18 Feb 2026</span><span class="task-hist-note">DIY</span></div>
+                <div class="task-hist-entry"><div class="task-hist-dot"></div><span>20 Jan 2026</span><span class="task-hist-note">DIY</span></div>
+              </div>
               <div class="task-actions">
                 <div class="ta-skip">Skip · back Jun 1</div>
                 <div class="ta-snooze">Snooze</div>
@@ -398,8 +419,8 @@ body{background:#CBC5BB;padding:0 0 80px;}
             <div class="task-done-msg" id="tc3-done"></div>
           </div>
 
-          <!-- History -->
-          <div class="sec-head"><div class="sec-title">History</div><span style="font-size:10px;color:var(--mid);">12 completions</span></div>
+          <!-- History (item-level: recent across all tasks) -->
+          <div class="sec-head"><div class="sec-title">Recent activity</div><div class="sec-action">All 12 ›</div></div>
           <div class="hist-card">
             <div class="hist-row">
               <div class="hist-check"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="var(--sage)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg></div>
@@ -450,7 +471,12 @@ body{background:#CBC5BB;padding:0 0 80px;}
 
       <div style="margin-bottom:16px;">
         <div style="font-size:12px;font-weight:600;color:#31332C;margin-bottom:3px;">Task expand: full depth inline</div>
-        <div style="font-size:11px;color:#7A756D;line-height:1.55;">Quick info row (since last, times done, cost). "Why it matters" warm card. "How to do it" numbered steps (no connecting lines). Last completed. Skip (with return date) + Snooze + Done. Ask nudgii bar.</div>
+        <div style="font-size:11px;color:#7A756D;line-height:1.55;">Quick info row (since last, times done, cost). "Why it matters" warm card. "How to do it" numbered steps (no connecting lines). Task-level history (last 3 completions with dates + context). Skip count shown as subtle text, not timeline rows. Snooze history never shown. Skip (with return date) + Snooze + Done. Ask nudgii bar.</div>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <div style="font-size:12px;font-weight:600;color:#31332C;margin-bottom:3px;">History: two levels</div>
+        <div style="font-size:11px;color:#7A756D;line-height:1.55;"><strong>Task level</strong> (inside expand): last 3 completions for THIS task, with date + who/how. Skip count as subtle apricot text ("skipped once this year"), not individual rows. Snooze never shown.<br><strong>Item level</strong> (section below tasks): recent activity across ALL tasks. "All 12 ›" link opens full history. Most recent first. Each row clickable for detail (date, notes, photo).</div>
       </div>
 
       <div style="margin-bottom:16px;">
