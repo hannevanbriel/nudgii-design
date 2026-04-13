@@ -1,5 +1,6 @@
-# Claude Code worktrees — local only, never commit
+# Claude Code worktrees and local config — never commit
 .claude/worktrees/
+.claude/launch.json
 
 # macOS
 .DS_Store
