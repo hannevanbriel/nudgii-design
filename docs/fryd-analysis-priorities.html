@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · Fryd Competitive Analysis Priorities</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #F5F0E8;
+  --ink: #2C2824;
+  --mid: #8A8070;
+  --mid-a: #6B6358;
+  --hint: #A09888;
+  --cta: #9B7FD4;
+  --cta-fg: #FAF8FF;
+  --plum: #2D1F4A;
+  --apricot: #E8A87C;
+  --surface: #FFFFFF;
+  --ink-08: rgba(44,40,36,0.08);
+  --ink-12: rgba(44,40,36,0.12);
+  --ink-20: rgba(44,40,36,0.20);
+  --sage: #3B6D11;
+  --sage-lt: #EAF3DE;
+  --red: #A32D2D;
+  --red-lt: #FCEBEB;
+  --amber: #854F0B;
+  --amber-lt: #FAEEDA;
+  --ch-bg: #D2BEB6; --ch-ic: #7A5A50;
+  --cg-bg: #C4DABE; --cg-ic: #4A7A40;
+  --cv-bg: #C0CDD8; --cv-ic: #4A6A82;
+  --cs-bg: #D0C6DC; --cs-ic: #6A5085;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--cream); color: var(--ink); font-family: 'DM Sans', sans-serif; font-size: 14px; line-height: 1.6; }
+
+/* Nav */
+nav { position: sticky; top: 0; z-index: 100; background: var(--cream); border-bottom: 1px solid var(--ink-12); padding: 0 32px; display: flex; align-items: center; height: 52px; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.wordmark { font-family: 'DM Serif Display', serif; font-size: 15px; letter-spacing: -0.3px; color: var(--ink); }
+.wordmark span { color: var(--mid); font-family: 'DM Sans', sans-serif; font-weight: 300; font-size: 13px; margin-left: 6px; }
+nav a.back { margin-left: auto; font-size: 13px; color: var(--mid); text-decoration: none; }
+nav a.back:hover { color: var(--ink); }
+
+/* Hero */
+.hero { padding: 56px 32px 48px; max-width: 900px; }
+.eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--mid); margin-bottom: 12px; }
+.hero h1 { font-family: 'DM Serif Display', serif; font-size: 36px; line-height: 1.15; margin-bottom: 12px; }
+.hero h1 em { font-style: italic; color: var(--cta); }
+.hero-sub { font-size: 15px; color: var(--mid-a); font-weight: 300; max-width: 600px; margin-bottom: 32px; line-height: 1.6; }
+
+/* Summary strip */
+.summary-strip { display: flex; gap: 12px; padding: 0 32px 40px; flex-wrap: wrap; }
+.stat-card { background: var(--surface); border: 1px solid var(--ink-12); border-radius: 14px; padding: 20px 24px; flex: 1; min-width: 180px; }
+.stat-number { font-family: 'DM Serif Display', serif; font-size: 36px; line-height: 1; margin-bottom: 4px; }
+.stat-label { font-size: 12px; color: var(--mid-a); font-weight: 400; }
+.stat-card.done .stat-number { color: var(--sage); }
+.stat-card.conflict .stat-number { color: var(--amber); }
+.stat-card.action .stat-number { color: var(--cta); }
+.stat-card.later .stat-number { color: var(--mid); }
+
+/* Section */
+.section { padding: 0 32px 40px; }
+.section-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 20px; }
+.section-title { font-family: 'DM Serif Display', serif; font-size: 24px; }
+.section-sub { font-size: 13px; color: var(--mid); }
+
+/* Priority cards */
+.priority-group { margin-bottom: 36px; }
+.priority-label { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.priority-label::after { content: ''; flex: 1; height: 1px; background: var(--ink-12); }
+.p-badge { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; flex-shrink: 0; }
+.p-badge.p0 { background: rgba(155,127,212,0.12); color: #5C3E8A; }
+.p-badge.p1 { background: var(--amber-lt); color: var(--amber); }
+.p-badge.p2 { background: rgba(138,128,112,0.10); color: var(--mid-a); }
+.p-badge.p3 { background: rgba(138,128,112,0.06); color: var(--hint); }
+.p-desc { font-size: 12px; color: var(--mid); margin-left: 4px; }
+
+.card-list { display: flex; flex-direction: column; gap: 10px; }
+
+.action-card { background: var(--surface); border: 1px solid var(--ink-12); border-radius: 14px; padding: 18px 20px; display: flex; gap: 16px; align-items: flex-start; transition: all 0.15s; }
+.action-card:hover { border-color: var(--ink-20); }
+
+.card-icon { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; }
+.card-icon.eng { background: var(--cv-bg); }
+.card-icon.design { background: var(--cs-bg); }
+.card-icon.pm { background: var(--ch-bg); }
+.card-icon.copy { background: var(--cg-bg); }
+.card-icon.data { background: rgba(155,127,212,0.15); }
+
+.card-body { flex: 1; min-width: 0; }
+.card-title { font-size: 14px; font-weight: 500; margin-bottom: 4px; line-height: 1.35; }
+.card-desc { font-size: 12px; color: var(--mid-a); line-height: 1.55; margin-bottom: 8px; }
+.card-meta { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.tag { font-size: 10px; font-weight: 500; padding: 3px 9px; border-radius: 100px; }
+.tag-eng { background: var(--cv-bg); color: var(--cv-ic); }
+.tag-design { background: var(--cs-bg); color: var(--cs-ic); }
+.tag-pm { background: var(--ch-bg); color: var(--ch-ic); }
+.tag-copy { background: var(--cg-bg); color: var(--cg-ic); }
+.tag-data { background: rgba(155,127,212,0.12); color: #5C3E8A; }
+
+.card-status { margin-left: auto; flex-shrink: 0; }
+.status-pill { font-size: 10px; font-weight: 500; padding: 4px 10px; border-radius: 100px; display: inline-flex; align-items: center; gap: 5px; }
+.status-pill::before { content: ''; width: 5px; height: 5px; border-radius: 50%; display: inline-block; }
+.s-done { background: var(--sage-lt); color: var(--sage); }
+.s-done::before { background: var(--sage); }
+.s-action { background: rgba(155,127,212,0.10); color: #5C3E8A; }
+.s-action::before { background: var(--cta); }
+.s-conflict { background: var(--amber-lt); color: var(--amber); }
+.s-conflict::before { background: var(--amber); }
+.s-skip { background: rgba(138,128,112,0.08); color: var(--mid); }
+.s-skip::before { background: var(--hint); }
+.s-backlog { background: rgba(138,128,112,0.06); color: var(--hint); }
+.s-backlog::before { background: rgba(138,128,112,0.25); }
+
+/* Verdict bar */
+.verdict { margin-top: 6px; padding: 10px 14px; border-radius: 10px; font-size: 12px; line-height: 1.5; }
+.verdict.keep { background: var(--sage-lt); color: var(--sage); }
+.verdict.change { background: rgba(155,127,212,0.08); color: #5C3E8A; }
+.verdict.resolve { background: var(--amber-lt); color: var(--amber); }
+
+/* Theme matrix */
+.theme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.theme-card { background: var(--surface); border: 1px solid var(--ink-12); border-radius: 14px; padding: 20px; }
+.theme-name { font-size: 13px; font-weight: 500; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.theme-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+.theme-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.theme-p { font-size: 10px; font-weight: 600; letter-spacing: 0.5px; color: var(--mid); width: 22px; flex-shrink: 0; }
+.theme-count { font-size: 12px; color: var(--ink); flex: 1; }
+.theme-bar { height: 4px; border-radius: 2px; background: var(--ink-08); flex: 1; max-width: 100px; overflow: hidden; }
+.theme-fill { height: 100%; border-radius: 2px; background: var(--cta); }
+
+/* Nudgii vs Fryd comparison */
+.compare-table { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--surface); border: 1px solid var(--ink-12); border-radius: 14px; overflow: hidden; }
+.compare-table th { font-size: 10px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid); padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--ink-12); background: rgba(245,240,232,0.5); }
+.compare-table td { padding: 12px 16px; font-size: 13px; border-bottom: 1px solid var(--ink-08); vertical-align: top; }
+.compare-table tr:last-child td { border-bottom: none; }
+.compare-table .area { font-weight: 500; }
+.compare-table .winner { color: var(--sage); font-weight: 500; }
+.compare-table .loser { color: var(--red); }
+.compare-table .neutral { color: var(--mid); }
+.nudgii-col { font-size: 12px; }
+.fryd-col { font-size: 12px; color: var(--mid-a); }
+
+/* Impact scale */
+.impact-row { display: flex; align-items: center; gap: 8px; margin-bottom: 2px; }
+.impact-dots { display: flex; gap: 3px; }
+.impact-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink-08); }
+.impact-dot.filled { background: var(--cta); }
+.impact-dot.filled.high { background: var(--apricot); }
+
+/* Footer */
+footer { padding: 28px 32px; border-top: 1px solid var(--ink-12); margin-top: 48px; }
+footer p { font-size: 12px; color: var(--hint); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="../index.html">
+    <svg width="24" height="24" viewBox="0 0 80 80" style="border-radius:6px;flex-shrink:0"><rect width="80" height="80" fill="#2D1F4A" rx="18"/><rect x="15" y="12" width="19" height="52" rx="9.5" fill="#F5F0E8"/><rect x="40" y="12" width="19" height="52" rx="9.5" fill="#9B7FD4"/><circle cx="57" cy="22" r="7" fill="#E8A87C"/></svg>
+    <span class="wordmark">nudgii<span>competitive intel</span></span>
+  </a>
+  <a class="back" href="../index.html">&larr; Design hub</a>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <p class="eyebrow">Competitive analysis</p>
+  <h1>Fryd review,<br><em>filtered for nudgii.</em></h1>
+  <p class="hero-sub">62-screen competitive teardown of Fryd, filtered through nudgii's actual design state. What to act on, what to ignore, what we already do better.</p>
+</section>
+
+<!-- Summary strip -->
+<div class="summary-strip">
+  <div class="stat-card done">
+    <div class="stat-number">7</div>
+    <div class="stat-label">Already solved in our design</div>
+  </div>
+  <div class="stat-card conflict">
+    <div class="stat-number">3</div>
+    <div class="stat-label">Conflicts with existing decisions</div>
+  </div>
+  <div class="stat-card action">
+    <div class="stat-number">5</div>
+    <div class="stat-label">Action items to add</div>
+  </div>
+  <div class="stat-card later">
+    <div class="stat-number">5</div>
+    <div class="stat-label">Post-launch backlog</div>
+  </div>
+</div>
+
+<!-- Decision conflicts -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-title">Decisions to resolve</div>
+    <div class="section-sub">3 recommendations conflict with existing nudgii decisions</div>
+  </div>
+  <div class="card-list">
+
+    <div class="action-card">
+      <div class="card-icon pm">&#9888;</div>
+      <div class="card-body">
+        <div class="card-title">Push permission timing</div>
+        <div class="card-desc">Fryd analysis says: show after first task done. Current nudgii flow: S-06, after celebration, before dashboard. Moving push to post-first-task means removing S-06 from onboarding entirely.</div>
+        <div class="verdict resolve">Decision needed: keep S-06 in onboarding, or trigger from dashboard after first task completion?</div>
+        <div class="card-meta">
+          <span class="tag tag-pm">Product decision</span>
+          <span class="tag tag-design">Affects S-06</span>
+        </div>
+      </div>
+      <div class="card-status"><span class="status-pill s-conflict">Needs decision</span></div>
+    </div>
+
+    <div class="action-card">
+      <div class="card-icon pm">&#10005;</div>
+      <div class="card-body">
+        <div class="card-title">Free trial vs freemium</div>
+        <div class="card-desc">Analysis recommends 30-day free trial. nudgii uses permanent freemium (10 items free forever, no trial, no tricks). These are fundamentally different strategies.</div>
+        <div class="verdict keep">Keep nudgii's freemium model. Maintenance reminders need months to prove value, not 30 days. This is a stronger moat.</div>
+        <div class="card-meta">
+          <span class="tag tag-pm">Monetization</span>
+        </div>
+      </div>
+      <div class="card-status"><span class="status-pill s-done">Keep ours</span></div>
+    </div>
+
+    <div class="action-card">
+      <div class="card-icon pm">&#10005;</div>
+      <div class="card-body">
+        <div class="card-title">Completion screen auto-advance vs tap</div>
+        <div class="card-desc">Analysis says 2.0-2.5s auto-advance. nudgii S-05 decision: never auto-advance, require user tap ("Open my schedule"). Our approach is better.</div>
+        <div class="verdict keep">Keep user-initiated advance. Auto-advance cuts the celebration short for fast readers and annoys slow ones.</div>
+        <div class="card-meta">
+          <span class="tag tag-design">Affects S-05</span>
+        </div>
+      </div>
+      <div class="card-status"><span class="status-pill s-done">Keep ours</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- P0 -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-title">Priority actions</div>
+    <div class="section-sub">Ranked by impact on retention and conversion</div>
+  </div>
+
+  <div class="priority-group">
+    <div class="priority-label">
+      <span class="p-badge p0">P0 &middot; Before sprint 1</span>
+      <span class="p-desc">Blocking. Must resolve first.</span>
+    </div>
+    <div class="card-list">
+
+      <div class="action-card">
+        <div class="card-icon eng">&#9881;</div>
+        <div class="card-body">
+          <div class="card-title">Claude API latency contract + holding state</div>
+          <div class="card-desc">P50 under 2s, P95 under 4s, hard timeout at 8s. Design "nudgii denkt even na..." holding state with animated ii mark. Without this, any network delay breaks the conversational illusion.</div>
+          <div class="card-meta">
+            <span class="tag tag-eng">Engineering</span>
+            <span class="tag tag-design">Design</span>
+            <div class="impact-row" style="margin-left:auto">
+              <span style="font-size:10px;color:var(--mid)">Impact</span>
+              <div class="impact-dots">
+                <div class="impact-dot filled high"></div>
+                <div class="impact-dot filled high"></div>
+                <div class="impact-dot filled high"></div>
+                <div class="impact-dot filled high"></div>
+                <div class="impact-dot filled high"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-status"><span class="status-pill s-action">To do</span></div>
+      </div>
+
+      <div class="action-card">
+        <div class="card-icon data">&#9733;</div>
+        <div class="card-body">
+          <div class="card-title">"Last maintenance" chip on S-03 and S-04</div>
+          <div class="card-desc">Each item row shows: "Recently / 6+ months ago / Never." The user picks. This guarantees at least one waiting task on first dashboard open. Without it, users who select "recently" see an empty dashboard for weeks and churn.</div>
+          <div class="card-meta">
+            <span class="tag tag-design">Design</span>
+            <span class="tag tag-eng">Engineering</span>
+            <div class="impact-row" style="margin-left:auto">
+              <span style="font-size:10px;color:var(--mid)">Impact</span>
+              <div class="impact-dots">
+                <div class="impact-dot filled high"></div>
+                <div class="impact-dot filled high"></div>
+                <div class="impact-dot filled high"></div>
+                <div class="impact-dot filled high"></div>
+                <div class="impact-dot filled high"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-status"><span class="status-pill s-action">Highest leverage</span></div>
+      </div>
+
+      <div class="action-card">
+        <div class="card-icon pm">&#9878;</div>
+        <div class="card-body">
+          <div class="card-title">Protect deferred sign-up in working agreements</div>
+          <div class="card-desc">Document as a protected decision: "Sign-up cannot be moved before the AHA screen without explicit PM sign-off." Prevents a future engineering shortcut from destroying the onboarding.</div>
+          <div class="card-meta">
+            <span class="tag tag-pm">Process</span>
+            <div class="impact-row" style="margin-left:auto">
+              <span style="font-size:10px;color:var(--mid)">Impact</span>
+              <div class="impact-dots">
+                <div class="impact-dot filled"></div>
+                <div class="impact-dot filled"></div>
+                <div class="impact-dot filled"></div>
+                <div class="impact-dot"></div>
+                <div class="impact-dot"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-status"><span class="status-pill s-action">To do</span></div>
+      </div>
+
+      <div class="action-card">
+        <div class="card-icon data">&#127758;</div>
+        <div class="card-body">
+          <div class="card-title">BE/NL pre-selection lookup table + label</div>
+          <div class="card-desc">5 default items per locale in Supabase. Explanatory label on S-03: "Suggested for your region, remove anything that isn't yours." Reduces cognitive load of browse path significantly.</div>
+          <div class="card-meta">
+            <span class="tag tag-eng">Engineering</span>
+            <span class="tag tag-pm">PM: define items</span>
+            <div class="impact-row" style="margin-left:auto">
+              <span style="font-size:10px;color:var(--mid)">Impact</span>
+              <div class="impact-dots">
+                <div class="impact-dot filled high"></div>
+                <div class="impact-dot filled high"></div>
+                <div class="impact-dot filled high"></div>
+                <div class="impact-dot filled high"></div>
+                <div class="impact-dot"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-status"><span class="status-pill s-action">To do</span></div>
+      </div>
+
+      <div class="action-card">
+        <div class="card-icon pm">&#128276;</div>
+        <div class="card-body">
+          <div class="card-title">Lock push notification timing</div>
+          <div class="card-desc">Decision: after first task done (not at S-06). Copy: "We'll remind you when something needs attention. Can nudgii reach you?" Highest-impact push opt-in moment.</div>
+          <div class="card-meta">
+            <span class="tag tag-pm">Product decision</span>
+            <span class="tag tag-design">Affects S-06</span>
+            <div class="impact-row" style="margin-left:auto">
+              <span style="font-size:10px;color:var(--mid)">Impact</span>
+              <div class="impact-dots">
+                <div class="impact-dot filled high"></div>
+                <div class="impact-dot filled high"></div>
+                <div class="impact-dot filled high"></div>
+                <div class="impact-dot filled high"></div>
+                <div class="impact-dot"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-status"><span class="status-pill s-conflict">Needs decision</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- P1 -->
+  <div class="priority-group">
+    <div class="priority-label">
+      <span class="p-badge p1">P1 &middot; Before paywall design</span>
+      <span class="p-desc">Must resolve before monetization screens.</span>
+    </div>
+    <div class="card-list">
+
+      <div class="action-card">
+        <div class="card-icon copy">&#9998;</div>
+        <div class="card-body">
+          <div class="card-title">Upgrade prompt: name 3 specific benefits</div>
+          <div class="card-desc">"You have 10 items. Your house has more. Go Pro for unlimited items, seasonal overviews, and priority notifications." Three named benefits, not just "unlimited."</div>
+          <div class="card-meta">
+            <span class="tag tag-copy">Copy</span>
+            <span class="tag tag-design">Affects S-22</span>
+          </div>
+        </div>
+        <div class="card-status"><span class="status-pill s-action">To do</span></div>
+      </div>
+
+      <div class="action-card">
+        <div class="card-icon design">&#9670;</div>
+        <div class="card-body">
+          <div class="card-title">Annual plan pre-selected + "Most chosen" badge</div>
+          <div class="card-desc">Pre-select annual on paywall. Label "Meest gekozen." Show monthly equivalent. Typically shifts 15-25% of subscribers to annual, directly reducing churn.</div>
+          <div class="card-meta">
+            <span class="tag tag-design">Design S-22</span>
+            <span class="tag tag-pm">Revenue</span>
+          </div>
+        </div>
+        <div class="card-status"><span class="status-pill s-action">To do</span></div>
+      </div>
+
+      <div class="action-card">
+        <div class="card-icon pm">&#9745;</div>
+        <div class="card-body">
+          <div class="card-title">Confirm newsletter opt-in is unchecked</div>
+          <div class="card-desc">GDPR Article 7: consent must be freely given. Pre-ticking marketing consent doesn't meet Belgian/Dutch law. Fryd pre-ticks theirs. nudgii should not.</div>
+          <div class="card-meta">
+            <span class="tag tag-pm">Legal/GDPR</span>
+          </div>
+        </div>
+        <div class="card-status"><span class="status-pill s-done">Already correct</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- P2 -->
+  <div class="priority-group">
+    <div class="priority-label">
+      <span class="p-badge p2">P2 &middot; Sprint 2</span>
+      <span class="p-desc">Polish and conversion optimization.</span>
+    </div>
+    <div class="card-list">
+
+      <div class="action-card">
+        <div class="card-icon design">&#128172;</div>
+        <div class="card-body">
+          <div class="card-title">First-task tooltip on dashboard</div>
+          <div class="card-desc">Single tooltip, once, on the first task card: "Tap to see why this matters, and mark it done." Teaches the core loop in one line. Disappears after tap.</div>
+          <div class="card-meta">
+            <span class="tag tag-design">Design</span>
+            <span class="tag tag-eng">Engineering</span>
+          </div>
+        </div>
+        <div class="card-status"><span class="status-pill s-action">To do</span></div>
+      </div>
+
+      <div class="action-card">
+        <div class="card-icon copy">&#43;</div>
+        <div class="card-body">
+          <div class="card-title">"Add item" pointer on completion screen</div>
+          <div class="card-desc">One line below completion copy: "Want to add or adjust items? Tap the +" Prevents the forgot-an-item dead end.</div>
+          <div class="card-meta">
+            <span class="tag tag-copy">Copy</span>
+            <span class="tag tag-design">Affects S-05</span>
+          </div>
+        </div>
+        <div class="card-status"><span class="status-pill s-action">To do</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- P3 -->
+  <div class="priority-group">
+    <div class="priority-label">
+      <span class="p-badge p3">P3 &middot; Post-launch</span>
+      <span class="p-desc">Tracked, not blocking.</span>
+    </div>
+    <div class="card-list">
+
+      <div class="action-card" style="opacity:0.75">
+        <div class="card-icon design">&#127793;</div>
+        <div class="card-body">
+          <div class="card-title">Seasonal tip mechanism</div>
+          <div class="card-desc">Contextual "This season" card at dashboard top, appearing for 2-3 week windows. Time-bounded, not permanent. Highest-delight moment in months 2-3.</div>
+          <div class="card-meta"><span class="tag tag-design">Design</span></div>
+        </div>
+        <div class="card-status"><span class="status-pill s-backlog">v1.1</span></div>
+      </div>
+
+      <div class="action-card" style="opacity:0.75">
+        <div class="card-icon data">&#128200;</div>
+        <div class="card-body">
+          <div class="card-title">Post-install attribution card</div>
+          <div class="card-desc">Dismissable dashboard card 48h after install: "How did you find nudgii?" Feeds Mixpanel channel data. Auto-dismisses after 7 days.</div>
+          <div class="card-meta"><span class="tag tag-data">Analytics</span></div>
+        </div>
+        <div class="card-status"><span class="status-pill s-backlog">v1.1</span></div>
+      </div>
+
+      <div class="action-card" style="opacity:0.75">
+        <div class="card-icon eng">&#11088;</div>
+        <div class="card-body">
+          <div class="card-title">App Store rating prompt at 3 tasks / 2 sessions</div>
+          <div class="card-desc">Never before this threshold. Never during onboarding. Never within 7 days of install. Use SKStoreReviewRequest.</div>
+          <div class="card-meta"><span class="tag tag-eng">Engineering</span></div>
+        </div>
+        <div class="card-status"><span class="status-pill s-backlog">v1.1</span></div>
+      </div>
+
+      <div class="action-card" style="opacity:0.75">
+        <div class="card-icon pm">&#128274;</div>
+        <div class="card-body">
+          <div class="card-title">ATT prompt for paid ads phase</div>
+          <div class="card-desc">No action now. When paid acquisition starts: show after first task done, frame as benefit. Never stack with push prompt in same session.</div>
+          <div class="card-meta"><span class="tag tag-pm">Future</span></div>
+        </div>
+        <div class="card-status"><span class="status-pill s-backlog">Post-organic</span></div>
+      </div>
+
+      <div class="action-card" style="opacity:0.75">
+        <div class="card-icon design">&#8634;</div>
+        <div class="card-body">
+          <div class="card-title">"Manage items" entry in settings</div>
+          <div class="card-desc">Functional equivalent of Fryd's "restart tutorial" without the tutorial. Returns user to item management view.</div>
+          <div class="card-meta"><span class="tag tag-design">Design</span></div>
+        </div>
+        <div class="card-status"><span class="status-pill s-backlog">v1.1</span></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Already solved -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-title">Already solved</div>
+    <div class="section-sub">Things Fryd gets wrong that nudgii already handles correctly</div>
+  </div>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th style="width:22%">Area</th>
+        <th style="width:39%">nudgii</th>
+        <th style="width:39%">Fryd</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="area">Sign-up timing</td>
+        <td class="nudgii-col"><span class="winner">&#10003;</span> After celebration (S-05 State 3). User has seen value.</td>
+        <td class="fryd-col"><span class="loser">&#10007;</span> Before any value is shown. High drop-off.</td>
+      </tr>
+      <tr>
+        <td class="area">Onboarding tutorial</td>
+        <td class="nudgii-col"><span class="winner">&#10003;</span> No tutorial needed. UI is self-explanatory.</td>
+        <td class="fryd-col"><span class="loser">&#10007;</span> 7-screen tutorial that users skip immediately.</td>
+      </tr>
+      <tr>
+        <td class="area">GDPR consent</td>
+        <td class="nudgii-col"><span class="winner">&#10003;</span> Unchecked by default. Explicit opt-in.</td>
+        <td class="fryd-col"><span class="loser">&#10007;</span> Pre-ticked marketing consent. Legal risk.</td>
+      </tr>
+      <tr>
+        <td class="area">Celebration moment</td>
+        <td class="nudgii-col"><span class="winner">&#10003;</span> User-controlled tap, plum overlay, spring animation.</td>
+        <td class="fryd-col"><span class="neutral">~</span> 1.2s auto-advance. Too fast to land.</td>
+      </tr>
+      <tr>
+        <td class="area">Monetization model</td>
+        <td class="nudgii-col"><span class="winner">&#10003;</span> Freemium, no trial, no tricks. 10 items free forever.</td>
+        <td class="fryd-col"><span class="neutral">~</span> 7-day trial. Too short for maintenance apps.</td>
+      </tr>
+      <tr>
+        <td class="area">Urgency language</td>
+        <td class="nudgii-col"><span class="winner">&#10003;</span> "Waiting for you," time-since-done. No guilt.</td>
+        <td class="fryd-col"><span class="loser">&#10007;</span> "Overdue" badges. Creates anxiety.</td>
+      </tr>
+      <tr>
+        <td class="area">Analytics privacy</td>
+        <td class="nudgii-col"><span class="winner">&#10003;</span> Mixpanel first-party only. No ATT until ads.</td>
+        <td class="fryd-col"><span class="neutral">~</span> ATT prompt on first launch. Unnecessary friction.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Theme breakdown -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-title">By theme</div>
+    <div class="section-sub">Where actions cluster across priorities</div>
+  </div>
+
+  <div class="theme-grid">
+    <div class="theme-card">
+      <div class="theme-name">
+        <div class="theme-icon" style="background:var(--cv-bg)">&#9881;</div>
+        API + performance
+      </div>
+      <div class="theme-row"><span class="theme-p" style="color:var(--cta)">P0</span><span class="theme-count">Latency contract + holding state</span></div>
+    </div>
+
+    <div class="theme-card">
+      <div class="theme-name">
+        <div class="theme-icon" style="background:var(--cs-bg)">&#9998;</div>
+        Onboarding flow
+      </div>
+      <div class="theme-row"><span class="theme-p" style="color:var(--cta)">P0</span><span class="theme-count">Deferred sign-up protection</span></div>
+      <div class="theme-row"><span class="theme-p" style="color:var(--cta)">P0</span><span class="theme-count">Last maintenance chip (S-03, S-04)</span></div>
+      <div class="theme-row"><span class="theme-p" style="color:var(--cta)">P0</span><span class="theme-count">Push permission timing</span></div>
+      <div class="theme-row"><span class="theme-p" style="color:var(--mid)">P2</span><span class="theme-count">First-task tooltip</span></div>
+      <div class="theme-row"><span class="theme-p" style="color:var(--mid)">P2</span><span class="theme-count">Completion pointer</span></div>
+    </div>
+
+    <div class="theme-card">
+      <div class="theme-name">
+        <div class="theme-icon" style="background:var(--ch-bg)">&#127758;</div>
+        Item picker
+      </div>
+      <div class="theme-row"><span class="theme-p" style="color:var(--cta)">P0</span><span class="theme-count">Pre-selection lookup + label</span></div>
+    </div>
+
+    <div class="theme-card">
+      <div class="theme-name">
+        <div class="theme-icon" style="background:var(--cg-bg)">&#128176;</div>
+        Monetization
+      </div>
+      <div class="theme-row"><span class="theme-p" style="color:var(--amber)">P1</span><span class="theme-count">Upgrade copy with 3 benefits</span></div>
+      <div class="theme-row"><span class="theme-p" style="color:var(--amber)">P1</span><span class="theme-count">Annual plan pre-selected</span></div>
+      <div class="theme-row"><span class="theme-p" style="color:var(--amber)">P1</span><span class="theme-count">GDPR opt-in confirmed</span></div>
+    </div>
+
+    <div class="theme-card">
+      <div class="theme-name">
+        <div class="theme-icon" style="background:rgba(155,127,212,0.15)">&#128200;</div>
+        Retention + analytics
+      </div>
+      <div class="theme-row"><span class="theme-p" style="color:var(--hint)">P3</span><span class="theme-count">Seasonal tip mechanism</span></div>
+      <div class="theme-row"><span class="theme-p" style="color:var(--hint)">P3</span><span class="theme-count">Attribution card</span></div>
+      <div class="theme-row"><span class="theme-p" style="color:var(--hint)">P3</span><span class="theme-count">Rating prompt</span></div>
+      <div class="theme-row"><span class="theme-p" style="color:var(--hint)">P3</span><span class="theme-count">ATT for paid ads</span></div>
+    </div>
+
+    <div class="theme-card">
+      <div class="theme-name">
+        <div class="theme-icon" style="background:var(--sage-lt)">&#10003;</div>
+        No action needed
+      </div>
+      <div class="theme-row"><span class="theme-p" style="color:var(--sage)">&#10003;</span><span class="theme-count">Deferred sign-up (already correct)</span></div>
+      <div class="theme-row"><span class="theme-p" style="color:var(--sage)">&#10003;</span><span class="theme-count">No tutorial (by design)</span></div>
+      <div class="theme-row"><span class="theme-p" style="color:var(--sage)">&#10003;</span><span class="theme-count">Freemium over trial (better model)</span></div>
+      <div class="theme-row"><span class="theme-p" style="color:var(--sage)">&#10003;</span><span class="theme-count">User-controlled celebration</span></div>
+      <div class="theme-row"><span class="theme-p" style="color:var(--sage)">&#10003;</span><span class="theme-count">Mixpanel first-party only</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Non-functional requirements -->
+<div class="section" style="padding-top:8px">
+  <div class="section-head">
+    <div class="section-title">Non-functional requirements</div>
+    <div class="section-sub">Technical contracts to document before sprint 1</div>
+  </div>
+
+  <div class="theme-grid">
+    <div class="theme-card">
+      <div class="theme-name" style="font-size:12px;font-weight:500">API latency</div>
+      <div style="font-size:12px;color:var(--mid-a);line-height:1.5">
+        Claude API: P50 &lt;2s, P95 &lt;4s, timeout 8s<br>
+        Whisper STT: transcript within 500ms<br>
+        Category tap to list: under 500ms<br>
+        Dashboard first load: under 1s
+      </div>
+    </div>
+    <div class="theme-card">
+      <div class="theme-name" style="font-size:12px;font-weight:500">Session + state</div>
+      <div style="font-size:12px;color:var(--mid-a);line-height:1.5">
+        Anonymous session survives 24h<br>
+        Zero data loss on auth merge<br>
+        Offline: browse works, voice needs connection<br>
+        Task completion queued offline
+      </div>
+    </div>
+    <div class="theme-card">
+      <div class="theme-name" style="font-size:12px;font-weight:500">Push notifications</div>
+      <div style="font-size:12px;color:var(--mid-a);line-height:1.5">
+        Max 1 proactive nudge per 7 days<br>
+        Due date push at 9:00 local time<br>
+        Batch 5+ same-day tasks into one<br>
+        Overdue push: 1 day after due_date
+      </div>
+    </div>
+    <div class="theme-card">
+      <div class="theme-name" style="font-size:12px;font-weight:500">Analytics (Mixpanel)</div>
+      <div style="font-size:12px;color:var(--mid-a);line-height:1.5">
+        Track: path chosen, items added, D1/D7/D30<br>
+        Track: digest open rate, push opt-in/out<br>
+        Do NOT track: voice content, task names<br>
+        No ATT until paid ads phase
+      </div>
+    </div>
+    <div class="theme-card">
+      <div class="theme-name" style="font-size:12px;font-weight:500">GDPR</div>
+      <div style="font-size:12px;color:var(--mid-a);line-height:1.5">
+        Digest opt-in: unchecked default<br>
+        Voice transcripts: not stored after processing<br>
+        Account deletion: within 30 days (Art. 17)<br>
+        No pre-checked marketing consent
+      </div>
+    </div>
+    <div class="theme-card">
+      <div class="theme-name" style="font-size:12px;font-weight:500">Free tier</div>
+      <div style="font-size:12px;color:var(--mid-a);line-height:1.5">
+        10-item limit enforced at Supabase RLS level<br>
+        Cannot bypass via API<br>
+        Upgrade prompt shows count + 2 features<br>
+        Never block during onboarding
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>nudgii competitive intelligence &middot; Fryd 62-screen analysis &middot; April 2026</p>
+</footer>
+
+</body>
+</html>
