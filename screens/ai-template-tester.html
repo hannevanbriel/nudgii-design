@@ -439,6 +439,22 @@ function svgChev() {
   return '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M3 4.5L6 7.5L9 4.5"/></svg>';
 }
 
+// Skip return date logic: interval ≤ 1 month = push by full interval. > 1 month = push by 1 month.
+function getSkipDate(cadence) {
+  const c = cadence.toLowerCase();
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const now = new Date();
+  let d = new Date(now);
+  if (c.includes('weekly') || c.includes('week')) { d.setDate(d.getDate() + 7); return months[d.getMonth()] + ' ' + d.getDate(); }
+  if (c.includes('monthly') || c.includes('month') && !c.includes('2') && !c.includes('3') && !c.includes('6')) { d.setMonth(d.getMonth() + 1); return months[d.getMonth()] + ' ' + d.getDate(); }
+  if (c.includes('every 2') && c.includes('month')) { d.setMonth(d.getMonth() + 1); return months[d.getMonth()] + ' ' + d.getDate(); }
+  if (c.includes('every 3') && c.includes('month')) { d.setMonth(d.getMonth() + 1); return months[d.getMonth()] + ' ' + d.getDate(); }
+  if (c.includes('every 6') || c.includes('6 month')) { d.setMonth(d.getMonth() + 1); return months[d.getMonth()] + ' 2026'; }
+  if (c.includes('yearly') || c.includes('year') || c.includes('annual')) { d.setMonth(d.getMonth() + 1); return months[d.getMonth()] + ' 2027'; }
+  if (c.includes('seasonal') || c.includes('spring') || c.includes('autumn') || c.includes('october') || c.includes('november')) { return 'next season'; }
+  return months[(now.getMonth() + 1) % 12] + ' 2026';
+}
+
 function svgCheck() {
   return '<svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg>';
 }
@@ -627,9 +643,10 @@ function renderDetail(item, cat) {
     html += '<div style="font-size:9px;font-weight:600;color:var(--mid);">No completions yet</div>';
     html += '</div>';
 
-    // Actions
+    // Actions (Skip shows return date based on cadence)
+    const skipDate = getSkipDate(t.c);
     html += '<div class="task-actions">';
-    html += '<div class="ta-skip">Skip</div>';
+    html += '<div class="ta-skip">Skip · back ' + skipDate + '</div>';
     html += '<div class="ta-snooze">Snooze</div>';
     html += '<div class="ta-done">' + svgCheck() + ' Done</div>';
     html += '</div>';
@@ -662,6 +679,23 @@ function renderDetail(item, cat) {
   html += '<div style="margin:0 16px 8px;background:var(--surface);border:0.5px solid rgba(44,40,36,0.06);border-radius:12px;padding:14px;text-align:center;">';
   html += '<div style="font-size:11px;color:var(--hint);font-style:italic;">No activity yet. Complete a task to see your history.</div>';
   html += '</div>';
+
+  // Documents (for categories that typically have them)
+  if (['home', 'vehicle', 'subscriptions'].includes(item.cat)) {
+    html += '<div class="sec-head"><div class="sec-title">Documents</div><div class="sec-action"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="var(--plum)" stroke-width="1.5" stroke-linecap="round"><path d="M6 1v10"/><path d="M1 6h10"/></svg> Add</div></div>';
+    html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 16px 16px;">';
+    if (item.cat === 'vehicle') {
+      html += '<div style="background:var(--surface);border:0.5px solid rgba(44,40,36,0.06);border-radius:12px;padding:12px;text-align:center;"><div style="width:100%;aspect-ratio:3/4;background:' + cat.wash + ';border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="' + cat.color + '" stroke-width="1.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div style="font-size:10px;font-weight:500;color:var(--ink);">Insurance</div></div>';
+      html += '<div style="background:var(--surface);border:0.5px solid rgba(44,40,36,0.06);border-radius:12px;padding:12px;text-align:center;"><div style="width:100%;aspect-ratio:3/4;background:rgba(140,155,128,0.12);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div style="font-size:10px;font-weight:500;color:var(--ink);">MOT cert</div></div>';
+    } else if (item.cat === 'subscriptions') {
+      html += '<div style="background:var(--surface);border:0.5px solid rgba(44,40,36,0.06);border-radius:12px;padding:12px;text-align:center;"><div style="width:100%;aspect-ratio:3/4;background:' + cat.wash + ';border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="' + cat.color + '" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div style="font-size:10px;font-weight:500;color:var(--ink);">Policy</div></div>';
+      html += '<div style="background:var(--surface);border:0.5px solid rgba(44,40,36,0.06);border-radius:12px;padding:12px;text-align:center;"><div style="width:100%;aspect-ratio:3/4;background:var(--apricot-wash);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--apricot)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="11" x2="16" y2="11"/></svg></div><div style="font-size:10px;font-weight:500;color:var(--ink);">Last invoice</div></div>';
+    } else {
+      html += '<div style="background:var(--surface);border:0.5px solid rgba(44,40,36,0.06);border-radius:12px;padding:12px;text-align:center;"><div style="width:100%;aspect-ratio:3/4;background:' + cat.wash + ';border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="' + cat.color + '" stroke-width="1.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div style="font-size:10px;font-weight:500;color:var(--ink);">Warranty</div></div>';
+      html += '<div style="background:var(--surface);border:0.5px solid rgba(44,40,36,0.06);border-radius:12px;padding:12px;text-align:center;"><div style="width:100%;aspect-ratio:3/4;background:var(--apricot-wash);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--apricot)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div style="font-size:10px;font-weight:500;color:var(--ink);">Service cert</div></div>';
+    }
+    html += '</div>';
+  }
 
   // Details card
   html += '<div class="sec-head"><div class="sec-title">Details</div><div class="sec-action">Edit</div></div>';
