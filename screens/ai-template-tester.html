@@ -587,30 +587,81 @@ function renderDetail(item, cat) {
 
   item.tasks.forEach((t, ti) => {
     const tcId = 'tc-' + item.slug + '-' + ti;
+    const typeBadge = t.type === 'Vet' || t.type === 'Appointment' ? '<span style="font-size:8px;font-weight:600;color:var(--apricot);background:rgba(232,168,124,0.10);padding:1px 5px;border-radius:3px;">' + t.type + '</span>' : '<span style="font-size:8px;font-weight:600;color:' + (t.type === 'Pro' ? 'var(--plum)' : 'var(--sage)') + ';background:' + (t.type === 'Pro' ? 'rgba(155,127,212,0.10)' : 'rgba(140,155,128,0.12)') + ';padding:1px 5px;border-radius:3px;">' + t.type + '</span>';
     html += '<div class="task-card" id="' + tcId + '">';
     html += '<div class="task-row" onclick="toggleTask(\'' + tcId + '\')">';
     html += '<div class="task-icon" style="background:' + cat.wash + ';color:' + cat.color + ';">' + cat.icon + '</div>';
     html += '<div class="task-body">';
     html += '<div class="task-title">' + t.n + '</div>';
-    html += '<div class="task-sub">' + t.c + ' · ' + t.type + (t.cost && t.cost !== 'free' && t.cost !== '' ? ' · ' + t.cost : '') + '</div>';
+    html += '<div class="task-sub">' + t.c + ' · ' + typeBadge + '</div>';
     html += '</div>';
+    html += '<div class="task-badge" style="font-size:9px;color:var(--mid);">' + (t.cost && t.cost !== 'free' ? t.cost : '') + '</div>';
     html += '<div class="task-chev">' + svgChev() + '</div>';
     html += '</div>';
 
-    // Expand
+    // Full depth expand (matching gold standard)
     html += '<div class="task-expand"><div class="task-expand-inner">';
+
+    // Quick info row
+    html += '<div style="display:flex;gap:6px;margin-bottom:10px;">';
+    html += '<div style="flex:1;background:var(--surface-low);border-radius:10px;padding:8px 6px;text-align:center;"><div style="font-family:DM Serif Display,Georgia,serif;font-size:15px;color:var(--ink);">new</div><div style="font-size:7px;font-weight:600;letter-spacing:0.4px;text-transform:uppercase;color:var(--mid);margin-top:1px;">since last</div></div>';
+    html += '<div style="flex:1;background:var(--surface-low);border-radius:10px;padding:8px 6px;text-align:center;"><div style="font-family:DM Serif Display,Georgia,serif;font-size:15px;color:var(--sage);">0</div><div style="font-size:7px;font-weight:600;letter-spacing:0.4px;text-transform:uppercase;color:var(--mid);margin-top:1px;">times done</div></div>';
+    html += '<div style="flex:1;background:var(--surface-low);border-radius:10px;padding:8px 6px;text-align:center;"><div style="font-family:DM Serif Display,Georgia,serif;font-size:15px;color:var(--ink);">' + (t.cost || 'free') + '</div><div style="font-size:7px;font-weight:600;letter-spacing:0.4px;text-transform:uppercase;color:var(--mid);margin-top:1px;">' + (t.type === 'DIY' ? 'DIY' : 'cost') + '</div></div>';
+    html += '</div>';
+
+    // Why it matters
     html += '<div class="task-why">';
     html += '<div class="task-why-label">Why it matters</div>';
     html += '<div class="task-why-text">Regular ' + t.n.toLowerCase() + ' keeps your ' + item.name.toLowerCase() + ' in good shape and prevents bigger problems down the line.</div>';
     html += '</div>';
+
+    // How to do it
+    html += '<div style="margin-bottom:10px;padding:12px 14px;background:var(--surface-low);border-radius:10px;">';
+    html += '<div style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--plum);margin-bottom:10px;">How to do it</div>';
+    html += '<div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;"><div style="width:22px;height:22px;border-radius:50%;background:var(--plum-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;font-weight:600;color:var(--plum);">1</div><div style="font-size:11px;color:var(--ink);line-height:1.5;padding-top:2px;">Check your manual for the recommended procedure</div></div>';
+    html += '<div style="display:flex;align-items:flex-start;gap:10px;"><div style="width:22px;height:22px;border-radius:50%;background:var(--plum-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;font-weight:600;color:var(--plum);">2</div><div style="font-size:11px;color:var(--ink);line-height:1.5;padding-top:2px;">Follow the steps and mark as done when complete</div></div>';
+    html += '</div>';
+
+    // Task history (empty for new item)
+    html += '<div style="margin-bottom:6px;padding:10px 12px;background:var(--surface-low);border-radius:10px;">';
+    html += '<div style="font-size:9px;font-weight:600;color:var(--mid);">No completions yet</div>';
+    html += '</div>';
+
+    // Actions
     html += '<div class="task-actions">';
     html += '<div class="ta-skip">Skip</div>';
     html += '<div class="ta-snooze">Snooze</div>';
     html += '<div class="ta-done">' + svgCheck() + ' Done</div>';
     html += '</div>';
+
+    // Ask nudgii
+    html += '<div style="margin-top:10px;display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--surface-low);border-radius:10px;cursor:pointer;">';
+    html += '<div style="width:22px;height:22px;border-radius:6px;background:var(--plum-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><img src="../system/logo/ii-dark-on-light.svg" width="12" height="14" alt=""></div>';
+    html += '<div style="font-size:10px;color:var(--mid);font-style:italic;flex:1;">Ask nudgii about this task...</div>';
+    html += '</div>';
+
     html += '</div></div>';
     html += '</div>';
   });
+
+  // Good to know
+  html += '<div class="sec-head"><div class="sec-title">Good to know</div></div>';
+  html += '<div style="padding:0 16px 16px;">';
+  html += '<div style="background:var(--surface-low);border-radius:12px;border:0.5px solid rgba(44,40,36,0.06);overflow:hidden;">';
+  html += '<div style="display:flex;gap:14px;padding:14px;border-bottom:0.5px solid rgba(44,40,36,0.04);">';
+  html += '<div style="flex-shrink:0;width:52px;text-align:right;font-family:DM Serif Display,Georgia,serif;font-size:18px;font-weight:400;line-height:1;color:' + cat.color + ';">' + item.tasks.length + '</div>';
+  html += '<div style="flex:1;padding-top:1px;"><div style="font-size:11px;font-weight:500;color:var(--ink);">Maintenance tasks</div><div style="font-size:10px;color:var(--mid);margin-top:3px;line-height:1.5;">nudgii tracks ' + item.tasks.length + ' tasks for your ' + item.name.toLowerCase() + '. Each with its own schedule and reminders.</div></div>';
+  html += '</div>';
+  html += '<div style="display:flex;gap:14px;padding:14px;">';
+  html += '<div style="flex-shrink:0;width:52px;text-align:right;font-family:DM Serif Display,Georgia,serif;font-size:18px;font-weight:400;line-height:1;color:var(--apricot);">BE</div>';
+  html += '<div style="flex:1;padding-top:1px;"><div style="font-size:11px;font-weight:500;color:var(--ink);">Belgium market</div><div style="font-size:10px;color:var(--mid);margin-top:3px;line-height:1.5;">Costs, regulations, and seasonal timing adapted for Belgium and the Netherlands.</div></div>';
+  html += '</div></div></div>';
+
+  // Recent activity
+  html += '<div class="sec-head"><div class="sec-title">Recent activity</div></div>';
+  html += '<div style="margin:0 16px 8px;background:var(--surface);border:0.5px solid rgba(44,40,36,0.06);border-radius:12px;padding:14px;text-align:center;">';
+  html += '<div style="font-size:11px;color:var(--hint);font-style:italic;">No activity yet. Complete a task to see your history.</div>';
+  html += '</div>';
 
   // Details card
   html += '<div class="sec-head"><div class="sec-title">Details</div><div class="sec-action">Edit</div></div>';
