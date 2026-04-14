@@ -3,370 +3,570 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>nudgii · S-17 Dishwasher (Small appliance)</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>nudgii · S-17 Small Appliance (Dishwasher) · hi-fi</title>
+<link rel="stylesheet" href="../system/components.css">
+<link rel="stylesheet" href="../system/tokens.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
-:root{
-  --surface:#FBF9F4;--surface-low:#F5F4ED;--surface-high:#E8E9E0;--surface-lowest:#FFFFFF;
-  --ink:#31332C;--mid:#7A756D;--hint:#A09A90;
-  --plum:#9B7FD4;--plum-fg:#FAF8FF;--plum-wash:rgba(155,127,212,0.10);
-  --apricot:#E8A87C;--apricot-wash:rgba(232,168,124,0.12);
-  --cat-bg:#C09088;--cat-wash:rgba(192,144,136,0.14);--cat-ic:#7A5A50;
-  --sage:#8C9B80;--sage-wash:rgba(140,155,128,0.14);
-  --r:12px;--rs:8px;
-}
-[data-theme="dark"]{
-  --surface:#1C1B18;--surface-low:#252420;--surface-high:#33322C;--surface-lowest:#161512;
-  --ink:#F0EDE6;--mid:#A8A29A;--hint:#787068;
-  --plum:#B8A0E8;--plum-fg:#1C1B18;--apricot:#F0B890;
-  --cat-bg:#E0A898;--cat-wash:rgba(224,168,152,0.15);--cat-ic:#E0A898;
-  --sage:#A8B89C;--sage-wash:rgba(168,184,156,0.15);
-}
-*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;}
-body{font-family:'Manrope',sans-serif;background:#0E0D0B;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:14px 10px 50px;color:var(--ink);}
-.ctrls{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:14px;position:sticky;top:0;z-index:200;background:rgba(14,13,11,0.92);backdrop-filter:blur(10px);padding:8px 14px;border-radius:12px;max-width:480px;width:100%;}
-.cb{font-family:'Manrope',sans-serif;font-size:10px;font-weight:500;padding:4px 12px;border-radius:6px;border:1px solid rgba(255,255,255,0.08);background:transparent;color:rgba(255,255,255,0.35);cursor:pointer;transition:all 150ms;}
-.cb.on{background:var(--plum);color:var(--plum-fg);border-color:var(--plum);}
-.cl{font-size:8px;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,0.15);padding:3px 3px 0;font-weight:500;}
-.ph{width:390px;height:844px;border-radius:50px;overflow:hidden;position:relative;background:var(--surface);box-shadow:0 0 0 1px rgba(255,255,255,0.03),0 24px 80px rgba(49,51,44,0.45);}
-.notch{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:102px;height:8px;border-radius:100px;background:rgba(49,51,44,0.06);z-index:60;}
-[data-theme="dark"] .notch{background:rgba(255,255,255,0.08);}
-.scroll{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;}
-.scroll::-webkit-scrollbar{display:none;}
-.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
-.section-title{font-family:'Noto Serif',serif;font-size:18px;color:var(--ink);}
-.add-link{display:flex;align-items:center;gap:4px;font-size:10px;font-weight:500;color:var(--plum);cursor:pointer;}
-.expand{max-height:0;overflow:hidden;transition:max-height 350ms ease;}
-.chevron{opacity:0.35;transition:transform 200ms;flex-shrink:0;}
-.task-card{background:var(--surface);border-radius:var(--r);padding:14px;margin-bottom:8px;cursor:pointer;}
-.task-row{display:flex;align-items:center;gap:12px;}
-.icon-circle{width:40px;height:40px;border-radius:50%;background:var(--cat-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.actions{display:flex;align-items:center;gap:8px;margin-top:14px;justify-content:flex-end;}
-.btn-skip{font-size:11px;font-weight:500;color:var(--hint);padding:7px 6px;cursor:pointer;background:none;border:none;}
-.btn-snooze{display:inline-flex;font-size:11px;font-weight:500;color:var(--ink);background:var(--surface-low);padding:7px 14px;border-radius:100px;cursor:pointer;border:none;}
-.btn-done{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;color:var(--surface);background:var(--cat-bg);padding:7px 16px;border-radius:100px;cursor:pointer;border:none;}
-.detail-row{display:flex;justify-content:space-between;padding:13px 16px;background:var(--surface);}
-.nav-pill{position:absolute;top:52px;border-radius:50%;background:rgba(251,249,244,0.85);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;width:36px;height:36px;}
-[data-theme="dark"] .nav-pill{background:rgba(28,27,24,0.85);}
+body{background:#CBC5BB;padding:0 0 80px;}
+.s17-controls{display:flex;gap:4px;align-items:center;margin-bottom:16px;}
+.s17-ctrl-label{font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#A09888;margin-right:4px;}
+.s17-ctrl-btn{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;padding:5px 14px;border-radius:6px;border:1px solid rgba(26,22,18,0.12);background:transparent;color:#8A8070;cursor:pointer;transition:all 120ms;}
+.s17-ctrl-btn:hover{border-color:rgba(26,22,18,0.20);}
+.s17-ctrl-btn.on{background:#9B7FD4;color:#FAF8FF;border-color:#9B7FD4;}
+.s17-variant-nav{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:16px;}
+.s17-variant-link{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;padding:4px 12px;border-radius:6px;color:#8A8070;text-decoration:none;border:1px solid rgba(26,22,18,0.08);}
+.s17-variant-link:hover{border-color:rgba(26,22,18,0.16);}
+.s17-variant-link.active{background:#9B7FD4;color:#FAF8FF;border-color:#9B7FD4;font-weight:600;}
 
-/* Consumable inline card */
-.consumable{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--surface);border-radius:var(--rs);margin-top:8px;cursor:pointer;}
-.consumable:active{background:var(--surface-low);}
-.consumable-price{font-size:11px;font-weight:600;color:var(--apricot);}
+.scr{display:flex;flex-direction:column;flex:1;overflow:hidden;background:var(--surface);}
+.scr-scroll{flex:1;overflow-y:auto;scrollbar-width:none;}
+.scr-scroll::-webkit-scrollbar{display:none;}
 
-/* Snooze sheet */
-.snooze-overlay{display:none;position:absolute;inset:0;z-index:100;}
-.snooze-overlay.open{display:block;}
-.snooze-backdrop{position:absolute;inset:0;background:rgba(49,51,44,0.3);}
-.snooze-panel{position:absolute;bottom:0;left:0;right:0;background:var(--surface);border-radius:20px 20px 0 0;padding:12px 24px 34px;transform:translateY(100%);transition:transform 350ms cubic-bezier(0.32,0.72,0,1);}
-.snooze-overlay.open .snooze-panel{transform:translateY(0);}
-.snooze-handle{width:36px;height:4px;border-radius:2px;background:var(--surface-high);margin:0 auto 16px;}
-.snooze-title{font-family:'Noto Serif',serif;font-size:14px;color:var(--ink);margin-bottom:12px;}
-.snooze-opt{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--surface-high);cursor:pointer;}
-.snooze-opt:last-child{border-bottom:none;}
-.snooze-opt-l{font-size:13px;font-weight:500;color:var(--ink);}
-.snooze-opt-r{font-size:11px;color:var(--mid);}
-.snooze-opt-pick{font-size:13px;color:var(--plum);font-weight:500;cursor:pointer;padding:13px 0;}
-/* Snoozed state */
+/* Hero */
+.hero{position:relative;height:160px;background:var(--ch-wash);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;}
+.hero-icon{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.45);display:flex;align-items:center;justify-content:center;}
+.hero-add-photo{font-size:9px;color:var(--ch-bg);opacity:0.7;font-weight:500;}
+.hero-nav{position:absolute;top:10px;left:16px;right:16px;display:flex;justify-content:space-between;}
+.hero-btn{width:32px;height:32px;border-radius:10px;background:rgba(255,255,255,0.65);display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(8px);}
+.hero-fade{position:absolute;bottom:0;left:0;right:0;height:50px;background:linear-gradient(to top,var(--surface),transparent);}
+
+/* Identity */
+.item-id{padding:16px 20px 0;}
+.item-name{font-family:'DM Serif Display',Georgia,serif;font-size:24px;font-weight:400;line-height:1.1;letter-spacing:-0.02em;color:var(--ink);}
+.item-meta{font-size:11px;color:var(--mid);margin-top:4px;}
+
+/* Stats row (small appliance) */
+.stats-row{display:flex;gap:8px;padding:12px 20px 0;}
+.stat-box{flex:1;background:var(--surface-low);border-radius:12px;padding:10px 8px;text-align:center;border:0.5px solid rgba(44,40,36,0.06);}
+.stat-box.sage{background:rgba(140,155,128,0.10);border-color:rgba(140,155,128,0.10);}
+.stat-val{font-family:'DM Serif Display',Georgia,serif;font-size:18px;font-weight:400;color:var(--ink);}
+.stat-box.sage .stat-val{color:var(--sage);}
+.stat-label{font-size:7.5px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--mid);margin-top:2px;}
+.stat-icon{display:flex;align-items:center;justify-content:center;margin-bottom:2px;}
+
+/* Status strip */
+.status-strip{display:flex;align-items:center;gap:8px;margin:12px 20px 0;padding:9px 14px;background:rgba(140,155,128,0.10);border-radius:10px;}
+.status-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.status-dot.sage{background:var(--sage);}
+.status-text{font-size:11px;color:var(--ink);flex:1;}
+.status-next{font-size:10px;color:var(--mid);}
+
+/* Section headers */
+.sec-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px 10px;}
+.sec-title{font-family:'DM Serif Display',Georgia,serif;font-size:16px;font-weight:400;color:var(--ink);}
+.sec-action{font-size:10px;font-weight:500;color:var(--plum);cursor:pointer;display:flex;align-items:center;gap:4px;}
+
+/* Task cards */
+.task-card{margin:0 16px 8px;background:var(--surface);border:0.5px solid rgba(44,40,36,0.06);border-radius:14px;overflow:hidden;transition:all 200ms ease;}
+.task-card.done-state{opacity:0.5;}
+.task-card.done-state .task-title{text-decoration:line-through;}
 .task-card.snoozed .task-title{opacity:0.5;}
 .task-card.snoozed .task-sub{opacity:0.5;}
-.task-card.snoozed .icon-circle{opacity:0.4;}
-.task-card.snoozed .chevron{opacity:0.15;}
-.task-card.snoozed .overdue{display:none;}
+.task-card.snoozed .task-icon{opacity:0.4;}
+.task-row{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;}
+.task-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--ch-wash);}
+.task-body{flex:1;min-width:0;}
+.task-title{font-size:13px;font-weight:500;color:var(--ink);line-height:1.3;}
+.task-sub{font-size:10px;color:var(--mid);margin-top:1px;}
 .snz-label{font-size:9px;font-weight:500;color:var(--plum);opacity:0.7;margin-top:3px;}
-/* Toast */
-.s17-toast{position:absolute;bottom:24px;left:16px;right:16px;z-index:110;background:var(--surface-low);border-radius:12px;padding:12px 16px;font-size:13px;display:flex;align-items:center;gap:10px;box-shadow:0 6px 24px rgba(49,51,44,0.16), 0 1px 4px rgba(49,51,44,0.08);opacity:0;transform:translateY(12px);transition:opacity 180ms ease, transform 350ms cubic-bezier(0.34,1.4,0.64,1);pointer-events:none;}
-.s17-toast.show{opacity:1;transform:translateY(0);pointer-events:auto;}
-.s17-toast-icon{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.s17-toast-icon svg{width:12px;height:12px;}
-.s17-toast-icon.snooze{background:rgba(232,168,124,0.15);color:#C8784A;}
-.s17-toast-icon.done{background:rgba(59,109,17,0.12);color:#3B6D11;}
-.s17-toast-icon.skip{background:rgba(155,127,212,0.12);color:#9B7FD4;}
-.s17-toast-text{font-size:13px;font-weight:500;color:var(--ink);flex:1;}
-.s17-toast-undo{font-size:11px;font-weight:600;color:var(--plum);cursor:pointer;padding:4px 8px;background:none;border:none;flex-shrink:0;}
-/* Confetti */
-@keyframes snooze-pop{0%{opacity:1;transform:translate(0,0) scale(1);}100%{opacity:0;transform:translate(var(--sx),var(--sy)) scale(0.4);}}
-.snooze-confetti{position:absolute;width:6px;height:6px;border-radius:50%;pointer-events:none;z-index:120;animation:snooze-pop 600ms cubic-bezier(0.34,1.56,0.64,1) forwards;}
+.task-badge{font-size:9px;font-weight:500;flex-shrink:0;}
+.task-badge.apricot{color:var(--apricot);}
+.task-badge.neutral{color:var(--mid);}
+.task-badge.sage{color:var(--sage);}
+.task-chev{width:16px;height:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;opacity:0.3;transition:transform 200ms ease;}
+.task-chev.open{transform:rotate(180deg);}
+
+/* Task expand */
+.task-expand{max-height:0;overflow:hidden;transition:max-height 350ms ease;}
+.task-expand-inner{padding:0 14px 14px;}
+
+/* Steps */
+.task-how{margin-bottom:10px;padding:12px 14px;background:var(--surface-low);border-radius:10px;}
+.task-how-label{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--plum);margin-bottom:10px;}
+.task-step{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;}
+.task-step:last-child{margin-bottom:0;}
+.task-step-num{width:22px;height:22px;border-radius:50%;background:var(--plum-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;font-weight:600;color:var(--plum);}
+.task-step-text{font-size:11px;color:var(--ink);line-height:1.5;padding-top:2px;}
+
+/* Consumable card (small appliance unique) */
+.consumable-card{margin-top:10px;padding:12px 14px;background:var(--ch-wash);border-radius:10px;display:flex;align-items:center;gap:12px;cursor:pointer;}
+.consumable-card:active{opacity:0.85;}
+.consumable-icon{width:32px;height:32px;border-radius:10px;background:rgba(255,255,255,0.55);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.consumable-body{flex:1;min-width:0;}
+.consumable-name{font-size:12px;font-weight:500;color:var(--ink);}
+.consumable-disc{font-size:8px;color:var(--mid);margin-top:1px;font-style:italic;}
+.consumable-price{font-size:12px;font-weight:600;color:var(--ch-bg);flex-shrink:0;padding:4px 10px;border-radius:100px;background:rgba(255,255,255,0.55);}
+
+/* Task history */
+.task-hist{margin-bottom:6px;padding:10px 12px;background:var(--surface-low);border-radius:10px;}
+.task-hist-label{font-size:9px;font-weight:600;color:var(--mid);margin-bottom:6px;}
+.task-hist-entry{display:flex;align-items:center;gap:8px;padding:3px 0;font-size:10px;color:var(--ink);}
+.task-hist-dot{width:5px;height:5px;border-radius:50%;background:var(--sage);opacity:0.5;flex-shrink:0;}
+.task-hist-note{color:var(--mid);margin-left:auto;font-size:9px;}
+
+/* Actions */
+.task-actions{display:flex;align-items:center;gap:6px;margin-top:10px;padding-top:10px;border-top:0.5px solid rgba(44,40,36,0.06);}
+.ta-skip{font-size:10px;color:var(--hint);cursor:pointer;padding:6px 10px;margin-right:auto;}
+.ta-snooze{font-size:10px;font-weight:500;color:var(--ink);cursor:pointer;padding:7px 14px;border-radius:100px;background:var(--surface-low);}
+.ta-done{font-size:10px;font-weight:500;color:white;cursor:pointer;padding:7px 16px;border-radius:100px;background:var(--plum);display:flex;align-items:center;gap:4px;box-shadow:0 2px 8px rgba(155,127,212,0.25);}
+
+/* Ask nudgii */
+.task-ask{margin-top:10px;display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--surface-low);border-radius:10px;cursor:pointer;}
+.task-ask-icon{width:22px;height:22px;border-radius:6px;background:var(--plum-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.task-ask-text{font-size:10px;color:var(--mid);font-style:italic;flex:1;}
+.task-ask-mic{width:22px;height:22px;border-radius:50%;background:var(--plum-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+/* Done inline state */
+.task-done-msg{display:none;padding:10px 14px;text-align:center;}
+.task-done-msg.show{display:block;}
+.task-done-text{font-family:'DM Serif Display',Georgia,serif;font-style:italic;font-size:13px;color:var(--ink);margin-bottom:2px;}
+.task-done-sub{font-size:9px;color:var(--mid);}
+.task-done-undo{font-size:10px;font-weight:500;color:var(--plum);cursor:pointer;margin-top:6px;display:inline-block;}
+
+/* Good to know */
+.gtk-section{padding:0 16px 16px;}
+.gtk-card{background:var(--surface-low);border-radius:12px;border:0.5px solid rgba(44,40,36,0.06);overflow:hidden;}
+.gtk-row{display:flex;gap:14px;padding:14px;border-bottom:0.5px solid rgba(44,40,36,0.04);}
+.gtk-row:last-child{border-bottom:none;}
+.gtk-val{flex-shrink:0;width:52px;text-align:right;font-family:'DM Serif Display',Georgia,serif;font-size:18px;font-weight:400;line-height:1;}
+.gtk-body{flex:1;padding-top:1px;}
+.gtk-title{font-size:11px;font-weight:500;color:var(--ink);}
+.gtk-desc{font-size:10px;color:var(--mid);margin-top:3px;line-height:1.5;}
+
+/* History */
+.hist-card{margin:0 16px 8px;background:var(--surface);border:0.5px solid rgba(44,40,36,0.06);border-radius:12px;overflow:hidden;}
+.hist-row{display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;border-bottom:0.5px solid rgba(44,40,36,0.04);}
+.hist-row:last-child{border-bottom:none;}
+.hist-check{width:20px;height:20px;border-radius:50%;background:rgba(59,109,17,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hist-info{flex:1;}
+.hist-name{font-size:11px;color:var(--ink);}
+.hist-date{font-size:9px;color:var(--mid);margin-top:1px;}
+.hist-arrow{opacity:0.2;}
+
+/* Details */
+.detail-card{margin:0 16px;background:var(--surface);border:0.5px solid rgba(44,40,36,0.06);border-radius:12px;overflow:hidden;}
+.detail-row{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;border-bottom:0.5px solid rgba(44,40,36,0.04);}
+.detail-row:last-child{border-bottom:none;}
+.detail-label{font-size:10px;color:var(--mid);}
+.detail-val{font-size:10px;font-weight:500;color:var(--ink);}
+
+.bottom-spacer{height:40px;}
+
+/* Dark mode */
+[data-theme="dark"] .phone{background:#1C1B18;box-shadow:0 0 0 1px rgba(255,255,255,0.03),0 24px 80px rgba(0,0,0,0.5);}
+[data-theme="dark"] .scr{background:var(--surface);}
+[data-theme="dark"] .notch .np{background:rgba(255,255,255,0.08);}
+[data-theme="dark"] .sbar span{color:#F0EDE6;}
+[data-theme="dark"] .sbar .batt{background:#F0EDE6;}
+[data-theme="dark"] .hero{background:var(--ch-wash);}
+[data-theme="dark"] .hero-icon{background:rgba(255,255,255,0.10);}
+[data-theme="dark"] .hero-btn{background:rgba(255,255,255,0.10);}
+[data-theme="dark"] .hero-btn svg{stroke:var(--ink);}
+[data-theme="dark"] .stat-box{background:var(--surface-high);border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .stat-box.sage{background:rgba(168,184,156,0.12);border-color:rgba(168,184,156,0.10);}
+[data-theme="dark"] .status-strip{background:rgba(168,184,156,0.12);}
+[data-theme="dark"] .task-card{background:var(--surface-high);border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .task-how{background:var(--surface-low);}
+[data-theme="dark"] .task-hist{background:var(--surface-low);}
+[data-theme="dark"] .task-step-num{background:rgba(184,160,232,0.15);}
+[data-theme="dark"] .task-actions{border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .ta-snooze{background:var(--surface-low);}
+[data-theme="dark"] .ta-done{background:var(--plum);box-shadow:0 2px 8px rgba(184,160,232,0.35);}
+[data-theme="dark"] .task-ask{background:var(--surface-low);}
+[data-theme="dark"] .task-ask-icon{background:rgba(184,160,232,0.15);}
+[data-theme="dark"] .task-ask-mic{background:rgba(184,160,232,0.15);}
+[data-theme="dark"] .consumable-card{background:var(--ch-wash);}
+[data-theme="dark"] .consumable-icon{background:rgba(255,255,255,0.10);}
+[data-theme="dark"] .consumable-price{background:rgba(255,255,255,0.10);}
+[data-theme="dark"] .gtk-card{background:var(--surface-high);border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .gtk-row{border-color:rgba(255,255,255,0.04);}
+[data-theme="dark"] .hist-card{background:var(--surface-high);border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .hist-check{background:rgba(106,174,64,0.12);}
+[data-theme="dark"] .hist-row{border-color:rgba(255,255,255,0.04);}
+[data-theme="dark"] .detail-card{background:var(--surface-high);border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .detail-row{border-color:rgba(255,255,255,0.04);}
 </style>
 </head>
 <body>
 
-<nav style="background:#F5F0E8;border-bottom:1px solid rgba(26,22,18,0.12);padding:0 32px;display:flex;align-items:center;gap:16px;height:48px;position:sticky;top:0;z-index:200;font-family:'Manrope',sans-serif;">
-  <a href="../index.html" style="font-size:13px;color:#8A8070;text-decoration:none;display:flex;align-items:center;gap:8px;">
-    <svg width="16" height="18" viewBox="0 0 626 700" xmlns="http://www.w3.org/2000/svg"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0C56.05,700.13,0,642.43,0,571.26V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/></svg>
-    Design hub</a>
-  <span style="color:rgba(26,22,18,0.12);">/</span>
-  <a href="s17-item-detail-prototype.html" style="font-size:13px;color:#8A8070;text-decoration:none;">S-17</a>
-  <span style="color:rgba(26,22,18,0.12);">/</span>
-  <span style="font-size:13px;font-weight:500;">Dishwasher</span>
-  <span style="margin-left:auto;font-size:10px;font-weight:500;padding:3px 10px;border-radius:100px;background:rgba(133,79,11,0.10);color:#854F0B;border:1px solid rgba(133,79,11,0.20);">Prototype</span>
+<nav class="nudgii-hub-nav">
+  <a class="nav-back" href="../index.html">
+    <img src="../system/logo/ii-dark-on-light.svg" width="16" height="18" alt="" style="flex-shrink:0;border-radius:2px;">
+    <span>Design hub</span>
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">S-17 : Small appliance (Dishwasher)</span>
+  <span class="nav-status progress">In progress</span>
 </nav>
 
-<div class="ctrls"><span class="cl">Small appliance</span><button class="cb on" onclick="theme('light')" id="tl">Light</button><button class="cb" onclick="theme('dark')" id="td">Dark</button></div>
-<div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:14px;max-width:480px;width:100%;">
-  <a href="s17-item-home-appliance.html" style="font-size:10px;font-weight:500;padding:4px 12px;border-radius:6px;color:rgba(255,255,255,0.25);text-decoration:none;">Boiler</a>
-  <a href="s17-item-vehicle.html" style="font-size:10px;font-weight:500;padding:4px 12px;border-radius:6px;color:rgba(255,255,255,0.25);text-decoration:none;">Car</a>
-  <a href="s17-item-plant.html" style="font-size:10px;font-weight:500;padding:4px 12px;border-radius:6px;color:rgba(255,255,255,0.25);text-decoration:none;">Olive tree</a>
-  <a href="s17-item-subscription.html" style="font-size:10px;font-weight:500;padding:4px 12px;border-radius:6px;color:rgba(255,255,255,0.25);text-decoration:none;">Insurance</a>
-  <a href="s17-item-small-appliance.html" style="font-size:10px;font-weight:600;padding:4px 12px;border-radius:6px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);text-decoration:none;">Dishwasher</a>
-  <a href="s17-item-garden-tool.html" style="font-size:10px;font-weight:500;padding:4px 12px;border-radius:6px;color:rgba(255,255,255,0.25);text-decoration:none;">Lawn</a>
-</div>
-
-<div class="ph" id="phone" data-theme="light">
-<div class="notch"></div>
-<div class="scroll">
-
-  <!-- ZONE 1: Compact hero (simpler item, smaller hero) -->
-  <div style="position:relative;height:160px;background:var(--cat-wash);overflow:hidden;">
-    <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
-      <div style="width:52px;height:52px;border-radius:50%;background:rgba(192,144,136,0.20);display:flex;align-items:center;justify-content:center;">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cat-bg)" stroke-width="1.5" stroke-linecap="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3"/></svg>
-      </div>
-      <div style="font-size:10px;color:var(--cat-bg);font-weight:500;">Tap to add photo</div>
-    </div>
-    <div style="position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(to top,var(--surface),transparent);"></div>
-    <div class="nav-pill" style="left:20px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg></div>
-    <div class="nav-pill" style="right:60px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"><path d="M11 4H4v14h14v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg></div>
-    <div class="nav-pill" style="right:20px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="var(--ink)"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></div>
+<div style="max-width:980px;margin:0 auto;padding:32px 32px 0;">
+  <div class="page-eyebrow">S-17 · item + task detail · Small appliance variant · Hi-fi · 390x844px (iPhone 15) · April 2026</div>
+  <h1 class="page-h1">Small appliance: Dishwasher</h1>
+  <p class="page-sub">Small appliance item detail with consumable product cards (affiliate link), simplified all-on-track stats, and quick DIY maintenance tasks. No season grouping, no documents.</p>
+  <div class="page-pills">
+    <span class="mp hifi">Hi-fi</span>
+    <span class="mp progress">My Stuff flow</span>
+    <span class="mp">S-17 variant</span>
+    <span class="mp">v2.0 · April 2026</span>
   </div>
 
-  <!-- ZONE 2: Identity + simple stats -->
-  <div style="padding:0 24px 20px;">
-    <div style="margin-top:-4px;">
-      <div style="font-family:'Noto Serif',serif;font-size:26px;color:var(--ink);letter-spacing:-0.03em;">Dishwasher</div>
-      <div style="font-size:10px;color:var(--mid);margin-top:4px;">Home · Bosch SMS46GI55E</div>
+  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:16px;">
+    <div class="s17-controls" style="margin-bottom:0;">
+      <span class="s17-ctrl-label">Theme</span>
+      <button class="s17-ctrl-btn on" onclick="setTheme('light')">Light</button>
+      <button class="s17-ctrl-btn" onclick="setTheme('dark')">Dark</button>
     </div>
-
-    <div style="display:flex;gap:10px;margin-top:14px;">
-      <div style="flex:1;background:var(--surface-low);border-radius:var(--rs);padding:10px;text-align:center;">
-        <div style="font-family:'Noto Serif',serif;font-size:18px;font-weight:500;color:var(--ink);">2y</div>
-        <div style="font-size:8px;color:var(--mid);margin-top:2px;letter-spacing:0.03em;text-transform:uppercase;">owned</div>
-      </div>
-      <div style="flex:1;background:var(--surface-low);border-radius:var(--rs);padding:10px;text-align:center;">
-        <div style="font-family:'Noto Serif',serif;font-size:18px;font-weight:500;color:var(--sage);">18</div>
-        <div style="font-size:8px;color:var(--mid);margin-top:2px;letter-spacing:0.03em;text-transform:uppercase;">completed</div>
-      </div>
-      <div style="flex:1;background:var(--sage-wash);border-radius:var(--rs);padding:10px;text-align:center;">
-        <div style="font-family:'Noto Serif',serif;font-size:18px;font-weight:500;color:var(--sage);">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="2" stroke-linecap="round" style="vertical-align:-1px;"><polyline points="20 6 9 17 4 12"/></svg>
-        </div>
-        <div style="font-size:8px;color:var(--mid);margin-top:2px;letter-spacing:0.03em;text-transform:uppercase;">all on track</div>
-      </div>
-    </div>
-
-    <!-- Status strip: all good -->
-    <div style="display:flex;align-items:center;gap:8px;margin-top:10px;padding:10px 14px;background:var(--sage-wash);border-radius:var(--rs);">
-      <div style="width:8px;height:8px;border-radius:50%;background:var(--sage);flex-shrink:0;"></div>
-      <div style="font-size:12px;color:var(--ink);flex:1;">Everything on track</div>
-      <div style="font-size:10px;color:var(--mid);">Next due Apr 22</div>
+    <div class="s17-variant-nav">
+      <a href="s17-item-detail-hifi.html" class="s17-variant-link">Boiler</a>
+      <a href="s17-item-vehicle.html" class="s17-variant-link">Car</a>
+      <a href="s17-item-plant.html" class="s17-variant-link">Olive tree</a>
+      <a href="s17-item-subscription.html" class="s17-variant-link">Insurance</a>
+      <a href="s17-item-small-appliance.html" class="s17-variant-link active">Dishwasher</a>
+      <a href="s17-item-garden-tool.html" class="s17-variant-link">Lawn</a>
     </div>
   </div>
 
-  <!-- ZONE 3: Tasks (all DIY, quick) -->
-  <div style="background:var(--surface-low);padding:20px 24px 24px;">
-    <div class="section-head">
-      <div class="section-title">Tasks</div>
-      <div class="add-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--plum)" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add task</div>
-    </div>
+  <div style="display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap;">
 
-    <!-- Refill salt -->
-    <div class="task-card" onclick="toggleExpand(this)">
-      <div class="task-row">
-        <div class="icon-circle"><svg width="18" height="18" viewBox="0 0 256 256" fill="none"><path d="M208,224H48a8,8,0,0,1-8-8V104a8,8,0,0,1,3.2-6.4l80-60a8,8,0,0,1,9.6,0l80,60A8,8,0,0,1,216,104V216A8,8,0,0,1,208,224Z" stroke="var(--cat-bg)" stroke-width="18" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div style="flex:1;"><div style="font-size:14px;font-weight:500;color:var(--ink);">Refill salt</div><div style="font-size:10px;color:var(--mid);margin-top:2px;">2 min · every 6-8 weeks</div></div>
-        <div style="font-size:9px;color:var(--mid);">Apr 22</div>
-        <svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-      <div class="expand">
-        <div style="margin-top:8px;background:var(--surface-low);border-radius:var(--rs);padding:14px;">
-          <div style="font-size:9px;font-weight:600;letter-spacing:0.04em;color:var(--cat-bg);margin-bottom:12px;">How to complete this</div>
-          <div style="display:flex;gap:10px;margin-bottom:12px;"><div style="width:22px;height:22px;border-radius:50%;background:var(--cat-wash);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--cat-bg);flex-shrink:0;">1</div><div style="font-size:11px;color:var(--ink);line-height:1.5;">Open the salt reservoir cap at the bottom</div></div>
-          <div style="display:flex;gap:10px;"><div style="width:22px;height:22px;border-radius:50%;background:var(--cat-wash);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--cat-bg);flex-shrink:0;">2</div><div style="font-size:11px;color:var(--ink);line-height:1.5;">Pour in coarse dishwasher salt until full. Close cap tightly.</div></div>
-        </div>
-        <!-- Consumable link (affiliate moment) -->
-        <div class="consumable">
-          <div style="width:32px;height:32px;border-radius:var(--rs);background:var(--cat-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cat-bg)" stroke-width="1.6" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+    <div class="phone s17-phone" data-theme="light">
+      <div class="notch"><div class="np"></div></div>
+      <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+
+      <div class="scr">
+        <div class="scr-scroll">
+
+          <!-- Hero -->
+          <div class="hero">
+            <div class="hero-nav">
+              <div class="hero-btn"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#2C2824" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg></div>
+              <div style="display:flex;gap:8px;">
+                <div class="hero-btn"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#2C2824" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 1.5l3.5 3.5L5 14.5H1.5V11z"/></svg></div>
+                <div class="hero-btn"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="4" r="1.2" fill="#2C2824"/><circle cx="8" cy="8" r="1.2" fill="#2C2824"/><circle cx="8" cy="12" r="1.2" fill="#2C2824"/></svg></div>
+              </div>
+            </div>
+            <div class="hero-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <div class="hero-add-photo">Tap to add photo</div>
+            <div class="hero-fade"></div>
           </div>
-          <div style="flex:1;"><div style="font-size:11px;font-weight:500;color:var(--ink);">Dishwasher salt (2kg)</div><div style="font-size:9px;color:var(--hint);margin-top:1px;">we may earn a small fee</div></div>
-          <div class="consumable-price">~&euro;3</div>
+
+          <!-- Identity -->
+          <div class="item-id">
+            <div class="item-name">Dishwasher</div>
+            <div class="item-meta">Home · Bosch SMS46GI55E</div>
+          </div>
+
+          <!-- Stats row (small appliance) -->
+          <div class="stats-row">
+            <div class="stat-box">
+              <div class="stat-val">2y</div>
+              <div class="stat-label">owned</div>
+            </div>
+            <div class="stat-box sage">
+              <div class="stat-val">18</div>
+              <div class="stat-label">completed</div>
+            </div>
+            <div class="stat-box sage">
+              <div class="stat-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--sage)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5L6.5 12L13 4"/></svg></div>
+              <div class="stat-label">all on track</div>
+            </div>
+          </div>
+
+          <!-- Status strip -->
+          <div class="status-strip">
+            <div class="status-dot sage"></div>
+            <div class="status-text">Everything on track</div>
+            <div class="status-next">Next due Apr 22</div>
+          </div>
+
+          <!-- Tasks -->
+          <div class="sec-head">
+            <div class="sec-title">Tasks</div>
+            <div class="sec-action"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="var(--plum)" stroke-width="1.5" stroke-linecap="round"><path d="M6 1v10"/><path d="M1 6h10"/></svg> Add task</div>
+          </div>
+
+          <!-- Task 1: Refill salt (Apr 22, expandable with consumable card) -->
+          <div class="task-card" id="tc1">
+            <div class="task-row" onclick="toggleTask('tc1')">
+              <div class="task-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+              <div class="task-body">
+                <div class="task-title">Refill salt</div>
+                <div class="task-sub">2 min DIY · every 6-8 weeks</div>
+              </div>
+              <div class="task-badge neutral">Apr 22</div>
+              <div class="task-chev"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M3 4.5L6 7.5L9 4.5"/></svg></div>
+            </div>
+            <div class="task-expand"><div class="task-expand-inner">
+              <div class="task-how">
+                <div class="task-how-label">How to do it</div>
+                <div class="task-step"><div class="task-step-num">1</div><div class="task-step-text">Open the salt compartment (bottom of the machine, unscrew cap)</div></div>
+                <div class="task-step"><div class="task-step-num">2</div><div class="task-step-text">Pour in coarse dishwasher salt until full, close cap</div></div>
+              </div>
+              <!-- Consumable card (small appliance unique) -->
+              <div class="consumable-card">
+                <div class="consumable-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+                <div class="consumable-body">
+                  <div class="consumable-name">Dishwasher salt (2kg)</div>
+                  <div class="consumable-disc">we may earn a small fee</div>
+                </div>
+                <div class="consumable-price">~&euro;3</div>
+              </div>
+              <div class="task-hist">
+                <div class="task-hist-label">Completed 8 times</div>
+                <div class="task-hist-entry"><div class="task-hist-dot"></div><span>4 Mar 2026</span></div>
+                <div class="task-hist-entry"><div class="task-hist-dot"></div><span>18 Jan 2026</span></div>
+                <div class="task-hist-entry"><div class="task-hist-dot"></div><span>2 Dec 2025</span></div>
+              </div>
+              <div class="task-actions">
+                <div class="ta-skip">Skip · back Jun 3</div>
+                <div class="ta-snooze">Snooze</div>
+                <div class="ta-done" onclick="markDone('tc1','Salt topped up.','Next due: ~Jun 3')"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg> Done</div>
+              </div>
+              <div class="task-ask">
+                <div class="task-ask-icon"><img src="../system/logo/ii-dark-on-light.svg" width="12" height="14" alt=""></div>
+                <div class="task-ask-text">Ask nudgii about this task...</div>
+                <div class="task-ask-mic"><svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="var(--plum)" stroke-width="1.5" stroke-linecap="round"><rect x="5" y="1" width="6" height="9" rx="3"/><path d="M3 7a5 5 0 0 0 10 0"/><path d="M8 12v3"/></svg></div>
+              </div>
+            </div></div>
+            <div class="task-done-msg" id="tc1-done"></div>
+          </div>
+
+          <!-- Task 2: Clean filter (May 1, expandable) -->
+          <div class="task-card" id="tc2">
+            <div class="task-row" onclick="toggleTask('tc2')">
+              <div class="task-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div>
+              <div class="task-body">
+                <div class="task-title">Clean filter</div>
+                <div class="task-sub">5 min DIY · every 2 months</div>
+              </div>
+              <div class="task-badge neutral">May 1</div>
+              <div class="task-chev"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M3 4.5L6 7.5L9 4.5"/></svg></div>
+            </div>
+            <div class="task-expand"><div class="task-expand-inner">
+              <div class="task-how">
+                <div class="task-how-label">How to do it</div>
+                <div class="task-step"><div class="task-step-num">1</div><div class="task-step-text">Remove the bottom rack and twist the filter counterclockwise to release</div></div>
+                <div class="task-step"><div class="task-step-num">2</div><div class="task-step-text">Rinse under warm water, scrub gently with a brush, replace</div></div>
+              </div>
+              <div class="task-hist">
+                <div class="task-hist-label">Completed 5 times</div>
+                <div class="task-hist-entry"><div class="task-hist-dot"></div><span>1 Mar 2026</span></div>
+                <div class="task-hist-entry"><div class="task-hist-dot"></div><span>3 Jan 2026</span></div>
+                <div class="task-hist-entry"><div class="task-hist-dot"></div><span>8 Nov 2025</span></div>
+              </div>
+              <div class="task-actions">
+                <div class="ta-skip">Skip · back Jul 1</div>
+                <div class="ta-snooze">Snooze</div>
+                <div class="ta-done" onclick="markDone('tc2','Filter sparkles.','Next due: Jun 1')"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg> Done</div>
+              </div>
+              <div class="task-ask">
+                <div class="task-ask-icon"><img src="../system/logo/ii-dark-on-light.svg" width="12" height="14" alt=""></div>
+                <div class="task-ask-text">Ask nudgii about this task...</div>
+                <div class="task-ask-mic"><svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="var(--plum)" stroke-width="1.5" stroke-linecap="round"><rect x="5" y="1" width="6" height="9" rx="3"/><path d="M3 7a5 5 0 0 0 10 0"/><path d="M8 12v3"/></svg></div>
+              </div>
+            </div></div>
+            <div class="task-done-msg" id="tc2-done"></div>
+          </div>
+
+          <!-- Task 3: Run cleaning cycle (Jun 15, collapsed) -->
+          <div class="task-card" id="tc3">
+            <div class="task-row" onclick="toggleTask('tc3')">
+              <div class="task-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div>
+              <div class="task-body">
+                <div class="task-title">Run cleaning cycle</div>
+                <div class="task-sub">Automatic · every 3 months</div>
+              </div>
+              <div class="task-badge neutral">Jun 15</div>
+              <div class="task-chev"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M3 4.5L6 7.5L9 4.5"/></svg></div>
+            </div>
+            <div class="task-expand"><div class="task-expand-inner">
+              <div class="task-how">
+                <div class="task-how-label">How to do it</div>
+                <div class="task-step"><div class="task-step-num">1</div><div class="task-step-text">Place a dishwasher cleaner tablet in the empty machine</div></div>
+                <div class="task-step"><div class="task-step-num">2</div><div class="task-step-text">Run the hottest cycle (70 degrees or higher)</div></div>
+              </div>
+              <div class="task-actions">
+                <div class="ta-skip">Skip · back Sep 15</div>
+                <div class="ta-snooze">Snooze</div>
+                <div class="ta-done" onclick="markDone('tc3','Squeaky clean inside.','Next due: Sep 15')"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg> Done</div>
+              </div>
+            </div></div>
+            <div class="task-done-msg" id="tc3-done"></div>
+          </div>
+
+          <!-- Task 4: Refill rinse aid (as needed, collapsed) -->
+          <div class="task-card" id="tc4">
+            <div class="task-row" onclick="toggleTask('tc4')">
+              <div class="task-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
+              <div class="task-body">
+                <div class="task-title">Refill rinse aid</div>
+                <div class="task-sub">2 min DIY · as needed</div>
+              </div>
+              <div class="task-badge neutral">as needed</div>
+              <div class="task-chev"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M3 4.5L6 7.5L9 4.5"/></svg></div>
+            </div>
+            <div class="task-expand"><div class="task-expand-inner">
+              <div class="task-how">
+                <div class="task-how-label">How to do it</div>
+                <div class="task-step"><div class="task-step-num">1</div><div class="task-step-text">Open the rinse aid compartment on the inside of the door</div></div>
+                <div class="task-step"><div class="task-step-num">2</div><div class="task-step-text">Fill until the indicator shows full, close the lid</div></div>
+              </div>
+              <div class="task-actions">
+                <div class="ta-skip">Skip</div>
+                <div class="ta-snooze">Snooze</div>
+                <div class="ta-done" onclick="markDone('tc4','Rinse aid topped up.','Glasses will sparkle.')"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg> Done</div>
+              </div>
+            </div></div>
+            <div class="task-done-msg" id="tc4-done"></div>
+          </div>
+
+          <!-- Good to know -->
+          <div class="sec-head"><div class="sec-title">Good to know</div></div>
+          <div class="gtk-section">
+            <div class="gtk-card">
+              <div class="gtk-row">
+                <div class="gtk-val" style="color:var(--ch-bg);">12y</div>
+                <div class="gtk-body">
+                  <div class="gtk-title">Average lifespan</div>
+                  <div class="gtk-desc">A well-maintained dishwasher lasts 10-15 years. Regular salt and filter care extends it significantly.</div>
+                </div>
+              </div>
+              <div class="gtk-row">
+                <div class="gtk-val" style="color:var(--sage);">70&deg;C</div>
+                <div class="gtk-body">
+                  <div class="gtk-title">Monthly hot wash</div>
+                  <div class="gtk-desc">Run one hot cycle per month to prevent grease buildup and odors. No dishes needed, just an empty machine.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent activity -->
+          <div class="sec-head"><div class="sec-title">Recent activity</div><div class="sec-action" id="hist-toggle" onclick="toggleHistory()">All 12 &#8250;</div></div>
+          <div class="hist-card">
+            <div class="hist-row">
+              <div class="hist-check"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="var(--sage)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg></div>
+              <div class="hist-info"><div class="hist-name">Run cleaning cycle</div><div class="hist-date">15 Mar 2026</div></div>
+              <div class="hist-arrow"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M4.5 3L7.5 6L4.5 9"/></svg></div>
+            </div>
+            <div class="hist-row">
+              <div class="hist-check"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="var(--sage)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg></div>
+              <div class="hist-info"><div class="hist-name">Refill salt</div><div class="hist-date">4 Mar 2026</div></div>
+              <div class="hist-arrow"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M4.5 3L7.5 6L4.5 9"/></svg></div>
+            </div>
+            <div class="hist-row">
+              <div class="hist-check"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="var(--sage)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg></div>
+              <div class="hist-info"><div class="hist-name">Clean filter</div><div class="hist-date">1 Mar 2026</div></div>
+              <div class="hist-arrow"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M4.5 3L7.5 6L4.5 9"/></svg></div>
+            </div>
+          </div>
+
+          <!-- Details -->
+          <div class="sec-head"><div class="sec-title">Details</div><div class="sec-action">Edit</div></div>
+          <div class="detail-card">
+            <div class="detail-row"><span class="detail-label">Brand</span><span class="detail-val">Bosch</span></div>
+            <div class="detail-row"><span class="detail-label">Model</span><span class="detail-val">SMS46GI55E</span></div>
+            <div class="detail-row"><span class="detail-label">Purchased</span><span class="detail-val">Feb 2024</span></div>
+            <div class="detail-row"><span class="detail-label">Source</span><span class="detail-val">Manual entry</span></div>
+          </div>
+
+          <div class="bottom-spacer"></div>
         </div>
-        <div class="actions">
-          <button class="btn-skip">Skip</button>
-          <button class="btn-snooze" onclick="openSnooze(this)">Snooze</button>
-          <button class="btn-done"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</button>
-        </div>
       </div>
     </div>
 
-    <!-- Clean filter -->
-    <div class="task-card" onclick="toggleExpand(this)">
-      <div class="task-row">
-        <div class="icon-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cat-bg)" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-        <div style="flex:1;"><div style="font-size:14px;font-weight:500;color:var(--ink);">Clean filter</div><div style="font-size:10px;color:var(--mid);margin-top:2px;">5 min · monthly</div></div>
-        <div style="font-size:9px;color:var(--mid);">May 1</div>
-        <svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+    <!-- Annotations -->
+    <div style="flex:1;min-width:260px;">
+      <div style="font-size:10px;font-weight:600;letter-spacing:1.3px;text-transform:uppercase;color:#8A8070;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid rgba(26,22,18,0.08);">Small appliance variant: v2.0</div>
+
+      <div style="margin-bottom:20px;padding:14px;background:rgba(192,144,136,0.08);border-radius:12px;border:1px solid rgba(192,144,136,0.15);">
+        <div style="font-size:12px;font-weight:600;color:#31332C;margin-bottom:4px;">What's unique to small appliances</div>
+        <div style="font-size:11px;color:#7A756D;line-height:1.55;">Consumable product card (affiliate link) inside task expand. Simplified stats row with checkmark "all on track" indicator. No documents grid, no mileage tracker, no countdown cards, no season grouping. Quick DIY tasks only.</div>
       </div>
-      <div class="expand">
-        <div style="margin-top:8px;background:var(--surface-low);border-radius:var(--rs);padding:14px;">
-          <div style="font-size:9px;font-weight:600;letter-spacing:0.04em;color:var(--cat-bg);margin-bottom:12px;">How to complete this</div>
-          <div style="display:flex;gap:10px;margin-bottom:12px;"><div style="width:22px;height:22px;border-radius:50%;background:var(--cat-wash);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--cat-bg);flex-shrink:0;">1</div><div style="font-size:11px;color:var(--ink);line-height:1.5;">Remove the filter assembly at the bottom of the tub</div></div>
-          <div style="display:flex;gap:10px;"><div style="width:22px;height:22px;border-radius:50%;background:var(--cat-wash);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--cat-bg);flex-shrink:0;">2</div><div style="font-size:11px;color:var(--ink);line-height:1.5;">Rinse under warm water, remove food debris. Replace.</div></div>
-        </div>
-        <div class="actions">
-          <button class="btn-skip">Skip</button>
-          <button class="btn-snooze" onclick="openSnooze(this)">Snooze</button>
-          <button class="btn-done"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</button>
-        </div>
+
+      <div style="margin-bottom:16px;">
+        <div style="font-size:12px;font-weight:600;color:#31332C;margin-bottom:3px;">Consumable card</div>
+        <div style="font-size:11px;color:#7A756D;line-height:1.55;">Affiliate link moment, shown at task-due time only (inside the refill salt expand). Shopping bag icon, product name, "we may earn a small fee" disclaimer, price pill. Never more prominent than the task itself. One link per task view.</div>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <div style="font-size:12px;font-weight:600;color:#31332C;margin-bottom:3px;">Simplified stats</div>
+        <div style="font-size:11px;color:#7A756D;line-height:1.55;">Three boxes: time owned, total completions (sage), and a checkmark icon for "all on track" (sage wash bg). No countdown cards, no mileage. The checkmark replaces a numeric value when all tasks are within their time window.</div>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <div style="font-size:12px;font-weight:600;color:#31332C;margin-bottom:3px;">No "Why it matters" on simple tasks</div>
+        <div style="font-size:11px;color:#7A756D;line-height:1.55;">Salt refill and filter cleaning are self-explanatory DIY tasks. They get "How to do it" steps only, no "Why it matters" card. "Why" is reserved for tasks where the user might not understand the consequence of skipping.</div>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <div style="font-size:12px;font-weight:600;color:#31332C;margin-bottom:3px;">Task expand: v2.0 pattern</div>
+        <div style="font-size:11px;color:#7A756D;line-height:1.55;">Same shell as boiler/vehicle: numbered steps, task history, Skip/Snooze/Done, Ask nudgii. But no quick info row (no cost, no mileage) and no "Why it matters" for routine tasks. Consumable card appears between steps and history on refill tasks.</div>
       </div>
     </div>
 
-    <!-- Run cleaning cycle -->
-    <div class="task-card">
-      <div class="task-row">
-        <div class="icon-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cat-bg)" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-        <div style="flex:1;"><div style="font-size:14px;font-weight:500;color:var(--ink);">Run cleaning cycle</div><div style="font-size:10px;color:var(--mid);margin-top:2px;">Empty + hot wash · every 3 months</div></div>
-        <div style="font-size:9px;color:var(--mid);">Jun 15</div>
-      </div>
-    </div>
-
-    <!-- Refill rinse aid -->
-    <div class="task-card">
-      <div class="task-row">
-        <div class="icon-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cat-bg)" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-        <div style="flex:1;"><div style="font-size:14px;font-weight:500;color:var(--ink);">Refill rinse aid</div><div style="font-size:10px;color:var(--mid);margin-top:2px;">When indicator light comes on</div></div>
-        <div style="font-size:9px;color:var(--hint);">as needed</div>
-      </div>
-    </div>
   </div>
-
-  <!-- ZONE 4: History -->
-  <div style="padding:20px 24px;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;cursor:pointer;" onclick="toggleSection(this)">
-      <div class="section-title">History</div>
-      <div style="display:flex;align-items:center;gap:6px;"><span style="font-size:10px;color:var(--mid);">18 completions</span><svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-    </div>
-    <div class="expand">
-      <div style="display:flex;align-items:center;gap:10px;padding:14px 0;border-bottom:1px solid var(--surface-low);cursor:pointer;">
-        <div style="width:24px;height:24px;border-radius:50%;background:var(--sage-wash);display:flex;align-items:center;justify-content:center;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <div style="flex:1;"><div style="font-size:12px;color:var(--ink);">Refill salt</div><div style="font-size:10px;color:var(--hint);">Mar 10, 2026</div></div>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.6" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
-      </div>
-      <div style="display:flex;align-items:center;gap:10px;padding:14px 0;cursor:pointer;">
-        <div style="width:24px;height:24px;border-radius:50%;background:var(--sage-wash);display:flex;align-items:center;justify-content:center;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <div style="flex:1;"><div style="font-size:12px;color:var(--ink);">Clean filter</div><div style="font-size:10px;color:var(--hint);">Mar 1, 2026</div></div>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.6" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
-      </div>
-    </div>
-  </div>
-
-  <!-- ZONE 5: Good to know (short, practical) -->
-  <div style="background:var(--surface-low);padding:24px;">
-    <div class="section-title" style="margin-bottom:20px;">Good to know</div>
-    <div style="display:flex;gap:16px;margin-bottom:20px;">
-      <div style="flex-shrink:0;width:64px;text-align:right;font-family:'Noto Serif',serif;font-size:20px;font-weight:500;color:var(--cat-bg);line-height:1;">12y</div>
-      <div style="flex:1;padding-top:2px;"><div style="font-size:12px;font-weight:500;color:var(--ink);">average lifespan</div><div style="font-size:10px;color:var(--mid);margin-top:3px;line-height:1.5;">With regular filter cleaning and salt refills. Neglect halves it.</div></div>
-    </div>
-    <div style="display:flex;gap:16px;">
-      <div style="flex-shrink:0;width:64px;text-align:right;font-family:'Noto Serif',serif;font-size:20px;font-weight:500;color:var(--sage);line-height:1;">70&deg;C</div>
-      <div style="flex:1;padding-top:2px;"><div style="font-size:12px;font-weight:500;color:var(--ink);">monthly hot wash</div><div style="font-size:10px;color:var(--mid);margin-top:3px;line-height:1.5;">Run empty on the hottest cycle once a month. Dissolves grease buildup and kills bacteria.</div></div>
-    </div>
-  </div>
-
-  <!-- NO DOCUMENTS ZONE (dishwashers rarely need docs) -->
-
-  <!-- ZONE 7: Details -->
-  <div style="padding:24px;">
-    <div class="section-head">
-      <div class="section-title">Details</div>
-      <div style="font-size:10px;font-weight:500;color:var(--plum);cursor:pointer;">Edit</div>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:1px;background:var(--surface-low);border-radius:var(--r);overflow:hidden;">
-      <div class="detail-row"><span style="font-size:11px;color:var(--mid);">Brand</span><span style="font-size:11px;color:var(--ink);font-weight:500;">Bosch</span></div>
-      <div class="detail-row"><span style="font-size:11px;color:var(--mid);">Model</span><span style="font-size:11px;color:var(--ink);font-weight:500;">SMS46GI55E</span></div>
-      <div class="detail-row"><span style="font-size:11px;color:var(--mid);">Purchased</span><span style="font-size:11px;color:var(--ink);font-weight:500;">Feb 2024</span></div>
-      <div class="detail-row"><span style="font-size:11px;color:var(--mid);">Source</span><span style="font-size:11px;color:var(--ink);font-weight:500;">Manual entry</span></div>
-    </div>
-  </div>
-
-    <!-- Snooze sheet -->
-    <div class="snooze-overlay" id="snooze-overlay" onclick="closeSnooze()">
-      <div class="snooze-backdrop"></div>
-      <div class="snooze-panel" onclick="event.stopPropagation()">
-        <div class="snooze-handle"></div>
-        <div class="snooze-title">Snooze until...</div>
-        <div class="snooze-opt" onclick="doSnooze('Later today','3:00 PM')"><span class="snooze-opt-l">Later today</span><span class="snooze-opt-r">3 hours</span></div>
-        <div class="snooze-opt" onclick="doSnooze('Tomorrow','8:00 AM')"><span class="snooze-opt-l">Tomorrow</span><span class="snooze-opt-r">8:00 AM</span></div>
-        <div class="snooze-opt" onclick="doSnooze('This weekend','Sat 8:00 AM')"><span class="snooze-opt-l">This weekend</span><span class="snooze-opt-r">Sat 8:00 AM</span></div>
-        <div class="snooze-opt" onclick="doSnooze('Next week','Mon 8:00 AM')"><span class="snooze-opt-l">Next week</span><span class="snooze-opt-r">Mon 8:00 AM</span></div>
-        <div class="snooze-opt-pick" onclick="closeSnooze()">Pick a date...</div>
-      </div>
-    </div>
-
-    <!-- Toast -->
-    <div class="s17-toast" id="s17-toast">
-      <span id="s17-toast-icon" class="s17-toast-icon snooze"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
-      <span class="s17-toast-text" id="s17-toast-text"></span>
-      <button class="s17-toast-undo" id="s17-toast-undo" onclick="undoSnooze()">Undo</button>
-    </div>
-
-  <div style="height:40px;"></div>
 </div>
+
+<!-- Changelog -->
+<div style="max-width:980px;margin:0 auto;padding:48px 32px 0;">
+  <div style="font-size:10px;font-weight:600;letter-spacing:1.3px;text-transform:uppercase;color:#8A8070;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid rgba(26,22,18,0.08);">Changelog</div>
+  <div style="margin-bottom:16px;">
+    <div style="font-size:13px;font-weight:600;color:#31332C;margin-bottom:2px;">v2.0 · April 2026 <span style="font-size:9px;padding:2px 6px;border-radius:3px;background:rgba(196,80,58,0.08);color:#A32D2D;margin-left:4px;">Breaking</span></div>
+    <div style="font-size:12px;color:#7A756D;line-height:1.55;"><strong>Migrated to v2.0 design language.</strong> DM Serif Display + DM Sans (from Noto Serif + Manrope). tokens.css + components.css (from inline hardcoded tokens). Tasks rebuilt with unified expand pattern: numbered steps, task history, Skip/Snooze/Done, Ask nudgii. Consumable product card preserved from v1.0 (affiliate link inside refill salt expand). Simplified stats row with checkmark "all on track." Dark mode overrides added. Annotations sidebar added. Hub nav uses canonical ii mark from system/logo/.</div>
+    <div style="font-size:11px;color:#7A756D;line-height:1.55;margin-top:8px;padding:8px 10px;background:rgba(155,127,212,0.06);border-radius:6px;"><strong>Flutter notes:</strong> Mockup base 390x844 (iPhone 15). SafeArea top:true bottom:false. Scroll: SingleChildScrollView on content zone only. Hero: 160px, home wash bg, house icon. Stats row: 3 equal-width boxes, third uses checkmark SVG instead of text value. Consumable card: flex row, tappable (opens affiliate URL), "we may earn a small fee" always visible. Status strip: sage wash bg when all on track. Task expand: max-height animation 350ms ease. Done state: opacity 0.5, strikethrough title, inline done message. No documents grid, no mileage tracker, no countdown cards.</div>
+  </div>
+  <div style="margin-bottom:16px;">
+    <div style="font-size:13px;font-weight:600;color:#31332C;margin-bottom:2px;">v1.0 · April 2026 <span style="font-size:9px;padding:2px 6px;border-radius:3px;background:rgba(155,127,212,0.10);color:#9B7FD4;margin-left:4px;">Initial</span></div>
+    <div style="font-size:12px;color:#7A756D;line-height:1.55;">Initial prototype with Noto Serif + Manrope. 4 tasks, consumable card, snooze sheet, toast. Inline tokens.</div>
+  </div>
 </div>
 
 <script>
-function theme(t){document.getElementById('phone').setAttribute('data-theme',t);document.getElementById('tl').classList.toggle('on',t==='light');document.getElementById('td').classList.toggle('on',t==='dark');}
-function toggleExpand(card){var e=card.querySelector('.expand');var c=card.querySelector('.chevron');if(e.style.maxHeight&&e.style.maxHeight!=='0px'){e.style.maxHeight='0';c.style.transform='';}else{e.style.maxHeight=e.scrollHeight+'px';c.style.transform='rotate(180deg)';}}
-function toggleSection(header){var e=header.nextElementSibling;var c=header.querySelector('.chevron');if(e.style.maxHeight&&e.style.maxHeight!=='0px'){e.style.maxHeight='0';c.style.transform='';}else{e.style.maxHeight=e.scrollHeight+'px';c.style.transform='rotate(180deg)';}}
-var _snoozeCard=null,_lastSnooze=null,_toastTimer=null;
-function openSnooze(btn){event.stopPropagation();_snoozeCard=btn.closest('.task-card');document.getElementById('snooze-overlay').classList.add('open');}
-function closeSnooze(){document.getElementById('snooze-overlay').classList.remove('open');}
-function doSnooze(label,time){
-  closeSnooze();if(!_snoozeCard)return;
-  var card=_snoozeCard;_snoozeCard=null;_lastSnooze=card;
-  card.classList.add('snoozed');
-  var body=card.querySelector('.task-row div[style*="flex:1"]')||card.querySelector('.task-row > div:nth-child(2)');
-  if(body&&!body.querySelector('.snz-label')){var sl=document.createElement('div');sl.className='snz-label';sl.textContent='Snoozed to '+label.toLowerCase();body.appendChild(sl);}
-  var copy=['Snoozed until '+label.toLowerCase()+'.',
-    'Fine. But your stuff is taking notes.',
-    'Noted. We\'ll circle back '+label.toLowerCase()+'.'];
-  showS17Toast(copy[Math.floor(Math.random()*copy.length)],'snooze');
+function setTheme(t) {
+  document.querySelector('.s17-phone').setAttribute('data-theme', t);
+  document.querySelectorAll('.s17-ctrl-btn').forEach(b => b.classList.toggle('on', b.textContent.trim() === (t === 'light' ? 'Light' : 'Dark')));
 }
-function undoSnooze(){
-  hideS17Toast();if(!_lastSnooze)return;
-  _lastSnooze.classList.remove('snoozed');
-  var sl=_lastSnooze.querySelector('.snz-label');if(sl)sl.remove();
-  _lastSnooze=null;
-}
-function showS17Toast(msg,type){
-  var t=document.getElementById('s17-toast');
-  var icon=document.getElementById('s17-toast-icon');
-  var tp=type||'snooze';
-  icon.className='s17-toast-icon '+tp;
-  var icons={
-    done:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
-    skip:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l5 8-5 8H5l5-8z"/><line x1="19" y1="4" x2="19" y2="20"/></svg>',
-    snooze:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>'
-  };
-  icon.innerHTML=icons[tp]||icons.snooze;
-  var boldMsg=msg.replace(/^(Done\.|Skipped\.|Snoozed[^.]*\.|Noted\.|Fine\.|Removed\.)/,'<strong>$1</strong>');
-  document.getElementById('s17-toast-text').innerHTML=boldMsg;
-  t.classList.add('show');
-  clearTimeout(_toastTimer);
-  _toastTimer=setTimeout(hideS17Toast,tp==='done'?5000:8000);
-}
-function hideS17Toast(){document.getElementById('s17-toast').classList.remove('show');}
-function spawnConfetti(card){
-  var ph=document.querySelector('.ph');if(!ph)return;
-  var r=card.getBoundingClientRect(),pr=ph.getBoundingClientRect();
-  var cx=r.left+r.width/2-pr.left,cy=r.top+r.height/2-pr.top;
-  var colors=['#9B7FD4','#E8A87C','#C09088','#8C9B80','#8E9A94','#A69BBF'];
-  for(var i=0;i<8;i++){
-    var dot=document.createElement('div');dot.className='snooze-confetti';
-    var a=(Math.PI*2/8)*i+(Math.random()-0.5)*0.5,d=25+Math.random()*35;
-    dot.style.cssText='left:'+cx+'px;top:'+cy+'px;background:'+colors[i%colors.length]+';--sx:'+Math.cos(a)*d+'px;--sy:'+(Math.sin(a)*d-12)+'px;';
-    ph.appendChild(dot);setTimeout(function(el){el.remove();},650,dot);
+
+function toggleTask(id) {
+  var card = document.getElementById(id);
+  if (card.classList.contains('done-state')) return;
+  var expand = card.querySelector('.task-expand');
+  var chev = card.querySelector('.task-chev');
+  if (expand.style.maxHeight && expand.style.maxHeight !== '0px') {
+    expand.style.maxHeight = '0px';
+    chev.classList.remove('open');
+  } else {
+    expand.style.maxHeight = expand.scrollHeight + 'px';
+    chev.classList.add('open');
   }
+}
+
+function markDone(id, msg, sub) {
+  var card = document.getElementById(id);
+  var expand = card.querySelector('.task-expand');
+  var chev = card.querySelector('.task-chev');
+  var doneMsg = document.getElementById(id + '-done');
+  expand.style.maxHeight = '0px';
+  chev.classList.remove('open');
+  card.classList.add('done-state');
+  doneMsg.innerHTML = '<div class="task-done-text">' + msg + '</div><div class="task-done-sub">' + sub + '</div><div class="task-done-undo" onclick="undoDone(\'' + id + '\')">Undo</div>';
+  doneMsg.classList.add('show');
+}
+
+function undoDone(id) {
+  var card = document.getElementById(id);
+  var doneMsg = document.getElementById(id + '-done');
+  card.classList.remove('done-state');
+  doneMsg.classList.remove('show');
+}
+
+function toggleHistory() {
+  var btn = document.getElementById('hist-toggle');
+  btn.textContent = btn.textContent === 'All 12 \u203A' ? 'Show less' : 'All 12 \u203A';
 }
 </script>
 </body>

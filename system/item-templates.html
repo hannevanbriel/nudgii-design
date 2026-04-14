@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · Item templates · spec</title>
+<link rel="stylesheet" href="components.css">
+<link rel="stylesheet" href="tokens.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+body{background:var(--surface);padding:0 0 80px;}
+.spec{max-width:1100px;margin:0 auto;padding:32px;}
+.spec h2{font-family:'DM Serif Display',Georgia,serif;font-size:22px;font-weight:400;color:var(--ink);margin:40px 0 16px;padding-bottom:8px;border-bottom:1px solid rgba(44,40,36,0.08);}
+.spec h3{font-size:14px;font-weight:600;color:var(--ink);margin:24px 0 8px;}
+.spec p{font-size:13px;color:var(--mid);line-height:1.6;margin-bottom:12px;}
+.item-table{width:100%;border-collapse:collapse;font-size:10px;margin-bottom:24px;}
+.item-table th{text-align:left;padding:6px 8px;background:var(--surface-low);font-weight:600;color:var(--ink);font-size:8px;letter-spacing:0.8px;text-transform:uppercase;border-bottom:1px solid rgba(44,40,36,0.08);position:sticky;top:0;z-index:1;}
+.item-table td{padding:6px 8px;border-bottom:0.5px solid rgba(44,40,36,0.04);color:var(--ink);vertical-align:top;}
+.item-table td:first-child{font-weight:500;white-space:nowrap;}
+.item-table tr:hover{background:rgba(44,40,36,0.02);}
+.cat-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;vertical-align:middle;}
+.task-list{margin:0;padding:0;list-style:none;}
+.task-list li{padding:1px 0;font-size:10px;color:var(--ink);}
+.task-list li::before{content:"·";margin-right:4px;color:var(--mid);}
+.cadence{font-size:9px;color:var(--mid);}
+.badge{display:inline-block;font-size:7px;font-weight:600;padding:1px 5px;border-radius:3px;letter-spacing:0.3px;}
+.badge-diy{background:rgba(140,155,128,0.12);color:var(--sage);}
+.badge-pro{background:rgba(166,155,191,0.10);color:var(--plum);}
+.badge-appt{background:rgba(232,168,124,0.10);color:var(--apricot);}
+.section-card{background:var(--surface-low);border-radius:12px;padding:16px;margin-bottom:16px;border:0.5px solid rgba(44,40,36,0.06);}
+.section-card h4{font-size:12px;font-weight:600;color:var(--ink);margin:0 0 8px;}
+.section-card p{margin:0;}
+.field-list{margin:0;padding:0;list-style:none;}
+.field-list li{font-size:11px;color:var(--ink);padding:3px 0;line-height:1.6;}
+.sec-tag{display:inline-block;font-size:7px;font-weight:600;padding:1px 5px;border-radius:3px;background:rgba(155,127,212,0.08);color:var(--plum);margin-right:2px;}
+.count-badge{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:18px;border-radius:9px;font-size:10px;font-weight:600;padding:0 6px;}
+.toc{columns:3;column-gap:24px;margin:12px 0 24px;font-size:11px;line-height:2;}
+.toc a{color:var(--ink);text-decoration:none;}
+.toc a:hover{color:var(--plum);}
+.toc .cat-label{font-weight:600;color:var(--mid);font-size:9px;letter-spacing:0.8px;text-transform:uppercase;break-after:avoid;}
+</style>
+</head>
+<body>
+
+<nav class="nudgii-hub-nav">
+  <a class="nav-back" href="../index.html">
+    <img src="logo/ii-dark-on-light.svg" width="16" height="18" alt="" style="flex-shrink:0;border-radius:2px;">
+    <span>Design hub</span>
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">Item templates</span>
+  <span class="nav-status progress">In progress</span>
+</nav>
+
+<div class="spec">
+  <div class="page-eyebrow">System · Item templates · Reference spec · April 2026</div>
+  <h1 class="page-h1">Item templates: 96 items, 6 categories</h1>
+  <p>Complete seed data reference for engineering. Every item that nudgii ships with: default tasks, cadences, costs, personality names, detail fields, and composable S-17 sections. Aligned with Supabase schema (categories + items tables). Belgium/Netherlands market.</p>
+  <div class="page-pills">
+    <span class="mp">Reference</span>
+    <span class="mp progress">Engineering handoff</span>
+    <span class="mp">v2.0 · April 2026</span>
+  </div>
+
+  <!-- Summary -->
+  <div style="display:flex;gap:12px;flex-wrap:wrap;margin:20px 0;">
+    <div style="flex:1;min-width:120px;background:var(--ch-wash);border-radius:12px;padding:14px;text-align:center;"><div style="font-family:'DM Serif Display',Georgia,serif;font-size:24px;color:var(--ch-bg);">37</div><div style="font-size:9px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--mid);margin-top:2px;">Home</div></div>
+    <div style="flex:1;min-width:120px;background:var(--cg-wash);border-radius:12px;padding:14px;text-align:center;"><div style="font-family:'DM Serif Display',Georgia,serif;font-size:24px;color:var(--cg-bg);">16</div><div style="font-size:9px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--mid);margin-top:2px;">Garden</div></div>
+    <div style="flex:1;min-width:120px;background:var(--cv-wash);border-radius:12px;padding:14px;text-align:center;"><div style="font-family:'DM Serif Display',Georgia,serif;font-size:24px;color:var(--cv-bg);">10</div><div style="font-size:9px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--mid);margin-top:2px;">Vehicle</div></div>
+    <div style="flex:1;min-width:120px;background:var(--cs-wash);border-radius:12px;padding:14px;text-align:center;"><div style="font-family:'DM Serif Display',Georgia,serif;font-size:24px;color:var(--cs-bg);">13</div><div style="font-size:9px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--mid);margin-top:2px;">Subscriptions</div></div>
+    <div style="flex:1;min-width:120px;background:var(--cx-wash);border-radius:12px;padding:14px;text-align:center;"><div style="font-family:'DM Serif Display',Georgia,serif;font-size:24px;color:var(--cx-bg);">17</div><div style="font-size:9px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--mid);margin-top:2px;">Health</div></div>
+    <div style="flex:1;min-width:120px;background:var(--cp-wash);border-radius:12px;padding:14px;text-align:center;"><div style="font-family:'DM Serif Display',Georgia,serif;font-size:24px;color:var(--cp-bg);">7</div><div style="font-size:9px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--mid);margin-top:2px;">Pets</div></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Home <span class="count-badge" style="background:var(--ch-wash);color:var(--ch-bg);">37</span></h2>
+
+  <table class="item-table">
+    <thead><tr><th>Item (slug)</th><th>Default tasks</th><th>Cadence</th><th>Type</th><th>Cost</th><th>Nickname</th></tr></thead>
+    <tbody>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>boiler</td><td><ul class="task-list"><li>Annual service</li><li>Clean filter</li><li>Check water pressure</li></ul></td><td><span class="cadence">Yearly (autumn)<br>Every 6 months<br>Monthly</span></td><td><span class="badge badge-pro">Pro</span> <span class="badge badge-diy">DIY</span> <span class="badge badge-diy">DIY</span></td><td>~€120 / free / free</td><td>"Bubs"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>dishwasher</td><td><ul class="task-list"><li>Refill salt ⬡</li><li>Clean filter</li><li>Run cleaning cycle</li><li>Refill rinse aid ⬡</li></ul></td><td><span class="cadence">Every 6-8 wk<br>Monthly<br>Every 3 mo<br>As needed</span></td><td><span class="badge badge-diy">DIY</span></td><td>~€3 / free / free / ~€5</td><td>"Dishy"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>washing-machine</td><td><ul class="task-list"><li>Clean filter/pump</li><li>Run 90°C empty cycle</li><li>Clean detergent drawer</li><li>Check door seal</li></ul></td><td><span class="cadence">Monthly<br>Monthly<br>Monthly<br>Every 3 mo</span></td><td><span class="badge badge-diy">DIY</span></td><td>free</td><td>"Spinny"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>tumble-dryer</td><td><ul class="task-list"><li>Clean lint filter</li><li>Clean condenser</li><li>Empty water tank</li></ul></td><td><span class="cadence">Every use<br>Monthly<br>After cycle</span></td><td><span class="badge badge-diy">DIY</span></td><td>free</td><td>"Puff"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>fridge</td><td><ul class="task-list"><li>Clean coils</li><li>Check door seals</li><li>Clean drip tray</li><li>Defrost (if manual)</li></ul></td><td><span class="cadence">Every 6 mo<br>Every 6 mo<br>Every 3 mo<br>Yearly</span></td><td><span class="badge badge-diy">DIY</span></td><td>free</td><td>"Chilly"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>freezer</td><td><ul class="task-list"><li>Defrost</li><li>Check door seal</li><li>Check temperature</li></ul></td><td><span class="cadence">Every 6 mo<br>Every 6 mo<br>Monthly</span></td><td><span class="badge badge-diy">DIY</span></td><td>free</td><td>"Frosty"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>oven</td><td><ul class="task-list"><li>Deep clean interior</li><li>Clean door glass</li><li>Check door seal</li></ul></td><td><span class="cadence">Every 3 mo<br>Monthly<br>Yearly</span></td><td><span class="badge badge-diy">DIY</span></td><td>free</td><td>"Chef"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>range-hood</td><td><ul class="task-list"><li>Clean grease filter</li><li>Replace carbon filter ⬡</li></ul></td><td><span class="cadence">Monthly<br>Every 6 mo</span></td><td><span class="badge badge-diy">DIY</span></td><td>free / ~€15</td><td>"The hood"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>coffee-machine</td><td><ul class="task-list"><li>Descale ⬡</li><li>Clean brew group</li><li>Replace water filter ⬡</li></ul></td><td><span class="cadence">Every 2-3 mo<br>Weekly<br>Every 2 mo</span></td><td><span class="badge badge-diy">DIY</span></td><td>~€8 / free / ~€10</td><td>"Bean"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>vacuum-cleaner</td><td><ul class="task-list"><li>Empty/replace bag ⬡</li><li>Clean brush roll</li><li>Replace filter ⬡</li></ul></td><td><span class="cadence">As needed<br>Monthly<br>Every 6 mo</span></td><td><span class="badge badge-diy">DIY</span></td><td>~€5 / free / ~€15</td><td>"Dusty"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>air-con</td><td><ul class="task-list"><li>Clean/replace filter ⬡</li><li>Annual service</li><li>Clean outdoor unit</li></ul></td><td><span class="cadence">Every 3 mo<br>Yearly (spring)<br>Every 6 mo</span></td><td><span class="badge badge-diy">DIY</span> <span class="badge badge-pro">Pro</span></td><td>~€15 / ~€120 / free</td><td>"Breeze"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>heat-pump</td><td><ul class="task-list"><li>Annual service</li><li>Clean/replace filter ⬡</li><li>Check refrigerant</li></ul></td><td><span class="cadence">Yearly (spring)<br>Every 3 mo<br>Yearly</span></td><td><span class="badge badge-pro">Pro</span> <span class="badge badge-diy">DIY</span> <span class="badge badge-pro">Pro</span></td><td>~€150 / ~€15 / incl.</td><td>"Pumpy"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>water-heater</td><td><ul class="task-list"><li>Annual service</li><li>Check pressure valve</li><li>Descale (hard water)</li></ul></td><td><span class="cadence">Yearly<br>Every 6 mo<br>Every 2 yr</span></td><td><span class="badge badge-pro">Pro</span> <span class="badge badge-diy">DIY</span></td><td>~€100 / free / ~€80</td><td>"Steamy"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>ventilation</td><td><ul class="task-list"><li>Clean/replace filters ⬡</li><li>Clean vents</li><li>Annual service (if mechanical)</li></ul></td><td><span class="cadence">Every 3 mo<br>Every 6 mo<br>Yearly</span></td><td><span class="badge badge-diy">DIY</span> <span class="badge badge-pro">Pro</span></td><td>~€20 / free / ~€100</td><td>"Breathy"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>smoke-detector</td><td><ul class="task-list"><li>Test alarm button</li><li>Replace battery ⬡</li><li>Replace unit</li></ul></td><td><span class="cadence">Monthly<br>Yearly<br>Every 10 yr</span></td><td><span class="badge badge-diy">DIY</span></td><td>free / ~€5 / ~€20</td><td>"The watchers"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>co-detector</td><td><ul class="task-list"><li>Test alarm</li><li>Replace battery ⬡</li><li>Replace unit</li></ul></td><td><span class="cadence">Monthly<br>Yearly<br>Every 7 yr</span></td><td><span class="badge badge-diy">DIY</span></td><td>free / ~€5 / ~€25</td><td>"The guardian"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>smart-thermostat</td><td><ul class="task-list"><li>Check schedule</li><li>Update firmware</li><li>Replace batteries ⬡</li></ul></td><td><span class="cadence">Seasonal (2x yr)<br>Quarterly<br>Yearly</span></td><td><span class="badge badge-diy">DIY</span></td><td>free / free / ~€5</td><td>"Brains"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>solar-panels</td><td><ul class="task-list"><li>Visual inspection</li><li>Clean panels</li><li>Check inverter</li><li>Professional inspection</li></ul></td><td><span class="cadence">Every 6 mo<br>Yearly (spring)<br>Monthly<br>Every 5 yr</span></td><td><span class="badge badge-diy">DIY</span> <span class="badge badge-pro">Pro</span></td><td>free / free / free / ~€150</td><td>"The sun catchers"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>home-battery</td><td><ul class="task-list"><li>Check charge cycles</li><li>Inspect connections</li><li>Firmware update</li></ul></td><td><span class="cadence">Monthly<br>Every 6 mo<br>Quarterly</span></td><td><span class="badge badge-diy">DIY</span></td><td>free</td><td>"The vault"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>ev-charger</td><td><ul class="task-list"><li>Visual inspection</li><li>Clean contacts</li><li>Professional check</li></ul></td><td><span class="cadence">Monthly<br>Every 3 mo<br>Yearly</span></td><td><span class="badge badge-diy">DIY</span> <span class="badge badge-pro">Pro</span></td><td>free / free / ~€80</td><td>"Juice"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>garage-door</td><td><ul class="task-list"><li>Lubricate rails + hinges</li><li>Test safety sensors</li><li>Check springs + cables</li></ul></td><td><span class="cadence">Every 6 mo<br>Monthly<br>Yearly</span></td><td><span class="badge badge-diy">DIY</span> <span class="badge badge-pro">Pro</span></td><td>~€5 / free / ~€100</td><td>"The gate"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>gutters</td><td><ul class="task-list"><li>Clean gutters</li><li>Check downpipes</li><li>Inspect for damage</li></ul></td><td><span class="cadence">2x yr (spring + autumn)<br>2x yr<br>Yearly</span></td><td><span class="badge badge-diy">DIY</span></td><td>free (DIY) / ~€80</td><td>"The guardians"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>pellet-stove</td><td><ul class="task-list"><li>Clean burn pot</li><li>Clean glass</li><li>Annual service</li><li>Check chimney</li></ul></td><td><span class="cadence">Weekly (season)<br>Weekly (season)<br>Yearly (spring)<br>Yearly</span></td><td><span class="badge badge-diy">DIY</span> <span class="badge badge-pro">Pro</span></td><td>free / free / ~€120 / ~€60</td><td>"Glow"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>fireplace</td><td><ul class="task-list"><li>Clean firebox</li><li>Chimney sweep</li><li>Check damper</li></ul></td><td><span class="cadence">After each use<br>Yearly (autumn)<br>Yearly</span></td><td><span class="badge badge-diy">DIY</span> <span class="badge badge-pro">Pro</span></td><td>free / ~€80 / free</td><td>"Hearth"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>water-softener</td><td><ul class="task-list"><li>Refill salt ⬡</li><li>Clean brine tank</li><li>Check settings</li></ul></td><td><span class="cadence">Monthly<br>Yearly<br>Every 6 mo</span></td><td><span class="badge badge-diy">DIY</span></td><td>~€10 / free / free</td><td>"Softy"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>rainwater-tank</td><td><ul class="task-list"><li>Clean filter</li><li>Check pump</li><li>Inspect tank</li></ul></td><td><span class="cadence">Every 3 mo<br>Every 6 mo<br>Yearly</span></td><td><span class="badge badge-diy">DIY</span></td><td>free</td><td>"The well"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>oil-tank</td><td><ul class="task-list"><li>Check level</li><li>Inspect for leaks</li><li>Professional inspection</li></ul></td><td><span class="cadence">Monthly<br>Every 6 mo<br>Every 5 yr</span></td><td><span class="badge badge-diy">DIY</span> <span class="badge badge-pro">Pro</span></td><td>free / free / ~€150</td><td>"The reserve"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>shed</td><td><ul class="task-list"><li>Check roof + gutters</li><li>Treat wood</li><li>Check for pests</li></ul></td><td><span class="cadence">2x yr<br>Every 2 yr<br>Spring</span></td><td><span class="badge badge-diy">DIY</span></td><td>free / ~€30 / free</td><td>"The hideout"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>decking</td><td><ul class="task-list"><li>Pressure wash</li><li>Oil/stain treatment</li><li>Check for rot</li></ul></td><td><span class="cadence">Yearly (spring)<br>Yearly (spring)<br>Yearly</span></td><td><span class="badge badge-diy">DIY</span></td><td>free / ~€40 / free</td><td>"The deck"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>pressure-washer</td><td><ul class="task-list"><li>Clean after use</li><li>Check hose + nozzle</li><li>Winterize</li></ul></td><td><span class="cadence">After use<br>Every 3 mo<br>Autumn</span></td><td><span class="badge badge-diy">DIY</span></td><td>free</td><td>"Blast"</td></tr>
+    </tbody>
+  </table>
+
+  <p style="font-size:9px;color:var(--hint);">⬡ = consumable (affiliate link opportunity). Costs are Belgian market averages. Pro = certified technician required.</p>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Garden <span class="count-badge" style="background:var(--cg-wash);color:var(--cg-bg);">16</span></h2>
+
+  <table class="item-table">
+    <thead><tr><th>Item (slug)</th><th>Default tasks</th><th>Cadence</th><th>Type</th><th>Cost</th><th>Nickname</th></tr></thead>
+    <tbody>
+      <tr><td><span class="cat-dot" style="background:#8C9B80;"></span>lawn</td><td><ul class="task-list"><li>Scarify</li><li>First fertilize ⬡</li><li>Mow weekly</li><li>Autumn fertilize ⬡</li><li>Last mow</li></ul></td><td><span class="cadence">Spring<br>April<br>Weekly Apr-Oct<br>October<br>November</span></td><td><span class="badge badge-diy">DIY</span></td><td>free / ~€15</td><td>"The green"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8C9B80;"></span>hedge</td><td><ul class="task-list"><li>First trim</li><li>Second trim</li><li>Feed + mulch</li></ul></td><td><span class="cadence">Apr-May<br>Aug-Sep<br>Spring</span></td><td><span class="badge badge-diy">DIY</span></td><td>free</td><td>"The wall"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8C9B80;"></span>olive-tree</td><td><ul class="task-list"><li>Spring pruning</li><li>Fertilize ⬡</li><li>Protect from frost</li></ul></td><td><span class="cadence">Mar-Apr<br>April<br>November</span></td><td><span class="badge badge-diy">DIY</span></td><td>free / ~€10</td><td>"Ollie"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8C9B80;"></span>fruit-tree</td><td><ul class="task-list"><li>Winter pruning</li><li>Spring feeding ⬡</li><li>Pest check</li><li>Harvest</li></ul></td><td><span class="cadence">Jan-Feb<br>March<br>Monthly Apr-Aug<br>Seasonal</span></td><td><span class="badge badge-diy">DIY</span></td><td>free / ~€10</td><td>"The orchard"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8C9B80;"></span>roses</td><td><ul class="task-list"><li>Spring pruning</li><li>Deadhead flowers</li><li>Spray for disease ⬡</li><li>Winter protection</li></ul></td><td><span class="cadence">March<br>Weekly Jun-Sep<br>Monthly May-Aug<br>November</span></td><td><span class="badge badge-diy">DIY</span></td><td>free / ~€12</td><td>"The blooms"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8C9B80;"></span>terrace-plants</td><td><ul class="task-list"><li>Water regularly</li><li>Fertilize ⬡</li><li>Repot</li><li>Bring inside (frost)</li></ul></td><td><span class="cadence">2-3x week (summer)<br>Every 2 wk May-Sep<br>Every 2 yr (spring)<br>October</span></td><td><span class="badge badge-diy">DIY</span></td><td>free / ~€10</td><td>"The terrace crew"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8C9B80;"></span>climbing-plants</td><td><ul class="task-list"><li>Prune + train</li><li>Check supports</li><li>Feed ⬡</li></ul></td><td><span class="cadence">Spring + autumn<br>Spring<br>Spring</span></td><td><span class="badge badge-diy">DIY</span></td><td>free / ~€8</td><td>"The climbers"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8C9B80;"></span>vegetable-garden</td><td><ul class="task-list"><li>Plan + sow</li><li>Water + weed</li><li>Harvest</li><li>Prepare beds (autumn)</li></ul></td><td><span class="cadence">Feb-Mar<br>Daily (season)<br>Seasonal<br>Oct-Nov</span></td><td><span class="badge badge-diy">DIY</span></td><td>~€30 seeds</td><td>"The patch"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8C9B80;"></span>greenhouse</td><td><ul class="task-list"><li>Clean glass</li><li>Check ventilation</li><li>Disinfect (end of season)</li></ul></td><td><span class="cadence">Spring<br>Monthly (season)<br>Autumn</span></td><td><span class="badge badge-diy">DIY</span></td><td>free</td><td>"The glass house"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8C9B80;"></span>garden-pond</td><td><ul class="task-list"><li>Check water quality</li><li>Clean filter/pump</li><li>Remove leaves/debris</li><li>Winterize</li></ul></td><td><span class="cadence">Weekly (season)<br>Monthly<br>Weekly (autumn)<br>November</span></td><td><span class="badge badge-diy">DIY</span></td><td>~€20 (chemicals)</td><td>"The pond"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8C9B80;"></span>irrigation</td><td><ul class="task-list"><li>Check sprinklers</li><li>Adjust schedule</li><li>Winterize (drain)</li><li>Spring startup</li></ul></td><td><span class="cadence">Monthly (season)<br>Seasonal<br>October<br>March</span></td><td><span class="badge badge-diy">DIY</span></td><td>free</td><td>"The sprinklers"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8C9B80;"></span>fence</td><td><ul class="task-list"><li>Inspect for damage</li><li>Treat/paint wood</li><li>Check posts</li></ul></td><td><span class="cadence">Spring<br>Every 2-3 yr<br>Spring</span></td><td><span class="badge badge-diy">DIY</span></td><td>free / ~€40</td><td>"The border"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8C9B80;"></span>compost</td><td><ul class="task-list"><li>Turn compost</li><li>Check moisture</li><li>Harvest compost</li></ul></td><td><span class="cadence">Every 2-4 wk<br>Weekly<br>2x yr</span></td><td><span class="badge badge-diy">DIY</span></td><td>free</td><td>"The heap"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8C9B80;"></span>robot-mower</td><td><ul class="task-list"><li>Clean blades</li><li>Replace blades ⬡</li><li>Clean charging station</li><li>Winterize</li></ul></td><td><span class="cadence">Weekly<br>Every 2-3 mo<br>Monthly<br>October</span></td><td><span class="badge badge-diy">DIY</span></td><td>free / ~€15 / free</td><td>"Robo"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8C9B80;"></span>lawn-mower</td><td><ul class="task-list"><li>Sharpen blade</li><li>Change oil (petrol)</li><li>Clean air filter</li><li>Winterize</li></ul></td><td><span class="cadence">Yearly (spring)<br>Yearly<br>Yearly<br>October</span></td><td><span class="badge badge-diy">DIY</span></td><td>~€15 / ~€10 / ~€8</td><td>"Buzzy"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8C9B80;"></span>rain-barrel</td><td><ul class="task-list"><li>Clean + check</li><li>Winterize (drain)</li></ul></td><td><span class="cadence">Spring<br>November</span></td><td><span class="badge badge-diy">DIY</span></td><td>free</td><td>"The barrel"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8C9B80;"></span>chainsaw</td><td><ul class="task-list"><li>Sharpen chain</li><li>Clean air filter</li><li>Check chain tension</li></ul></td><td><span class="cadence">After heavy use<br>Monthly (use season)<br>Before each use</span></td><td><span class="badge badge-diy">DIY</span></td><td>~€10 / free / free</td><td>"Chomp"</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Vehicle <span class="count-badge" style="background:var(--cv-wash);color:var(--cv-bg);">10</span></h2>
+
+  <table class="item-table">
+    <thead><tr><th>Item (slug)</th><th>Default tasks</th><th>Cadence</th><th>Type</th><th>Cost</th><th>Nickname</th></tr></thead>
+    <tbody>
+      <tr><td><span class="cat-dot" style="background:#8E9A94;"></span>car</td><td><ul class="task-list"><li>MOT inspection</li><li>Oil change</li><li>Check tyre pressure</li><li>Switch seasonal tyres</li><li>Review insurance</li></ul></td><td><span class="cadence">Yearly<br>15,000 km / yearly<br>Monthly<br>Seasonal<br>Yearly</span></td><td><span class="badge badge-pro">Pro</span> <span class="badge badge-diy">DIY</span></td><td>~€80 / ~€90 / free / ~€40</td><td>"Wheels"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8E9A94;"></span>electric-car</td><td><ul class="task-list"><li>MOT inspection</li><li>Check tyre pressure</li><li>Switch seasonal tyres</li><li>Battery health check</li><li>Review insurance</li></ul></td><td><span class="cadence">Yearly<br>Monthly<br>Seasonal<br>Yearly<br>Yearly</span></td><td><span class="badge badge-pro">Pro</span> <span class="badge badge-diy">DIY</span></td><td>~€80 / free / ~€40 / free</td><td>"Sparky"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8E9A94;"></span>motorcycle</td><td><ul class="task-list"><li>MOT inspection</li><li>Oil + filter change</li><li>Check chain + tension</li><li>Winterize / spring prep</li></ul></td><td><span class="cadence">Yearly<br>10,000 km / yearly<br>Monthly<br>Seasonal</span></td><td><span class="badge badge-pro">Pro</span> <span class="badge badge-diy">DIY</span></td><td>~€50 / ~€60 / free</td><td>"Thunder"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8E9A94;"></span>bicycle</td><td><ul class="task-list"><li>Check tyre pressure</li><li>Lubricate chain</li><li>Check brakes</li><li>Annual service</li></ul></td><td><span class="cadence">Weekly (season)<br>Every 2 wk<br>Monthly<br>Yearly (spring)</span></td><td><span class="badge badge-diy">DIY</span> <span class="badge badge-pro">Pro</span></td><td>free / ~€50 service</td><td>"Spokes"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8E9A94;"></span>e-bike</td><td><ul class="task-list"><li>Check tyre pressure</li><li>Lubricate chain</li><li>Battery care</li><li>Annual service</li></ul></td><td><span class="cadence">Weekly (season)<br>Every 2 wk<br>Ongoing<br>Yearly</span></td><td><span class="badge badge-diy">DIY</span> <span class="badge badge-pro">Pro</span></td><td>free / ~€80 service</td><td>"Boost"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8E9A94;"></span>scooter</td><td><ul class="task-list"><li>Check tyre pressure</li><li>Check brakes</li><li>Annual service</li></ul></td><td><span class="cadence">Monthly<br>Monthly<br>Yearly</span></td><td><span class="badge badge-diy">DIY</span> <span class="badge badge-pro">Pro</span></td><td>free / ~€80</td><td>"Zip"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8E9A94;"></span>camper-van</td><td><ul class="task-list"><li>Gas safety check</li><li>MOT inspection</li><li>Winterize</li><li>Flush water system</li><li>Check tyre pressure</li></ul></td><td><span class="cadence">Yearly (spring)<br>Yearly<br>October<br>Before trip<br>Monthly + trips</span></td><td><span class="badge badge-pro">Pro</span> <span class="badge badge-diy">DIY</span></td><td>~€80 / ~€80 / free</td><td>"The Cali"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8E9A94;"></span>trailer</td><td><ul class="task-list"><li>Check tyre pressure</li><li>Grease bearings</li><li>Check lights</li><li>MOT (if required)</li></ul></td><td><span class="cadence">Before each use<br>Yearly<br>Before each use<br>Yearly</span></td><td><span class="badge badge-diy">DIY</span></td><td>free / ~€10</td><td>"Haul"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8E9A94;"></span>boat</td><td><ul class="task-list"><li>Anti-fouling paint</li><li>Engine service</li><li>Check safety gear</li><li>Winterize</li></ul></td><td><span class="cadence">Yearly (spring)<br>Yearly<br>Before season<br>October</span></td><td><span class="badge badge-diy">DIY</span> <span class="badge badge-pro">Pro</span></td><td>~€200 / ~€150 / ~€50</td><td>"The hull"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8E9A94;"></span>quad</td><td><ul class="task-list"><li>Oil change</li><li>Check tyre pressure</li><li>Clean air filter</li><li>Winterize</li></ul></td><td><span class="cadence">Yearly / 3,000 km<br>Monthly<br>Every 3 mo<br>Autumn</span></td><td><span class="badge badge-diy">DIY</span></td><td>~€30 / free / free</td><td>"Rumble"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8E9A94;"></span>jet-ski</td><td><ul class="task-list"><li>Flush engine after use</li><li>Check oil</li><li>Winterize</li><li>Annual service</li></ul></td><td><span class="cadence">After every use<br>Monthly (season)<br>October<br>Yearly (spring)</span></td><td><span class="badge badge-diy">DIY</span> <span class="badge badge-pro">Pro</span></td><td>free / ~€150 service</td><td>"Splash"</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Subscriptions <span class="count-badge" style="background:var(--cs-wash);color:var(--cs-bg);">13</span></h2>
+
+  <table class="item-table">
+    <thead><tr><th>Item (slug)</th><th>Default tasks</th><th>Cadence</th><th>Action type</th><th>Monthly cost</th><th>Nickname</th></tr></thead>
+    <tbody>
+      <tr><td><span class="cat-dot" style="background:#A69BBF;"></span>home-insurance</td><td><ul class="task-list"><li>Review coverage</li><li>Compare alternatives</li><li>Check deductible</li></ul></td><td><span class="cadence">Before renewal</span></td><td>Keep / Compare / Cancel</td><td>€40-100</td><td>(none)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#A69BBF;"></span>car-insurance</td><td><ul class="task-list"><li>Review coverage</li><li>Compare alternatives</li><li>Check bonus-malus</li></ul></td><td><span class="cadence">Before renewal</span></td><td>Keep / Compare / Cancel</td><td>€50-150</td><td>(none)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#A69BBF;"></span>health-insurance</td><td><ul class="task-list"><li>Review coverage</li><li>Compare alternatives</li><li>Check dental/optical add-ons</li></ul></td><td><span class="cadence">Before renewal</span></td><td>Keep / Compare / Cancel</td><td>€80-200</td><td>(none)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#A69BBF;"></span>electricity</td><td><ul class="task-list"><li>Compare energy prices</li><li>Submit meter reading</li><li>Review annual settlement</li></ul></td><td><span class="cadence">Yearly / Monthly / Yearly</span></td><td>Keep / Switch</td><td>€80-200</td><td>(none)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#A69BBF;"></span>gas</td><td><ul class="task-list"><li>Compare gas prices</li><li>Submit meter reading</li><li>Review annual settlement</li></ul></td><td><span class="cadence">Yearly / Monthly / Yearly</span></td><td>Keep / Switch</td><td>€50-150</td><td>(none)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#A69BBF;"></span>internet</td><td><ul class="task-list"><li>Review plan vs usage</li><li>Compare alternatives</li></ul></td><td><span class="cadence">Yearly</span></td><td>Keep / Switch</td><td>€30-60</td><td>(none)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#A69BBF;"></span>mobile-phone</td><td><ul class="task-list"><li>Review plan vs usage</li><li>Compare alternatives</li></ul></td><td><span class="cadence">Yearly</span></td><td>Keep / Switch</td><td>€15-40</td><td>(none)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#A69BBF;"></span>streaming-video</td><td><ul class="task-list"><li>Review usage</li><li>Check price changes</li></ul></td><td><span class="cadence">Every 6 mo</span></td><td>Keep / Switch / Cancel</td><td>€8-20</td><td>"Flix"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#A69BBF;"></span>music-streaming</td><td><ul class="task-list"><li>Review usage</li><li>Check price changes</li></ul></td><td><span class="cadence">Every 6 mo</span></td><td>Keep / Switch / Cancel</td><td>€10-15</td><td>"Tunes"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#A69BBF;"></span>cloud-storage</td><td><ul class="task-list"><li>Review usage vs plan</li><li>Clean unused files</li></ul></td><td><span class="cadence">Every 6 mo</span></td><td>Keep / Downgrade / Cancel</td><td>€2-10</td><td>(none)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#A69BBF;"></span>gym</td><td><ul class="task-list"><li>Review usage vs cost</li><li>Check price changes</li><li>Cancellation window</li></ul></td><td><span class="cadence">Every 6 mo</span></td><td>Keep / Switch / Cancel</td><td>€20-50</td><td>(none)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#A69BBF;"></span>productivity-suite</td><td><ul class="task-list"><li>Review usage</li><li>Check free alternatives</li></ul></td><td><span class="cadence">Yearly</span></td><td>Keep / Switch / Cancel</td><td>€5-15</td><td>(none)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#A69BBF;"></span>ai-subscription</td><td><ul class="task-list"><li>Review usage vs cost</li><li>Check new alternatives</li></ul></td><td><span class="cadence">Every 6 mo</span></td><td>Keep / Switch / Cancel</td><td>€10-30</td><td>(none)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#A69BBF;"></span>mobile-app-subscription</td><td><ul class="task-list"><li>Review if still using</li><li>Check auto-renewal date</li></ul></td><td><span class="cadence">Every 6 mo</span></td><td>Keep / Cancel</td><td>€2-15</td><td>(none)</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Health <span class="count-badge" style="background:var(--cx-wash);color:var(--cx-bg);">17</span></h2>
+
+  <p>Health items are fundamentally different from maintenance items. They're appointment-based, not DIY-based. The S-17 pattern for health uses: appointment tracking, frequency reminders, provider details, and coverage info.</p>
+
+  <table class="item-table">
+    <thead><tr><th>Item (slug)</th><th>Default tasks</th><th>Cadence</th><th>Type</th><th>Cost (BE)</th><th>Nickname</th></tr></thead>
+    <tbody>
+      <tr><td><span class="cat-dot" style="background:#C29494;"></span>dentist</td><td><ul class="task-list"><li>Regular checkup</li><li>Scaling + clean</li></ul></td><td><span class="cadence">Every 6 mo<br>Yearly</span></td><td><span class="badge badge-appt">Appointment</span></td><td>~€50 (mostly reimbursed)</td><td>(none)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C29494;"></span>gp-checkup</td><td><ul class="task-list"><li>Annual checkup</li></ul></td><td><span class="cadence">Yearly</span></td><td><span class="badge badge-appt">Appointment</span></td><td>~€25 (reimbursed)</td><td>(none)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C29494;"></span>eye-test</td><td><ul class="task-list"><li>Eye exam</li></ul></td><td><span class="cadence">Every 2 yr (or yearly 40+)</span></td><td><span class="badge badge-appt">Appointment</span></td><td>~€40</td><td>(none)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C29494;"></span>skin-check</td><td><ul class="task-list"><li>Dermatology check</li><li>Self-exam (moles)</li></ul></td><td><span class="cadence">Yearly<br>Monthly</span></td><td><span class="badge badge-appt">Appointment</span> <span class="badge badge-diy">Self</span></td><td>~€50</td><td>(none)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C29494;"></span>gynecologist</td><td><ul class="task-list"><li>Annual checkup</li><li>Smear test</li></ul></td><td><span class="cadence">Yearly<br>Every 3 yr (25-64)</span></td><td><span class="badge badge-appt">Appointment</span></td><td>~€50 (reimbursed)</td><td>(none)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C29494;"></span>colonoscopy</td><td><ul class="task-list"><li>Screening</li></ul></td><td><span class="cadence">Every 10 yr (50+) or as advised</span></td><td><span class="badge badge-appt">Appointment</span></td><td>~€300 (partly reimbursed)</td><td>(none)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C29494;"></span>blood-test</td><td><ul class="task-list"><li>Blood work</li></ul></td><td><span class="cadence">Yearly or as advised</span></td><td><span class="badge badge-appt">Appointment</span></td><td>~€30 (reimbursed)</td><td>(none)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C29494;"></span>flu-shot</td><td><ul class="task-list"><li>Flu vaccination</li></ul></td><td><span class="cadence">Yearly (autumn)</span></td><td><span class="badge badge-appt">Appointment</span></td><td>~€10 (often free 65+)</td><td>(none)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C29494;"></span>medication</td><td><ul class="task-list"><li>Refill prescription ⬡</li><li>Check expiry dates</li></ul></td><td><span class="cadence">As needed<br>Every 6 mo</span></td><td><span class="badge badge-diy">Self</span></td><td>varies</td><td>(none)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C29494;"></span>prescription-renewal</td><td><ul class="task-list"><li>Visit GP for renewal</li></ul></td><td><span class="cadence">As needed (usually yearly)</span></td><td><span class="badge badge-appt">Appointment</span></td><td>~€25</td><td>(none)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C29494;"></span>vitamin-supplement</td><td><ul class="task-list"><li>Restock ⬡</li><li>Review if still needed</li></ul></td><td><span class="cadence">Monthly / Every 6 mo</span></td><td><span class="badge badge-diy">Self</span></td><td>~€10-30/mo</td><td>(none)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C29494;"></span>toothbrush</td><td><ul class="task-list"><li>Replace head ⬡</li></ul></td><td><span class="cadence">Every 3 mo</span></td><td><span class="badge badge-diy">Self</span></td><td>~€8</td><td>(none)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C29494;"></span>blood-pressure</td><td><ul class="task-list"><li>Measure + log</li></ul></td><td><span class="cadence">Weekly or as advised</span></td><td><span class="badge badge-diy">Self</span></td><td>free</td><td>(none)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C29494;"></span>hearing-aid</td><td><ul class="task-list"><li>Clean device</li><li>Replace battery/charge ⬡</li><li>Professional check</li></ul></td><td><span class="cadence">Daily<br>Weekly<br>Yearly</span></td><td><span class="badge badge-diy">Self</span> <span class="badge badge-appt">Appt</span></td><td>~€5/mo batteries</td><td>(none)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C29494;"></span>contact-lenses</td><td><ul class="task-list"><li>Restock ⬡</li><li>Eye checkup</li></ul></td><td><span class="cadence">Monthly / Yearly</span></td><td><span class="badge badge-diy">Self</span> <span class="badge badge-appt">Appt</span></td><td>~€30/mo</td><td>(none)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C29494;"></span>glasses</td><td><ul class="task-list"><li>Eye exam (prescription check)</li><li>Clean + inspect</li></ul></td><td><span class="cadence">Every 2 yr<br>Ongoing</span></td><td><span class="badge badge-appt">Appointment</span></td><td>~€40 exam</td><td>(none)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C29494;"></span>therapy</td><td><ul class="task-list"><li>Attend session</li><li>Review progress</li></ul></td><td><span class="cadence">Weekly / bi-weekly<br>Quarterly</span></td><td><span class="badge badge-appt">Appointment</span></td><td>€50-80/session</td><td>(none)</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Pets <span class="count-badge" style="background:var(--cp-wash);color:var(--cp-bg);">7</span></h2>
+
+  <p>Pets are living things (like plants) but with vet visits, feeding schedules, and seasonal treatments. The S-17 pattern for pets uses: tall photo hero, health badge, seasonal calendar (flea/tick season), photo gallery, vet visit history.</p>
+
+  <table class="item-table">
+    <thead><tr><th>Item (slug)</th><th>Default tasks</th><th>Cadence</th><th>Type</th><th>Cost</th><th>Nickname</th></tr></thead>
+    <tbody>
+      <tr><td><span class="cat-dot" style="background:#C7B7A3;"></span>dog</td><td><ul class="task-list"><li>Annual vaccination</li><li>Flea/tick treatment ⬡</li><li>Deworming ⬡</li><li>Nail trim</li><li>Annual vet checkup</li></ul></td><td><span class="cadence">Yearly<br>Monthly Mar-Oct<br>Every 3 mo<br>Every 4-6 wk<br>Yearly</span></td><td><span class="badge badge-appt">Vet</span> <span class="badge badge-diy">DIY</span></td><td>~€60 / ~€8/mo / ~€10 / ~€15</td><td>(user's dog name)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C7B7A3;"></span>cat</td><td><ul class="task-list"><li>Annual vaccination</li><li>Flea treatment ⬡</li><li>Deworming ⬡</li><li>Annual vet checkup</li></ul></td><td><span class="cadence">Yearly<br>Monthly (indoor: 3x yr)<br>Every 3-6 mo<br>Yearly</span></td><td><span class="badge badge-appt">Vet</span> <span class="badge badge-diy">DIY</span></td><td>~€50 / ~€6/mo / ~€10</td><td>(user's cat name)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C7B7A3;"></span>rabbit</td><td><ul class="task-list"><li>Vaccination (myxo + RHD)</li><li>Nail trim</li><li>Clean enclosure</li><li>Annual vet check</li></ul></td><td><span class="cadence">Yearly (2 vaccines)<br>Every 6-8 wk<br>Weekly<br>Yearly</span></td><td><span class="badge badge-appt">Vet</span> <span class="badge badge-diy">DIY</span></td><td>~€40 / free / ~€50</td><td>(user's name)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C7B7A3;"></span>rodent</td><td><ul class="task-list"><li>Clean cage</li><li>Check teeth + nails</li><li>Vet check</li></ul></td><td><span class="cadence">2x week<br>Monthly<br>Yearly</span></td><td><span class="badge badge-diy">DIY</span> <span class="badge badge-appt">Vet</span></td><td>free / ~€40</td><td>(user's name)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C7B7A3;"></span>bird</td><td><ul class="task-list"><li>Clean cage</li><li>Check feathers + beak</li><li>Vet check</li></ul></td><td><span class="cadence">Daily<br>Monthly<br>Yearly</span></td><td><span class="badge badge-diy">DIY</span> <span class="badge badge-appt">Vet</span></td><td>free / ~€50</td><td>(user's name)</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C7B7A3;"></span>fish-tank</td><td><ul class="task-list"><li>Partial water change</li><li>Clean filter</li><li>Test water quality</li><li>Check equipment</li></ul></td><td><span class="cadence">Weekly (20-30%)<br>Monthly<br>Weekly<br>Monthly</span></td><td><span class="badge badge-diy">DIY</span></td><td>~€15/mo (chemicals)</td><td>"The tank"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C7B7A3;"></span>turtle</td><td><ul class="task-list"><li>Clean tank/enclosure</li><li>Check UVB lamp ⬡</li><li>Vet check</li></ul></td><td><span class="cadence">Weekly<br>Every 6 mo<br>Yearly</span></td><td><span class="badge badge-diy">DIY</span> <span class="badge badge-appt">Vet</span></td><td>free / ~€25 / ~€50</td><td>(user's name)</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Rules for new items</h2>
+
+  <div class="section-card">
+    <h4>When engineering adds a new curated item type</h4>
+    <ul class="field-list" style="line-height:2;">
+      <li>1. Assign to one of the 6 categories (Home, Vehicle, Garden, Subscriptions, Health, Pets)</li>
+      <li>2. Define 2-5 default tasks with cadence, DIY/Pro/Appointment type, typical cost</li>
+      <li>3. Mark consumable tasks with ⬡ (affiliate link opportunity)</li>
+      <li>4. Suggest a personality name (or "(user's name)" for pets, "(none)" for subscriptions)</li>
+      <li>5. Write "Why it matters" and "How to do it" content per task</li>
+      <li>6. Define detail fields (brand, model, area, provider, etc.)</li>
+    </ul>
+  </div>
+
+  <div class="section-card">
+    <h4>AI-generated templates (unlisted items)</h4>
+    <p>When a user adds an item not in this list, the Claude API generates a template on the fly. Full spec: <a href="ai-template-generation.html">ai-template-generation.html</a>. Popular AI templates (20+ uses, &gt;80% acceptance) get promoted to this curated list after manual review.</p>
+  </div>
+
+  <div class="section-card">
+    <h4>Personality name rules</h4>
+    <ul class="field-list" style="line-height:2;">
+      <li>Short: one word preferred, two max</li>
+      <li>Obvious: should make you smile, not think</li>
+      <li>Never the default: generic item type is always the default name</li>
+      <li>Pets: suggest "(user's pet name)" instead of a nudgii nickname</li>
+      <li>Subscriptions/Health: no nickname (these are serious, not playful)</li>
+      <li>Offered once as a suggestion chip, always editable</li>
+    </ul>
+  </div>
+
+</div>
+
+</body>
+</html>

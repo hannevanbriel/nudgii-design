@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · AI template generation · spec</title>
+<link rel="stylesheet" href="components.css">
+<link rel="stylesheet" href="tokens.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+body{background:var(--surface);padding:0 0 80px;}
+.spec{max-width:960px;margin:0 auto;padding:32px;}
+.spec h2{font-family:'DM Serif Display',Georgia,serif;font-size:22px;font-weight:400;color:var(--ink);margin:40px 0 16px;padding-bottom:8px;border-bottom:1px solid rgba(44,40,36,0.08);}
+.spec h3{font-size:14px;font-weight:600;color:var(--ink);margin:24px 0 8px;}
+.spec p{font-size:13px;color:var(--mid);line-height:1.6;margin-bottom:12px;}
+.code-block{background:var(--surface-low);border-radius:12px;padding:16px 20px;margin:12px 0 20px;border:0.5px solid rgba(44,40,36,0.06);font-family:'DM Mono',monospace,Consolas;font-size:11px;color:var(--ink);line-height:1.7;overflow-x:auto;white-space:pre-wrap;word-break:break-word;}
+.code-block .key{color:var(--plum);font-weight:500;}
+.code-block .str{color:#6B4A3A;}
+.code-block .cmt{color:var(--hint);font-style:italic;}
+.section-card{background:var(--surface-low);border-radius:12px;padding:16px;margin-bottom:16px;border:0.5px solid rgba(44,40,36,0.06);}
+.section-card h4{font-size:12px;font-weight:600;color:var(--ink);margin:0 0 8px;}
+.section-card p{margin:0;}
+.rule-list{margin:0;padding:0;list-style:none;}
+.rule-list li{font-size:11px;color:var(--ink);padding:4px 0;line-height:1.6;}
+.rule-list li::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--plum);margin-right:8px;vertical-align:middle;}
+.flow-diagram{background:var(--surface-low);border-radius:14px;padding:24px;margin:16px 0 24px;border:0.5px solid rgba(44,40,36,0.06);}
+.flow-step{display:flex;gap:16px;margin-bottom:16px;align-items:flex-start;}
+.flow-step:last-child{margin-bottom:0;}
+.flow-num{width:28px;height:28px;border-radius:50%;background:var(--plum-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;font-weight:600;color:var(--plum);}
+.flow-body{flex:1;padding-top:4px;}
+.flow-title{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px;}
+.flow-desc{font-size:11px;color:var(--mid);line-height:1.5;}
+.flow-arrow{text-align:center;color:var(--hint);font-size:16px;margin:4px 0 4px 12px;}
+.warn-box{background:rgba(232,168,124,0.06);border:1px solid rgba(232,168,124,0.15);border-radius:12px;padding:16px;margin:16px 0;}
+.warn-box h4{font-size:12px;font-weight:600;color:var(--apricot);margin:0 0 8px;}
+.warn-box p{font-size:11px;color:var(--ink);line-height:1.6;margin:0;}
+.success-box{background:rgba(140,155,128,0.08);border:1px solid rgba(140,155,128,0.15);border-radius:12px;padding:16px;margin:16px 0;}
+.success-box h4{font-size:12px;font-weight:600;color:var(--sage);margin:0 0 8px;}
+.success-box p{font-size:11px;color:var(--ink);line-height:1.6;margin:0;}
+table{width:100%;border-collapse:collapse;font-size:11px;margin-bottom:24px;}
+table th{text-align:left;padding:8px 10px;background:var(--surface-low);font-weight:600;color:var(--ink);font-size:9px;letter-spacing:0.8px;text-transform:uppercase;border-bottom:1px solid rgba(44,40,36,0.08);}
+table td{padding:8px 10px;border-bottom:0.5px solid rgba(44,40,36,0.04);color:var(--ink);vertical-align:top;}
+</style>
+</head>
+<body>
+
+<nav class="nudgii-hub-nav">
+  <a class="nav-back" href="../index.html">
+    <img src="logo/ii-dark-on-light.svg" width="16" height="18" alt="" style="flex-shrink:0;border-radius:2px;">
+    <span>Design hub</span>
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">AI template generation</span>
+  <span class="nav-status progress">In progress</span>
+</nav>
+
+<div class="spec">
+  <div class="page-eyebrow">System · AI template generation · Spec · April 2026</div>
+  <h1 class="page-h1">AI-generated item templates</h1>
+  <p>When a user adds an item that doesn't exist in the curated template library, nudgii uses the Claude API to generate a complete maintenance template on the fly. The user reviews the AI-generated tasks before accepting, and popular templates are promoted to the curated library over time.</p>
+  <div class="page-pills">
+    <span class="mp">Spec</span>
+    <span class="mp progress">Engineering handoff</span>
+    <span class="mp">v1.0 · April 2026</span>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>How it works</h2>
+
+  <div class="flow-diagram">
+    <div class="flow-step">
+      <div class="flow-num">1</div>
+      <div class="flow-body">
+        <div class="flow-title">User adds an unknown item</div>
+        <div class="flow-desc">Via Browse (search, no template match), Scan (Claude Vision identifies type but no curated template), or Tell me (voice/text describes something we don't have).</div>
+      </div>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-step">
+      <div class="flow-num">2</div>
+      <div class="flow-body">
+        <div class="flow-title">Category assignment</div>
+        <div class="flow-desc">If not obvious from context, nudgii asks: "What kind of thing is this?" with category chips (Home, Vehicle, Garden, Subscriptions). If from scan, Claude Vision usually infers the category.</div>
+      </div>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-step">
+      <div class="flow-num">3</div>
+      <div class="flow-body">
+        <div class="flow-title">Claude API: generate template</div>
+        <div class="flow-desc">Single API call to claude-sonnet-4-6. Input: item name, category, brand/model (if known), country. Output: structured JSON with tasks, why/how content, personality name, detail fields, S-17 variant mapping.</div>
+      </div>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-step">
+      <div class="flow-num">4</div>
+      <div class="flow-body">
+        <div class="flow-title">User reviews on Add Item Review</div>
+        <div class="flow-desc">Same screen as curated templates. "AI-generated" badge visible. User can edit task names, remove tasks, adjust cadence, add custom tasks. All changes are per-item, not global.</div>
+      </div>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-step">
+      <div class="flow-num">5</div>
+      <div class="flow-body">
+        <div class="flow-title">Item created with AI template</div>
+        <div class="flow-desc">Tasks saved. Source marked as "AI-generated." Template data stored for the learning loop. User can edit everything on S-17 later.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>API call: prompt design</h2>
+
+  <h3>System prompt (fixed, stored server-side)</h3>
+
+  <div class="code-block">You are nudgii's maintenance knowledge engine. Given an item that a homeowner owns, generate a practical maintenance schedule.
+
+Rules:
+- Generate 2-5 tasks (not more). Focus on what actually prevents problems.
+- Each task needs: name, cadence, whether it's DIY or needs a professional, typical cost.
+- Write "Why it matters" in warm, factual language. Explain the consequence of skipping, not the guilt.
+- Write "How to do it" as 2-4 numbered steps. Practical, specific, no jargon.
+- Suggest a personality name: short (1-2 words), affectionate, obvious.
+- If the item has consumables (filters, salt, oil), flag them with product name and typical cost.
+- Adapt to the user's country for regulations, seasons, and pricing.
+- Use time windows, not deadlines. "Every 6-8 weeks" not "due on March 15."
+- Map to an S-17 variant: home_appliance, small_appliance, vehicle, plant, garden_tool, subscription.
+
+Respond with valid JSON only. No markdown, no explanation.</div>
+
+  <h3>User message (constructed per request)</h3>
+
+  <div class="code-block"><span class="cmt">// Minimum: item name + category</span>
+{
+  "<span class="key">item_name</span>": "<span class="str">Espresso machine</span>",
+  "<span class="key">category</span>": "<span class="str">Home</span>",
+  "<span class="key">country</span>": "<span class="str">BE</span>"
+}
+
+<span class="cmt">// With scan data: brand + model added</span>
+{
+  "<span class="key">item_name</span>": "<span class="str">Espresso machine</span>",
+  "<span class="key">category</span>": "<span class="str">Home</span>",
+  "<span class="key">brand</span>": "<span class="str">De'Longhi</span>",
+  "<span class="key">model</span>": "<span class="str">Magnifica S ECAM 22.110</span>",
+  "<span class="key">country</span>": "<span class="str">BE</span>"
+}</div>
+
+  <h3>Expected response schema</h3>
+
+  <div class="code-block">{
+  "<span class="key">item_type</span>": "<span class="str">espresso_machine</span>",
+  "<span class="key">s17_variant</span>": "<span class="str">small_appliance</span>",
+  "<span class="key">personality_name</span>": "<span class="str">Bean</span>",
+  "<span class="key">detail_fields</span>": ["<span class="str">brand</span>", "<span class="str">model</span>", "<span class="str">purchase_date</span>"],
+  "<span class="key">tasks</span>": [
+    {
+      "<span class="key">name</span>": "<span class="str">Descale machine</span>",
+      "<span class="key">cadence</span>": "<span class="str">every 2-3 months</span>",
+      "<span class="key">season_window</span>": null,
+      "<span class="key">diy</span>": true,
+      "<span class="key">typical_cost</span>": "<span class="str">~€8 (descaler)</span>",
+      "<span class="key">why_it_matters</span>": "<span class="str">Limescale blocks water flow and changes the taste. In Belgium's hard water areas, descaling every 2 months keeps pressure and flavour consistent.</span>",
+      "<span class="key">how_to_do_it</span>": [
+        "<span class="str">Fill the water tank with descaling solution (follow your brand's ratio)</span>",
+        "<span class="str">Run the descaling program (check your manual for the button sequence)</span>",
+        "<span class="str">Rinse with two full tanks of clean water before making coffee</span>"
+      ],
+      "<span class="key">consumable</span>": {
+        "<span class="key">name</span>": "<span class="str">Descaling tablets (6 pack)</span>",
+        "<span class="key">typical_cost</span>": "<span class="str">~€8</span>"
+      }
+    },
+    {
+      "<span class="key">name</span>": "<span class="str">Clean brew group</span>",
+      "<span class="key">cadence</span>": "<span class="str">weekly</span>",
+      "<span class="key">season_window</span>": null,
+      "<span class="key">diy</span>": true,
+      "<span class="key">typical_cost</span>": "<span class="str">free</span>",
+      "<span class="key">why_it_matters</span>": "<span class="str">Coffee oils build up and turn rancid after a few days. A weekly rinse keeps the taste clean and prevents mould in the brew chamber.</span>",
+      "<span class="key">how_to_do_it</span>": [
+        "<span class="str">Remove the brew group (usually slides out from the side panel)</span>",
+        "<span class="str">Rinse under warm running water, no soap</span>",
+        "<span class="str">Let it dry completely before reinserting</span>"
+      ],
+      "<span class="key">consumable</span>": null
+    },
+    {
+      "<span class="key">name</span>": "<span class="str">Replace water filter</span>",
+      "<span class="key">cadence</span>": "<span class="str">every 2 months</span>",
+      "<span class="key">season_window</span>": null,
+      "<span class="key">diy</span>": true,
+      "<span class="key">typical_cost</span>": "<span class="str">~€10</span>",
+      "<span class="key">why_it_matters</span>": "<span class="str">The filter softens water and removes chlorine. An old filter lets limescale through faster and affects taste.</span>",
+      "<span class="key">how_to_do_it</span>": [
+        "<span class="str">Remove the water tank and take out the old filter cartridge</span>",
+        "<span class="str">Soak the new filter in water for 5 minutes</span>",
+        "<span class="str">Insert and run 500ml of water through before first use</span>"
+      ],
+      "<span class="key">consumable</span>": {
+        "<span class="key">name</span>": "<span class="str">Water filter cartridge</span>",
+        "<span class="key">typical_cost</span>": "<span class="str">~€10</span>"
+      }
+    }
+  ]
+}</div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Validation rules</h2>
+
+  <p>Before showing AI-generated tasks to the user, the backend validates the response:</p>
+
+  <table>
+    <thead><tr><th>Rule</th><th>Check</th><th>Fallback</th></tr></thead>
+    <tbody>
+      <tr><td>Task count</td><td>2-5 tasks</td><td>If &lt;2, add generic "Check condition" task. If &gt;5, keep first 5.</td></tr>
+      <tr><td>Task name length</td><td>3-50 characters</td><td>Truncate or reject</td></tr>
+      <tr><td>Cadence format</td><td>Must contain a time word (daily, weekly, monthly, yearly, every, seasonal)</td><td>Default to "check periodically"</td></tr>
+      <tr><td>Why it matters</td><td>10-200 characters</td><td>If missing, omit section (not fatal)</td></tr>
+      <tr><td>How to do it</td><td>1-6 steps, each 5-150 chars</td><td>If missing, omit section (not fatal)</td></tr>
+      <tr><td>S-17 variant</td><td>Must be one of 6 valid variants</td><td>Default to "small_appliance" for Home, "garden_tool" for Garden, etc.</td></tr>
+      <tr><td>Personality name</td><td>1-20 characters, no special chars</td><td>If invalid, don't suggest one</td></tr>
+      <tr><td>No harmful content</td><td>No dangerous instructions, no medical advice, no legal claims</td><td>Reject entire response, fallback to empty template</td></tr>
+      <tr><td>JSON validity</td><td>Must parse as valid JSON</td><td>Retry once, then fallback to empty template with category picker</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>UX on Add Item Review</h2>
+
+  <div class="section-card">
+    <h4>AI-generated badge</h4>
+    <p>When tasks are AI-generated (not from curated library), the Add Item Review shows a subtle badge below the task preview header: "Tasks suggested by AI" in hint color with a sparkle icon. This sets expectations: tasks are a starting point, not a locked schedule.</p>
+  </div>
+
+  <div class="section-card">
+    <h4>Edit affordances</h4>
+    <p>Each AI-generated task card has: an X button to remove, a tap-to-edit title, a cadence dropdown to adjust frequency. "Add custom task" ghost link below the list. These affordances are slightly more prominent than on curated templates, because AI tasks need more user validation.</p>
+  </div>
+
+  <div class="section-card">
+    <h4>Brand-specific content</h4>
+    <p>When brand + model are known (from scan), the AI tailors steps to the specific product. "Check your De'Longhi Magnifica S manual" instead of "check your manual." The specificity builds trust. If brand is unknown, steps are generic but still practical.</p>
+  </div>
+
+  <div class="section-card">
+    <h4>Loading state</h4>
+    <p>API call takes 1-3 seconds. Show: category wash hero with item name (immediate), "nudgii is figuring out what this needs..." shimmer placeholder where task cards will appear, ii mark pulse animation. When tasks load, they appear with a staggered fade-in (40ms delay per card).</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Learning loop: AI to curated</h2>
+
+  <p>AI-generated templates improve over time. The system tracks which AI templates get accepted, edited, or rejected, and uses this data to promote popular templates to the curated library.</p>
+
+  <div class="flow-diagram">
+    <div class="flow-step">
+      <div class="flow-num">1</div>
+      <div class="flow-body">
+        <div class="flow-title">Track AI template usage</div>
+        <div class="flow-desc">For each AI-generated item: store the original AI response, user edits (added/removed/renamed tasks), and acceptance rate. Source field: "ai_generated".</div>
+      </div>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-step">
+      <div class="flow-num">2</div>
+      <div class="flow-body">
+        <div class="flow-title">Cluster similar items</div>
+        <div class="flow-desc">Group AI-generated items by normalized item_type. "Espresso machine," "coffee maker," "Nespresso" might cluster into one group. Track which tasks are kept most often.</div>
+      </div>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-step">
+      <div class="flow-num">3</div>
+      <div class="flow-body">
+        <div class="flow-title">Promotion threshold</div>
+        <div class="flow-desc">When an item type has 20+ AI-generated instances with &gt;80% task acceptance rate, flag it for manual review. A human (Hanne) reviews the most common task set and decides whether to promote to curated.</div>
+      </div>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-step">
+      <div class="flow-num">4</div>
+      <div class="flow-body">
+        <div class="flow-title">Curated template created</div>
+        <div class="flow-desc">Item type added to item-templates.html. Tasks refined based on user editing patterns. Future users get the curated template instead of an AI call. Faster, more consistent, no API cost.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="success-box">
+    <h4>The flywheel</h4>
+    <p>More users → more AI-generated templates → more data on what tasks people keep → better curated templates → less AI needed → lower cost + faster experience. The AI bootstraps the knowledge, users validate it, curated templates capture it permanently.</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Cost and rate limiting</h2>
+
+  <table>
+    <thead><tr><th>Concern</th><th>Approach</th></tr></thead>
+    <tbody>
+      <tr><td>API cost per generation</td><td>~$0.003 per template (claude-sonnet-4-6, ~500 input + ~800 output tokens). Negligible at scale.</td></tr>
+      <tr><td>Rate limit: free tier</td><td>AI generation counts as 1 of the user's 3 monthly AI interactions (shared with scan + voice). Not a separate limit.</td></tr>
+      <tr><td>Rate limit: Pro tier</td><td>Unlimited AI template generation. No separate counter.</td></tr>
+      <tr><td>Caching</td><td>Cache AI responses by normalized item_type + country for 30 days. Second user adding "espresso machine" in Belgium gets the cached template (no API call). Cache invalidated when template is promoted to curated.</td></tr>
+      <tr><td>Fallback if API fails</td><td>Empty template with category assigned. User can add tasks manually. Toast: "Couldn't generate suggestions right now. You can add tasks yourself."</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Scan integration</h2>
+
+  <p>AI template generation works seamlessly with the existing AI scan flow:</p>
+
+  <div class="section-card">
+    <h4>Scan + template in one call</h4>
+    <p>When the user scans an item that doesn't match a curated template, the Claude Vision call already returns item_type, brand, model. Instead of two API calls (scan + template), combine into one: the scan system prompt includes the template generation instructions. One call returns both identification AND maintenance tasks. Cost: ~$0.01 (vision input is the photo).</p>
+  </div>
+
+  <div class="section-card">
+    <h4>Scan + curated template</h4>
+    <p>When the scan identifies an item that DOES match a curated template (e.g., scans a Vaillant boiler label), skip the AI generation entirely. Use the curated template. Faster, cheaper, more reliable. The scan only needs to return item_type + brand + model.</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Safety and content guardrails</h2>
+
+  <div class="warn-box">
+    <h4>What AI should never generate</h4>
+    <p>
+      Tasks involving gas, electrical, or structural work without "hire a professional" guidance.<br>
+      Medical device maintenance (health category items should always use curated templates).<br>
+      Tasks that could void a warranty without mentioning the risk.<br>
+      Specific product recommendations with affiliate links (affiliate links are added by the nudgii system, never by the AI).<br>
+      Legal advice about regulations (the AI can mention "check local requirements" but never claim something is legally required unless it's in the curated template).
+    </p>
+  </div>
+
+  <div class="section-card">
+    <h4>Content review queue</h4>
+    <p>All AI-generated "Why it matters" and "How to do it" content is stored. A weekly automated scan flags any templates containing safety-sensitive keywords (gas, electrical, wiring, plumbing, asbestos, mould). Flagged templates get human review before being promoted to curated.</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Examples: what AI generates for common unlisted items</h2>
+
+  <table>
+    <thead><tr><th>Item</th><th>Category</th><th>AI-generated tasks</th><th>Variant</th><th>Name</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Espresso machine</td>
+        <td>Home</td>
+        <td>Descale (2-3mo), Clean brew group (weekly), Replace water filter (2mo)</td>
+        <td>Small appliance</td>
+        <td>"Bean"</td>
+      </tr>
+      <tr>
+        <td>Robot vacuum</td>
+        <td>Home</td>
+        <td>Empty dustbin (after each use), Clean brushes (weekly), Replace filter (2mo), Replace side brushes (6mo)</td>
+        <td>Small appliance</td>
+        <td>"Dusty"</td>
+      </tr>
+      <tr>
+        <td>Hot tub</td>
+        <td>Garden</td>
+        <td>Test water chemistry (weekly), Clean filter (monthly), Drain and refill (3-4mo), Winterize (Nov)</td>
+        <td>Garden tool</td>
+        <td>"The spa"</td>
+      </tr>
+      <tr>
+        <td>Solar panels</td>
+        <td>Home</td>
+        <td>Visual inspection (6mo), Clean panels (yearly spring), Check inverter readings (monthly), Professional inspection (every 5yr)</td>
+        <td>Home appliance</td>
+        <td>"The sun catchers"</td>
+      </tr>
+      <tr>
+        <td>Electric scooter</td>
+        <td>Vehicle</td>
+        <td>Check tyre pressure (monthly), Clean and lubricate (monthly), Battery health check (6mo), Annual service</td>
+        <td>Vehicle</td>
+        <td>"Zip"</td>
+      </tr>
+      <tr>
+        <td>Rose bushes</td>
+        <td>Garden</td>
+        <td>Spring pruning (Mar), Deadhead flowers (weekly Jun-Sep), Autumn cleanup (Oct), Winter protection (Nov)</td>
+        <td>Plant</td>
+        <td>"The roses"</td>
+      </tr>
+      <tr>
+        <td>Gym membership</td>
+        <td>Subscriptions</td>
+        <td>Review usage vs cost (6mo), Check price changes (yearly), Cancellation window check (before renewal)</td>
+        <td>Subscription</td>
+        <td>(none)</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+</body>
+</html>

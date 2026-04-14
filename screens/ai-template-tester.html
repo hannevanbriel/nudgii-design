@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · AI template tester · all 96 items</title>
+<link rel="stylesheet" href="../system/components.css">
+<link rel="stylesheet" href="../system/tokens.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#CBC5BB;font-family:'DM Sans',sans-serif;display:flex;height:100vh;overflow:hidden;}
+
+/* ── Sidebar ── */
+.sidebar{width:270px;background:var(--surface);border-right:1px solid rgba(44,40,36,0.08);display:flex;flex-direction:column;height:100vh;flex-shrink:0;overflow:hidden;}
+.sidebar-head{padding:16px 16px 12px;border-bottom:1px solid rgba(44,40,36,0.06);}
+.sidebar-head h1{font-family:'DM Serif Display',Georgia,serif;font-size:18px;font-weight:400;color:var(--ink);margin-bottom:6px;}
+.sidebar-head p{font-size:10px;color:var(--mid);line-height:1.5;}
+
+.sidebar-controls{padding:12px 16px;border-bottom:1px solid rgba(44,40,36,0.06);display:flex;flex-direction:column;gap:8px;}
+.search-box{width:100%;padding:7px 10px;font-family:'DM Sans',sans-serif;font-size:11px;border:1px solid rgba(44,40,36,0.10);border-radius:8px;background:var(--surface-low);color:var(--ink);outline:none;}
+.search-box:focus{border-color:var(--plum);}
+.search-box::placeholder{color:var(--hint);}
+
+.cat-chips{display:flex;flex-wrap:wrap;gap:4px;}
+.cat-chip{font-family:'DM Sans',sans-serif;font-size:9px;font-weight:500;padding:4px 10px;border-radius:100px;border:1px solid rgba(44,40,36,0.10);background:transparent;color:var(--mid);cursor:pointer;transition:all 120ms;}
+.cat-chip:hover{border-color:rgba(44,40,36,0.20);}
+.cat-chip.active{color:white;border-color:transparent;}
+.cat-chip[data-cat="all"].active{background:var(--plum);}
+.cat-chip[data-cat="home"].active{background:#C09088;}
+.cat-chip[data-cat="garden"].active{background:#8C9B80;}
+.cat-chip[data-cat="vehicle"].active{background:#8E9A94;}
+.cat-chip[data-cat="subscriptions"].active{background:#A69BBF;}
+.cat-chip[data-cat="health"].active{background:#C29494;}
+.cat-chip[data-cat="pets"].active{background:#C7B7A3;}
+
+.theme-row{display:flex;align-items:center;gap:6px;}
+.theme-label{font-size:8px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--hint);}
+.theme-btn{font-family:'DM Sans',sans-serif;font-size:9px;font-weight:500;padding:4px 10px;border-radius:6px;border:1px solid rgba(44,40,36,0.10);background:transparent;color:var(--mid);cursor:pointer;}
+.theme-btn.on{background:var(--plum);color:white;border-color:var(--plum);}
+
+.sidebar-list{flex:1;overflow-y:auto;scrollbar-width:thin;}
+.sidebar-list::-webkit-scrollbar{width:4px;}
+.sidebar-list::-webkit-scrollbar-thumb{background:rgba(44,40,36,0.12);border-radius:2px;}
+.item-row{display:flex;align-items:center;gap:10px;padding:9px 16px;cursor:pointer;transition:background 100ms;}
+.item-row:hover{background:rgba(44,40,36,0.03);}
+.item-row.active{background:rgba(155,127,212,0.08);}
+.item-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.item-label{font-size:11px;font-weight:500;color:var(--ink);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.item-cat-label{font-size:8px;color:var(--hint);flex-shrink:0;text-transform:uppercase;letter-spacing:0.5px;}
+.item-count{font-size:10px;color:var(--mid);padding:2px 6px;background:var(--surface-low);border-radius:4px;margin-top:8px;text-align:center;font-weight:500;}
+.cat-section-label{font-size:8px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--hint);padding:12px 16px 4px;position:sticky;top:0;background:var(--surface);z-index:1;}
+
+/* ── Main area ── */
+.main{flex:1;display:flex;gap:32px;justify-content:center;align-items:flex-start;padding:32px;overflow-y:auto;}
+
+/* ── Phone frame (shared CSS from components.css .phone) ── */
+.scr{display:flex;flex-direction:column;flex:1;overflow:hidden;background:var(--surface);}
+.scr-scroll{flex:1;overflow-y:auto;scrollbar-width:none;}
+.scr-scroll::-webkit-scrollbar{display:none;}
+
+/* ── Add Item Review screen ── */
+.air-hero{position:relative;height:140px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;}
+.air-hero-icon{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.45);display:flex;align-items:center;justify-content:center;}
+.air-nav{position:absolute;top:10px;left:16px;}
+.air-nav-btn{width:32px;height:32px;border-radius:10px;background:rgba(255,255,255,0.65);display:flex;align-items:center;justify-content:center;}
+.air-id{padding:16px 20px 0;}
+.air-name{font-family:'DM Serif Display',Georgia,serif;font-size:22px;font-weight:400;color:var(--ink);display:flex;align-items:center;gap:8px;}
+.air-edit-icon{opacity:0.25;}
+.air-meta{font-size:11px;color:var(--mid);margin-top:3px;}
+.air-badge{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:500;color:var(--plum);background:var(--plum-wash);padding:3px 10px;border-radius:100px;margin-top:8px;}
+.air-badge svg{width:10px;height:10px;}
+
+.air-task{margin:0 16px 8px;background:var(--surface);border:0.5px solid rgba(44,40,36,0.06);border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:12px;}
+.air-task-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.air-task-body{flex:1;min-width:0;}
+.air-task-name{font-size:13px;font-weight:500;color:var(--ink);}
+.air-task-cadence{font-size:10px;color:var(--mid);margin-top:1px;}
+.air-task-cost{font-size:9px;color:var(--hint);flex-shrink:0;}
+
+.nudge-preview{margin:12px 16px;padding:14px;background:var(--apricot-wash);border-radius:12px;border:0.5px solid rgba(232,168,124,0.12);}
+.nudge-label{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--apricot);margin-bottom:6px;}
+.nudge-text{font-size:12px;color:var(--ink);line-height:1.5;}
+.nudge-task{font-weight:500;}
+
+.nickname-row{margin:14px 16px 0;display:flex;align-items:center;gap:8px;}
+.nickname-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:100px;background:var(--surface-low);border:0.5px solid rgba(44,40,36,0.06);font-size:11px;color:var(--ink);}
+.nickname-chip .name{font-weight:500;color:var(--plum);}
+
+.air-bottom{position:absolute;bottom:0;left:0;right:0;padding:12px 20px 28px;background:linear-gradient(to top,var(--surface) 70%,transparent);}
+.air-cta{width:100%;padding:14px;border-radius:14px;background:var(--plum);color:white;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;border:none;text-align:center;box-shadow:0 4px 16px rgba(155,127,212,0.35);}
+
+/* ── Cost hero (subscriptions) ── */
+.cost-hero{text-align:center;padding:10px 20px 0;}
+.cost-value{font-family:'DM Serif Display',Georgia,serif;font-size:28px;font-weight:400;color:var(--ink);}
+.cost-period{font-size:10px;color:var(--mid);margin-top:2px;}
+.cost-sub{font-size:9px;color:var(--hint);margin-top:4px;font-style:italic;}
+
+/* ── S-17 Detail ── */
+.s17-hero{position:relative;height:160px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;}
+.s17-hero-icon{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.45);display:flex;align-items:center;justify-content:center;}
+.s17-hero-nav{position:absolute;top:10px;left:16px;right:16px;display:flex;justify-content:space-between;}
+.hero-btn{width:32px;height:32px;border-radius:10px;background:rgba(255,255,255,0.65);display:flex;align-items:center;justify-content:center;}
+.hero-add-photo{font-size:9px;opacity:0.7;}
+
+.item-id{padding:16px 20px 0;}
+.item-name{font-family:'DM Serif Display',Georgia,serif;font-size:24px;font-weight:400;line-height:1.1;letter-spacing:-0.02em;color:var(--ink);}
+.item-meta{font-size:11px;color:var(--mid);margin-top:4px;}
+.ai-source{display:inline-flex;align-items:center;gap:4px;font-size:9px;color:var(--plum);background:var(--plum-wash);padding:2px 8px;border-radius:100px;margin-top:6px;}
+
+.stats-row{display:flex;gap:8px;padding:14px 20px 0;}
+.stat-box{flex:1;background:var(--surface-low);border-radius:12px;padding:10px 6px;text-align:center;border:0.5px solid rgba(44,40,36,0.06);}
+.stat-val{font-family:'DM Serif Display',Georgia,serif;font-size:18px;font-weight:400;color:var(--ink);}
+.stat-label{font-size:7.5px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--mid);margin-top:2px;}
+
+.status-strip{display:flex;align-items:center;gap:8px;margin:12px 20px 0;padding:9px 14px;background:var(--surface-low);border-radius:10px;}
+.status-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.status-text{font-size:11px;color:var(--ink);flex:1;}
+.status-next{font-size:10px;color:var(--mid);}
+
+.sec-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px 10px;}
+.sec-title{font-family:'DM Serif Display',Georgia,serif;font-size:16px;font-weight:400;color:var(--ink);}
+.sec-action{font-size:10px;font-weight:500;color:var(--plum);display:flex;align-items:center;gap:4px;}
+
+.task-card{margin:0 16px 8px;background:var(--surface);border:0.5px solid rgba(44,40,36,0.06);border-radius:14px;overflow:hidden;}
+.task-row{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;}
+.task-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.task-body{flex:1;min-width:0;}
+.task-title{font-size:13px;font-weight:500;color:var(--ink);line-height:1.3;}
+.task-sub{font-size:10px;color:var(--mid);margin-top:1px;}
+.task-badge{font-size:9px;font-weight:500;flex-shrink:0;color:var(--mid);}
+.task-chev{width:16px;height:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;opacity:0.3;transition:transform 200ms ease;}
+.task-chev.open{transform:rotate(180deg);}
+.task-expand{max-height:0;overflow:hidden;transition:max-height 350ms ease;}
+.task-expand-inner{padding:0 14px 14px;}
+.task-why{background:rgba(232,168,124,0.06);border-radius:10px;padding:12px 14px;margin-bottom:10px;}
+.task-why-label{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--apricot);margin-bottom:4px;}
+.task-why-text{font-size:11px;color:var(--ink);line-height:1.6;}
+.task-actions{display:flex;align-items:center;gap:6px;margin-top:10px;padding-top:10px;border-top:0.5px solid rgba(44,40,36,0.06);}
+.ta-skip{font-size:10px;color:var(--hint);padding:6px 10px;margin-right:auto;}
+.ta-snooze{font-size:10px;font-weight:500;color:var(--ink);padding:7px 14px;border-radius:100px;background:var(--surface-low);}
+.ta-done{font-size:10px;font-weight:500;color:white;padding:7px 16px;border-radius:100px;background:var(--plum);display:flex;align-items:center;gap:4px;box-shadow:0 2px 8px rgba(155,127,212,0.25);}
+
+.detail-card{margin:0 16px;background:var(--surface);border:0.5px solid rgba(44,40,36,0.06);border-radius:12px;overflow:hidden;}
+.detail-row2{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;border-bottom:0.5px solid rgba(44,40,36,0.04);}
+.detail-row2:last-child{border-bottom:none;}
+
+/* ── Appointment badge (Health) ── */
+.appt-badge{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:500;color:var(--apricot);background:rgba(232,168,124,0.10);padding:3px 10px;border-radius:100px;margin-top:6px;}
+
+.bottom-spacer{height:40px;}
+
+/* ── Dark mode ── */
+[data-theme="dark"] .phone{background:#1C1B18;box-shadow:0 0 0 1px rgba(255,255,255,0.03),0 24px 80px rgba(0,0,0,0.5);}
+[data-theme="dark"] .scr{background:var(--surface);}
+[data-theme="dark"] .notch .np{background:rgba(255,255,255,0.08);}
+[data-theme="dark"] .sbar span{color:#F0EDE6;}
+[data-theme="dark"] .sbar .batt{background:#F0EDE6;}
+[data-theme="dark"] .air-hero-icon,[data-theme="dark"] .s17-hero-icon{background:rgba(255,255,255,0.10);}
+[data-theme="dark"] .hero-btn,[data-theme="dark"] .air-nav-btn{background:rgba(255,255,255,0.10);}
+[data-theme="dark"] .air-task,[data-theme="dark"] .task-card{background:var(--surface-high);border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .nudge-preview{background:rgba(240,184,144,0.08);border-color:rgba(240,184,144,0.10);}
+[data-theme="dark"] .nickname-chip{background:var(--surface-high);border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .air-bottom{background:linear-gradient(to top,var(--surface) 70%,transparent);}
+[data-theme="dark"] .stat-box{background:var(--surface-high);border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .status-strip{background:var(--surface-high);}
+[data-theme="dark"] .task-why{background:rgba(240,184,144,0.06);}
+[data-theme="dark"] .task-actions{border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .ta-snooze{background:var(--surface-low);}
+[data-theme="dark"] .detail-card{background:var(--surface-high);border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .detail-row2{border-color:rgba(255,255,255,0.04);}
+
+/* ── Responsive: hide sidebar on small screens ── */
+@media(max-width:900px){.sidebar{display:none;}.main{padding:16px;}}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════ SIDEBAR ════════════════════ -->
+<div class="sidebar">
+  <div class="sidebar-head">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <a href="../index.html" style="display:flex;align-items:center;gap:6px;text-decoration:none;color:var(--mid);font-size:10px;">
+        <img src="../system/logo/ii-dark-on-light.svg" width="14" height="16" alt="">
+        <span>Design hub</span>
+      </a>
+    </div>
+    <h1>Template tester</h1>
+    <p>All 96 curated items. Select any item to preview Add Item Review + S-17 Detail side by side.</p>
+  </div>
+
+  <div class="sidebar-controls">
+    <input type="text" class="search-box" id="search" placeholder="Search items..." oninput="filterItems()">
+    <div class="cat-chips" id="catChips">
+      <button class="cat-chip active" data-cat="all" onclick="filterCat('all')">All</button>
+      <button class="cat-chip" data-cat="home" onclick="filterCat('home')">Home (37)</button>
+      <button class="cat-chip" data-cat="garden" onclick="filterCat('garden')">Garden (17)</button>
+      <button class="cat-chip" data-cat="vehicle" onclick="filterCat('vehicle')">Vehicle (10)</button>
+      <button class="cat-chip" data-cat="subscriptions" onclick="filterCat('subscriptions')">Subs (14)</button>
+      <button class="cat-chip" data-cat="health" onclick="filterCat('health')">Health (17)</button>
+      <button class="cat-chip" data-cat="pets" onclick="filterCat('pets')">Pets (7)</button>
+    </div>
+    <div class="theme-row">
+      <span class="theme-label">Theme</span>
+      <button class="theme-btn on" id="tl" onclick="setTheme('light')">Light</button>
+      <button class="theme-btn" id="td" onclick="setTheme('dark')">Dark</button>
+    </div>
+  </div>
+
+  <div class="sidebar-list" id="itemList"></div>
+</div>
+
+<!-- ════════════════════ PHONES ════════════════════ -->
+<div class="main">
+
+  <!-- LEFT PHONE: Add Item Review -->
+  <div>
+    <div style="font-size:9px;font-weight:600;letter-spacing:1.3px;text-transform:uppercase;color:#8A8070;margin-bottom:10px;text-align:center;">Add item review</div>
+    <div class="phone" id="phone-left" data-theme="light">
+      <div class="notch"><div class="np"></div></div>
+      <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+      <div class="scr">
+        <div class="scr-scroll" id="review-scroll" style="padding-bottom:90px;"></div>
+        <div class="air-bottom">
+          <button class="air-cta">Add to my stuff</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PHONE: S-17 Detail -->
+  <div>
+    <div style="font-size:9px;font-weight:600;letter-spacing:1.3px;text-transform:uppercase;color:#8A8070;margin-bottom:10px;text-align:center;">S-17 item detail</div>
+    <div class="phone" id="phone-right" data-theme="light">
+      <div class="notch"><div class="np"></div></div>
+      <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+      <div class="scr">
+        <div class="scr-scroll" id="detail-scroll"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ════════════════════════════════════════════════════
+// DATA: All 96 items
+// ════════════════════════════════════════════════════
+const ITEMS = [
+  // ── HOME (37) ──
+  {slug:"boiler",name:"Boiler",cat:"home",nickname:"Bubs",tasks:[{n:"Annual service",c:"Yearly (autumn)",type:"Pro",cost:"~€120"},{n:"Clean filter",c:"Every 6 months",type:"DIY",cost:"free"},{n:"Check water pressure",c:"Monthly",type:"DIY",cost:"free"}]},
+  {slug:"dishwasher",name:"Dishwasher",cat:"home",nickname:"Dishy",tasks:[{n:"Refill salt",c:"Every 6-8 weeks",type:"DIY",cost:"~€3"},{n:"Clean filter",c:"Monthly",type:"DIY",cost:"free"},{n:"Run cleaning cycle",c:"Every 3 months",type:"DIY",cost:"free"},{n:"Refill rinse aid",c:"As needed",type:"DIY",cost:"~€5"}]},
+  {slug:"washing-machine",name:"Washing machine",cat:"home",nickname:"Spinny",tasks:[{n:"Clean filter/pump",c:"Monthly",type:"DIY",cost:"free"},{n:"Run 90\u00b0C empty cycle",c:"Monthly",type:"DIY",cost:"free"},{n:"Clean detergent drawer",c:"Monthly",type:"DIY",cost:"free"},{n:"Check door seal",c:"Every 3 months",type:"DIY",cost:"free"}]},
+  {slug:"tumble-dryer",name:"Tumble dryer",cat:"home",nickname:"Puff",tasks:[{n:"Clean lint filter",c:"Every use",type:"DIY",cost:"free"},{n:"Clean condenser",c:"Monthly",type:"DIY",cost:"free"},{n:"Empty water tank",c:"After cycle",type:"DIY",cost:"free"}]},
+  {slug:"fridge",name:"Fridge",cat:"home",nickname:"Chilly",tasks:[{n:"Clean coils",c:"Every 6 months",type:"DIY",cost:"free"},{n:"Check door seals",c:"Every 6 months",type:"DIY",cost:"free"},{n:"Clean drip tray",c:"Every 3 months",type:"DIY",cost:"free"},{n:"Defrost (if manual)",c:"Yearly",type:"DIY",cost:"free"}]},
+  {slug:"freezer",name:"Freezer",cat:"home",nickname:"Frosty",tasks:[{n:"Defrost",c:"Every 6 months",type:"DIY",cost:"free"},{n:"Check door seal",c:"Every 6 months",type:"DIY",cost:"free"},{n:"Check temperature",c:"Monthly",type:"DIY",cost:"free"}]},
+  {slug:"oven",name:"Oven",cat:"home",nickname:"Chef",tasks:[{n:"Deep clean interior",c:"Every 3 months",type:"DIY",cost:"free"},{n:"Clean door glass",c:"Monthly",type:"DIY",cost:"free"},{n:"Check door seal",c:"Yearly",type:"DIY",cost:"free"}]},
+  {slug:"range-hood",name:"Range hood",cat:"home",nickname:"The hood",tasks:[{n:"Clean grease filter",c:"Monthly",type:"DIY",cost:"free"},{n:"Replace carbon filter",c:"Every 6 months",type:"DIY",cost:"~€15"}]},
+  {slug:"coffee-machine",name:"Coffee machine",cat:"home",nickname:"Bean",tasks:[{n:"Descale",c:"Every 2-3 months",type:"DIY",cost:"~€8"},{n:"Clean brew group",c:"Weekly",type:"DIY",cost:"free"},{n:"Replace water filter",c:"Every 2 months",type:"DIY",cost:"~€10"}]},
+  {slug:"vacuum-cleaner",name:"Vacuum cleaner",cat:"home",nickname:"Dusty",tasks:[{n:"Empty/replace bag",c:"As needed",type:"DIY",cost:"~€5"},{n:"Clean brush roll",c:"Monthly",type:"DIY",cost:"free"},{n:"Replace filter",c:"Every 6 months",type:"DIY",cost:"~€15"}]},
+  {slug:"air-con",name:"Air conditioning",cat:"home",nickname:"Breeze",tasks:[{n:"Clean/replace filter",c:"Every 3 months",type:"DIY",cost:"~€15"},{n:"Annual service",c:"Yearly (spring)",type:"Pro",cost:"~€120"},{n:"Clean outdoor unit",c:"Every 6 months",type:"DIY",cost:"free"}]},
+  {slug:"heat-pump",name:"Heat pump",cat:"home",nickname:"Pumpy",tasks:[{n:"Annual service",c:"Yearly (spring)",type:"Pro",cost:"~€150"},{n:"Clean/replace filter",c:"Every 3 months",type:"DIY",cost:"~€15"},{n:"Check refrigerant",c:"Yearly",type:"Pro",cost:"incl."}]},
+  {slug:"water-heater",name:"Water heater",cat:"home",nickname:"Steamy",tasks:[{n:"Annual service",c:"Yearly",type:"Pro",cost:"~€100"},{n:"Check pressure valve",c:"Every 6 months",type:"DIY",cost:"free"},{n:"Descale (hard water)",c:"Every 2 years",type:"DIY",cost:"~€80"}]},
+  {slug:"ventilation",name:"Ventilation",cat:"home",nickname:"Breathy",tasks:[{n:"Clean/replace filters",c:"Every 3 months",type:"DIY",cost:"~€20"},{n:"Clean vents",c:"Every 6 months",type:"DIY",cost:"free"},{n:"Annual service",c:"Yearly",type:"Pro",cost:"~€100"}]},
+  {slug:"smoke-detector",name:"Smoke detector",cat:"home",nickname:"The watchers",tasks:[{n:"Test alarm button",c:"Monthly",type:"DIY",cost:"free"},{n:"Replace battery",c:"Yearly",type:"DIY",cost:"~€5"},{n:"Replace unit",c:"Every 10 years",type:"DIY",cost:"~€20"}]},
+  {slug:"co-detector",name:"CO detector",cat:"home",nickname:"The guardian",tasks:[{n:"Test alarm",c:"Monthly",type:"DIY",cost:"free"},{n:"Replace battery",c:"Yearly",type:"DIY",cost:"~€5"},{n:"Replace unit",c:"Every 7 years",type:"DIY",cost:"~€25"}]},
+  {slug:"smart-thermostat",name:"Smart thermostat",cat:"home",nickname:"Brains",tasks:[{n:"Check schedule",c:"Seasonal (2x year)",type:"DIY",cost:"free"},{n:"Update firmware",c:"Quarterly",type:"DIY",cost:"free"},{n:"Replace batteries",c:"Yearly",type:"DIY",cost:"~€5"}]},
+  {slug:"solar-panels",name:"Solar panels",cat:"home",nickname:"The sun catchers",tasks:[{n:"Visual inspection",c:"Every 6 months",type:"DIY",cost:"free"},{n:"Clean panels",c:"Yearly (spring)",type:"DIY",cost:"free"},{n:"Check inverter",c:"Monthly",type:"DIY",cost:"free"},{n:"Professional inspection",c:"Every 5 years",type:"Pro",cost:"~€150"}]},
+  {slug:"home-battery",name:"Home battery",cat:"home",nickname:"The vault",tasks:[{n:"Check charge cycles",c:"Monthly",type:"DIY",cost:"free"},{n:"Inspect connections",c:"Every 6 months",type:"DIY",cost:"free"},{n:"Firmware update",c:"Quarterly",type:"DIY",cost:"free"}]},
+  {slug:"ev-charger",name:"EV charger",cat:"home",nickname:"Juice",tasks:[{n:"Visual inspection",c:"Monthly",type:"DIY",cost:"free"},{n:"Clean contacts",c:"Every 3 months",type:"DIY",cost:"free"},{n:"Professional check",c:"Yearly",type:"Pro",cost:"~€80"}]},
+  {slug:"garage-door",name:"Garage door",cat:"home",nickname:"The gate",tasks:[{n:"Lubricate rails + hinges",c:"Every 6 months",type:"DIY",cost:"~€5"},{n:"Test safety sensors",c:"Monthly",type:"DIY",cost:"free"},{n:"Check springs + cables",c:"Yearly",type:"Pro",cost:"~€100"}]},
+  {slug:"gutters",name:"Gutters",cat:"home",nickname:"The guardians",tasks:[{n:"Clean gutters",c:"2x year (spring + autumn)",type:"DIY",cost:"free"},{n:"Check downpipes",c:"2x year",type:"DIY",cost:"free"},{n:"Inspect for damage",c:"Yearly",type:"DIY",cost:"free"}]},
+  {slug:"pellet-stove",name:"Pellet stove",cat:"home",nickname:"Glow",tasks:[{n:"Clean burn pot",c:"Weekly (season)",type:"DIY",cost:"free"},{n:"Clean glass",c:"Weekly (season)",type:"DIY",cost:"free"},{n:"Annual service",c:"Yearly (spring)",type:"Pro",cost:"~€120"},{n:"Check chimney",c:"Yearly",type:"Pro",cost:"~€60"}]},
+  {slug:"fireplace",name:"Fireplace",cat:"home",nickname:"Hearth",tasks:[{n:"Clean firebox",c:"After each use",type:"DIY",cost:"free"},{n:"Chimney sweep",c:"Yearly (autumn)",type:"Pro",cost:"~€80"},{n:"Check damper",c:"Yearly",type:"DIY",cost:"free"}]},
+  {slug:"water-softener",name:"Water softener",cat:"home",nickname:"Softy",tasks:[{n:"Refill salt",c:"Monthly",type:"DIY",cost:"~€10"},{n:"Clean brine tank",c:"Yearly",type:"DIY",cost:"free"},{n:"Check settings",c:"Every 6 months",type:"DIY",cost:"free"}]},
+  {slug:"rainwater-tank",name:"Rainwater tank",cat:"home",nickname:"The well",tasks:[{n:"Clean filter",c:"Every 3 months",type:"DIY",cost:"free"},{n:"Check pump",c:"Every 6 months",type:"DIY",cost:"free"},{n:"Inspect tank",c:"Yearly",type:"DIY",cost:"free"}]},
+  {slug:"oil-tank",name:"Oil tank",cat:"home",nickname:"The reserve",tasks:[{n:"Check level",c:"Monthly",type:"DIY",cost:"free"},{n:"Inspect for leaks",c:"Every 6 months",type:"DIY",cost:"free"},{n:"Professional inspection",c:"Every 5 years",type:"Pro",cost:"~€150"}]},
+  {slug:"shed",name:"Shed",cat:"home",nickname:"The hideout",tasks:[{n:"Check roof + gutters",c:"2x year",type:"DIY",cost:"free"},{n:"Treat wood",c:"Every 2 years",type:"DIY",cost:"~€30"},{n:"Check for pests",c:"Spring",type:"DIY",cost:"free"}]},
+  {slug:"decking",name:"Decking",cat:"home",nickname:"The deck",tasks:[{n:"Pressure wash",c:"Yearly (spring)",type:"DIY",cost:"free"},{n:"Oil/stain treatment",c:"Yearly (spring)",type:"DIY",cost:"~€40"},{n:"Check for rot",c:"Yearly",type:"DIY",cost:"free"}]},
+  {slug:"pressure-washer",name:"Pressure washer",cat:"home",nickname:"Blast",tasks:[{n:"Clean after use",c:"After use",type:"DIY",cost:"free"},{n:"Check hose + nozzle",c:"Every 3 months",type:"DIY",cost:"free"},{n:"Winterize",c:"Autumn",type:"DIY",cost:"free"}]},
+  // 30 so far, add remaining 7 home items
+  {slug:"window-frames",name:"Window frames",cat:"home",nickname:"The frames",tasks:[{n:"Clean + lubricate hinges",c:"2x year",type:"DIY",cost:"free"},{n:"Check seals",c:"Yearly",type:"DIY",cost:"free"},{n:"Repaint (wood)",c:"Every 5 years",type:"DIY",cost:"~€50"}]},
+  {slug:"exterior-paint",name:"Exterior paint",cat:"home",nickname:"The coat",tasks:[{n:"Inspect for damage",c:"Yearly (spring)",type:"DIY",cost:"free"},{n:"Touch up",c:"Every 2-3 years",type:"DIY",cost:"~€30"},{n:"Full repaint",c:"Every 8-10 years",type:"Pro",cost:"~€3000"}]},
+  {slug:"roof",name:"Roof",cat:"home",nickname:"Top hat",tasks:[{n:"Visual inspection",c:"2x year",type:"DIY",cost:"free"},{n:"Check flashings",c:"Yearly",type:"DIY",cost:"free"},{n:"Professional inspection",c:"Every 5 years",type:"Pro",cost:"~€150"}]},
+  {slug:"septic-tank",name:"Septic tank",cat:"home",nickname:"The deep",tasks:[{n:"Pump out",c:"Every 3-4 years",type:"Pro",cost:"~€200"},{n:"Inspect",c:"Yearly",type:"DIY",cost:"free"}]},
+  {slug:"water-filter",name:"Water filter",cat:"home",nickname:"Crystal",tasks:[{n:"Replace filter cartridge",c:"Every 3-6 months",type:"DIY",cost:"~€15"},{n:"Clean housing",c:"Every 6 months",type:"DIY",cost:"free"}]},
+  {slug:"doorbell",name:"Smart doorbell",cat:"home",nickname:"Ding",tasks:[{n:"Clean lens",c:"Monthly",type:"DIY",cost:"free"},{n:"Check battery/power",c:"Monthly",type:"DIY",cost:"free"},{n:"Update firmware",c:"Quarterly",type:"DIY",cost:"free"}]},
+  {slug:"alarm-system",name:"Alarm system",cat:"home",nickname:"The shield",tasks:[{n:"Test all sensors",c:"Monthly",type:"DIY",cost:"free"},{n:"Replace batteries",c:"Yearly",type:"DIY",cost:"~€20"},{n:"Professional service",c:"Yearly",type:"Pro",cost:"~€100"}]},
+
+  // ── GARDEN (16) ──
+  {slug:"lawn",name:"Lawn",cat:"garden",nickname:"The green",tasks:[{n:"Scarify",c:"Spring",type:"DIY",cost:"free"},{n:"First fertilize",c:"April",type:"DIY",cost:"~€15"},{n:"Mow weekly",c:"Weekly Apr-Oct",type:"DIY",cost:"free"},{n:"Autumn fertilize",c:"October",type:"DIY",cost:"~€15"},{n:"Last mow",c:"November",type:"DIY",cost:"free"}]},
+  {slug:"hedge",name:"Hedge",cat:"garden",nickname:"The wall",tasks:[{n:"First trim",c:"Apr-May",type:"DIY",cost:"free"},{n:"Second trim",c:"Aug-Sep",type:"DIY",cost:"free"},{n:"Feed + mulch",c:"Spring",type:"DIY",cost:"free"}]},
+  {slug:"olive-tree",name:"Olive tree",cat:"garden",nickname:"Ollie",tasks:[{n:"Spring pruning",c:"Mar-Apr",type:"DIY",cost:"free"},{n:"Fertilize",c:"April",type:"DIY",cost:"~€10"},{n:"Protect from frost",c:"November",type:"DIY",cost:"free"}]},
+  {slug:"fruit-tree",name:"Fruit tree",cat:"garden",nickname:"The orchard",tasks:[{n:"Winter pruning",c:"Jan-Feb",type:"DIY",cost:"free"},{n:"Spring feeding",c:"March",type:"DIY",cost:"~€10"},{n:"Pest check",c:"Monthly Apr-Aug",type:"DIY",cost:"free"},{n:"Harvest",c:"Seasonal",type:"DIY",cost:"free"}]},
+  {slug:"roses",name:"Roses",cat:"garden",nickname:"The blooms",tasks:[{n:"Spring pruning",c:"March",type:"DIY",cost:"free"},{n:"Deadhead flowers",c:"Weekly Jun-Sep",type:"DIY",cost:"free"},{n:"Spray for disease",c:"Monthly May-Aug",type:"DIY",cost:"~€12"},{n:"Winter protection",c:"November",type:"DIY",cost:"free"}]},
+  {slug:"terrace-plants",name:"Terrace plants",cat:"garden",nickname:"The terrace crew",tasks:[{n:"Water regularly",c:"2-3x week (summer)",type:"DIY",cost:"free"},{n:"Fertilize",c:"Every 2 weeks May-Sep",type:"DIY",cost:"~€10"},{n:"Repot",c:"Every 2 years (spring)",type:"DIY",cost:"free"},{n:"Bring inside (frost)",c:"October",type:"DIY",cost:"free"}]},
+  {slug:"climbing-plants",name:"Climbing plants",cat:"garden",nickname:"The climbers",tasks:[{n:"Prune + train",c:"Spring + autumn",type:"DIY",cost:"free"},{n:"Check supports",c:"Spring",type:"DIY",cost:"free"},{n:"Feed",c:"Spring",type:"DIY",cost:"~€8"}]},
+  {slug:"vegetable-garden",name:"Vegetable garden",cat:"garden",nickname:"The patch",tasks:[{n:"Plan + sow",c:"Feb-Mar",type:"DIY",cost:"~€30 seeds"},{n:"Water + weed",c:"Daily (season)",type:"DIY",cost:"free"},{n:"Harvest",c:"Seasonal",type:"DIY",cost:"free"},{n:"Prepare beds (autumn)",c:"Oct-Nov",type:"DIY",cost:"free"}]},
+  {slug:"greenhouse",name:"Greenhouse",cat:"garden",nickname:"The glass house",tasks:[{n:"Clean glass",c:"Spring",type:"DIY",cost:"free"},{n:"Check ventilation",c:"Monthly (season)",type:"DIY",cost:"free"},{n:"Disinfect (end of season)",c:"Autumn",type:"DIY",cost:"free"}]},
+  {slug:"garden-pond",name:"Garden pond",cat:"garden",nickname:"The pond",tasks:[{n:"Check water quality",c:"Weekly (season)",type:"DIY",cost:"~€20"},{n:"Clean filter/pump",c:"Monthly",type:"DIY",cost:"free"},{n:"Remove leaves/debris",c:"Weekly (autumn)",type:"DIY",cost:"free"},{n:"Winterize",c:"November",type:"DIY",cost:"free"}]},
+  {slug:"irrigation",name:"Irrigation system",cat:"garden",nickname:"The sprinklers",tasks:[{n:"Check sprinklers",c:"Monthly (season)",type:"DIY",cost:"free"},{n:"Adjust schedule",c:"Seasonal",type:"DIY",cost:"free"},{n:"Winterize (drain)",c:"October",type:"DIY",cost:"free"},{n:"Spring startup",c:"March",type:"DIY",cost:"free"}]},
+  {slug:"fence",name:"Fence",cat:"garden",nickname:"The border",tasks:[{n:"Inspect for damage",c:"Spring",type:"DIY",cost:"free"},{n:"Treat/paint wood",c:"Every 2-3 years",type:"DIY",cost:"~€40"},{n:"Check posts",c:"Spring",type:"DIY",cost:"free"}]},
+  {slug:"compost",name:"Compost",cat:"garden",nickname:"The heap",tasks:[{n:"Turn compost",c:"Every 2-4 weeks",type:"DIY",cost:"free"},{n:"Check moisture",c:"Weekly",type:"DIY",cost:"free"},{n:"Harvest compost",c:"2x year",type:"DIY",cost:"free"}]},
+  {slug:"robot-mower",name:"Robot mower",cat:"garden",nickname:"Robo",tasks:[{n:"Clean blades",c:"Weekly",type:"DIY",cost:"free"},{n:"Replace blades",c:"Every 2-3 months",type:"DIY",cost:"~€15"},{n:"Clean charging station",c:"Monthly",type:"DIY",cost:"free"},{n:"Winterize",c:"October",type:"DIY",cost:"free"}]},
+  {slug:"lawn-mower",name:"Lawn mower",cat:"garden",nickname:"Buzzy",tasks:[{n:"Sharpen blade",c:"Yearly (spring)",type:"DIY",cost:"~€15"},{n:"Change oil (petrol)",c:"Yearly",type:"DIY",cost:"~€10"},{n:"Clean air filter",c:"Yearly",type:"DIY",cost:"~€8"},{n:"Winterize",c:"October",type:"DIY",cost:"free"}]},
+  {slug:"rain-barrel",name:"Rain barrel",cat:"garden",nickname:"The barrel",tasks:[{n:"Clean + check",c:"Spring",type:"DIY",cost:"free"},{n:"Winterize (drain)",c:"November",type:"DIY",cost:"free"}]},
+  {slug:"chainsaw",name:"Chainsaw",cat:"garden",nickname:"Chomp",tasks:[{n:"Sharpen chain",c:"After heavy use",type:"DIY",cost:"~€10"},{n:"Clean air filter",c:"Monthly (use season)",type:"DIY",cost:"free"},{n:"Check chain tension",c:"Before each use",type:"DIY",cost:"free"}]},
+
+  // ── VEHICLE (10) ──
+  {slug:"car",name:"Car",cat:"vehicle",nickname:"Wheels",tasks:[{n:"MOT inspection",c:"Yearly",type:"Pro",cost:"~€80"},{n:"Oil change",c:"15,000 km / yearly",type:"Pro",cost:"~€90"},{n:"Check tyre pressure",c:"Monthly",type:"DIY",cost:"free"},{n:"Switch seasonal tyres",c:"Seasonal",type:"DIY",cost:"~€40"},{n:"Review insurance",c:"Yearly",type:"DIY",cost:"free"}]},
+  {slug:"electric-car",name:"Electric car",cat:"vehicle",nickname:"Sparky",tasks:[{n:"MOT inspection",c:"Yearly",type:"Pro",cost:"~€80"},{n:"Check tyre pressure",c:"Monthly",type:"DIY",cost:"free"},{n:"Switch seasonal tyres",c:"Seasonal",type:"DIY",cost:"~€40"},{n:"Battery health check",c:"Yearly",type:"Pro",cost:"free"},{n:"Review insurance",c:"Yearly",type:"DIY",cost:"free"}]},
+  {slug:"motorcycle",name:"Motorcycle",cat:"vehicle",nickname:"Thunder",tasks:[{n:"MOT inspection",c:"Yearly",type:"Pro",cost:"~€50"},{n:"Oil + filter change",c:"10,000 km / yearly",type:"Pro",cost:"~€60"},{n:"Check chain + tension",c:"Monthly",type:"DIY",cost:"free"},{n:"Winterize / spring prep",c:"Seasonal",type:"DIY",cost:"free"}]},
+  {slug:"bicycle",name:"Bicycle",cat:"vehicle",nickname:"Spokes",tasks:[{n:"Check tyre pressure",c:"Weekly (season)",type:"DIY",cost:"free"},{n:"Lubricate chain",c:"Every 2 weeks",type:"DIY",cost:"free"},{n:"Check brakes",c:"Monthly",type:"DIY",cost:"free"},{n:"Annual service",c:"Yearly (spring)",type:"Pro",cost:"~€50"}]},
+  {slug:"e-bike",name:"E-bike",cat:"vehicle",nickname:"Boost",tasks:[{n:"Check tyre pressure",c:"Weekly (season)",type:"DIY",cost:"free"},{n:"Lubricate chain",c:"Every 2 weeks",type:"DIY",cost:"free"},{n:"Battery care",c:"Ongoing",type:"DIY",cost:"free"},{n:"Annual service",c:"Yearly",type:"Pro",cost:"~€80"}]},
+  {slug:"scooter",name:"Scooter",cat:"vehicle",nickname:"Zip",tasks:[{n:"Check tyre pressure",c:"Monthly",type:"DIY",cost:"free"},{n:"Check brakes",c:"Monthly",type:"DIY",cost:"free"},{n:"Annual service",c:"Yearly",type:"Pro",cost:"~€80"}]},
+  {slug:"camper-van",name:"Camper van",cat:"vehicle",nickname:"The Cali",tasks:[{n:"Gas safety check",c:"Yearly (spring)",type:"Pro",cost:"~€80"},{n:"MOT inspection",c:"Yearly",type:"Pro",cost:"~€80"},{n:"Winterize",c:"October",type:"DIY",cost:"free"},{n:"Flush water system",c:"Before trip",type:"DIY",cost:"free"},{n:"Check tyre pressure",c:"Monthly + trips",type:"DIY",cost:"free"}]},
+  {slug:"trailer",name:"Trailer",cat:"vehicle",nickname:"Haul",tasks:[{n:"Check tyre pressure",c:"Before each use",type:"DIY",cost:"free"},{n:"Grease bearings",c:"Yearly",type:"DIY",cost:"~€10"},{n:"Check lights",c:"Before each use",type:"DIY",cost:"free"},{n:"MOT (if required)",c:"Yearly",type:"DIY",cost:"free"}]},
+  {slug:"boat",name:"Boat",cat:"vehicle",nickname:"The hull",tasks:[{n:"Anti-fouling paint",c:"Yearly (spring)",type:"DIY",cost:"~€200"},{n:"Engine service",c:"Yearly",type:"Pro",cost:"~€150"},{n:"Check safety gear",c:"Before season",type:"DIY",cost:"~€50"},{n:"Winterize",c:"October",type:"DIY",cost:"free"}]},
+  {slug:"quad",name:"Quad",cat:"vehicle",nickname:"Rumble",tasks:[{n:"Oil change",c:"Yearly / 3,000 km",type:"DIY",cost:"~€30"},{n:"Check tyre pressure",c:"Monthly",type:"DIY",cost:"free"},{n:"Clean air filter",c:"Every 3 months",type:"DIY",cost:"free"},{n:"Winterize",c:"Autumn",type:"DIY",cost:"free"}]},
+
+  // ── SUBSCRIPTIONS (13) ──
+  {slug:"home-insurance",name:"Home insurance",cat:"subscriptions",nickname:null,monthlyCost:"€40-100",tasks:[{n:"Review coverage",c:"Before renewal",type:"Review",cost:""},{n:"Compare alternatives",c:"Before renewal",type:"Compare",cost:""},{n:"Check deductible",c:"Before renewal",type:"Review",cost:""}]},
+  {slug:"car-insurance",name:"Car insurance",cat:"subscriptions",nickname:null,monthlyCost:"€50-150",tasks:[{n:"Review coverage",c:"Before renewal",type:"Review",cost:""},{n:"Compare alternatives",c:"Before renewal",type:"Compare",cost:""},{n:"Check bonus-malus",c:"Before renewal",type:"Review",cost:""}]},
+  {slug:"health-insurance",name:"Health insurance",cat:"subscriptions",nickname:null,monthlyCost:"€80-200",tasks:[{n:"Review coverage",c:"Before renewal",type:"Review",cost:""},{n:"Compare alternatives",c:"Before renewal",type:"Compare",cost:""},{n:"Check dental/optical add-ons",c:"Before renewal",type:"Review",cost:""}]},
+  {slug:"electricity",name:"Electricity",cat:"subscriptions",nickname:null,monthlyCost:"€80-200",tasks:[{n:"Compare energy prices",c:"Yearly",type:"Compare",cost:""},{n:"Submit meter reading",c:"Monthly",type:"DIY",cost:""},{n:"Review annual settlement",c:"Yearly",type:"Review",cost:""}]},
+  {slug:"gas",name:"Gas",cat:"subscriptions",nickname:null,monthlyCost:"€50-150",tasks:[{n:"Compare gas prices",c:"Yearly",type:"Compare",cost:""},{n:"Submit meter reading",c:"Monthly",type:"DIY",cost:""},{n:"Review annual settlement",c:"Yearly",type:"Review",cost:""}]},
+  {slug:"internet",name:"Internet",cat:"subscriptions",nickname:null,monthlyCost:"€30-60",tasks:[{n:"Review plan vs usage",c:"Yearly",type:"Review",cost:""},{n:"Compare alternatives",c:"Yearly",type:"Compare",cost:""}]},
+  {slug:"mobile-phone",name:"Mobile phone plan",cat:"subscriptions",nickname:null,monthlyCost:"€15-40",tasks:[{n:"Review plan vs usage",c:"Yearly",type:"Review",cost:""},{n:"Compare alternatives",c:"Yearly",type:"Compare",cost:""}]},
+  {slug:"streaming-video",name:"Video streaming",cat:"subscriptions",nickname:"Flix",monthlyCost:"€8-20",tasks:[{n:"Review usage",c:"Every 6 months",type:"Review",cost:""},{n:"Check price changes",c:"Every 6 months",type:"Review",cost:""}]},
+  {slug:"music-streaming",name:"Music streaming",cat:"subscriptions",nickname:"Tunes",monthlyCost:"€10-15",tasks:[{n:"Review usage",c:"Every 6 months",type:"Review",cost:""},{n:"Check price changes",c:"Every 6 months",type:"Review",cost:""}]},
+  {slug:"cloud-storage",name:"Cloud storage",cat:"subscriptions",nickname:null,monthlyCost:"€2-10",tasks:[{n:"Review usage vs plan",c:"Every 6 months",type:"Review",cost:""},{n:"Clean unused files",c:"Every 6 months",type:"DIY",cost:""}]},
+  {slug:"gym",name:"Gym membership",cat:"subscriptions",nickname:null,monthlyCost:"€20-50",tasks:[{n:"Review usage vs cost",c:"Every 6 months",type:"Review",cost:""},{n:"Check price changes",c:"Every 6 months",type:"Review",cost:""},{n:"Cancellation window",c:"Before renewal",type:"Review",cost:""}]},
+  {slug:"productivity-suite",name:"Productivity suite",cat:"subscriptions",nickname:null,monthlyCost:"€5-15",tasks:[{n:"Review usage",c:"Yearly",type:"Review",cost:""},{n:"Check free alternatives",c:"Yearly",type:"Compare",cost:""}]},
+  {slug:"ai-subscription",name:"AI subscription",cat:"subscriptions",nickname:null,monthlyCost:"€10-30",tasks:[{n:"Review usage vs cost",c:"Every 6 months",type:"Review",cost:""},{n:"Check new alternatives",c:"Every 6 months",type:"Compare",cost:""}]},
+  {slug:"mobile-app-subscription",name:"App subscription",cat:"subscriptions",nickname:null,monthlyCost:"€2-15",tasks:[{n:"Review if still using",c:"Every 6 months",type:"Review",cost:""},{n:"Check auto-renewal date",c:"Every 6 months",type:"Review",cost:""}]},
+
+  // ── HEALTH (17) ──
+  {slug:"dentist",name:"Dentist",cat:"health",nickname:null,tasks:[{n:"Regular checkup",c:"Every 6 months",type:"Appointment",cost:"~€50"},{n:"Scaling + clean",c:"Yearly",type:"Appointment",cost:"incl."}]},
+  {slug:"gp-checkup",name:"GP checkup",cat:"health",nickname:null,tasks:[{n:"Annual checkup",c:"Yearly",type:"Appointment",cost:"~€25"}]},
+  {slug:"eye-test",name:"Eye test",cat:"health",nickname:null,tasks:[{n:"Eye exam",c:"Every 2 years (yearly 40+)",type:"Appointment",cost:"~€40"}]},
+  {slug:"skin-check",name:"Skin check",cat:"health",nickname:null,tasks:[{n:"Dermatology check",c:"Yearly",type:"Appointment",cost:"~€50"},{n:"Self-exam (moles)",c:"Monthly",type:"Self",cost:"free"}]},
+  {slug:"gynecologist",name:"Gynecologist",cat:"health",nickname:null,tasks:[{n:"Annual checkup",c:"Yearly",type:"Appointment",cost:"~€50"},{n:"Smear test",c:"Every 3 years (25-64)",type:"Appointment",cost:"incl."}]},
+  {slug:"colonoscopy",name:"Colonoscopy",cat:"health",nickname:null,tasks:[{n:"Screening",c:"Every 10 years (50+)",type:"Appointment",cost:"~€300"}]},
+  {slug:"blood-test",name:"Blood test",cat:"health",nickname:null,tasks:[{n:"Blood work",c:"Yearly or as advised",type:"Appointment",cost:"~€30"}]},
+  {slug:"flu-shot",name:"Flu shot",cat:"health",nickname:null,tasks:[{n:"Flu vaccination",c:"Yearly (autumn)",type:"Appointment",cost:"~€10"}]},
+  {slug:"medication",name:"Medication",cat:"health",nickname:null,tasks:[{n:"Refill prescription",c:"As needed",type:"Self",cost:"varies"},{n:"Check expiry dates",c:"Every 6 months",type:"Self",cost:"free"}]},
+  {slug:"prescription-renewal",name:"Prescription renewal",cat:"health",nickname:null,tasks:[{n:"Visit GP for renewal",c:"As needed (usually yearly)",type:"Appointment",cost:"~€25"}]},
+  {slug:"vitamin-supplement",name:"Vitamins",cat:"health",nickname:null,tasks:[{n:"Restock",c:"Monthly",type:"Self",cost:"~€10-30"},{n:"Review if still needed",c:"Every 6 months",type:"Self",cost:"free"}]},
+  {slug:"toothbrush",name:"Toothbrush head",cat:"health",nickname:null,tasks:[{n:"Replace head",c:"Every 3 months",type:"Self",cost:"~€8"}]},
+  {slug:"blood-pressure",name:"Blood pressure",cat:"health",nickname:null,tasks:[{n:"Measure + log",c:"Weekly or as advised",type:"Self",cost:"free"}]},
+  {slug:"hearing-aid",name:"Hearing aid",cat:"health",nickname:null,tasks:[{n:"Clean device",c:"Daily",type:"Self",cost:"free"},{n:"Replace battery/charge",c:"Weekly",type:"Self",cost:"~€5/mo"},{n:"Professional check",c:"Yearly",type:"Appointment",cost:"incl."}]},
+  {slug:"contact-lenses",name:"Contact lenses",cat:"health",nickname:null,tasks:[{n:"Restock",c:"Monthly",type:"Self",cost:"~€30/mo"},{n:"Eye checkup",c:"Yearly",type:"Appointment",cost:"~€40"}]},
+  {slug:"glasses",name:"Glasses",cat:"health",nickname:null,tasks:[{n:"Eye exam (prescription check)",c:"Every 2 years",type:"Appointment",cost:"~€40"},{n:"Clean + inspect",c:"Ongoing",type:"Self",cost:"free"}]},
+  {slug:"therapy",name:"Therapy",cat:"health",nickname:null,tasks:[{n:"Attend session",c:"Weekly / bi-weekly",type:"Appointment",cost:"€50-80"},{n:"Review progress",c:"Quarterly",type:"Appointment",cost:"incl."}]},
+
+  // ── PETS (7) ──
+  {slug:"dog",name:"Dog",cat:"pets",nickname:"(your dog's name)",tasks:[{n:"Annual vaccination",c:"Yearly",type:"Vet",cost:"~€60"},{n:"Flea/tick treatment",c:"Monthly Mar-Oct",type:"DIY",cost:"~€8/mo"},{n:"Deworming",c:"Every 3 months",type:"DIY",cost:"~€10"},{n:"Nail trim",c:"Every 4-6 weeks",type:"DIY",cost:"~€15"},{n:"Annual vet checkup",c:"Yearly",type:"Vet",cost:"incl."}]},
+  {slug:"cat",name:"Cat",cat:"pets",nickname:"(your cat's name)",tasks:[{n:"Annual vaccination",c:"Yearly",type:"Vet",cost:"~€50"},{n:"Flea treatment",c:"Monthly (indoor: 3x year)",type:"DIY",cost:"~€6/mo"},{n:"Deworming",c:"Every 3-6 months",type:"DIY",cost:"~€10"},{n:"Annual vet checkup",c:"Yearly",type:"Vet",cost:"incl."}]},
+  {slug:"rabbit",name:"Rabbit",cat:"pets",nickname:"(your rabbit's name)",tasks:[{n:"Vaccination (myxo + RHD)",c:"Yearly (2 vaccines)",type:"Vet",cost:"~€40"},{n:"Nail trim",c:"Every 6-8 weeks",type:"DIY",cost:"free"},{n:"Clean enclosure",c:"Weekly",type:"DIY",cost:"free"},{n:"Annual vet check",c:"Yearly",type:"Vet",cost:"~€50"}]},
+  {slug:"rodent",name:"Rodent",cat:"pets",nickname:"(your pet's name)",tasks:[{n:"Clean cage",c:"2x week",type:"DIY",cost:"free"},{n:"Check teeth + nails",c:"Monthly",type:"DIY",cost:"free"},{n:"Vet check",c:"Yearly",type:"Vet",cost:"~€40"}]},
+  {slug:"bird",name:"Bird",cat:"pets",nickname:"(your bird's name)",tasks:[{n:"Clean cage",c:"Daily",type:"DIY",cost:"free"},{n:"Check feathers + beak",c:"Monthly",type:"DIY",cost:"free"},{n:"Vet check",c:"Yearly",type:"Vet",cost:"~€50"}]},
+  {slug:"fish-tank",name:"Fish tank",cat:"pets",nickname:"The tank",tasks:[{n:"Partial water change",c:"Weekly (20-30%)",type:"DIY",cost:"~€15/mo"},{n:"Clean filter",c:"Monthly",type:"DIY",cost:"free"},{n:"Test water quality",c:"Weekly",type:"DIY",cost:"free"},{n:"Check equipment",c:"Monthly",type:"DIY",cost:"free"}]},
+  {slug:"turtle",name:"Turtle",cat:"pets",nickname:"(your turtle's name)",tasks:[{n:"Clean tank/enclosure",c:"Weekly",type:"DIY",cost:"free"},{n:"Check UVB lamp",c:"Every 6 months",type:"DIY",cost:"~€25"},{n:"Vet check",c:"Yearly",type:"Vet",cost:"~€50"}]}
+];
+
+// ── Category config ──
+const CAT = {
+  home:          {label:"Home",         color:"#C09088", wash:"var(--ch-wash)", bg:"var(--ch-bg)", icon:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>'},
+  garden:        {label:"Garden",       color:"#8C9B80", wash:"var(--cg-wash)", bg:"var(--cg-bg)", icon:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg>'},
+  vehicle:       {label:"Vehicle",      color:"#8E9A94", wash:"var(--cv-wash)", bg:"var(--cv-bg)", icon:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3H1v13h15V3z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>'},
+  subscriptions: {label:"Subscriptions",color:"#A69BBF", wash:"var(--cs-wash)", bg:"var(--cs-bg)", icon:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>'},
+  health:        {label:"Health",       color:"#C29494", wash:"var(--cx-wash)", bg:"var(--cx-bg)", icon:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>'},
+  pets:          {label:"Pets",         color:"#C7B7A3", wash:"var(--cp-wash)", bg:"var(--cp-bg)", icon:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><ellipse cx="9" cy="9" rx="2" ry="3"/><ellipse cx="15" cy="9" rx="2" ry="3"/><path d="M12 18c-3 0-6-2-6-6s1-4 3-4h6c2 0 3 2 3 4s-3 6-6 6z"/></svg>'}
+};
+
+// ── State ──
+let currentCat = "all";
+let currentItem = null;
+let currentTheme = "light";
+
+// ── Build sidebar ──
+function buildSidebar() {
+  const list = document.getElementById('itemList');
+  const q = document.getElementById('search').value.toLowerCase();
+  list.innerHTML = '';
+  let lastCat = '';
+  let count = 0;
+  ITEMS.forEach((item, i) => {
+    if (currentCat !== 'all' && item.cat !== currentCat) return;
+    if (q && !item.name.toLowerCase().includes(q) && !item.slug.includes(q)) return;
+    if (item.cat !== lastCat) {
+      list.innerHTML += '<div class="cat-section-label">' + CAT[item.cat].label + '</div>';
+      lastCat = item.cat;
+    }
+    const isActive = currentItem === i ? ' active' : '';
+    list.innerHTML += '<div class="item-row' + isActive + '" onclick="selectItem(' + i + ')">' +
+      '<div class="item-dot" style="background:' + CAT[item.cat].color + '"></div>' +
+      '<div class="item-label">' + item.name + '</div>' +
+      '<div class="item-cat-label">' + item.tasks.length + ' tasks</div>' +
+      '</div>';
+    count++;
+  });
+  list.innerHTML += '<div class="item-count">' + count + ' items</div>';
+}
+
+function filterItems() { buildSidebar(); }
+
+function filterCat(cat) {
+  currentCat = cat;
+  document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
+  document.querySelector('.cat-chip[data-cat="' + cat + '"]').classList.add('active');
+  buildSidebar();
+}
+
+function setTheme(t) {
+  currentTheme = t;
+  document.getElementById('phone-left').setAttribute('data-theme', t);
+  document.getElementById('phone-right').setAttribute('data-theme', t);
+  document.getElementById('tl').classList.toggle('on', t === 'light');
+  document.getElementById('td').classList.toggle('on', t === 'dark');
+}
+
+// ── Select item and render both phones ──
+function selectItem(idx) {
+  currentItem = idx;
+  buildSidebar();
+  const item = ITEMS[idx];
+  const cat = CAT[item.cat];
+  renderReview(item, cat);
+  renderDetail(item, cat);
+}
+
+function svgArrow() {
+  return '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="' + (currentTheme === 'dark' ? '#F0EDE6' : '#2C2824') + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg>';
+}
+
+function svgChev() {
+  return '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M3 4.5L6 7.5L9 4.5"/></svg>';
+}
+
+function svgCheck() {
+  return '<svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg>';
+}
+
+function svgStar() {
+  return '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 1l1.5 3 3.5.5-2.5 2.5.5 3.5L8 9l-3 1.5.5-3.5L3 4.5 6.5 4z"/></svg>';
+}
+
+function typeBadge(type) {
+  if (type === 'Pro') return '<span style="font-size:8px;font-weight:600;padding:1px 6px;border-radius:3px;background:rgba(166,155,191,0.10);color:var(--plum);">Pro</span>';
+  if (type === 'Appointment' || type === 'Vet') return '<span style="font-size:8px;font-weight:600;padding:1px 6px;border-radius:3px;background:rgba(232,168,124,0.10);color:var(--apricot);">' + type + '</span>';
+  return '<span style="font-size:8px;font-weight:600;padding:1px 6px;border-radius:3px;background:rgba(140,155,128,0.12);color:var(--sage);">' + type + '</span>';
+}
+
+// ── Render Add Item Review (left phone) ──
+function renderReview(item, cat) {
+  const el = document.getElementById('review-scroll');
+  let html = '';
+
+  // Hero
+  html += '<div class="air-hero" style="background:' + cat.wash + ';">';
+  html += '<div class="air-nav"><div class="air-nav-btn">' + svgArrow() + '</div></div>';
+  html += '<div class="air-hero-icon" style="color:' + cat.color + ';">' + cat.icon + '</div>';
+  html += '</div>';
+
+  // Identity
+  html += '<div class="air-id">';
+  html += '<div class="air-name">' + item.name + '</div>';
+  html += '<div class="air-meta">' + cat.label;
+  if (item.monthlyCost) html += ' · subscription';
+  html += '</div>';
+  html += '<div class="air-badge">' + svgStar() + ' Template from nudgii library</div>';
+  html += '</div>';
+
+  // Subscription cost hero
+  if (item.cat === 'subscriptions' && item.monthlyCost) {
+    html += '<div class="cost-hero">';
+    html += '<div class="cost-value">' + item.monthlyCost + '</div>';
+    html += '<div class="cost-period">per month</div>';
+    html += '<div class="cost-sub">Track, compare, and decide at renewal time</div>';
+    html += '</div>';
+  }
+
+  // Health appointment badge
+  if (item.cat === 'health') {
+    html += '<div style="padding:8px 20px 0;">';
+    html += '<div class="appt-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Appointment-based</div>';
+    html += '</div>';
+  }
+
+  // Task list
+  html += '<div style="padding:14px 0 0;">';
+  html += '<div style="padding:0 20px 8px;font-size:11px;color:var(--mid);">nudgii found <strong style="color:var(--ink);">' + item.tasks.length + ' task' + (item.tasks.length !== 1 ? 's' : '') + '</strong> for this item</div>';
+
+  item.tasks.forEach(t => {
+    html += '<div class="air-task">';
+    html += '<div class="air-task-icon" style="background:' + cat.wash + ';color:' + cat.color + ';">' + cat.icon + '</div>';
+    html += '<div class="air-task-body">';
+    html += '<div class="air-task-name">' + t.n + '</div>';
+    html += '<div class="air-task-cadence">' + t.c + ' · ' + typeBadge(t.type) + '</div>';
+    html += '</div>';
+    if (t.cost && t.cost !== '' && t.cost !== 'free') html += '<div class="air-task-cost">' + t.cost + '</div>';
+    html += '</div>';
+  });
+
+  html += '</div>';
+
+  // First nudge
+  if (item.tasks.length > 0) {
+    html += '<div class="nudge-preview">';
+    html += '<div class="nudge-label">Your first nudge</div>';
+    html += '<div class="nudge-text"><span class="nudge-task">' + item.tasks[0].n + '</span> will be your first task. We\'ll remind you when it\'s time.</div>';
+    html += '</div>';
+  }
+
+  // Nickname
+  const nick = item.nickname;
+  if (nick && nick !== '(none)') {
+    html += '<div class="nickname-row">';
+    html += '<span style="font-size:11px;color:var(--mid);">Want to call it</span>';
+    html += '<div class="nickname-chip"><span class="name">' + nick + '</span> ?</div>';
+    html += '</div>';
+  }
+
+  html += '<div class="bottom-spacer"></div>';
+  el.innerHTML = html;
+  el.scrollTop = 0;
+}
+
+// ── Render S-17 Detail (right phone) ──
+function renderDetail(item, cat) {
+  const el = document.getElementById('detail-scroll');
+  let html = '';
+  const displayName = (item.nickname && item.nickname !== '(none)' && !item.nickname.startsWith('(')) ? item.nickname : item.name;
+
+  // Hero
+  html += '<div class="s17-hero" style="background:' + cat.wash + ';">';
+  html += '<div class="s17-hero-nav">';
+  html += '<div class="hero-btn">' + svgArrow() + '</div>';
+  html += '<div style="display:flex;gap:8px;">';
+  html += '<div class="hero-btn"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="' + (currentTheme === 'dark' ? '#F0EDE6' : '#2C2824') + '" stroke-width="1.5" stroke-linecap="round"><path d="M11 1.5l3.5 3.5L5 14.5H1.5V11z"/></svg></div>';
+  html += '<div class="hero-btn"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="4" r="1.2" fill="' + (currentTheme === 'dark' ? '#F0EDE6' : '#2C2824') + '"/><circle cx="8" cy="8" r="1.2" fill="' + (currentTheme === 'dark' ? '#F0EDE6' : '#2C2824') + '"/><circle cx="8" cy="12" r="1.2" fill="' + (currentTheme === 'dark' ? '#F0EDE6' : '#2C2824') + '"/></svg></div>';
+  html += '</div></div>';
+  html += '<div class="s17-hero-icon" style="color:' + cat.color + ';">' + cat.icon + '</div>';
+  html += '<div class="hero-add-photo" style="color:' + cat.color + ';">Tap to add photo</div>';
+  html += '</div>';
+
+  // Identity
+  html += '<div class="item-id">';
+  html += '<div class="item-name">' + displayName + '</div>';
+  html += '<div class="item-meta">' + cat.label + ' · ' + item.name + '</div>';
+
+  // Health badge
+  if (item.cat === 'health') {
+    html += '<div class="appt-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Appointment-based</div>';
+  }
+
+  html += '</div>';
+
+  // Subscription cost hero on detail
+  if (item.cat === 'subscriptions' && item.monthlyCost) {
+    html += '<div class="cost-hero">';
+    html += '<div class="cost-value">' + item.monthlyCost + '</div>';
+    html += '<div class="cost-period">per month</div>';
+    html += '</div>';
+  }
+
+  // Stats
+  html += '<div class="stats-row">';
+  html += '<div class="stat-box"><div class="stat-val">new</div><div class="stat-label">just added</div></div>';
+  html += '<div class="stat-box"><div class="stat-val">0</div><div class="stat-label">completed</div></div>';
+  html += '<div class="stat-box"><div class="stat-val">' + item.tasks.length + '</div><div class="stat-label">tasks</div></div>';
+  html += '</div>';
+
+  // Status strip
+  html += '<div class="status-strip">';
+  html += '<div class="status-dot" style="background:var(--sage);"></div>';
+  html += '<div class="status-text">All set up, ready to go</div>';
+  html += '</div>';
+
+  // Tasks section
+  html += '<div class="sec-head">';
+  html += '<div class="sec-title">Tasks</div>';
+  html += '<div class="sec-action"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="var(--plum)" stroke-width="1.5" stroke-linecap="round"><path d="M6 1v10"/><path d="M1 6h10"/></svg> Add task</div>';
+  html += '</div>';
+
+  item.tasks.forEach((t, ti) => {
+    const tcId = 'tc-' + item.slug + '-' + ti;
+    html += '<div class="task-card" id="' + tcId + '">';
+    html += '<div class="task-row" onclick="toggleTask(\'' + tcId + '\')">';
+    html += '<div class="task-icon" style="background:' + cat.wash + ';color:' + cat.color + ';">' + cat.icon + '</div>';
+    html += '<div class="task-body">';
+    html += '<div class="task-title">' + t.n + '</div>';
+    html += '<div class="task-sub">' + t.c + ' · ' + t.type + (t.cost && t.cost !== 'free' && t.cost !== '' ? ' · ' + t.cost : '') + '</div>';
+    html += '</div>';
+    html += '<div class="task-chev">' + svgChev() + '</div>';
+    html += '</div>';
+
+    // Expand
+    html += '<div class="task-expand"><div class="task-expand-inner">';
+    html += '<div class="task-why">';
+    html += '<div class="task-why-label">Why it matters</div>';
+    html += '<div class="task-why-text">Regular ' + t.n.toLowerCase() + ' keeps your ' + item.name.toLowerCase() + ' in good shape and prevents bigger problems down the line.</div>';
+    html += '</div>';
+    html += '<div class="task-actions">';
+    html += '<div class="ta-skip">Skip</div>';
+    html += '<div class="ta-snooze">Snooze</div>';
+    html += '<div class="ta-done">' + svgCheck() + ' Done</div>';
+    html += '</div>';
+    html += '</div></div>';
+    html += '</div>';
+  });
+
+  // Details card
+  html += '<div class="sec-head"><div class="sec-title">Details</div><div class="sec-action">Edit</div></div>';
+  html += '<div class="detail-card">';
+  html += '<div class="detail-row2"><span style="font-size:10px;color:var(--mid);">Category</span><span style="font-size:10px;font-weight:500;color:var(--ink);">' + cat.label + '</span></div>';
+  html += '<div class="detail-row2"><span style="font-size:10px;color:var(--mid);">Tasks</span><span style="font-size:10px;font-weight:500;color:var(--ink);">' + item.tasks.length + ' active</span></div>';
+  if (item.nickname && item.nickname !== '(none)' && !item.nickname.startsWith('(')) {
+    html += '<div class="detail-row2"><span style="font-size:10px;color:var(--mid);">Nickname</span><span style="font-size:10px;font-weight:500;color:var(--plum);">' + item.nickname + '</span></div>';
+  }
+  if (item.monthlyCost) {
+    html += '<div class="detail-row2"><span style="font-size:10px;color:var(--mid);">Monthly cost</span><span style="font-size:10px;font-weight:500;color:var(--ink);">' + item.monthlyCost + '</span></div>';
+  }
+  html += '</div>';
+
+  html += '<div class="bottom-spacer"></div>';
+  el.innerHTML = html;
+  el.scrollTop = 0;
+}
+
+function toggleTask(id) {
+  var card = document.getElementById(id);
+  if (!card) return;
+  var expand = card.querySelector('.task-expand');
+  var chev = card.querySelector('.task-chev');
+  if (expand.style.maxHeight && expand.style.maxHeight !== '0px') {
+    expand.style.maxHeight = '0px';
+    chev.classList.remove('open');
+  } else {
+    expand.style.maxHeight = expand.scrollHeight + 'px';
+    chev.classList.add('open');
+  }
+}
+
+// ── Init ──
+buildSidebar();
+selectItem(0);
+</script>
+</body>
+</html>
