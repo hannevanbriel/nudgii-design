@@ -224,6 +224,22 @@ body{background:#CBC5BB;padding:0 0 80px;}
             </div>
           </div>
 
+          <!-- Stats row -->
+          <div style="display:flex;gap:8px;padding:12px 20px 0;">
+            <div style="flex:1;background:var(--surface-low);border-radius:12px;padding:10px 6px;text-align:center;border:0.5px solid rgba(44,40,36,0.06);">
+              <div style="font-family:'DM Serif Display',Georgia,serif;font-size:18px;font-weight:400;color:var(--ink);">3y</div>
+              <div style="font-size:7.5px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--mid);margin-top:2px;">customer since</div>
+            </div>
+            <div style="flex:1;background:var(--surface-low);border-radius:12px;padding:10px 6px;text-align:center;border:0.5px solid rgba(44,40,36,0.06);">
+              <div style="font-family:'DM Serif Display',Georgia,serif;font-size:18px;font-weight:400;color:var(--sage);">&euro;140</div>
+              <div style="font-size:7.5px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--mid);margin-top:2px;">saved last year</div>
+            </div>
+            <div style="flex:1;background:var(--apricot-wash);border-radius:12px;padding:10px 6px;text-align:center;border:0.5px solid rgba(232,168,124,0.15);">
+              <div style="font-family:'DM Serif Display',Georgia,serif;font-size:18px;font-weight:400;color:var(--apricot);">62d</div>
+              <div style="font-size:7.5px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--mid);margin-top:2px;">until renewal</div>
+            </div>
+          </div>
+
           <!-- Decision buttons (subscription-unique) -->
           <div class="decision-row">
             <button class="decision-btn keep">Keep</button>
@@ -259,6 +275,10 @@ body{background:#CBC5BB;padding:0 0 80px;}
                 <div class="ta-snooze">Remind me later</div>
                 <div class="ta-done" onclick="markDone('tc1','Coverage reviewed.','Next review: Jun 2027')"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg> Reviewed</div>
               </div>
+              <div style="margin-top:10px;display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--surface-low);border-radius:10px;cursor:pointer;">
+                <div style="width:22px;height:22px;border-radius:6px;background:var(--plum-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><img src="../system/logo/ii-dark-on-light.svg" width="12" height="14" alt=""></div>
+                <div style="font-size:10px;color:var(--mid);font-style:italic;flex:1;">Ask nudgii about this task...</div>
+              </div>
             </div></div>
             <div class="task-done-msg" id="tc1-done"></div>
           </div>
@@ -282,6 +302,10 @@ body{background:#CBC5BB;padding:0 0 80px;}
               <div class="task-actions">
                 <div class="ta-snooze">Remind me later</div>
                 <div class="ta-done" onclick="markDone('tc2','Compared.','Next comparison: Jun 2027')"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg> Compared</div>
+              </div>
+              <div style="margin-top:10px;display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--surface-low);border-radius:10px;cursor:pointer;">
+                <div style="width:22px;height:22px;border-radius:6px;background:var(--plum-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><img src="../system/logo/ii-dark-on-light.svg" width="12" height="14" alt=""></div>
+                <div style="font-size:10px;color:var(--mid);font-style:italic;flex:1;">Ask nudgii about this task...</div>
               </div>
             </div></div>
             <div class="task-done-msg" id="tc2-done"></div>
