@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · Test scenario: Add espresso machine</title>
+<link rel="stylesheet" href="../system/components.css">
+<link rel="stylesheet" href="../system/tokens.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+body{background:#CBC5BB;padding:0 0 80px;}
+.test-controls{display:flex;gap:4px;align-items:center;margin-bottom:16px;flex-wrap:wrap;}
+.test-label{font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#A09888;margin-right:4px;}
+.test-btn{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;padding:5px 14px;border-radius:6px;border:1px solid rgba(26,22,18,0.12);background:transparent;color:#8A8070;cursor:pointer;transition:all 120ms;}
+.test-btn:hover{border-color:rgba(26,22,18,0.20);}
+.test-btn.on{background:#9B7FD4;color:#FAF8FF;border-color:#9B7FD4;}
+
+.scr{display:flex;flex-direction:column;flex:1;overflow:hidden;background:var(--surface);}
+.scr-scroll{flex:1;overflow-y:auto;scrollbar-width:none;}
+.scr-scroll::-webkit-scrollbar{display:none;}
+
+/* ── Add Item Review screen ── */
+.air-hero{position:relative;height:140px;background:var(--ch-wash);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;}
+.air-hero-icon{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.45);display:flex;align-items:center;justify-content:center;}
+.air-nav{position:absolute;top:10px;left:16px;}
+.air-nav-btn{width:32px;height:32px;border-radius:10px;background:rgba(255,255,255,0.65);display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.air-id{padding:16px 20px 0;}
+.air-name{font-family:'DM Serif Display',Georgia,serif;font-size:22px;font-weight:400;color:var(--ink);display:flex;align-items:center;gap:8px;}
+.air-edit-icon{opacity:0.25;cursor:pointer;}
+.air-meta{font-size:11px;color:var(--mid);margin-top:3px;}
+.air-badge{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:500;color:var(--plum);background:var(--plum-wash);padding:3px 10px;border-radius:100px;margin-top:8px;}
+.air-badge svg{width:10px;height:10px;}
+
+/* AI shimmer (loading state) */
+@keyframes shimmer{0%{background-position:-200px 0;}100%{background-position:200px 0;}}
+.shimmer{background:linear-gradient(90deg,var(--surface-low) 25%,rgba(155,127,212,0.06) 50%,var(--surface-low) 75%);background-size:400px 100%;animation:shimmer 1.8s infinite;border-radius:10px;height:64px;margin:0 16px 8px;}
+
+/* Task preview cards */
+.air-task{margin:0 16px 8px;background:var(--surface);border:0.5px solid rgba(44,40,36,0.06);border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:12px;}
+.air-task-icon{width:40px;height:40px;border-radius:50%;background:var(--ch-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.air-task-body{flex:1;min-width:0;}
+.air-task-name{font-size:13px;font-weight:500;color:var(--ink);}
+.air-task-cadence{font-size:10px;color:var(--mid);margin-top:1px;}
+.air-task-cost{font-size:9px;color:var(--hint);flex-shrink:0;}
+.air-task-x{width:20px;height:20px;border-radius:50%;background:rgba(44,40,36,0.04);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;opacity:0.4;}
+.air-task-x:hover{opacity:0.7;background:rgba(44,40,36,0.08);}
+
+/* First nudge card */
+.nudge-preview{margin:12px 16px;padding:14px;background:var(--apricot-wash);border-radius:12px;border:0.5px solid rgba(232,168,124,0.12);}
+.nudge-label{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--apricot);margin-bottom:6px;}
+.nudge-text{font-size:12px;color:var(--ink);line-height:1.5;}
+.nudge-task{font-weight:500;}
+
+/* Nickname chip */
+.nickname-row{margin:14px 16px 0;display:flex;align-items:center;gap:8px;}
+.nickname-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:100px;background:var(--surface-low);border:0.5px solid rgba(44,40,36,0.06);cursor:pointer;font-size:11px;color:var(--ink);}
+.nickname-chip:hover{background:var(--surface-high);}
+.nickname-chip .name{font-weight:500;color:var(--plum);}
+
+/* Detail fields (collapsible) */
+.detail-toggle{margin:14px 16px 0;font-size:11px;font-weight:500;color:var(--plum);cursor:pointer;display:flex;align-items:center;gap:4px;}
+.detail-fields{margin:8px 16px 0;background:var(--surface-low);border-radius:12px;padding:12px 14px;display:none;}
+.detail-fields.show{display:block;}
+.df-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:0.5px solid rgba(44,40,36,0.04);}
+.df-row:last-child{border-bottom:none;}
+.df-label{font-size:10px;color:var(--mid);}
+.df-val{font-size:10px;font-weight:500;color:var(--ink);}
+.df-val.placeholder{color:var(--hint);font-style:italic;font-weight:400;}
+
+/* Sticky bottom CTA */
+.air-bottom{position:absolute;bottom:0;left:0;right:0;padding:12px 20px 28px;background:linear-gradient(to top,var(--surface) 70%,transparent);}
+.air-cta{width:100%;padding:14px;border-radius:14px;background:var(--plum);color:white;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;border:none;cursor:pointer;text-align:center;box-shadow:0 4px 16px rgba(155,127,212,0.35);}
+.air-cta:active{transform:scale(0.98);}
+.air-ghost{text-align:center;margin-top:8px;font-size:11px;color:var(--plum);cursor:pointer;font-weight:500;}
+
+/* ── S-17 Detail (post-add) ── */
+.s17-hero{position:relative;height:160px;background:var(--ch-wash);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;}
+.s17-hero-icon{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.45);display:flex;align-items:center;justify-content:center;}
+.s17-hero-nav{position:absolute;top:10px;left:16px;right:16px;display:flex;justify-content:space-between;}
+.hero-btn{width:32px;height:32px;border-radius:10px;background:rgba(255,255,255,0.65);display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.hero-add-photo{font-size:9px;color:var(--ch-bg);opacity:0.7;}
+
+.item-id{padding:16px 20px 0;}
+.item-name{font-family:'DM Serif Display',Georgia,serif;font-size:24px;font-weight:400;line-height:1.1;letter-spacing:-0.02em;color:var(--ink);}
+.item-meta{font-size:11px;color:var(--mid);margin-top:4px;}
+
+.stats-row{display:flex;gap:8px;padding:14px 20px 0;}
+.stat-box{flex:1;background:var(--surface-low);border-radius:12px;padding:10px 6px;text-align:center;border:0.5px solid rgba(44,40,36,0.06);}
+.stat-val{font-family:'DM Serif Display',Georgia,serif;font-size:18px;font-weight:400;color:var(--ink);}
+.stat-label{font-size:7.5px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--mid);margin-top:2px;}
+
+.status-strip{display:flex;align-items:center;gap:8px;margin:12px 20px 0;padding:9px 14px;background:var(--surface-low);border-radius:10px;}
+.status-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.status-text{font-size:11px;color:var(--ink);flex:1;}
+.status-next{font-size:10px;color:var(--mid);}
+
+.sec-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px 10px;}
+.sec-title{font-family:'DM Serif Display',Georgia,serif;font-size:16px;font-weight:400;color:var(--ink);}
+.sec-action{font-size:10px;font-weight:500;color:var(--plum);cursor:pointer;display:flex;align-items:center;gap:4px;}
+
+.task-card{margin:0 16px 8px;background:var(--surface);border:0.5px solid rgba(44,40,36,0.06);border-radius:14px;overflow:hidden;}
+.task-row{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;}
+.task-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--ch-wash);}
+.task-body{flex:1;min-width:0;}
+.task-title{font-size:13px;font-weight:500;color:var(--ink);line-height:1.3;}
+.task-sub{font-size:10px;color:var(--mid);margin-top:1px;}
+.task-badge{font-size:9px;font-weight:500;flex-shrink:0;color:var(--mid);}
+.task-chev{width:16px;height:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;opacity:0.3;transition:transform 200ms ease;}
+.task-chev.open{transform:rotate(180deg);}
+.task-expand{max-height:0;overflow:hidden;transition:max-height 350ms ease;}
+.task-expand-inner{padding:0 14px 14px;}
+
+.task-why{background:rgba(232,168,124,0.06);border-radius:10px;padding:12px 14px;margin-bottom:10px;}
+.task-why-label{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--apricot);margin-bottom:4px;}
+.task-why-text{font-size:11px;color:var(--ink);line-height:1.6;}
+.task-how{margin-bottom:10px;padding:12px 14px;background:var(--surface-low);border-radius:10px;}
+.task-how-label{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--plum);margin-bottom:10px;}
+.task-step{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;}
+.task-step:last-child{margin-bottom:0;}
+.task-step-num{width:22px;height:22px;border-radius:50%;background:var(--plum-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;font-weight:600;color:var(--plum);}
+.task-step-text{font-size:11px;color:var(--ink);line-height:1.5;padding-top:2px;}
+
+/* Consumable card */
+.consumable{margin-top:10px;padding:12px 14px;background:var(--ch-wash);border-radius:10px;display:flex;align-items:center;gap:12px;}
+.consumable-icon{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.consumable-price{font-size:12px;font-weight:600;color:var(--ch-bg);flex-shrink:0;}
+
+.task-actions{display:flex;align-items:center;gap:6px;margin-top:10px;padding-top:10px;border-top:0.5px solid rgba(44,40,36,0.06);}
+.ta-skip{font-size:10px;color:var(--hint);cursor:pointer;padding:6px 10px;margin-right:auto;}
+.ta-snooze{font-size:10px;font-weight:500;color:var(--ink);cursor:pointer;padding:7px 14px;border-radius:100px;background:var(--surface-low);}
+.ta-done{font-size:10px;font-weight:500;color:white;cursor:pointer;padding:7px 16px;border-radius:100px;background:var(--plum);display:flex;align-items:center;gap:4px;box-shadow:0 2px 8px rgba(155,127,212,0.25);}
+.task-ask{margin-top:10px;display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--surface-low);border-radius:10px;cursor:pointer;}
+.task-ask-icon{width:22px;height:22px;border-radius:6px;background:var(--plum-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.task-ask-text{font-size:10px;color:var(--mid);font-style:italic;flex:1;}
+
+/* AI source badge on S-17 */
+.ai-source{display:inline-flex;align-items:center;gap:4px;font-size:9px;color:var(--plum);background:var(--plum-wash);padding:2px 8px;border-radius:100px;margin-top:6px;}
+
+/* Good to know */
+.gtk-section{padding:0 16px 16px;}
+.gtk-card{background:var(--surface-low);border-radius:12px;border:0.5px solid rgba(44,40,36,0.06);overflow:hidden;}
+.gtk-row{display:flex;gap:14px;padding:14px;border-bottom:0.5px solid rgba(44,40,36,0.04);}
+.gtk-row:last-child{border-bottom:none;}
+.gtk-val{flex-shrink:0;width:52px;text-align:right;font-family:'DM Serif Display',Georgia,serif;font-size:18px;font-weight:400;line-height:1;}
+.gtk-body{flex:1;padding-top:1px;}
+.gtk-title{font-size:11px;font-weight:500;color:var(--ink);}
+.gtk-desc{font-size:10px;color:var(--mid);margin-top:3px;line-height:1.5;}
+
+.detail-card{margin:0 16px;background:var(--surface);border:0.5px solid rgba(44,40,36,0.06);border-radius:12px;overflow:hidden;}
+.detail-row2{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;border-bottom:0.5px solid rgba(44,40,36,0.04);}
+.detail-row2:last-child{border-bottom:none;}
+
+.bottom-spacer{height:40px;}
+
+/* Toast */
+.toast{position:absolute;bottom:20px;left:16px;right:16px;z-index:50;background:var(--surface-low);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:10px;box-shadow:0 6px 24px rgba(44,40,36,0.16);opacity:0;transform:translateY(12px);transition:all 350ms cubic-bezier(0.34,1.4,0.64,1);pointer-events:none;}
+.toast.show{opacity:1;transform:translateY(0);pointer-events:auto;}
+.toast-icon{width:22px;height:22px;border-radius:50%;background:rgba(59,109,17,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.toast-text{font-size:12px;font-weight:500;color:var(--ink);}
+
+/* Hide/show states */
+.screen{display:none;}
+.screen.active{display:block;}
+
+/* Dark mode */
+[data-theme="dark"] .phone{background:#1C1B18;box-shadow:0 0 0 1px rgba(255,255,255,0.03),0 24px 80px rgba(0,0,0,0.5);}
+[data-theme="dark"] .scr{background:var(--surface);}
+[data-theme="dark"] .notch .np{background:rgba(255,255,255,0.08);}
+[data-theme="dark"] .sbar span{color:#F0EDE6;}
+[data-theme="dark"] .sbar .batt{background:#F0EDE6;}
+[data-theme="dark"] .air-hero,[data-theme="dark"] .s17-hero{background:var(--ch-wash);}
+[data-theme="dark"] .air-hero-icon,[data-theme="dark"] .s17-hero-icon{background:rgba(255,255,255,0.10);}
+[data-theme="dark"] .hero-btn,[data-theme="dark"] .air-nav-btn{background:rgba(255,255,255,0.10);}
+[data-theme="dark"] .air-task,[data-theme="dark"] .task-card{background:var(--surface-high);border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .nudge-preview{background:rgba(240,184,144,0.08);border-color:rgba(240,184,144,0.10);}
+[data-theme="dark"] .nickname-chip{background:var(--surface-high);border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .detail-fields{background:var(--surface-high);}
+[data-theme="dark"] .air-bottom{background:linear-gradient(to top,var(--surface) 70%,transparent);}
+[data-theme="dark"] .stat-box{background:var(--surface-high);border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .status-strip{background:var(--surface-high);}
+[data-theme="dark"] .task-why{background:rgba(240,184,144,0.06);}
+[data-theme="dark"] .task-how{background:var(--surface-low);}
+[data-theme="dark"] .task-step-num{background:rgba(184,160,232,0.15);}
+[data-theme="dark"] .task-actions{border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .ta-snooze{background:var(--surface-low);}
+[data-theme="dark"] .consumable{background:var(--ch-wash);}
+[data-theme="dark"] .task-ask{background:var(--surface-low);}
+[data-theme="dark"] .gtk-card{background:var(--surface-high);border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .gtk-row{border-color:rgba(255,255,255,0.04);}
+[data-theme="dark"] .detail-card{background:var(--surface-high);border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .detail-row2{border-color:rgba(255,255,255,0.04);}
+[data-theme="dark"] .toast{background:var(--surface-high);}
+</style>
+</head>
+<body>
+
+<nav class="nudgii-hub-nav">
+  <a class="nav-back" href="../index.html">
+    <img src="../system/logo/ii-dark-on-light.svg" width="16" height="18" alt="" style="flex-shrink:0;border-radius:2px;">
+    <span>Design hub</span>
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">Test: Add espresso machine</span>
+  <span class="nav-status" style="background:rgba(140,155,128,0.10);color:#3B6D11;border-color:rgba(140,155,128,0.20);">Test scenario</span>
+</nav>
+
+<div style="max-width:980px;margin:0 auto;padding:32px 32px 0;">
+  <div class="page-eyebrow">Test scenario · AI-generated template · April 2026</div>
+  <h1 class="page-h1">User adds: Espresso machine</h1>
+  <p class="page-sub">Simulates a user adding a De'Longhi Magnifica S espresso machine via scan. Not in the curated template library, so Claude API generates 3 maintenance tasks on the fly. User reviews on Add Item Review, then sees the result on S-17.</p>
+  <div class="page-pills">
+    <span class="mp" style="background:rgba(140,155,128,0.10);color:#3B6D11;">Test scenario</span>
+    <span class="mp">AI-generated</span>
+    <span class="mp">Small appliance variant</span>
+  </div>
+
+  <div class="test-controls">
+    <span class="test-label">Screen</span>
+    <button class="test-btn on" onclick="showScreen('review')">1. Add Item Review</button>
+    <button class="test-btn" onclick="showScreen('loading')">Loading state</button>
+    <button class="test-btn" onclick="showScreen('detail')">2. S-17 Detail (after add)</button>
+    <span style="margin-left:12px;"></span>
+    <span class="test-label">Theme</span>
+    <button class="test-btn on" onclick="setTheme('light')" id="tl">Light</button>
+    <button class="test-btn" onclick="setTheme('dark')" id="td">Dark</button>
+  </div>
+
+  <div style="display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap;">
+
+    <div class="phone test-phone" data-theme="light">
+      <div class="notch"><div class="np"></div></div>
+      <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+
+      <div class="scr">
+
+        <!-- ═══════════ SCREEN 1: Loading state ═══════════ -->
+        <div class="screen" id="scr-loading">
+          <div class="scr-scroll">
+            <div class="air-hero">
+              <div class="air-nav"><div class="air-nav-btn"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#2C2824" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg></div></div>
+              <div class="air-hero-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+              </div>
+            </div>
+            <div class="air-id">
+              <div class="air-name">Espresso machine</div>
+              <div class="air-meta">Home · De'Longhi Magnifica S</div>
+              <div style="margin-top:12px;display:flex;align-items:center;gap:8px;">
+                <img src="../system/logo/ii-dark-on-light.svg" width="14" height="16" alt="" style="opacity:0.6;">
+                <span style="font-size:11px;color:var(--mid);font-style:italic;">nudgii is figuring out what this needs...</span>
+              </div>
+            </div>
+            <div style="padding-top:16px;">
+              <div class="shimmer"></div>
+              <div class="shimmer" style="animation-delay:0.15s;"></div>
+              <div class="shimmer" style="animation-delay:0.3s;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════ SCREEN 2: Add Item Review ═══════════ -->
+        <div class="screen active" id="scr-review">
+          <div class="scr-scroll" style="padding-bottom:100px;">
+            <div class="air-hero">
+              <div class="air-nav"><div class="air-nav-btn"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#2C2824" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg></div></div>
+              <div class="air-hero-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+              </div>
+            </div>
+
+            <div class="air-id">
+              <div class="air-name">Espresso machine <svg class="air-edit-icon" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="var(--hint)" stroke-width="1.5" stroke-linecap="round"><path d="M11 1.5l3.5 3.5L5 14.5H1.5V11z"/></svg></div>
+              <div class="air-meta">Home · De'Longhi Magnifica S ECAM 22.110 · identified by AI scan</div>
+              <div class="air-badge"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 1l1.5 3 3.5.5-2.5 2.5.5 3.5L8 9l-3 1.5.5-3.5L3 4.5 6.5 4z"/></svg> Tasks suggested by AI</div>
+            </div>
+
+            <!-- Task previews -->
+            <div style="padding:14px 0 0;">
+              <div style="padding:0 20px 8px;font-size:11px;color:var(--mid);">nudgii found <strong style="color:var(--ink);">3 tasks</strong> for this item</div>
+
+              <div class="air-task">
+                <div class="air-task-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg></div>
+                <div class="air-task-body">
+                  <div class="air-task-name">Descale machine</div>
+                  <div class="air-task-cadence">Every 2-3 months · DIY · first due Jun 13</div>
+                </div>
+                <div class="air-task-cost">~€8</div>
+                <div class="air-task-x"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M2 2l8 8"/><path d="M10 2l-8 8"/></svg></div>
+              </div>
+
+              <div class="air-task">
+                <div class="air-task-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                <div class="air-task-body">
+                  <div class="air-task-name">Clean brew group</div>
+                  <div class="air-task-cadence">Weekly · DIY · first due Apr 20</div>
+                </div>
+                <div class="air-task-cost">free</div>
+                <div class="air-task-x"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M2 2l8 8"/><path d="M10 2l-8 8"/></svg></div>
+              </div>
+
+              <div class="air-task">
+                <div class="air-task-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round"><path d="M6 20v-2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/><circle cx="12" cy="10" r="3"/></svg></div>
+                <div class="air-task-body">
+                  <div class="air-task-name">Replace water filter</div>
+                  <div class="air-task-cadence">Every 2 months · DIY · first due Jun 13</div>
+                </div>
+                <div class="air-task-cost">~€10</div>
+                <div class="air-task-x"><svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M2 2l8 8"/><path d="M10 2l-8 8"/></svg></div>
+              </div>
+
+              <div style="padding:4px 20px;"><span style="font-size:10px;font-weight:500;color:var(--plum);cursor:pointer;">+ Add custom task</span></div>
+            </div>
+
+            <!-- First nudge preview -->
+            <div class="nudge-preview">
+              <div class="nudge-label">Your first nudge</div>
+              <div class="nudge-text"><span class="nudge-task">Clean brew group</span> in 7 days. We'll remind you on Sunday.</div>
+            </div>
+
+            <!-- Nickname -->
+            <div class="nickname-row">
+              <span style="font-size:11px;color:var(--mid);">Want to call it</span>
+              <div class="nickname-chip"><span class="name">Bean</span> ?</div>
+            </div>
+
+            <!-- Detail fields -->
+            <div class="detail-toggle" onclick="toggleDetails()">
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="var(--plum)" stroke-width="1.5" stroke-linecap="round"><path d="M3 4.5L6 7.5L9 4.5"/></svg>
+              Add details (optional)
+            </div>
+            <div class="detail-fields" id="detail-fields">
+              <div class="df-row"><span class="df-label">Brand</span><span class="df-val">De'Longhi</span></div>
+              <div class="df-row"><span class="df-label">Model</span><span class="df-val">Magnifica S ECAM 22.110</span></div>
+              <div class="df-row"><span class="df-label">Purchased</span><span class="df-val placeholder">Tap to add</span></div>
+            </div>
+
+          </div>
+
+          <!-- Sticky CTA -->
+          <div class="air-bottom">
+            <button class="air-cta" onclick="addItem()">Add to my stuff</button>
+            <div class="air-ghost">Edit tasks</div>
+          </div>
+        </div>
+
+        <!-- ═══════════ SCREEN 3: S-17 Detail (post-add) ═══════════ -->
+        <div class="screen" id="scr-detail">
+          <div class="scr-scroll">
+            <div class="s17-hero">
+              <div class="s17-hero-nav">
+                <div class="hero-btn"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#2C2824" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg></div>
+                <div style="display:flex;gap:8px;">
+                  <div class="hero-btn"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#2C2824" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 1.5l3.5 3.5L5 14.5H1.5V11z"/></svg></div>
+                  <div class="hero-btn"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="4" r="1.2" fill="#2C2824"/><circle cx="8" cy="8" r="1.2" fill="#2C2824"/><circle cx="8" cy="12" r="1.2" fill="#2C2824"/></svg></div>
+                </div>
+              </div>
+              <div class="s17-hero-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+              </div>
+              <div class="hero-add-photo">Tap to add photo</div>
+            </div>
+
+            <div class="item-id">
+              <div class="item-name">Bean</div>
+              <div class="item-meta">Home · De'Longhi Magnifica S</div>
+              <div class="ai-source"><svg width="8" height="8" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 1l1.5 3 3.5.5-2.5 2.5.5 3.5L8 9l-3 1.5.5-3.5L3 4.5 6.5 4z"/></svg> Template generated by AI</div>
+            </div>
+
+            <div class="stats-row">
+              <div class="stat-box"><div class="stat-val">new</div><div class="stat-label">just added</div></div>
+              <div class="stat-box"><div class="stat-val">0</div><div class="stat-label">completed</div></div>
+              <div class="stat-box"><div class="stat-val">3</div><div class="stat-label">tasks</div></div>
+            </div>
+
+            <div class="status-strip">
+              <div class="status-dot" style="background:var(--sage);"></div>
+              <div class="status-text">All set up, first task in 7 days</div>
+              <div class="status-next">Apr 20</div>
+            </div>
+
+            <!-- Tasks with full expand -->
+            <div class="sec-head">
+              <div class="sec-title">Tasks</div>
+              <div class="sec-action"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="var(--plum)" stroke-width="1.5" stroke-linecap="round"><path d="M6 1v10"/><path d="M1 6h10"/></svg> Add task</div>
+            </div>
+
+            <!-- Task 1: Descale -->
+            <div class="task-card" id="tc1">
+              <div class="task-row" onclick="toggleTask('tc1')">
+                <div class="task-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg></div>
+                <div class="task-body">
+                  <div class="task-title">Descale machine</div>
+                  <div class="task-sub">5 min DIY · every 2-3 months</div>
+                </div>
+                <div class="task-badge">Jun 13</div>
+                <div class="task-chev"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M3 4.5L6 7.5L9 4.5"/></svg></div>
+              </div>
+              <div class="task-expand"><div class="task-expand-inner">
+                <div class="task-why">
+                  <div class="task-why-label">Why it matters</div>
+                  <div class="task-why-text">Limescale blocks water flow and changes the taste. In Belgium's hard water areas, descaling every 2 months keeps pressure and flavour consistent.</div>
+                </div>
+                <div class="task-how">
+                  <div class="task-how-label">How to do it</div>
+                  <div class="task-step"><div class="task-step-num">1</div><div class="task-step-text">Fill the water tank with descaling solution (follow your De'Longhi's ratio)</div></div>
+                  <div class="task-step"><div class="task-step-num">2</div><div class="task-step-text">Run the descaling program (hold the steam button for 3 seconds)</div></div>
+                  <div class="task-step"><div class="task-step-num">3</div><div class="task-step-text">Rinse with two full tanks of clean water before making coffee</div></div>
+                </div>
+                <div class="consumable">
+                  <div class="consumable-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ch-bg)" stroke-width="1.6" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg></div>
+                  <div style="flex:1;"><div style="font-size:11px;font-weight:500;color:var(--ink);">Descaling tablets (6 pack)</div><div style="font-size:9px;color:var(--hint);margin-top:1px;">we may earn a small fee</div></div>
+                  <div class="consumable-price">~€8</div>
+                </div>
+                <div class="task-actions">
+                  <div class="ta-skip">Skip · back Aug 13</div>
+                  <div class="ta-snooze">Snooze</div>
+                  <div class="ta-done"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg> Done</div>
+                </div>
+                <div class="task-ask">
+                  <div class="task-ask-icon"><img src="../system/logo/ii-dark-on-light.svg" width="12" height="14" alt=""></div>
+                  <div class="task-ask-text">Ask nudgii about this task...</div>
+                </div>
+              </div></div>
+            </div>
+
+            <!-- Task 2: Clean brew group -->
+            <div class="task-card" id="tc2">
+              <div class="task-row" onclick="toggleTask('tc2')">
+                <div class="task-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                <div class="task-body">
+                  <div class="task-title">Clean brew group</div>
+                  <div class="task-sub">2 min DIY · weekly</div>
+                </div>
+                <div class="task-badge">Apr 20</div>
+                <div class="task-chev"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M3 4.5L6 7.5L9 4.5"/></svg></div>
+              </div>
+              <div class="task-expand"><div class="task-expand-inner">
+                <div class="task-why">
+                  <div class="task-why-label">Why it matters</div>
+                  <div class="task-why-text">Coffee oils build up and turn rancid after a few days. A weekly rinse keeps the taste clean and prevents mould in the brew chamber.</div>
+                </div>
+                <div class="task-how">
+                  <div class="task-how-label">How to do it</div>
+                  <div class="task-step"><div class="task-step-num">1</div><div class="task-step-text">Remove the brew group (slides out from the right side panel on the Magnifica)</div></div>
+                  <div class="task-step"><div class="task-step-num">2</div><div class="task-step-text">Rinse under warm running water, no soap</div></div>
+                  <div class="task-step"><div class="task-step-num">3</div><div class="task-step-text">Let it dry completely before reinserting</div></div>
+                </div>
+                <div class="task-actions">
+                  <div class="ta-skip">Skip · back Apr 27</div>
+                  <div class="ta-snooze">Snooze</div>
+                  <div class="ta-done"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg> Done</div>
+                </div>
+              </div></div>
+            </div>
+
+            <!-- Task 3: Replace water filter -->
+            <div class="task-card" id="tc3">
+              <div class="task-row" onclick="toggleTask('tc3')">
+                <div class="task-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ch-bg)" stroke-width="1.5" stroke-linecap="round"><path d="M6 20v-2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/><circle cx="12" cy="10" r="3"/></svg></div>
+                <div class="task-body">
+                  <div class="task-title">Replace water filter</div>
+                  <div class="task-sub">2 min DIY · every 2 months</div>
+                </div>
+                <div class="task-badge">Jun 13</div>
+                <div class="task-chev"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M3 4.5L6 7.5L9 4.5"/></svg></div>
+              </div>
+              <div class="task-expand"><div class="task-expand-inner">
+                <div class="task-why">
+                  <div class="task-why-label">Why it matters</div>
+                  <div class="task-why-text">The filter softens water and removes chlorine. An old filter lets limescale through faster and affects taste. Your De'Longhi uses the DLS C002 cartridge.</div>
+                </div>
+                <div class="task-how">
+                  <div class="task-how-label">How to do it</div>
+                  <div class="task-step"><div class="task-step-num">1</div><div class="task-step-text">Remove the water tank and take out the old filter cartridge</div></div>
+                  <div class="task-step"><div class="task-step-num">2</div><div class="task-step-text">Soak the new filter in water for 5 minutes</div></div>
+                  <div class="task-step"><div class="task-step-num">3</div><div class="task-step-text">Insert and run 500ml of water through before first use</div></div>
+                </div>
+                <div class="consumable">
+                  <div class="consumable-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ch-bg)" stroke-width="1.6" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg></div>
+                  <div style="flex:1;"><div style="font-size:11px;font-weight:500;color:var(--ink);">Water filter cartridge DLS C002</div><div style="font-size:9px;color:var(--hint);margin-top:1px;">we may earn a small fee</div></div>
+                  <div class="consumable-price">~€10</div>
+                </div>
+                <div class="task-actions">
+                  <div class="ta-skip">Skip · back Aug 13</div>
+                  <div class="ta-snooze">Snooze</div>
+                  <div class="ta-done"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg> Done</div>
+                </div>
+              </div></div>
+            </div>
+
+            <!-- Good to know -->
+            <div class="sec-head"><div class="sec-title">Good to know</div></div>
+            <div class="gtk-section">
+              <div class="gtk-card">
+                <div class="gtk-row">
+                  <div class="gtk-val" style="color:var(--ch-bg);">8y</div>
+                  <div class="gtk-body">
+                    <div class="gtk-title">Average lifespan</div>
+                    <div class="gtk-desc">With regular descaling and brew group cleaning. Neglect halves it. The Magnifica S is built to last if maintained.</div>
+                  </div>
+                </div>
+                <div class="gtk-row">
+                  <div class="gtk-val" style="color:var(--apricot);">hard</div>
+                  <div class="gtk-body">
+                    <div class="gtk-title">Belgium's water</div>
+                    <div class="gtk-desc">Most of Belgium has hard water (above 25 dH). Descale every 2 months, not the 3 months the manual suggests.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Details -->
+            <div class="sec-head"><div class="sec-title">Details</div><div class="sec-action">Edit</div></div>
+            <div class="detail-card">
+              <div class="detail-row2"><span style="font-size:10px;color:var(--mid);">Brand</span><span style="font-size:10px;font-weight:500;color:var(--ink);">De'Longhi</span></div>
+              <div class="detail-row2"><span style="font-size:10px;color:var(--mid);">Model</span><span style="font-size:10px;font-weight:500;color:var(--ink);">Magnifica S ECAM 22.110</span></div>
+              <div class="detail-row2"><span style="font-size:10px;color:var(--mid);">Source</span><span style="font-size:10px;font-weight:500;color:var(--ink);">AI scan</span></div>
+            </div>
+
+            <div class="bottom-spacer"></div>
+          </div>
+
+          <!-- Toast (shows briefly after add) -->
+          <div class="toast" id="add-toast">
+            <div class="toast-icon"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#3B6D11" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg></div>
+            <div class="toast-text"><strong>Espresso machine added.</strong> 3 tasks scheduled.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Annotations -->
+    <div style="flex:1;min-width:260px;">
+      <div style="font-size:10px;font-weight:600;letter-spacing:1.3px;text-transform:uppercase;color:#8A8070;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid rgba(26,22,18,0.08);">Test scenario walkthrough</div>
+
+      <div style="margin-bottom:20px;padding:14px;background:rgba(140,155,128,0.08);border-radius:12px;border:1px solid rgba(140,155,128,0.15);">
+        <div style="font-size:12px;font-weight:600;color:#31332C;margin-bottom:4px;">What this tests</div>
+        <div style="font-size:11px;color:#7A756D;line-height:1.55;">User scans a De'Longhi espresso machine label. Not in curated templates. Claude API generates 3 tasks (descale, clean brew group, replace filter). User sees Add Item Review with "Tasks suggested by AI" badge, reviews tasks, accepts nickname "Bean", taps "Add to my stuff." Item appears on My Stuff with AI source badge.</div>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <div style="font-size:12px;font-weight:600;color:#31332C;margin-bottom:3px;">1. Loading state</div>
+        <div style="font-size:11px;color:#7A756D;line-height:1.55;">After scan, API call takes 1-3s. Hero shows immediately (item name + category from scan). Three shimmer placeholders where task cards will appear. ii mark pulse + "nudgii is figuring out what this needs..." text.</div>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <div style="font-size:12px;font-weight:600;color:#31332C;margin-bottom:3px;">2. Add Item Review</div>
+        <div style="font-size:11px;color:#7A756D;line-height:1.55;">Tasks loaded. "Tasks suggested by AI" badge sets expectations. Each task has an X to remove. "Your first nudge" card shows when the user will first hear from nudgii. Nickname chip ("Bean"). Collapsible detail fields (brand/model pre-filled from scan). Sticky "Add to my stuff" CTA.</div>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <div style="font-size:12px;font-weight:600;color:#31332C;margin-bottom:3px;">3. S-17 Detail (after add)</div>
+        <div style="font-size:11px;color:#7A756D;line-height:1.55;">Item created with nickname "Bean." Stats: new / 0 completed / 3 tasks. Status: "All set up, first task in 7 days." "Template generated by AI" source badge. Full task expand with why/how/consumables. Brand-specific steps ("slides out from the right side panel on the Magnifica"). Good to know: Belgium's hard water advice.</div>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <div style="font-size:12px;font-weight:600;color:#31332C;margin-bottom:3px;">Brand-specific AI content</div>
+        <div style="font-size:11px;color:#7A756D;line-height:1.55;">Because the scan identified "De'Longhi Magnifica S," the AI tailored: specific descaling button combo, brew group location ("right side panel"), exact filter cartridge model (DLS C002), Belgium water hardness context. Generic items without brand get generic but still useful steps.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.test-controls .test-btn').forEach(b => {
+    if (b.textContent.includes('Theme') || b.textContent === 'Light' || b.textContent === 'Dark') return;
+    b.classList.remove('on');
+  });
+  if (name === 'loading') {
+    document.getElementById('scr-loading').classList.add('active');
+    document.querySelectorAll('.test-controls .test-btn')[1].classList.add('on');
+  } else if (name === 'review') {
+    document.getElementById('scr-review').classList.add('active');
+    document.querySelectorAll('.test-controls .test-btn')[0].classList.add('on');
+  } else if (name === 'detail') {
+    document.getElementById('scr-detail').classList.add('active');
+    document.querySelectorAll('.test-controls .test-btn')[2].classList.add('on');
+    // Show toast briefly
+    var toast = document.getElementById('add-toast');
+    toast.classList.add('show');
+    setTimeout(function(){ toast.classList.remove('show'); }, 4000);
+  }
+}
+
+function setTheme(t) {
+  document.querySelector('.test-phone').setAttribute('data-theme', t);
+  document.getElementById('tl').classList.toggle('on', t === 'light');
+  document.getElementById('td').classList.toggle('on', t === 'dark');
+}
+
+function toggleTask(id) {
+  var card = document.getElementById(id);
+  var expand = card.querySelector('.task-expand');
+  var chev = card.querySelector('.task-chev');
+  if (expand.style.maxHeight && expand.style.maxHeight !== '0px') {
+    expand.style.maxHeight = '0px';
+    chev.classList.remove('open');
+  } else {
+    expand.style.maxHeight = expand.scrollHeight + 'px';
+    chev.classList.add('open');
+  }
+}
+
+function toggleDetails() {
+  document.getElementById('detail-fields').classList.toggle('show');
+}
+
+function addItem() {
+  showScreen('detail');
+}
+</script>
+</body>
+</html>

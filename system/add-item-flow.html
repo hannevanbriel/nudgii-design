@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nudgii · Add item flow · spec</title>
+<link rel="stylesheet" href="components.css">
+<link rel="stylesheet" href="tokens.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+body{background:var(--surface);padding:0 0 80px;}
+.spec{max-width:960px;margin:0 auto;padding:32px;}
+.spec h2{font-family:'DM Serif Display',Georgia,serif;font-size:22px;font-weight:400;color:var(--ink);margin:40px 0 16px;padding-bottom:8px;border-bottom:1px solid rgba(44,40,36,0.08);}
+.spec h3{font-size:14px;font-weight:600;color:var(--ink);margin:24px 0 8px;}
+.spec p{font-size:13px;color:var(--mid);line-height:1.6;margin-bottom:12px;}
+.flow-diagram{background:var(--surface-low);border-radius:14px;padding:24px;margin:16px 0 24px;border:0.5px solid rgba(44,40,36,0.06);font-family:'DM Sans',sans-serif;}
+.flow-step{display:flex;gap:16px;margin-bottom:16px;align-items:flex-start;}
+.flow-step:last-child{margin-bottom:0;}
+.flow-num{width:28px;height:28px;border-radius:50%;background:var(--plum-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;font-weight:600;color:var(--plum);}
+.flow-body{flex:1;padding-top:4px;}
+.flow-title{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px;}
+.flow-desc{font-size:11px;color:var(--mid);line-height:1.5;}
+.flow-arrow{text-align:center;color:var(--hint);font-size:16px;margin:4px 0 4px 12px;}
+.screen-card{background:var(--surface);border:0.5px solid rgba(44,40,36,0.06);border-radius:14px;padding:20px;margin-bottom:16px;}
+.screen-card h4{font-size:13px;font-weight:600;color:var(--ink);margin:0 0 8px;}
+.screen-card .zone{margin:12px 0;padding:12px 16px;background:var(--surface-low);border-radius:10px;}
+.screen-card .zone-label{font-size:9px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--plum);margin-bottom:6px;}
+.screen-card .zone-desc{font-size:11px;color:var(--ink);line-height:1.6;}
+.decision-box{background:rgba(232,168,124,0.06);border:1px solid rgba(232,168,124,0.15);border-radius:12px;padding:16px;margin:16px 0;}
+.decision-box h4{font-size:12px;font-weight:600;color:var(--apricot);margin:0 0 8px;}
+.decision-box p{font-size:11px;color:var(--ink);line-height:1.6;margin:0;}
+.rule-list{margin:0;padding:0;list-style:none;}
+.rule-list li{font-size:11px;color:var(--ink);padding:4px 0;line-height:1.6;}
+.rule-list li::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--plum);margin-right:8px;vertical-align:middle;}
+</style>
+</head>
+<body>
+
+<nav class="nudgii-hub-nav">
+  <a class="nav-back" href="../index.html">
+    <img src="logo/ii-dark-on-light.svg" width="16" height="18" alt="" style="flex-shrink:0;border-radius:2px;">
+    <span>Design hub</span>
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">Add item flow</span>
+  <span class="nav-status progress">In progress</span>
+</nav>
+
+<div class="spec">
+  <div class="page-eyebrow">System · Add item flow · Spec · April 2026</div>
+  <h1 class="page-h1">Post-onboarding add item flow</h1>
+  <p>What happens when a user adds an item after onboarding, via the FAB. All three input paths (Browse, Scan, Tell me) converge on the same Add Item Review screen before the item is created.</p>
+  <div class="page-pills">
+    <span class="mp">Spec</span>
+    <span class="mp progress">Design needed</span>
+    <span class="mp">v1.0 · April 2026</span>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Flow overview</h2>
+
+  <div class="flow-diagram">
+    <div class="flow-step">
+      <div class="flow-num">1</div>
+      <div class="flow-body">
+        <div class="flow-title">FAB tap</div>
+        <div class="flow-desc">User taps the floating action button on any tab. Plus icon. Action sheet opens with 3 options.</div>
+      </div>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-step">
+      <div class="flow-num">2</div>
+      <div class="flow-body">
+        <div class="flow-title">Choose input path</div>
+        <div class="flow-desc">
+          <strong>Browse</strong> (S-03 pattern, single-select): category grid, search, tap an item template.<br>
+          <strong>Scan</strong>: camera opens, Claude Vision identifies the item, returns item_type + brand + model.<br>
+          <strong>Tell me</strong>: voice/text conversation, nudgii identifies what the user has.
+        </div>
+      </div>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-step">
+      <div class="flow-num">3</div>
+      <div class="flow-body">
+        <div class="flow-title">Add Item Review (new screen)</div>
+        <div class="flow-desc">Full screen. Shows what nudgii found: item name, category, task list with schedule preview, detail fields, nickname suggestion. User reviews before committing. "Add to my stuff" CTA at bottom.</div>
+      </div>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-step">
+      <div class="flow-num">4</div>
+      <div class="flow-body">
+        <div class="flow-title">Confirmation</div>
+        <div class="flow-desc">Toast: "Boiler added. 3 tasks scheduled." User lands on My Stuff tab. Item appears with subtle "new" badge (category wash pulse, fades after first view).</div>
+      </div>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-step">
+      <div class="flow-num">5</div>
+      <div class="flow-body">
+        <div class="flow-title">Item detail (optional)</div>
+        <div class="flow-desc">User can tap the newly added item on My Stuff to see the full S-17 detail screen with all tasks, history (empty), and detail fields.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Add Item Review screen</h2>
+
+  <p>This is the key new screen. It shows the user what nudgii plans to create before they commit. Like S-04 Review during onboarding, but for a single item post-onboarding.</p>
+
+  <div class="screen-card">
+    <h4>Screen structure</h4>
+
+    <div class="zone">
+      <div class="zone-label">Hero zone</div>
+      <div class="zone-desc">Category wash background (full width, 120px height). Category icon (44px circle, white overlay). Item name in DM Serif Display, editable (tap to rename). Category label below. If AI scan: brand + model shown. Back arrow top-left.</div>
+    </div>
+
+    <div class="zone">
+      <div class="zone-label">Task preview</div>
+      <div class="zone-desc">"nudgii found X tasks" summary line. Task cards (collapsed, same style as S-17). Each shows: task name, cadence, next due date. Tappable to preview "Why it matters." Removable (X button, with confirm). "Add custom task" ghost link at bottom.</div>
+    </div>
+
+    <div class="zone">
+      <div class="zone-label">First nudge preview</div>
+      <div class="zone-desc">"Your first nudge" highlight card. Shows the earliest task: name + "in X days/weeks." Apricot wash background. Communicates when nudgii will first reach out. Builds trust: "I know when to remind you."</div>
+    </div>
+
+    <div class="zone">
+      <div class="zone-label">Detail fields (optional)</div>
+      <div class="zone-desc">Collapsible "Add details" section. Fields vary by item type (see item-templates.html). Brand and model pre-filled if from AI scan. All optional at this stage. User can fill in later on S-17.</div>
+    </div>
+
+    <div class="zone">
+      <div class="zone-label">Nickname suggestion</div>
+      <div class="zone-desc">If item type has a personality name suggestion: show as a chip below the item name. "Want to call it Bubs?" with tap-to-accept. Dismissible. One-time offer. After AI scan: brand-based suggestion possible ("The Bosch").</div>
+    </div>
+
+    <div class="zone">
+      <div class="zone-label">Sticky bottom: CTA</div>
+      <div class="zone-desc">"Add to my stuff" plum CTA button. Full width. Sticky to bottom (same SafeArea pattern as onboarding). Below: "Edit tasks" ghost link for users who want to customize before adding.</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Item limit behavior (item 11+)</h2>
+
+  <div class="decision-box">
+    <h4>Free tier: 10 items max</h4>
+    <p>When adding item 11+, the Add Item Review screen shows a soft inline message between the task preview and the CTA:
+    <br><br>
+    <strong>"This will be your 11th item. Free plan covers 10."</strong>
+    <br><br>
+    Below the message: "Go Pro" link (not a button, not a blocker).
+    <br><br>
+    The item still gets added. It appears on My Stuff in paused state (muted, "Pro" pill, no reminders sent). User chooses which 10 stay active, or upgrades. Never block. Never guilt. Never hide data.</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Template resolution: curated vs AI-generated</h2>
+
+  <p>Every item goes through a template lookup before reaching the Add Item Review screen. Two paths:</p>
+
+  <div class="screen-card">
+    <h4>Curated template match</h4>
+    <div class="zone">
+      <div class="zone-desc">Item type exists in the curated library (see <a href="item-templates.html">item-templates.html</a>). Tasks, cadences, why/how content are pre-defined. Instant, no API call needed. Source badge: none (default experience).</div>
+    </div>
+  </div>
+
+  <div class="screen-card">
+    <h4>No match: AI-generated template</h4>
+    <div class="zone">
+      <div class="zone-desc">Item type not in curated library. Claude API generates tasks on the fly (1-3 second loading state). Tasks appear on Add Item Review with "Tasks suggested by AI" badge. User reviews, edits, removes, or adds tasks before confirming. Full spec: <a href="ai-template-generation.html">ai-template-generation.html</a>.</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Path-specific behavior</h2>
+
+  <h3>Browse path (FAB > Browse)</h3>
+  <ul class="rule-list">
+    <li>Opens S-03 pattern in single-select mode (not multi-select like onboarding)</li>
+    <li>User taps one item from the template library</li>
+    <li>If curated template exists: transitions to Add Item Review with template data pre-filled</li>
+    <li>If no template match (user searched for something custom): AI generates template, transitions to Add Item Review with "AI-suggested" badge</li>
+    <li>Category auto-assigned from template or AI</li>
+  </ul>
+
+  <h3>Scan path (FAB > Scan)</h3>
+  <ul class="rule-list">
+    <li>Camera opens immediately (no intermediate screen)</li>
+    <li>User photographs the item (appliance label, car dashboard, plant leaf)</li>
+    <li>Claude Vision API returns: item_type, brand, model, tasks[]</li>
+    <li>Transitions to Add Item Review with scan results pre-filled</li>
+    <li>Brand + model shown in hero zone. "Identified by AI scan" source badge.</li>
+    <li>If scan fails: error toast + "Try again" or "Add manually" options</li>
+    <li>Free tier: 3 scans/month. Counter shown before scan.</li>
+  </ul>
+
+  <h3>Tell me path (FAB > Tell me)</h3>
+  <ul class="rule-list">
+    <li>Opens conversation UI (S-02 pattern)</li>
+    <li>User describes what they have via voice or text</li>
+    <li>nudgii identifies the item and suggests tasks</li>
+    <li>When user confirms, transitions to Add Item Review</li>
+    <li>If item type is unknown: nudgii asks for category, creates item with zero template tasks</li>
+    <li>Free tier: 3 voice sessions/month.</li>
+  </ul>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>After adding: My Stuff integration</h2>
+
+  <ul class="rule-list">
+    <li>New item appears at the top of the appropriate status group ("On track" for new items with all future tasks)</li>
+    <li>"New" badge: subtle category wash pulse animation on the item card, fades after first view (600ms pulse, 3 cycles, then static)</li>
+    <li>Tasks immediately appear on Today tab if any are due within the current window</li>
+    <li>Plan tab shows the item's tasks projected across future months</li>
+    <li>First push notification for this item: scheduled based on earliest task due date</li>
+  </ul>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Edge cases</h2>
+
+  <div class="screen-card">
+    <h4>Duplicate item</h4>
+    <div class="zone">
+      <div class="zone-desc">If user adds an item that matches an existing item (same type + similar brand/model): Add Item Review shows amber inline warning: "You already have a Bosch dishwasher. Add another?" with "Yes, add" and "Cancel" options. Allows duplicates (some homes have two dishwashers).</div>
+    </div>
+  </div>
+
+  <div class="screen-card">
+    <h4>Unknown item type</h4>
+    <div class="zone">
+      <div class="zone-desc">No template match. Add Item Review shows: item name (user-provided), category picker chips, zero tasks. "I don't know this one yet. Want to add a task?" with "Add task" CTA. User can create custom tasks with their own cadence.</div>
+    </div>
+  </div>
+
+  <div class="screen-card">
+    <h4>Scan failure</h4>
+    <div class="zone">
+      <div class="zone-desc">Camera returns no match or low confidence. Toast: "Couldn't identify this item." Options: "Try again" (re-scan), "Tell me instead" (switch to conversation), "Add manually" (empty Add Item Review with category picker).</div>
+    </div>
+  </div>
+
+  <div class="screen-card">
+    <h4>Cancel mid-flow</h4>
+    <div class="zone">
+      <div class="zone-desc">Back button on Add Item Review: returns to previous screen (Browse/Camera/Conversation). No item created. No data lost (can resume). No "are you sure" dialog (lightweight, not a form submission).</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Design status</h2>
+
+  <p>This flow spec defines the behavior and content. The Add Item Review screen needs a hi-fi mockup (S-XX, number TBD). It should reuse:</p>
+  <ul class="rule-list">
+    <li>Entity card pattern from S-04 Review (category wash, icon, DM Serif name)</li>
+    <li>Task card pattern from S-17 (collapsed rows with cadence + next due)</li>
+    <li>Sticky bottom CTA from onboarding screens</li>
+    <li>Toast pattern from task-interactions.html</li>
+  </ul>
+
+</div>
+
+</body>
+</html>

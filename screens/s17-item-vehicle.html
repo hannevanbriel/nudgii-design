@@ -3,439 +3,703 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>nudgii · S-17 Car (Vehicle)</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>nudgii · S-17 Vehicle (Car) · hi-fi</title>
+<link rel="stylesheet" href="../system/components.css">
+<link rel="stylesheet" href="../system/tokens.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
-:root{
-  --surface:#FBF9F4;--surface-low:#F5F4ED;--surface-high:#E8E9E0;--surface-lowest:#FFFFFF;
-  --ink:#31332C;--mid:#7A756D;--hint:#A09A90;
-  --plum:#9B7FD4;--plum-fg:#FAF8FF;--plum-wash:rgba(155,127,212,0.10);
-  --apricot:#E8A87C;--apricot-wash:rgba(232,168,124,0.12);
-  --cat-bg:#8E9A94;--cat-wash:rgba(142,154,148,0.14);--cat-ic:#5A6E66;
-  --sage:#8C9B80;--sage-wash:rgba(140,155,128,0.14);
-  --yellow:#E8B86D;--yellow-wash:rgba(232,184,109,0.14);
-  --r:12px;--rs:8px;
-}
-[data-theme="dark"]{
-  --surface:#1C1B18;--surface-low:#252420;--surface-high:#33322C;--surface-lowest:#161512;
-  --ink:#F0EDE6;--mid:#A8A29A;--hint:#787068;
-  --plum:#B8A0E8;--plum-fg:#1C1B18;--apricot:#F0B890;
-  --cat-bg:#B0BEB8;--cat-wash:rgba(176,190,184,0.15);--cat-ic:#B0BEB8;
-  --sage:#A8B89C;--sage-wash:rgba(168,184,156,0.15);
-}
-*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;}
-body{font-family:'Manrope',sans-serif;background:#0E0D0B;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:14px 10px 50px;color:var(--ink);}
-.ctrls{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:14px;position:sticky;top:0;z-index:200;background:rgba(14,13,11,0.92);backdrop-filter:blur(10px);padding:8px 14px;border-radius:12px;max-width:480px;width:100%;}
-.cb{font-family:'Manrope',sans-serif;font-size:10px;font-weight:500;padding:4px 12px;border-radius:6px;border:1px solid rgba(255,255,255,0.08);background:transparent;color:rgba(255,255,255,0.35);cursor:pointer;transition:all 150ms;}
-.cb.on{background:var(--plum);color:var(--plum-fg);border-color:var(--plum);}
-.cl{font-size:8px;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,0.15);padding:3px 3px 0;font-weight:500;}
-.ph{width:390px;height:844px;border-radius:50px;overflow:hidden;position:relative;background:var(--surface);box-shadow:0 0 0 1px rgba(255,255,255,0.03),0 24px 80px rgba(49,51,44,0.45);}
-.notch{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:102px;height:8px;border-radius:100px;background:rgba(49,51,44,0.06);z-index:60;}
-[data-theme="dark"] .notch{background:rgba(255,255,255,0.08);}
-.scroll{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;}
-.scroll::-webkit-scrollbar{display:none;}
-.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
-.section-title{font-family:'Noto Serif',serif;font-size:18px;color:var(--ink);}
-.add-link{display:flex;align-items:center;gap:4px;font-size:10px;font-weight:500;color:var(--plum);cursor:pointer;}
-.task-card{background:var(--surface);border-radius:var(--r);padding:14px;margin-bottom:8px;cursor:pointer;}
-.task-row{display:flex;align-items:center;gap:12px;}
-.icon-circle{width:40px;height:40px;border-radius:50%;background:var(--cat-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.expand{max-height:0;overflow:hidden;transition:max-height 350ms ease;}
-.chevron{opacity:0.35;transition:transform 200ms;flex-shrink:0;}
-.why-box{margin-top:14px;background:var(--cat-wash);border-radius:var(--rs);padding:14px;}
-.how-box{margin-top:8px;background:var(--surface-low);border-radius:var(--rs);padding:14px;}
-.step{display:flex;gap:10px;margin-bottom:12px;}.step:last-child{margin-bottom:0;}
-.step-num{width:22px;height:22px;border-radius:50%;background:var(--cat-wash);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--cat-bg);flex-shrink:0;}
-.actions{display:flex;align-items:center;gap:8px;margin-top:14px;justify-content:flex-end;}
-.btn-skip{font-size:11px;font-weight:500;color:var(--hint);padding:7px 6px;cursor:pointer;background:none;border:none;}
-.btn-snooze{display:inline-flex;font-size:11px;font-weight:500;color:var(--ink);background:var(--surface-low);padding:7px 14px;border-radius:100px;cursor:pointer;border:none;}
-.btn-done{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;color:var(--surface);background:var(--cat-bg);padding:7px 16px;border-radius:100px;cursor:pointer;border:none;}
-.stat-box{flex:1;background:var(--surface-low);border-radius:var(--rs);padding:10px;text-align:center;}
-.stat-val{font-family:'Noto Serif',serif;font-size:18px;font-weight:500;line-height:1;}
-.stat-label{font-size:8px;color:var(--mid);margin-top:2px;letter-spacing:0.03em;text-transform:uppercase;}
-.detail-row{display:flex;justify-content:space-between;padding:13px 16px;background:var(--surface);}
-.nav-pill{position:absolute;top:52px;border-radius:50%;background:rgba(251,249,244,0.85);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;width:36px;height:36px;}
-[data-theme="dark"] .nav-pill{background:rgba(28,27,24,0.85);}
-.tip{display:none;position:absolute;top:calc(100% + 4px);left:16px;right:16px;background:var(--ink);color:var(--surface);font-size:10px;line-height:1.5;padding:12px 14px;border-radius:var(--rs);z-index:10;}
+body{background:#CBC5BB;padding:0 0 80px;}
+.s17-controls{display:flex;gap:4px;align-items:center;margin-bottom:16px;}
+.s17-ctrl-label{font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#A09888;margin-right:4px;}
+.s17-ctrl-btn{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;padding:5px 14px;border-radius:6px;border:1px solid rgba(26,22,18,0.12);background:transparent;color:#8A8070;cursor:pointer;transition:all 120ms;}
+.s17-ctrl-btn:hover{border-color:rgba(26,22,18,0.20);}
+.s17-ctrl-btn.on{background:#9B7FD4;color:#FAF8FF;border-color:#9B7FD4;}
+.s17-variant-nav{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:16px;}
+.s17-variant-link{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;padding:4px 12px;border-radius:6px;color:#8A8070;text-decoration:none;border:1px solid rgba(26,22,18,0.08);}
+.s17-variant-link:hover{border-color:rgba(26,22,18,0.16);}
+.s17-variant-link.active{background:#9B7FD4;color:#FAF8FF;border-color:#9B7FD4;font-weight:600;}
 
-/* Mileage input */
-.mileage-input{background:var(--surface-low);border-radius:var(--rs);padding:14px;display:flex;align-items:center;gap:12px;margin-top:12px;cursor:pointer;}
-.mileage-input:active{background:var(--surface-high);}
-.mileage-val{font-family:'Noto Serif',serif;font-size:22px;font-weight:500;color:var(--ink);}
+.scr{display:flex;flex-direction:column;flex:1;overflow:hidden;background:var(--surface);}
+.scr-scroll{flex:1;overflow-y:auto;scrollbar-width:none;}
+.scr-scroll::-webkit-scrollbar{display:none;}
+
+/* Hero */
+.hero{position:relative;height:190px;background:var(--cv-wash);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;}
+.hero-icon{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.45);display:flex;align-items:center;justify-content:center;}
+.hero-add-photo{font-size:9px;color:var(--cv-bg);opacity:0.7;font-weight:500;}
+.hero-nav{position:absolute;top:10px;left:16px;right:16px;display:flex;justify-content:space-between;}
+.hero-btn{width:32px;height:32px;border-radius:10px;background:rgba(255,255,255,0.65);display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(8px);}
+.hero-fade{position:absolute;bottom:0;left:0;right:0;height:50px;background:linear-gradient(to top,var(--surface),transparent);}
+
+/* Identity */
+.item-id{padding:16px 20px 0;}
+.item-name{font-family:'DM Serif Display',Georgia,serif;font-size:24px;font-weight:400;line-height:1.1;letter-spacing:-0.02em;color:var(--ink);}
+.item-meta{font-size:11px;color:var(--mid);margin-top:4px;}
+
+/* Mileage tracker (vehicle-unique) */
+.mileage-card{display:flex;align-items:center;gap:12px;margin:12px 20px 0;padding:12px 14px;background:var(--surface-low);border-radius:12px;cursor:pointer;border:0.5px solid rgba(44,40,36,0.06);}
+.mileage-card:active{background:var(--surface-high);}
+.mileage-icon{width:36px;height:36px;border-radius:50%;background:var(--cv-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.mileage-val{font-family:'DM Serif Display',Georgia,serif;font-size:20px;font-weight:400;color:var(--ink);}
 .mileage-unit{font-size:11px;color:var(--mid);margin-left:2px;}
+.mileage-sub{font-size:9px;color:var(--mid);margin-top:1px;}
 
-/* Countdown card */
-.countdown{display:flex;gap:10px;margin-top:12px;}
-.countdown-card{flex:1;background:var(--surface-low);border-radius:var(--rs);padding:12px;text-align:center;}
-.countdown-val{font-family:'Noto Serif',serif;font-size:16px;font-weight:500;color:var(--ink);}
-.countdown-label{font-size:8px;color:var(--mid);margin-top:3px;letter-spacing:0.03em;text-transform:uppercase;}
+/* Countdown cards (vehicle-unique) */
+.countdown-row{display:flex;gap:8px;padding:12px 20px 0;}
+.countdown-card{flex:1;background:var(--surface-low);border-radius:12px;padding:10px 8px;text-align:center;border:0.5px solid rgba(44,40,36,0.06);}
+.countdown-card.warn{background:var(--apricot-wash);border-color:rgba(232,168,124,0.15);}
+.countdown-card.sage{background:rgba(140,155,128,0.10);border-color:rgba(140,155,128,0.10);}
+.countdown-val{font-family:'DM Serif Display',Georgia,serif;font-size:18px;font-weight:400;color:var(--ink);}
+.countdown-card.warn .countdown-val{color:var(--apricot);}
+.countdown-card.sage .countdown-val{color:var(--sage);}
+.countdown-label{font-size:7.5px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--mid);margin-top:2px;}
 
-/* Snooze sheet */
-.snooze-overlay{display:none;position:absolute;inset:0;z-index:100;}
-.snooze-overlay.open{display:block;}
-.snooze-backdrop{position:absolute;inset:0;background:rgba(49,51,44,0.3);}
-.snooze-panel{position:absolute;bottom:0;left:0;right:0;background:var(--surface);border-radius:20px 20px 0 0;padding:12px 24px 34px;transform:translateY(100%);transition:transform 350ms cubic-bezier(0.32,0.72,0,1);}
-.snooze-overlay.open .snooze-panel{transform:translateY(0);}
-.snooze-handle{width:36px;height:4px;border-radius:2px;background:var(--surface-high);margin:0 auto 16px;}
-.snooze-title{font-family:'Noto Serif',serif;font-size:14px;color:var(--ink);margin-bottom:12px;}
-.snooze-opt{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--surface-high);cursor:pointer;}
-.snooze-opt:last-child{border-bottom:none;}
-.snooze-opt-l{font-size:13px;font-weight:500;color:var(--ink);}
-.snooze-opt-r{font-size:11px;color:var(--mid);}
-.snooze-opt-pick{font-size:13px;color:var(--plum);font-weight:500;cursor:pointer;padding:13px 0;}
-/* Snoozed state */
+/* Status strip */
+.status-strip{display:flex;align-items:center;gap:8px;margin:12px 20px 0;padding:9px 14px;background:var(--surface-low);border-radius:10px;}
+.status-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.status-dot.apricot{background:var(--apricot);}
+.status-dot.sage{background:var(--sage);}
+.status-text{font-size:11px;color:var(--ink);flex:1;}
+.status-next{font-size:10px;color:var(--mid);}
+
+/* Section headers */
+.sec-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px 10px;}
+.sec-title{font-family:'DM Serif Display',Georgia,serif;font-size:16px;font-weight:400;color:var(--ink);}
+.sec-action{font-size:10px;font-weight:500;color:var(--plum);cursor:pointer;display:flex;align-items:center;gap:4px;}
+
+/* Task cards */
+.task-card{margin:0 16px 8px;background:var(--surface);border:0.5px solid rgba(44,40,36,0.06);border-radius:14px;overflow:hidden;transition:all 200ms ease;}
+.task-card.done-state{opacity:0.5;}
+.task-card.done-state .task-title{text-decoration:line-through;}
 .task-card.snoozed .task-title{opacity:0.5;}
 .task-card.snoozed .task-sub{opacity:0.5;}
-.task-card.snoozed .icon-circle{opacity:0.4;}
-.task-card.snoozed .chevron{opacity:0.15;}
-.task-card.snoozed .overdue{display:none;}
+.task-card.snoozed .task-icon{opacity:0.4;}
+.task-row{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;}
+.task-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--cv-wash);}
+.task-body{flex:1;min-width:0;}
+.task-title{font-size:13px;font-weight:500;color:var(--ink);line-height:1.3;}
+.task-sub{font-size:10px;color:var(--mid);margin-top:1px;}
 .snz-label{font-size:9px;font-weight:500;color:var(--plum);opacity:0.7;margin-top:3px;}
-/* Toast */
-.s17-toast{position:absolute;bottom:24px;left:16px;right:16px;z-index:110;background:var(--surface-low);border-radius:12px;padding:12px 16px;font-size:13px;display:flex;align-items:center;gap:10px;box-shadow:0 6px 24px rgba(49,51,44,0.16), 0 1px 4px rgba(49,51,44,0.08);opacity:0;transform:translateY(12px);transition:opacity 180ms ease, transform 350ms cubic-bezier(0.34,1.4,0.64,1);pointer-events:none;}
-.s17-toast.show{opacity:1;transform:translateY(0);pointer-events:auto;}
-.s17-toast-icon{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.s17-toast-icon svg{width:12px;height:12px;}
-.s17-toast-icon.snooze{background:rgba(232,168,124,0.15);color:#C8784A;}
-.s17-toast-icon.done{background:rgba(59,109,17,0.12);color:#3B6D11;}
-.s17-toast-icon.skip{background:rgba(155,127,212,0.12);color:#9B7FD4;}
-.s17-toast-text{font-size:13px;font-weight:500;color:var(--ink);flex:1;}
-.s17-toast-undo{font-size:11px;font-weight:600;color:var(--plum);cursor:pointer;padding:4px 8px;background:none;border:none;flex-shrink:0;}
-/* Confetti */
-@keyframes snooze-pop{0%{opacity:1;transform:translate(0,0) scale(1);}100%{opacity:0;transform:translate(var(--sx),var(--sy)) scale(0.4);}}
-.snooze-confetti{position:absolute;width:6px;height:6px;border-radius:50%;pointer-events:none;z-index:120;animation:snooze-pop 600ms cubic-bezier(0.34,1.56,0.64,1) forwards;}
+.task-badge{font-size:9px;font-weight:500;flex-shrink:0;}
+.task-badge.apricot{color:var(--apricot);}
+.task-badge.neutral{color:var(--mid);}
+.task-badge.sage{color:var(--sage);}
+.task-chev{width:16px;height:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;opacity:0.3;transition:transform 200ms ease;}
+.task-chev.open{transform:rotate(180deg);}
+
+/* Task expand */
+.task-expand{max-height:0;overflow:hidden;transition:max-height 350ms ease;}
+.task-expand-inner{padding:0 14px 14px;}
+
+/* Quick info inside expand */
+.task-info-row{display:flex;gap:6px;margin-bottom:10px;}
+.task-info-box{flex:1;background:var(--surface-low);border-radius:10px;padding:8px 6px;text-align:center;}
+.task-info-val{font-family:'DM Serif Display',Georgia,serif;font-size:15px;color:var(--ink);}
+.task-info-label{font-size:7px;font-weight:600;letter-spacing:0.4px;text-transform:uppercase;color:var(--mid);margin-top:1px;}
+
+/* Why card */
+.task-why{background:rgba(232,168,124,0.06);border-radius:10px;padding:12px 14px;margin-bottom:10px;}
+.task-why-label{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--apricot);margin-bottom:4px;}
+.task-why-text{font-size:11px;color:var(--ink);line-height:1.6;}
+
+/* Steps */
+.task-how{margin-bottom:10px;padding:12px 14px;background:var(--surface-low);border-radius:10px;}
+.task-how-label{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--plum);margin-bottom:10px;}
+.task-step{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;}
+.task-step:last-child{margin-bottom:0;}
+.task-step-num{width:22px;height:22px;border-radius:50%;background:var(--plum-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;font-weight:600;color:var(--plum);}
+.task-step-text{font-size:11px;color:var(--ink);line-height:1.5;padding-top:2px;}
+
+/* Task history */
+.task-hist{margin-bottom:6px;padding:10px 12px;background:var(--surface-low);border-radius:10px;}
+.task-hist-label{font-size:9px;font-weight:600;color:var(--mid);margin-bottom:6px;}
+.task-hist-skip{font-weight:400;color:var(--apricot);}
+.task-hist-entry{display:flex;align-items:center;gap:8px;padding:3px 0;font-size:10px;color:var(--ink);}
+.task-hist-dot{width:5px;height:5px;border-radius:50%;background:var(--sage);opacity:0.5;flex-shrink:0;}
+.task-hist-note{color:var(--mid);margin-left:auto;font-size:9px;}
+
+/* Actions */
+.task-actions{display:flex;align-items:center;gap:6px;margin-top:10px;padding-top:10px;border-top:0.5px solid rgba(44,40,36,0.06);}
+.ta-skip{font-size:10px;color:var(--hint);cursor:pointer;padding:6px 10px;margin-right:auto;}
+.ta-snooze{font-size:10px;font-weight:500;color:var(--ink);cursor:pointer;padding:7px 14px;border-radius:100px;background:var(--surface-low);}
+.ta-done{font-size:10px;font-weight:500;color:white;cursor:pointer;padding:7px 16px;border-radius:100px;background:var(--plum);display:flex;align-items:center;gap:4px;box-shadow:0 2px 8px rgba(155,127,212,0.25);}
+
+/* Ask nudgii */
+.task-ask{margin-top:10px;display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--surface-low);border-radius:10px;cursor:pointer;}
+.task-ask-icon{width:22px;height:22px;border-radius:6px;background:var(--plum-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.task-ask-text{font-size:10px;color:var(--mid);font-style:italic;flex:1;}
+.task-ask-mic{width:22px;height:22px;border-radius:50%;background:var(--plum-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+/* Done inline state */
+.task-done-msg{display:none;padding:10px 14px;text-align:center;}
+.task-done-msg.show{display:block;}
+.task-done-text{font-family:'DM Serif Display',Georgia,serif;font-style:italic;font-size:13px;color:var(--ink);margin-bottom:2px;}
+.task-done-sub{font-size:9px;color:var(--mid);}
+.task-done-undo{font-size:10px;font-weight:500;color:var(--plum);cursor:pointer;margin-top:6px;display:inline-block;}
+
+/* Good to know (vehicle-unique) */
+.gtk-section{padding:0 16px 16px;}
+.gtk-card{background:var(--surface-low);border-radius:12px;border:0.5px solid rgba(44,40,36,0.06);overflow:hidden;}
+.gtk-row{display:flex;gap:14px;padding:14px;border-bottom:0.5px solid rgba(44,40,36,0.04);}
+.gtk-row:last-child{border-bottom:none;}
+.gtk-val{flex-shrink:0;width:52px;text-align:right;font-family:'DM Serif Display',Georgia,serif;font-size:18px;font-weight:400;line-height:1;}
+.gtk-body{flex:1;padding-top:1px;}
+.gtk-title{font-size:11px;font-weight:500;color:var(--ink);}
+.gtk-desc{font-size:10px;color:var(--mid);margin-top:3px;line-height:1.5;}
+
+/* Documents grid (vehicle-unique) */
+.docs-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:0 16px;}
+.doc-card{background:var(--surface);border:0.5px solid rgba(44,40,36,0.06);border-radius:12px;padding:12px;cursor:pointer;text-align:center;}
+.doc-thumb{width:100%;aspect-ratio:3/4;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;}
+.doc-name{font-size:10px;font-weight:500;color:var(--ink);}
+.doc-date{font-size:8px;color:var(--mid);margin-top:2px;}
+
+/* History */
+.hist-card{margin:0 16px 8px;background:var(--surface);border:0.5px solid rgba(44,40,36,0.06);border-radius:12px;overflow:hidden;}
+.hist-row{display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;border-bottom:0.5px solid rgba(44,40,36,0.04);}
+.hist-row:last-child{border-bottom:none;}
+.hist-check{width:20px;height:20px;border-radius:50%;background:rgba(59,109,17,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hist-info{flex:1;}
+.hist-name{font-size:11px;color:var(--ink);}
+.hist-date{font-size:9px;color:var(--mid);margin-top:1px;}
+.hist-arrow{opacity:0.2;}
+
+/* Details */
+.detail-card{margin:0 16px;background:var(--surface);border:0.5px solid rgba(44,40,36,0.06);border-radius:12px;overflow:hidden;}
+.detail-row{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;border-bottom:0.5px solid rgba(44,40,36,0.04);}
+.detail-row:last-child{border-bottom:none;}
+.detail-label{font-size:10px;color:var(--mid);}
+.detail-val{font-size:10px;font-weight:500;color:var(--ink);}
+.detail-val.warn{color:var(--apricot);}
+
+.bottom-spacer{height:40px;}
+
+/* Dark mode */
+[data-theme="dark"] .phone{background:#1C1B18;box-shadow:0 0 0 1px rgba(255,255,255,0.03),0 24px 80px rgba(0,0,0,0.5);}
+[data-theme="dark"] .scr{background:var(--surface);}
+[data-theme="dark"] .notch .np{background:rgba(255,255,255,0.08);}
+[data-theme="dark"] .sbar span{color:#F0EDE6;}
+[data-theme="dark"] .sbar .batt{background:#F0EDE6;}
+[data-theme="dark"] .hero{background:var(--cv-wash);}
+[data-theme="dark"] .hero-icon{background:rgba(255,255,255,0.10);}
+[data-theme="dark"] .hero-btn{background:rgba(255,255,255,0.10);}
+[data-theme="dark"] .hero-btn svg{stroke:var(--ink);}
+[data-theme="dark"] .mileage-card{background:var(--surface-high);border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .countdown-card{background:var(--surface-high);border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .countdown-card.warn{background:var(--apricot-wash);border-color:rgba(240,184,144,0.15);}
+[data-theme="dark"] .countdown-card.sage{background:rgba(168,184,156,0.12);border-color:rgba(168,184,156,0.10);}
+[data-theme="dark"] .status-strip{background:var(--surface-high);}
+[data-theme="dark"] .task-card{background:var(--surface-high);border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .task-info-box{background:var(--surface-low);}
+[data-theme="dark"] .task-why{background:rgba(240,184,144,0.06);}
+[data-theme="dark"] .task-how{background:var(--surface-low);}
+[data-theme="dark"] .task-hist{background:var(--surface-low);}
+[data-theme="dark"] .task-step-num{background:rgba(184,160,232,0.15);}
+[data-theme="dark"] .task-actions{border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .ta-snooze{background:var(--surface-low);}
+[data-theme="dark"] .ta-done{background:var(--plum);box-shadow:0 2px 8px rgba(184,160,232,0.35);}
+[data-theme="dark"] .task-ask{background:var(--surface-low);}
+[data-theme="dark"] .task-ask-icon{background:rgba(184,160,232,0.15);}
+[data-theme="dark"] .task-ask-mic{background:rgba(184,160,232,0.15);}
+[data-theme="dark"] .gtk-card{background:var(--surface-high);border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .gtk-row{border-color:rgba(255,255,255,0.04);}
+[data-theme="dark"] .doc-card{background:var(--surface-high);border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .hist-card{background:var(--surface-high);border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .hist-check{background:rgba(106,174,64,0.12);}
+[data-theme="dark"] .hist-row{border-color:rgba(255,255,255,0.04);}
+[data-theme="dark"] .detail-card{background:var(--surface-high);border-color:rgba(255,255,255,0.06);}
+[data-theme="dark"] .detail-row{border-color:rgba(255,255,255,0.04);}
 </style>
 </head>
 <body>
 
-<nav style="background:#F5F0E8;border-bottom:1px solid rgba(26,22,18,0.12);padding:0 32px;display:flex;align-items:center;gap:16px;height:48px;position:sticky;top:0;z-index:200;font-family:'Manrope',sans-serif;">
-  <a href="../index.html" style="font-size:13px;color:#8A8070;text-decoration:none;display:flex;align-items:center;gap:8px;">
-    <svg width="16" height="18" viewBox="0 0 626 700" xmlns="http://www.w3.org/2000/svg"><path fill="#9B7FD4" d="M125.18,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0C56.05,700.13,0,642.43,0,571.26V128.87C0,57.7,56.05,0,125.18,0Z"/><path fill="#2D1F4A" d="M450.96,0h0c69.14,0,125.18,57.7,125.18,128.87v442.39c0,71.17-56.05,128.87-125.18,128.87h0c-69.14,0-125.18-57.7-125.18-128.87V128.87C325.78,57.7,381.83,0,450.96,0Z"/><circle fill="#E8A87C" cx="535.96" cy="119.29" r="90"/></svg>
-    Design hub</a>
-  <span style="color:rgba(26,22,18,0.12);">/</span>
-  <a href="s17-item-detail-prototype.html" style="font-size:13px;color:#8A8070;text-decoration:none;">S-17</a>
-  <span style="color:rgba(26,22,18,0.12);">/</span>
-  <span style="font-size:13px;font-weight:500;">Car</span>
-  <span style="margin-left:auto;font-size:10px;font-weight:500;padding:3px 10px;border-radius:100px;background:rgba(133,79,11,0.10);color:#854F0B;border:1px solid rgba(133,79,11,0.20);">Prototype</span>
+<nav class="nudgii-hub-nav">
+  <a class="nav-back" href="../index.html">
+    <img src="../system/logo/ii-dark-on-light.svg" width="16" height="18" alt="" style="flex-shrink:0;border-radius:2px;">
+    <span>Design hub</span>
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">S-17 : Vehicle (Car)</span>
+  <span class="nav-status progress">In progress</span>
 </nav>
 
-<div class="ctrls"><span class="cl">Vehicle</span><button class="cb on" onclick="theme('light')" id="tl">Light</button><button class="cb" onclick="theme('dark')" id="td">Dark</button></div>
-<div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:14px;max-width:480px;width:100%;">
-  <a href="s17-item-home-appliance.html" style="font-size:10px;font-weight:500;padding:4px 12px;border-radius:6px;color:rgba(255,255,255,0.25);text-decoration:none;">Boiler</a>
-  <a href="s17-item-vehicle.html" style="font-size:10px;font-weight:600;padding:4px 12px;border-radius:6px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);text-decoration:none;">Car</a>
-  <a href="s17-item-plant.html" style="font-size:10px;font-weight:500;padding:4px 12px;border-radius:6px;color:rgba(255,255,255,0.25);text-decoration:none;">Olive tree</a>
-  <a href="s17-item-subscription.html" style="font-size:10px;font-weight:500;padding:4px 12px;border-radius:6px;color:rgba(255,255,255,0.25);text-decoration:none;">Insurance</a>
-  <a href="s17-item-small-appliance.html" style="font-size:10px;font-weight:500;padding:4px 12px;border-radius:6px;color:rgba(255,255,255,0.25);text-decoration:none;">Dishwasher</a>
-  <a href="s17-item-garden-tool.html" style="font-size:10px;font-weight:500;padding:4px 12px;border-radius:6px;color:rgba(255,255,255,0.25);text-decoration:none;">Lawn</a>
+<div style="max-width:980px;margin:0 auto;padding:32px 32px 0;">
+  <div class="page-eyebrow">S-17 · item + task detail · Vehicle variant · Hi-fi · 390x844px (iPhone 15) · April 2026</div>
+  <h1 class="page-h1">Vehicle: Volkswagen Golf</h1>
+  <p class="page-sub">Vehicle item detail with mileage tracker, MOT/insurance/tyre countdown cards, documents grid, and "Good to know" section. Tasks use the unified v2.0 expand pattern (why, how, history, actions, ask nudgii).</p>
+  <div class="page-pills">
+    <span class="mp hifi">Hi-fi</span>
+    <span class="mp progress">My Stuff flow</span>
+    <span class="mp">S-17 variant</span>
+    <span class="mp">v2.0 · April 2026</span>
+  </div>
+
+  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:16px;">
+    <div class="s17-controls" style="margin-bottom:0;">
+      <span class="s17-ctrl-label">Theme</span>
+      <button class="s17-ctrl-btn on" onclick="setTheme('light')">Light</button>
+      <button class="s17-ctrl-btn" onclick="setTheme('dark')">Dark</button>
+    </div>
+    <div class="s17-variant-nav">
+      <a href="s17-item-detail-hifi.html" class="s17-variant-link">Boiler</a>
+      <a href="s17-item-vehicle.html" class="s17-variant-link active">Car</a>
+      <a href="s17-item-plant.html" class="s17-variant-link">Olive tree</a>
+      <a href="s17-item-subscription.html" class="s17-variant-link">Insurance</a>
+      <a href="s17-item-small-appliance.html" class="s17-variant-link">Dishwasher</a>
+      <a href="s17-item-garden-tool.html" class="s17-variant-link">Lawn</a>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap;">
+
+    <div class="phone s17-phone" data-theme="light">
+      <div class="notch"><div class="np"></div></div>
+      <div class="sbar"><span>9:41</span><div class="batt"></div></div>
+
+      <div class="scr">
+        <div class="scr-scroll">
+
+          <!-- Hero -->
+          <div class="hero">
+            <div class="hero-nav">
+              <div class="hero-btn"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#2C2824" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg></div>
+              <div style="display:flex;gap:8px;">
+                <div class="hero-btn"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#2C2824" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 1.5l3.5 3.5L5 14.5H1.5V11z"/></svg></div>
+                <div class="hero-btn"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="4" r="1.2" fill="#2C2824"/><circle cx="8" cy="8" r="1.2" fill="#2C2824"/><circle cx="8" cy="12" r="1.2" fill="#2C2824"/></svg></div>
+              </div>
+            </div>
+            <div class="hero-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cv-bg)" stroke-width="1.5" stroke-linecap="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <div class="hero-add-photo">Tap to add photo</div>
+            <div class="hero-fade"></div>
+          </div>
+
+          <!-- Identity -->
+          <div class="item-id">
+            <div class="item-name">Volkswagen Golf</div>
+            <div class="item-meta">Vehicle · 2021 · 1-ABC-234</div>
+          </div>
+
+          <!-- Mileage tracker (vehicle-unique) -->
+          <div class="mileage-card" onclick="promptMileage()">
+            <div class="mileage-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cv-bg)" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <div style="flex:1;">
+              <div><span class="mileage-val" id="km-val">67,240</span><span class="mileage-unit">km</span></div>
+              <div class="mileage-sub">Updated 2 weeks ago · tap to update</div>
+            </div>
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="var(--hint)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 1.5l3.5 3.5L5 14.5H1.5V11z"/></svg>
+          </div>
+
+          <!-- Countdown cards (vehicle-unique) -->
+          <div class="countdown-row">
+            <div class="countdown-card warn">
+              <div class="countdown-val">47d</div>
+              <div class="countdown-label">MOT expires</div>
+            </div>
+            <div class="countdown-card">
+              <div class="countdown-val">Oct 15</div>
+              <div class="countdown-label">insurance renewal</div>
+            </div>
+            <div class="countdown-card sage">
+              <div class="countdown-val">summer</div>
+              <div class="countdown-label">tyres</div>
+            </div>
+          </div>
+
+          <!-- Status strip -->
+          <div class="status-strip">
+            <div class="status-dot apricot"></div>
+            <div class="status-text">2 things need attention</div>
+            <div class="status-next">Next due May 18</div>
+          </div>
+
+          <!-- Tasks -->
+          <div class="sec-head">
+            <div class="sec-title">Tasks</div>
+            <div class="sec-action"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="var(--plum)" stroke-width="1.5" stroke-linecap="round"><path d="M6 1v10"/><path d="M1 6h10"/></svg> Add task</div>
+          </div>
+
+          <!-- Task 1: MOT inspection (47d left, approaching) -->
+          <div class="task-card" id="tc1">
+            <div class="task-row" onclick="toggleTask('tc1')">
+              <div class="task-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cv-bg)" stroke-width="1.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+              <div class="task-body">
+                <div class="task-title">MOT inspection</div>
+                <div class="task-sub">Legally required · yearly</div>
+              </div>
+              <div class="task-badge apricot">47d left</div>
+              <div class="task-chev"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M3 4.5L6 7.5L9 4.5"/></svg></div>
+            </div>
+            <div class="task-expand"><div class="task-expand-inner">
+              <div class="task-info-row">
+                <div class="task-info-box"><div class="task-info-val">11mo</div><div class="task-info-label">since last</div></div>
+                <div class="task-info-box"><div class="task-info-val" style="color:var(--sage);">4</div><div class="task-info-label">times done</div></div>
+                <div class="task-info-box"><div class="task-info-val">~€80</div><div class="task-info-label">typical cost</div></div>
+              </div>
+              <div class="task-why">
+                <div class="task-why-label">Why it matters</div>
+                <div class="task-why-text">Driving without a valid MOT is illegal and voids your insurance. Book early to avoid rush periods in spring.</div>
+              </div>
+              <div class="task-how">
+                <div class="task-how-label">How to do it</div>
+                <div class="task-step"><div class="task-step-num">1</div><div class="task-step-text">Book at your nearest inspection center (keuring.be)</div></div>
+                <div class="task-step"><div class="task-step-num">2</div><div class="task-step-text">Bring registration papers and current MOT certificate</div></div>
+                <div class="task-step"><div class="task-step-num">3</div><div class="task-step-text">Check lights, wipers, tyres, and horn beforehand</div></div>
+              </div>
+              <div class="task-hist">
+                <div class="task-hist-label">Completed 4 times</div>
+                <div class="task-hist-entry"><div class="task-hist-dot"></div><span>22 May 2025</span><span class="task-hist-note">passed</span></div>
+                <div class="task-hist-entry"><div class="task-hist-dot"></div><span>18 May 2024</span><span class="task-hist-note">passed</span></div>
+                <div class="task-hist-entry"><div class="task-hist-dot"></div><span>20 May 2023</span><span class="task-hist-note">re-inspection (wipers)</span></div>
+              </div>
+              <div class="task-actions">
+                <div class="ta-skip">Skip · back May 2027</div>
+                <div class="ta-snooze">Snooze</div>
+                <div class="ta-done" onclick="markDone('tc1','MOT sorted. Drive on.','Next due: May 2027')"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg> Done</div>
+              </div>
+              <div class="task-ask">
+                <div class="task-ask-icon"><img src="../system/logo/ii-dark-on-light.svg" width="12" height="14" alt=""></div>
+                <div class="task-ask-text">Ask nudgii about this task...</div>
+                <div class="task-ask-mic"><svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="var(--plum)" stroke-width="1.5" stroke-linecap="round"><rect x="5" y="1" width="6" height="9" rx="3"/><path d="M3 7a5 5 0 0 0 10 0"/><path d="M8 12v3"/></svg></div>
+              </div>
+            </div></div>
+            <div class="task-done-msg" id="tc1-done"></div>
+          </div>
+
+          <!-- Task 2: Oil change (mileage-based) -->
+          <div class="task-card" id="tc2">
+            <div class="task-row" onclick="toggleTask('tc2')">
+              <div class="task-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cv-bg)" stroke-width="1.5" stroke-linecap="round"><path d="M6 20v-2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/><circle cx="12" cy="10" r="3"/><path d="M12 3v4"/></svg></div>
+              <div class="task-body">
+                <div class="task-title">Oil change</div>
+                <div class="task-sub">Every 15,000 km or yearly</div>
+              </div>
+              <div class="task-badge neutral">~2,760 km left</div>
+              <div class="task-chev"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M3 4.5L6 7.5L9 4.5"/></svg></div>
+            </div>
+            <div class="task-expand"><div class="task-expand-inner">
+              <div class="task-info-row">
+                <div class="task-info-box"><div class="task-info-val">3mo</div><div class="task-info-label">since last</div></div>
+                <div class="task-info-box"><div class="task-info-val" style="color:var(--sage);">3</div><div class="task-info-label">times done</div></div>
+                <div class="task-info-box"><div class="task-info-val">~€90</div><div class="task-info-label">typical cost</div></div>
+              </div>
+              <div class="task-why">
+                <div class="task-why-label">Why it matters</div>
+                <div class="task-why-text">Old oil loses its lubricating properties and can cause premature engine wear. Regular changes are the cheapest engine insurance.</div>
+              </div>
+              <div class="task-how">
+                <div class="task-how-label">How to do it</div>
+                <div class="task-step"><div class="task-step-num">1</div><div class="task-step-text">Schedule at your preferred garage or dealer</div></div>
+                <div class="task-step"><div class="task-step-num">2</div><div class="task-step-text">VW Golf uses 5W-30 LL, check your manual to confirm</div></div>
+                <div class="task-step"><div class="task-step-num">3</div><div class="task-step-text">Keep the invoice for service history</div></div>
+              </div>
+              <div class="task-hist">
+                <div class="task-hist-label">Completed 3 times</div>
+                <div class="task-hist-entry"><div class="task-hist-dot"></div><span>8 Jan 2026</span><span class="task-hist-note">52,400 km</span></div>
+                <div class="task-hist-entry"><div class="task-hist-dot"></div><span>12 Jul 2025</span><span class="task-hist-note">38,200 km</span></div>
+                <div class="task-hist-entry"><div class="task-hist-dot"></div><span>20 Jan 2025</span><span class="task-hist-note">23,100 km</span></div>
+              </div>
+              <div class="task-actions">
+                <div class="ta-skip">Skip · back Jan 2027</div>
+                <div class="ta-snooze">Snooze</div>
+                <div class="ta-done" onclick="markDone('tc2','Fresh oil, happy engine.','Next due: ~82,000 km')"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg> Done</div>
+              </div>
+              <div class="task-ask">
+                <div class="task-ask-icon"><img src="../system/logo/ii-dark-on-light.svg" width="12" height="14" alt=""></div>
+                <div class="task-ask-text">Ask nudgii about this task...</div>
+                <div class="task-ask-mic"><svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="var(--plum)" stroke-width="1.5" stroke-linecap="round"><rect x="5" y="1" width="6" height="9" rx="3"/><path d="M3 7a5 5 0 0 0 10 0"/><path d="M8 12v3"/></svg></div>
+              </div>
+            </div></div>
+            <div class="task-done-msg" id="tc2-done"></div>
+          </div>
+
+          <!-- Task 3: Tyre pressure (monthly, on track) -->
+          <div class="task-card" id="tc3">
+            <div class="task-row" onclick="toggleTask('tc3')">
+              <div class="task-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cv-bg)" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+              <div class="task-body">
+                <div class="task-title">Check tyre pressure</div>
+                <div class="task-sub">2 min DIY · monthly</div>
+              </div>
+              <div class="task-badge neutral">Apr 28</div>
+              <div class="task-chev"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M3 4.5L6 7.5L9 4.5"/></svg></div>
+            </div>
+            <div class="task-expand"><div class="task-expand-inner">
+              <div class="task-info-row">
+                <div class="task-info-box"><div class="task-info-val">2wk</div><div class="task-info-label">since last</div></div>
+                <div class="task-info-box"><div class="task-info-val" style="color:var(--sage);">8</div><div class="task-info-label">times done</div></div>
+                <div class="task-info-box"><div class="task-info-val">free</div><div class="task-info-label">DIY</div></div>
+              </div>
+              <div class="task-why">
+                <div class="task-why-label">Why it matters</div>
+                <div class="task-why-text">Under-inflated tyres increase fuel consumption by up to 3% and reduce braking distance. A 2-minute check at the petrol station keeps you safe.</div>
+              </div>
+              <div class="task-how">
+                <div class="task-how-label">How to do it</div>
+                <div class="task-step"><div class="task-step-num">1</div><div class="task-step-text">Check the sticker in your driver's door frame for correct pressure (usually 2.2-2.5 bar)</div></div>
+                <div class="task-step"><div class="task-step-num">2</div><div class="task-step-text">Use the air pump at your petrol station (most are free)</div></div>
+                <div class="task-step"><div class="task-step-num">3</div><div class="task-step-text">Check all four tyres plus the spare when cold</div></div>
+              </div>
+              <div class="task-actions">
+                <div class="ta-skip">Skip · back May 28</div>
+                <div class="ta-snooze">Snooze</div>
+                <div class="ta-done" onclick="markDone('tc3','Tyres happy.','Next due: May 28')"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg> Done</div>
+              </div>
+            </div></div>
+            <div class="task-done-msg" id="tc3-done"></div>
+          </div>
+
+          <!-- Task 4: Switch tyres (seasonal) -->
+          <div class="task-card" id="tc4">
+            <div class="task-row" onclick="toggleTask('tc4')">
+              <div class="task-icon" style="background:rgba(140,155,128,0.12);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="1.5" stroke-linecap="round"><path d="M17 2l4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg></div>
+              <div class="task-body">
+                <div class="task-title">Switch to summer tyres</div>
+                <div class="task-sub">Seasonal · after March</div>
+              </div>
+              <div class="task-badge sage">seasonal</div>
+              <div class="task-chev"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M3 4.5L6 7.5L9 4.5"/></svg></div>
+            </div>
+            <div class="task-expand"><div class="task-expand-inner">
+              <div class="task-why">
+                <div class="task-why-label">Why it matters</div>
+                <div class="task-why-text">Winter tyres wear faster on warm roads and increase braking distance above 7 degrees. Summer tyres grip better and last longer in warmer months.</div>
+              </div>
+              <div class="task-how">
+                <div class="task-how-label">How to do it</div>
+                <div class="task-step"><div class="task-step-num">1</div><div class="task-step-text">Wait until temperatures stay consistently above 7 degrees</div></div>
+                <div class="task-step"><div class="task-step-num">2</div><div class="task-step-text">Book at your tyre shop or do it yourself with a jack</div></div>
+                <div class="task-step"><div class="task-step-num">3</div><div class="task-step-text">Store winter tyres in a cool, dry place (or use hotel storage)</div></div>
+              </div>
+              <div class="task-actions">
+                <div class="ta-skip">Skip · back Oct 2026</div>
+                <div class="ta-snooze">Snooze</div>
+                <div class="ta-done" onclick="markDone('tc4','Summer tyres on. Road trip ready.','Next: winter tyres Oct 2026')"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg> Done</div>
+              </div>
+            </div></div>
+            <div class="task-done-msg" id="tc4-done"></div>
+          </div>
+
+          <!-- Task 5: Review insurance (yearly) -->
+          <div class="task-card" id="tc5">
+            <div class="task-row" onclick="toggleTask('tc5')">
+              <div class="task-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cv-bg)" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="11" x2="16" y2="11"/><line x1="8" y1="15" x2="12" y2="15"/></svg></div>
+              <div class="task-body">
+                <div class="task-title">Review insurance</div>
+                <div class="task-sub">Yearly · compare before renewal</div>
+              </div>
+              <div class="task-badge neutral">Oct 15</div>
+              <div class="task-chev"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M3 4.5L6 7.5L9 4.5"/></svg></div>
+            </div>
+            <div class="task-expand"><div class="task-expand-inner">
+              <div class="task-why">
+                <div class="task-why-label">Why it matters</div>
+                <div class="task-why-text">Auto insurance premiums vary 30-50% between providers for the same coverage. A yearly comparison can save €200+. Belgian law requires 3 months notice to switch.</div>
+              </div>
+              <div class="task-how">
+                <div class="task-how-label">How to do it</div>
+                <div class="task-step"><div class="task-step-num">1</div><div class="task-step-text">Check your current premium and coverage level</div></div>
+                <div class="task-step"><div class="task-step-num">2</div><div class="task-step-text">Compare on independer.be or topcompare.be</div></div>
+                <div class="task-step"><div class="task-step-num">3</div><div class="task-step-text">Send cancellation letter 3 months before renewal if switching</div></div>
+              </div>
+              <div class="task-actions">
+                <div class="ta-skip">Skip · back Oct 2027</div>
+                <div class="ta-snooze">Snooze</div>
+                <div class="ta-done" onclick="markDone('tc5','Insurance reviewed.','Next due: Oct 2027')"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg> Done</div>
+              </div>
+            </div></div>
+            <div class="task-done-msg" id="tc5-done"></div>
+          </div>
+
+          <!-- Good to know (vehicle-unique) -->
+          <div class="sec-head"><div class="sec-title">Good to know</div></div>
+          <div class="gtk-section">
+            <div class="gtk-card">
+              <div class="gtk-row">
+                <div class="gtk-val" style="color:var(--cv-bg);">May</div>
+                <div class="gtk-body">
+                  <div class="gtk-title">MOT due month</div>
+                  <div class="gtk-desc">Book 4-6 weeks ahead. Belgian MOT centers are busiest in spring.</div>
+                </div>
+              </div>
+              <div class="gtk-row">
+                <div class="gtk-val" style="color:var(--apricot);">7&deg;C</div>
+                <div class="gtk-body">
+                  <div class="gtk-title">Tyre switch threshold</div>
+                  <div class="gtk-desc">Below 7 degrees consistently, switch to winter tyres. Above, switch back to summer.</div>
+                </div>
+              </div>
+              <div class="gtk-row">
+                <div class="gtk-val" style="color:var(--sage);">&euro;80</div>
+                <div class="gtk-body">
+                  <div class="gtk-title">Typical MOT cost</div>
+                  <div class="gtk-desc">Includes emissions test. Re-inspection within 15 days is free if you fail on minor items.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Documents (vehicle-unique) -->
+          <div class="sec-head">
+            <div class="sec-title">Documents</div>
+            <div class="sec-action"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="var(--plum)" stroke-width="1.5" stroke-linecap="round"><path d="M6 1v10"/><path d="M1 6h10"/></svg> Add</div>
+          </div>
+          <div class="docs-grid">
+            <div class="doc-card">
+              <div class="doc-thumb" style="background:var(--cv-wash);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cv-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+              <div class="doc-name">Insurance</div>
+              <div class="doc-date">Oct 2025</div>
+            </div>
+            <div class="doc-card">
+              <div class="doc-thumb" style="background:rgba(140,155,128,0.12);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+              <div class="doc-name">MOT cert</div>
+              <div class="doc-date">May 2025</div>
+            </div>
+            <div class="doc-card">
+              <div class="doc-thumb" style="background:var(--apricot-wash);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--apricot)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="11" x2="16" y2="11"/></svg></div>
+              <div class="doc-name">Registration</div>
+              <div class="doc-date">Apr 2021</div>
+            </div>
+          </div>
+
+          <!-- Recent activity (item-level history) -->
+          <div class="sec-head"><div class="sec-title">Recent activity</div><div class="sec-action" id="hist-toggle" onclick="toggleHistory()">All 8 ›</div></div>
+          <div class="hist-card">
+            <div class="hist-row">
+              <div class="hist-check"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="var(--sage)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg></div>
+              <div class="hist-info"><div class="hist-name">Oil change</div><div class="hist-date">8 Jan 2026 · 52,400 km</div></div>
+              <div class="hist-arrow"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M4.5 3L7.5 6L4.5 9"/></svg></div>
+            </div>
+            <div class="hist-row">
+              <div class="hist-check"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="var(--sage)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg></div>
+              <div class="hist-info"><div class="hist-name">Switch to winter tyres</div><div class="hist-date">30 Oct 2025</div></div>
+              <div class="hist-arrow"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M4.5 3L7.5 6L4.5 9"/></svg></div>
+            </div>
+            <div class="hist-row">
+              <div class="hist-check"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="var(--sage)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L4.5 9L10 3"/></svg></div>
+              <div class="hist-info"><div class="hist-name">MOT inspection</div><div class="hist-date">22 May 2025 · passed</div></div>
+              <div class="hist-arrow"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="var(--mid)" stroke-width="1.5" stroke-linecap="round"><path d="M4.5 3L7.5 6L4.5 9"/></svg></div>
+            </div>
+          </div>
+
+          <!-- Details -->
+          <div class="sec-head"><div class="sec-title">Details</div><div class="sec-action">Edit</div></div>
+          <div class="detail-card">
+            <div class="detail-row"><span class="detail-label">Brand</span><span class="detail-val">Volkswagen</span></div>
+            <div class="detail-row"><span class="detail-label">Model</span><span class="detail-val">Golf 8 1.5 TSI</span></div>
+            <div class="detail-row"><span class="detail-label">Year</span><span class="detail-val">2021</span></div>
+            <div class="detail-row"><span class="detail-label">Plate</span><span class="detail-val">1-ABC-234</span></div>
+            <div class="detail-row"><span class="detail-label">Fuel</span><span class="detail-val">Petrol</span></div>
+            <div class="detail-row"><span class="detail-label">Current mileage</span><span class="detail-val">67,240 km</span></div>
+          </div>
+
+          <div class="bottom-spacer"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Annotations -->
+    <div style="flex:1;min-width:260px;">
+      <div style="font-size:10px;font-weight:600;letter-spacing:1.3px;text-transform:uppercase;color:#8A8070;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid rgba(26,22,18,0.08);">Vehicle variant: v2.0</div>
+
+      <div style="margin-bottom:20px;padding:14px;background:rgba(142,154,148,0.08);border-radius:12px;border:1px solid rgba(142,154,148,0.15);">
+        <div style="font-size:12px;font-weight:600;color:#31332C;margin-bottom:4px;">What's unique to vehicles</div>
+        <div style="font-size:11px;color:#7A756D;line-height:1.55;">Mileage tracker (tappable, updates km-based task calculations). Countdown cards (MOT, insurance, seasonal tyres). Documents grid (insurance cert, MOT cert, registration). "Good to know" factual reference section.</div>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <div style="font-size:12px;font-weight:600;color:#31332C;margin-bottom:3px;">Mileage tracker</div>
+        <div style="font-size:11px;color:#7A756D;line-height:1.55;">Tappable card below identity. Shows current km + last update. Tapping opens input prompt. Updating km recalculates oil change / belt replacement intervals. "2,760 km left" on oil change is derived from this.</div>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <div style="font-size:12px;font-weight:600;color:#31332C;margin-bottom:3px;">Countdown cards</div>
+        <div style="font-size:11px;color:#7A756D;line-height:1.55;">Three side-by-side cards for vehicle-critical deadlines. MOT uses apricot wash (approaching). Insurance shows date. Tyres use sage (seasonal). These are unique to vehicles, no other item type has them.</div>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <div style="font-size:12px;font-weight:600;color:#31332C;margin-bottom:3px;">Documents grid</div>
+        <div style="font-size:11px;color:#7A756D;line-height:1.55;">3-column grid. Vehicle owners keep insurance certificates, MOT results, registration papers. Each card shows icon, name, date. Tappable to view/download. "Add" button for new uploads.</div>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <div style="font-size:12px;font-weight:600;color:#31332C;margin-bottom:3px;">Good to know</div>
+        <div style="font-size:11px;color:#7A756D;line-height:1.55;">Factual reference section. Large value on the left (May, 7 degrees, euro 80), explanation on the right. nudgii's domain knowledge made visible. Builds trust that nudgii knows what it's talking about.</div>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <div style="font-size:12px;font-weight:600;color:#31332C;margin-bottom:3px;">Task expand: v2.0 pattern</div>
+        <div style="font-size:11px;color:#7A756D;line-height:1.55;">Same as boiler: quick info row, "Why it matters" warm card, numbered steps, task history (with mileage notes), Skip (return date) + Snooze + Done, Ask nudgii bar. Oil change history includes km readings. Seasonal task (tyres) has no history stats, just why + how.</div>
+      </div>
+    </div>
+
+  </div>
 </div>
 
-<div class="ph" id="phone" data-theme="light">
-<div class="notch"></div>
-<div class="scroll">
-
-  <!-- ZONE 1: Hero -->
-  <div style="position:relative;height:190px;background:var(--cat-wash);overflow:hidden;">
-    <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
-      <div style="width:56px;height:56px;border-radius:50%;background:rgba(142,154,148,0.20);display:flex;align-items:center;justify-content:center;">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cat-bg)" stroke-width="1.5" stroke-linecap="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3"/></svg>
-      </div>
-      <div style="font-size:10px;color:var(--cat-bg);font-weight:500;">Tap to add photo</div>
-    </div>
-    <div style="position:absolute;bottom:0;left:0;right:0;height:50px;background:linear-gradient(to top,var(--surface),transparent);"></div>
-    <div class="nav-pill" style="left:20px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg></div>
-    <div class="nav-pill" style="right:60px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"><path d="M11 4H4v14h14v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg></div>
-    <div class="nav-pill" style="right:20px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="var(--ink)"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></div>
+<!-- Changelog -->
+<div style="max-width:980px;margin:0 auto;padding:48px 32px 0;">
+  <div style="font-size:10px;font-weight:600;letter-spacing:1.3px;text-transform:uppercase;color:#8A8070;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid rgba(26,22,18,0.08);">Changelog</div>
+  <div style="margin-bottom:16px;">
+    <div style="font-size:13px;font-weight:600;color:#31332C;margin-bottom:2px;">v2.0 · April 2026 <span style="font-size:9px;padding:2px 6px;border-radius:3px;background:rgba(196,80,58,0.08);color:#A32D2D;margin-left:4px;">Breaking</span></div>
+    <div style="font-size:12px;color:#7A756D;line-height:1.55;"><strong>Migrated to v2.0 design language.</strong> DM Serif Display + DM Sans (from Noto Serif + Manrope). tokens.css + components.css (from inline hardcoded tokens). All tasks rebuilt with unified expand pattern: quick info row, "Why it matters," numbered steps, task-level history, Skip/Snooze/Done, Ask nudgii. Preserved all vehicle-unique sections: mileage tracker, countdown cards, documents grid, "Good to know." Dark mode overrides added. Annotations sidebar added. Hub nav uses canonical ii mark from system/logo/.</div>
   </div>
-
-  <!-- ZONE 2: Identity + vehicle stats -->
-  <div style="padding:0 24px 20px;">
-    <div style="margin-top:-4px;">
-      <div style="font-family:'Noto Serif',serif;font-size:26px;color:var(--ink);letter-spacing:-0.03em;">Volkswagen Golf</div>
-      <div style="font-size:10px;color:var(--mid);margin-top:4px;">Vehicle · 2021 · 1-ABC-234</div>
-    </div>
-
-    <!-- Mileage tracker (unique to vehicle) -->
-    <div class="mileage-input" onclick="promptMileage()">
-      <div style="width:32px;height:32px;border-radius:50%;background:var(--cat-wash);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cat-bg)" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-      </div>
-      <div style="flex:1;">
-        <div><span class="mileage-val" id="km-val">67,240</span><span class="mileage-unit">km</span></div>
-        <div style="font-size:9px;color:var(--mid);margin-top:1px;">Updated 2 weeks ago · tap to update</div>
-      </div>
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.6" stroke-linecap="round"><path d="M11 4H4v14h14v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg>
-    </div>
-
-    <!-- Countdown cards -->
-    <div class="countdown">
-      <div class="countdown-card" style="background:var(--apricot-wash);">
-        <div class="countdown-val" style="color:var(--apricot);">47d</div>
-        <div class="countdown-label">MOT expires</div>
-      </div>
-      <div class="countdown-card">
-        <div class="countdown-val">Oct 15</div>
-        <div class="countdown-label">insurance renewal</div>
-      </div>
-      <div class="countdown-card" style="background:var(--sage-wash);">
-        <div class="countdown-val" style="color:var(--sage);">summer</div>
-        <div class="countdown-label">tyres</div>
-      </div>
-    </div>
-
-    <!-- Status strip -->
-    <div style="display:flex;align-items:center;gap:8px;margin-top:10px;padding:10px 14px;background:var(--surface-low);border-radius:var(--rs);">
-      <div style="width:8px;height:8px;border-radius:50%;background:var(--apricot);flex-shrink:0;"></div>
-      <div style="font-size:12px;color:var(--ink);flex:1;">2 things need attention</div>
-      <div style="font-size:10px;color:var(--mid);">Next due May 18</div>
-    </div>
+  <div style="margin-bottom:16px;">
+    <div style="font-size:13px;font-weight:600;color:#31332C;margin-bottom:2px;">v1.0 · April 2026 <span style="font-size:9px;padding:2px 6px;border-radius:3px;background:rgba(155,127,212,0.10);color:#9B7FD4;margin-left:4px;">Initial</span></div>
+    <div style="font-size:12px;color:#7A756D;line-height:1.55;">Initial prototype with Noto Serif + Manrope. Mileage input, countdown cards, 5 tasks, snooze sheet, toast. Inline tokens.</div>
   </div>
-
-  <!-- ZONE 3: Tasks -->
-  <div style="background:var(--surface-low);padding:20px 24px 24px;">
-    <div class="section-head">
-      <div class="section-title">Tasks</div>
-      <div class="add-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--plum)" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add task</div>
-    </div>
-
-    <!-- MOT inspection -->
-    <div class="task-card" onclick="toggleExpand(this)">
-      <div class="task-row">
-        <div class="icon-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cat-bg)" stroke-width="1.6" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <div style="flex:1;"><div style="font-size:14px;font-weight:500;color:var(--ink);">MOT inspection</div><div style="font-size:10px;color:var(--mid);margin-top:2px;">Legally required · yearly</div></div>
-        <div style="font-size:9px;color:var(--apricot);font-weight:600;">47d left</div>
-        <svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-      <div class="expand">
-        <div class="why-box">
-          <div style="font-size:9px;font-weight:600;letter-spacing:0.04em;color:var(--cat-bg);margin-bottom:6px;">Why it matters</div>
-          <div style="font-size:11px;color:var(--ink);line-height:1.6;">Driving without a valid MOT is illegal and voids your insurance. Book early to avoid rush periods.</div>
-        </div>
-        <div class="how-box">
-          <div style="font-size:9px;font-weight:600;letter-spacing:0.04em;color:var(--cat-bg);margin-bottom:12px;">How to complete this</div>
-          <div class="step"><div class="step-num">1</div><div style="font-size:11px;color:var(--ink);line-height:1.5;">Book at your nearest inspection center (keuring.be)</div></div>
-          <div class="step"><div class="step-num">2</div><div style="font-size:11px;color:var(--ink);line-height:1.5;">Bring registration papers and current MOT certificate</div></div>
-          <div class="step"><div class="step-num">3</div><div style="font-size:11px;color:var(--ink);line-height:1.5;">Check lights, wipers, tyres, and horn beforehand</div></div>
-        </div>
-        <div class="actions">
-          <button class="btn-skip">Skip</button>
-          <button class="btn-snooze" onclick="openSnooze(this)">Snooze</button>
-          <button class="btn-done"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Oil change -->
-    <div class="task-card" onclick="toggleExpand(this)">
-      <div class="task-row">
-        <div class="icon-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cat-bg)" stroke-width="1.6" stroke-linecap="round"><path d="M6 20v-2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/><circle cx="12" cy="10" r="3"/><path d="M12 3v4"/></svg></div>
-        <div style="flex:1;"><div style="font-size:14px;font-weight:500;color:var(--ink);">Oil change</div><div style="font-size:10px;color:var(--mid);margin-top:2px;">Every 15,000 km or yearly</div></div>
-        <div style="font-size:9px;color:var(--mid);">~2,760 km left</div>
-        <svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-      <div class="expand">
-        <div class="how-box">
-          <div style="font-size:9px;font-weight:600;letter-spacing:0.04em;color:var(--cat-bg);margin-bottom:12px;">How to complete this</div>
-          <div class="step"><div class="step-num">1</div><div style="font-size:11px;color:var(--ink);line-height:1.5;">Schedule at your preferred garage or dealer</div></div>
-          <div class="step"><div class="step-num">2</div><div style="font-size:11px;color:var(--ink);line-height:1.5;">VW Golf uses 5W-30 LL, check your manual to confirm</div></div>
-          <div class="step"><div class="step-num">3</div><div style="font-size:11px;color:var(--ink);line-height:1.5;">Keep the invoice for service history</div></div>
-        </div>
-        <div class="actions">
-          <button class="btn-skip">Skip</button>
-          <button class="btn-snooze" onclick="openSnooze(this)">Snooze</button>
-          <button class="btn-done"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Done</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Tyre pressure -->
-    <div class="task-card">
-      <div class="task-row">
-        <div class="icon-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cat-bg)" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-        <div style="flex:1;"><div style="font-size:14px;font-weight:500;color:var(--ink);">Check tyre pressure</div><div style="font-size:10px;color:var(--mid);margin-top:2px;">Monthly · on track</div></div>
-        <div style="font-size:9px;color:var(--mid);">Apr 28</div>
-      </div>
-    </div>
-
-    <!-- Switch tyres (seasonal) -->
-    <div class="task-card">
-      <div class="task-row">
-        <div class="icon-circle" style="background:var(--sage-wash);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="1.6" stroke-linecap="round"><path d="M17 2l4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg></div>
-        <div style="flex:1;"><div style="font-size:14px;font-weight:500;color:var(--ink);">Switch to summer tyres</div><div style="font-size:10px;color:var(--mid);margin-top:2px;">Seasonal · after March</div></div>
-        <div style="font-size:9px;color:var(--sage);font-weight:500;">seasonal</div>
-      </div>
-    </div>
-
-    <!-- Insurance review -->
-    <div class="task-card">
-      <div class="task-row">
-        <div class="icon-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cat-bg)" stroke-width="1.6" stroke-linecap="round"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="11" x2="16" y2="11"/><line x1="8" y1="15" x2="12" y2="15"/></svg></div>
-        <div style="flex:1;"><div style="font-size:14px;font-weight:500;color:var(--ink);">Review insurance</div><div style="font-size:10px;color:var(--mid);margin-top:2px;">Yearly · compare before renewal</div></div>
-        <div style="font-size:9px;color:var(--mid);">Oct 15</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ZONE 4: History (collapsed) -->
-  <div style="padding:20px 24px;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;cursor:pointer;" onclick="toggleSection(this)">
-      <div class="section-title">History</div>
-      <div style="display:flex;align-items:center;gap:6px;"><span style="font-size:10px;color:var(--mid);">8 completions</span><svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="1.8" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-    </div>
-    <div class="expand">
-      <div style="display:flex;align-items:center;gap:10px;padding:14px 0;border-bottom:1px solid var(--surface-low);cursor:pointer;">
-        <div style="width:24px;height:24px;border-radius:50%;background:var(--sage-wash);display:flex;align-items:center;justify-content:center;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <div style="flex:1;"><div style="font-size:12px;color:var(--ink);">Oil change</div><div style="font-size:10px;color:var(--hint);">Jan 8, 2026 · 52,400 km</div></div>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.6" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
-      </div>
-      <div style="display:flex;align-items:center;gap:10px;padding:14px 0;border-bottom:1px solid var(--surface-low);cursor:pointer;">
-        <div style="width:24px;height:24px;border-radius:50%;background:var(--sage-wash);display:flex;align-items:center;justify-content:center;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <div style="flex:1;"><div style="font-size:12px;color:var(--ink);">MOT inspection</div><div style="font-size:10px;color:var(--hint);">May 22, 2025</div></div>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.6" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
-      </div>
-      <div style="display:flex;align-items:center;gap:10px;padding:14px 0;cursor:pointer;">
-        <div style="width:24px;height:24px;border-radius:50%;background:var(--sage-wash);display:flex;align-items:center;justify-content:center;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <div style="flex:1;"><div style="font-size:12px;color:var(--ink);">Switch to winter tyres</div><div style="font-size:10px;color:var(--hint);">Oct 30, 2025</div></div>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="1.6" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
-      </div>
-    </div>
-  </div>
-
-  <!-- ZONE 5: Good to know -->
-  <div style="background:var(--surface-low);padding:24px;">
-    <div class="section-title" style="margin-bottom:20px;">Good to know</div>
-    <div style="display:flex;gap:16px;margin-bottom:20px;">
-      <div style="flex-shrink:0;width:64px;text-align:right;font-family:'Noto Serif',serif;font-size:20px;font-weight:500;color:var(--cat-bg);line-height:1;">May</div>
-      <div style="flex:1;padding-top:2px;"><div style="font-size:12px;font-weight:500;color:var(--ink);">MOT due month</div><div style="font-size:10px;color:var(--mid);margin-top:3px;line-height:1.5;">Book 4-6 weeks ahead. Belgian MOT centers are busiest in spring.</div></div>
-    </div>
-    <div style="display:flex;gap:16px;margin-bottom:20px;">
-      <div style="flex-shrink:0;width:64px;text-align:right;font-family:'Noto Serif',serif;font-size:20px;font-weight:500;color:var(--apricot);line-height:1;">7&deg;C</div>
-      <div style="flex:1;padding-top:2px;"><div style="font-size:12px;font-weight:500;color:var(--ink);">tyre switch threshold</div><div style="font-size:10px;color:var(--mid);margin-top:3px;line-height:1.5;">Below 7 degrees consistently, switch to winter tyres. Above, switch back to summer.</div></div>
-    </div>
-    <div style="display:flex;gap:16px;">
-      <div style="flex-shrink:0;width:64px;text-align:right;font-family:'Noto Serif',serif;font-size:20px;font-weight:500;color:var(--sage);line-height:1;">&euro;80</div>
-      <div style="flex:1;padding-top:2px;"><div style="font-size:12px;font-weight:500;color:var(--ink);">typical MOT cost</div><div style="font-size:10px;color:var(--mid);margin-top:3px;line-height:1.5;">Includes emissions test. Re-inspection within 15 days is free if you fail on minor items.</div></div>
-    </div>
-  </div>
-
-  <!-- ZONE 6: Documents (heavy for vehicle) -->
-  <div style="padding:24px;">
-    <div class="section-head">
-      <div class="section-title">Documents</div>
-      <div class="add-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--plum)" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add</div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
-      <div style="background:var(--surface-low);border-radius:var(--rs);padding:12px;cursor:pointer;text-align:center;">
-        <div style="width:100%;aspect-ratio:3/4;background:var(--cat-wash);border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cat-bg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <div style="font-size:10px;font-weight:500;color:var(--ink);">Insurance</div>
-        <div style="font-size:8px;color:var(--mid);margin-top:2px;">Oct 2025</div>
-      </div>
-      <div style="background:var(--surface-low);border-radius:var(--rs);padding:12px;cursor:pointer;text-align:center;">
-        <div style="width:100%;aspect-ratio:3/4;background:var(--sage-wash);border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
-        <div style="font-size:10px;font-weight:500;color:var(--ink);">MOT cert</div>
-        <div style="font-size:8px;color:var(--mid);margin-top:2px;">May 2025</div>
-      </div>
-      <div style="background:var(--surface-low);border-radius:var(--rs);padding:12px;cursor:pointer;text-align:center;">
-        <div style="width:100%;aspect-ratio:3/4;background:var(--apricot-wash);border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--apricot)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="11" x2="16" y2="11"/></svg></div>
-        <div style="font-size:10px;font-weight:500;color:var(--ink);">Registration</div>
-        <div style="font-size:8px;color:var(--mid);margin-top:2px;">Apr 2021</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ZONE 7: Details -->
-  <div style="padding:0 24px 24px;">
-    <div class="section-head">
-      <div class="section-title">Details</div>
-      <div style="font-size:10px;font-weight:500;color:var(--plum);cursor:pointer;">Edit</div>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:1px;background:var(--surface-low);border-radius:var(--r);overflow:hidden;">
-      <div class="detail-row"><span style="font-size:11px;color:var(--mid);">Brand</span><span style="font-size:11px;color:var(--ink);font-weight:500;">Volkswagen</span></div>
-      <div class="detail-row"><span style="font-size:11px;color:var(--mid);">Model</span><span style="font-size:11px;color:var(--ink);font-weight:500;">Golf 8 1.5 TSI</span></div>
-      <div class="detail-row"><span style="font-size:11px;color:var(--mid);">Year</span><span style="font-size:11px;color:var(--ink);font-weight:500;">2021</span></div>
-      <div class="detail-row"><span style="font-size:11px;color:var(--mid);">Plate</span><span style="font-size:11px;color:var(--ink);font-weight:500;">1-ABC-234</span></div>
-      <div class="detail-row"><span style="font-size:11px;color:var(--mid);">Fuel</span><span style="font-size:11px;color:var(--ink);font-weight:500;">Petrol</span></div>
-      <div class="detail-row"><span style="font-size:11px;color:var(--mid);">Current mileage</span><span style="font-size:11px;color:var(--ink);font-weight:500;">67,240 km</span></div>
-    </div>
-  </div>
-
-    <!-- Snooze sheet -->
-    <div class="snooze-overlay" id="snooze-overlay" onclick="closeSnooze()">
-      <div class="snooze-backdrop"></div>
-      <div class="snooze-panel" onclick="event.stopPropagation()">
-        <div class="snooze-handle"></div>
-        <div class="snooze-title">Snooze until...</div>
-        <div class="snooze-opt" onclick="doSnooze('Later today','3:00 PM')"><span class="snooze-opt-l">Later today</span><span class="snooze-opt-r">3 hours</span></div>
-        <div class="snooze-opt" onclick="doSnooze('Tomorrow','8:00 AM')"><span class="snooze-opt-l">Tomorrow</span><span class="snooze-opt-r">8:00 AM</span></div>
-        <div class="snooze-opt" onclick="doSnooze('This weekend','Sat 8:00 AM')"><span class="snooze-opt-l">This weekend</span><span class="snooze-opt-r">Sat 8:00 AM</span></div>
-        <div class="snooze-opt" onclick="doSnooze('Next week','Mon 8:00 AM')"><span class="snooze-opt-l">Next week</span><span class="snooze-opt-r">Mon 8:00 AM</span></div>
-        <div class="snooze-opt-pick" onclick="closeSnooze()">Pick a date...</div>
-      </div>
-    </div>
-
-    <!-- Toast -->
-    <div class="s17-toast" id="s17-toast">
-      <span id="s17-toast-icon" class="s17-toast-icon snooze"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
-      <span class="s17-toast-text" id="s17-toast-text"></span>
-      <button class="s17-toast-undo" id="s17-toast-undo" onclick="undoSnooze()">Undo</button>
-    </div>
-
-  <div style="height:40px;"></div>
-</div>
 </div>
 
 <script>
-function theme(t){document.getElementById('phone').setAttribute('data-theme',t);document.getElementById('tl').classList.toggle('on',t==='light');document.getElementById('td').classList.toggle('on',t==='dark');}
-function toggleExpand(card){var e=card.querySelector('.expand');var c=card.querySelector('.chevron');if(e.style.maxHeight&&e.style.maxHeight!=='0px'){e.style.maxHeight='0';c.style.transform='';}else{e.style.maxHeight=e.scrollHeight+'px';c.style.transform='rotate(180deg)';}}
-function toggleSection(header){var e=header.nextElementSibling;var c=header.querySelector('.chevron');if(e.style.maxHeight&&e.style.maxHeight!=='0px'){e.style.maxHeight='0';c.style.transform='';}else{e.style.maxHeight=e.scrollHeight+'px';c.style.transform='rotate(180deg)';}}
-function promptMileage(){var v=prompt('Update mileage (km):','67240');if(v){document.getElementById('km-val').textContent=parseInt(v).toLocaleString();}}
-var _snoozeCard=null,_lastSnooze=null,_toastTimer=null;
-function openSnooze(btn){event.stopPropagation();_snoozeCard=btn.closest('.task-card');document.getElementById('snooze-overlay').classList.add('open');}
-function closeSnooze(){document.getElementById('snooze-overlay').classList.remove('open');}
-function doSnooze(label,time){
-  closeSnooze();if(!_snoozeCard)return;
-  var card=_snoozeCard;_snoozeCard=null;_lastSnooze=card;
-  card.classList.add('snoozed');
-  var body=card.querySelector('.task-row div[style*="flex:1"]')||card.querySelector('.task-row > div:nth-child(2)');
-  if(body&&!body.querySelector('.snz-label')){var sl=document.createElement('div');sl.className='snz-label';sl.textContent='Snoozed to '+label.toLowerCase();body.appendChild(sl);}
-  var copy=['Snoozed until '+label.toLowerCase()+'.',
-    'Fine. But your stuff is taking notes.',
-    'Noted. We\'ll circle back '+label.toLowerCase()+'.'];
-  showS17Toast(copy[Math.floor(Math.random()*copy.length)],'snooze');
+function setTheme(t) {
+  document.querySelector('.s17-phone').setAttribute('data-theme', t);
+  document.querySelectorAll('.s17-ctrl-btn').forEach(b => b.classList.toggle('on', b.textContent.trim() === (t === 'light' ? 'Light' : 'Dark')));
 }
-function undoSnooze(){
-  hideS17Toast();if(!_lastSnooze)return;
-  _lastSnooze.classList.remove('snoozed');
-  var sl=_lastSnooze.querySelector('.snz-label');if(sl)sl.remove();
-  _lastSnooze=null;
-}
-function showS17Toast(msg,type){
-  var t=document.getElementById('s17-toast');
-  var icon=document.getElementById('s17-toast-icon');
-  var tp=type||'snooze';
-  icon.className='s17-toast-icon '+tp;
-  var icons={
-    done:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
-    skip:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l5 8-5 8H5l5-8z"/><line x1="19" y1="4" x2="19" y2="20"/></svg>',
-    snooze:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>'
-  };
-  icon.innerHTML=icons[tp]||icons.snooze;
-  var boldMsg=msg.replace(/^(Done\.|Skipped\.|Snoozed[^.]*\.|Noted\.|Fine\.|Removed\.)/,'<strong>$1</strong>');
-  document.getElementById('s17-toast-text').innerHTML=boldMsg;
-  t.classList.add('show');
-  clearTimeout(_toastTimer);
-  _toastTimer=setTimeout(hideS17Toast,tp==='done'?5000:8000);
-}
-function hideS17Toast(){document.getElementById('s17-toast').classList.remove('show');}
-function spawnConfetti(card){
-  var ph=document.querySelector('.ph');if(!ph)return;
-  var r=card.getBoundingClientRect(),pr=ph.getBoundingClientRect();
-  var cx=r.left+r.width/2-pr.left,cy=r.top+r.height/2-pr.top;
-  var colors=['#9B7FD4','#E8A87C','#C09088','#8C9B80','#8E9A94','#A69BBF'];
-  for(var i=0;i<8;i++){
-    var dot=document.createElement('div');dot.className='snooze-confetti';
-    var a=(Math.PI*2/8)*i+(Math.random()-0.5)*0.5,d=25+Math.random()*35;
-    dot.style.cssText='left:'+cx+'px;top:'+cy+'px;background:'+colors[i%colors.length]+';--sx:'+Math.cos(a)*d+'px;--sy:'+(Math.sin(a)*d-12)+'px;';
-    ph.appendChild(dot);setTimeout(function(el){el.remove();},650,dot);
+
+function toggleTask(id) {
+  var card = document.getElementById(id);
+  if (card.classList.contains('done-state')) return;
+  var expand = card.querySelector('.task-expand');
+  var chev = card.querySelector('.task-chev');
+  if (expand.style.maxHeight && expand.style.maxHeight !== '0px') {
+    expand.style.maxHeight = '0px';
+    chev.classList.remove('open');
+  } else {
+    expand.style.maxHeight = expand.scrollHeight + 'px';
+    chev.classList.add('open');
   }
+}
+
+function markDone(id, msg, sub) {
+  var card = document.getElementById(id);
+  var expand = card.querySelector('.task-expand');
+  var chev = card.querySelector('.task-chev');
+  var doneMsg = document.getElementById(id + '-done');
+  expand.style.maxHeight = '0px';
+  chev.classList.remove('open');
+  card.classList.add('done-state');
+  doneMsg.innerHTML = '<div class="task-done-text">' + msg + '</div><div class="task-done-sub">' + sub + '</div><div class="task-done-undo" onclick="undoDone(\'' + id + '\')">Undo</div>';
+  doneMsg.classList.add('show');
+}
+
+function undoDone(id) {
+  var card = document.getElementById(id);
+  var doneMsg = document.getElementById(id + '-done');
+  card.classList.remove('done-state');
+  doneMsg.classList.remove('show');
+}
+
+function toggleHistory() {
+  var btn = document.getElementById('hist-toggle');
+  btn.textContent = btn.textContent === 'All 8 ›' ? 'Show less' : 'All 8 ›';
+}
+
+function promptMileage() {
+  var v = prompt('Update mileage (km):', '67240');
+  if (v) document.getElementById('km-val').textContent = parseInt(v).toLocaleString();
 }
 </script>
 </body>

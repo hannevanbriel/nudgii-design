@@ -128,11 +128,11 @@ Status as of March 2026. Always check `nudgii-design/index.html` for current sta
 | S-10 | Dashboard — empty state | 🔶 In progress |
 | S-11 | Done overlay | 🔶 In progress (OD-01 resolved 2026-03-18) |
 | S-12 | FAB action sheet | ✅ Ready for dev |
-| S-13 | Task detail — default | 🔶 In progress (lo-fi done) |
-| S-14 | Task detail — done state | 🔶 In progress |
+| S-13 | *(merged into S-17, task detail is inline on item screen)* | — |
+| S-14 | *(merged into S-17, done state is inline card transformation)* | — |
 | S-15 | Snooze bottom sheet | 🔶 In progress (lo-fi done) |
 | S-16 | Completion history | 🔲 To do |
-| S-17 | Item detail | 🔲 To do |
+| S-17 | Item + Task detail (unified) | 🔶 In progress (hi-fi v2.0 done) |
 | S-18 | Ask tab — first load | ⛔ Decision needed |
 | S-19 | Ask tab — conversation | 🔲 To do |
 | S-20 | Profile — free tier | ✅ Ready for dev |
@@ -664,6 +664,21 @@ Update this section when open decisions are resolved.
 | S-05 Plan-style month headers | ~~Plan-style layout~~ **Superseded 2026-04-07:** Rich AHA layout chosen instead. See below. | ✅ Yes | 2026-04-06 |
 | S-05 Rich AHA layout | State 1 uses rich AHA: ii mark centered, "You said what. We figured out when and why." headline, stats row (X items, Y tasks, Z months), "Your first nudge" expanded task card with "Why it matters" + "How to do it" sections, "Year at a glance" month bar showing task distribution across 6 months. Replaces Plan-style flat task list. Stronger emotional AHA moment. Celebration (State 2) and sign-in (State 3) unchanged. | ✅ Yes | 2026-04-07 |
 | Free tier limits items not tasks | Free tier limits to 10 items, not tasks per item. All tasks within any item are fully visible and functional. No Pro-locked tasks shown in onboarding. Pro pill only appears on 11th+ items on the dashboard. | ✅ Yes | 2026-04-06 |
+| S-13 merged into S-17 | Task detail is no longer a separate screen. S-17 Item detail is the unified screen: task cards expand inline with quick info row, "Why it matters," "How to do it" steps, task-level history (last 3 completions + skip count), and Skip/Snooze/Done actions. S-13 and S-14 removed from inventory. | ✅ Yes | 2026-04-13 |
+| S-17 two-level history | Task level (inside expand): last 3 completions with dates + context, skip count as subtle apricot text, snooze never shown. Item level ("Recent activity"): "All 12" toggle shows full chronological history across all tasks inline. | ✅ Yes | 2026-04-13 |
+| S-17 task status logic | Yearly autumn task done 10mo ago = "on track" (due autumn 2026), not "waiting 12d." 6-monthly filter approaching = "due in 4 days." Monthly pressure = date label. Status derived from task window, not elapsed time since last done. | ✅ Yes | 2026-04-13 |
+| Onboarding token pipeline rollout | S-01, S-03, S-04, S-05, S-06 all linked to tokens.css. Category wash opacity standardized to 0.15. S-05 plum collision fixed (--plum to --plum-deep). Inline ii marks on S-01 and S-05 replaced with canonical <img> refs from system/logo/. | ✅ Yes | 2026-04-13 |
+| S-17 item variants v2.0 migration | All 5 item-type variants (vehicle, plant, subscription, garden tool, small appliance) migrated from Noto Serif + Manrope + inline tokens to DM Serif Display + DM Sans + tokens.css + components.css. Unified v2.0 task expand pattern (why, how, history, actions, ask nudgii). All unique sections preserved per variant. Home appliance file deleted (stale duplicate of main boiler). | ✅ Yes | 2026-04-13 |
+| Item template rules | system/item-templates.html defines default tasks, cadences, costs, personality names, detail fields, and S-17 variant mapping for 27 item types across 4 categories (Home, Vehicle, Garden, Subscriptions). Engineering seed data reference. | ✅ Yes | 2026-04-13 |
+| Post-onboarding add-item flow | system/add-item-flow.html: FAB > Browse/Scan/Tell me > Add Item Review (full screen, single item) > Toast confirmation > My Stuff. Add Item Review shows task preview, first nudge, detail fields, nickname suggestion, "Add to my stuff" CTA. Item 11+ gets soft "Go Pro" link, never blocks. | ✅ Yes | 2026-04-13 |
+| AI-generated item templates | system/ai-template-generation.html: when a user adds an item not in the curated library, Claude API (claude-sonnet-4-6) generates 2-5 maintenance tasks on the fly. Single API call returns tasks + why/how + personality name + variant mapping. Validated before showing. User reviews with "Tasks suggested by AI" badge. Learning loop: 20+ instances with >80% acceptance = flag for manual review and promotion to curated library. Cached by item_type + country for 30 days. Free tier: counts as 1 of 3 monthly AI interactions. | ✅ Yes | 2026-04-13 |
+| S-17 item variants v2.0 migration | All 5 item-type variants (vehicle, plant, subscription, garden tool, small appliance) migrated from Noto Serif + Manrope + inline tokens to DM Serif Display + DM Sans + tokens.css + components.css. Unified v2.0 task expand pattern (why, how, history, actions, ask nudgii). All unique sections preserved per variant. Home appliance file deleted (stale duplicate of main boiler). | ✅ Yes | 2026-04-13 |
+| Item template rules | system/item-templates.html defines default tasks, cadences, costs, personality names, detail fields, and S-17 variant mapping for 27 item types across 4 categories (Home, Vehicle, Garden, Subscriptions). Engineering seed data reference. | ✅ Yes | 2026-04-13 |
+| Post-onboarding add-item flow | system/add-item-flow.html: FAB > Browse/Scan/Tell me > Add Item Review (full screen, single item) > Toast confirmation > My Stuff. Add Item Review shows task preview, first nudge, detail fields, nickname suggestion, "Add to my stuff" CTA. Item 11+ gets soft "Go Pro" link, never blocks. | ✅ Yes | 2026-04-13 |
+| Composable S-17 sections (architecture) | S-17 item detail screen uses composable section blocks instead of rigid variants. Engineering builds one screen that iterates a `sections[]` array, rendering the corresponding widget for each. MVP ships with 6 named presets (the current variants as section arrays). AI-generated items use category defaults. Post-MVP: AI picks sections per item. Existing 6 variant files remain as the design reference for each section. | ✅ Yes | 2026-04-14 |
+| AI conversation: tasks only (MVP) | AI conversation ("Tell me" path) identifies items and generates tasks in MVP. Section selection uses category defaults (Home = home_appliance preset, Garden living things = plant preset, etc.). Post-MVP: AI also returns `sections[]` to customize the UI per item. | ✅ Yes | 2026-04-14 |
+| Plan tab category filter (MVP) | Category filter pills on Plan tab (same pattern as Today/My Stuff). User taps "Garden" to see only garden tasks by month. Solves "what do I need to do in my garden this month?" without a separate calendar screen. Per-item seasonal view handled by the seasonal calendar strip on S-17 (already built for plants/garden tools). | ✅ Yes | 2026-04-14 |
+| Full 96-item template database | item-templates.html expanded from 27 to 96 items across 6 categories (37 Home, 16 Garden, 10 Vehicle, 13 Subscriptions, 17 Health, 7 Pets). Aligned with dev's Supabase schema. Health items use "Appointment" type. Pets use tall hero + health sections. All items have tasks, cadences, costs, and personality names. | ✅ Yes | 2026-04-14 |
 
 ---
 
