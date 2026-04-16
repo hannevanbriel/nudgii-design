@@ -589,11 +589,77 @@ function renderDetail(item, cat) {
   html += '<div class="stat-box"><div class="stat-val">' + item.tasks.length + '</div><div class="stat-label">tasks</div></div>';
   html += '</div>';
 
+  // VEHICLE: Countdown cards (primary block — dated deadlines matter most)
+  if (item.cat === 'vehicle') {
+    html += '<div style="display:flex;gap:8px;padding:12px 20px 0;">';
+    html += '<div style="flex:1;background:var(--apricot-wash);border-radius:12px;padding:10px 8px;text-align:center;border:0.5px solid rgba(232,168,124,0.15);"><div style="font-family:DM Serif Display,Georgia,serif;font-size:18px;font-weight:400;color:var(--apricot);">47d</div><div style="font-size:7.5px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--mid);margin-top:2px;">MOT expires</div></div>';
+    html += '<div style="flex:1;background:var(--surface-low);border-radius:12px;padding:10px 8px;text-align:center;border:0.5px solid rgba(44,40,36,0.06);"><div style="font-family:DM Serif Display,Georgia,serif;font-size:18px;font-weight:400;color:var(--ink);">Oct 15</div><div style="font-size:7.5px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--mid);margin-top:2px;">insurance</div></div>';
+    html += '<div style="flex:1;background:rgba(140,155,128,0.10);border-radius:12px;padding:10px 8px;text-align:center;border:0.5px solid rgba(140,155,128,0.10);"><div style="font-family:DM Serif Display,Georgia,serif;font-size:18px;font-weight:400;color:var(--sage);">summer</div><div style="font-size:7.5px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--mid);margin-top:2px;">tyres</div></div>';
+    html += '</div>';
+  }
+
+  // SUBSCRIPTION: Decision buttons + renewal countdown
+  if (item.cat === 'subscriptions') {
+    html += '<div style="margin:12px 20px 0;padding:10px 14px;background:var(--apricot-wash);border-radius:10px;display:flex;align-items:center;justify-content:center;gap:8px;">';
+    html += '<div style="width:8px;height:8px;border-radius:50%;background:var(--apricot);flex-shrink:0;"></div>';
+    html += '<div style="font-size:11px;color:var(--ink);">Renews in</div>';
+    html += '<div style="font-family:DM Serif Display,Georgia,serif;font-size:15px;color:var(--apricot);">62 days</div>';
+    html += '</div>';
+    html += '<div style="display:flex;gap:8px;padding:12px 20px 0;">';
+    html += '<button style="flex:1;padding:10px;border-radius:10px;background:rgba(140,155,128,0.12);color:var(--sage);border:0.5px solid rgba(140,155,128,0.15);font-family:DM Sans,sans-serif;font-size:11px;font-weight:500;cursor:pointer;">Keep</button>';
+    html += '<button style="flex:1;padding:10px;border-radius:10px;background:' + cat.wash + ';color:' + cat.color + ';border:0.5px solid rgba(166,155,191,0.15);font-family:DM Sans,sans-serif;font-size:11px;font-weight:500;cursor:pointer;">Compare</button>';
+    html += '<button style="flex:1;padding:10px;border-radius:10px;background:rgba(232,168,124,0.08);color:var(--apricot);border:0.5px solid rgba(232,168,124,0.12);font-family:DM Sans,sans-serif;font-size:11px;font-weight:500;cursor:pointer;">Cancel</button>';
+    html += '</div>';
+  }
+
+  // GARDEN (plants): Seasonal calendar
+  const plantSlugs = ['olive-tree','fruit-tree','roses','terrace-plants','climbing-plants','vegetable-garden','hedge'];
+  if (item.cat === 'garden' && plantSlugs.includes(item.slug)) {
+    html += '<div style="margin:16px 20px 0;">';
+    html += '<div style="font-size:9px;font-weight:600;letter-spacing:0.8px;color:' + cat.color + ';margin-bottom:8px;text-transform:uppercase;">Care calendar</div>';
+    html += '<div style="display:flex;gap:2px;">';
+    const months = ['J','F','M','A','M','J','J','A','S','O','N','D'];
+    const activeMonths = [2,3,4,5,8,9]; // Mar-Jun, Sep-Oct
+    const currentMonth = 3; // April
+    months.forEach((m, i) => {
+      let style = 'flex:1;text-align:center;padding:8px 0;border-radius:6px;font-size:8px;font-weight:500;letter-spacing:0.02em;';
+      if (activeMonths.includes(i)) {
+        style += 'background:' + cat.wash + ';color:' + cat.color + ';font-weight:600;';
+      } else {
+        style += 'color:var(--hint);';
+      }
+      if (i === currentMonth) {
+        style += 'outline:1.5px solid var(--apricot);outline-offset:-1px;';
+      }
+      html += '<div style="' + style + '">' + m + '</div>';
+    });
+    html += '</div>';
+    html += '<div style="font-size:10px;color:var(--mid);margin-top:6px;font-style:italic;">Active care: March to June, September to October</div>';
+    html += '</div>';
+  }
+
   // Status strip
   html += '<div class="status-strip">';
   html += '<div class="status-dot" style="background:var(--sage);"></div>';
   html += '<div class="status-text">All set up, ready to go</div>';
   html += '</div>';
+
+  // HOME: Care timeline bar (past completion dots + future projected)
+  if (item.cat === 'home') {
+    html += '<div class="sec-head" style="padding-bottom:2px;"><div class="sec-title" style="font-size:13px;">Care timeline</div></div>';
+    html += '<div style="padding:0 20px 14px;">';
+    html += '<div style="position:relative;height:4px;background:var(--surface-high);border-radius:100px;margin:6px 0 10px;">';
+    html += '<div style="position:absolute;left:0;top:0;height:100%;border-radius:100px;background:' + cat.color + ';opacity:0.3;width:65%;"></div>';
+    html += '<div style="position:absolute;top:50%;width:8px;height:8px;border-radius:50%;transform:translate(-50%,-50%);background:' + cat.color + ';left:10%;"></div>';
+    html += '<div style="position:absolute;top:50%;width:8px;height:8px;border-radius:50%;transform:translate(-50%,-50%);background:' + cat.color + ';left:35%;"></div>';
+    html += '<div style="position:absolute;top:50%;width:8px;height:8px;border-radius:50%;transform:translate(-50%,-50%);background:' + cat.color + ';left:65%;"></div>';
+    html += '<div style="position:absolute;top:50%;width:8px;height:8px;border-radius:50%;transform:translate(-50%,-50%);background:var(--plum);border:2px solid var(--surface);left:85%;"></div>';
+    html += '</div>';
+    html += '<div style="display:flex;justify-content:space-between;font-size:8px;color:var(--mid);">';
+    html += '<span>Jun 2024</span><span>Dec 2024</span><span style="color:var(--ink);font-weight:500;">Now</span><span>Oct 2026</span>';
+    html += '</div>';
+    html += '</div>';
+  }
 
   // Tasks section
   html += '<div class="sec-head">';
@@ -660,6 +726,46 @@ function renderDetail(item, cat) {
     html += '</div></div>';
     html += '</div>';
   });
+
+  // PLANTS + PETS: Photo gallery + Health scans (living things)
+  const livingPlants = ['olive-tree','fruit-tree','roses','terrace-plants','climbing-plants','vegetable-garden','hedge'];
+  const isPlant = item.cat === 'garden' && livingPlants.includes(item.slug);
+  const isPet = item.cat === 'pets' && item.slug !== 'fish-tank';
+  if (isPlant || isPet) {
+    // Photo gallery
+    html += '<div class="sec-head"><div class="sec-title">Photos</div><div class="sec-action">+ Add photo</div></div>';
+    html += '<div style="display:flex;gap:6px;overflow-x:auto;padding:0 16px 4px;">';
+    for (let i = 0; i < 4; i++) {
+      html += '<div style="width:72px;height:72px;border-radius:10px;flex-shrink:0;background:' + cat.wash + ';display:flex;align-items:center;justify-content:center;color:' + cat.color + ';">' + cat.icon + '</div>';
+    }
+    html += '<div style="width:72px;height:72px;border-radius:10px;flex-shrink:0;border:1.5px dashed var(--hint);display:flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="var(--hint)" stroke-width="1.5" stroke-linecap="round"><path d="M6 1v10"/><path d="M1 6h10"/></svg></div>';
+    html += '</div>';
+
+    // Health / Vet visits
+    const sectionTitle = isPet ? 'Vet visits' : 'Health scans';
+    const creditText = isPet ? '' : '2 of 3 scans used this month';
+    html += '<div class="sec-head"><div class="sec-title">' + sectionTitle + '</div>';
+    if (creditText) html += '<div style="font-size:9px;color:var(--hint);">' + creditText + '</div>';
+    html += '</div>';
+    html += '<div style="margin:0 16px 8px;background:var(--surface);border:0.5px solid rgba(44,40,36,0.06);border-radius:12px;overflow:hidden;">';
+    html += '<div style="display:flex;gap:12px;padding:12px 14px;border-bottom:0.5px solid rgba(44,40,36,0.04);">';
+    html += '<div style="width:10px;height:10px;border-radius:50%;background:' + cat.color + ';flex-shrink:0;margin-top:3px;"></div>';
+    html += '<div style="flex:1;"><div style="font-size:12px;font-weight:600;color:' + cat.color + ';">Healthy</div><div style="font-size:10px;color:var(--mid);margin-top:3px;line-height:1.5;">' + (isPet ? 'Annual checkup completed. All vaccinations up to date.' : 'New growth visible, good leaf colour. No pests or disease detected.') + '</div></div>';
+    html += '</div>';
+    html += '<div style="display:flex;gap:12px;padding:12px 14px;">';
+    html += '<div style="width:10px;height:10px;border-radius:50%;background:var(--apricot);flex-shrink:0;margin-top:3px;"></div>';
+    html += '<div style="flex:1;"><div style="font-size:12px;font-weight:600;color:var(--apricot);">Minor issue</div><div style="font-size:10px;color:var(--mid);margin-top:3px;line-height:1.5;">' + (isPet ? 'Mild ear infection treated with drops. Follow-up in 2 weeks.' : 'Leaf yellowing on lower branches. Likely overwatering. Reduce frequency.') + '</div></div>';
+    html += '</div></div>';
+
+    // Scan CTA (plants only, not pets — vets do their own)
+    if (isPlant) {
+      html += '<div style="margin:14px 16px 0;padding:12px 14px;background:' + cat.wash + ';border-radius:12px;display:flex;align-items:center;gap:12px;border:0.5px solid rgba(140,155,128,0.12);">';
+      html += '<div style="width:32px;height:32px;border-radius:50%;background:rgba(140,155,128,0.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:' + cat.color + ';">' + cat.icon + '</div>';
+      html += '<div style="flex:1;"><div style="font-size:12px;font-weight:500;color:var(--ink);">Run health scan</div><div style="font-size:10px;color:var(--mid);margin-top:2px;">Select photos for AI analysis</div></div>';
+      html += '<div style="font-size:9px;color:' + cat.color + ';font-weight:500;background:rgba(140,155,128,0.20);padding:3px 8px;border-radius:100px;">1 credit</div>';
+      html += '</div>';
+    }
+  }
 
   // Good to know
   html += '<div class="sec-head"><div class="sec-title">Good to know</div></div>';
