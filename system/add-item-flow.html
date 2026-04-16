@@ -49,16 +49,65 @@ body{background:var(--surface);padding:0 0 80px;}
 
 <div class="spec">
   <div class="page-eyebrow">System · Add item flow · Spec · April 2026</div>
-  <h1 class="page-h1">Post-onboarding add item flow</h1>
-  <p>What happens when a user adds an item after onboarding, via the FAB. All three input paths (Browse, Scan, Tell me) converge on the same Add Item Review screen before the item is created.</p>
+  <h1 class="page-h1">Add item flow</h1>
+  <p>How items get added to a user's My Stuff list. Two distinct review moments depending on context: onboarding (multiple items, compact review) vs. post-onboarding FAB (single item, deep review).</p>
   <div class="page-pills">
     <span class="mp">Spec</span>
     <span class="mp progress">Design needed</span>
-    <span class="mp">v1.0 · April 2026</span>
+    <span class="mp">v1.1 · April 2026</span>
   </div>
 
   <!-- ═══════════════════════════════════════════ -->
-  <h2>Flow overview</h2>
+  <h2>Two review moments, two screens</h2>
+
+  <p>When a user adds items, they review before committing. The review UX differs by context because the user mindset differs.</p>
+
+  <div style="display:flex;gap:12px;flex-wrap:wrap;margin:16px 0 24px;">
+
+    <div style="flex:1;min-width:280px;background:var(--surface-low);border-radius:14px;padding:18px;border:0.5px solid rgba(44,40,36,0.06);">
+      <div style="font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--mid);margin-bottom:4px;">Onboarding</div>
+      <h3 style="font-family:'DM Serif Display',Georgia,serif;font-size:18px;font-weight:400;margin:0 0 8px;color:var(--ink);">S-04 Review</h3>
+      <div style="font-size:11px;color:var(--mid);line-height:1.6;margin-bottom:10px;">User has just added <strong>multiple items</strong> via S-03 Browse or S-02 Tell me. Reviews them all before committing.</div>
+      <ul class="rule-list" style="margin:0;">
+        <li><strong>Multiple items</strong> at once, grouped by category</li>
+        <li><strong>Compact entity cards</strong> — tap to expand task preview</li>
+        <li>One big <strong>"Looks good, show my schedule"</strong> CTA</li>
+        <li>Optimised for <strong>speed + momentum</strong> — user is still evaluating nudgii</li>
+        <li>Sub-type chips inline on expanded card, minimal friction. Unanswered sub-type = item saved with universal tasks + "Setup incomplete" chip</li>
+      </ul>
+      <div style="font-size:10px;color:var(--hint);font-style:italic;margin-top:10px;">Onboarding friction = churn. Review forgives.</div>
+    </div>
+
+    <div style="flex:1;min-width:280px;background:rgba(155,127,212,0.04);border-radius:14px;padding:18px;border:0.5px solid var(--plum-wash);">
+      <div style="font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--plum);margin-bottom:4px;">Post-onboarding (FAB)</div>
+      <h3 style="font-family:'DM Serif Display',Georgia,serif;font-size:18px;font-weight:400;margin:0 0 8px;color:var(--ink);">Add Item Review</h3>
+      <div style="font-size:11px;color:var(--mid);line-height:1.6;margin-bottom:10px;">User has deliberately tapped FAB to add <strong>one specific item</strong>. Reviews it in full before committing.</div>
+      <ul class="rule-list" style="margin:0;">
+        <li><strong>One item</strong> at a time, full screen treatment</li>
+        <li><strong>Hero + tasks + first nudge + nickname + details</strong> — full depth</li>
+        <li><strong>"Add to my stuff"</strong> CTA, sticky bottom</li>
+        <li>Optimised for <strong>deliberate engagement</strong> — user is committed</li>
+        <li>Sub-type picker is prominent under hero. Force-pick items block task list until answered</li>
+      </ul>
+      <div style="font-size:10px;color:var(--hint);font-style:italic;margin-top:10px;">User is engaged. Review asks more.</div>
+    </div>
+
+  </div>
+
+  <div class="section-card">
+    <h4>Why the difference matters</h4>
+    <p style="margin:0;">During <strong>onboarding</strong>, the goal is speed and momentum. If every item required a full-screen deep review, users would bail at item 3. S-04 shows a compact list with drill-in for curious users. <strong>Post-onboarding</strong>, the user has already committed to nudgii and opened the FAB specifically to add this one thing. They want the full picture — hero, all tasks, when the first nudge fires, what to call it. Add Item Review gives them everything.</p>
+  </div>
+
+  <div class="section-card">
+    <h4>The sub-type question in both contexts</h4>
+    <p style="margin:0;">Both screens handle sub-type (Car fuel, Boiler type, Oven type, Pond type) but differently. <strong>Onboarding (S-04):</strong> sub-type chips appear inline when user expands the item card. If user doesn't answer, item is saved anyway with universal tasks + a "Setup incomplete" chip that disappears once they pick. This matches the boiler Layer 3 pattern but applied universally in onboarding. <strong>Post-onboarding (Add Item Review):</strong> sub-type chips are prominent under the hero and for force-pick items (Car/Oven/Pond) the task list literally does not render until the user picks. Because a user who opened the FAB to add something wants that thing set up right.</p>
+  </div>
+
+  <p style="font-size:12px;color:var(--mid);"><strong>The rest of this spec focuses on the post-onboarding Add Item Review flow.</strong> The onboarding S-04 Review already exists and is documented in the S-04 screen file. Cross-reference when designing either.</p>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Post-onboarding flow (FAB path)</h2>
 
   <div class="flow-diagram">
     <div class="flow-step">
