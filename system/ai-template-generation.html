@@ -208,6 +208,70 @@ Respond with valid JSON only. No markdown, no explanation.</div>
 }</div>
 
   <!-- ═══════════════════════════════════════════ -->
+  <h2>Sub-types (Car, Boiler, Oven, Garden pond)</h2>
+
+  <p>Curated items with <code>subtype_required: true</code> ask the user a sub-type question before tasks generate. For AI-generated items, the AI must decide whether the item needs a sub-type AND either identify it from available context or flag that we need to ask.</p>
+
+  <h3>Extended AI response schema (sub-type aware)</h3>
+  <div class="code-block">{
+  "<span class="key">item_type</span>": "<span class="str">car</span>",
+  "<span class="key">s17_variant</span>": "<span class="str">vehicle</span>",
+  "<span class="key">subtype_required</span>": true,
+  "<span class="key">subtype_question</span>": "<span class="str">What does it run on?</span>",
+  "<span class="key">subtypes</span>": ["<span class="str">petrol</span>", "<span class="str">diesel</span>", "<span class="str">electric</span>", "<span class="str">hybrid</span>", "<span class="str">lpg</span>"],
+  "<span class="key">subtype_detected</span>": "<span class="str">electric</span>",    <span class="cmt">// from scan/conversation, or null if unknown</span>
+  "<span class="key">subtype_confidence</span>": 0.92,           <span class="cmt">// 0-1, low confidence = show picker without pre-selection</span>
+  "<span class="key">tasks</span>": [
+    {
+      "<span class="key">name</span>": "<span class="str">MOT inspection</span>",
+      "<span class="key">applies_to</span>": "<span class="str">all</span>",
+      ...
+    },
+    {
+      "<span class="key">name</span>": "<span class="str">Oil change</span>",
+      "<span class="key">applies_to</span>": ["<span class="str">petrol</span>", "<span class="str">diesel</span>", "<span class="str">hybrid</span>", "<span class="str">lpg</span>"],
+      ...
+    },
+    {
+      "<span class="key">name</span>": "<span class="str">HV battery health check</span>",
+      "<span class="key">applies_to</span>": ["<span class="str">electric</span>", "<span class="str">hybrid</span>"],
+      ...
+    }
+  ]
+}</div>
+
+  <h3>AI detection rules</h3>
+  <div class="section-card">
+    <h4>Sub-type confidence tiers</h4>
+    <ul class="rule-list">
+      <li><strong>High (&gt;0.85):</strong> AI pre-selects sub-type in the chip picker. User can override with one tap.</li>
+      <li><strong>Medium (0.50-0.85):</strong> AI shows the chip picker with its guess highlighted but not selected. "Looks like an EV — is that right?"</li>
+      <li><strong>Low (&lt;0.50):</strong> Chip picker appears empty. User picks manually.</li>
+      <li><strong>Null (no data):</strong> Same as low confidence. Normal user-picks flow.</li>
+    </ul>
+  </div>
+
+  <div class="section-card">
+    <h4>Signals Claude Vision uses for sub-type detection</h4>
+    <ul class="rule-list">
+      <li><strong>Car fuel:</strong> charging port = electric. Fuel cap + "diesel" label on cap = diesel. LPG filler cap (secondary cap) = LPG. Dual ports = hybrid. Tesla-like vehicle = electric.</li>
+      <li><strong>Boiler type:</strong> info plate text. "Vaillant ecoTEC" = gas combi. "Viessmann Vitotronic" = varies. Plate reading is the most reliable.</li>
+      <li><strong>Oven:</strong> visible burners = gas. Just elements/no flame = electric.</li>
+      <li><strong>Garden pond:</strong> visible fish = fish pond. No fish visible for 10+ seconds = decorative (with low confidence flag because fish may hide).</li>
+    </ul>
+  </div>
+
+  <h3>When the AI identifies an unlisted item that needs sub-type</h3>
+  <p>Example: user says "Tell me about my Aga" (a specific brand of cast-iron cooker). This is not in the curated library. AI recognizes it's cooker-like, but:</p>
+  <ul class="rule-list">
+    <li>AI determines sub-type IS relevant (gas vs electric vs oil Aga exist)</li>
+    <li>AI sets <code>subtype_required: true</code> in the response</li>
+    <li>AI provides the sub-type options based on what's plausible for that item type</li>
+    <li>User still sees the chip picker on Add Item Review</li>
+    <li>Tasks are filtered by their <code>applies_to</code> arrays once user picks</li>
+  </ul>
+  <p>This means the sub-type pattern is not limited to the 4 curated items — it's a capability AI can invoke for any item where sub-type matters.</p>
+
   <h2>Validation rules</h2>
 
   <p>Before showing AI-generated tasks to the user, the backend validates the response:</p>

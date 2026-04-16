@@ -282,19 +282,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
             <div class="item-meta">Vehicle · 2021 · 1-ABC-234</div>
           </div>
 
-          <!-- Mileage tracker (vehicle-unique) -->
-          <div class="mileage-card" onclick="promptMileage()">
-            <div class="mileage-icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cv-bg)" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            </div>
-            <div style="flex:1;">
-              <div><span class="mileage-val" id="km-val">67,240</span><span class="mileage-unit">km</span></div>
-              <div class="mileage-sub">Updated 2 weeks ago · tap to update</div>
-            </div>
-            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="var(--hint)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 1.5l3.5 3.5L5 14.5H1.5V11z"/></svg>
-          </div>
-
-          <!-- Countdown cards (vehicle-unique) -->
+          <!-- Countdown cards promoted to primary position (mileage demoted to Details per 2026-04-16 decision) -->
           <div class="countdown-row">
             <div class="countdown-card warn">
               <div class="countdown-val">47d</div>
@@ -594,7 +582,7 @@ body{background:#CBC5BB;padding:0 0 80px;}
             <div class="detail-row"><span class="detail-label">Year</span><span class="detail-val">2021</span></div>
             <div class="detail-row"><span class="detail-label">Plate</span><span class="detail-val">1-ABC-234</span></div>
             <div class="detail-row"><span class="detail-label">Fuel</span><span class="detail-val">Petrol</span></div>
-            <div class="detail-row"><span class="detail-label">Current mileage</span><span class="detail-val">67,240 km</span></div>
+            <div class="detail-row" onclick="promptMileage()" style="cursor:pointer;"><span class="detail-label">Current mileage</span><span class="detail-val" id="km-val">67,240 km <span style="color:var(--hint);font-weight:400;font-size:9px;">· updated 2 wk ago</span></span></div>
           </div>
 
           <div class="bottom-spacer"></div>
@@ -608,12 +596,12 @@ body{background:#CBC5BB;padding:0 0 80px;}
 
       <div style="margin-bottom:20px;padding:14px;background:rgba(142,154,148,0.08);border-radius:12px;border:1px solid rgba(142,154,148,0.15);">
         <div style="font-size:12px;font-weight:600;color:#31332C;margin-bottom:4px;">What's unique to vehicles</div>
-        <div style="font-size:11px;color:#7A756D;line-height:1.55;">Mileage tracker (tappable, updates km-based task calculations). Countdown cards (MOT, insurance, seasonal tyres). Documents grid (insurance cert, MOT cert, registration). "Good to know" factual reference section.</div>
+        <div style="font-size:11px;color:#7A756D;line-height:1.55;">Countdown cards (MOT, insurance, seasonal tyres) — the primary block, dated deadlines are what matters. Documents grid (insurance cert, MOT cert, registration). "Good to know" factual reference. Mileage demoted to Details section (2026-04-16 decision: date-based urgency > distance tracking).</div>
       </div>
 
       <div style="margin-bottom:16px;">
-        <div style="font-size:12px;font-weight:600;color:#31332C;margin-bottom:3px;">Mileage tracker</div>
-        <div style="font-size:11px;color:#7A756D;line-height:1.55;">Tappable card below identity. Shows current km + last update. Tapping opens input prompt. Updating km recalculates oil change / belt replacement intervals. "2,760 km left" on oil change is derived from this.</div>
+        <div style="font-size:12px;font-weight:600;color:#31332C;margin-bottom:3px;">Mileage (demoted to Details)</div>
+        <div style="font-size:11px;color:#7A756D;line-height:1.55;">Previously a prominent card below identity. Moved to Details row (tappable, shows "last updated" honestly). UX rationale: updating mileage requires physical friction (walk to car, read dashboard). Users rarely maintain accurate mileage. Date-based deadlines (MOT, insurance) matter more. Mileage-based tasks (oil change) work fine on yearly fallback for 90% of drivers. Contextual prompt may surface inside the oil change task expand when approaching.</div>
       </div>
 
       <div style="margin-bottom:16px;">

@@ -74,18 +74,129 @@ body{background:var(--surface);padding:0 0 80px;}
   </div>
 
   <!-- ═══════════════════════════════════════════ -->
+  <h2>Sub-types <span class="count-badge" style="background:var(--plum-wash);color:var(--plum);">4</span></h2>
+
+  <p>Some items have sub-types that fundamentally change the task list. We ask the user upfront (on Add Item Review) before generating tasks — because wrong tasks destroy trust. Scope chosen by "would the user see wrong/misleading tasks without it?" not by percentage of tasks that differ.</p>
+
+  <div style="display:flex;gap:12px;flex-wrap:wrap;margin:16px 0 24px;">
+    <div style="flex:1;min-width:200px;background:var(--surface-low);border-radius:12px;padding:14px;border:0.5px solid rgba(44,40,36,0.06);">
+      <div style="font-family:'DM Serif Display',Georgia,serif;font-size:14px;color:var(--ink);margin-bottom:4px;"><span class="cat-dot" style="background:#8E9A94;"></span>Car — fuel type</div>
+      <div style="font-size:10px;color:var(--mid);line-height:1.5;margin-bottom:8px;">Force pick. Users always know.</div>
+      <div style="font-size:10px;color:var(--ink);"><strong>Petrol / Diesel / Electric / Hybrid / LPG</strong></div>
+      <div style="font-size:9px;color:var(--hint);margin-top:6px;">EV owners must NOT see oil change / spark plugs. Diesel needs DPF + AdBlue. LPG needs 8-yr DEKRA check (BE).</div>
+    </div>
+    <div style="flex:1;min-width:200px;background:var(--surface-low);border-radius:12px;padding:14px;border:0.5px solid rgba(44,40,36,0.06);">
+      <div style="font-family:'DM Serif Display',Georgia,serif;font-size:14px;color:var(--ink);margin-bottom:4px;"><span class="cat-dot" style="background:#C09088;"></span>Boiler — type</div>
+      <div style="font-size:10px;color:var(--mid);line-height:1.5;margin-bottom:8px;">3-layer UX: visual picker + photo help + deferred.</div>
+      <div style="font-size:10px;color:var(--ink);"><strong>Gas combi / Gas system / Electric / Oil</strong></div>
+      <div style="font-size:9px;color:var(--hint);margin-top:6px;">Many users genuinely don't know. Escape hatches: "photo the unit sticker" + "add with universal tasks, finish later."</div>
+    </div>
+    <div style="flex:1;min-width:200px;background:var(--surface-low);border-radius:12px;padding:14px;border:0.5px solid rgba(44,40,36,0.06);">
+      <div style="font-family:'DM Serif Display',Georgia,serif;font-size:14px;color:var(--ink);margin-bottom:4px;"><span class="cat-dot" style="background:#C09088;"></span>Oven — fuel type</div>
+      <div style="font-size:10px;color:var(--mid);line-height:1.5;margin-bottom:8px;">Force pick with help hint.</div>
+      <div style="font-size:10px;color:var(--ink);"><strong>Gas / Electric</strong></div>
+      <div style="font-size:9px;color:var(--hint);margin-top:6px;">Gas oven needs burner cleaning, flame check. Electric needs element inspection.</div>
+    </div>
+    <div style="flex:1;min-width:200px;background:var(--surface-low);border-radius:12px;padding:14px;border:0.5px solid rgba(44,40,36,0.06);">
+      <div style="font-family:'DM Serif Display',Georgia,serif;font-size:14px;color:var(--ink);margin-bottom:4px;"><span class="cat-dot" style="background:#8C9B80;"></span>Garden pond — type</div>
+      <div style="font-size:10px;color:var(--mid);line-height:1.5;margin-bottom:8px;">Force pick. Pond owners know.</div>
+      <div style="font-size:10px;color:var(--ink);"><strong>Fish pond / Decorative pond</strong></div>
+      <div style="font-size:9px;color:var(--hint);margin-top:6px;">Fish ponds need water chemistry, oxygenation, fish food, dechlorinator winterization. Decorative needs only pump and algae care.</div>
+    </div>
+  </div>
+
+  <h3>Car sub-types (BE/NL market)</h3>
+  <table class="item-table">
+    <thead><tr><th>Fuel type</th><th>Tasks applied</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Petrol (naft/benzine)</strong></td><td>MOT · Oil change · Spark plugs · Tyre pressure · Seasonal tyres · Insurance review</td><td>Most common</td></tr>
+      <tr><td><strong>Diesel</strong></td><td>MOT · Oil change · DPF regeneration · AdBlue refill (Euro 6+) · Fuel filter · Tyre pressure · Seasonal tyres · Insurance</td><td>DPF + AdBlue are critical — skipping = expensive repair</td></tr>
+      <tr><td><strong>Electric</strong></td><td>MOT · 12V battery check · HV battery health · Charging cable inspection · Cabin air filter · Tyre rotation (more frequent) · Seasonal tyres · Insurance</td><td>NO oil change, NO spark plugs, NO timing belt, NO fuel filter, NO exhaust. Brake pads last much longer (regen braking).</td></tr>
+      <tr><td><strong>Hybrid (incl. plug-in)</strong></td><td>MOT · Oil change (less frequent) · Spark plugs · 12V battery · HV battery health · Tyre pressure · Seasonal tyres · Insurance</td><td>Essentially combustion + battery tasks. Oil lasts longer because engine runs less.</td></tr>
+      <tr><td><strong>LPG</strong></td><td>All petrol tasks + LPG tank inspection (mandatory BE every 8 yr via DEKRA) + LPG leak check + valve maintenance</td><td>Legally required inspection in BE. Common with fleet vehicles and taxis.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Boiler sub-types</h3>
+  <table class="item-table">
+    <thead><tr><th>Type</th><th>Tasks applied</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Gas combi</strong></td><td>Annual service (certified technician) · CO check (part of annual) · Clean filter · Check water pressure · Bleed radiators · Check expansion vessel</td><td>Most common in BE/NL new builds. Heats water on demand, no separate tank.</td></tr>
+      <tr><td><strong>Gas system (with tank)</strong></td><td>All gas combi tasks + Hot water tank flush (yearly) + Check immersion heater</td><td>Separate hot water storage tank.</td></tr>
+      <tr><td><strong>Electric</strong></td><td>Annual service · Check heating elements · Descale (hard water areas) · Clean filter · Check pressure relief valve</td><td>NO CO risk, NO flue check, NO gas safety. Often cheaper to service.</td></tr>
+      <tr><td><strong>Oil</strong></td><td>Annual service · Oil tank inspection (every 5 yr, legally required) · Fuel filter · Nozzle inspection · Chimney sweep (yearly) · Check oil level (monthly)</td><td>Declining in BE/NL but still present. Oil tank has regulations.</td></tr>
+      <tr><td><strong>Not sure</strong></td><td><em>Universal fallback only:</em> Annual service · Clean filter</td><td>Item created with "Setup incomplete" badge. User can complete via photo scan or edit later.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Oven sub-types</h3>
+  <table class="item-table">
+    <thead><tr><th>Type</th><th>Tasks applied</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Gas</strong></td><td>Deep clean interior · Clean door glass · Check door seal · Clean burners · Check flame color · Annual gas safety check</td><td>Flame color tells you if combustion is clean (blue = good, yellow = bad)</td></tr>
+      <tr><td><strong>Electric</strong></td><td>Deep clean interior · Clean door glass · Check door seal · Inspect heating elements · Check fan (if convection)</td><td>No gas safety check needed</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Garden pond sub-types</h3>
+  <table class="item-table">
+    <thead><tr><th>Type</th><th>Tasks applied</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Fish pond (koi, goldfish)</strong></td><td>Check water quality (weekly) · Clean filter/pump · Feed fish · Remove leaves · Check oxygenation · Dechlorinator when topping up · Winterize (fish-safe)</td><td>Living creatures. Water chemistry is critical. Wrong chemicals kill fish.</td></tr>
+      <tr><td><strong>Decorative (no fish)</strong></td><td>Clean pump filter · Algae control · Remove leaves/debris · Top up water · Winterize (drain or add pump heater)</td><td>Much simpler. Can use standard pool chemicals.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Data model (decision deferred to engineering)</h3>
+  <div class="section-card">
+    <h4>Option A: Nested sub-types (plan's original structure)</h4>
+    <p style="margin:0 0 8px;">Each sub-type has its own task list:</p>
+    <pre style="font-family:monospace;font-size:10px;background:var(--surface-low);padding:10px;border-radius:8px;overflow-x:auto;">{
+  "slug": "car",
+  "subtype_required": true,
+  "subtype_question": "What does it run on?",
+  "subtypes": {
+    "petrol": { "label": "Petrol", "tasks": [...] },
+    "diesel": { "label": "Diesel", "tasks": [...] },
+    "electric": { "label": "Electric", "tasks": [...] }
+  }
+}</pre>
+    <p style="margin:8px 0 0;"><strong>Pro:</strong> Easy to reason about per-subtype. <strong>Con:</strong> Shared tasks (MOT, insurance) duplicated across all sub-types. Update-in-one-place is hard.</p>
+  </div>
+  <div class="section-card">
+    <h4>Option B: Task-level applies_to array</h4>
+    <p style="margin:0 0 8px;">Every task tags which sub-types it applies to:</p>
+    <pre style="font-family:monospace;font-size:10px;background:var(--surface-low);padding:10px;border-radius:8px;overflow-x:auto;">{
+  "slug": "car",
+  "subtype_required": true,
+  "subtype_question": "What does it run on?",
+  "subtypes": ["petrol", "diesel", "electric", "hybrid", "lpg"],
+  "tasks": [
+    { "slug": "mot", "applies_to": "all" },
+    { "slug": "insurance-review", "applies_to": "all" },
+    { "slug": "oil-change", "applies_to": ["petrol","diesel","hybrid","lpg"] },
+    { "slug": "dpf-regen", "applies_to": ["diesel"] },
+    { "slug": "hv-battery-health", "applies_to": ["electric","hybrid"] },
+    { "slug": "lpg-tank-inspect", "applies_to": ["lpg"] }
+  ]
+}</pre>
+    <p style="margin:8px 0 0;"><strong>Pro:</strong> No duplication. Shared tasks defined once. <strong>Con:</strong> Rendering requires filtering at display time.</p>
+  </div>
+  <p style="font-size:11px;color:var(--mid);font-style:italic;">Arne to decide at implementation. Both options support the same UX. The AI generation path works with either — AI returns tagged tasks.</p>
+
+  <!-- ═══════════════════════════════════════════ -->
   <h2>Home <span class="count-badge" style="background:var(--ch-wash);color:var(--ch-bg);">37</span></h2>
 
   <table class="item-table">
     <thead><tr><th>Item (slug)</th><th>Default tasks</th><th>Cadence</th><th>Type</th><th>Cost</th><th>Nickname</th></tr></thead>
     <tbody>
-      <tr><td><span class="cat-dot" style="background:#C09088;"></span>boiler</td><td><ul class="task-list"><li>Annual service</li><li>Clean filter</li><li>Check water pressure</li></ul></td><td><span class="cadence">Yearly (autumn)<br>Every 6 months<br>Monthly</span></td><td><span class="badge badge-pro">Pro</span> <span class="badge badge-diy">DIY</span> <span class="badge badge-diy">DIY</span></td><td>~€120 / free / free</td><td>"Bubs"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>boiler <span style="font-size:7px;font-weight:600;padding:1px 5px;border-radius:3px;background:var(--plum-wash);color:var(--plum);margin-left:2px;">SUB-TYPE</span></td><td><ul class="task-list"><li>Annual service</li><li>Clean filter</li><li>Check water pressure</li><li><em>+ type-specific tasks</em></li></ul></td><td><span class="cadence">Yearly (autumn)<br>Every 6 months<br>Monthly</span></td><td><span class="badge badge-pro">Pro</span> <span class="badge badge-diy">DIY</span> <span class="badge badge-diy">DIY</span></td><td>~€120 / free / free</td><td>"Bubs"</td></tr>
       <tr><td><span class="cat-dot" style="background:#C09088;"></span>dishwasher</td><td><ul class="task-list"><li>Refill salt ⬡</li><li>Clean filter</li><li>Run cleaning cycle</li><li>Refill rinse aid ⬡</li></ul></td><td><span class="cadence">Every 6-8 wk<br>Monthly<br>Every 3 mo<br>As needed</span></td><td><span class="badge badge-diy">DIY</span></td><td>~€3 / free / free / ~€5</td><td>"Dishy"</td></tr>
       <tr><td><span class="cat-dot" style="background:#C09088;"></span>washing-machine</td><td><ul class="task-list"><li>Clean filter/pump</li><li>Run 90°C empty cycle</li><li>Clean detergent drawer</li><li>Check door seal</li></ul></td><td><span class="cadence">Monthly<br>Monthly<br>Monthly<br>Every 3 mo</span></td><td><span class="badge badge-diy">DIY</span></td><td>free</td><td>"Spinny"</td></tr>
       <tr><td><span class="cat-dot" style="background:#C09088;"></span>tumble-dryer</td><td><ul class="task-list"><li>Clean lint filter</li><li>Clean condenser</li><li>Empty water tank</li></ul></td><td><span class="cadence">Every use<br>Monthly<br>After cycle</span></td><td><span class="badge badge-diy">DIY</span></td><td>free</td><td>"Puff"</td></tr>
       <tr><td><span class="cat-dot" style="background:#C09088;"></span>fridge</td><td><ul class="task-list"><li>Clean coils</li><li>Check door seals</li><li>Clean drip tray</li><li>Defrost (if manual)</li></ul></td><td><span class="cadence">Every 6 mo<br>Every 6 mo<br>Every 3 mo<br>Yearly</span></td><td><span class="badge badge-diy">DIY</span></td><td>free</td><td>"Chilly"</td></tr>
       <tr><td><span class="cat-dot" style="background:#C09088;"></span>freezer</td><td><ul class="task-list"><li>Defrost</li><li>Check door seal</li><li>Check temperature</li></ul></td><td><span class="cadence">Every 6 mo<br>Every 6 mo<br>Monthly</span></td><td><span class="badge badge-diy">DIY</span></td><td>free</td><td>"Frosty"</td></tr>
-      <tr><td><span class="cat-dot" style="background:#C09088;"></span>oven</td><td><ul class="task-list"><li>Deep clean interior</li><li>Clean door glass</li><li>Check door seal</li></ul></td><td><span class="cadence">Every 3 mo<br>Monthly<br>Yearly</span></td><td><span class="badge badge-diy">DIY</span></td><td>free</td><td>"Chef"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#C09088;"></span>oven <span style="font-size:7px;font-weight:600;padding:1px 5px;border-radius:3px;background:var(--plum-wash);color:var(--plum);margin-left:2px;">SUB-TYPE</span></td><td><ul class="task-list"><li>Deep clean interior</li><li>Clean door glass</li><li>Check door seal</li><li><em>+ gas/electric-specific</em></li></ul></td><td><span class="cadence">Every 3 mo<br>Monthly<br>Yearly</span></td><td><span class="badge badge-diy">DIY</span></td><td>free</td><td>"Chef"</td></tr>
       <tr><td><span class="cat-dot" style="background:#C09088;"></span>range-hood</td><td><ul class="task-list"><li>Clean grease filter</li><li>Replace carbon filter ⬡</li></ul></td><td><span class="cadence">Monthly<br>Every 6 mo</span></td><td><span class="badge badge-diy">DIY</span></td><td>free / ~€15</td><td>"The hood"</td></tr>
       <tr><td><span class="cat-dot" style="background:#C09088;"></span>coffee-machine</td><td><ul class="task-list"><li>Descale ⬡</li><li>Clean brew group</li><li>Replace water filter ⬡</li></ul></td><td><span class="cadence">Every 2-3 mo<br>Weekly<br>Every 2 mo</span></td><td><span class="badge badge-diy">DIY</span></td><td>~€8 / free / ~€10</td><td>"Bean"</td></tr>
       <tr><td><span class="cat-dot" style="background:#C09088;"></span>vacuum-cleaner</td><td><ul class="task-list"><li>Empty/replace bag ⬡</li><li>Clean brush roll</li><li>Replace filter ⬡</li></ul></td><td><span class="cadence">As needed<br>Monthly<br>Every 6 mo</span></td><td><span class="badge badge-diy">DIY</span></td><td>~€5 / free / ~€15</td><td>"Dusty"</td></tr>
@@ -129,7 +240,7 @@ body{background:var(--surface);padding:0 0 80px;}
       <tr><td><span class="cat-dot" style="background:#8C9B80;"></span>climbing-plants</td><td><ul class="task-list"><li>Prune + train</li><li>Check supports</li><li>Feed ⬡</li></ul></td><td><span class="cadence">Spring + autumn<br>Spring<br>Spring</span></td><td><span class="badge badge-diy">DIY</span></td><td>free / ~€8</td><td>"The climbers"</td></tr>
       <tr><td><span class="cat-dot" style="background:#8C9B80;"></span>vegetable-garden</td><td><ul class="task-list"><li>Plan + sow</li><li>Water + weed</li><li>Harvest</li><li>Prepare beds (autumn)</li></ul></td><td><span class="cadence">Feb-Mar<br>Daily (season)<br>Seasonal<br>Oct-Nov</span></td><td><span class="badge badge-diy">DIY</span></td><td>~€30 seeds</td><td>"The patch"</td></tr>
       <tr><td><span class="cat-dot" style="background:#8C9B80;"></span>greenhouse</td><td><ul class="task-list"><li>Clean glass</li><li>Check ventilation</li><li>Disinfect (end of season)</li></ul></td><td><span class="cadence">Spring<br>Monthly (season)<br>Autumn</span></td><td><span class="badge badge-diy">DIY</span></td><td>free</td><td>"The glass house"</td></tr>
-      <tr><td><span class="cat-dot" style="background:#8C9B80;"></span>garden-pond</td><td><ul class="task-list"><li>Check water quality</li><li>Clean filter/pump</li><li>Remove leaves/debris</li><li>Winterize</li></ul></td><td><span class="cadence">Weekly (season)<br>Monthly<br>Weekly (autumn)<br>November</span></td><td><span class="badge badge-diy">DIY</span></td><td>~€20 (chemicals)</td><td>"The pond"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8C9B80;"></span>garden-pond <span style="font-size:7px;font-weight:600;padding:1px 5px;border-radius:3px;background:var(--plum-wash);color:var(--plum);margin-left:2px;">SUB-TYPE</span></td><td><ul class="task-list"><li>Clean filter/pump</li><li>Remove leaves/debris</li><li>Winterize</li><li><em>+ fish/decorative-specific</em></li></ul></td><td><span class="cadence">Monthly<br>Weekly (autumn)<br>November</span></td><td><span class="badge badge-diy">DIY</span></td><td>~€20 (chemicals)</td><td>"The pond"</td></tr>
       <tr><td><span class="cat-dot" style="background:#8C9B80;"></span>irrigation</td><td><ul class="task-list"><li>Check sprinklers</li><li>Adjust schedule</li><li>Winterize (drain)</li><li>Spring startup</li></ul></td><td><span class="cadence">Monthly (season)<br>Seasonal<br>October<br>March</span></td><td><span class="badge badge-diy">DIY</span></td><td>free</td><td>"The sprinklers"</td></tr>
       <tr><td><span class="cat-dot" style="background:#8C9B80;"></span>fence</td><td><ul class="task-list"><li>Inspect for damage</li><li>Treat/paint wood</li><li>Check posts</li></ul></td><td><span class="cadence">Spring<br>Every 2-3 yr<br>Spring</span></td><td><span class="badge badge-diy">DIY</span></td><td>free / ~€40</td><td>"The border"</td></tr>
       <tr><td><span class="cat-dot" style="background:#8C9B80;"></span>compost</td><td><ul class="task-list"><li>Turn compost</li><li>Check moisture</li><li>Harvest compost</li></ul></td><td><span class="cadence">Every 2-4 wk<br>Weekly<br>2x yr</span></td><td><span class="badge badge-diy">DIY</span></td><td>free</td><td>"The heap"</td></tr>
@@ -146,7 +257,7 @@ body{background:var(--surface);padding:0 0 80px;}
   <table class="item-table">
     <thead><tr><th>Item (slug)</th><th>Default tasks</th><th>Cadence</th><th>Type</th><th>Cost</th><th>Nickname</th></tr></thead>
     <tbody>
-      <tr><td><span class="cat-dot" style="background:#8E9A94;"></span>car</td><td><ul class="task-list"><li>MOT inspection</li><li>Oil change</li><li>Check tyre pressure</li><li>Switch seasonal tyres</li><li>Review insurance</li></ul></td><td><span class="cadence">Yearly<br>15,000 km / yearly<br>Monthly<br>Seasonal<br>Yearly</span></td><td><span class="badge badge-pro">Pro</span> <span class="badge badge-diy">DIY</span></td><td>~€80 / ~€90 / free / ~€40</td><td>"Wheels"</td></tr>
+      <tr><td><span class="cat-dot" style="background:#8E9A94;"></span>car <span style="font-size:7px;font-weight:600;padding:1px 5px;border-radius:3px;background:var(--plum-wash);color:var(--plum);margin-left:2px;">SUB-TYPE</span></td><td><ul class="task-list"><li>MOT inspection</li><li>Tyre pressure</li><li>Seasonal tyres</li><li>Review insurance</li><li><em>+ fuel-specific</em></li></ul></td><td><span class="cadence">Yearly<br>Monthly<br>Seasonal<br>Yearly</span></td><td><span class="badge badge-pro">Pro</span> <span class="badge badge-diy">DIY</span></td><td>~€80 / free / ~€40 / free</td><td>"Wheels"</td></tr>
       <tr><td><span class="cat-dot" style="background:#8E9A94;"></span>electric-car</td><td><ul class="task-list"><li>MOT inspection</li><li>Check tyre pressure</li><li>Switch seasonal tyres</li><li>Battery health check</li><li>Review insurance</li></ul></td><td><span class="cadence">Yearly<br>Monthly<br>Seasonal<br>Yearly<br>Yearly</span></td><td><span class="badge badge-pro">Pro</span> <span class="badge badge-diy">DIY</span></td><td>~€80 / free / ~€40 / free</td><td>"Sparky"</td></tr>
       <tr><td><span class="cat-dot" style="background:#8E9A94;"></span>motorcycle</td><td><ul class="task-list"><li>MOT inspection</li><li>Oil + filter change</li><li>Check chain + tension</li><li>Winterize / spring prep</li></ul></td><td><span class="cadence">Yearly<br>10,000 km / yearly<br>Monthly<br>Seasonal</span></td><td><span class="badge badge-pro">Pro</span> <span class="badge badge-diy">DIY</span></td><td>~€50 / ~€60 / free</td><td>"Thunder"</td></tr>
       <tr><td><span class="cat-dot" style="background:#8E9A94;"></span>bicycle</td><td><ul class="task-list"><li>Check tyre pressure</li><li>Lubricate chain</li><li>Check brakes</li><li>Annual service</li></ul></td><td><span class="cadence">Weekly (season)<br>Every 2 wk<br>Monthly<br>Yearly (spring)</span></td><td><span class="badge badge-diy">DIY</span> <span class="badge badge-pro">Pro</span></td><td>free / ~€50 service</td><td>"Spokes"</td></tr>
