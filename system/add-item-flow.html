@@ -119,9 +119,14 @@ body{background:var(--surface);padding:0 0 80px;}
       <div class="zone-desc">Category wash background (full width, 120px height). Category icon (44px circle, white overlay). Item name in DM Serif Display, editable (tap to rename). Category label below. If AI scan: brand + model shown. Back arrow top-left.</div>
     </div>
 
+    <div class="zone" style="border:1px solid var(--plum-wash);background:rgba(155,127,212,0.03);">
+      <div class="zone-label" style="color:var(--plum);">Sub-type question (if required)</div>
+      <div class="zone-desc">Appears for items with <code>subtype_required: true</code> (Car, Boiler, Oven, Garden pond). Task list does NOT render until user picks. See "Sub-type question pattern" section below for the full UX.</div>
+    </div>
+
     <div class="zone">
       <div class="zone-label">Task preview</div>
-      <div class="zone-desc">"nudgii found X tasks" summary line. Task cards (collapsed, same style as S-17). Each shows: task name, cadence, next due date. Tappable to preview "Why it matters." Removable (X button, with confirm). "Add custom task" ghost link at bottom.</div>
+      <div class="zone-desc">"nudgii found X tasks" summary line. Task cards (collapsed, same style as S-17). Each shows: task name, cadence, next due date. Tappable to preview "Why it matters." Removable (X button, with confirm). "Add custom task" ghost link at bottom. <strong>For sub-typed items: tasks filter to the chosen sub-type.</strong></div>
     </div>
 
     <div class="zone">
@@ -144,6 +149,67 @@ body{background:var(--surface);padding:0 0 80px;}
       <div class="zone-desc">"Add to my stuff" plum CTA button. Full width. Sticky to bottom (same SafeArea pattern as onboarding). Below: "Edit tasks" ghost link for users who want to customize before adding.</div>
     </div>
   </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Sub-type question pattern</h2>
+
+  <p>Some items (Car, Boiler, Oven, Garden pond) need a sub-type question before tasks generate, because the wrong sub-type produces wrong tasks that destroy trust. The UX pattern differs by how likely the user is to know the answer.</p>
+
+  <h3>Pattern A — Force pick (Car, Oven, Garden pond)</h3>
+  <div class="screen-card">
+    <h4>When users always know</h4>
+    <p>Car fuel type, oven gas/electric, pond fish/decorative. Users know these with near-100% confidence. No escape hatch needed.</p>
+    <div class="zone">
+      <div class="zone-label">Chip picker</div>
+      <div class="zone-desc">Label: the subtype_question string ("What does it run on?" / "What type?" / "What's in it?"). Below: horizontal chips, 2-5 options, sentence case. Tap once to select. Task list renders immediately after selection. Optional one-line help hint for edge cases (Oven: "Electric = glows and heats. Gas = has a flame.").</div>
+    </div>
+    <div class="zone">
+      <div class="zone-label">No "Not sure" option</div>
+      <div class="zone-desc">Removing this option forces a decision users can make. Trying to be too flexible creates quiet failure (users pick "not sure" out of laziness, then get wrong tasks forever).</div>
+    </div>
+  </div>
+
+  <h3>Pattern B — Visual picker + Photo help + Deferred (Boiler)</h3>
+  <div class="screen-card">
+    <h4>When users often don't know</h4>
+    <p>Renters, recent buyers, inherited homes — many users genuinely don't know their boiler type. Three layers, in order of user effort:</p>
+
+    <div class="zone">
+      <div class="zone-label">Layer 1 — Visual picker (primary)</div>
+      <div class="zone-desc">4 CARDS (not chips): Gas combi / Gas system / Electric / Oil. Each card has a simple illustration showing the silhouette of that boiler type (they look quite different). Plus a hint line: "Most common in BE: Gas combi." Users with any familiarity pick in 3 seconds.</div>
+    </div>
+
+    <div class="zone">
+      <div class="zone-label">Layer 2 — Photo help (fallback)</div>
+      <div class="zone-desc">Secondary link below the cards: "I don't know what type I have." Opens a help card: "Look for the info plate on the front of the unit. It usually says the type and brand. Want to snap a photo and I'll identify it?" Photo flow reuses AI scan infrastructure (Claude Vision reads the plate). This is the best real-world escape — the info IS physically available.</div>
+    </div>
+
+    <div class="zone">
+      <div class="zone-label">Layer 3 — Deferred (last resort)</div>
+      <div class="zone-desc">Tiny ghost link below photo CTA: "Add anyway, I'll figure this out later." Creates item with UNIVERSAL tasks only (annual service + filter clean — tasks that apply regardless of type). Item shows "Setup incomplete" chip on My Stuff (cream/apricot, dismissible). Today tab gets ONE gentle card (dismissible, no weekly nag): "Finish setting up your boiler so I can nudge you about the right things." When user eventually picks type, type-specific tasks get added and the chip disappears.</div>
+    </div>
+
+    <div class="zone">
+      <div class="zone-label">Why 3 layers work</div>
+      <div class="zone-desc">Honest about the gap. No guilt. Functional in the meantime. Clear path to completion. Respects users who don't have physical access right now but still want to set things up.</div>
+    </div>
+  </div>
+
+  <h3>AI scan complement</h3>
+  <div class="screen-card">
+    <h4>When users add via scan, sub-type is often pre-filled</h4>
+    <p>Claude Vision can identify sub-type from a photo in many cases:</p>
+    <ul class="rule-list">
+      <li><strong>Car fuel type:</strong> fuel cap color, badge, charging port, exhaust. Usually accurate.</li>
+      <li><strong>Boiler type:</strong> info plate reading. Very accurate when plate is visible.</li>
+      <li><strong>Oven:</strong> visible burners (gas) vs just elements (electric). Usually accurate.</li>
+      <li><strong>Garden pond:</strong> fish visible or not. Sometimes ambiguous (fish may be hiding).</li>
+    </ul>
+    <p style="margin-top:8px;">If AI confidence is high (>0.85), sub-type is pre-selected in the chip picker. User can override. If AI confidence is low, chip picker appears empty and user picks manually.</p>
+  </div>
+
+  <h3>Data model (Arne's call)</h3>
+  <p>Two options documented in <a href="item-templates.html#sub-types">item-templates.html Sub-types section</a>. Both options support the same UX. AI generation and curated templates use the same schema. Arne picks at implementation.</p>
 
   <!-- ═══════════════════════════════════════════ -->
   <h2>Item limit behavior (item 11+)</h2>

@@ -431,6 +431,14 @@ function selectItem(idx) {
   renderDetail(item, cat);
 }
 
+// Sub-type picker selection — re-renders the review phone with chosen sub-type
+function selectSubtype(value) {
+  currentSubtype = value;
+  const item = ITEMS[currentItem];
+  const cat = CAT[item.cat];
+  renderReview(item, cat);
+}
+
 function svgArrow() {
   return '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="' + (currentTheme === 'dark' ? '#F0EDE6' : '#2C2824') + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H2"/><path d="M5 3L2 6L5 9"/></svg>';
 }
@@ -470,9 +478,59 @@ function typeBadge(type) {
 }
 
 // ── Render Add Item Review (left phone) ──
+// Sub-type config: which items need a sub-type question on Add Item Review
+const SUBTYPES = {
+  'car': {
+    question: 'What does it run on?',
+    options: [
+      { value: 'petrol', label: 'Petrol' },
+      { value: 'diesel', label: 'Diesel' },
+      { value: 'electric', label: 'Electric' },
+      { value: 'hybrid', label: 'Hybrid' },
+      { value: 'lpg', label: 'LPG' }
+    ],
+    pattern: 'force' // force-pick, no escape hatch
+  },
+  'boiler': {
+    question: 'What type of boiler?',
+    options: [
+      { value: 'gas-combi', label: 'Gas combi' },
+      { value: 'gas-system', label: 'Gas system' },
+      { value: 'electric', label: 'Electric' },
+      { value: 'oil', label: 'Oil' }
+    ],
+    pattern: 'layered' // visual picker + photo help + deferred
+  },
+  'oven': {
+    question: 'What type?',
+    options: [
+      { value: 'gas', label: 'Gas' },
+      { value: 'electric', label: 'Electric' }
+    ],
+    pattern: 'force',
+    hint: 'Gas has a flame. Electric glows and heats.'
+  },
+  'garden-pond': {
+    question: 'What kind of pond?',
+    options: [
+      { value: 'fish', label: 'Fish pond' },
+      { value: 'decorative', label: 'Decorative' }
+    ],
+    pattern: 'force'
+  }
+};
+
+// Track selected sub-type per item for the current session
+let currentSubtype = null;
+
 function renderReview(item, cat) {
   const el = document.getElementById('review-scroll');
   let html = '';
+  // Reset sub-type when switching items (unless same item)
+  if (!window._lastItemSlug || window._lastItemSlug !== item.slug) {
+    currentSubtype = null;
+    window._lastItemSlug = item.slug;
+  }
 
   // Hero
   html += '<div class="air-hero" style="background:' + cat.wash + ';">';
@@ -505,9 +563,48 @@ function renderReview(item, cat) {
     html += '</div>';
   }
 
+  // Sub-type picker (if required)
+  const subtype = SUBTYPES[item.slug];
+  if (subtype) {
+    html += '<div style="padding:16px 20px 4px;">';
+    html += '<div style="font-size:11px;font-weight:500;color:var(--ink);margin-bottom:10px;">' + subtype.question + '</div>';
+    html += '<div style="display:flex;flex-wrap:wrap;gap:6px;">';
+    subtype.options.forEach(opt => {
+      const active = currentSubtype === opt.value;
+      const style = active
+        ? 'background:' + cat.color + ';color:white;border-color:' + cat.color + ';'
+        : 'background:var(--surface);color:var(--ink);border:0.5px solid rgba(44,40,36,0.15);';
+      html += '<button onclick="selectSubtype(\'' + opt.value + '\')" style="' + style + 'font-family:DM Sans,sans-serif;font-size:11px;font-weight:500;padding:7px 14px;border-radius:100px;cursor:pointer;border:0.5px solid transparent;transition:all 150ms;">' + opt.label + '</button>';
+    });
+    html += '</div>';
+    if (subtype.hint) {
+      html += '<div style="font-size:9px;color:var(--hint);font-style:italic;margin-top:8px;">' + subtype.hint + '</div>';
+    }
+    if (subtype.pattern === 'layered') {
+      html += '<div style="margin-top:10px;display:flex;flex-direction:column;gap:4px;">';
+      html += '<div style="font-size:10px;color:var(--plum);cursor:pointer;">I don\'t know what type I have →</div>';
+      html += '<div style="font-size:9px;color:var(--hint);cursor:pointer;">Add anyway, I\'ll figure this out later</div>';
+      html += '</div>';
+    }
+    html += '</div>';
+  }
+
+  // Task list (hidden until sub-type selected for items that need it)
+  const needsSubtype = subtype && !currentSubtype;
+  if (needsSubtype) {
+    html += '<div style="padding:14px 20px;text-align:center;">';
+    html += '<div style="font-size:11px;color:var(--hint);font-style:italic;">Pick an option above to see the right tasks.</div>';
+    html += '</div>';
+    html += '<div class="bottom-spacer"></div>';
+    el.innerHTML = html;
+    el.scrollTop = 0;
+    return;
+  }
+
   // Task list
   html += '<div style="padding:14px 0 0;">';
-  html += '<div style="padding:0 20px 8px;font-size:11px;color:var(--mid);">nudgii found <strong style="color:var(--ink);">' + item.tasks.length + ' task' + (item.tasks.length !== 1 ? 's' : '') + '</strong> for this item</div>';
+  const taskCount = item.tasks.length;
+  html += '<div style="padding:0 20px 8px;font-size:11px;color:var(--mid);">nudgii found <strong style="color:var(--ink);">' + taskCount + ' task' + (taskCount !== 1 ? 's' : '') + '</strong> for this item' + (currentSubtype ? ' <span style="color:var(--plum);font-weight:500;">· ' + subtype.options.find(o => o.value === currentSubtype).label + '</span>' : '') + '</div>';
 
   item.tasks.forEach(t => {
     html += '<div class="air-task">';
